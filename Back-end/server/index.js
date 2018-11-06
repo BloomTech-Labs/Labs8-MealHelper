@@ -20,6 +20,17 @@ server.get("/users", (req, res) => {
 	});
 });
 
+server.post("/register", (req, res) => {
+	const { username, password, zip, healthCondition } = req.body;
+	const user = { username, password, zip, healthCondition };
+	console.log(user);
+	db("users")
+		.insert(user)
+		.then(user => {
+			res.status(201).json(user);
+		});
+});
+
 server.listen(port, () => {
 	console.log(`Server now listening on Port ${port}`);
 });
