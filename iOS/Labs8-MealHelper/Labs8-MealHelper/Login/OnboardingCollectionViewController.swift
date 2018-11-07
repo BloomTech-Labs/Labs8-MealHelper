@@ -23,6 +23,7 @@ class OnboardingCollectionViewController: UICollectionViewController {
         collectionView.keyboardDismissMode = .onDrag
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.isUserInteractionEnabled = true
         cellSize = CGSize(width: view.frame.width, height: view.frame.height)
     }
     
@@ -34,16 +35,16 @@ class OnboardingCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 1
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OnboardingCell", for: indexPath) as! OnboardingCollectionViewCell
     
-        cell.backgroundColor = indexPath.item % 2 == 0 ? .red : .green
+        cell.backgroundColor = indexPath.item % 2 == 0 ? .green : .red
         cell.delegate = self
         
-        if indexPath.item == 4 { cell.isLastCell = true }
+        if indexPath.item == 0 { cell.isLastCell = true } // If user reaches last page, we want onboarding to finished and be saved
         
         return cell
     }
