@@ -2,7 +2,7 @@ exports.up = function(knex, Promise) {
 	return Promise.all([
 		knex.schema.createTable("users", function(users) {
 			users.increments();
-			users.string("username", 20).notNullable();
+			users.string("email", 40).notNullable();
 			users.string("password", 255).notNullable();
 			users.integer("zip", 5);
 			users.string("healthCondition", 20).notNullable();
@@ -102,6 +102,10 @@ exports.down = function(knex, Promise) {
 		knex.schema.dropTableIfExists("users"),
 		knex.schema.dropTableIfExists("recipe"),
 		knex.schema.dropTableIfExists("ingredients"),
-		knex.schema.dropTableIfExists("nutrients")
+		knex.schema.dropTableIfExists("nutrients"),
+		knex.schema.dropTableIfExists("mealList"),
+		knex.schema.dropTableIfExists("weather"),
+		knex.schema.dropTableIfExists("alarms"),
+		knex.schema.dropTableIfExists("notes")
 	]);
 };

@@ -69,7 +69,6 @@ server.post("/login", (req, res) => {
 
 				res
 					.status(200)
-					.header("Authorization", token)
 					.json({ welcome: user.username, token: token, id: user.id });
 			} else {
 				res
