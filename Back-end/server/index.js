@@ -168,16 +168,25 @@ server.delete("/users/:id/meals/:mealId", (req, res) => {
 		.del()
 		.then(deleted => {
 			res.status(200).json(deleted);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not delete meals" });
 		});
 });
 //Should Delete ALL meals associated with a user ID and return 1 for deleted
 server.delete("/users/:id/meals/", (req, res) => {
+	//Grabs the id from the API endpoint (front end job)
 	const { id } = req.params;
 	db("mealList")
 		.where({ user_id: id })
+		//Deletes the records
 		.del()
 		.then(deleted => {
+			//Should return 1
 			res.status(200).json(deleted);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not delete meals" });
 		});
 });
 
