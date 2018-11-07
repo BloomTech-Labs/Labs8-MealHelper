@@ -102,6 +102,10 @@ exports.down = function(knex, Promise) {
 		knex.schema.dropTableIfExists("users"),
 		knex.schema.dropTableIfExists("recipe"),
 		knex.schema.dropTableIfExists("ingredients"),
-		knex.schema.dropTableIfExists("nutrients")
+		knex.schema.dropTableIfExists("nutrients"),
+		knex.schema.dropTableIfExists("mealList"),
+		knex.schema.dropTableIfExists("weather"),
+		knex.schema.dropTableIfExists("alarms"),
+		knex.schema.dropTableIfExists("notes")
 	]);
 };
