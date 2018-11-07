@@ -132,9 +132,7 @@ server.delete("/users/:id", (req, res) => {
 
 //Returns a list of meals associated with a user id
 server.get("/users/:userid/meals", (req, res) => {
-	console.log(req.params);
 	const userId = req.params.userid;
-	console.log(userId);
 	db("mealList")
 		.where({ user_id: userId })
 		.then(meal => {
@@ -159,6 +157,27 @@ server.post("/users/:userid/meals", (req, res) => {
 		})
 		.catch(err => {
 			res.status(400).json({ error: "Error creating a new meal." });
+		});
+});
+
+//Deletes the meal using the meal id and returns 1 for deleted
+server.delete("/users/:id/meals/:mealId", (req, res) => {
+	const { mealId } = req.params;
+	db("mealList")
+		.where({ id: mealId })
+		.del()
+		.then(deleted => {
+			res.status(200).json(deleted);
+		});
+});
+//Should Delete ALL meals associated with a user ID and return 1 for deleted
+server.delete("/users/:id/meals/", (req, res) => {
+	const { id } = req.params;
+	db("mealList")
+		.where({ user_id: id })
+		.del()
+		.then(deleted => {
+			res.status(200).json(deleted);
 		});
 });
 
