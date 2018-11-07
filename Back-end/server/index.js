@@ -40,15 +40,18 @@ server.get("/users", (req, res) => {
 });
 //Register a new user
 server.post("/register", (req, res) => {
+	//Abstraction of req.body
 	const { username, password, zip, healthCondition } = req.body;
+	//Sets the user to a JSON object of what we pulled from req.body
 	const user = { username, password, zip, healthCondition };
+	//Hashing the password
 	const hash = bcrypt.hashSync(user.password, 15);
-	console.log(hash);
+	//Setting the password to our hash
 	user.password = hash;
-	console.log(user);
 	db("users")
 		.insert(user)
 		.then(user => {
+			//Registers the user and generates a jwt token for them
 			const token = generateToken(user);
 			res.status(201).json(user, { token: token });
 		});
@@ -82,24 +85,28 @@ server.put("/users/:id", (req, res) => {
 	const credentials = req.body;
 	console.log(credentials.password);
 	db("users")
+		//FInds the user by username
 		.where({ username: credentials.username })
 		.first()
 		.then(user => {
 			//Checking old password to verify it is correct
 			if (user && bcrypt.compareSync(credentials.password, user.password)) {
-				//Hashing the new password to be stored in DB
+				//Hashing the new password to be stored in DB (NOTE: its named newpassword not password)
 				const hash = bcrypt.hashSync(credentials.newpassword, 15);
+				//Sets the newpassword method to the hash to be stored
 				credentials.newpassword = hash;
 				db("users")
 					.where({ id: id })
 					.update({
 						//Changing of the credentials
 						username: credentials.username,
+						//Sets the password of user to the hashed new password
 						password: credentials.newpassword,
 						zip: credentials.zip,
 						healthCondition: credentials.healthCondition
 					})
 					.then(ids => {
+						//Creates a token upon successfullying updating user
 						const token = generateToken({ username: credentials.username });
 						res.status(200).json({ token: token, id: id });
 					})
@@ -108,6 +115,7 @@ server.put("/users/:id", (req, res) => {
 						res.status(500).json({ error: "Could not update User" });
 					});
 			} else {
+				//Else statement goes off if the comparison if old password check does not match
 				res
 					.status(500)
 					.json({ error: "Wrong Username and/or Password, please try again" });
@@ -134,8 +142,10 @@ server.delete("/users/:id", (req, res) => {
 server.get("/users/:userid/meals", (req, res) => {
 	const userId = req.params.userid;
 	db("mealList")
+		//Finds the corrosponding meals based on user ID
 		.where({ user_id: userId })
 		.then(meal => {
+			//Returns all the meals from that user
 			res.status(200).json(meal);
 		})
 		.catch(err => {
@@ -147,13 +157,15 @@ server.post("/users/:userid/meals", (req, res) => {
 	//grabs either the user id from req.params OR from the req.body (need to make choice later)
 	const userId = req.params.userid;
 	const { recipe_id, user_id, mealTime, experience, date } = req.body;
+	//Grabs the associated data from req.body and sets it as a JSON to meal
 	const meal = { recipe_id, user_id, mealTime, experience, date };
 	console.log(meal);
 
 	db("mealList")
 		.insert(meal)
-		.then(meal => {
-			res.status(200).json(meal);
+		.then(mealID => {
+			//Returns the meal ID
+			res.status(200).json(mealID);
 		})
 		.catch(err => {
 			res.status(400).json({ error: "Error creating a new meal." });
@@ -162,16 +174,23 @@ server.post("/users/:userid/meals", (req, res) => {
 
 //Deletes the meal using the meal id and returns 1 for deleted
 server.delete("/users/:id/meals/:mealId", (req, res) => {
+	const userID = req.params.id;
 	const { mealId } = req.params;
-	db("mealList")
-		.where({ id: mealId })
-		.del()
-		.then(deleted => {
-			res.status(200).json(deleted);
-		})
-		.catch(err => {
-			res.status(400).json({ error: "could not delete meals" });
-		});
+	//Checks to make sure the id is an int
+	if (userID === parseInt(userID, 10)) {
+		db("mealList")
+			.where({ id: mealId })
+			.del()
+			.then(deleted => {
+				//Returns a 1 if deleted
+				res.status(200).json(deleted);
+			})
+			.catch(err => {
+				res.status(400).json({ error: "could not delete meals" });
+			});
+	} else {
+		res.status(400).json({ error: "No user identified" });
+	}
 });
 //Should Delete ALL meals associated with a user ID and return 1 for deleted
 server.delete("/users/:id/meals/", (req, res) => {
