@@ -593,3 +593,22 @@ server.delete("/nutrients/:id", (req, res) => {
 server.listen(port, () => {
 	console.log(`Server now listening on Port ${port}`);
 });
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++ NOTES ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//Returns a list of notes associated with a meal
+server.get("/users/:mealid/notes", (req, res) => {
+	const mealId = req.params.mealid;
+	db("notes")
+		//Finds the corrosponding note based on meal ID
+		.where({ mealList_id: mealId })
+		.then(meal => {
+			//Returns all the meals from that user
+			res.status(200).json(meal);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not find associated note" });
+		});
+});
