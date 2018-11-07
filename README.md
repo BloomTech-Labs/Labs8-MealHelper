@@ -56,3 +56,31 @@
 - Requires the user ID.
 - Deletes all the meals associated with the user ID.
 - Returns: A 1 if deleted, a 0 if not deleted
+
+# Recipe Endpoints
+
+## GET /recipe
+**NOTE: THIS IS A DEVELOPER ROUTE ONLY FOR TESTING PURPOSES**
+- Returns: All the recipes stored in the DB>
+
+## GET /recipe/:userid
+
+- Requires a user ID.
+- Returns: An array of all recipes associated with that user.
+
+## POST /recipe/:userid
+
+- Requires a user ID.
+- The route used to add a new recipe
+- Returns: the ID of the recipe after its been created.
+
+## PUT /recipe/:id
+
+- Requires the ID of the recipe
+- Allows the changing of the recipe.
+- Returns: the ID of the recipe thats been updated.
+
+## DELETE /recipe/:id
+
+- Requires the id of the recipe to be deleted.
+- Returns: A 1 if deleted, a 0 if not deleted.
