@@ -240,13 +240,13 @@ server.listen(port, () => {
 server.get("/users/:mealid/notes", (req, res) => {
 	const mealId = req.params.mealid;
 	db("notes")
-		//Finds the corrosponding notes based on meal ID
+		//Finds the corrosponding note based on meal ID
 		.where({ mealList_id: mealId })
 		.then(meal => {
 			//Returns all the meals from that user
 			res.status(200).json(meal);
 		})
 		.catch(err => {
-			res.status(400).json({ error: "could not find associated notes" });
+			res.status(400).json({ error: "could not find associated note" });
 		});
 });
