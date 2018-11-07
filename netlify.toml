@@ -1,2 +1,2 @@
 [build]
-  base = "mealhelper"
+  base = "Front-end/mealhelper/"
