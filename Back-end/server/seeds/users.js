@@ -7,21 +7,21 @@ exports.seed = function(knex, Promise) {
 			return knex("users").insert([
 				{
 					id: 1,
-					username: "Patrick",
+					email: "imsilly@aol.com",
 					password: "432425",
 					zip: 95118,
 					healthCondition: "lazyness"
 				},
 				{
 					id: 2,
-					username: "Joseph",
+					email: "canttouchthis@gmail.com",
 					password: "654321",
 					zip: 11111,
 					healthCondition: "alzheimers"
 				},
 				{
 					id: 3,
-					username: "Casey",
+					email: "Whatisthis@yahoo.com",
 					password: "12345",
 					zip: 43567,
 					healthCondition: "sleepyness"

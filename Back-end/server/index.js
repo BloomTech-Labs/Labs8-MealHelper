@@ -41,9 +41,9 @@ server.get("/users", (req, res) => {
 //Register a new user
 server.post("/register", (req, res) => {
 	//Abstraction of req.body
-	const { username, password, zip, healthCondition } = req.body;
+	const { email, password, zip, healthCondition } = req.body;
 	//Sets the user to a JSON object of what we pulled from req.body
-	const user = { username, password, zip, healthCondition };
+	const user = { email, password, zip, healthCondition };
 	//Hashing the password
 	const hash = bcrypt.hashSync(user.password, 15);
 	//Setting the password to our hash
@@ -58,10 +58,10 @@ server.post("/register", (req, res) => {
 });
 //Login a user
 server.post("/login", (req, res) => {
-	const { username, password } = req.body;
-	const userLogin = { username, password };
+	const { email, password } = req.body;
+	const userLogin = { email, password };
 	db("users")
-		.where({ username: userLogin.username })
+		.where({ email: userLogin.email })
 		.first()
 		.then(user => {
 			if (user && bcrypt.compareSync(userLogin.password, user.password)) {
@@ -69,23 +69,23 @@ server.post("/login", (req, res) => {
 
 				res
 					.status(200)
-					.json({ welcome: user.username, token: token, id: user.id });
+					.json({ welcome: user.email, token: token, id: user.id });
 			} else {
 				res
 					.status(500)
-					.json({ error: "Wrong Username and/or Password, please try again" });
+					.json({ error: "Wrong Email and/or Password, please try again" });
 			}
 		});
 });
 
-//PUT request to change the username or password
+//PUT request to change the email or password
 server.put("/users/:id", (req, res) => {
 	const id = req.body.id;
 	const credentials = req.body;
 	console.log(credentials.password);
 	db("users")
-		//FInds the user by username
-		.where({ username: credentials.username })
+		//Finds the user by email
+		.where({ email: credentials.email })
 		.first()
 		.then(user => {
 			//Checking old password to verify it is correct
@@ -98,7 +98,7 @@ server.put("/users/:id", (req, res) => {
 					.where({ id: id })
 					.update({
 						//Changing of the credentials
-						username: credentials.username,
+						email: credentials.email,
 						//Sets the password of user to the hashed new password
 						password: credentials.newpassword,
 						zip: credentials.zip,
@@ -106,7 +106,7 @@ server.put("/users/:id", (req, res) => {
 					})
 					.then(ids => {
 						//Creates a token upon successfullying updating user
-						const token = generateToken({ username: credentials.username });
+						const token = generateToken({ email: credentials.email });
 						res.status(200).json({ token: token, id: id });
 					})
 					.catch(err => {
@@ -117,7 +117,7 @@ server.put("/users/:id", (req, res) => {
 				//Else statement goes off if the comparison if old password check does not match
 				res
 					.status(500)
-					.json({ error: "Wrong Username and/or Password, please try again" });
+					.json({ error: "Wrong Email and/or Password, please try again" });
 			}
 		});
 });
