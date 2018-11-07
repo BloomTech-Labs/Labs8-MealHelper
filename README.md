@@ -84,3 +84,32 @@
 
 - Requires the id of the recipe to be deleted.
 - Returns: A 1 if deleted, a 0 if not deleted.
+
+# Ingredients Endpoints
+
+## GET /ingredients
+**NOTE: THIS IS A DEV ONLY ENDPOINT FOR TESTING ONLY**
+
+- Returns: an array of all ingredients.
+
+## GET /ingredients/:userid
+
+- Requires a user ID.
+- Returns: an array of ingredients made by that user.
+
+## POST /ingredients/:userid
+
+- Requires a user id.
+- When grabbing an ingredient from api or creating a new ingredient, needs to associate to a user.
+- Returns: the new ingredient ID.
+
+## PUT /ingredients/:id
+
+- Requires the id of the ingredient.
+- Changes the nbd_id (from api), the name of the ingredient, or the nutrients associated with it (not a problem if API grabbed).
+- Returns: the id of the ingredient.
+
+## DELETE /ingredients/:id
+
+- Requires the id of the ingredient.
+- Returns: a 1 if deleted, a 0 if not deleted.
