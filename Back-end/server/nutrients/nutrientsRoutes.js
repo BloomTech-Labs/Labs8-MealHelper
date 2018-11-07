@@ -51,7 +51,7 @@ router.put('/:id', (req, res) => {
     .update(id, changes)
     .then(count => {
       if (!count || count < 1) {
-        res.status(404).json({ message: 'No user records found to update' });
+        res.status(404).json({ message: 'No nutrient records found to update' });
       } else {
         res.status(200).json(count);
       }
@@ -66,7 +66,7 @@ router.delete('/:id', (req, res) => {
     .remove(id)
     .then(count => {
       if (!count || count < 1) {
-        res.status(404).json({ message: 'No user records found to delete' });
+        res.status(404).json({ message: 'No nutrient records found to delete' });
       } else {
         res.status(200).json(count);
       }
