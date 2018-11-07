@@ -1,6 +1,7 @@
 const express = require("express");
 const helmet = require("helmet");
 const knex = require("knex");
+const jwt = require("jsonwebtoken");
 const knexConfig = require("./knexfile");
 const db = knex(knexConfig.development);
 const server = express();
@@ -12,6 +13,22 @@ const cors = require("cors");
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
+
+const jwtSecret = "thisisthesecretkeyplzdonttouch";
+
+function generateToken(user) {
+	const payload = {
+		id: user.id,
+
+		hello: "Hello!"
+	};
+
+	const JwtOptions = {
+		expiresIn: "2h"
+	};
+
+	return jwt.sign(payload, jwtSecret, JwtOptions);
+}
 
 //Users Endpoints
 
@@ -34,7 +51,30 @@ server.post("/register", (req, res) => {
 			res.status(201).json(user);
 		});
 });
+//Login a user
+server.post("/login", (req, res) => {
+	const { username, password } = req.body;
+	const userLogin = { username, password };
+	db("users")
+		.where({ username: userLogin.username })
+		.first()
+		.then(user => {
+			if (user && bcrypt.compareSync(userLogin.password, user.password)) {
+				const token = generateToken(user);
 
+				res
+					.status(200)
+					.header("Authorization", token)
+					.json({ welcome: user.username, token: token, id: user.id });
+			} else {
+				res
+					.status(500)
+					.json({ error: "Wrong Username and/or Password, please try again" });
+			}
+		});
+});
+
+//Delete a user
 server.delete("/users/:id", (req, res) => {
 	const { id } = req.params;
 	db("users")
@@ -42,17 +82,6 @@ server.delete("/users/:id", (req, res) => {
 		.del()
 		.then(deleted => {
 			res.status(200).json(deleted);
-		});
-});
-
-server.post("/login", (req, res) => {
-	const { username, password, zip, healthCondition } = req.body;
-	const user = { username, password, zip, healthCondition };
-	console.log(user);
-	db("users")
-		.insert(user)
-		.then(user => {
-			res.status(201).json(user);
 		});
 });
 
