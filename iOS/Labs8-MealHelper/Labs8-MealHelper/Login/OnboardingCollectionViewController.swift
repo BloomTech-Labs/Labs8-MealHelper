@@ -43,6 +43,8 @@ class OnboardingCollectionViewController: UICollectionViewController {
         cell.backgroundColor = indexPath.item % 2 == 0 ? .red : .green
         cell.delegate = self
         
+        if indexPath.item == 4 { cell.isLastCell = true }
+        
         return cell
     }
 
@@ -94,6 +96,7 @@ extension OnboardingCollectionViewController: UICollectionViewDelegateFlowLayout
 }
 
 extension OnboardingCollectionViewController: OnboardingCollectionViewCellDelegate {
+    
     func previousCell() {
         let contentOffset = collectionView.contentOffset
         
@@ -115,6 +118,10 @@ extension OnboardingCollectionViewController: OnboardingCollectionViewCellDelega
                                                   y: contentOffset.y,
                                                   width: cellSize.width,
                                                   height: cellSize.height), animated: true)
+    }
+    
+    func save() {
+        // Save user information
     }
     
 }
