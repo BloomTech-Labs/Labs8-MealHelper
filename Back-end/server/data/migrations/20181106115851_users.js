@@ -2,7 +2,7 @@ exports.up = function(knex, Promise) {
 	return Promise.all([
 		knex.schema.createTable("users", function(users) {
 			users.increments();
-			users.string("username", 20).notNullable();
+			users.string("email", 40).notNullable();
 			users.string("password", 255).notNullable();
 			users.integer("zip", 5);
 			users.string("healthCondition", 20).notNullable();
@@ -14,10 +14,11 @@ exports.up = function(knex, Promise) {
 			recipe.integer("calories", 6).notNullable();
 			recipe.integer("servings", 3).notNullable();
 			recipe
-				.integer("ingredients_id")
+				.integer("user_id")
 				.references("id")
-				.inTable("ingredients")
+				.inTable("users")
 				.onDelete("cascade");
+			recipe.string("ingredients_id");
 		}),
 
 		knex.schema.createTable("ingredients", function(ingredients) {

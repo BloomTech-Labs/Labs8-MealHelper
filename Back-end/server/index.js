@@ -41,9 +41,9 @@ server.get("/users", (req, res) => {
 //Register a new user
 server.post("/register", (req, res) => {
 	//Abstraction of req.body
-	const { username, password, zip, healthCondition } = req.body;
+	const { email, password, zip, healthCondition } = req.body;
 	//Sets the user to a JSON object of what we pulled from req.body
-	const user = { username, password, zip, healthCondition };
+	const user = { email, password, zip, healthCondition };
 	//Hashing the password
 	const hash = bcrypt.hashSync(user.password, 15);
 	//Setting the password to our hash
@@ -58,10 +58,10 @@ server.post("/register", (req, res) => {
 });
 //Login a user
 server.post("/login", (req, res) => {
-	const { username, password } = req.body;
-	const userLogin = { username, password };
+	const { email, password } = req.body;
+	const userLogin = { email, password };
 	db("users")
-		.where({ username: userLogin.username })
+		.where({ email: userLogin.email })
 		.first()
 		.then(user => {
 			if (user && bcrypt.compareSync(userLogin.password, user.password)) {
@@ -69,24 +69,23 @@ server.post("/login", (req, res) => {
 
 				res
 					.status(200)
-					.header("Authorization", token)
-					.json({ welcome: user.username, token: token, id: user.id });
+					.json({ welcome: user.email, token: token, id: user.id });
 			} else {
 				res
 					.status(500)
-					.json({ error: "Wrong Username and/or Password, please try again" });
+					.json({ error: "Wrong Email and/or Password, please try again" });
 			}
 		});
 });
 
-//PUT request to change the username or password
+//PUT request to change the email or password
 server.put("/users/:id", (req, res) => {
 	const id = req.body.id;
 	const credentials = req.body;
 	console.log(credentials.password);
 	db("users")
-		//FInds the user by username
-		.where({ username: credentials.username })
+		//Finds the user by email
+		.where({ email: credentials.email })
 		.first()
 		.then(user => {
 			//Checking old password to verify it is correct
@@ -99,7 +98,7 @@ server.put("/users/:id", (req, res) => {
 					.where({ id: id })
 					.update({
 						//Changing of the credentials
-						username: credentials.username,
+						email: credentials.email,
 						//Sets the password of user to the hashed new password
 						password: credentials.newpassword,
 						zip: credentials.zip,
@@ -107,7 +106,7 @@ server.put("/users/:id", (req, res) => {
 					})
 					.then(ids => {
 						//Creates a token upon successfullying updating user
-						const token = generateToken({ username: credentials.username });
+						const token = generateToken({ email: credentials.email });
 						res.status(200).json({ token: token, id: id });
 					})
 					.catch(err => {
@@ -118,7 +117,7 @@ server.put("/users/:id", (req, res) => {
 				//Else statement goes off if the comparison if old password check does not match
 				res
 					.status(500)
-					.json({ error: "Wrong Username and/or Password, please try again" });
+					.json({ error: "Wrong Email and/or Password, please try again" });
 			}
 		});
 });
@@ -228,6 +227,98 @@ server.delete("/users/:id/meals/", (req, res) => {
 		});
 });
 
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++ RECIPE ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//GET requst to get all recipes (DEVELOPER TESTING ONLY)
+server.get("/recipe", (req, res) => {
+	db("recipe")
+		.then(recipes => {
+			//Returns all the recipes
+			res.status(200).json(recipes);
+		})
+		.catch(err => {
+			res.status(400).json({ err, error: "could not find recipes" });
+		});
+});
+//GET request to grab all recipes made by a specific user
+server.get("/recipe/:userid", (req, res) => {
+	const userId = req.params.userid;
+	db("recipe")
+		//Finds the corrosponding recipes based on user ID
+		.where({ user_id: userId })
+		.then(meal => {
+			//Returns all the recipes from that user
+			res.status(200).json(meal);
+		})
+		.catch(err => {
+			res.status(400).json({ err, error: "could not find meal" });
+		});
+});
+//POST request to create a recipe
+server.post("/recipe/:userid", (req, res) => {
+	//grabs the user id from the req.params
+	const user_id = req.params.userid;
+	const { name, calories, servings, ingredients_id } = req.body;
+	//Grabs the associated data from req.body and sets it as a JSON to recipe
+	//NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
+	const recipe = { name, user_id, calories, servings, ingredients_id };
+	console.log(recipe);
+
+	db("recipe")
+		.insert(recipe)
+		.then(recipeID => {
+			//Returns the meal ID
+			res.status(200).json(recipeID);
+		})
+		.catch(err => {
+			res.status(400).json({ err, error: "Error creating a new meal." });
+		});
+});
+
+//PUT request to change the recipes, meal time, experience or experience
+server.put("/recipe/:id", (req, res) => {
+	//Grabs recipe ID from req.params
+	const id = req.params.id;
+	const { name, calories, servings, ingredients_id } = req.body;
+	//Grabs the associated data from req.body and sets it as a JSON to recipe
+	//NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
+	const recipe = { name, calories, servings, ingredients_id };
+	db("recipe")
+		.where({ id: id })
+		.update({
+			//UPDATES the name, calories etc of the recipe if needed.
+			name: recipe.name,
+			calories: recipe.calories,
+			servings: recipe.servings,
+			ingredients_id: recipe.ingredients_id
+		})
+		.then(meal => {
+			//Returns the ID of the meal changed
+			res.status(200).json(meal);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not update meal" });
+		});
+});
+
+//DELETE a recipe
+server.delete("/recipe/:id", (req, res) => {
+	//Grabs the id from the API endpoint (front end job)
+	const { id } = req.params;
+	db("recipe")
+		.where({ id: id })
+		//Deletes the records
+		.del()
+		.then(deleted => {
+			//Should return 1 if deleted, returns 0 if not
+			res.status(200).json(deleted);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not delete meals" });
+		});
+});
 server.listen(port, () => {
 	console.log(`Server now listening on Port ${port}`);
 });
