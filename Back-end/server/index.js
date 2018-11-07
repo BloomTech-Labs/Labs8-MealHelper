@@ -171,6 +171,25 @@ server.post("/users/:userid/meals", (req, res) => {
 			res.status(400).json({ error: "Error creating a new meal." });
 		});
 });
+//PUT request to change the recipes, meal time, experience or experience
+server.put("/meals/:mealID", (req, res) => {
+	const id = req.params.mealID;
+	const { recipe_id, user_id, mealTime, experience } = req.body;
+	const meal = { recipe_id, user_id, mealTime, experience };
+	db("mealList")
+		.where({ id: id })
+		.update({
+			recipe_id: meal.recipe_id,
+			mealTime: meal.mealTime,
+			experience: meal.experience
+		})
+		.then(meal => {
+			res.status(200).json(meal);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not update meal" });
+		});
+});
 
 //Deletes the meal using the meal id and returns 1 for deleted
 server.delete("/users/:id/meals/:mealId", (req, res) => {
