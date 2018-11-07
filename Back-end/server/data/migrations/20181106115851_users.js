@@ -14,10 +14,11 @@ exports.up = function(knex, Promise) {
 			recipe.integer("calories", 6).notNullable();
 			recipe.integer("servings", 3).notNullable();
 			recipe
-				.integer("ingredients_id")
+				.integer("user_id")
 				.references("id")
-				.inTable("ingredients")
+				.inTable("users")
 				.onDelete("cascade");
+			recipe.string("ingredients_id");
 		}),
 
 		knex.schema.createTable("ingredients", function(ingredients) {

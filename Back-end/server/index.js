@@ -227,6 +227,98 @@ server.delete("/users/:id/meals/", (req, res) => {
 		});
 });
 
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++ RECIPE ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//GET requst to get all recipes (DEVELOPER TESTING ONLY)
+server.get("/recipe", (req, res) => {
+	db("recipe")
+		.then(recipes => {
+			//Returns all the recipes
+			res.status(200).json(recipes);
+		})
+		.catch(err => {
+			res.status(400).json({ err, error: "could not find recipes" });
+		});
+});
+//GET request to grab all recipes made by a specific user
+server.get("/recipe/:userid", (req, res) => {
+	const userId = req.params.userid;
+	db("recipe")
+		//Finds the corrosponding recipes based on user ID
+		.where({ user_id: userId })
+		.then(meal => {
+			//Returns all the recipes from that user
+			res.status(200).json(meal);
+		})
+		.catch(err => {
+			res.status(400).json({ err, error: "could not find meal" });
+		});
+});
+//POST request to create a recipe
+server.post("/recipe/:userid", (req, res) => {
+	//grabs the user id from the req.params
+	const user_id = req.params.userid;
+	const { name, calories, servings, ingredients_id } = req.body;
+	//Grabs the associated data from req.body and sets it as a JSON to recipe
+	//NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
+	const recipe = { name, user_id, calories, servings, ingredients_id };
+	console.log(recipe);
+
+	db("recipe")
+		.insert(recipe)
+		.then(recipeID => {
+			//Returns the meal ID
+			res.status(200).json(recipeID);
+		})
+		.catch(err => {
+			res.status(400).json({ err, error: "Error creating a new meal." });
+		});
+});
+
+//PUT request to change the recipes, meal time, experience or experience
+server.put("/recipe/:id", (req, res) => {
+	//Grabs recipe ID from req.params
+	const id = req.params.id;
+	const { name, calories, servings, ingredients_id } = req.body;
+	//Grabs the associated data from req.body and sets it as a JSON to recipe
+	//NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
+	const recipe = { name, calories, servings, ingredients_id };
+	db("recipe")
+		.where({ id: id })
+		.update({
+			//UPDATES the name, calories etc of the recipe if needed.
+			name: recipe.name,
+			calories: recipe.calories,
+			servings: recipe.servings,
+			ingredients_id: recipe.ingredients_id
+		})
+		.then(meal => {
+			//Returns the ID of the meal changed
+			res.status(200).json(meal);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not update meal" });
+		});
+});
+
+//DELETE a recipe
+server.delete("/recipe/:id", (req, res) => {
+	//Grabs the id from the API endpoint (front end job)
+	const { id } = req.params;
+	db("recipe")
+		.where({ id: id })
+		//Deletes the records
+		.del()
+		.then(deleted => {
+			//Should return 1 if deleted, returns 0 if not
+			res.status(200).json(deleted);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not delete meals" });
+		});
+});
 server.listen(port, () => {
 	console.log(`Server now listening on Port ${port}`);
 });

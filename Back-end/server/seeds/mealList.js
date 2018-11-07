@@ -7,7 +7,7 @@ exports.seed = function(knex, Promise) {
 			return knex("mealList").insert([
 				{
 					id: 1,
-					recipe_id: 1,
+					recipe_id: 2,
 					user_id: 1,
 					mealTime: "Snack",
 					experience: "Sad",
@@ -15,7 +15,7 @@ exports.seed = function(knex, Promise) {
 				},
 				{
 					id: 2,
-					recipe_id: 2,
+					recipe_id: 1,
 					user_id: 3,
 					mealTime: "Lunch",
 					experience: "Barf",
@@ -24,7 +24,7 @@ exports.seed = function(knex, Promise) {
 				{
 					id: 3,
 					recipe_id: 3,
-					user_id: 5,
+					user_id: 2,
 					mealTime: "Breakfast",
 					experience: "Smily",
 					date: "11/06/2018"
