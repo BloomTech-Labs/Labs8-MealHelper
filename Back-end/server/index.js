@@ -29,8 +29,9 @@ function generateToken(user) {
 
 	return jwt.sign(payload, jwtSecret, JwtOptions);
 }
-
-//Users Endpoints
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++ USERS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 server.get("/users", (req, res) => {
 	db("users").then(users => {
@@ -122,6 +123,42 @@ server.delete("/users/:id", (req, res) => {
 		.del()
 		.then(deleted => {
 			res.status(200).json(deleted);
+		});
+});
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++ MEAL LIST ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//Returns a list of meals associated with a user id
+server.get("/users/:userid/meals", (req, res) => {
+	console.log(req.params);
+	const userId = req.params.userid;
+	console.log(userId);
+	db("mealList")
+		.where({ user_id: userId })
+		.then(meal => {
+			res.status(200).json(meal);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not find meal" });
+		});
+});
+
+server.post("/users/:userid/meals", (req, res) => {
+	//grabs either the user id from req.params OR from the req.body (need to make choice later)
+	const userId = req.params.userid;
+	const { recipe_id, user_id, mealTime, experience, date } = req.body;
+	const meal = { recipe_id, user_id, mealTime, experience, date };
+	console.log(meal);
+
+	db("mealList")
+		.insert(meal)
+		.then(meal => {
+			res.status(200).json(meal);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Error creating a new meal." });
 		});
 });
 
