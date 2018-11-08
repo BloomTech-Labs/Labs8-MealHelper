@@ -669,6 +669,60 @@ server.delete("/note/:id", (req, res) => {
 		});
 });
 
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++ WEATHER ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//Returns the weather for that meal
+server.get("/weather/:mealid", (req, res) => {
+	const mealId = req.params.mealid;
+	db("weather")
+		//Finds the corrosponding weather data for that meal
+		.where({ mealId: mealId })
+		.then(weather => {
+			//Returns the weather for that meal
+			res.status(200).json(weather);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not find associated note" });
+		});
+});
+//POST req to create a weather report for that meal
+server.post("/weather/:mealid", (req, res) => {
+	//Grabs the meal id from req.params
+	const mealId = req.params.mealid;
+	const { name, description, temp, humidity, pressure } = req.body;
+	//Adds the meal id to the weather object
+	const weather = { name, description, temp, humidity, pressure, mealId };
+	db("weather")
+		//Inserts the weather and associates it to a meal
+		.insert(weather)
+		.then(weather => {
+			//Returns the weather
+			res.status(201).json(weather);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not create weather" });
+		});
+});
+
+//Deletes the weather for the meal
+server.delete("/weather/:mealid", (req, res) => {
+	//Grabs meal id from req.params
+	const id = req.params.mealid;
+	db("weather")
+		//FInds the meal thats associated with that weather report
+		.where({ mealId: id })
+		.del()
+		.then(deleted => {
+			//Returns a 1 for deleted or a 0 for not.
+			res.status(200).json(deleted);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Error deleting note" });
+		});
+});
+
 server.listen(port, () => {
 	console.log(`Server now listening on Port ${port}`);
 });
