@@ -38,6 +38,7 @@ const initialState = {
 
 */
 
+/*
 export const mealsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GETTING_MEALS:

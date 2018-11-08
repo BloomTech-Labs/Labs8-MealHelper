@@ -1,11 +1,11 @@
-import * as actionTypes from '../actions';
+// import * as actionTypes from '../actions';
 
-/* Ingredients Reducer */
+// /* Ingredients Reducer */
 
-const initialState = {
-  //state
-}
+// const initialState = {
+//   //state
+// }
 
-export const ingredsReducer = (state = initialState, action) => {
-  //switch cases
-}
+// export const ingredsReducer = (state = initialState, action) => {
+//   //switch cases
+// }
