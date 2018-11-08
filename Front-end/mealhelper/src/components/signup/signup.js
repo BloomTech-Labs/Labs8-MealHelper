@@ -44,6 +44,9 @@ class Signup extends Component {
                     <input type="text" id="dynamic-label-input" placeholder="Health Condition"/>
                     <label htmlFor="dynamic-label-input">Health Condition</label>
                 </div>
+                <div class="login login-two">
+                    <span>Login</span>
+                </div>
             </form>
         </div>
     );
