@@ -26,12 +26,11 @@ exports.up = function(knex, Promise) {
 			ingredients.integer("ndb_id");
 			ingredients.string("name", 51).notNullable();
 			ingredients.string("nutrients_id");
-
-			// ingredients
-			// 	.integer("user_id")
-			// 	.references("id")
-			// 	.inTable("users")
-			// 	.onDelete("cascade");
+			ingredients
+				.integer("user_id")
+				.references("id")
+				.inTable("users")
+				.onDelete("cascade");
 		}),
 
 		knex.schema.createTable("nutrients", function(nutrients) {
