@@ -6,8 +6,7 @@ class Login extends Component {
     return (
       <div className="App">
         <div className="main-container">
-          <h1>MealHelper</h1>
-          <h3>Under construction</h3>
+          <h1>Login</h1>
         </div>
       </div>
     );
