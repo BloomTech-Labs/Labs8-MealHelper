@@ -610,6 +610,58 @@ server.get("/users/:mealid/notes", (req, res) => {
 			res.status(400).json({ error: "could not find associated note" });
 		});
 });
+//POST req to create a note and associate it to a meal
+server.post("/users/:mealid/notes", (req, res) => {
+	//Grabs the meal id from req.params
+	const mealId = req.params.mealid;
+	const { notebody } = req.body;
+	//Adds the meal id to the note to make it a part of that meal.
+	const note = { notebody, mealId };
+	db("notes")
+		//Inserts the note into the notes table
+		.insert(note)
+		.then(note => {
+			//Returns the note
+			res.status(201).json(note);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not create note" });
+		});
+});
+
+//PUT request to change the notes body
+server.put("/notes/:noteid", (req, res) => {
+	const id = req.params.noteid;
+	const { notebody } = req.body;
+	const note = { notebody };
+	db("notes")
+		.where({ id: id })
+		.update({
+			notebody: note.notebody
+		})
+		.then(noteID => {
+			//Returns the note ID
+			res.status(200).json(noteID);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not update note" });
+		});
+});
+//Deletes a note
+server.delete("/note/:id", (req, res) => {
+	//Grabs note id from req.params
+	const { id } = req.params;
+	db("notes")
+		.where({ id: id })
+		.del()
+		.then(deleted => {
+			//Returns a 1 for deleted or a 0 for not.
+			res.status(200).json(deleted);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Error deleting note" });
+		});
+});
 
 server.listen(port, () => {
 	console.log(`Server now listening on Port ${port}`);
