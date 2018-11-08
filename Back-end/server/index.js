@@ -591,9 +591,6 @@ server.delete("/nutrients/:id", (req, res) => {
 			res.status(400).json({ error: "could not delete meals" });
 		});
 });
-server.listen(port, () => {
-	console.log(`Server now listening on Port ${port}`);
-});
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++ NOTES ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
@@ -612,4 +609,8 @@ server.get("/users/:mealid/notes", (req, res) => {
 		.catch(err => {
 			res.status(400).json({ error: "could not find associated note" });
 		});
+});
+
+server.listen(port, () => {
+	console.log(`Server now listening on Port ${port}`);
 });
