@@ -608,9 +608,9 @@ server.get("notes/:mealid", (req, res) => {
 	db("notes")
 		//Finds the corrosponding note based on meal ID
 		.where({ mealList_id: mealId })
-		.then(meal => {
-			//Returns all the meals from that user
-			res.status(200).json(meal);
+		.then(note => {
+			//Returns all the note from that meal
+			res.status(200).json(note);
 		})
 		.catch(err => {
 			res.status(400).json({ error: "could not find associated note" });
