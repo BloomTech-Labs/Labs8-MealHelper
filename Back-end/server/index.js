@@ -14,53 +14,53 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-const jwtSecret = "thisisthesecretkeyplzdonttouch";
+// const jwtSecret = "thisisthesecretkeyplzdonttouch";
 
-function generateToken(user) {
-	const payload = {
-		id: user.id,
+// function generateToken(user) {
+// 	const payload = {
+// 		id: user.id,
 
-		hello: "Hello!"
-	};
+// 		hello: "Hello!"
+// 	};
 
-	const JwtOptions = {
-		expiresIn: "2h"
-	};
+// 	const JwtOptions = {
+// 		expiresIn: "2h"
+// 	};
 
-	return jwt.sign(payload, jwtSecret, JwtOptions);
-}
+// 	return jwt.sign(payload, jwtSecret, JwtOptions);
+// }
 
 server.listen(port, () => {
 	console.log(`Server now listening on Port ${port}`);
 });
 
 /////////ROUTE IMPORTS///////////////
-const userRoutes = require('./users/usersRoutes');
+const userRoutes = require("./users/usersRoutes");
 
-server.use('/users', userRoutes);
+server.use("/users", userRoutes);
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++ USERS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-// Register a new user
-server.post("/register", (req, res) => {
-	//Abstraction of req.body
-	const { email, password, zip, healthCondition } = req.body;
-	//Sets the user to a JSON object of what we pulled from req.body
-	const user = { email, password, zip, healthCondition };
-	//Hashing the password
-	const hash = bcrypt.hashSync(user.password, 15);
-	//Setting the password to our hash
-	user.password = hash;
-	db("users")
-		.insert(user)
-		.then(user => {
-			//Registers the user and generates a jwt token for them
-			const token = generateToken(user);
-			res.status(201).json(user, { token: token });
-		});
-});
+//Register a new user
+// server.post("/register", (req, res) => {
+// 	//Abstraction of req.body
+// 	const { email, password, zip, healthCondition } = req.body;
+// 	//Sets the user to a JSON object of what we pulled from req.body
+// 	const user = { email, password, zip, healthCondition };
+// 	//Hashing the password
+// 	const hash = bcrypt.hashSync(user.password, 15);
+// 	//Setting the password to our hash
+// 	user.password = hash;
+// 	db("users")
+// 		.insert(user)
+// 		.then(user => {
+// 			//Registers the user and generates a jwt token for them
+// 			const token = generateToken(user);
+// 			res.status(201).json(user, { token: token });
+// 		});
+// });
 
 // Login a user
 server.post("/login", (req, res) => {
@@ -366,7 +366,7 @@ server.post("/ingredients/:userid", (req, res) => {
 	db("ingredients")
 		.insert(ingredient)
 		.then(ingredientID => {
-			//Returns the meal ID
+			//Returns the ingredients ID
 			res.status(200).json(ingredientID);
 		})
 		.catch(err => {
@@ -416,6 +416,189 @@ server.delete("/ingredients/:id", (req, res) => {
 		});
 });
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++ NUTRIENTS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//GET requst to get all nutrients (DEVELOPER TESTING ONLY)
+server.get("/nutrients", (req, res) => {
+	db("nutrients")
+		.then(nutrients => {
+			//Returns all the nutrients
+			res.status(200).json(nutrients);
+		})
+		.catch(err => {
+			res.status(400).json({ err, error: "could not find nutrients" });
+		});
+});
+//GET request to grab all nutrients for a specific ingredient
+server.get("/nutrients/:ingredientID", (req, res) => {
+	const ingredientId = req.params.ingredientID;
+	db("ingredients")
+		//Finds the corrosponding nutrients based on ingredient ID
+		.where({ id: ingredientId })
+		//Doing a where request returns an array, so we want the first index of that array.
+		.first()
+		.then(ingredients => {
+			//Returns the nutrient ids (in string form) of the recipe.
+			res.status(200).json(ingredients.nutrients_id);
+		})
+		.catch(err => {
+			res.status(400).json({ err, error: "could not find meal" });
+		});
+});
+//POST request to create an ingredients
+server.post("/nutrients/:ingredientID", (req, res) => {
+	//grabs the ingredient id from the req.params
+	const ingredientId = req.params.ingredientID;
+	//Grabs the id of the nutrient sent by req.body
+	const id = req.body.id;
+	const nutrient_id = { id };
+	db("ingredients")
+		//Finds the corrosponding nutrients based on ingredient ID
+		.where({ id: ingredientId })
+		.first()
+		.then(ingredient => {
+			//Appends the previous nutrient ID's and adds a new id at the end, seperated by a ,
+			let oldNutrients = ingredient.nutrients_id;
+
+			let newNutrients = oldNutrients + ", " + nutrient_id.id;
+			db("ingredients")
+				//Finds the corrosponding nutrients based on ingredient ID
+				.where({ id: ingredientId })
+				//Doing a where request returns an array, so we want the first index of that array.
+				.first()
+				//Reaplces the old nutrients with the new ones
+				.update({ nutrients_id: newNutrients })
+				.then(ingredients => {
+					//Returns the ingredient
+					db("ingredients")
+						//Finds the corrosponding nutrients based on ingredient ID
+						.where({ id: ingredientId })
+						.first()
+						.then(ingredient => {
+							res.status(200).json(ingredient);
+						})
+						.catch(err => {
+							res.status(400).json({ error: "error returning ingredient" });
+						});
+				})
+				.catch(err => {
+					res.status(400).json({ err, error: "could not add nutrients" });
+				});
+		});
+});
+//POST request so user can make their own nutrient
+server.post("/nutrients/:id", (req, res) => {
+	const user_id = req.params.id;
+	//grabs the name unit and value from req.body
+	const { name, unit, value } = req.body;
+	//set the what we grabbed to a new "nutrient"
+	const nutrient = { name, unit, value, user_id };
+
+	db("nutrients")
+		.insert(nutrient)
+		.then(nutrientID => {
+			//Returns the nutrient ID
+			res.status(200).json(nutrientID);
+		})
+		.catch(err => {
+			res.status(400).json({ err, error: "Error creating a new meal." });
+		});
+});
+
+//PUT request to change the nutrient
+server.put("/nutrients/:id", (req, res) => {
+	//Grabs recipe ID from req.params
+	const id = req.params.id;
+	//grabs the name unit and value from req.body
+	const { name, unit, value } = req.body;
+	//set the what we grabbed to a new "nutrient"
+	const nutrient = { name, unit, value };
+
+	db("nutrients")
+		.where({ id: id })
+		.update({
+			//UPDATES the name, calories etc of the recipe if needed.
+			name: nutrient.name,
+			unit: nutrient.unit,
+			value: nutrient.value
+		})
+		.then(nutrientID => {
+			//Returns the ID of the meal changed
+			res.status(200).json(nutrientID);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not update meal" });
+		});
+});
+//PUT request to change the nutrient
+server.put("/nutrients/ingredients/:ingredientID", (req, res) => {
+	//Grabs recipe ID from req.params
+	const id = req.params.ingredientID;
+
+	//grabs the name unit and value from req.body
+	const { ids } = req.body;
+	//set the what we grabbed to a new "nutrient"
+	const nutrient_ids = ids;
+
+	db("ingredients")
+		.where({ id: id })
+		.first()
+		.then(ingredient => {
+			const test = "1,3,6,7";
+			ingredient.nutrients_id.trim();
+			let oldNutrients = ingredient.nutrients_id.split(",");
+			let selectedIDS = nutrient_ids.split(",");
+
+			let newNutrients = oldNutrients.filter(
+				nutrients => !selectedIDS.includes(nutrients)
+			);
+			//Turns the filtered nutrients into a string (NOTE: might need toString() for funky data)
+			let string = newNutrients.join();
+			db("ingredients")
+				//Finds the corrosponding nutrients based on ingredient ID
+				.where({ id: id })
+				//Doing a where request returns an array, so we want the first index of that array.
+				.first()
+				//Reaplces the old nutrients with the new ones
+				.update({ nutrients_id: string })
+				.then(ingredients => {
+					//Returns the ingredient
+					db("ingredients")
+						//Finds the corrosponding nutrients based on ingredient ID
+						.where({ id: id })
+						.first()
+						.then(ingredient => {
+							res.status(200).json(ingredient);
+						})
+						.catch(err => {
+							res.status(400).json({ error: "error returning ingredient" });
+						});
+				})
+				.catch(err => {
+					res.status(400).json({ err, error: "could not add nutrients" });
+				});
+		});
+});
+
+//DELETE a recipe
+server.delete("/nutrients/:id", (req, res) => {
+	//Grabs the id from the API endpoint (front end job)
+	const { id } = req.params;
+	db("nutrients")
+		.where({ id: id })
+		//Deletes the nutrient
+		.del()
+		.then(deleted => {
+			//Should return 1 if deleted, returns 0 if not
+			res.status(200).json(deleted);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not delete meals" });
+		});
+});
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++ NOTES ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -432,4 +615,60 @@ server.get("/users/:mealid/notes", (req, res) => {
 		.catch(err => {
 			res.status(400).json({ error: "could not find associated note" });
 		});
+});
+//POST req to create a note and associate it to a meal
+server.post("/users/:mealid/notes", (req, res) => {
+	//Grabs the meal id from req.params
+	const mealId = req.params.mealid;
+	const { notebody } = req.body;
+	//Adds the meal id to the note to make it a part of that meal.
+	const note = { notebody, mealId };
+	db("notes")
+		//Inserts the note into the notes table
+		.insert(note)
+		.then(note => {
+			//Returns the note
+			res.status(201).json(note);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not create note" });
+		});
+});
+
+//PUT request to change the notes body
+server.put("/notes/:noteid", (req, res) => {
+	const id = req.params.noteid;
+	const { notebody } = req.body;
+	const note = { notebody };
+	db("notes")
+		.where({ id: id })
+		.update({
+			notebody: note.notebody
+		})
+		.then(noteID => {
+			//Returns the note ID
+			res.status(200).json(noteID);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not update note" });
+		});
+});
+//Deletes a note
+server.delete("/note/:id", (req, res) => {
+	//Grabs note id from req.params
+	const { id } = req.params;
+	db("notes")
+		.where({ id: id })
+		.del()
+		.then(deleted => {
+			//Returns a 1 for deleted or a 0 for not.
+			res.status(200).json(deleted);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Error deleting note" });
+		});
+});
+
+server.listen(port, () => {
+	console.log(`Server now listening on Port ${port}`);
 });
