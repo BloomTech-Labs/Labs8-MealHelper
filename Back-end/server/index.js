@@ -46,7 +46,15 @@ server.get("/", (req, res) => {
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++ USERS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+server.get("/users", (req, res) => {
+	db("users")
+		.then(users => {
+			res.status(200).json(users);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not grab users" });
+		});
+});
 // Register a new user
 server.post("/register", (req, res) => {
 	//Abstraction of req.body
