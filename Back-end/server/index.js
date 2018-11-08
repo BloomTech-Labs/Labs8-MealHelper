@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const knexConfig = require("./knexfile");
 const db = knex(knexConfig.development);
 const server = express();
-const port = 3300;
+const port = process.env.PORT || 3300;
 const bcrypt = require("bcrypt");
 
 const cors = require("cors");
