@@ -3,6 +3,27 @@ import './login.css';
 
 
 class Login extends Component {
+
+    // handleChange = event => {
+    //     event.preventDefault();
+    //     this.setState({
+    //       user: {
+    //         ...this.state.note,
+    //         [event.target.name]: event.target.value,
+    //       }
+          
+    //     });
+    //   };
+
+    // handleAddNewUser = event => {
+    //     event.preventDefault();
+    //     // console.log('firing');
+    //      axios
+    //     .post('http://localhost:9000/users', this.state.users)
+    //     .then(response => this.setState({user: response.data }), window.location ="/thanks")
+    // };
+
+
   render() {
     return (
         <div className="form-title">
