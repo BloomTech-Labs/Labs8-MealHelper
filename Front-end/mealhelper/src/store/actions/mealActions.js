@@ -19,13 +19,20 @@ export const UPDATING_MEAL = "UPDATING_MEAL";
 export const DELETE_MEAL = "DELETE_MEAL";
 export const DELETING_MEAL = "DELETING_MEAL";
 
+/*
+Alternatively, I believe we could reduce Action Types by replacing all *ING_MEAL types with something like FETCHING_DATA
+*/
+
 //Action Creators
 
 //Gets a list of meals
 export const getMeals = () => {
   return dispatch => {
     dispatch({ type: GETTING_MEALS });
-
+    /* Alternatively:
+    dispatch({ type: FETCHING_DATA })
+    */
+  
     axios
       .get(/*'URL'*/)
       .then(response => {
@@ -48,7 +55,9 @@ export const getMeals = () => {
 export const getSingleMeal = id => {
   return dispatch => {
     dispatch({ type: GETTING_SINGLE_MEAL });
-
+    /* Alternatively:
+    dispatch({ type: FETCHING_DATA })
+    */
     axios
       .get(/*'URL'*/)
       .then(({ data }) => {

@@ -25,6 +25,19 @@ const initialState = {
   error: ""
 };
 
+/*
+Alternatively, initialState could look like this:
+
+const initialState = {
+  meals: [],
+  singleMeal: {},
+  getting: false,
+  success: false,
+  error: ''
+}
+
+*/
+
 export const mealsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GETTING_MEALS:
@@ -33,6 +46,14 @@ export const mealsReducer = (state = initialState, action) => {
         gettingMeals: true,
         getMeals: false
       };
+      /*
+      Using alternate initialState:
+      return {
+        ...state, 
+        getting: true, 
+        success: false
+      } 
+      */
     case GET_MEALS:
       return {
         ...state,
@@ -40,6 +61,15 @@ export const mealsReducer = (state = initialState, action) => {
         gettingMeals: false,
         getMeals: true
       };
+      /*
+      Using alternate initialState:
+      return {
+        ...state, 
+        meal: action.payload,
+        getting: false, 
+        success: true
+      } 
+      */
     case CREATING_MEAL:
       return {
         ...state,
