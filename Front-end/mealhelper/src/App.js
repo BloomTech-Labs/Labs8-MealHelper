@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, withRouter, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 
 /////Dev Created/////////
 import Signup from "./components/signup/signup";
@@ -14,6 +14,18 @@ class App extends Component {
         <div className="main-container">
           <h1>MealHelper</h1>
           <h3>Under construction</h3>
+          <div className="entry-button-group">
+          <Link to ="/signup">
+            <button className="signup-button">
+            <span>Signup</span>
+            </button>
+          </Link>
+          <Link to ="/login">
+            <button className="login-button">
+            <span>Login</span>
+            </button>
+          </Link>
+          </div>
           <div className="signin">
             <Switch>
               <Route exact path='/signup' 
@@ -21,7 +33,7 @@ class App extends Component {
               (<Signup
                 />)}
               />
-              <Route exact path='/login' 
+              <Route path='/login' 
               render={() => 
               (<Login
                 />)}
