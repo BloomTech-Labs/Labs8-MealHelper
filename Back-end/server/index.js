@@ -39,28 +39,32 @@ const userRoutes = require("./users/usersRoutes");
 
 server.use("/users", userRoutes);
 
+server.get("/", (req, res) => {
+	res.status(200).json({ Welcome: " Welcome !" });
+});
+
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++ USERS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-//Register a new user
-// server.post("/register", (req, res) => {
-// 	//Abstraction of req.body
-// 	const { email, password, zip, healthCondition } = req.body;
-// 	//Sets the user to a JSON object of what we pulled from req.body
-// 	const user = { email, password, zip, healthCondition };
-// 	//Hashing the password
-// 	const hash = bcrypt.hashSync(user.password, 15);
-// 	//Setting the password to our hash
-// 	user.password = hash;
-// 	db("users")
-// 		.insert(user)
-// 		.then(user => {
-// 			//Registers the user and generates a jwt token for them
-// 			const token = generateToken(user);
-// 			res.status(201).json(user, { token: token });
-// 		});
-// });
+// Register a new user
+server.post("/register", (req, res) => {
+	//Abstraction of req.body
+	const { email, password, zip, healthCondition } = req.body;
+	//Sets the user to a JSON object of what we pulled from req.body
+	const user = { email, password, zip, healthCondition };
+	//Hashing the password
+	const hash = bcrypt.hashSync(user.password, 15);
+	//Setting the password to our hash
+	user.password = hash;
+	db("users")
+		.insert(user)
+		.then(user => {
+			//Registers the user and generates a jwt token for them
+			const token = generateToken(user);
+			res.status(201).json(user);
+		});
+});
 
 // Login a user
 server.post("/login", (req, res) => {
