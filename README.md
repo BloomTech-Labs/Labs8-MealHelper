@@ -113,3 +113,44 @@
 
 - Requires the id of the ingredient.
 - Returns: a 1 if deleted, a 0 if not deleted.
+
+# Nutrients Endpoints
+
+## GET /nutrients
+**NOTE: DEVELOPER ROUTE ONLY, TESTING ONLY PLEASE**
+
+- Returns all nutrients.
+
+## GET /nutrients/:ingredientID
+
+- Requires an ingredient ID
+- Returns the nutrients from an ingredient.
+
+## POST /nutrients/:ingredientID
+
+- Requires an ingredient ID.
+- Creates a new nutrient for an ingredient.
+- Returns the ingredient.
+
+## POST /nutrients/:id
+- Requires the user id from req.params
+- Requires the name, unit, value,  from req.body
+- Allows a user to make their own nutrient.
+- Returns the nutrient id.
+
+## PUT /nutrients/:id
+
+- Requires the nutrient id from req.params
+- Requires the name, unit, value,  from req.body
+- Returns the nutrient ID that was updated.
+
+## PUT /nutrients/ingredients/:ingredientID
+
+- Requires the ingredient ID.
+- Allows a user to select more than one nutrient from an ingredient to delete.
+- Returns the ingredient that had its nutrients changed.
+
+## DELETE /nutrients/:id
+
+- Requires the nutrients id.
+- Returns a 1 for deleted, or a 0 for not deleted.

@@ -41,6 +41,11 @@ exports.up = function(knex, Promise) {
 			nutrients.string("unit", 6).notNullable();
 			nutrients.integer("value", 6).notNullable();
 			nutrients.integer("nutrients_id").notNullable();
+			nutrients
+				.integer("user_id")
+				.references("id")
+				.inTable("users")
+				.onDelete("cascade");
 		}),
 
 		knex.schema.createTable("mealList", function(mealList) {
