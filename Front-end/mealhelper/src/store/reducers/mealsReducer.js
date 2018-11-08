@@ -1,5 +1,7 @@
 import * as actionTypes from '../actions';
 
+/* Meals Reducer */
+
 const initialState = {
   meals: [],
   gettingMeals: false,
