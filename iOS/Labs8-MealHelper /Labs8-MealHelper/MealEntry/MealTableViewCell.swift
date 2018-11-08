@@ -20,8 +20,8 @@ class MealTableViewCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 8
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 10.0
         return stackView
     }()
     
@@ -31,22 +31,22 @@ class MealTableViewCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
-        stackView.spacing = 30.0
         return stackView
     }()
     
-    private let selectIcon : UIImageView = {
-        let iv = UIImageView(image: UIImage(named: "add")!.withRenderingMode(.alwaysTemplate))
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.tintColor = .gray
-        
-        return iv
+    private let selectButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "add")!.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(UIImage(named: "checked")!.withRenderingMode(.alwaysTemplate), for: .selected)
+        button.tintColor = UIColor.lightGray
+        button.adjustsImageWhenHighlighted = false
+        return button
     }()
     
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        //label.textAlignment = .center
         label.text = "Meal"
         label.font = UIFont.systemFont(ofSize: 17.0)
         return label
@@ -55,31 +55,36 @@ class MealTableViewCell: UITableViewCell {
     private let servingQtyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        //label.textAlignment = .center
         label.text = "5 cups"
         label.font = UIFont.systemFont(ofSize: 14.0)
         return label
     }()
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    
+    // MARK: - Actions
+    
+    @objc func selectMeal(_ button: UIButton) {
+        button.isSelected = !button.isSelected
+        
+        let tintColor = button.isSelected
+            ? UIColor.green
+            : UIColor.lightGray
+        
+        button.tintColor = tintColor
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    
+    // MARK: - Private
     
     private func setupViews() {
         addSubview(mainStackView)
-        mainStackView.addArrangedSubview(imageView!)
+        mainStackView.addArrangedSubview(selectButton)
         mainStackView.addArrangedSubview(labelStackView)
         labelStackView.addArrangedSubview(nameLabel)
         labelStackView.addArrangedSubview(servingQtyLabel)
         
+        mainStackView.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0))
         
+        selectButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        selectButton.addTarget(self, action: #selector(selectMeal), for: .touchUpInside)
         
     }
 

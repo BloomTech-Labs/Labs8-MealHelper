@@ -75,22 +75,18 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as! MealTableViewCell
 
-        
+        cell.meal = "Hi"
 
         return cell
     }
 
-    /*
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
-    /*
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -98,7 +94,6 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.
@@ -118,7 +113,13 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
     // MARK: - Private
     
     private func setupViews() {
-        navigationController?.title = "Meals"
+        self.title = "Meals"
+        let createItem = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(createMeal))
+        navigationItem.setRightBarButton(createItem, animated: true)
+    }
+    
+    @objc func createMeal() {
+        
     }
 
     /*
