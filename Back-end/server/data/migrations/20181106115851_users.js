@@ -14,20 +14,23 @@ exports.up = function(knex, Promise) {
 			recipe.integer("calories", 6).notNullable();
 			recipe.integer("servings", 3).notNullable();
 			recipe
-				.integer("ingredients_id")
+				.integer("user_id")
 				.references("id")
-				.inTable("ingredients")
+				.inTable("users")
 				.onDelete("cascade");
+			recipe.string("ingredients_id");
 		}),
 
 		knex.schema.createTable("ingredients", function(ingredients) {
 			ingredients.increments();
-			ingredients.integer("ndb_id").notNullable();
+			ingredients.integer("ndb_id");
 			ingredients.string("name", 51).notNullable();
+			ingredients.string("nutrients_id");
+
 			ingredients
-				.integer("nutrients_id")
+				.integer("user_id")
 				.references("id")
-				.inTable("nutrients")
+				.inTable("users")
 				.onDelete("cascade");
 		}),
 
@@ -38,6 +41,11 @@ exports.up = function(knex, Promise) {
 			nutrients.string("unit", 6).notNullable();
 			nutrients.integer("value", 6).notNullable();
 			nutrients.integer("nutrients_id").notNullable();
+			nutrients
+				.integer("user_id")
+				.references("id")
+				.inTable("users")
+				.onDelete("cascade");
 		}),
 
 		knex.schema.createTable("mealList", function(mealList) {

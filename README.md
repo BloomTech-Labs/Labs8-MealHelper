@@ -56,3 +56,101 @@
 - Requires the user ID.
 - Deletes all the meals associated with the user ID.
 - Returns: A 1 if deleted, a 0 if not deleted
+
+# Recipe Endpoints
+
+## GET /recipe
+**NOTE: THIS IS A DEVELOPER ROUTE ONLY FOR TESTING PURPOSES**
+- Returns: All the recipes stored in the DB>
+
+## GET /recipe/:userid
+
+- Requires a user ID.
+- Returns: An array of all recipes associated with that user.
+
+## POST /recipe/:userid
+
+- Requires a user ID.
+- The route used to add a new recipe
+- Returns: the ID of the recipe after its been created.
+
+## PUT /recipe/:id
+
+- Requires the ID of the recipe
+- Allows the changing of the recipe.
+- Returns: the ID of the recipe thats been updated.
+
+## DELETE /recipe/:id
+
+- Requires the id of the recipe to be deleted.
+- Returns: A 1 if deleted, a 0 if not deleted.
+
+# Ingredients Endpoints
+
+## GET /ingredients
+**NOTE: THIS IS A DEV ONLY ENDPOINT FOR TESTING ONLY**
+
+- Returns: an array of all ingredients.
+
+## GET /ingredients/:userid
+
+- Requires a user ID.
+- Returns: an array of ingredients made by that user.
+
+## POST /ingredients/:userid
+
+- Requires a user id.
+- When grabbing an ingredient from api or creating a new ingredient, needs to associate to a user.
+- Returns: the new ingredient ID.
+
+## PUT /ingredients/:id
+
+- Requires the id of the ingredient.
+- Changes the nbd_id (from api), the name of the ingredient, or the nutrients associated with it (not a problem if API grabbed).
+- Returns: the id of the ingredient.
+
+## DELETE /ingredients/:id
+
+- Requires the id of the ingredient.
+- Returns: a 1 if deleted, a 0 if not deleted.
+
+# Nutrients Endpoints
+
+## GET /nutrients
+**NOTE: DEVELOPER ROUTE ONLY, TESTING ONLY PLEASE**
+
+- Returns all nutrients.
+
+## GET /nutrients/:ingredientID
+
+- Requires an ingredient ID
+- Returns the nutrients from an ingredient.
+
+## POST /nutrients/:ingredientID
+
+- Requires an ingredient ID.
+- Creates a new nutrient for an ingredient.
+- Returns the ingredient.
+
+## POST /nutrients/:id
+- Requires the user id from req.params
+- Requires the name, unit, value,  from req.body
+- Allows a user to make their own nutrient.
+- Returns the nutrient id.
+
+## PUT /nutrients/:id
+
+- Requires the nutrient id from req.params
+- Requires the name, unit, value,  from req.body
+- Returns the nutrient ID that was updated.
+
+## PUT /nutrients/ingredients/:ingredientID
+
+- Requires the ingredient ID.
+- Allows a user to select more than one nutrient from an ingredient to delete.
+- Returns the ingredient that had its nutrients changed.
+
+## DELETE /nutrients/:id
+
+- Requires the nutrients id.
+- Returns a 1 for deleted, or a 0 for not deleted.
