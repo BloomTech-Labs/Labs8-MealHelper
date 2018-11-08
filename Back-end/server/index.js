@@ -603,7 +603,7 @@ server.delete("/nutrients/:id", (req, res) => {
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //Returns a list of notes associated with a meal
-server.get("/users/:mealid/notes", (req, res) => {
+server.get("notes/:mealid", (req, res) => {
 	const mealId = req.params.mealid;
 	db("notes")
 		//Finds the corrosponding note based on meal ID
@@ -617,7 +617,7 @@ server.get("/users/:mealid/notes", (req, res) => {
 		});
 });
 //POST req to create a note and associate it to a meal
-server.post("/users/:mealid/notes", (req, res) => {
+server.post("notes/:mealid", (req, res) => {
 	//Grabs the meal id from req.params
 	const mealId = req.params.mealid;
 	const { notebody } = req.body;
