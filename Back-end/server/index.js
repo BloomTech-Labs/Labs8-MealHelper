@@ -684,7 +684,7 @@ server.get("/weather/:mealid", (req, res) => {
 			res.status(200).json(weather);
 		})
 		.catch(err => {
-			res.status(400).json({ error: "could not find associated note" });
+			res.status(400).json({ error: "could not find the weather data" });
 		});
 });
 //POST req to create a weather report for that meal
@@ -719,7 +719,86 @@ server.delete("/weather/:mealid", (req, res) => {
 			res.status(200).json(deleted);
 		})
 		.catch(err => {
-			res.status(400).json({ error: "Error deleting note" });
+			res.status(400).json({ error: "Error deleting weather data" });
+		});
+});
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++ ALARMS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//Returns the alarms for that user
+server.get("/alarms/:userid", (req, res) => {
+	const user_ID = req.params.userid;
+	db("alarms")
+		//Finds the alarms associated to that user
+		.where({ user_id: user_ID })
+		.then(alarms => {
+			//Returns the alarms for that user
+			res.status(200).json(alarms);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not find the alarms" });
+		});
+});
+//POST req to create a alarm for the user
+server.post("/alarms/:userid", (req, res) => {
+	//Grabs the user id from req.params
+	const user_ID = req.params.userid;
+	const { beginTime, endTime, beginLimit, endLimit, repeat } = req.body;
+	//Adds the user id to the alarm object
+	const alarm = { beginTime, endTime, beginLimit, endLimit, repeat, user_ID };
+	db("alarms")
+		//Inserts the alarm and sets it to the user
+		.insert(alarm)
+		.then(alarm => {
+			//Returns the alarm
+			res.status(201).json(alarm);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not create alarm" });
+		});
+});
+
+//PUT request to change the alarm settings
+server.put("/alarms/:id", (req, res) => {
+	//Grabs the alarm id from req.params
+	const id = req.params.userid;
+	const { beginTime, endTime, beginLimit, endLimit, repeat } = req.body;
+	// Sets the req.body to an alarm object that gets passed into the update
+	const alarm = { beginTime, endTime, beginLimit, endLimit, repeat };
+	db("alarms")
+		.where({ id: id })
+		.update({
+			beginTime: alarm.beginTime,
+			endTime: alarm.endTime,
+			beginLimit: alarm.beginLimit,
+			endLimit: alarm.beginLimit,
+			repeat: alarm.repeat
+		})
+		.then(alarmID => {
+			//Returns the alarm ID
+			res.status(200).json(alarmID);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not update alarm" });
+		});
+});
+
+//Deletes the alarm for the user
+server.delete("/alarms/:id", (req, res) => {
+	//Grabs alarm id from req.params
+	const id = req.params.mealid;
+	db("alarms")
+		//FInds the meal thats associated with that weather report
+		.where({ id: id })
+		.del()
+		.then(deleted => {
+			//Returns a 1 for deleted or a 0 for not.
+			res.status(200).json(deleted);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Error deleting alarm" });
 		});
 });
 
