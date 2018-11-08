@@ -62,7 +62,7 @@ server.post("/register", (req, res) => {
 		.then(user => {
 			//Registers the user and generates a jwt token for them
 			const token = generateToken(user);
-			res.status(201).json(user, token);
+			res.status(201).json({ user: user, token: token });
 		});
 });
 
