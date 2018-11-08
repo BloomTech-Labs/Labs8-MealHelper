@@ -1,11 +1,11 @@
-import * as actionTypes from '../actions';
+// import * as actionTypes from '../actions';
 
-/* Alarms Reducer */
+// /* Alarms Reducer */
 
-const initialState = {
-  //state
-}
+// const initialState = {
+//   //state
+// }
 
-export const alarmsReducer = (state = initialState, action) => {
-  //switch cases
-}
+// export const alarmsReducer = (state = initialState, action) => {
+//   //switch cases
+// }

@@ -38,6 +38,7 @@ const initialState = {
 
 */
 
+/*
 export const mealsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GETTING_MEALS:
@@ -54,13 +55,13 @@ export const mealsReducer = (state = initialState, action) => {
         success: false
       } 
       */
-    case GET_MEALS:
-      return {
-        ...state,
-        meals: action.payload,
-        gettingMeals: false,
-        getMeals: true
-      };
+    // case GET_MEALS:
+    //   return {
+    //     ...state,
+    //     meals: action.payload,
+    //     gettingMeals: false,
+    //     getMeals: true
+    //   };
       /*
       Using alternate initialState:
       return {
@@ -70,15 +71,15 @@ export const mealsReducer = (state = initialState, action) => {
         success: true
       } 
       */
-    case CREATING_MEAL:
-      return {
-        ...state,
-        creatingMeal: true
-      };
-    case CREATE_MEAL:
-      return {
-        ...state,
-        creatingMeal: false
-      };
-  }
-};
+//     case CREATING_MEAL:
+//       return {
+//         ...state,
+//         creatingMeal: true
+//       };
+//     case CREATE_MEAL:
+//       return {
+//         ...state,
+//         creatingMeal: false
+//       };
+//   }
+// };
