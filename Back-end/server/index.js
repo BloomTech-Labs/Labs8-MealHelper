@@ -482,11 +482,12 @@ server.post("/nutrients/:ingredientID", (req, res) => {
 		});
 });
 //POST request so user can make their own nutrient
-server.post("/nutrients", (req, res) => {
+server.post("/nutrients/:id", (req, res) => {
+	const user_id = req.params.id;
 	//grabs the name unit and value from req.body
 	const { name, unit, value } = req.body;
 	//set the what we grabbed to a new "nutrient"
-	const nutrient = { name, nutrients_id, user_id };
+	const nutrient = { name, unit, value, user_id };
 
 	db("nutrients")
 		.insert(nutrient)
