@@ -2,8 +2,10 @@ const express = require("express");
 const helmet = require("helmet");
 const knex = require("knex");
 const jwt = require("jsonwebtoken");
+
 const dbEngine = process.env.DB || "production";
 const knexConfig = require("./knexfile.js")[dbEngine];
+
 const db = knex(knexConfig.development);
 const server = express();
 const port = process.env.PORT || 3300;
@@ -30,10 +32,6 @@ server.use(express.json());
 
 // 	return jwt.sign(payload, jwtSecret, JwtOptions);
 // }
-
-server.listen(port, () => {
-	console.log(`Server now listening on Port ${port}`);
-});
 
 /////////ROUTE IMPORTS///////////////
 const userRoutes = require("./users/usersRoutes");
