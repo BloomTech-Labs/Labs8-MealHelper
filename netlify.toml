@@ -1,2 +1,2 @@
 [build]
-  base = "Front-end/mealhelper/public"
+  base = "Front-end/mealhelper/"
