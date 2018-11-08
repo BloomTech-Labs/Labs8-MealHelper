@@ -11,7 +11,7 @@ import UIKit
 protocol OnboardingCollectionViewCellDelegate {
     func previousCell()
     func nextCell()
-    func save()
+    func save(user: User)
 }
 
 class OnboardingCollectionViewCell: UICollectionViewCell {
@@ -24,6 +24,8 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
             setupHeader()
         }
     }
+    
+    let personalInfoView = PersonalInfoView()
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -113,7 +115,11 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     
     @objc func save() {
         print("save")
-        delegate?.save()
+        guard let email = personalInfoView.email, let password = personalInfoView.password, let zip = personalInfoView.zip, let intZip = Int(zip), let healthCondition = personalInfoView.height else { return }
+        
+        let user = User(email: email, password: password, zip: intZip, healthCondition: healthCondition)
+        
+        delegate?.save(user: user)
     }
     
     @objc func tappedGenderButton() {
@@ -127,7 +133,6 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         
         mainStackView.addArrangedSubview(questionLabel)
         addSubview(mainStackView)
-        let personalInfoView = PersonalInfoView()
         mainStackView.addArrangedSubview(personalInfoView)
         
         mainStackView.anchor(top: headerStackView.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15.0, left: 15.0, bottom: 150.0, right: 15.0))
@@ -158,6 +163,7 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
     
     var gender: String?
     var username: String?
+    var zip: String?
     var email: String?
     var password: String?
     var birthday: Date?
