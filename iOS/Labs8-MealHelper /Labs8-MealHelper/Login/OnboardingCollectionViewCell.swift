@@ -18,10 +18,6 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    let genders = ["Female", "Male"]
-    let inputFields = ["Username", "Email", "Password", "Birthday", "Height", "Weight"]
-    var textFields = [UITextField]()
-    
     var delegate: OnboardingCollectionViewCellDelegate?
     var isLastCell: Bool = false {
         didSet {
@@ -57,12 +53,6 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private let headerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private let backButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +74,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
         label.textAlignment = .center
-        label.text = "Test"
+        label.text = "Personal Information"
         label.font = UIFont.systemFont(ofSize: 20.0)
         return label
     }()
@@ -140,19 +130,17 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         let personalInfoView = PersonalInfoView()
         mainStackView.addArrangedSubview(personalInfoView)
         
-        mainStackView.anchor(top: headerView.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15.0, left: 15.0, bottom: 150.0, right: 15.0))
+        mainStackView.anchor(top: headerStackView.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15.0, left: 15.0, bottom: 150.0, right: 15.0))
         
     }
     
     private func setupHeader() {
-        addSubview(headerView)
-        headerView.addSubview(headerStackView)
+        addSubview(headerStackView)
         headerStackView.addArrangedSubview(backButton)
         headerStackView.addArrangedSubview(headerTitleLabel)
         headerStackView.addArrangedSubview(nextButton)
         
-        headerView.anchor(top: safeAreaLayoutGuide.topAnchor, leading: self.leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15.0, left: 15.0, bottom: 0, right: 15.0), size: CGSize(width: 0.0, height: 50.0))
-        headerStackView.anchor(top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, trailing: headerView.trailingAnchor)
+        headerStackView.anchor(top: safeAreaLayoutGuide.topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15.0, left: 15.0, bottom: 0, right: 15.0), size: CGSize(width: 0.0, height: 50.0))
         
         let nextButtonAction = isLastCell ? #selector(save) : #selector(nextCell)
         let nextButtonTitle = isLastCell ? "Save" : "Next"
@@ -164,8 +152,10 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
 }
 
 
-class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
+class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
 
+    // MARK: - Properties
+    
     var gender: String?
     var username: String?
     var email: String?
@@ -175,7 +165,14 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     var weight: String?
     
     private let genders = ["Female", "Male"]
+    private var genderButtons = [UIButton]()
+    private let selectedButtonColor = UIColor.red
+    private let unselectedButtonColor = UIColor.lightGray
     private let inputTextFields = ["Username", "Email", "Password", "Birthday", "Height", "Weight"]
+    private let inputPickerTextFields = ["Birthday", "Height", "Weight"]
+    private var editingTextfield: UITextField?
+    private lazy var weights: [Double] = (40...170).map { Double($0) }
+    private var heights: [Double] = (100...270).map { Double($0) }
     
     private let mainStackView: UIStackView = {
         let view = UIStackView()
@@ -203,42 +200,48 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    // MARK: - Private
+    
     private func setupViews() {
         self.addSubview(mainStackView)
         mainStackView.addArrangedSubview(genderButtonStackView)
 
         genders.forEach { (gender) in
             let button = createButton(for: gender)
+            genderButtons.append(button)
             genderButtonStackView.addArrangedSubview(button)
         }
 
         inputTextFields.forEach { (input) in
             let textField = createTextField(for: input)
+            textField.delegate = self
             mainStackView.addArrangedSubview(textField)
             
-            createPicker(for: textField)
+            if inputPickerTextFields.contains(input) { // Only create a picker when it's supposed to
+                createPicker(for: textField)
+            }
         }
 
         mainStackView.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor)
     }
 
-    @objc func tappedGenderButton(_ sender: UIButton) {
-        print("beeep")
-        print(sender.accessibilityIdentifier)
+    @objc private func tappedGenderButton(_ button: UIButton) {
+        genderButtons.forEach { $0.backgroundColor = unselectedButtonColor; $0.isSelected = false }
+        button.backgroundColor = selectedButtonColor
+        gender = button.accessibilityIdentifier
     }
 
     private func createButton(for gender: String) -> UIButton {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.accessibilityIdentifier = gender
+        button.accessibilityIdentifier = gender // Add an id so we can access it later
         button.setTitle(gender, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20.0)
         button.layer.cornerRadius = 8.0
         button.layer.masksToBounds = true
-        button.backgroundColor = .red
+        button.backgroundColor = unselectedButtonColor
         button.tintColor = .white
-        //button.widthAnchor.constraint(equalToConstant: 100.0).isActive = true
         button.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
         button.addTarget(self, action: #selector(tappedGenderButton), for: .touchUpInside)
         return button
@@ -262,33 +265,74 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         return tf
     }
     
+    
+    // MARK: - UIPickerViewDelegate
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        switch pickerView.accessibilityIdentifier {
+        case "Birthday":
+            return 1
+        case "Height":
+            return 1
+        case "Weight":
+            return 1
+        default:
+            return 0
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 10
+        switch pickerView.accessibilityIdentifier {
+        case "Height":
+            return heights.count
+        case "Weight":
+            return weights.count
+        default:
+            return 0
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        // https://developer.apple.com/documentation/foundation/lengthformatter
-        return "hi"
+        switch pickerView.accessibilityIdentifier {
+        case "Height":
+            return getPersonHeightString(heights[row])
+        case "Weight":
+            return getPersonWeightString(weights[row])
+        default:
+            return nil
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // textField.text = pickerDataSource[row]
-
+        switch pickerView.accessibilityIdentifier {
+        case "Height":
+            let heightString = getPersonHeightString(heights[row])
+            editingTextfield?.text = heightString
+            self.height = heightString
+        case "Weight":
+            let weightString = getPersonWeightString(weights[row])
+            editingTextfield?.text = weightString
+            self.weight = weightString
+        default:
+            editingTextfield?.text = nil
+        }
     }
-    
     
     private func createPicker(for input: UITextField) {
         // Create a picker for each text field
-        let picker = UIPickerView()
-        picker.delegate = self
-        picker.dataSource = self
-        input.inputView = picker
-        picker.backgroundColor = .white
-        
+        if input.accessibilityIdentifier == "Birthday" {
+            let datePicker = UIDatePicker()
+            datePicker.datePickerMode = .date
+            datePicker.addTarget(self, action: #selector(setDateTextField), for: .allEvents)
+            input.inputView = datePicker
+        } else {
+            let picker = UIPickerView()
+            picker.delegate = self
+            picker.dataSource = self
+            picker.accessibilityIdentifier = input.accessibilityIdentifier // Add an id so we can determine what picker type to show in delegate methods
+            input.inputView = picker
+        }
+            
         // Create a tool bar above the picker
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
@@ -304,6 +348,45 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @objc private func dismissKeyboard() {
         endEditing(true)
+    }
+    
+    @objc private func setDateTextField(_ sender: UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM dd, yyyy"
+        editingTextfield?.text = formatter.string(from: sender.date)
+        self.birthday = sender.date
+    }
+    
+    private func getPersonWeightString(_ kg: Double) -> String {
+        let massFormatter = MassFormatter()
+        let numberFormatter = NumberFormatter()
+        numberFormatter.allowsFloats = false
+        massFormatter.numberFormatter = numberFormatter
+        massFormatter.isForPersonMassUse = true
+        return massFormatter.string(fromKilograms: kg)
+    }
+    
+    private func getPersonHeightString(_ cm: Double) -> String {
+        let massFormatter = LengthFormatter()
+        let numberFormatter = NumberFormatter()
+        numberFormatter.allowsFloats = false
+        massFormatter.numberFormatter = numberFormatter
+        massFormatter.isForPersonHeightUse = true
+        return massFormatter.string(fromMeters: cm / 100)
+    }
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let textFieldId = textField.accessibilityIdentifier, inputPickerTextFields.contains(textFieldId) { // Disable text editing if it's a picker text field
+            return false
+        }
+        
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        editingTextfield = textField
     }
     
 }
