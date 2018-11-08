@@ -5,7 +5,7 @@ class Signup extends Component {
   render() {
     return (
         <div className="form">
-          <h1>Sign Up</h1>
+          <h1 className="signup-title">Sign Up</h1>
           <form>
             <div className="form-group">
                 <input type="text" id="dynamic-label-input" placeholder="Email"/>
