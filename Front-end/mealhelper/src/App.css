@@ -14,3 +14,32 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.entry-button-group {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1%;
+}
+
+.login-button{
+  width: 200px;
+  height: 50px;
+  font-size: 1em;
+  margin: 2px;
+
+
+}
+
+.signup-button{
+  width: 200px;
+  height: 50px;
+  font-size: 1em;
+  margin: 2px;
+}
+
+.signin {
+  height: 100%vh;
+  display: flex;
+  justify-content: center;
+  padding-top: 5%;
+}
