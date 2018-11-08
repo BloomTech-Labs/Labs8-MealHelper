@@ -13,15 +13,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let loginController = LoginViewController()
-        let navController = UINavigationController(rootViewController: loginController)
-        navController.navigationBar.prefersLargeTitles = true
-        window?.rootViewController = navController
+//        let loginController = LoginViewController()
+//        let navController = UINavigationController(rootViewController: loginController)
+//        navController.navigationBar.prefersLargeTitles = true
+        let homeCollectionViewController = HomeCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        window?.rootViewController = homeCollectionViewController
         
         return true
     }

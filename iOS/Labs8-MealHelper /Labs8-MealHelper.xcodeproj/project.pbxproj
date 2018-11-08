@@ -8,20 +8,68 @@
 
 /* Begin PBXBuildFile section */
 		3D56A9D221934FAA00A91EF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9D121934FAA00A91EF4 /* AppDelegate.swift */; };
-		3D56A9D421934FAB00A91EF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9D321934FAB00A91EF4 /* ViewController.swift */; };
-		3D56A9D721934FAB00A91EF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D56A9D521934FAB00A91EF4 /* Main.storyboard */; };
 		3D56A9D921934FAC00A91EF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D56A9D821934FAC00A91EF4 /* Assets.xcassets */; };
 		3D56A9DC21934FAC00A91EF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D56A9DA21934FAC00A91EF4 /* LaunchScreen.storyboard */; };
+		3D56A9EF2193503300A91EF4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9EE2193503300A91EF4 /* Utils.swift */; };
+		3D56A9F12193504700A91EF4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9F02193504700A91EF4 /* Theme.swift */; };
+		3D56A9F4219350C200A91EF4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9F2219350C200A91EF4 /* LoginView.swift */; };
+		3D56A9F5219350C200A91EF4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9F3219350C200A91EF4 /* LoginViewController.swift */; };
+		3D56A9F8219350EA00A91EF4 /* OnboardingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9F6219350E900A91EF4 /* OnboardingCollectionViewController.swift */; };
+		3D56A9FE21939D3A00A91EF4 /* AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9FD21939D3A00A91EF4 /* AutoLayout.swift */; };
+		AC1DE867219473DD0066172C /* HomeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DE866219473DD0066172C /* HomeCollectionViewController.swift */; };
+		AC1DE8692194748F0066172C /* MealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DE8682194748F0066172C /* MealCell.swift */; };
+		AC4D10732194A7A000317F4C /* ExpandableButton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC4D10722194A79600317F4C /* ExpandableButton.framework */; };
+		AC4D10742194A7A000317F4C /* ExpandableButton.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AC4D10722194A79600317F4C /* ExpandableButton.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AC4D10782194A7BC00317F4C /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4D10772194A7BC00317F4C /* OnboardingCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AC4D10712194A79600317F4C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC4D106D2194A79600317F4C /* ExpandableButton.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AC1DE83E21946E550066172C;
+			remoteInfo = ExpandableButton;
+		};
+		AC4D10752194A7A000317F4C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC4D106D2194A79600317F4C /* ExpandableButton.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AC1DE83D21946E550066172C;
+			remoteInfo = ExpandableButton;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AC1DE86421946EB80066172C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AC4D10742194A7A000317F4C /* ExpandableButton.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3D56A9CE21934FAA00A91EF4 /* Labs8-MealHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Labs8-MealHelper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D56A9D121934FAA00A91EF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3D56A9D321934FAB00A91EF4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3D56A9D621934FAB00A91EF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3D56A9D821934FAC00A91EF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D56A9DB21934FAC00A91EF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D56A9DD21934FAC00A91EF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D56A9EE2193503300A91EF4 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		3D56A9F02193504700A91EF4 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		3D56A9F2219350C200A91EF4 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		3D56A9F3219350C200A91EF4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		3D56A9F6219350E900A91EF4 /* OnboardingCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewController.swift; sourceTree = "<group>"; };
+		3D56A9FD21939D3A00A91EF4 /* AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLayout.swift; sourceTree = "<group>"; };
+		AC1DE866219473DD0066172C /* HomeCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewController.swift; sourceTree = "<group>"; };
+		AC1DE8682194748F0066172C /* MealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCell.swift; sourceTree = "<group>"; };
+		AC4D106D2194A79600317F4C /* ExpandableButton.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExpandableButton.xcodeproj; path = ExpandableButton/ExpandableButton.xcodeproj; sourceTree = "<group>"; };
+		AC4D10772194A7BC00317F4C /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC4D10732194A7A000317F4C /* ExpandableButton.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				3D56A9D021934FAA00A91EF4 /* Labs8-MealHelper */,
+				AC1DE85121946E8A0066172C /* Frameworks */,
 				3D56A9CF21934FAA00A91EF4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,14 +104,85 @@
 		3D56A9D021934FAA00A91EF4 /* Labs8-MealHelper */ = {
 			isa = PBXGroup;
 			children = (
-				3D56A9D121934FAA00A91EF4 /* AppDelegate.swift */,
-				3D56A9D321934FAB00A91EF4 /* ViewController.swift */,
-				3D56A9D521934FAB00A91EF4 /* Main.storyboard */,
+				AC1DE86521946ED50066172C /* Ressources */,
+				3D56A9FC21939CE200A91EF4 /* Home */,
+				3D56A9E321934FCA00A91EF4 /* Login */,
+				3D56AA0021939D9600A91EF4 /* Networking */,
+				3D56A9FF21939D8B00A91EF4 /* Persistence */,
+				3D56A9ED2193501200A91EF4 /* Shared */,
+			);
+			path = "Labs8-MealHelper";
+			sourceTree = "<group>";
+		};
+		3D56A9E321934FCA00A91EF4 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				3D56A9F2219350C200A91EF4 /* LoginView.swift */,
+				3D56A9F3219350C200A91EF4 /* LoginViewController.swift */,
+				AC4D10772194A7BC00317F4C /* OnboardingCollectionViewCell.swift */,
+				3D56A9F6219350E900A91EF4 /* OnboardingCollectionViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		3D56A9ED2193501200A91EF4 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3D56A9EE2193503300A91EF4 /* Utils.swift */,
+				3D56A9F02193504700A91EF4 /* Theme.swift */,
+				3D56A9FD21939D3A00A91EF4 /* AutoLayout.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		3D56A9FC21939CE200A91EF4 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				AC1DE866219473DD0066172C /* HomeCollectionViewController.swift */,
+				AC1DE8682194748F0066172C /* MealCell.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		3D56A9FF21939D8B00A91EF4 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		3D56AA0021939D9600A91EF4 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		AC1DE85121946E8A0066172C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AC4D106D2194A79600317F4C /* ExpandableButton.xcodeproj */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		AC1DE86521946ED50066172C /* Ressources */ = {
+			isa = PBXGroup;
+			children = (
 				3D56A9D821934FAC00A91EF4 /* Assets.xcassets */,
 				3D56A9DA21934FAC00A91EF4 /* LaunchScreen.storyboard */,
 				3D56A9DD21934FAC00A91EF4 /* Info.plist */,
+				3D56A9D121934FAA00A91EF4 /* AppDelegate.swift */,
 			);
-			path = "Labs8-MealHelper";
+			path = Ressources;
+			sourceTree = "<group>";
+		};
+		AC4D106E2194A79600317F4C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AC4D10722194A79600317F4C /* ExpandableButton.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,10 +195,12 @@
 				3D56A9CA21934FAA00A91EF4 /* Sources */,
 				3D56A9CB21934FAA00A91EF4 /* Frameworks */,
 				3D56A9CC21934FAA00A91EF4 /* Resources */,
+				AC1DE86421946EB80066172C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AC4D10762194A7A000317F4C /* PBXTargetDependency */,
 			);
 			name = "Labs8-MealHelper";
 			productName = "Labs8-MealHelper";
@@ -110,12 +233,28 @@
 			mainGroup = 3D56A9C521934FAA00A91EF4;
 			productRefGroup = 3D56A9CF21934FAA00A91EF4 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = AC4D106E2194A79600317F4C /* Products */;
+					ProjectRef = AC4D106D2194A79600317F4C /* ExpandableButton.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3D56A9CD21934FAA00A91EF4 /* Labs8-MealHelper */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		AC4D10722194A79600317F4C /* ExpandableButton.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ExpandableButton.framework;
+			remoteRef = AC4D10712194A79600317F4C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3D56A9CC21934FAA00A91EF4 /* Resources */ = {
@@ -124,7 +263,6 @@
 			files = (
 				3D56A9DC21934FAC00A91EF4 /* LaunchScreen.storyboard in Resources */,
 				3D56A9D921934FAC00A91EF4 /* Assets.xcassets in Resources */,
-				3D56A9D721934FAB00A91EF4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,22 +273,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D56A9D421934FAB00A91EF4 /* ViewController.swift in Sources */,
+				AC1DE8692194748F0066172C /* MealCell.swift in Sources */,
 				3D56A9D221934FAA00A91EF4 /* AppDelegate.swift in Sources */,
+				3D56A9F8219350EA00A91EF4 /* OnboardingCollectionViewController.swift in Sources */,
+				3D56A9FE21939D3A00A91EF4 /* AutoLayout.swift in Sources */,
+				3D56A9EF2193503300A91EF4 /* Utils.swift in Sources */,
+				3D56A9F4219350C200A91EF4 /* LoginView.swift in Sources */,
+				3D56A9F5219350C200A91EF4 /* LoginViewController.swift in Sources */,
+				AC4D10782194A7BC00317F4C /* OnboardingCollectionViewCell.swift in Sources */,
+				AC1DE867219473DD0066172C /* HomeCollectionViewController.swift in Sources */,
+				3D56A9F12193504700A91EF4 /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		3D56A9D521934FAB00A91EF4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3D56A9D621934FAB00A91EF4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
+/* Begin PBXTargetDependency section */
+		AC4D10762194A7A000317F4C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ExpandableButton;
+			targetProxy = AC4D10752194A7A000317F4C /* PBXContainerItemProxy */;
 		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
 		3D56A9DA21934FAC00A91EF4 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -281,10 +427,11 @@
 		3D56A9E121934FAC00A91EF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 84BULQXU2Q;
-				INFOPLIST_FILE = "Labs8-MealHelper/Info.plist";
+				DEVELOPMENT_TEAM = SPRLQ9JET8;
+				INFOPLIST_FILE = "$(SRCROOT)/Labs8-MealHelper/Ressources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -299,10 +446,11 @@
 		3D56A9E221934FAC00A91EF4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 84BULQXU2Q;
-				INFOPLIST_FILE = "Labs8-MealHelper/Info.plist";
+				DEVELOPMENT_TEAM = SPRLQ9JET8;
+				INFOPLIST_FILE = "$(SRCROOT)/Labs8-MealHelper/Ressources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
