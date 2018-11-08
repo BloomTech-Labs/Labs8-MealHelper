@@ -654,9 +654,9 @@ server.put("/notes/:noteid", (req, res) => {
 		});
 });
 //Deletes a note
-server.delete("/note/:id", (req, res) => {
+server.delete("/note/:noteid", (req, res) => {
 	//Grabs note id from req.params
-	const { id } = req.params;
+	const id = req.params.noteid;
 	db("notes")
 		.where({ id: id })
 		.del()
