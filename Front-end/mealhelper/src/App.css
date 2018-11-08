@@ -18,6 +18,7 @@
 .entry-button-group {
   display: flex;
   justify-content: flex-end;
+  padding: 1%;
 }
 
 .login-button{
