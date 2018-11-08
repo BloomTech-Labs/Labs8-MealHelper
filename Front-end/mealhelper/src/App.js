@@ -1,9 +1,12 @@
+/////Static Imports/////////
 import React, { Component } from "react";
 import { Route, Switch, Link } from 'react-router-dom';
+//////////////////////////
 
-/////Dev Created/////////
+/////Dev. Created/////////
 import Signup from "./components/signup/signup";
 import Login from "./components/login/login";
+////////////////////////
 
 import "./App.css";
 
