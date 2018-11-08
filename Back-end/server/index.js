@@ -18,21 +18,21 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-// const jwtSecret = "thisisthesecretkeyplzdonttouch";
+const jwtSecret = "thisisthesecretkeyplzdonttouch";
 
-// function generateToken(user) {
-// 	const payload = {
-// 		id: user.id,
+function generateToken(user) {
+	const payload = {
+		id: user.id,
 
-// 		hello: "Hello!"
-// 	};
+		hello: "Hello!"
+	};
 
-// 	const JwtOptions = {
-// 		expiresIn: "2h"
-// 	};
+	const JwtOptions = {
+		expiresIn: "2h"
+	};
 
-// 	return jwt.sign(payload, jwtSecret, JwtOptions);
-// }
+	return jwt.sign(payload, jwtSecret, JwtOptions);
+}
 
 /////////ROUTE IMPORTS///////////////
 const userRoutes = require("./users/usersRoutes");
@@ -62,7 +62,7 @@ server.post("/register", (req, res) => {
 		.then(user => {
 			//Registers the user and generates a jwt token for them
 			const token = generateToken(user);
-			res.status(201).json(user);
+			res.status(201).json(user, token);
 		});
 });
 
