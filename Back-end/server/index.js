@@ -77,7 +77,7 @@ server.post("/register", (req, res) => {
 			res.status(201).json({ user: user, token: token });
 		})
 		.catch(err => {
-			res.status(400).json({ error: "Could not create a user" });
+			res.status(400).json({ msg: err, error: "Could not create a user" });
 		});
 });
 
