@@ -8,7 +8,7 @@ class Login extends Component {
     //     event.preventDefault();
     //     this.setState({
     //       user: {
-    //         ...this.state.note,
+    //         ...this.state.user,
     //         [event.target.name]: event.target.value,
     //       }
           

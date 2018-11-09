@@ -7,7 +7,7 @@ class Signup extends Component {
     //     event.preventDefault();
     //     this.setState({
     //       note: {
-    //         ...this.state.note,
+    //         ...this.state.user,
     //         [event.target.name]: event.target.value,
     //       }
           
