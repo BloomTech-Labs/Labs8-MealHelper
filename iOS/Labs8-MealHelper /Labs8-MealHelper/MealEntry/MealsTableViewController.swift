@@ -39,8 +39,6 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(MealTableViewCell.self, forCellReuseIdentifier: "MealCell")
-//        createMealBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(createMeal))
-//        addMealBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(addMeal))
         setupViews()
     }
     
@@ -111,7 +109,7 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
         }
         edit.backgroundColor = .green
         
-        let remove = UITableViewRowAction(style: .destructive, title: "Remove") { (remove, indexPath) in
+        let remove = UITableViewRowAction(style: .destructive, title: "Delete") { (remove, indexPath) in
             
             // Remove
         }
@@ -119,19 +117,9 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
         return [remove, edit]
     }
 
-    // Override to support editing the table view.
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            // Delete the row from the data source
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//        } else if editingStyle == .insert {
-//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-//        }
-//    }
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? MealTableViewCell {
-            cell.selectMeal(cell.selectButton)
+            cell.selectRow(cell.selectButton)
         }
         
         if selectedMealsAtIndex.contains(indexPath.row) {
@@ -155,17 +143,8 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
     }
     
     @objc func addMeal() {
-        
+        let notesViewController = NotesViewController()
+        navigationController?.pushViewController(notesViewController, animated: true)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -10,13 +10,15 @@ import UIKit
 
 class MealTableViewCell: UITableViewCell {
     
+    // MARK: - Public properties
+    
     var meal: String? {
         didSet {
             setupViews()
         }
     }
     
-    var isCheckMarked: Bool = false
+    // MARK: - Private properties
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -63,7 +65,7 @@ class MealTableViewCell: UITableViewCell {
     
     // MARK: - Actions
     
-    @objc func selectMeal(_ button: UIButton) {
+    @objc func selectRow(_ button: UIButton) {
         button.isSelected = !button.isSelected
         
         let tintColor = button.isSelected
@@ -85,7 +87,7 @@ class MealTableViewCell: UITableViewCell {
         mainStackView.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0))
         
         selectButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        selectButton.addTarget(self, action: #selector(selectMeal), for: .touchUpInside)
+        selectButton.addTarget(self, action: #selector(selectRow), for: .touchUpInside)
         
     }
 
