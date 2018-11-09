@@ -4,7 +4,20 @@ import './login.css';
 
 
 class Login extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+          users: [],
+          user: 
+          {
+            tags: [],
+            name: '',
+            description: '',
+            completed:''
+          },
+        };
+      }
+      
     handleChange = event => {
         event.preventDefault();
         this.setState({
@@ -18,7 +31,7 @@ class Login extends Component {
 
     handleAddNewUser = event => {
         event.preventDefault();
-        console.log('firing');
+        // console.log('firing');
          axios
         .post('https://labs8-meal-helper.herokuapp.com/users', this.state.users)
         .then(response => this.setState({user: response.data }), window.location ="/thanks")

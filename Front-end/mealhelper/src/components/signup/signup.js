@@ -3,7 +3,20 @@ import './signup.css';
 import axios from "axios";
 
 class Signup extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+          users: [],
+          user: 
+          {
+            tags: [],
+            name: '',
+            description: '',
+            completed:''
+          },
+        };
+      }
+      
     handleChange = event => {
         event.preventDefault();
         this.setState({
