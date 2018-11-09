@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import axios from "axios";
+import axios from "axios";
 import './login.css';
 
 
@@ -19,9 +19,9 @@ class Login extends Component {
     handleAddNewUser = event => {
         event.preventDefault();
         console.log('firing');
-        //  axios
-        // .post('http://localhost:9000/users', this.state.users)
-        // .then(response => this.setState({user: response.data }), window.location ="/thanks")
+         axios
+        .post('https://labs8-meal-helper.herokuapp.com/users', this.state.users)
+        .then(response => this.setState({user: response.data }), window.location ="/thanks")
     };
 
 

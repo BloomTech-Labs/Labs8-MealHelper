@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import './signup.css';
+import axios from "axios";
 
 class Signup extends Component {
 
@@ -14,13 +15,13 @@ class Signup extends Component {
     //     });
     //   };
 
-    // handleAddNewUser = event => {
-    //     event.preventDefault();
-    //     // console.log('firing');
-    //      axios
-    //     .post('http://localhost:9000/users', this.state.users)
-    //     .then(response => this.setState({user: response.data }), window.location ="/thanks")
-    // };
+    handleAddNewUser = event => {
+        event.preventDefault();
+        // console.log('firing');
+         axios
+        .post('https://labs8-meal-helper.herokuapp.com/users', this.state.users)
+        .then(response => this.setState({user: response.data }), window.location ="/thanks")
+    };
 
 
   render() {
@@ -44,7 +45,7 @@ class Signup extends Component {
                     <input type="text" id="dynamic-label-input" placeholder="Health Condition"/>
                     <label htmlFor="dynamic-label-input">Health Condition</label>
                 </div>
-                <div class="signup signup-two">
+                <div class="signup signup-two" onClick={this.handleAddNewUser}>
                     <span>Sign Up</span>
                 </div>
             </form>
