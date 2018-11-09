@@ -165,6 +165,23 @@
 			path = MealEntry;
 			sourceTree = "<group>";
 		};
+		3D56A9FF21939D8B00A91EF4 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		3D56AA0021939D9600A91EF4 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				AC4D107B2194DAC300317F4C /* APIClient.swift */,
+				AC4D107D2194DD6700317F4C /* Response.swift */,
+				AC4D107F2194E53600317F4C /* HTTPMethod.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		AC1DE85121946E8A0066172C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
