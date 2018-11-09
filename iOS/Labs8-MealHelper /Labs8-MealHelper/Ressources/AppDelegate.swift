@@ -17,11 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-//        let loginController = LoginViewController()
-//        let navController = UINavigationController(rootViewController: loginController)
-//        navController.navigationBar.prefersLargeTitles = true
-        let homeCollectionViewController = HomeCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        window?.rootViewController = homeCollectionViewController
+        let loginController = LoginViewController()
+        let navController = UINavigationController(rootViewController: loginController)
+        navController.navigationBar.prefersLargeTitles = true
+//        let homeCollectionViewController = HomeCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+//        window?.rootViewController = homeCollectionViewController
+        window?.rootViewController = navController
         
         return true
     }

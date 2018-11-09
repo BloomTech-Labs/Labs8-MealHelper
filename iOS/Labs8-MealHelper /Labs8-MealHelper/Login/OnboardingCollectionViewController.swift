@@ -98,6 +98,20 @@ extension OnboardingCollectionViewController: UICollectionViewDelegateFlowLayout
 
 extension OnboardingCollectionViewController: OnboardingCollectionViewCellDelegate {
     
+    func save(user: User) {
+        APIClient.shared.register(with: user) { (response) in
+            
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let id):
+                    print("success: \(id)")
+                case .error(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+
     func previousCell() {
         let contentOffset = collectionView.contentOffset
         
@@ -120,9 +134,4 @@ extension OnboardingCollectionViewController: OnboardingCollectionViewCellDelega
                                                   width: cellSize.width,
                                                   height: cellSize.height), animated: true)
     }
-    
-    func save() {
-        // Save user information
-    }
-    
 }

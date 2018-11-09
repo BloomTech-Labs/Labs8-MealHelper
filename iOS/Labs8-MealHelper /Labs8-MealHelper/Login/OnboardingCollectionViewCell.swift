@@ -11,7 +11,7 @@ import UIKit
 protocol OnboardingCollectionViewCellDelegate {
     func previousCell()
     func nextCell()
-    func save()
+    func save(user: User)
 }
 
 class OnboardingCollectionViewCell: UICollectionViewCell {
@@ -24,6 +24,8 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
             setupHeader()
         }
     }
+    
+    let personalInfoView = PersonalInfoView()
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -113,7 +115,11 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     
     @objc func save() {
         print("save")
-        delegate?.save()
+        guard let email = personalInfoView.email, let password = personalInfoView.password, let healthCondition = personalInfoView.height else { return }
+        
+        let user = User(email: email, password: password, zip: 3300, healthCondition: healthCondition)
+        
+        delegate?.save(user: user)
     }
     
     @objc func tappedGenderButton() {
@@ -127,7 +133,6 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         
         mainStackView.addArrangedSubview(questionLabel)
         addSubview(mainStackView)
-        let personalInfoView = PersonalInfoView()
         mainStackView.addArrangedSubview(personalInfoView)
         
         mainStackView.anchor(top: headerStackView.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15.0, left: 15.0, bottom: 150.0, right: 15.0))
@@ -158,6 +163,7 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
     
     var gender: String?
     var username: String?
+    var zip: String?
     var email: String?
     var password: String?
     var birthday: Date?
@@ -387,6 +393,23 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         editingTextfield = textField
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField.accessibilityIdentifier {
+        case "Username":
+            self.username = textField.text
+        case "Email":
+            self.email = textField.text
+        case "Password":
+            self.password = textField.text
+        case "Height":
+            self.height = textField.text
+        case "Weight":
+            self.zip = textField.text
+        default:
+            break
+        }
     }
     
 }
