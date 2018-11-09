@@ -3,6 +3,7 @@ import './signup.css';
 import axios from "axios";
 
 class Signup extends Component {
+    /////REMOVE THIS IN THE SECOND WEEK
     constructor(props) {
         super(props);
         this.state = {
