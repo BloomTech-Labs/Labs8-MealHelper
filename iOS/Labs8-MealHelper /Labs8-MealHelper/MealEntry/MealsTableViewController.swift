@@ -27,15 +27,20 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
     
     let meals = ["Chicken tandori", "Pork BBQ", "French Fries"]
     
-    var createMealBarButton: UIBarButtonItem!
-    var addMealBarButton: UIBarButtonItem!
+    lazy private var createMealBarButton: UIBarButtonItem = {
+       return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createMeal))
+    }()
+    
+    lazy private var addMealBarButton: UIBarButtonItem = {
+       return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(addMeal))
+    }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(MealTableViewCell.self, forCellReuseIdentifier: "MealCell")
-        createMealBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(createMeal))
-        addMealBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(addMeal))
+//        createMealBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(createMeal))
+//        addMealBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(addMeal))
         setupViews()
     }
     
@@ -92,13 +97,11 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
         let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as! MealTableViewCell
 
         cell.meal = "Hi"
-        //cell.selectButton.tintColor = cell.isCheckMarked ? .green : .gray
 
         return cell
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
     
@@ -127,7 +130,9 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
 //    }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as! MealTableViewCell
+        if let cell = tableView.cellForRow(at: indexPath) as? MealTableViewCell {
+            cell.selectMeal(cell.selectButton)
+        }
         
         if selectedMealsAtIndex.contains(indexPath.row) {
             guard let index = selectedMealsAtIndex.index(of: indexPath.row) else { return }
@@ -136,17 +141,12 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
             selectedMealsAtIndex.append(indexPath.row)
         }
         
-//        tableView.beginUpdates()
-//        cell.selectMeal(cell.selectButton)
-//        tableView.reloadRows(at: [indexPath], with: .automatic)
-//        tableView.endUpdates()
     }
     
     // MARK: - Private
     
     private func setupViews() {
         self.title = "Meals"
-//        let createItem = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(createMeal))
         navigationItem.setRightBarButton(createMealBarButton, animated: true)
     }
     
