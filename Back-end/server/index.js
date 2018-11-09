@@ -35,13 +35,13 @@ function generateToken(user) {
 }
 
 /////////ROUTE IMPORTS///////////////
-const userRoutes = require("./users/usersRoutes");
+// const userRoutes = require("./users/usersRoutes");
 
-server.use("/users", userRoutes);
+// server.use("/users", userRoutes);
 
-server.get("/", (req, res) => {
-	res.status(200).json({ Welcome: " Welcome !" });
-});
+// server.get("/", (req, res) => {
+// 	res.status(200).json({ Welcome: " Welcome !" });
+// });
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++ USERS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
