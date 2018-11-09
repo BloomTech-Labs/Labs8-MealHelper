@@ -18,21 +18,21 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-// const jwtSecret = "thisisthesecretkeyplzdonttouch";
+const jwtSecret = "thisisthesecretkeyplzdonttouch";
 
-// function generateToken(user) {
-// 	const payload = {
-// 		id: user.id,
+function generateToken(user) {
+	const payload = {
+		id: user.id,
 
-// 		hello: "Hello!"
-// 	};
+		hello: "Hello!"
+	};
 
-// 	const JwtOptions = {
-// 		expiresIn: "2h"
-// 	};
+	const JwtOptions = {
+		expiresIn: "2h"
+	};
 
-// 	return jwt.sign(payload, jwtSecret, JwtOptions);
-// }
+	return jwt.sign(payload, jwtSecret, JwtOptions);
+}
 
 /////////ROUTE IMPORTS///////////////
 const userRoutes = require("./users/usersRoutes");
@@ -46,23 +46,37 @@ server.get("/", (req, res) => {
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++ USERS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+server.get("/users", (req, res) => {
+	db("users")
+		.then(users => {
+			res.status(200).json(users);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not grab users" });
+		});
+});
 // Register a new user
 server.post("/register", (req, res) => {
 	//Abstraction of req.body
 	const { email, password, zip, healthCondition } = req.body;
+	console.log(req.body);
 	//Sets the user to a JSON object of what we pulled from req.body
 	const user = { email, password, zip, healthCondition };
 	//Hashing the password
+	console.log(user);
 	const hash = bcrypt.hashSync(user.password, 15);
 	//Setting the password to our hash
 	user.password = hash;
 	db("users")
 		.insert(user)
 		.then(user => {
+			console.log(user);
 			//Registers the user and generates a jwt token for them
 			const token = generateToken(user);
-			res.status(201).json(user);
+			res.status(201).json({ user: user, token: token });
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not create a user" });
 		});
 });
 
@@ -177,7 +191,7 @@ server.post("/users/:userid/meals", (req, res) => {
 			res.status(200).json(mealID);
 		})
 		.catch(err => {
-			res.status(400).json({ error: "Error creating a new meal." });
+			res.status(400).json({ msg: err, error: "Error creating a new meal." });
 		});
 });
 //PUT request to change the recipes, meal time, experience or experience
@@ -760,7 +774,7 @@ server.post("/alarms/:userid", (req, res) => {
 			res.status(201).json(alarm);
 		})
 		.catch(err => {
-			res.status(400).json({ error: "Could not create alarm" });
+			res.status(400).json({ msg: err, error: "Could not create alarm" });
 		});
 });
 
