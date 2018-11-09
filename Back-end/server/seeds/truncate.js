@@ -6,13 +6,13 @@
 
 exports.seed = async function(knex, Promise) {
 	await knex.schema.table("mealList", function(tbl) {
-		tbl.dropForeign("recipe_id");
 		tbl.dropForeign("user_id");
 	});
 	await knex.schema.table("ingredients", function(tbl) {
 		tbl.dropForeign("user_id");
 	});
 	await knex.schema.table("recipe", function(tbl) {
+		tbl.dropForeign("meal_id");
 		tbl.dropForeign("user_id");
 	});
 	await knex.schema.table("nutrients", function(tbl) {
