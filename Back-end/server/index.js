@@ -35,13 +35,13 @@ function generateToken(user) {
 }
 
 /////////ROUTE IMPORTS///////////////
-const userRoutes = require("./users/usersRoutes");
+// const userRoutes = require("./users/usersRoutes");
 
-server.use("/users", userRoutes);
+// server.use("/users", userRoutes);
 
-server.get("/", (req, res) => {
-	res.status(200).json({ Welcome: " Welcome !" });
-});
+// server.get("/", (req, res) => {
+// 	res.status(200).json({ Welcome: " Welcome !" });
+// });
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++ USERS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
@@ -63,20 +63,24 @@ server.post("/register", (req, res) => {
 	//Sets the user to a JSON object of what we pulled from req.body
 	const user = { email, password, zip, healthCondition };
 	//Hashing the password
-	console.log(user);
+
 	const hash = bcrypt.hashSync(user.password, 15);
 	//Setting the password to our hash
 	user.password = hash;
+	console.log(user);
 	db("users")
 		.insert(user)
 		.then(user => {
-			console.log(user);
-			//Registers the user and generates a jwt token for them
-			const token = generateToken(user);
-			res.status(201).json({ user: user, token: token });
+			db("users")
+				.then(user => {
+					res.status(200).json(user);
+				})
+				.catch(err => {
+					res.status(400).json({ error: "Could not grab user" });
+				});
 		})
 		.catch(err => {
-			res.status(400).json({ error: "Could not create a user" });
+			res.status(400).json({ msg: err, error: "Could not create a user" });
 		});
 });
 
@@ -179,9 +183,9 @@ server.get("/users/:userid/meals", (req, res) => {
 server.post("/users/:userid/meals", (req, res) => {
 	//grabs either the user id from req.params OR from the req.body (need to make choice later)
 	const userId = req.params.userid;
-	const { recipe_id, user_id, mealTime, experience, date } = req.body;
+	const { user_id, mealTime, experience, date } = req.body;
 	//Grabs the associated data from req.body and sets it as a JSON to meal
-	const meal = { recipe_id, user_id, mealTime, experience, date };
+	const meal = { user_id, mealTime, experience, date };
 	console.log(meal);
 
 	db("mealList")
@@ -197,12 +201,11 @@ server.post("/users/:userid/meals", (req, res) => {
 //PUT request to change the recipes, meal time, experience or experience
 server.put("/meals/:mealID", (req, res) => {
 	const id = req.params.mealID;
-	const { recipe_id, user_id, mealTime, experience } = req.body;
-	const meal = { recipe_id, user_id, mealTime, experience };
+	const { user_id, mealTime, experience } = req.body;
+	const meal = { user_id, mealTime, experience };
 	db("mealList")
 		.where({ id: id })
 		.update({
-			recipe_id: meal.recipe_id,
 			mealTime: meal.mealTime,
 			experience: meal.experience
 		})
@@ -284,10 +287,10 @@ server.get("/recipe/:userid", (req, res) => {
 server.post("/recipe/:userid", (req, res) => {
 	//grabs the user id from the req.params
 	const user_id = req.params.userid;
-	const { name, calories, servings, ingredients_id } = req.body;
+	const { meal_id, name, calories, servings, ingredients_id } = req.body;
 	//Grabs the associated data from req.body and sets it as a JSON to recipe
 	//NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-	const recipe = { name, user_id, calories, servings, ingredients_id };
+	const recipe = { meal_id, name, user_id, calories, servings, ingredients_id };
 	console.log(recipe);
 
 	db("recipe")
@@ -763,9 +766,9 @@ server.get("/alarms/:userid", (req, res) => {
 server.post("/alarms/:userid", (req, res) => {
 	//Grabs the user id from req.params
 	const user_ID = req.params.userid;
-	const { beginTime, endTime, beginLimit, endLimit, repeat } = req.body;
+	const { beginTime, endTime, beginLimit, endLimit, repeats } = req.body;
 	//Adds the user id to the alarm object
-	const alarm = { beginTime, endTime, beginLimit, endLimit, repeat, user_ID };
+	const alarm = { beginTime, endTime, beginLimit, endLimit, repeats, user_ID };
 	db("alarms")
 		//Inserts the alarm and sets it to the user
 		.insert(alarm)
