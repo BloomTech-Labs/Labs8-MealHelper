@@ -16,7 +16,6 @@
 		3D56A9F5219350C200A91EF4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9F3219350C200A91EF4 /* LoginViewController.swift */; };
 		3D56A9F8219350EA00A91EF4 /* OnboardingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9F6219350E900A91EF4 /* OnboardingCollectionViewController.swift */; };
 		3D56A9FE21939D3A00A91EF4 /* AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9FD21939D3A00A91EF4 /* AutoLayout.swift */; };
-		3D90DE682194C514006C116B /* MealClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90DE672194C514006C116B /* MealClient.swift */; };
 		3D90DE6B2194CE3F006C116B /* MealsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90DE6A2194CE3F006C116B /* MealsTableViewController.swift */; };
 		3D90DE6D2194CFFE006C116B /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90DE6C2194CFFE006C116B /* MealTableViewCell.swift */; };
 		3D90DE6F2194D39D006C116B /* MealEntry.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D90DE6E2194D39D006C116B /* MealEntry.xcassets */; };
@@ -72,7 +71,6 @@
 		3D56A9F3219350C200A91EF4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3D56A9F6219350E900A91EF4 /* OnboardingCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewController.swift; sourceTree = "<group>"; };
 		3D56A9FD21939D3A00A91EF4 /* AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLayout.swift; sourceTree = "<group>"; };
-		3D90DE672194C514006C116B /* MealClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealClient.swift; sourceTree = "<group>"; };
 		3D90DE6A2194CE3F006C116B /* MealsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsTableViewController.swift; sourceTree = "<group>"; };
 		3D90DE6C2194CFFE006C116B /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 		3D90DE6E2194D39D006C116B /* MealEntry.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MealEntry.xcassets; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 				3D56A9FC21939CE200A91EF4 /* Home */,
 				3D56A9E321934FCA00A91EF4 /* Login */,
 				3D90DE692194CCF4006C116B /* MealEntry */,
-				3D90DE662194C504006C116B /* Networking */,
 				3D56A9ED2193501200A91EF4 /* Shared */,
 			);
 			path = "Labs8-MealHelper";
@@ -155,14 +152,6 @@
 				AC1DE8682194748F0066172C /* MealCell.swift */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		3D90DE662194C504006C116B /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				3D90DE672194C514006C116B /* MealClient.swift */,
-			);
-			path = Networking;
 			sourceTree = "<group>";
 		};
 		3D90DE692194CCF4006C116B /* MealEntry */ = {
@@ -295,7 +284,6 @@
 			files = (
 				3D90DE6D2194CFFE006C116B /* MealTableViewCell.swift in Sources */,
 				AC1DE8692194748F0066172C /* MealCell.swift in Sources */,
-				3D90DE682194C514006C116B /* MealClient.swift in Sources */,
 				3D90DE6B2194CE3F006C116B /* MealsTableViewController.swift in Sources */,
 				3D56A9D221934FAA00A91EF4 /* AppDelegate.swift in Sources */,
 				3D56A9F8219350EA00A91EF4 /* OnboardingCollectionViewController.swift in Sources */,
