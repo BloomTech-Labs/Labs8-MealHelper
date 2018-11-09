@@ -6,6 +6,7 @@ exports.up = function(knex) {
 		weather.integer("temp").notNullable();
 		weather.integer("humidity").notNullable();
 		weather.integer("pressure").notNullable();
+		weather.integer("meal_id");
 		weather
 			.foreign("meal_id")
 			.references("mealList.id")

@@ -6,6 +6,7 @@ exports.up = function(knex) {
 		nutrients.string("unit", 6).notNullable();
 		nutrients.integer("value", 6).notNullable();
 		nutrients.integer("nutrients_id").notNullable();
+		nutrients.integer("user_id");
 		nutrients.foreign("user_id").references("users.id");
 	});
 };

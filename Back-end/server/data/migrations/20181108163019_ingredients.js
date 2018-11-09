@@ -4,6 +4,7 @@ exports.up = function(knex) {
 		ingredients.integer("ndb_id");
 		ingredients.string("name", 51).notNullable();
 		ingredients.string("nutrients_id");
+		ingredients.integer("user_id");
 		ingredients.foreign("user_id").references("users.id");
 	});
 };

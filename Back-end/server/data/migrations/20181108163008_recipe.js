@@ -4,6 +4,7 @@ exports.up = function(knex) {
 		recipe.string("name", 51).notNullable();
 		recipe.integer("calories", 6).notNullable();
 		recipe.integer("servings", 3).notNullable();
+		recipe.integer("user_id");
 		recipe
 			.foreign("user_id")
 			.references("users.id")

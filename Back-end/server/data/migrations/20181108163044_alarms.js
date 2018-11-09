@@ -6,6 +6,7 @@ exports.up = function(knex) {
 		alarms.integer("beginLimit").notNullable();
 		alarms.integer("endLimit").notNullable();
 		alarms.integer("repeats").notNullable();
+		alarms.integer("user_id");
 		alarms
 			.foreign("user_id")
 			.references("users.id")
