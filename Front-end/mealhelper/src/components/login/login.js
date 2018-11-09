@@ -10,14 +10,12 @@ class Login extends Component {
           users: [],
           user: 
           {
-            tags: [],
-            name: '',
-            description: '',
-            completed:''
+            email: '',
+            password: ''
           },
         };
       }
-      
+
     handleChange = event => {
         event.preventDefault();
         this.setState({
@@ -33,7 +31,7 @@ class Login extends Component {
         event.preventDefault();
         // console.log('firing');
          axios
-        .post('https://labs8-meal-helper.herokuapp.com/users', this.state.users)
+        .post('https://labs8-meal-helper.herokuapp.com/users/login', this.state.users)
         .then(response => this.setState({user: response.data }), window.location ="/thanks")
     };
 
