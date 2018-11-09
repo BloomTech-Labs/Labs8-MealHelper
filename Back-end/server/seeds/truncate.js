@@ -26,15 +26,6 @@ exports.seed = async function(knex, Promise) {
 		tbl.dropForeign("meal_id");
 	});
 
-	await knex("users").truncate();
-	await knex("mealList").truncate();
-	await knex("ingredients").truncate();
-	await knex("recipe").truncate();
-	await knex("nutrients").truncate();
-	await knex("alarms").truncate();
-	await knex("weather").truncate();
-	await knex("notes").truncate();
-
 	await knex.schema.table("mealList", function(tbl) {
 		tbl.foreign("user_id").references("users.id");
 		tbl.foreign("recipe_id").references("recipe.id");
