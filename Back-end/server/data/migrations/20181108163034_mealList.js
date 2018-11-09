@@ -1,19 +1,10 @@
 exports.up = function(knex) {
 	return knex.schema.createTable("mealList", function(mealList) {
-		mealList.increments();
-		mealList
-			.integer("recipe_id")
-			.unsigned()
-			.references("id")
-			.inTable("recipe")
-			.onDelete("cascade");
-		mealList
-			.integer("user_id")
-			.unsigned()
-			.references("id")
-			.inTable("users")
-			.onDelete("cascade")
-			.notNullable();
+		mealList.increments("id").primary();
+		mealList.foreign("recipe_id").references("recipe.id");
+
+		mealList.foreign("user_id").references("users.id");
+
 		mealList.string("mealTime").notNullable();
 		mealList.string("experience");
 		mealList.string("date").notNullable();

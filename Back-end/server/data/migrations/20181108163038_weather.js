@@ -1,16 +1,14 @@
 exports.up = function(knex) {
 	return knex.schema.createTable("weather", function(weather) {
-		weather.increments();
+		weather.increments("id").primary();
 		weather.string("name").notNullable();
 		weather.string("description").notNullable();
 		weather.integer("temp").notNullable();
 		weather.integer("humidity").notNullable();
 		weather.integer("pressure").notNullable();
 		weather
-			.integer("mealId")
-			.unsigned()
-			.references("id")
-			.inTable("mealList")
+			.foreign("meal_id")
+			.references("mealList.id")
 			.onDelete("cascade");
 	});
 };

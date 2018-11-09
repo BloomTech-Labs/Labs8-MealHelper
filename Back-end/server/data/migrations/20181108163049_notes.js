@@ -1,13 +1,8 @@
 exports.up = function(knex) {
 	return knex.schema.createTable("notes", function(notes) {
-		notes.increments();
+		notes.increments("id").primary();
 		notes.string("notebody");
-		notes
-			.integer("mealList_id")
-			.unsigned()
-			.references("id")
-			.inTable("mealList")
-			.onDelete("cascade");
+		notes.foreign("meal_id").references("mealList.id");
 	});
 };
 

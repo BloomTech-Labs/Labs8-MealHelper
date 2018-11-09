@@ -1,16 +1,14 @@
 exports.up = function(knex) {
 	return knex.schema.createTable("recipe", function(recipe) {
-		recipe.increments();
+		recipe.increments("id").primary();
 		recipe.string("name", 51).notNullable();
 		recipe.integer("calories", 6).notNullable();
 		recipe.integer("servings", 3).notNullable();
 		recipe
-			.integer("user_id")
-			.unsigned()
-			.references("id")
-			.inTable("users")
-			.onDelete("cascade")
-			.notNullable();
+			.foreign("user_id")
+			.references("users.id")
+			.onDelete("cascade");
+
 		recipe.string("ingredients_id");
 	});
 };
