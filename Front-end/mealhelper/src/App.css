@@ -25,16 +25,22 @@
   width: 200px;
   height: 50px;
   font-size: 1em;
-  margin: 2px;
+  margin: 6px;
+  outline: 3px solid rgb(192, 181, 31);
+  background-image: linear-gradient(to right, #ECE9E6 0%, #FFFFFF 51%, #ECE9E6 100%)
+}
 
-
+.login-button:hover { 
+  background-position: right center 
 }
 
 .signup-button{
   width: 200px;
   height: 50px;
   font-size: 1em;
-  margin: 2px;
+  margin: 6px;
+  outline: 3px solid rgb(192, 181, 31);
+  background-image: linear-gradient(to right, #ECE9E6 0%, #FFFFFF 51%, #ECE9E6 100%)
 }
 
 .signin {
