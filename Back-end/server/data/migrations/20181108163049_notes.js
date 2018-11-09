@@ -1,4 +1,4 @@
-exports.up = function(knex, Promise) {
+exports.up = function(knex) {
 	return knex.schema.createTable("notes", function(notes) {
 		notes.increments();
 		notes.string("notebody");
@@ -11,6 +11,6 @@ exports.up = function(knex, Promise) {
 	});
 };
 
-exports.down = function(knex, Promise) {
+exports.down = function(knex) {
 	return knex.schema.dropTableIfExists("notes");
 };

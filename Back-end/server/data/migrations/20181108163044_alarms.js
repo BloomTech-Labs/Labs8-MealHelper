@@ -1,4 +1,4 @@
-exports.up = function(knex, Promise) {
+exports.up = function(knex) {
 	return knex.schema.createTable("alarms", function(alarms) {
 		alarms.increments();
 		alarms.integer("beginTime").notNullable();
@@ -15,6 +15,6 @@ exports.up = function(knex, Promise) {
 	});
 };
 
-exports.down = function(knex, Promise) {
+exports.down = function(knex) {
 	return knex.schema.dropTableIfExists("alarms");
 };
