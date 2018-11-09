@@ -774,7 +774,7 @@ server.post("/alarms/:userid", (req, res) => {
 			res.status(201).json(alarm);
 		})
 		.catch(err => {
-			res.status(400).json({ error: "Could not create alarm" });
+			res.status(400).json({ msg: err, error: "Could not create alarm" });
 		});
 });
 
