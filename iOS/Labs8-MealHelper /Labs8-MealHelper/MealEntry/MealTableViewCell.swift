@@ -16,6 +16,8 @@ class MealTableViewCell: UITableViewCell {
         }
     }
     
+    var isCheckMarked: Bool = false
+    
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,13 +36,12 @@ class MealTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    private let selectButton: UIButton = {
-        let button = UIButton(type: .system)
+    let selectButton: UIButton = {
+        let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "add")!.withRenderingMode(.alwaysTemplate), for: .normal)
         button.setImage(UIImage(named: "checked")!.withRenderingMode(.alwaysTemplate), for: .selected)
         button.tintColor = UIColor.lightGray
-        button.adjustsImageWhenHighlighted = false
         return button
     }()
     
@@ -68,7 +69,7 @@ class MealTableViewCell: UITableViewCell {
         let tintColor = button.isSelected
             ? UIColor.green
             : UIColor.lightGray
-        
+
         button.tintColor = tintColor
     }
     

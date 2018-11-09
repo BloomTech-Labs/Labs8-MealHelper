@@ -13,13 +13,29 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
 
     // MARK: - Public properties
     
+    var selectedMealsAtIndex = [Int]() {
+        didSet {
+            if selectedMealsAtIndex.isEmpty {
+                navigationItem.setRightBarButton(createMealBarButton, animated: true)
+            } else {
+                navigationItem.setRightBarButton(addMealBarButton, animated: true)
+            }
+        }
+    }
+    
     // MARK: - Private properties
     
     let meals = ["Chicken tandori", "Pork BBQ", "French Fries"]
     
+    var createMealBarButton: UIBarButtonItem!
+    var addMealBarButton: UIBarButtonItem!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(MealTableViewCell.self, forCellReuseIdentifier: "MealCell")
+        createMealBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(createMeal))
+        addMealBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(addMeal))
         setupViews()
     }
     
@@ -76,6 +92,7 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
         let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as! MealTableViewCell
 
         cell.meal = "Hi"
+        //cell.selectButton.tintColor = cell.isCheckMarked ? .green : .gray
 
         return cell
     }
@@ -84,41 +101,60 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
         // Return false if you do not want the specified item to be editable.
         return true
     }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let edit = UITableViewRowAction(style: .normal, title: "Edit") { (save, indexPath) in
+            // Go to ingredients tbv
+        }
+        edit.backgroundColor = .green
+        
+        let remove = UITableViewRowAction(style: .destructive, title: "Remove") { (remove, indexPath) in
+            
+            // Remove
+        }
+        
+        return [remove, edit]
+    }
 
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            // Delete the row from the data source
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        } else if editingStyle == .insert {
+//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+//        }
+//    }
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as! MealTableViewCell
+        
+        if selectedMealsAtIndex.contains(indexPath.row) {
+            guard let index = selectedMealsAtIndex.index(of: indexPath.row) else { return }
+            selectedMealsAtIndex.remove(at: index)
+        } else {
+            selectedMealsAtIndex.append(indexPath.row)
+        }
+        
+//        tableView.beginUpdates()
+//        cell.selectMeal(cell.selectButton)
+//        tableView.reloadRows(at: [indexPath], with: .automatic)
+//        tableView.endUpdates()
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
     
     // MARK: - Private
     
     private func setupViews() {
         self.title = "Meals"
-        let createItem = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(createMeal))
-        navigationItem.setRightBarButton(createItem, animated: true)
+//        let createItem = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(createMeal))
+        navigationItem.setRightBarButton(createMealBarButton, animated: true)
     }
     
     @objc func createMeal() {
+        
+    }
+    
+    @objc func addMeal() {
         
     }
 
