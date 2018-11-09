@@ -53,7 +53,7 @@
   input:focus {
     outline: 3px solid rgb(192, 181, 31);
   }
-  .login {
+  .signup {
     position: relative;
     color: rgb(192, 181, 31);
     width: 256px;
@@ -64,12 +64,17 @@
     cursor: pointer;
   }
 
-  .login span {
+  .signup:hover {
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  .signup span {
     transition: all 0.3s;
     transform: scale(1, 1);
   }
   
-  .login::before, .login::after {
+  .signup::before, .signup::after {
     content: '';
     position: absolute;
     transition: all 0.3s;
@@ -80,7 +85,7 @@
     z-index: 1;
   }
 
-  .login-two::before, .login-two::after {
+  .signup-two::before, .signup-two::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -92,15 +97,15 @@
     border: 1px solid rgb(192, 181, 31);
   }
   
-  .login-two:hover::after {
+  .signup-two:hover::after {
     animation-name: rotatecw;
     animation-duration: 2s;
   }
-  .login-two:hover::before {
+  .signup-two:hover::before {
     animation-name: rotateccw; 
     animation-duration: 3s;
   }
-  .login-two:hover::after, .login-two:hover::before {
+  .signup-two:hover::after, .signup-two:hover::before {
     left: 96px;
     width: 64px;
     

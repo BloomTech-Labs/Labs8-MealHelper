@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+// import axios from "axios";
 import './login.css';
 
 
@@ -15,13 +16,13 @@ class Login extends Component {
     //     });
     //   };
 
-    // handleAddNewUser = event => {
-    //     event.preventDefault();
-    //     // console.log('firing');
-    //      axios
-    //     .post('http://localhost:9000/users', this.state.users)
-    //     .then(response => this.setState({user: response.data }), window.location ="/thanks")
-    // };
+    handleAddNewUser = event => {
+        event.preventDefault();
+        console.log('firing');
+        //  axios
+        // .post('http://localhost:9000/users', this.state.users)
+        // .then(response => this.setState({user: response.data }), window.location ="/thanks")
+    };
 
 
   render() {
@@ -37,7 +38,7 @@ class Login extends Component {
                     <input type="password" id="dynamic-label-input" placeholder="Password"/>
                     <label htmlFor="dynamic-label-input">Password</label>
                 </div>
-                <div class="login login-two">
+                <div className="login login-two" onClick={this.handleAddNewUser}>
                     <span>Login</span>
                 </div>
             </form>

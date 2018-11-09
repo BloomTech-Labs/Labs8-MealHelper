@@ -7,7 +7,7 @@ class Signup extends Component {
     //     event.preventDefault();
     //     this.setState({
     //       note: {
-    //         ...this.state.user,
+    //         ...this.state.usergit status,
     //         [event.target.name]: event.target.value,
     //       }
           
@@ -44,8 +44,8 @@ class Signup extends Component {
                     <input type="text" id="dynamic-label-input" placeholder="Health Condition"/>
                     <label htmlFor="dynamic-label-input">Health Condition</label>
                 </div>
-                <div class="login login-two">
-                    <span>Login</span>
+                <div class="signup signup-two">
+                    <span>Sign Up</span>
                 </div>
             </form>
         </div>
