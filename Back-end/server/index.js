@@ -179,9 +179,9 @@ server.get("/users/:userid/meals", (req, res) => {
 server.post("/users/:userid/meals", (req, res) => {
 	//grabs either the user id from req.params OR from the req.body (need to make choice later)
 	const userId = req.params.userid;
-	const { recipe_id, user_id, mealTime, experience, date } = req.body;
+	const { user_id, mealTime, experience, date } = req.body;
 	//Grabs the associated data from req.body and sets it as a JSON to meal
-	const meal = { recipe_id, user_id, mealTime, experience, date };
+	const meal = { user_id, mealTime, experience, date };
 	console.log(meal);
 
 	db("mealList")
@@ -197,12 +197,11 @@ server.post("/users/:userid/meals", (req, res) => {
 //PUT request to change the recipes, meal time, experience or experience
 server.put("/meals/:mealID", (req, res) => {
 	const id = req.params.mealID;
-	const { recipe_id, user_id, mealTime, experience } = req.body;
-	const meal = { recipe_id, user_id, mealTime, experience };
+	const { user_id, mealTime, experience } = req.body;
+	const meal = { user_id, mealTime, experience };
 	db("mealList")
 		.where({ id: id })
 		.update({
-			recipe_id: meal.recipe_id,
 			mealTime: meal.mealTime,
 			experience: meal.experience
 		})
@@ -284,10 +283,10 @@ server.get("/recipe/:userid", (req, res) => {
 server.post("/recipe/:userid", (req, res) => {
 	//grabs the user id from the req.params
 	const user_id = req.params.userid;
-	const { name, calories, servings, ingredients_id } = req.body;
+	const { meal_id, name, calories, servings, ingredients_id } = req.body;
 	//Grabs the associated data from req.body and sets it as a JSON to recipe
 	//NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-	const recipe = { name, user_id, calories, servings, ingredients_id };
+	const recipe = { meal_id, name, user_id, calories, servings, ingredients_id };
 	console.log(recipe);
 
 	db("recipe")
