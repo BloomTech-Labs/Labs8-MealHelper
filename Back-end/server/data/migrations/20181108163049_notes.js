@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
 		notes.string("notebody");
 		notes
 			.integer("mealList_id")
+			.unsigned()
 			.references("id")
 			.inTable("mealList")
 			.onDelete("cascade");

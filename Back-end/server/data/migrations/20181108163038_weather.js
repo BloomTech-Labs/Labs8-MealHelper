@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
 		weather.integer("pressure").notNullable();
 		weather
 			.integer("mealId")
+			.unsigned()
 			.references("id")
 			.inTable("mealList")
 			.onDelete("cascade");

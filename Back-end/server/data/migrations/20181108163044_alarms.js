@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
 		alarms.integer("repeats").notNullable();
 		alarms
 			.integer("user_id")
+			.unsigned()
 			.references("id")
 			.inTable("users")
 			.onDelete("cascade");

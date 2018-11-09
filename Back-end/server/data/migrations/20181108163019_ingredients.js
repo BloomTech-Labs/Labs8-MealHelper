@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
 		ingredients.string("nutrients_id");
 		ingredients
 			.integer("user_id")
+			.unsigned()
 			.references("id")
 			.inTable("users")
 			.onDelete("cascade");

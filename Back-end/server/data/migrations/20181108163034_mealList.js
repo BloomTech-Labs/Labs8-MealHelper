@@ -3,11 +3,13 @@ exports.up = function(knex, Promise) {
 		mealList.increments();
 		mealList
 			.integer("recipe_id")
+			.unsigned()
 			.references("id")
 			.inTable("recipe")
 			.onDelete("cascade");
 		mealList
 			.integer("user_id")
+			.unsigned()
 			.references("id")
 			.inTable("users")
 			.onDelete("cascade");

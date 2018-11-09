@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
 		nutrients.integer("nutrients_id").notNullable();
 		nutrients
 			.integer("user_id")
+			.unsigned()
 			.references("id")
 			.inTable("users")
 			.onDelete("cascade");

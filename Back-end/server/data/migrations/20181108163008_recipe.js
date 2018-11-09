@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
 		recipe.integer("servings", 3).notNullable();
 		recipe
 			.integer("user_id")
+			.unsigned()
 			.references("id")
 			.inTable("users")
 			.onDelete("cascade");
