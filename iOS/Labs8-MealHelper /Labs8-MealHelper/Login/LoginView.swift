@@ -14,7 +14,7 @@ protocol LoginDelegate {
 }
 
 class LoginView: UIView {
-
+    
     // MARK: - Properties
     
     var padding: CGFloat = 35.0

@@ -21,9 +21,12 @@ class APIClient {
         
         var urlRequest = URLRequest(url: url!)
         urlRequest.httpMethod = HTTPMethod.post.rawValue
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         do {
-            let userJson = try JSONEncoder().encode(userCredentials)
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            let userJson = try encoder.encode(userCredentials)
             urlRequest.httpBody = userJson
         } catch {
             NSLog("Failed to encode user credentials: \(error)")
@@ -44,11 +47,10 @@ class APIClient {
                 completion(Response.error(NSError()))
                 return
             }
-            
-//            Doesn't return a JSON...
+        
             do {
-                let userId = try JSONDecoder().decode(Int.self, from: data)
-                completion(Response.success(userId))
+                let userId = try JSONDecoder().decode([Int].self, from: data)
+                completion(Response.success(userId.first ?? 0))
             } catch {
                 NSLog("Error decoding data: \(error)")
                 completion(Response.error(error))
