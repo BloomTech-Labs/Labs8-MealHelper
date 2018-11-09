@@ -191,7 +191,7 @@ server.post("/users/:userid/meals", (req, res) => {
 			res.status(200).json(mealID);
 		})
 		.catch(err => {
-			res.status(400).json({ error: "Error creating a new meal." });
+			res.status(400).json({ msg: err, error: "Error creating a new meal." });
 		});
 });
 //PUT request to change the recipes, meal time, experience or experience
