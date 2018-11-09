@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const dbEngine = process.env.DB || "production";
 const knexConfig = require("./knexfile.js")[dbEngine];
 
-const db = knex(knexConfig);
+const db = knex(knexConfig.production);
 const server = express();
 
 const port = process.env.PORT || 3300;
