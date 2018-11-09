@@ -71,10 +71,13 @@ server.post("/register", (req, res) => {
 	db("users")
 		.insert(user)
 		.then(user => {
-			console.log(user);
-			//Registers the user and generates a jwt token for them
-			const token = generateToken(user);
-			res.status(201).json({ user: user, token: token });
+			db("users")
+				.then(user => {
+					res.status(200).json(user);
+				})
+				.catch(err => {
+					res.status(400).json({ error: "Could not grab user" });
+				});
 		})
 		.catch(err => {
 			res.status(400).json({ msg: err, error: "Could not create a user" });
