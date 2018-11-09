@@ -91,3 +91,40 @@ class NotesViewController: UIViewController {
     }
 
 }
+
+extension NotesViewController: UITextFieldDelegate {
+    
+    private func createPicker(for input: UITextField) {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.addTarget(self, action: #selector(setDateTextField), for: .allEvents)
+        input.inputView = datePicker
+        
+        // Create a tool bar above the picker
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        // Add a Done button that will dismiss the keyboard. Can also add more button items into array.
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(dismissKeyboard))
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        // Accessory view to the inputView which is set as the picker
+        input.inputAccessoryView = toolBar
+    }
+    
+    @objc private func setDateTextField(_ sender: UIDatePicker) {
+        dateTextField.text = dateString(for: sender.date)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return false // Text field should not be editable (but still listen to touches)
+    }
+    
+}
