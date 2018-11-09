@@ -14,29 +14,43 @@ class APIClient {
     
     func register(with userCredentials: User, completion: @escaping (Response<Int>) -> ()) {
     
-        let url = URL(string: "http://localhost:3300/register/")
+        let url = URL(string: "https://8b7e18db.ngrok.io")
         
         var urlRequest = URLRequest(url: url!)
         urlRequest.httpMethod = HTTPMethod.post.rawValue
         
         do {
             urlRequest.httpBody = try JSONEncoder().encode(userCredentials)
-        } catch let error {
+        } catch {
             NSLog("Failed to encode user credentials: \(error)")
             completion(Response.error(error))
+            return
         }
         
         URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
             
+            if let error = error {
+                NSLog("Error with urlReqeust: \(error)")
+                completion(Response.error(error))
+                return
+            }
+            
+//            completion(Response.success(1))
             guard let data = data else {
                 NSLog("No data returned")
                 completion(Response.error(NSError()))
                 return
             }
             
-            print(data)
-            completion(Response.success(1))
-            
+//            Doesn't return a JSON...
+            do {
+                let userId = try JSONDecoder().decode(Int.self, from: data)
+                completion(Response.success(userId))
+            } catch {
+                NSLog("Error decoding data: \(error)")
+                completion(Response.error(error))
+                return
+            }
         }.resume()
     }
 }

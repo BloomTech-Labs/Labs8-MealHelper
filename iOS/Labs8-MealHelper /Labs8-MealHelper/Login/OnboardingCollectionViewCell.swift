@@ -115,9 +115,9 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     
     @objc func save() {
         print("save")
-        guard let email = personalInfoView.email, let password = personalInfoView.password, let zip = personalInfoView.zip, let intZip = Int(zip), let healthCondition = personalInfoView.height else { return }
+        guard let email = personalInfoView.email, let password = personalInfoView.password, let healthCondition = personalInfoView.height else { return }
         
-        let user = User(email: email, password: password, zip: intZip, healthCondition: healthCondition)
+        let user = User(email: email, password: password, zip: 3300, healthCondition: healthCondition)
         
         delegate?.save(user: user)
     }
@@ -393,6 +393,23 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         editingTextfield = textField
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField.accessibilityIdentifier {
+        case "Username":
+            self.username = textField.text
+        case "Email":
+            self.email = textField.text
+        case "Password":
+            self.password = textField.text
+        case "Height":
+            self.height = textField.text
+        case "Weight":
+            self.zip = textField.text
+        default:
+            break
+        }
     }
     
 }

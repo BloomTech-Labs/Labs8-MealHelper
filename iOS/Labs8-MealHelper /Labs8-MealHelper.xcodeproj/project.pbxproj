@@ -112,6 +112,7 @@
 		3D56A9D021934FAA00A91EF4 /* Labs8-MealHelper */ = {
 			isa = PBXGroup;
 			children = (
+				AC40EDE6219505A4009FE4D4 /* Model */,
 				AC1DE86521946ED50066172C /* Ressources */,
 				3D56A9FC21939CE200A91EF4 /* Home */,
 				3D56A9E321934FCA00A91EF4 /* Login */,
@@ -165,7 +166,6 @@
 				AC4D107B2194DAC300317F4C /* APIClient.swift */,
 				AC4D107D2194DD6700317F4C /* Response.swift */,
 				AC4D107F2194E53600317F4C /* HTTPMethod.swift */,
-				AC4D10812194E80B00317F4C /* User.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -187,6 +187,14 @@
 				3D56A9D121934FAA00A91EF4 /* AppDelegate.swift */,
 			);
 			path = Ressources;
+			sourceTree = "<group>";
+		};
+		AC40EDE6219505A4009FE4D4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AC4D10812194E80B00317F4C /* User.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		AC4D106E2194A79600317F4C /* Products */ = {
