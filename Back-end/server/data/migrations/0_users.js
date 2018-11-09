@@ -20,8 +20,8 @@ exports.up = function(knex) {
 			recipe.string("name", 51).notNullable();
 			recipe.integer("calories", 6).notNullable();
 			recipe.integer("servings", 3).notNullable();
-			mealList.integer("meal_id");
-			mealList.foreign("meal_id").references("mealList.id");
+			recipe.integer("meal_id");
+			recipe.foreign("meal_id").references("mealList.id");
 			recipe.integer("user_id");
 			recipe
 				.foreign("user_id")
