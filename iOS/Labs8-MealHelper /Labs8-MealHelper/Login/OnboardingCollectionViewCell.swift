@@ -59,14 +59,14 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "backArrow")!.withRenderingMode(.alwaysTemplate), for: .normal)
-        button.tintColor = .blue
+        button.tintColor = .white
         return button
     }()
     
     private let nextButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .blue
+        button.tintColor = .white
         button.setTitle("Next", for: .normal)
         return button
     }()
@@ -77,7 +77,8 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         label.numberOfLines = 1
         label.textAlignment = .center
         label.text = "Personal Information"
-        label.font = UIFont.systemFont(ofSize: 20.0)
+        label.font = UIFont.boldSystemFont(ofSize: 20.0)
+        label.textColor = .white
         return label
     }()
     
@@ -88,6 +89,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         label.textAlignment = .center
         label.text = "In order to make smart suggestions we would like to know a little bit more about you."
         label.font = UIFont.systemFont(ofSize: 17.0)
+        label.textColor = .white
         label.numberOfLines = 3
         return label
     }()
@@ -114,17 +116,13 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func save() {
-        print("save")
-        guard let email = personalInfoView.email, let password = personalInfoView.password, let healthCondition = personalInfoView.height else { return }
+        guard let email = personalInfoView.email, let password = personalInfoView.password, let zip = personalInfoView.zip, let healthCondition = personalInfoView.healthCondition else { return }
         
-        let user = User(email: email, password: password, zip: 3300, healthCondition: healthCondition)
+        let user = User(email: email, password: password, zip: zip, healthCondition: healthCondition)
         
         delegate?.save(user: user)
     }
     
-    @objc func tappedGenderButton() {
-        print("beeep")
-    }
     
     // MARK: - Private
     
@@ -135,8 +133,9 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         addSubview(mainStackView)
         mainStackView.addArrangedSubview(personalInfoView)
         
-        mainStackView.anchor(top: headerStackView.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15.0, left: 15.0, bottom: 150.0, right: 15.0))
+        mainStackView.anchor(top: headerStackView.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15.0, left: 15.0, bottom: 100.0, right: 15.0))
         
+        backgroundColor = UIColor.init(white: 0.2, alpha: 1.0)
     }
     
     private func setupHeader() {
@@ -163,18 +162,19 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
     
     var gender: String?
     var username: String?
-    var zip: String?
+    var zip: Int?
     var email: String?
     var password: String?
     var birthday: Date?
     var height: String?
     var weight: String?
+    var healthCondition: String?
     
     private let genders = ["Female", "Male"]
     private var genderButtons = [UIButton]()
     private let selectedButtonColor = UIColor.red
     private let unselectedButtonColor = UIColor.lightGray
-    private let inputTextFields = ["Username", "Email", "Password", "Birthday", "Height", "Weight"]
+    private let inputTextFields = ["Username", "Email", "Password", "Zip", "Health Condition", "Birthday", "Height", "Weight"]
     private let inputPickerTextFields = ["Birthday", "Height", "Weight"]
     private var editingTextfield: UITextField?
     private lazy var weights: [Double] = (40...170).map { Double($0) }
@@ -403,10 +403,16 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
             self.email = textField.text
         case "Password":
             self.password = textField.text
+        case "Zip":
+            if let zip = textField.text {
+                self.zip = Int(zip)
+            }
+        case "Health Condition":
+            self.healthCondition = textField.text
         case "Height":
             self.height = textField.text
         case "Weight":
-            self.zip = textField.text
+            self.weight = textField.text
         default:
             break
         }

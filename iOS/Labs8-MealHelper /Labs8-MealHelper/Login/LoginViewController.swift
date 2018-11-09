@@ -13,6 +13,7 @@ class LoginViewController: UIViewController, LoginDelegate {
     // MARK: - Properties
     
     var loginView: LoginView!
+    let apiClient = APIClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,8 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
     
     func handleLogin(for user: String?, with password: String?) {
+        
+        
         // Send user details to the web server
         let status = "successful" // to be handled by network completion --> add an error enum
         switch status {

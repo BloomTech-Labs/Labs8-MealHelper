@@ -20,15 +20,15 @@
 		3D90DE6D2194CFFE006C116B /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90DE6C2194CFFE006C116B /* MealTableViewCell.swift */; };
 		3D90DE6F2194D39D006C116B /* MealEntry.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D90DE6E2194D39D006C116B /* MealEntry.xcassets */; };
 		3D90DE712194D46D006C116B /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D90DE702194D46D006C116B /* Login.xcassets */; };
+		3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F242196200D007AA68A /* HTTPMethod.swift */; };
+		3DB65F282196200D007AA68A /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F252196200D007AA68A /* APIClient.swift */; };
+		3DB65F292196200D007AA68A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F262196200D007AA68A /* Response.swift */; };
 		3DFC7D9D2195AAC900C026D9 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC7D9C2195AAC900C026D9 /* NotesViewController.swift */; };
 		AC1DE867219473DD0066172C /* HomeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DE866219473DD0066172C /* HomeCollectionViewController.swift */; };
 		AC1DE8692194748F0066172C /* MealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DE8682194748F0066172C /* MealCell.swift */; };
 		AC4D10732194A7A000317F4C /* ExpandableButton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC4D10722194A79600317F4C /* ExpandableButton.framework */; };
 		AC4D10742194A7A000317F4C /* ExpandableButton.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AC4D10722194A79600317F4C /* ExpandableButton.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AC4D10782194A7BC00317F4C /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4D10772194A7BC00317F4C /* OnboardingCollectionViewCell.swift */; };
-		AC4D107C2194DAC300317F4C /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4D107B2194DAC300317F4C /* APIClient.swift */; };
-		AC4D107E2194DD6700317F4C /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4D107D2194DD6700317F4C /* Response.swift */; };
-		AC4D10802194E53600317F4C /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4D107F2194E53600317F4C /* HTTPMethod.swift */; };
 		AC4D10822194E80B00317F4C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4D10812194E80B00317F4C /* User.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,14 +79,14 @@
 		3D90DE6C2194CFFE006C116B /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 		3D90DE6E2194D39D006C116B /* MealEntry.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MealEntry.xcassets; sourceTree = "<group>"; };
 		3D90DE702194D46D006C116B /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
+		3DB65F242196200D007AA68A /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPMethod.swift; path = "Labs8-MealHelper/Networking/HTTPMethod.swift"; sourceTree = SOURCE_ROOT; };
+		3DB65F252196200D007AA68A /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIClient.swift; path = "Labs8-MealHelper/Networking/APIClient.swift"; sourceTree = SOURCE_ROOT; };
+		3DB65F262196200D007AA68A /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Response.swift; path = "Labs8-MealHelper/Networking/Response.swift"; sourceTree = SOURCE_ROOT; };
 		3DFC7D9C2195AAC900C026D9 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		AC1DE866219473DD0066172C /* HomeCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewController.swift; sourceTree = "<group>"; };
 		AC1DE8682194748F0066172C /* MealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCell.swift; sourceTree = "<group>"; };
 		AC4D106D2194A79600317F4C /* ExpandableButton.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExpandableButton.xcodeproj; path = ExpandableButton/ExpandableButton.xcodeproj; sourceTree = "<group>"; };
 		AC4D10772194A7BC00317F4C /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
-		AC4D107B2194DAC300317F4C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
-		AC4D107D2194DD6700317F4C /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
-		AC4D107F2194E53600317F4C /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		AC4D10812194E80B00317F4C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +108,7 @@
 				3D56A9D021934FAA00A91EF4 /* Labs8-MealHelper */,
 				AC1DE85121946E8A0066172C /* Frameworks */,
 				3D56A9CF21934FAA00A91EF4 /* Products */,
+				3DB65F202196100B007AA68A /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,6 +123,7 @@
 		3D56A9D021934FAA00A91EF4 /* Labs8-MealHelper */ = {
 			isa = PBXGroup;
 			children = (
+				3DB65F2321961FEB007AA68A /* Networking */,
 				AC40EDE6219505A4009FE4D4 /* Model */,
 				AC1DE86521946ED50066172C /* Ressources */,
 				3D56A9FC21939CE200A91EF4 /* Home */,
@@ -174,21 +176,22 @@
 			path = MealEntry;
 			sourceTree = "<group>";
 		};
-		3D56A9FF21939D8B00A91EF4 /* Persistence */ = {
+		3DB65F202196100B007AA68A /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Persistence;
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		3D56AA0021939D9600A91EF4 /* Networking */ = {
+		3DB65F2321961FEB007AA68A /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				AC4D107B2194DAC300317F4C /* APIClient.swift */,
-				AC4D107D2194DD6700317F4C /* Response.swift */,
-				AC4D107F2194E53600317F4C /* HTTPMethod.swift */,
+				3DB65F252196200D007AA68A /* APIClient.swift */,
+				3DB65F242196200D007AA68A /* HTTPMethod.swift */,
+				3DB65F262196200D007AA68A /* Response.swift */,
 			);
-			path = Networking;
+			name = Networking;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		AC1DE85121946E8A0066172C /* Frameworks */ = {
@@ -320,17 +323,17 @@
 				AC1DE8692194748F0066172C /* MealCell.swift in Sources */,
 				3D90DE6B2194CE3F006C116B /* MealsTableViewController.swift in Sources */,
 				3D56A9D221934FAA00A91EF4 /* AppDelegate.swift in Sources */,
+				3DB65F292196200D007AA68A /* Response.swift in Sources */,
 				3D56A9F8219350EA00A91EF4 /* OnboardingCollectionViewController.swift in Sources */,
 				3D56A9FE21939D3A00A91EF4 /* AutoLayout.swift in Sources */,
-				AC4D107E2194DD6700317F4C /* Response.swift in Sources */,
+				3DB65F282196200D007AA68A /* APIClient.swift in Sources */,
 				3D56A9EF2193503300A91EF4 /* Utils.swift in Sources */,
 				AC4D10822194E80B00317F4C /* User.swift in Sources */,
-				AC4D107C2194DAC300317F4C /* APIClient.swift in Sources */,
 				3D56A9F4219350C200A91EF4 /* LoginView.swift in Sources */,
 				3D56A9F5219350C200A91EF4 /* LoginViewController.swift in Sources */,
 				3DFC7D9D2195AAC900C026D9 /* NotesViewController.swift in Sources */,
 				AC4D10782194A7BC00317F4C /* OnboardingCollectionViewCell.swift in Sources */,
-				AC4D10802194E53600317F4C /* HTTPMethod.swift in Sources */,
+				3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */,
 				AC1DE867219473DD0066172C /* HomeCollectionViewController.swift in Sources */,
 				3D56A9F12193504700A91EF4 /* Theme.swift in Sources */,
 			);
