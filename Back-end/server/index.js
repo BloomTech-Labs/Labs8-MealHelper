@@ -68,7 +68,7 @@ server.post("/register", (req, res) => {
 	//Setting the password to our hash
 	user.password = hash;
 	db("users")
-		.insert({ user })
+		.insert(user)
 		.then(user => {
 			console.log(user);
 			//Registers the user and generates a jwt token for them
