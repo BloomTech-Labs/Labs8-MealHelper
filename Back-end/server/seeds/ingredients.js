@@ -7,7 +7,7 @@ exports.seed = function(knex, Promise) {
 			return knex("ingredients").insert([
 				{
 					id: 1,
-					ndb_id: null,
+					ndb_id: 3456,
 					name: "Cresco Beef Steak",
 					nutrients_id: "23, 56, 12, 32",
 					user_id: 1
