@@ -20,6 +20,7 @@
 		3D90DE6D2194CFFE006C116B /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90DE6C2194CFFE006C116B /* MealTableViewCell.swift */; };
 		3D90DE6F2194D39D006C116B /* MealEntry.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D90DE6E2194D39D006C116B /* MealEntry.xcassets */; };
 		3D90DE712194D46D006C116B /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D90DE702194D46D006C116B /* Login.xcassets */; };
+		3DB18BE82196FAB800C0E728 /* InputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB18BE72196FAB800C0E728 /* InputField.swift */; };
 		3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F242196200D007AA68A /* HTTPMethod.swift */; };
 		3DB65F282196200D007AA68A /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F252196200D007AA68A /* APIClient.swift */; };
 		3DB65F292196200D007AA68A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F262196200D007AA68A /* Response.swift */; };
@@ -79,6 +80,7 @@
 		3D90DE6C2194CFFE006C116B /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 		3D90DE6E2194D39D006C116B /* MealEntry.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MealEntry.xcassets; sourceTree = "<group>"; };
 		3D90DE702194D46D006C116B /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
+		3DB18BE72196FAB800C0E728 /* InputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputField.swift; sourceTree = "<group>"; };
 		3DB65F242196200D007AA68A /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPMethod.swift; path = "Labs8-MealHelper/Networking/HTTPMethod.swift"; sourceTree = SOURCE_ROOT; };
 		3DB65F252196200D007AA68A /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIClient.swift; path = "Labs8-MealHelper/Networking/APIClient.swift"; sourceTree = SOURCE_ROOT; };
 		3DB65F262196200D007AA68A /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Response.swift; path = "Labs8-MealHelper/Networking/Response.swift"; sourceTree = SOURCE_ROOT; };
@@ -152,6 +154,7 @@
 				3D56A9EE2193503300A91EF4 /* Utils.swift */,
 				3D56A9F02193504700A91EF4 /* Theme.swift */,
 				3D56A9FD21939D3A00A91EF4 /* AutoLayout.swift */,
+				3DB18BE72196FAB800C0E728 /* InputField.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				3D56A9EF2193503300A91EF4 /* Utils.swift in Sources */,
 				AC4D10822194E80B00317F4C /* User.swift in Sources */,
 				3D56A9F4219350C200A91EF4 /* LoginView.swift in Sources */,
+				3DB18BE82196FAB800C0E728 /* InputField.swift in Sources */,
 				3D56A9F5219350C200A91EF4 /* LoginViewController.swift in Sources */,
 				3DFC7D9D2195AAC900C026D9 /* NotesViewController.swift in Sources */,
 				AC4D10782194A7BC00317F4C /* OnboardingCollectionViewCell.swift in Sources */,

@@ -26,35 +26,8 @@ class LoginView: UIView {
         return iv
     }()
     
-    private let usernameLabel: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "Username"
-        tf.font = UIFont.systemFont(ofSize: 17.0)
-        tf.setLeftPaddingPoints(10.0)
-        tf.setRightPaddingPoints(10.0)
-        tf.backgroundColor = .white
-        tf.tintColor = .blue
-        tf.keyboardType = .emailAddress
-        tf.layer.cornerRadius = 8.0
-        tf.layer.masksToBounds = true
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        return tf
-    }()
-    
-    private let passwordLabel: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "Password"
-        tf.font = UIFont.systemFont(ofSize: 17.0)
-        tf.setLeftPaddingPoints(10.0)
-        tf.setRightPaddingPoints(10.0)
-        tf.backgroundColor = .white
-        tf.tintColor = .blue
-        tf.isSecureTextEntry = true
-        tf.layer.cornerRadius = 8.0
-        tf.layer.masksToBounds = true
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        return tf
-    }()
+    private let usernameLabel = InputField(placeholder: "Username")
+    private let passwordLabel = InputField(placeholder: "Password")
     
     private let loginButton: UIButton = {
         let button = UIButton(type: .system)
@@ -193,15 +166,6 @@ class LoginView: UIView {
             self.spinner.alpha = 1.0
             self.createAccountButton.isHidden = true
         }, completion: nil)
-        
-//        let forkImageView = UIImageView(image: UIImage(named: "forkIcon")!.withRenderingMode(.alwaysTemplate))
-//        forkImageView.tintColor = .white
-//        forkImageView.frame = CGRect(x: -150, y: center.y, width: 60, height: 60)
-//        addSubview(forkImageView)
-//
-//        UIView.animate(withDuration: 2.0, delay: 0.0, options: [.repeat], animations: {
-//            forkImageView.center = CGPoint(x: self.bounds.maxX + 30, y: self.center.y)
-//        }, completion: nil)
         
     }
     

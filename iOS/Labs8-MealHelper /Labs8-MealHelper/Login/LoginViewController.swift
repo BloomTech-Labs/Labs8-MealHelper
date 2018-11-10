@@ -48,10 +48,6 @@ class LoginViewController: UIViewController, LoginDelegate {
     func createAccount() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: view.frame.width, height: view.frame.height)
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        layout.sectionInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         let onboardingVC = OnboardingCollectionViewController(collectionViewLayout: layout)
         navigationController?.pushViewController(onboardingVC, animated: true)
     }

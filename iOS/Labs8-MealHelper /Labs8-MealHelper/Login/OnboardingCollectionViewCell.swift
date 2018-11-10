@@ -27,7 +27,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     
     let personalInfoView = PersonalInfoView()
     
-    private let mainStackView: UIStackView = {
+    private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -37,7 +37,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
-    private let headerStackView: UIStackView = {
+    private lazy var headerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -46,7 +46,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
-    private let genderButtonStackView: UIStackView = {
+    private lazy var genderButtonStackView: UIStackView = {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .horizontal
@@ -55,23 +55,28 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private let backButton: UIButton = {
+    private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "backArrow")!.withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = .white
+        button.addTarget(self, action: #selector(previousCell), for: .touchUpInside)
         return button
     }()
     
-    private let nextButton: UIButton = {
+    private lazy var nextButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
         button.setTitle("Next", for: .normal)
+        let nextButtonAction = isLastCell ? #selector(save) : #selector(nextCell)
+        button.addTarget(self, action: nextButtonAction, for: .touchUpInside)
+        let nextButtonTitle = isLastCell ? "Save" : "Next"
+        button.setTitle(nextButtonTitle, for: .normal)
         return button
     }()
     
-    private let headerTitleLabel: UILabel = {
+    private lazy var headerTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
@@ -145,12 +150,6 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         headerStackView.addArrangedSubview(nextButton)
         
         headerStackView.anchor(top: safeAreaLayoutGuide.topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15.0, left: 15.0, bottom: 0, right: 15.0), size: CGSize(width: 0.0, height: 50.0))
-        
-        let nextButtonAction = isLastCell ? #selector(save) : #selector(nextCell)
-        let nextButtonTitle = isLastCell ? "Save" : "Next"
-        nextButton.addTarget(self, action: nextButtonAction, for: .touchUpInside)
-        nextButton.setTitle(nextButtonTitle, for: .normal)
-        backButton.addTarget(self, action: #selector(previousCell), for: .touchUpInside)
     }
     
 }
@@ -254,21 +253,11 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
     }
 
     private func createTextField(for input: String) -> UITextField {
-        let tf = UITextField()
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.accessibilityIdentifier = input
-        tf.placeholder = input
-        tf.font = UIFont.systemFont(ofSize: 17.0)
-        tf.setLeftPaddingPoints(10.0)
-        tf.setRightPaddingPoints(10.0)
-        tf.backgroundColor = .white
-        tf.tintColor = .blue
-        tf.layer.cornerRadius = 8.0
-        tf.layer.masksToBounds = true
-        tf.contentHorizontalAlignment = .left
-        tf.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
-        tf.isUserInteractionEnabled = true
-        return tf
+        let inputField = InputField(placeholder: input)
+        inputField.accessibilityIdentifier = input
+        inputField.contentHorizontalAlignment = .left
+        inputField.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
+        return inputField
     }
     
     
