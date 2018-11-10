@@ -27,6 +27,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     
     let personalInfoView = PersonalInfoView()
     
+    
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,8 +72,6 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         button.setTitle("Next", for: .normal)
         let nextButtonAction = isLastCell ? #selector(save) : #selector(nextCell)
         button.addTarget(self, action: nextButtonAction, for: .touchUpInside)
-        let nextButtonTitle = isLastCell ? "Save" : "Next"
-        button.setTitle(nextButtonTitle, for: .normal)
         return button
     }()
     
@@ -81,7 +80,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
         label.textAlignment = .center
-        label.text = "Personal Information"
+        label.text = "Sign Up"
         label.font = UIFont.boldSystemFont(ofSize: 20.0)
         label.textColor = .white
         return label
@@ -97,6 +96,19 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         label.textColor = .white
         label.numberOfLines = 3
         return label
+    }()
+    
+    private lazy var backgroundImageView : UIImageView = {
+        let image = UIImage(named: "backgroundImage")!
+        let iv = UIImageView(image: image)
+        return iv
+    }()
+    
+    private lazy var lightBlurEffect: UIVisualEffectView = {
+        let frost = UIVisualEffectView()
+        frost.autoresizingMask = .flexibleWidth
+        frost.effect = UIBlurEffect(style: .light)
+        return frost
     }()
     
     // MARK: - Init
@@ -134,13 +146,16 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     private func setupViews() {
         setupHeader()
         
-        mainStackView.addArrangedSubview(questionLabel)
+        addSubview(backgroundImageView)
+        backgroundImageView.addSubview(lightBlurEffect)
         addSubview(mainStackView)
+        mainStackView.addArrangedSubview(questionLabel)
         mainStackView.addArrangedSubview(personalInfoView)
         
+        backgroundImageView.fillSuperview()
+        lightBlurEffect.fillSuperview()
         mainStackView.anchor(top: headerStackView.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15.0, left: 15.0, bottom: 100.0, right: 15.0))
         
-        backgroundColor = UIColor.init(white: 0.2, alpha: 1.0)
     }
     
     private func setupHeader() {
@@ -150,6 +165,9 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         headerStackView.addArrangedSubview(nextButton)
         
         headerStackView.anchor(top: safeAreaLayoutGuide.topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15.0, left: 15.0, bottom: 0, right: 15.0), size: CGSize(width: 0.0, height: 50.0))
+        
+        let nextButtonTitle = isLastCell ? "Save" : "Next"
+        nextButton.setTitle(nextButtonTitle, for: .normal)
     }
     
 }
@@ -290,9 +308,9 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView.accessibilityIdentifier {
         case "Height":
-            return getPersonHeightString(heights[row])
+            return Utils().getPersonHeightString(heights[row])
         case "Weight":
-            return getPersonWeightString(weights[row])
+            return Utils().getPersonWeightString(weights[row])
         default:
             return nil
         }
@@ -301,11 +319,11 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView.accessibilityIdentifier {
         case "Height":
-            let heightString = getPersonHeightString(heights[row])
+            let heightString = Utils().getPersonHeightString(heights[row])
             editingTextfield?.text = heightString
             self.height = heightString
         case "Weight":
-            let weightString = getPersonWeightString(weights[row])
+            let weightString = Utils().getPersonWeightString(weights[row])
             editingTextfield?.text = weightString
             self.weight = weightString
         default:
@@ -350,24 +368,6 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
         formatter.dateFormat = "MMMM dd, yyyy"
         editingTextfield?.text = formatter.string(from: sender.date)
         self.birthday = sender.date
-    }
-    
-    private func getPersonWeightString(_ kg: Double) -> String {
-        let massFormatter = MassFormatter()
-        let numberFormatter = NumberFormatter()
-        numberFormatter.allowsFloats = false
-        massFormatter.numberFormatter = numberFormatter
-        massFormatter.isForPersonMassUse = true
-        return massFormatter.string(fromKilograms: kg)
-    }
-    
-    private func getPersonHeightString(_ cm: Double) -> String {
-        let massFormatter = LengthFormatter()
-        let numberFormatter = NumberFormatter()
-        numberFormatter.allowsFloats = false
-        massFormatter.numberFormatter = numberFormatter
-        massFormatter.isForPersonHeightUse = true
-        return massFormatter.string(fromMeters: cm / 100)
     }
     
     // MARK: - UITextFieldDelegate

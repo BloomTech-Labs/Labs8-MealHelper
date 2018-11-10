@@ -13,14 +13,14 @@ protocol LoginDelegate {
     func createAccount()
 }
 
-class LoginView: UIView {
+class LoginView: UIView, UITextFieldDelegate {
 
     // MARK: - Properties
     
     var padding: CGFloat = 35.0
     var delegate: LoginDelegate?
     
-    private let backgroundImageView : UIImageView = {
+    private lazy var backgroundImageView : UIImageView = {
         let image = UIImage(named: "backgroundImage")!
         let iv = UIImageView(image: image)
         return iv
@@ -29,7 +29,7 @@ class LoginView: UIView {
     private let usernameLabel = InputField(placeholder: "Username")
     private let passwordLabel = InputField(placeholder: "Password")
     
-    private let loginButton: UIButton = {
+    private lazy var loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Login", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20.0)
@@ -42,7 +42,7 @@ class LoginView: UIView {
         return button
     }()
     
-    let createAccountButton: UIButton = {
+    lazy var createAccountButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Create a new account", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17.0)
@@ -52,7 +52,7 @@ class LoginView: UIView {
         return button
     }()
     
-    private let header: UILabel = {
+    private lazy var header: UILabel = {
         let label = UILabel()
         label.text = "Login"
         label.font = UIFont.systemFont(ofSize: 35.0)
@@ -62,7 +62,7 @@ class LoginView: UIView {
         return label
     }()
     
-    private let errorLabel: UILabel = {
+    private lazy var errorLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17.0)
         label.textAlignment = .center
@@ -71,12 +71,19 @@ class LoginView: UIView {
         return label
     }()
     
-    private let spinner: UIActivityIndicatorView = {
+    private lazy var spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .whiteLarge)
         spinner.frame = CGRect(x: -20.0, y: 6.0, width: 20.0, height: 20.0)
         spinner.startAnimating()
         spinner.alpha = 0.0
         return spinner
+    }()
+    
+    private lazy var lightBlurEffect: UIVisualEffectView = {
+        let frost = UIVisualEffectView()
+        frost.autoresizingMask = .flexibleWidth
+        frost.effect = nil
+        return frost
     }()
     
     enum LoginErrorTypes: String {
@@ -120,6 +127,7 @@ class LoginView: UIView {
             self.loginButton.bounds.size.width -= 80.0
             self.loginButton.center.y -= 60.0
             self.createAccountButton.isHidden = false
+            self.lightBlurEffect.effect = nil
         }, completion: nil)
     }
     
@@ -171,6 +179,7 @@ class LoginView: UIView {
     
     private func setupViews() {
         self.addSubview(backgroundImageView)
+        backgroundImageView.addSubview(lightBlurEffect)
         self.addSubview(header)
         self.addSubview(usernameLabel)
         self.addSubview(passwordLabel)
@@ -200,6 +209,17 @@ class LoginView: UIView {
         
         createAccountButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         createAccountButton.anchor(top: loginButton.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: padding / 2, left: 0.0, bottom: 0.0, right: 0.0), size: CGSize(width: 220.0, height: 15.0))
+        
+        usernameLabel.delegate = self
+        passwordLabel.delegate = self
+        lightBlurEffect.fillSuperview()
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.2) {
+            self.lightBlurEffect.effect = UIBlurEffect(style: .light)
+        }
+    }
+    
 
 }

@@ -41,7 +41,6 @@ class OnboardingCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OnboardingCell", for: indexPath) as! OnboardingCollectionViewCell
     
-        cell.backgroundColor = .gray
         cell.delegate = self
         
         if indexPath.item == 0 { cell.isLastCell = true } // If user reaches last page, we want onboarding to finished and be saved
