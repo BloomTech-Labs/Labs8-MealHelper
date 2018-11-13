@@ -137,7 +137,7 @@ server.put("/users/:id", (req, res) => {
 					})
 					.then(ids => {
 						//Creates a token upon successfullying updating user
-						const token = generateToken({ email: credentials.email });
+						const token = generateToken(credentials);
 						res.status(200).json({ token: token, id: id });
 					})
 					.catch(err => {
