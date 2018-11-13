@@ -25,16 +25,16 @@ class Signup extends Component {
             ...this.state.users,
             [event.target.name]: event.target.value,
           }
-          
         });
       };
 
     handleAddNewUser = event => {
         event.preventDefault();
-        // console.log('firing');
+        console.log('firing');
          axios
-        .post('https://labs8-meal-helper.herokuapp.com/users/register', this.state.users)
+        .post('https://labs8-meal-helper.herokuapp.com/register', this.state.user)
         .then(response => this.setState({user: response.data }), window.location ="/thanks")
+        console.log(this.state.user);
     };
 
 
