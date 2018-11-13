@@ -2,8 +2,8 @@ import React from "react";
 import './login.css';
 
 
-const Login = ({}) => (
-    
+const Login = ({ onClick }) => (
+
         <div className="form-title">
             <h1 className="login-title">Login</h1>
             <form>
@@ -15,7 +15,7 @@ const Login = ({}) => (
                     <input type="password" id="dynamic-label-input" placeholder="Password" />
                     <label htmlFor="dynamic-label-input">Password</label>
                 </div>
-                <div className="login login-two">
+                <div className="login login-two" onClick= { onClick }>
                     <span>Login</span>
                 </div>
             </form>
