@@ -12,11 +12,15 @@ class OnboardingCollectionViewController: UICollectionViewController {
 
     private var cellSize: CGSize!
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
 
+    // MARK: - Configuration
+    
     private func setupView() {
         collectionView!.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: "OnboardingCell")
         collectionView.isPagingEnabled = true

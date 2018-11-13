@@ -26,8 +26,17 @@ class LoginView: UIView, UITextFieldDelegate {
         return iv
     }()
     
-    private let usernameLabel = InputField(placeholder: "Username")
-    private let passwordLabel = InputField(placeholder: "Password")
+    private let usernameLabel: InputField = {
+        let inputField = InputField(placeholder: "Username")
+        inputField.translatesAutoresizingMaskIntoConstraints = false
+        return inputField
+    }()
+    
+    private let passwordLabel: InputField = {
+        let inputField = InputField(placeholder: "Password")
+        inputField.translatesAutoresizingMaskIntoConstraints = false
+        return inputField
+    }()
     
     private lazy var loginButton: UIButton = {
         let button = UIButton(type: .system)
@@ -103,7 +112,7 @@ class LoginView: UIView, UITextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Public
+    // MARK: - User Actions
     
     @objc func handleLogin() {
         if inputIsValid() {
@@ -127,16 +136,18 @@ class LoginView: UIView, UITextFieldDelegate {
             self.loginButton.bounds.size.width -= 80.0
             self.loginButton.center.y -= 60.0
             self.createAccountButton.isHidden = false
-            self.lightBlurEffect.effect = nil
+            self.lightBlurEffect.effect = nil // TODO: Refactor into CALayer animation, since the performance is quite laggy
         }, completion: nil)
     }
+    
+    // MARK: - Public
     
     func showError(for type: LoginErrorTypes) { // Clear input fields and show error text
         self.clear()
         errorLabel.text = type.rawValue
     }
     
-    // MARK: - Private
+    // MARK: - Helper methods
     
     private func inputIsValid() -> Bool {
         var inputIsValid = true
@@ -153,6 +164,8 @@ class LoginView: UIView, UITextFieldDelegate {
         
         return inputIsValid
     }
+    
+    // MARK: - Animations
     
     private func animateInputError(for input: UITextField) { // Shakes the corresponding input to indicate that input was not valid.
         input.center.x -= 10.0
@@ -176,6 +189,14 @@ class LoginView: UIView, UITextFieldDelegate {
         }, completion: nil)
         
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.2) {
+            self.lightBlurEffect.effect = UIBlurEffect(style: .light)
+        }
+    }
+    
+    // MARK: - Configuration
     
     private func setupViews() {
         self.addSubview(backgroundImageView)
@@ -213,12 +234,6 @@ class LoginView: UIView, UITextFieldDelegate {
         usernameLabel.delegate = self
         passwordLabel.delegate = self
         lightBlurEffect.fillSuperview()
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        UIView.animate(withDuration: 0.2) {
-            self.lightBlurEffect.effect = UIBlurEffect(style: .light)
-        }
     }
     
 

@@ -140,8 +140,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         delegate?.save(user: user)
     }
     
-    
-    // MARK: - Private
+    // MARK: - Configuration
     
     private func setupViews() {
         setupHeader()
@@ -224,7 +223,15 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Private
+    // MARK: - User actions
+    
+    @objc private func tappedGenderButton(_ button: UIButton) {
+        genderButtons.forEach { $0.backgroundColor = unselectedButtonColor; $0.isSelected = false }
+        button.backgroundColor = selectedButtonColor
+        gender = button.accessibilityIdentifier
+    }
+    
+    // MARK: - Configuration
     
     private func setupViews() {
         self.addSubview(mainStackView)
@@ -249,12 +256,6 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
         mainStackView.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor)
     }
 
-    @objc private func tappedGenderButton(_ button: UIButton) {
-        genderButtons.forEach { $0.backgroundColor = unselectedButtonColor; $0.isSelected = false }
-        button.backgroundColor = selectedButtonColor
-        gender = button.accessibilityIdentifier
-    }
-
     private func createButton(for gender: String) -> UIButton {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -272,6 +273,7 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
 
     private func createTextField(for input: String) -> UITextField {
         let inputField = InputField(placeholder: input)
+        inputField.translatesAutoresizingMaskIntoConstraints = false
         inputField.accessibilityIdentifier = input
         inputField.contentHorizontalAlignment = .left
         inputField.heightAnchor.constraint(equalToConstant: 40.0).isActive = true

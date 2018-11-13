@@ -15,6 +15,8 @@ class LoginViewController: UIViewController, LoginDelegate {
     var loginView: LoginView!
     let apiClient = APIClient()
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loginView = LoginView(frame: view.frame)
