@@ -139,8 +139,8 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
     }
     
     @objc func addMeal() {
-        //let notesViewController = NotesViewController()
-        //navigationController?.pushViewController(notesViewController, animated: true)
+        let mealSetupVC = MealSetupTableViewController()
+        navigationController?.pushViewController(mealSetupVC, animated: true)
     }
     
     // MARK: - Configuration
