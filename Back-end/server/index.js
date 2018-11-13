@@ -90,9 +90,7 @@ server.post("/login", (req, res) => {
 			if (user && bcrypt.compareSync(userLogin.password, user.password)) {
 				const token = generateToken(user);
 
-				res
-					.status(200)
-					.json({ welcome: user.email, token: token, id: user.id });
+				res.status(200).json({ userID: user, token: token });
 			} else {
 				res
 					.status(500)
