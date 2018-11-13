@@ -7,6 +7,7 @@ export const ADDED_USER = "ADDED_USER";
 export const ADDING_USER_ERROR = "ADDING_USER_ERROR";
 export const GETTING_USER = "GETTING_USER";
 export const GOT_USER = "GOT_USER";
+export const GETTING_USERS_ERROR = "GETTING_USERS_ERROR";
 export const GETTING_USER_ERROR = "GETTING_USER_ERROR";
 export const CHANGING_USER = "CHANGING_USER";
 export const CHANGED_USER = "CHANGED_USER";
@@ -36,7 +37,7 @@ export const loginUser = credentials => dispatch => {
 			dispatch({ type: GOT_USER, payload: response.data });
 		})
 		.catch(err => {
-			dispatch({ type: ERROR, payload: err });
+			dispatch({ type: GETTING_USERS_ERROR, payload: err });
 		});
 };
 //PUT REQ to change user settings
