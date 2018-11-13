@@ -35,6 +35,7 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
        return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(addMeal))
     }()
     
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +95,7 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as! MealTableViewCell
 
-        cell.meal = "Hi"
+        cell.meal = meals[indexPath.row]
 
         return cell
     }
@@ -131,20 +132,22 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
         
     }
     
-    // MARK: - Private
-    
-    private func setupViews() {
-        self.title = "Meals"
-        navigationItem.setRightBarButton(createMealBarButton, animated: true)
-    }
+    // MARK: - User Actions
     
     @objc func createMeal() {
         
     }
     
     @objc func addMeal() {
-        let notesViewController = NotesViewController()
-        navigationController?.pushViewController(notesViewController, animated: true)
+        //let notesViewController = NotesViewController()
+        //navigationController?.pushViewController(notesViewController, animated: true)
+    }
+    
+    // MARK: - Configuration
+    
+    private func setupViews() {
+        self.title = "Meals"
+        navigationItem.setRightBarButton(createMealBarButton, animated: true)
     }
 
 }
