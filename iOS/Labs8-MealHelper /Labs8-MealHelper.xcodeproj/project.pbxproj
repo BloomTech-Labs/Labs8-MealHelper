@@ -25,6 +25,7 @@
 		AC4D107E2194DD6700317F4C /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4D107D2194DD6700317F4C /* Response.swift */; };
 		AC4D10802194E53600317F4C /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4D107F2194E53600317F4C /* HTTPMethod.swift */; };
 		AC4D10822194E80B00317F4C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4D10812194E80B00317F4C /* User.swift */; };
+		AC62FAC8219B24BA00D8C35C /* GenericTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FAC7219B24BA00D8C35C /* GenericTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		AC4D107D2194DD6700317F4C /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		AC4D107F2194E53600317F4C /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		AC4D10812194E80B00317F4C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		AC62FAC7219B24BA00D8C35C /* GenericTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 			children = (
 				AC1DE866219473DD0066172C /* HomeCollectionViewController.swift */,
 				AC1DE8682194748F0066172C /* MealCell.swift */,
+				AC62FAC7219B24BA00D8C35C /* GenericTableViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				AC4D107C2194DAC300317F4C /* APIClient.swift in Sources */,
 				3D56A9F4219350C200A91EF4 /* LoginView.swift in Sources */,
 				3D56A9F5219350C200A91EF4 /* LoginViewController.swift in Sources */,
+				AC62FAC8219B24BA00D8C35C /* GenericTableViewController.swift in Sources */,
 				AC4D10782194A7BC00317F4C /* OnboardingCollectionViewCell.swift in Sources */,
 				AC4D10802194E53600317F4C /* HTTPMethod.swift in Sources */,
 				AC1DE867219473DD0066172C /* HomeCollectionViewController.swift in Sources */,
