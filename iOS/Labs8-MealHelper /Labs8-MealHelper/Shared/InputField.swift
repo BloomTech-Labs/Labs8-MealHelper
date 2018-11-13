@@ -11,7 +11,7 @@ import UIKit
 
 class InputField: UITextField {
     
-    var icon: UIImage?
+    var icon: UIImage? // TODO: Add an icon to the text field
     
     override init(frame: CGRect) {
         super.init(frame: frame)

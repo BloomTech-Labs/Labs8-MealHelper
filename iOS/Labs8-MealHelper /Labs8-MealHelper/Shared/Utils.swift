@@ -28,4 +28,20 @@ struct Utils {
         return massFormatter.string(fromKilograms: kg)
     }
     
+    func dateString(for date: Date, in locale: Locale = Locale(identifier: Locale.current.identifier)) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = locale
+        return dateFormatter.string(from: date)
+    }
+    
+    func dateAndTimeString(for date: Date, in locale: Locale = Locale(identifier: Locale.current.identifier)) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        dateFormatter.locale = locale
+        return dateFormatter.string(from: date)
+    }
+    
 }

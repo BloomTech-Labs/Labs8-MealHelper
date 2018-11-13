@@ -26,8 +26,17 @@ class MealSetupTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.register(MealSetupTableViewCell.self, forCellReuseIdentifier: "MealSetup")
-        tableView.tableFooterView = UIView()
-
+        
+        // Header view
+        tableView.tableHeaderView = UIImageView(image: UIImage(named: "weatherTest"))
+        
+        // Footer view
+        let mealSetupFooterView = MealSetupFooterView()
+        mealSetupFooterView.frame = tableView.frame
+        tableView.tableFooterView = mealSetupFooterView
+        
+        
+        
         setupViews()
     }
 
@@ -61,6 +70,8 @@ class MealSetupTableViewController: UITableViewController {
         // tableView.tableHeaderView // metrics view
         title = "Add meal"
         navigationItem.setRightBarButton(saveBarButton, animated: true)
+        
+        tableView.allowsSelection = false
     }
 
     

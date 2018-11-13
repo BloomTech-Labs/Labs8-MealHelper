@@ -38,7 +38,7 @@ class MealSetupTableViewCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
-        // stackView.spacing = 30.0
+        stackView.spacing = 10.0
         return stackView
     }()
     
@@ -46,7 +46,7 @@ class MealSetupTableViewCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fillEqually
         stackView.alignment = .fill
         stackView.spacing = 10.0
         return stackView

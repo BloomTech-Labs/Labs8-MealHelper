@@ -9,13 +9,66 @@
 import UIKit
 
 class PickerInputField: UITextField {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    var icon: UIImage?
+    
+    var inputText: String? {
+        didSet {
+            self.text = inputText
+        }
     }
-    */
+    
+    var picker: UIPickerView = {
+        let picker = UIPickerView()
+        return picker
+    }()
+    
+    private let pickerToolBar: UIToolbar = {
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        toolBar.isUserInteractionEnabled = true
+        return toolBar
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    convenience init(frame: CGRect = CGRect.zero, defaultValue: String, fontSize: CGFloat = 17.0, icon: UIImage? = nil) {
+        self.init(frame: frame)
+        self.text = defaultValue
+        self.font = UIFont.systemFont(ofSize: fontSize)
+        self.icon = icon
+        
+        setupView()
+        setupPicker()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupView() {
+        self.setLeftPaddingPoints(10.0)
+        self.setRightPaddingPoints(10.0)
+        self.backgroundColor = UIColor.white
+        self.layer.cornerRadius = 8.0
+        self.layer.masksToBounds = true
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupPicker() {
+        self.inputView = picker
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(dismissKeyboard))
+        pickerToolBar.setItems([doneButton], animated: false)
+        self.inputAccessoryView = pickerToolBar
+        
+        
+    }
 
+    @objc private func dismissKeyboard() {
+        endEditing(true)
+    }
+    
 }
