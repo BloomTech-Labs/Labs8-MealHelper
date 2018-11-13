@@ -72,9 +72,12 @@ server.post("/register", (req, res) => {
 		.insert(user)
 		.then(userReturn => {
 			const token = generateToken(user);
+			console.log(user);
 			db("users")
 				.where({ email: user.email })
+				.first()
 				.then(user => {
+					console.log(user);
 					res.status(200).json({ userID: user.id, token: token });
 				})
 				.catch(err => {
