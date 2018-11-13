@@ -26,15 +26,30 @@ class LoginViewController: UIViewController, LoginDelegate {
     
     func handleLogin(for user: String?, with password: String?) {
         // Send user details to the web server
-        let status = "successful" // to be handled by network completion --> add an error enum
-        switch status {
-        case "successful": // If response was successful, then show the home view for the user
-            break
-        case "incorrectLogin": // Show error if login incorrect
-            loginView.showError(for: .incorrectLogin)
-        default:
-            break
+        guard let user = user, let password = password else { return }
+        APIClient.shared.login(with: user, password: password) { (response) in
+            
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let email):
+                    //navigate to homeview
+                    print("Login with \(email) completed")
+                case .error(let error):
+                    self.loginView.showError(for: .incorrectLogin)
+                    return
+                }
+            }
         }
+        
+//        let status = "successful" // to be handled by network completion --> add an error enum
+//        switch status {
+//        case "successful": // If response was successful, then show the home view for the user
+//            break
+//        case "incorrectLogin": // Show error if login incorrect
+//            loginView.showError(for: .incorrectLogin)
+//        default:
+//            break
+//        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4), execute: {
             self.loginView.clear()
