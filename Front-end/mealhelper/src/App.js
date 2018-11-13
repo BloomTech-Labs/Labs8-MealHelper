@@ -6,6 +6,7 @@ import { Route, Switch, Link } from 'react-router-dom';
 /////Dev. Created/////////
 import Signup from "./components/signup/signup";
 import Login from "./components/login/login";
+import Thanks from"./components/thanks/thanks";
 ////////////////////////
 
 import "./App.css";
@@ -39,6 +40,12 @@ class App extends Component {
               (<Login
                 />)}
               />
+                <Route path='/thanks' 
+              render={() => 
+              (<Thanks
+                />)}
+              />
+
             </Switch>
           </div>
         </div>

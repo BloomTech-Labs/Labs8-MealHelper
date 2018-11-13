@@ -1,12 +1,17 @@
+<<<<<<< HEAD
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { GETTING_USER } from '../../store/actions';
 import { withRouter } from "react-router-dom";
+=======
+import React from "react";
+>>>>>>> 9d607623b715efe5262c6f68b95521792caaa2f8
 import './login.css';
 
 
-class Login extends Component {
+const Login = ({ onClick }) => (
 
+<<<<<<< HEAD
     constructor(props) {
 		super(props);
 
@@ -40,6 +45,8 @@ class Login extends Component {
 
   render() {
     return (
+=======
+>>>>>>> 9d607623b715efe5262c6f68b95521792caaa2f8
         <div className="form-title">
             <h1 className="login-title">Login</h1>
             <form>
@@ -59,6 +66,7 @@ class Login extends Component {
                     </label>
                 </div>
                 <div className="form-group">
+<<<<<<< HEAD
                     <input 
                         type="password" 
                         id="dynamic-label-input" 
@@ -71,15 +79,17 @@ class Login extends Component {
                         htmlFor="dynamic-label-input">
                         Password
                     </label>
+=======
+                    <input type="password" id="dynamic-label-input" placeholder="Password" />
+                    <label htmlFor="dynamic-label-input">Password</label>
+>>>>>>> 9d607623b715efe5262c6f68b95521792caaa2f8
                 </div>
-                <div class="login login-two">
+                <div className="login login-two" onClick= { onClick }>
                     <span>Login</span>
                 </div>
             </form>
         </div>
     );
-  }
-}
 
 
 const mapStateToProps = state => ({
