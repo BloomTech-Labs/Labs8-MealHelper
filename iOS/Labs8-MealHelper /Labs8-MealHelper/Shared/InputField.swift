@@ -36,7 +36,6 @@ class InputField: UITextField {
         self.backgroundColor = .white
         self.layer.cornerRadius = 8.0
         self.layer.masksToBounds = true
-        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
 }
