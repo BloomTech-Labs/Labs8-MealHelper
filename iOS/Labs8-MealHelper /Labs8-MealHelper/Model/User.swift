@@ -10,17 +10,10 @@ import Foundation
 
 struct User: Encodable {
     
-    init(email: String, password: String, zip: Int, healthCondition: String) {
-        self.email = email
-        self.password = password
-        self.zip = zip
-        self.healthCondition = healthCondition
-    }
-    
-    var email: String
-    var password: String
-    var zip: Int
-    var healthCondition: String
+    var email: String?
+    var password: String?
+    var zip: Int?
+    var healthCondition: String?
     
     enum CodingKeys: String, CodingKey {
         case email

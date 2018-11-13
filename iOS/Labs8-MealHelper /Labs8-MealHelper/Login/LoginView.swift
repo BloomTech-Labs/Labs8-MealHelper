@@ -26,6 +26,14 @@ class LoginView: UIView, UITextFieldDelegate {
         return iv
     }()
     
+    let lightBlurEffect: UIVisualEffectView = {
+        let frost = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        frost.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        frost.alpha =
+
+        return frost
+    }()
+    
     private let usernameLabel: InputField = {
         let inputField = InputField(placeholder: "Username")
         inputField.translatesAutoresizingMaskIntoConstraints = false
@@ -211,6 +219,7 @@ class LoginView: UIView, UITextFieldDelegate {
         
         // Background image
         backgroundImageView.fillSuperview()
+        lightBlurEffect.fillSuperview()
         
         // Header
         header.anchor(top: self.safeAreaLayoutGuide.topAnchor, leading: self.leadingAnchor, bottom: nil, trailing: self.trailingAnchor, padding: UIEdgeInsets(top: UIScreen.main.bounds.maxX * 0.15, left: 20.0, bottom: 0.0, right: 20.0))
