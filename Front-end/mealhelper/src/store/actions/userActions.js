@@ -11,13 +11,18 @@ export const GETTING_USERS_ERROR = "GETTING_USERS_ERROR";
 export const GETTING_USER_ERROR = "GETTING_USER_ERROR";
 export const CHANGING_USER = "CHANGING_USER";
 export const CHANGED_USER = "CHANGED_USER";
+export const CHANGING_USER_ERROR = "CHANGING_USER_ERROR";
 export const DELETING_USER = "DELETING_USER";
 export const DELETED_USER = "DELETED_USER";
+export const DELETING_USER_ERROR = "DELETING_USER_ERROR";
 //Route to sign up a user
 export const addUser = credentials => dispatch => {
 	dispatch({ type: ADDING_USER });
 	//Passes credentials to the /register Route.
-	const promise = axios.post("http://localhost:3300/register", credentials);
+	const promise = axios.post(
+		"https://labs8-meal-helper.herokuapp.com/register",
+		credentials
+	);
 	promise
 		.then(response => {
 			dispatch({ type: ADDED_USER, payload: response.data });
@@ -32,7 +37,7 @@ export const loginUser = credentials => dispatch => {
 
 	axios
 		//Passes credentials to the /login Route.
-		.post("http://localhost:3300/login", credentials)
+		.post("https://labs8-meal-helper.herokuapp.com/login", credentials)
 		.then(response => {
 			dispatch({ type: GOT_USER, payload: response.data });
 		})
@@ -47,12 +52,15 @@ export const updateUser = credentials => dispatch => {
 	axios
 		//Passes credentials to the /login Route.
 		//Credentials should pass the id in its object so we can uniquely have it in our axios req
-		.put(`http://localhost:3300/users/${credentials.id}`, credentials)
+		.put(
+			`https://labs8-meal-helper.herokuapp.com/users/${credentials.id}`,
+			credentials
+		)
 		.then(response => {
 			dispatch({ type: CHANGED_USER, payload: response.data });
 		})
 		.catch(err => {
-			dispatch({ type: ERROR, payload: err });
+			dispatch({ type: CHANGING_USER_ERROR, payload: err });
 		});
 };
 //Deleting user action
@@ -62,12 +70,12 @@ export const deleteUser = id => dispatch => {
 	axios
 
 		//ID is passed in and gets set to the dynamic route here.
-		.delete(`http://localhost:3300/users/${id}`)
+		.delete(`https://labs8-meal-helper.herokuapp.com/users/${id}`)
 		.then(response => {
 			//Reponse should be a 1 for deleted
 			dispatch({ type: DELETED_USER, payload: response.data });
 		})
 		.catch(err => {
-			dispatch({ type: ERROR, payload: err });
+			dispatch({ type: DELETING_USER_ERROR, payload: err });
 		});
 };
