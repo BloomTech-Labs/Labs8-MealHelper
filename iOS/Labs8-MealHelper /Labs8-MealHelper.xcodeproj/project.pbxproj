@@ -24,14 +24,16 @@
 		3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F242196200D007AA68A /* HTTPMethod.swift */; };
 		3DB65F282196200D007AA68A /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F252196200D007AA68A /* APIClient.swift */; };
 		3DB65F292196200D007AA68A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F262196200D007AA68A /* Response.swift */; };
-		3DFC7D9D2195AAC900C026D9 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC7D9C2195AAC900C026D9 /* NotesViewController.swift */; };
-		AC1DE867219473DD0066172C /* HomeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DE866219473DD0066172C /* HomeCollectionViewController.swift */; };
+		AC1DE867219473DD0066172C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DE866219473DD0066172C /* HomeViewController.swift */; };
 		AC1DE8692194748F0066172C /* MealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DE8682194748F0066172C /* MealCell.swift */; };
 		AC4D10732194A7A000317F4C /* ExpandableButton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC4D10722194A79600317F4C /* ExpandableButton.framework */; };
 		AC4D10742194A7A000317F4C /* ExpandableButton.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AC4D10722194A79600317F4C /* ExpandableButton.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AC4D10782194A7BC00317F4C /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4D10772194A7BC00317F4C /* OnboardingCollectionViewCell.swift */; };
 		AC4D10822194E80B00317F4C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4D10812194E80B00317F4C /* User.swift */; };
 		AC62FAC8219B24BA00D8C35C /* GenericTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FAC7219B24BA00D8C35C /* GenericTableViewController.swift */; };
+		AC62FACF219B408B00D8C35C /* StretchyHeaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FACE219B408B00D8C35C /* StretchyHeaderLayout.swift */; };
+		AC62FAD1219B499600D8C35C /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */; };
+		AC62FAD3219B4C1D00D8C35C /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FAD2219B4C1D00D8C35C /* HomeHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,12 +88,15 @@
 		3DB65F252196200D007AA68A /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIClient.swift; path = "Labs8-MealHelper/Networking/APIClient.swift"; sourceTree = SOURCE_ROOT; };
 		3DB65F262196200D007AA68A /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Response.swift; path = "Labs8-MealHelper/Networking/Response.swift"; sourceTree = SOURCE_ROOT; };
 		3DFC7D9C2195AAC900C026D9 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
-		AC1DE866219473DD0066172C /* HomeCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewController.swift; sourceTree = "<group>"; };
+		AC1DE866219473DD0066172C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AC1DE8682194748F0066172C /* MealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCell.swift; sourceTree = "<group>"; };
 		AC4D106D2194A79600317F4C /* ExpandableButton.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExpandableButton.xcodeproj; path = ExpandableButton/ExpandableButton.xcodeproj; sourceTree = "<group>"; };
 		AC4D10772194A7BC00317F4C /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		AC4D10812194E80B00317F4C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AC62FAC7219B24BA00D8C35C /* GenericTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTableViewController.swift; sourceTree = "<group>"; };
+		AC62FACE219B408B00D8C35C /* StretchyHeaderLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyHeaderLayout.swift; sourceTree = "<group>"; };
+		AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionView.swift; sourceTree = "<group>"; };
+		AC62FAD2219B4C1D00D8C35C /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,13 +132,14 @@
 		3D56A9D021934FAA00A91EF4 /* Labs8-MealHelper */ = {
 			isa = PBXGroup;
 			children = (
+				AC62FACD219B406D00D8C35C /* Layouts */,
 				3DB65F2321961FEB007AA68A /* Networking */,
 				AC40EDE6219505A4009FE4D4 /* Model */,
-				AC1DE86521946ED50066172C /* Ressources */,
 				3D56A9FC21939CE200A91EF4 /* Home */,
 				3D56A9E321934FCA00A91EF4 /* Login */,
 				3D90DE692194CCF4006C116B /* MealEntry */,
 				3D56A9ED2193501200A91EF4 /* Shared */,
+				AC1DE86521946ED50066172C /* Ressources */,
 			);
 			path = "Labs8-MealHelper";
 			sourceTree = "<group>";
@@ -153,6 +159,7 @@
 		3D56A9ED2193501200A91EF4 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				AC62FAC7219B24BA00D8C35C /* GenericTableViewController.swift */,
 				3D56A9EE2193503300A91EF4 /* Utils.swift */,
 				3D56A9F02193504700A91EF4 /* Theme.swift */,
 				3D56A9FD21939D3A00A91EF4 /* AutoLayout.swift */,
@@ -164,9 +171,10 @@
 		3D56A9FC21939CE200A91EF4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				AC1DE866219473DD0066172C /* HomeCollectionViewController.swift */,
+				AC1DE866219473DD0066172C /* HomeViewController.swift */,
 				AC1DE8682194748F0066172C /* MealCell.swift */,
-				AC62FAC7219B24BA00D8C35C /* GenericTableViewController.swift */,
+				AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */,
+				AC62FAD2219B4C1D00D8C35C /* HomeHeaderView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -233,6 +241,14 @@
 				AC4D10722194A79600317F4C /* ExpandableButton.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AC62FACD219B406D00D8C35C /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				AC62FACE219B408B00D8C35C /* StretchyHeaderLayout.swift */,
+			);
+			path = Layouts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,6 +344,7 @@
 				3D90DE6D2194CFFE006C116B /* MealTableViewCell.swift in Sources */,
 				AC1DE8692194748F0066172C /* MealCell.swift in Sources */,
 				3D90DE6B2194CE3F006C116B /* MealsTableViewController.swift in Sources */,
+				AC62FACF219B408B00D8C35C /* StretchyHeaderLayout.swift in Sources */,
 				3D56A9D221934FAA00A91EF4 /* AppDelegate.swift in Sources */,
 				3DB65F292196200D007AA68A /* Response.swift in Sources */,
 				3D56A9F8219350EA00A91EF4 /* OnboardingCollectionViewController.swift in Sources */,
@@ -336,13 +353,15 @@
 				3D56A9EF2193503300A91EF4 /* Utils.swift in Sources */,
 				AC4D10822194E80B00317F4C /* User.swift in Sources */,
 				3D56A9F4219350C200A91EF4 /* LoginView.swift in Sources */,
+				AC62FAD3219B4C1D00D8C35C /* HomeHeaderView.swift in Sources */,
 				3DB18BE82196FAB800C0E728 /* InputField.swift in Sources */,
 				3D56A9F5219350C200A91EF4 /* LoginViewController.swift in Sources */,
 				AC62FAC8219B24BA00D8C35C /* GenericTableViewController.swift in Sources */,
 				AC4D10782194A7BC00317F4C /* OnboardingCollectionViewCell.swift in Sources */,
 				3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */,
-				AC1DE867219473DD0066172C /* HomeCollectionViewController.swift in Sources */,
+				AC1DE867219473DD0066172C /* HomeViewController.swift in Sources */,
 				3D56A9F12193504700A91EF4 /* Theme.swift in Sources */,
+				AC62FAD1219B499600D8C35C /* HomeCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,10 +9,21 @@
 import UIKit
 import ExpandableButton
 
-class HomeCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class HomeViewController: UIViewController, UICollectionViewDelegate {
+
+    let headerView: HomeHeaderView = {
+        let hv = HomeHeaderView()
+        
+        return hv
+    }()
     
-    private let cellId = "mealCell"
-    private let footerId = "footerId"
+    lazy var collectionView: HomeCollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let cv = HomeCollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.scrollDelegate = self
+        
+        return cv
+    }()
     
     let footerView: UIView = {
         let view = UIView()
@@ -37,19 +48,30 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        setupCollectionView()
+        view.backgroundColor = .white
         setupFooterView()
-        let footerView = UIView()
-        footerView.backgroundColor = .green
     }
     
-    private func setupCollectionView() {
-        collectionView.backgroundColor = .white
-        collectionView.register(MealCell.self, forCellWithReuseIdentifier: cellId)
+    func animateHeader() {
+        
+        self.headerHeightConstraint.constant = 150UIView.animateWithDuration(0.4, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .CurveEaseInOut, animations: {
+        self.view.layoutIfNeeded()
+        }, completion: nil)
+        
     }
+    
+    private var headerViewHeightAnchor: NSLayoutConstraint?
     
     private func setupFooterView() {
+        
+        view.addSubview(headerView)
+        headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor)
+        headerViewHeightAnchor = headerView.heightAnchor.constraint(equalToConstant: 200)
+        headerViewHeightAnchor?.isActive = true
+        
+        view.addSubview(collectionView)
+        collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        
         view.addSubview(footerView)
         footerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0), size: CGSize(width: view.frame.width, height: 50))
         
@@ -57,23 +79,9 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
         expandableButtonView.centerInSuperview(size: CGSize(width: 300, height: 53))
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 25
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MealCell
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 50)
-    }
-    
 }
 
-extension HomeCollectionViewController: ExpandableButtonViewDelegate {
+extension HomeViewController: ExpandableButtonViewDelegate {
     
     func didTapButton(at position: ExpandableButtonPosition) {
         switch position {
@@ -86,5 +94,12 @@ extension HomeCollectionViewController: ExpandableButtonViewDelegate {
         case .mostRight:
             print("Most Right")
         }
+    }
+}
+
+extension HomeViewController: HomeCollectionViewDelegate {
+    
+    func didScrollDown(offsetY: CGFloat) {
+        self.headerViewHeightAnchor?.constant += abs(offsetY)
     }
 }

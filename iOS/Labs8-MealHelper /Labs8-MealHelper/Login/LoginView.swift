@@ -96,13 +96,6 @@ class LoginView: UIView, UITextFieldDelegate {
         return spinner
     }()
     
-    private lazy var lightBlurEffect: UIVisualEffectView = {
-        let frost = UIVisualEffectView()
-        frost.autoresizingMask = .flexibleWidth
-        frost.effect = nil
-        return frost
-    }()
-    
     enum LoginErrorTypes: String {
         case incorrectLogin = "Incorrect username or password."
         case network = "Could not connect to a network."
