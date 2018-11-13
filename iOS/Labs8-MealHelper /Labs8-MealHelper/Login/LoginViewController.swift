@@ -13,6 +13,9 @@ class LoginViewController: UIViewController, LoginDelegate {
     // MARK: - Properties
     
     var loginView: LoginView!
+    let apiClient = APIClient()
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +28,8 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
     
     func handleLogin(for user: String?, with password: String?) {
+        
+        
         // Send user details to the web server
         let status = "successful" // to be handled by network completion --> add an error enum
         switch status {
@@ -45,10 +50,6 @@ class LoginViewController: UIViewController, LoginDelegate {
     func createAccount() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: view.frame.width, height: view.frame.height)
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        layout.sectionInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         let onboardingVC = OnboardingCollectionViewController(collectionViewLayout: layout)
         navigationController?.pushViewController(onboardingVC, animated: true)
     }

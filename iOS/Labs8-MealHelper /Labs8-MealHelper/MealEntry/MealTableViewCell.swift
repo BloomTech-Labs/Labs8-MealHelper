@@ -63,7 +63,7 @@ class MealTableViewCell: UITableViewCell {
         return label
     }()
     
-    // MARK: - Actions
+    // MARK: - User Actions
     
     @objc func selectRow(_ button: UIButton) {
         button.isSelected = !button.isSelected
@@ -75,7 +75,7 @@ class MealTableViewCell: UITableViewCell {
         button.tintColor = tintColor
     }
     
-    // MARK: - Private
+    // MARK: - Configuration
     
     private func setupViews() {
         addSubview(mainStackView)

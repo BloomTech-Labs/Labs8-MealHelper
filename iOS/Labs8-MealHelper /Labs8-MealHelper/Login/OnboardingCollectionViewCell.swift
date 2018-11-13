@@ -27,7 +27,8 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     
     let personalInfoView = PersonalInfoView()
     
-    private let mainStackView: UIStackView = {
+    
+    private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -37,7 +38,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
-    private let headerStackView: UIStackView = {
+    private lazy var headerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -46,7 +47,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
-    private let genderButtonStackView: UIStackView = {
+    private lazy var genderButtonStackView: UIStackView = {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .horizontal
@@ -55,29 +56,33 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private let backButton: UIButton = {
+    private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "backArrow")!.withRenderingMode(.alwaysTemplate), for: .normal)
-        button.tintColor = .blue
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(previousCell), for: .touchUpInside)
         return button
     }()
     
-    private let nextButton: UIButton = {
+    private lazy var nextButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .blue
+        button.tintColor = .white
         button.setTitle("Next", for: .normal)
+        let nextButtonAction = isLastCell ? #selector(save) : #selector(nextCell)
+        button.addTarget(self, action: nextButtonAction, for: .touchUpInside)
         return button
     }()
     
-    private let headerTitleLabel: UILabel = {
+    private lazy var headerTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
         label.textAlignment = .center
-        label.text = "Personal Information"
-        label.font = UIFont.systemFont(ofSize: 20.0)
+        label.text = "Sign Up"
+        label.font = UIFont.boldSystemFont(ofSize: 20.0)
+        label.textColor = .white
         return label
     }()
     
@@ -88,8 +93,22 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         label.textAlignment = .center
         label.text = "In order to make smart suggestions we would like to know a little bit more about you."
         label.font = UIFont.systemFont(ofSize: 17.0)
+        label.textColor = .white
         label.numberOfLines = 3
         return label
+    }()
+    
+    private lazy var backgroundImageView : UIImageView = {
+        let image = UIImage(named: "backgroundImage")!
+        let iv = UIImageView(image: image)
+        return iv
+    }()
+    
+    private lazy var lightBlurEffect: UIVisualEffectView = {
+        let frost = UIVisualEffectView()
+        frost.autoresizingMask = .flexibleWidth
+        frost.effect = UIBlurEffect(style: .light)
+        return frost
     }()
     
     // MARK: - Init
@@ -114,28 +133,27 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func save() {
-        print("save")
-        guard let email = personalInfoView.email, let password = personalInfoView.password, let healthCondition = personalInfoView.height else { return }
+        guard let email = personalInfoView.email, let password = personalInfoView.password, let zip = personalInfoView.zip, let healthCondition = personalInfoView.healthCondition else { return }
         
-        let user = User(email: email, password: password, zip: 3300, healthCondition: healthCondition)
+        let user = User(email: email, password: password, zip: zip, healthCondition: healthCondition)
         
         delegate?.save(user: user)
     }
     
-    @objc func tappedGenderButton() {
-        print("beeep")
-    }
-    
-    // MARK: - Private
+    // MARK: - Configuration
     
     private func setupViews() {
         setupHeader()
         
-        mainStackView.addArrangedSubview(questionLabel)
+        addSubview(backgroundImageView)
+        backgroundImageView.addSubview(lightBlurEffect)
         addSubview(mainStackView)
+        mainStackView.addArrangedSubview(questionLabel)
         mainStackView.addArrangedSubview(personalInfoView)
         
-        mainStackView.anchor(top: headerStackView.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15.0, left: 15.0, bottom: 150.0, right: 15.0))
+        backgroundImageView.fillSuperview()
+        lightBlurEffect.fillSuperview()
+        mainStackView.anchor(top: headerStackView.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15.0, left: 15.0, bottom: 100.0, right: 15.0))
         
     }
     
@@ -147,11 +165,8 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         
         headerStackView.anchor(top: safeAreaLayoutGuide.topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15.0, left: 15.0, bottom: 0, right: 15.0), size: CGSize(width: 0.0, height: 50.0))
         
-        let nextButtonAction = isLastCell ? #selector(save) : #selector(nextCell)
         let nextButtonTitle = isLastCell ? "Save" : "Next"
-        nextButton.addTarget(self, action: nextButtonAction, for: .touchUpInside)
         nextButton.setTitle(nextButtonTitle, for: .normal)
-        backButton.addTarget(self, action: #selector(previousCell), for: .touchUpInside)
     }
     
 }
@@ -163,18 +178,19 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
     
     var gender: String?
     var username: String?
-    var zip: String?
+    var zip: Int?
     var email: String?
     var password: String?
     var birthday: Date?
     var height: String?
     var weight: String?
+    var healthCondition: String?
     
     private let genders = ["Female", "Male"]
     private var genderButtons = [UIButton]()
     private let selectedButtonColor = UIColor.red
     private let unselectedButtonColor = UIColor.lightGray
-    private let inputTextFields = ["Username", "Email", "Password", "Birthday", "Height", "Weight"]
+    private let inputTextFields = ["Username", "Email", "Password", "Zip", "Health Condition", "Birthday", "Height", "Weight"]
     private let inputPickerTextFields = ["Birthday", "Height", "Weight"]
     private var editingTextfield: UITextField?
     private lazy var weights: [Double] = (40...170).map { Double($0) }
@@ -207,7 +223,15 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Private
+    // MARK: - User actions
+    
+    @objc private func tappedGenderButton(_ button: UIButton) {
+        genderButtons.forEach { $0.backgroundColor = unselectedButtonColor; $0.isSelected = false }
+        button.backgroundColor = selectedButtonColor
+        gender = button.accessibilityIdentifier
+    }
+    
+    // MARK: - Configuration
     
     private func setupViews() {
         self.addSubview(mainStackView)
@@ -232,12 +256,6 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
         mainStackView.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor)
     }
 
-    @objc private func tappedGenderButton(_ button: UIButton) {
-        genderButtons.forEach { $0.backgroundColor = unselectedButtonColor; $0.isSelected = false }
-        button.backgroundColor = selectedButtonColor
-        gender = button.accessibilityIdentifier
-    }
-
     private func createButton(for gender: String) -> UIButton {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -254,21 +272,12 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
     }
 
     private func createTextField(for input: String) -> UITextField {
-        let tf = UITextField()
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.accessibilityIdentifier = input
-        tf.placeholder = input
-        tf.font = UIFont.systemFont(ofSize: 17.0)
-        tf.setLeftPaddingPoints(10.0)
-        tf.setRightPaddingPoints(10.0)
-        tf.backgroundColor = .white
-        tf.tintColor = .blue
-        tf.layer.cornerRadius = 8.0
-        tf.layer.masksToBounds = true
-        tf.contentHorizontalAlignment = .left
-        tf.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
-        tf.isUserInteractionEnabled = true
-        return tf
+        let inputField = InputField(placeholder: input)
+        inputField.translatesAutoresizingMaskIntoConstraints = false
+        inputField.accessibilityIdentifier = input
+        inputField.contentHorizontalAlignment = .left
+        inputField.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
+        return inputField
     }
     
     
@@ -301,9 +310,9 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView.accessibilityIdentifier {
         case "Height":
-            return getPersonHeightString(heights[row])
+            return Utils().getPersonHeightString(heights[row])
         case "Weight":
-            return getPersonWeightString(weights[row])
+            return Utils().getPersonWeightString(weights[row])
         default:
             return nil
         }
@@ -312,11 +321,11 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView.accessibilityIdentifier {
         case "Height":
-            let heightString = getPersonHeightString(heights[row])
+            let heightString = Utils().getPersonHeightString(heights[row])
             editingTextfield?.text = heightString
             self.height = heightString
         case "Weight":
-            let weightString = getPersonWeightString(weights[row])
+            let weightString = Utils().getPersonWeightString(weights[row])
             editingTextfield?.text = weightString
             self.weight = weightString
         default:
@@ -363,24 +372,6 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
         self.birthday = sender.date
     }
     
-    private func getPersonWeightString(_ kg: Double) -> String {
-        let massFormatter = MassFormatter()
-        let numberFormatter = NumberFormatter()
-        numberFormatter.allowsFloats = false
-        massFormatter.numberFormatter = numberFormatter
-        massFormatter.isForPersonMassUse = true
-        return massFormatter.string(fromKilograms: kg)
-    }
-    
-    private func getPersonHeightString(_ cm: Double) -> String {
-        let massFormatter = LengthFormatter()
-        let numberFormatter = NumberFormatter()
-        numberFormatter.allowsFloats = false
-        massFormatter.numberFormatter = numberFormatter
-        massFormatter.isForPersonHeightUse = true
-        return massFormatter.string(fromMeters: cm / 100)
-    }
-    
     // MARK: - UITextFieldDelegate
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -403,10 +394,16 @@ class PersonalInfoView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, UI
             self.email = textField.text
         case "Password":
             self.password = textField.text
+        case "Zip":
+            if let zip = textField.text {
+                self.zip = Int(zip)
+            }
+        case "Health Condition":
+            self.healthCondition = textField.text
         case "Height":
             self.height = textField.text
         case "Weight":
-            self.zip = textField.text
+            self.weight = textField.text
         default:
             break
         }

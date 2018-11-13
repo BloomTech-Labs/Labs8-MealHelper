@@ -13,50 +13,32 @@ protocol LoginDelegate {
     func createAccount()
 }
 
-class LoginView: UIView {
+class LoginView: UIView, UITextFieldDelegate {
 
     // MARK: - Properties
     
     var padding: CGFloat = 35.0
     var delegate: LoginDelegate?
     
-    private let backgroundImageView : UIImageView = {
+    private lazy var backgroundImageView : UIImageView = {
         let image = UIImage(named: "backgroundImage")!
         let iv = UIImageView(image: image)
         return iv
     }()
     
-    private let usernameLabel: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "Username"
-        tf.font = UIFont.systemFont(ofSize: 17.0)
-        tf.setLeftPaddingPoints(10.0)
-        tf.setRightPaddingPoints(10.0)
-        tf.backgroundColor = .white
-        tf.tintColor = .blue
-        tf.keyboardType = .emailAddress
-        tf.layer.cornerRadius = 8.0
-        tf.layer.masksToBounds = true
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        return tf
+    private let usernameLabel: InputField = {
+        let inputField = InputField(placeholder: "Username")
+        inputField.translatesAutoresizingMaskIntoConstraints = false
+        return inputField
     }()
     
-    private let passwordLabel: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "Password"
-        tf.font = UIFont.systemFont(ofSize: 17.0)
-        tf.setLeftPaddingPoints(10.0)
-        tf.setRightPaddingPoints(10.0)
-        tf.backgroundColor = .white
-        tf.tintColor = .blue
-        tf.isSecureTextEntry = true
-        tf.layer.cornerRadius = 8.0
-        tf.layer.masksToBounds = true
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        return tf
+    private let passwordLabel: InputField = {
+        let inputField = InputField(placeholder: "Password")
+        inputField.translatesAutoresizingMaskIntoConstraints = false
+        return inputField
     }()
     
-    private let loginButton: UIButton = {
+    private lazy var loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Login", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20.0)
@@ -69,7 +51,7 @@ class LoginView: UIView {
         return button
     }()
     
-    let createAccountButton: UIButton = {
+    lazy var createAccountButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Create a new account", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17.0)
@@ -79,7 +61,7 @@ class LoginView: UIView {
         return button
     }()
     
-    private let header: UILabel = {
+    private lazy var header: UILabel = {
         let label = UILabel()
         label.text = "Login"
         label.font = UIFont.systemFont(ofSize: 35.0)
@@ -89,7 +71,7 @@ class LoginView: UIView {
         return label
     }()
     
-    private let errorLabel: UILabel = {
+    private lazy var errorLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17.0)
         label.textAlignment = .center
@@ -98,12 +80,19 @@ class LoginView: UIView {
         return label
     }()
     
-    private let spinner: UIActivityIndicatorView = {
+    private lazy var spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .whiteLarge)
         spinner.frame = CGRect(x: -20.0, y: 6.0, width: 20.0, height: 20.0)
         spinner.startAnimating()
         spinner.alpha = 0.0
         return spinner
+    }()
+    
+    private lazy var lightBlurEffect: UIVisualEffectView = {
+        let frost = UIVisualEffectView()
+        frost.autoresizingMask = .flexibleWidth
+        frost.effect = nil
+        return frost
     }()
     
     enum LoginErrorTypes: String {
@@ -123,7 +112,7 @@ class LoginView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Public
+    // MARK: - User Actions
     
     @objc func handleLogin() {
         if inputIsValid() {
@@ -147,15 +136,18 @@ class LoginView: UIView {
             self.loginButton.bounds.size.width -= 80.0
             self.loginButton.center.y -= 60.0
             self.createAccountButton.isHidden = false
+            self.lightBlurEffect.effect = nil // TODO: Refactor into CALayer animation, since the performance is quite laggy
         }, completion: nil)
     }
+    
+    // MARK: - Public
     
     func showError(for type: LoginErrorTypes) { // Clear input fields and show error text
         self.clear()
         errorLabel.text = type.rawValue
     }
     
-    // MARK: - Private
+    // MARK: - Helper methods
     
     private func inputIsValid() -> Bool {
         var inputIsValid = true
@@ -172,6 +164,8 @@ class LoginView: UIView {
         
         return inputIsValid
     }
+    
+    // MARK: - Animations
     
     private func animateInputError(for input: UITextField) { // Shakes the corresponding input to indicate that input was not valid.
         input.center.x -= 10.0
@@ -194,19 +188,19 @@ class LoginView: UIView {
             self.createAccountButton.isHidden = true
         }, completion: nil)
         
-//        let forkImageView = UIImageView(image: UIImage(named: "forkIcon")!.withRenderingMode(.alwaysTemplate))
-//        forkImageView.tintColor = .white
-//        forkImageView.frame = CGRect(x: -150, y: center.y, width: 60, height: 60)
-//        addSubview(forkImageView)
-//
-//        UIView.animate(withDuration: 2.0, delay: 0.0, options: [.repeat], animations: {
-//            forkImageView.center = CGPoint(x: self.bounds.maxX + 30, y: self.center.y)
-//        }, completion: nil)
-        
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.2) {
+            self.lightBlurEffect.effect = UIBlurEffect(style: .light)
+        }
+    }
+    
+    // MARK: - Configuration
     
     private func setupViews() {
         self.addSubview(backgroundImageView)
+        backgroundImageView.addSubview(lightBlurEffect)
         self.addSubview(header)
         self.addSubview(usernameLabel)
         self.addSubview(passwordLabel)
@@ -236,6 +230,11 @@ class LoginView: UIView {
         
         createAccountButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         createAccountButton.anchor(top: loginButton.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: padding / 2, left: 0.0, bottom: 0.0, right: 0.0), size: CGSize(width: 220.0, height: 15.0))
+        
+        usernameLabel.delegate = self
+        passwordLabel.delegate = self
+        lightBlurEffect.fillSuperview()
     }
+    
 
 }
