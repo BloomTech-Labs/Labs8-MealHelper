@@ -36,7 +36,7 @@
     opacity: 1;
     transform: translateY(0);
     transition: all 0.2s ease-out;
-    color: rgb(192, 181, 31);;
+    color: rgb(192, 181, 31);
   }
   
   input:placeholder-shown + label {
@@ -48,11 +48,9 @@
   input {
     width: 256px;
     height: 64px;
+    font-size: 12px;
   }
 
-  input:focus {
-    outline: 3px solid rgb(192, 181, 31);
-  }
 
 .login {
     position: relative;
@@ -63,6 +61,11 @@
     transition: all 0.3s;
     margin-top: 3%;
     cursor: pointer;
+  }
+
+  .login:hover {
+    font-size: 17px;
+    font-weight: bold;
   }
 
   .login span {
