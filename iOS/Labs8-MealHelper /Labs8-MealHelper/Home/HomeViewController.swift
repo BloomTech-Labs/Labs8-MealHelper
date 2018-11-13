@@ -52,12 +52,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         setupFooterView()
     }
     
-    func animateHeader() {
+    func resetHeaderHeight() {
+        self.headerViewHeightAnchor?.constant = 200
         
-        self.headerHeightConstraint.constant = 150UIView.animateWithDuration(0.4, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .CurveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
         self.view.layoutIfNeeded()
         }, completion: nil)
-        
     }
     
     private var headerViewHeightAnchor: NSLayoutConstraint?
@@ -100,6 +100,21 @@ extension HomeViewController: ExpandableButtonViewDelegate {
 extension HomeViewController: HomeCollectionViewDelegate {
     
     func didScrollDown(offsetY: CGFloat) {
-        self.headerViewHeightAnchor?.constant += abs(offsetY)
+        headerViewHeightAnchor?.constant += abs(offsetY)
+    }
+    
+    func didScrollUp(offsetY: CGFloat) {
+        if headerViewHeightAnchor?.constant ?? 0 > 65 {
+            headerViewHeightAnchor?.constant -= offsetY/75
+            if headerViewHeightAnchor?.constant ?? 0 < 65 {
+                headerViewHeightAnchor?.constant = 65
+            }
+        }
+    }
+    
+    func didEndDragging() {
+        if headerViewHeightAnchor?.constant ?? 0 > 200 {
+            resetHeaderHeight()
+        }
     }
 }

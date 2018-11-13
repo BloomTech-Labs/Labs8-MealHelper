@@ -10,6 +10,8 @@ import UIKit
 
 protocol HomeCollectionViewDelegate: class {
     func didScrollDown(offsetY: CGFloat)
+    func didScrollUp(offsetY: CGFloat)
+    func didEndDragging()
 }
 
 class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
@@ -52,7 +54,18 @@ class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
 extension HomeCollectionView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y < 0 {
-            scrollDelegate?.didScrollDown(offsetY: scrollView.contentOffset.y )
+            scrollDelegate?.didScrollDown(offsetY: scrollView.contentOffset.y)
+        } else if scrollView.contentOffset.y > 0 {
+            scrollDelegate?.didScrollUp(offsetY: scrollView.contentOffset.y)
         }
     }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        scrollDelegate?.didEndDragging()
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        scrollDelegate?.didEndDragging()
+    }
+    
 }
