@@ -2,10 +2,14 @@ const express = require("express");
 const helmet = require("helmet");
 const knex = require("knex");
 const jwt = require("jsonwebtoken");
-const knexConfig = require("./knexfile");
-const db = knex(knexConfig.development);
+
+const dbEngine = process.env.DB || "production";
+const knexConfig = require("./knexfile.js")[dbEngine];
+
+const db = knex(knexConfig);
 const server = express();
-const port = 3300;
+
+const port = process.env.PORT || 3300;
 const bcrypt = require("bcrypt");
 
 const cors = require("cors");
@@ -29,34 +33,58 @@ function generateToken(user) {
 
 	return jwt.sign(payload, jwtSecret, JwtOptions);
 }
+
+/////////ROUTE IMPORTS///////////////
+// const userRoutes = require("./users/usersRoutes");
+
+// server.use("/users", userRoutes);
+
+// server.get("/", (req, res) => {
+// 	res.status(200).json({ Welcome: " Welcome !" });
+// });
+
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++ USERS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 server.get("/users", (req, res) => {
-	db("users").then(users => {
-		res.status(200).json(users);
-	});
+	db("users")
+		.then(users => {
+			res.status(200).json(users);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not grab users" });
+		});
 });
-//Register a new user
+// Register a new user
 server.post("/register", (req, res) => {
 	//Abstraction of req.body
 	const { email, password, zip, healthCondition } = req.body;
+	console.log(req.body);
 	//Sets the user to a JSON object of what we pulled from req.body
 	const user = { email, password, zip, healthCondition };
 	//Hashing the password
+
 	const hash = bcrypt.hashSync(user.password, 15);
 	//Setting the password to our hash
 	user.password = hash;
+	console.log(user);
 	db("users")
 		.insert(user)
 		.then(user => {
-			//Registers the user and generates a jwt token for them
-			const token = generateToken(user);
-			res.status(201).json(user, { token: token });
+			db("users")
+				.then(user => {
+					res.status(200).json(user);
+				})
+				.catch(err => {
+					res.status(400).json({ error: "Could not grab user" });
+				});
+		})
+		.catch(err => {
+			res.status(400).json({ msg: err, error: "Could not create a user" });
 		});
 });
-//Login a user
+
+// Login a user
 server.post("/login", (req, res) => {
 	const { email, password } = req.body;
 	const userLogin = { email, password };
@@ -155,9 +183,9 @@ server.get("/users/:userid/meals", (req, res) => {
 server.post("/users/:userid/meals", (req, res) => {
 	//grabs either the user id from req.params OR from the req.body (need to make choice later)
 	const userId = req.params.userid;
-	const { recipe_id, user_id, mealTime, experience, date } = req.body;
+	const { user_id, mealTime, experience, date } = req.body;
 	//Grabs the associated data from req.body and sets it as a JSON to meal
-	const meal = { recipe_id, user_id, mealTime, experience, date };
+	const meal = { user_id, mealTime, experience, date };
 	console.log(meal);
 
 	db("mealList")
@@ -167,18 +195,17 @@ server.post("/users/:userid/meals", (req, res) => {
 			res.status(200).json(mealID);
 		})
 		.catch(err => {
-			res.status(400).json({ error: "Error creating a new meal." });
+			res.status(400).json({ msg: err, error: "Error creating a new meal." });
 		});
 });
 //PUT request to change the recipes, meal time, experience or experience
 server.put("/meals/:mealID", (req, res) => {
 	const id = req.params.mealID;
-	const { recipe_id, user_id, mealTime, experience } = req.body;
-	const meal = { recipe_id, user_id, mealTime, experience };
+	const { user_id, mealTime, experience } = req.body;
+	const meal = { user_id, mealTime, experience };
 	db("mealList")
 		.where({ id: id })
 		.update({
-			recipe_id: meal.recipe_id,
 			mealTime: meal.mealTime,
 			experience: meal.experience
 		})
@@ -260,10 +287,10 @@ server.get("/recipe/:userid", (req, res) => {
 server.post("/recipe/:userid", (req, res) => {
 	//grabs the user id from the req.params
 	const user_id = req.params.userid;
-	const { name, calories, servings, ingredients_id } = req.body;
+	const { meal_id, name, calories, servings, ingredients_id } = req.body;
 	//Grabs the associated data from req.body and sets it as a JSON to recipe
 	//NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-	const recipe = { name, user_id, calories, servings, ingredients_id };
+	const recipe = { meal_id, name, user_id, calories, servings, ingredients_id };
 	console.log(recipe);
 
 	db("recipe")
@@ -597,17 +624,202 @@ server.delete("/nutrients/:id", (req, res) => {
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //Returns a list of notes associated with a meal
-server.get("/users/:mealid/notes", (req, res) => {
+server.get("notes/:mealid", (req, res) => {
 	const mealId = req.params.mealid;
 	db("notes")
 		//Finds the corrosponding note based on meal ID
 		.where({ mealList_id: mealId })
-		.then(meal => {
-			//Returns all the meals from that user
-			res.status(200).json(meal);
+		.then(note => {
+			//Returns all the note from that meal
+			res.status(200).json(note);
 		})
 		.catch(err => {
 			res.status(400).json({ error: "could not find associated note" });
+		});
+});
+//POST req to create a note and associate it to a meal
+server.post("notes/:mealid", (req, res) => {
+	//Grabs the meal id from req.params
+	const mealId = req.params.mealid;
+	const { notebody } = req.body;
+	//Adds the meal id to the note to make it a part of that meal.
+	const note = { notebody, mealId };
+	db("notes")
+		//Inserts the note into the notes table
+		.insert(note)
+		.then(note => {
+			//Returns the note
+			res.status(201).json(note);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not create note" });
+		});
+});
+
+//PUT request to change the notes body
+server.put("/notes/:noteid", (req, res) => {
+	const id = req.params.noteid;
+	const { notebody } = req.body;
+	const note = { notebody };
+	db("notes")
+		.where({ id: id })
+		.update({
+			notebody: note.notebody
+		})
+		.then(noteID => {
+			//Returns the note ID
+			res.status(200).json(noteID);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not update note" });
+		});
+});
+//Deletes a note
+server.delete("/note/:noteid", (req, res) => {
+	//Grabs note id from req.params
+	const id = req.params.noteid;
+	db("notes")
+		.where({ id: id })
+		.del()
+		.then(deleted => {
+			//Returns a 1 for deleted or a 0 for not.
+			res.status(200).json(deleted);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Error deleting note" });
+		});
+});
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++ WEATHER ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//Returns the weather for that meal
+server.get("/weather/:mealid", (req, res) => {
+	const mealId = req.params.mealid;
+	db("weather")
+		//Finds the corrosponding weather data for that meal
+		.where({ mealId: mealId })
+		.then(weather => {
+			//Returns the weather for that meal
+			res.status(200).json(weather);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not find the weather data" });
+		});
+});
+//POST req to create a weather report for that meal
+server.post("/weather/:mealid", (req, res) => {
+	//Grabs the meal id from req.params
+	const mealId = req.params.mealid;
+	const { name, description, temp, humidity, pressure } = req.body;
+	//Adds the meal id to the weather object
+	const weather = { name, description, temp, humidity, pressure, mealId };
+	db("weather")
+		//Inserts the weather and associates it to a meal
+		.insert(weather)
+		.then(weather => {
+			//Returns the weather
+			res.status(201).json(weather);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not create weather" });
+		});
+});
+
+//Deletes the weather for the meal
+server.delete("/weather/:mealid", (req, res) => {
+	//Grabs meal id from req.params
+	const id = req.params.mealid;
+	db("weather")
+		//FInds the meal thats associated with that weather report
+		.where({ mealId: id })
+		.del()
+		.then(deleted => {
+			//Returns a 1 for deleted or a 0 for not.
+			res.status(200).json(deleted);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Error deleting weather data" });
+		});
+});
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++ ALARMS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//Returns the alarms for that user
+server.get("/alarms/:userid", (req, res) => {
+	const user_ID = req.params.userid;
+	db("alarms")
+		//Finds the alarms associated to that user
+		.where({ user_id: user_ID })
+		.then(alarms => {
+			//Returns the alarms for that user
+			res.status(200).json(alarms);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not find the alarms" });
+		});
+});
+//POST req to create a alarm for the user
+server.post("/alarms/:userid", (req, res) => {
+	//Grabs the user id from req.params
+	const user_ID = req.params.userid;
+	const { beginTime, endTime, beginLimit, endLimit, repeats } = req.body;
+	//Adds the user id to the alarm object
+	const alarm = { beginTime, endTime, beginLimit, endLimit, repeats, user_ID };
+	db("alarms")
+		//Inserts the alarm and sets it to the user
+		.insert(alarm)
+		.then(alarm => {
+			//Returns the alarm
+			res.status(201).json(alarm);
+		})
+		.catch(err => {
+			res.status(400).json({ msg: err, error: "Could not create alarm" });
+		});
+});
+
+//PUT request to change the alarm settings
+server.put("/alarms/:id", (req, res) => {
+	//Grabs the alarm id from req.params
+	const id = req.params.userid;
+	const { beginTime, endTime, beginLimit, endLimit, repeat } = req.body;
+	// Sets the req.body to an alarm object that gets passed into the update
+	const alarm = { beginTime, endTime, beginLimit, endLimit, repeat };
+	db("alarms")
+		.where({ id: id })
+		.update({
+			beginTime: alarm.beginTime,
+			endTime: alarm.endTime,
+			beginLimit: alarm.beginLimit,
+			endLimit: alarm.beginLimit,
+			repeat: alarm.repeat
+		})
+		.then(alarmID => {
+			//Returns the alarm ID
+			res.status(200).json(alarmID);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Could not update alarm" });
+		});
+});
+
+//Deletes the alarm for the user
+server.delete("/alarms/:id", (req, res) => {
+	//Grabs alarm id from req.params
+	const id = req.params.mealid;
+	db("alarms")
+		//FInds the meal thats associated with that weather report
+		.where({ id: id })
+		.del()
+		.then(deleted => {
+			//Returns a 1 for deleted or a 0 for not.
+			res.status(200).json(deleted);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "Error deleting alarm" });
 		});
 });
 

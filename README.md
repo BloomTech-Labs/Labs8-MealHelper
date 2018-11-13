@@ -154,3 +154,69 @@
 
 - Requires the nutrients id.
 - Returns a 1 for deleted, or a 0 for not deleted.
+
+# Notes Endpoints
+
+## GET notes/:mealid
+
+- Requires the meal id.
+- Returns: the notes for that meal.
+
+## POST notes/:mealid
+
+- Requires the meal ID.
+- Takes in notebody from req.body
+- Returns: the note associated to that meal.
+
+## PUT /notes/:noteid
+
+- Requires the id of the note.
+- Takes in the notebody from req.body
+- Returns the id of the changed note.
+
+## DELETE /notes/:noteid
+
+- Requires the id of the note.
+- Returns a 1 if deleted, a 0 if not.
+
+# Weather Endpoints
+
+## GET /weather/:mealid
+
+- Requires the meal ID.
+- Returns: The weather report for that meal.
+
+## POST /weather/:mealid
+
+- Requires the meal ID from req.params to associate the weather too. 
+- Requires the name, description, temp, humidity, pressure from req.body
+- Returns the weather that was posted.
+
+## DELETE /weather/:mealid
+
+- Requires: the meal id from req. params. (NOTE: One weather report per meal should be the goal.)
+- Returns: a 1 if deleted, and a 0 if not.
+
+# Alarms Endpoints
+
+## GET /alarms/:userid
+
+- Requires the user id from req.params.
+- Returns: the alarms for that user.
+
+## POST /alarms/:userid
+
+- Requires the user ID from req.params.
+- Takes in beginTime, endTime, beginLimit, endLimit, repeat from req.body
+- Returns: the alarm associated to that user.
+
+## PUT /alarms/:id
+
+- Requires the id of the alarm.
+- Takes in the beginTime, endTime, beginLimit, endLimit, repeat from req.body
+- Returns the id of the changed alarm.
+
+## DELETE /alarms/:id
+
+- Requires the id of the alarm.
+- Returns a 1 if deleted, a 0 if not.
