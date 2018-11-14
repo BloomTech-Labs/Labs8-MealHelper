@@ -378,6 +378,7 @@ server.get("/ingredients/:userid", (req, res) => {
 			res.status(400).json({ err, error: "could not find meal" });
 		});
 });
+
 //POST request to create an ingredients
 server.post("/ingredients/:userid", (req, res) => {
 	//grabs the user id from the req.params
@@ -463,8 +464,15 @@ server.get("/nutrients/:ingredientID", (req, res) => {
 		//Doing a where request returns an array, so we want the first index of that array.
 		.first()
 		.then(ingredients => {
-			//Returns the nutrient ids (in string form) of the recipe.
-			res.status(200).json(ingredients.nutrients_id);
+			db("nutrients")
+				.where({ ingredient_id: ingredientId })
+				.then(nutrients => {
+					//Returns all the nutrients
+					res.status(200).json(nutrients);
+				})
+				.catch(err => {
+					res.status(400).json({ err, error: "could not find nutrients" });
+				});
 		})
 		.catch(err => {
 			res.status(400).json({ err, error: "could not find meal" });
