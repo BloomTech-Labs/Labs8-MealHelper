@@ -17,17 +17,20 @@ class MealSetupTableViewCell: UITableViewCell {
             
         }
     }
+    
+    var servingQtys = (1...20).map { String($0) }
+    var servingTypes = ["cup", "100 g", "container", "ounce"]
 
     // MARK: - Private properties
     
     let servingSizeInputField: PickerInputField = {
-        let inputField = PickerInputField(defaultValue: "hi")
+        let inputField = PickerInputField(defaultValue: "cup")
         inputField.picker.accessibilityIdentifier = "servingSize"
         return inputField
     }()
     
     let servingQtyInputField: PickerInputField = {
-        let inputField = PickerInputField(defaultValue: "hi")
+        let inputField = PickerInputField(defaultValue: "1")
         inputField.picker.accessibilityIdentifier = "servingQty"
         return inputField
     }()
@@ -89,7 +92,7 @@ class MealSetupTableViewCell: UITableViewCell {
         
         mainStackView.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor)
         
-        nameLabel.text = "Gaggi"
+        nameLabel.text = "Kraft Cheese"
         servingLabel.text = "1 cup"
         
         servingSizeInputField.picker.delegate = self
@@ -107,19 +110,33 @@ extension MealSetupTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 50
+        switch pickerView.accessibilityIdentifier {
+        case "servingSize":
+            return servingTypes.count
+        case "servingQty":
+            return servingQtys.count
+        default:
+            return 0
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "whatup"
+        switch pickerView.accessibilityIdentifier {
+        case "servingSize":
+            return servingTypes[row]
+        case "servingQty":
+            return servingQtys[row]
+        default:
+            return nil
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView.accessibilityIdentifier {
         case "servingSize":
-            self.servingSizeInputField.text = "whatup"
+            self.servingSizeInputField.text = servingTypes[row]
         case "servingQty":
-            self.servingQtyInputField.text = "whatup"
+            self.servingQtyInputField.text = servingQtys[row]
         default:
             break
         }

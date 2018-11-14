@@ -33,8 +33,7 @@ class MealSetupTableViewController: UITableViewController {
         tableView.tableHeaderView = mealSetupHeaderView
         
         // Footer view
-        let mealSetupFooterView = MealSetupFooterView()
-        mealSetupFooterView.frame = tableView.frame
+        let mealSetupFooterView = MealSetupFooterView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 400.0))
         tableView.tableFooterView = mealSetupFooterView
         
         setupViews()
