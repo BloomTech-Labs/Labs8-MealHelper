@@ -16,3 +16,11 @@ yarn add auth0-lock
 ```
 yarn add dotenv
 ```
+
+### Add script tags
+- In public folder, add to index.html outside of body:
+```
+<script type="text/javascript" src="node_modules/auth0-js/build/auth0.js"></script>
+
+<script src="https://cdn.auth0.com/js/lock/11.10/lock.min.js"></script>
+```
