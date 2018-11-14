@@ -12,11 +12,13 @@ class MealTableViewCell: UITableViewCell {
     
     // MARK: - Public properties
     
-    var meal: String? {
-        didSet {
-            setupViews()
-        }
-    }
+//    var recipe: Recipe? {
+//        didSet {
+//            setupViews()
+//        }
+//    }
+    
+    var recipe: String?
     
     // MARK: - Private properties
     
@@ -63,6 +65,17 @@ class MealTableViewCell: UITableViewCell {
         return label
     }()
     
+    // MARK: - Init
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - User Actions
     
     @objc func selectRow(_ button: UIButton) {
@@ -87,7 +100,7 @@ class MealTableViewCell: UITableViewCell {
         mainStackView.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0))
         
         selectButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        selectButton.addTarget(self, action: #selector(selectRow), for: .touchUpInside)
+        // selectButton.addTarget(self, action: #selector(selectRow), for: .touchUpInside)
         
     }
 
