@@ -29,8 +29,7 @@ class LoginView: UIView, UITextFieldDelegate {
     let lightBlurEffect: UIVisualEffectView = {
         let frost = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
         frost.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        frost.alpha =
-
+        frost.effect = nil
         return frost
     }()
     
@@ -94,13 +93,6 @@ class LoginView: UIView, UITextFieldDelegate {
         spinner.startAnimating()
         spinner.alpha = 0.0
         return spinner
-    }()
-    
-    private lazy var lightBlurEffect: UIVisualEffectView = {
-        let frost = UIVisualEffectView()
-        frost.autoresizingMask = .flexibleWidth
-        frost.effect = nil
-        return frost
     }()
     
     enum LoginErrorTypes: String {

@@ -11,6 +11,30 @@ import UIKit
 
 class IngredientsTableViewController: MealsTableViewController {
     
+    // MARK: - Private properties
+    
+    private lazy var searchController: UISearchController = {
+        var sc = UISearchController(searchResultsController: nil)
+        // sc.searchResultsUpdater = self
+        sc.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
+        sc.searchBar.delegate = self
+        sc.searchBar.showsBookmarkButton = true
+        sc.searchBar.setImage(UIImage(named: "camera")!.withRenderingMode(.alwaysTemplate), for: .bookmark, state: .normal)
+        sc.searchBar.tintColor = view.tintColor
+        return sc
+    }()
+    
+    
+    // MARK: - Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.tableHeaderView = searchController.searchBar
+    }
+    
+    // MARK: - UITableViewController
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as! MealTableViewCell
         
@@ -32,3 +56,21 @@ class IngredientsTableViewController: MealsTableViewController {
     
 }
 
+extension IngredientsTableViewController: UISearchBarDelegate, UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        // Real-time search as the user types
+    }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        // Handle searchBar button click (Image Controller)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+    }
+}
