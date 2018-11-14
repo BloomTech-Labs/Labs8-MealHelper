@@ -35,4 +35,22 @@ REACT_APP_DOMAIN_URL=bakerc.auth0.com
 - Where `REACT_APP_CLIENT_ID` is `Client ID` on Auth0 settings page
 - Where `REACT_APP_DOMAIN_URL` is `Domain` on Auth0 settings page
 
-### 
+### Require dotenv
+- In src/index.js:
+```
+require("dotenv").config();
+```
+
+### Initialize Lock
+- In Sign In/Sign Up component
+- Import Auth0Lock:
+```
+import { Auth0Lock } from "auth0-lock";
+```
+- Create lock, referencing env:
+```
+var lock = new Auth0Lock(
+  process.env.REACT_APP_CLIENT_ID,
+  process.env.REACT_APP_DOMAIN_URL
+);
+```
