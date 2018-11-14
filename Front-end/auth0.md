@@ -24,3 +24,13 @@ yarn add dotenv
 
 <script src="https://cdn.auth0.com/js/lock/11.10/lock.min.js"></script>
 ```
+
+### Store Client ID and Domain ID
+- Create .env file in react app folder
+- Include:
+```
+REACT_APP_CLIENT_ID=x3zEo1G7Iq5a32M9i27ZFdRKk78061Gs
+REACT_APP_DOMAIN_URL=bakerc.auth0.com
+```
+- Where `REACT_APP_CLIENT_ID` is `Client ID` on Auth0 settings page
+- Where `REACT_APP_DOMAIN_URL` is `Domain` on Auth0 settings page
