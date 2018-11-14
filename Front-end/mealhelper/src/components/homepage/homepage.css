@@ -9,6 +9,7 @@
 
   .sidebar {
       width: 15%;
+      height: 60%;
       outline: 3px solid #F1E7E8;
       padding: 4%;
       margin: 2%;
@@ -22,6 +23,15 @@
   }
 
   .titlelinks {
+      display: flex;
+      justify-content: flex-end;
+      line-height: 1.2em;
       color: #F1E7E8;
-      padding: 2%;
+      padding: 5%;
+  }
+
+  .titlelinks:hover {
+    font-size: 31px;
+    font-weight: bold;
+    color: #A3CeA0
   }
