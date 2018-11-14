@@ -53,7 +53,7 @@ class PickerInputField: UITextField {
         self.setRightPaddingPoints(10.0)
         self.backgroundColor = UIColor.white
         self.layer.cornerRadius = 8.0
-        self.layer.masksToBounds = true
+        self.layer.masksToBounds = false
         self.translatesAutoresizingMaskIntoConstraints = false
         self.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
@@ -64,7 +64,6 @@ class PickerInputField: UITextField {
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(dismissKeyboard))
         pickerToolBar.setItems([doneButton], animated: false)
         self.inputAccessoryView = pickerToolBar
-        
         
     }
 

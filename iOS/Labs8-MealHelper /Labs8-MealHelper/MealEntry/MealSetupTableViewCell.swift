@@ -9,15 +9,15 @@
 import UIKit
 
 protocol MealSetupTableViewCellDelegate {
-    func setServingQty(with qty: String, for meal: Any)
-    func setServingType(with type: String, for meal: Any)
+    func setServingQty(with qty: String, for recipe: Any)
+    func setServingType(with type: String, for recipe: Any)
 }
 
 class MealSetupTableViewCell: UITableViewCell {
     
     // MARK: - Public properties
     
-    var meal: Any = "meal"
+    var recipe: Any = "meal"
     var delegate: MealSetupTableViewCellDelegate?
     var servingQtys = (1...20).map { String($0) }
     var servingTypes = ["cup", "100 g", "container", "ounce"]
@@ -83,12 +83,12 @@ class MealSetupTableViewCell: UITableViewCell {
     
     // MARK: - MealSetupTableViewCellDelegate
     
-    func setServingQty(with qty: String, for meal: Any) {
-        delegate?.setServingQty(with: qty, for: meal)
+    func setServingQty(with qty: String, for recipe: Any) {
+        delegate?.setServingQty(with: qty, for: recipe)
     }
     
-    func setServingType(with type: String, for meal: Any) {
-        delegate?.setServingType(with: type, for: meal)
+    func setServingType(with type: String, for recipe: Any) {
+        delegate?.setServingType(with: type, for: recipe)
     }
     
     // MARK: - Configuration
@@ -102,6 +102,7 @@ class MealSetupTableViewCell: UITableViewCell {
         inputStackView.addArrangedSubview(servingQtyInputField)
         
         mainStackView.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor)
+        inputStackView.anchor(top: nil, leading: mainStackView.leadingAnchor, bottom: nil, trailing: mainStackView.trailingAnchor)
         
         nameLabel.text = "Kraft Cheese"
         servingLabel.text = "1 cup"
@@ -147,11 +148,11 @@ extension MealSetupTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
         case "servingSize":
             let type = servingTypes[row]
             servingSizeInputField.text = type
-            setServingType(with: type, for: meal)
+            setServingType(with: type, for: recipe)
         case "servingQty":
             let qty = servingQtys[row]
             servingQtyInputField.text = qty
-            setServingQty(with: qty, for: meal)
+            setServingQty(with: qty, for: recipe)
         default:
             break
         }

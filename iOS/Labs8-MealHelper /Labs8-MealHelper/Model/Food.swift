@@ -10,11 +10,19 @@ import Foundation
 
 struct Meal: Encodable {
     
+    init(mealTime: String, experience: String, date: String, userId: Int) {
+        self.mealTime = mealTime
+        self.experience = experience
+        self.date = date
+        self.userId = userId
+    }
+    
     var identifier: Int?
     var mealTime: String?
     var experience: String?
     var date: String?
     var userId: Int?
+    var recipes: [Recipe]?
     
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
@@ -28,6 +36,13 @@ struct Meal: Encodable {
 
 struct Recipe: Encodable {
     
+    init(name: String, calories: Int, servings: Int, ingredients: [Ingredient] = [], userId: Int?, mealId: Int?) {
+        self.name = name
+        self.calories = calories
+        self.ingredients = ingredients
+        self.userId = userId
+    }
+    
     var identifier: Int?
     var name: String?
     var calories: Int?
@@ -35,6 +50,7 @@ struct Recipe: Encodable {
     var mealId: Int?
     var userId: Int?
     var ingredientId: Int?
+    var ingredients: [Ingredient]?
     
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
@@ -55,6 +71,7 @@ struct Ingredient: Encodable {
     var nbdId: Int?
     var userId: Int?
     var nutrientIds: [Int]?
+    var nutrients: [Nutrient]?
     
     enum CodingKeys: String, CodingKey {
         case identifier = "id"

@@ -16,7 +16,7 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
     var selectedMealsAtIndex = [Int]() {
         didSet {
             if selectedMealsAtIndex.isEmpty {
-                navigationItem.setRightBarButton(createMealBarButton, animated: true)
+                navigationItem.setRightBarButton(createRecipeBarButton, animated: true)
             } else {
                 navigationItem.setRightBarButton(addMealBarButton, animated: true)
             }
@@ -25,10 +25,10 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
     
     // MARK: - Private properties
     
-    let meals = ["Chicken tandori", "Pork BBQ", "French Fries"]
+    let recipes = ["Chicken tandori", "Pork BBQ", "French Fries"]
     
-    lazy private var createMealBarButton: UIBarButtonItem = {
-       return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createMeal))
+    lazy private var createRecipeBarButton: UIBarButtonItem = {
+       return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createRecipe))
     }()
     
     lazy private var addMealBarButton: UIBarButtonItem = {
@@ -89,13 +89,13 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return meals.count
+        return recipes.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as! MealTableViewCell
 
-        cell.meal = meals[indexPath.row]
+        //cell.recipe = recipes[indexPath.row]
 
         return cell
     }
@@ -134,7 +134,7 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
     
     // MARK: - User Actions
     
-    @objc func createMeal() {
+    @objc func createRecipe() {
         
     }
     
@@ -147,7 +147,7 @@ class MealsTableViewController: UITableViewController, NSFetchedResultsControlle
     
     private func setupViews() {
         self.title = "Meals"
-        navigationItem.setRightBarButton(createMealBarButton, animated: true)
+        navigationItem.setRightBarButton(createRecipeBarButton, animated: true)
     }
 
 }
