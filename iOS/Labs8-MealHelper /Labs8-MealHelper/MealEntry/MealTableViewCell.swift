@@ -12,11 +12,13 @@ class MealTableViewCell: UITableViewCell {
     
     // MARK: - Public properties
     
-    var recipe: Recipe? {
-        didSet {
-            setupViews()
-        }
-    }
+//    var recipe: Recipe? {
+//        didSet {
+//            setupViews()
+//        }
+//    }
+    
+    var recipe: String?
     
     // MARK: - Private properties
     

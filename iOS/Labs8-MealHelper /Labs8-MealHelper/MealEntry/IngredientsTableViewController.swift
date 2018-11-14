@@ -1,5 +1,5 @@
 //
-//  MealsTableViewController.swift
+//  IngedientsTableViewController.swift
 //  Labs8-MealHelper
 //
 //  Created by De MicheliStefano on 14.11.18.
@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-class MealsTableViewController: FoodsTableViewController {
-        
+class IngredientsTableViewController: MealsTableViewController {
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as! MealTableViewCell
         
@@ -31,3 +31,4 @@ class MealsTableViewController: FoodsTableViewController {
     }
     
 }
+
