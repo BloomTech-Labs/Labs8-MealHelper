@@ -7,6 +7,7 @@ import { Route, Switch, Link } from "react-router-dom";
 import Signup from "./components/signup/signup";
 import Login from "./components/login/login";
 import Thanks from "./components/thanks/thanks";
+import HomePage from "./components/homepage/homepage";
 ////////////////////////
 
 import "./App.css";
@@ -33,6 +34,7 @@ class App extends Component {
 							<Route exact path="/signup" render={() => <Signup />} />
 							<Route path="/login" render={() => <Login />} />
 							<Route path="/thanks" render={() => <Thanks />} />
+							<Route path="/homepage" render={() => <HomePage />} />
 						</Switch>
 					</div>
 				</div>
