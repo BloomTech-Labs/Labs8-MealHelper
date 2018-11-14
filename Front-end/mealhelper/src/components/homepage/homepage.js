@@ -41,7 +41,14 @@ class HomePage extends Component {
 	render() {
 		return (
 			<div className="home-container">
-				
+                <div className="sidebar">
+                    <h2 className="titlelinks">Weather</h2>
+                    <h2 className="titlelinks">Recipes</h2>
+                    <h2 className="titlelinks">Alarms</h2>
+                    <h2 className="titlelinks">Meals</h2>
+                    <h2 className="titlelinks">Billing</h2>
+                    <h2 className="titlelinks">Settings</h2>
+                </div>	
 			</div>
 		);
 	}
