@@ -26,6 +26,28 @@ struct Meal: Encodable {
     
 }
 
+struct Recipe: Encodable {
+    
+    var identifier: Int?
+    var name: String?
+    var calories: Int?
+    var servings: Int?
+    var mealId: Int?
+    var userId: Int?
+    var ingredientId: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case identifier = "id"
+        case name
+        case calories
+        case servings
+        case mealId = "meal_id"
+        case userId = "user_id"
+        case ingredientId = "ingredients_id"
+    }
+    
+}
+
 struct Ingredient: Encodable {
     
     var identifier: Int?
