@@ -28,14 +28,14 @@ class MealSetupTableViewController: UITableViewController {
         tableView.register(MealSetupTableViewCell.self, forCellReuseIdentifier: "MealSetup")
         
         // Header view
-        tableView.tableHeaderView = UIImageView(image: UIImage(named: "weatherTest"))
+        //tableView.tableHeaderView = UIImageView(image: UIImage(named: "weatherTest"))
+        let mealSetupHeaderView = MealSetupHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 100.0))
+        tableView.tableHeaderView = mealSetupHeaderView
         
         // Footer view
         let mealSetupFooterView = MealSetupFooterView()
         mealSetupFooterView.frame = tableView.frame
         tableView.tableFooterView = mealSetupFooterView
-        
-        
         
         setupViews()
     }
@@ -53,7 +53,7 @@ class MealSetupTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MealSetup", for: indexPath) as! MealSetupTableViewCell
 
-        
+        cell.backgroundColor = UIColor.lightGray
         
         return cell
     }

@@ -55,6 +55,7 @@ class PickerInputField: UITextField {
         self.layer.cornerRadius = 8.0
         self.layer.masksToBounds = true
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     private func setupPicker() {
