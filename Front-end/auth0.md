@@ -54,3 +54,15 @@ var lock = new Auth0Lock(
   process.env.REACT_APP_DOMAIN_URL
 );
 ```
+
+### Show lock:
+- Example button:
+```
+  <div 
+      onClick={ function () {
+        lock.show();
+      }}>
+        LOG IN
+      </div>
+```
+- This brings up the Auth0 modal
