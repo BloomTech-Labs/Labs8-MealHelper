@@ -15,7 +15,7 @@ class IngredientsTableViewController: MealsTableViewController {
     
     private lazy var searchController: UISearchController = {
         var sc = UISearchController(searchResultsController: nil)
-        // sc.searchResultsUpdater = self
+        sc.searchResultsUpdater = self
         sc.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
         sc.searchBar.delegate = self
@@ -44,10 +44,16 @@ class IngredientsTableViewController: MealsTableViewController {
         return cell
     }
     
-    override func noItemsSelectedAction() {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let ingredientDetailVC = IngredientDetailViewController()
         ingredientDetailVC.modalPresentationStyle = .overFullScreen
+        // We use a delegation pattern so the dismissing VC can handle selection of a row
+        ingredientDetailVC.delegate = self
+        ingredientDetailVC.delegateIndexPath = indexPath
         present(ingredientDetailVC, animated: true, completion: nil)
+    }
+    
+    override func noItemsSelectedAction() {
     }
     
     override func itemsSelectedAction() {
