@@ -45,13 +45,13 @@ class IngredientsTableViewController: MealsTableViewController {
     }
     
     override func noItemsSelectedAction() {
-        let ingredientsVC = IngredientsTableViewController(navTitle: "Ingredients", cell: MealTableViewCell.self, foods: ["Chicken tandori", "Pork BBQ", "French Fries"])
-        navigationController?.pushViewController(ingredientsVC, animated: true)
+        let ingredientDetailVC = IngredientDetailViewController()
+        ingredientDetailVC.modalPresentationStyle = .overFullScreen
+        present(ingredientDetailVC, animated: true, completion: nil)
     }
     
     override func itemsSelectedAction() {
-        let mealSetupVC = MealSetupTableViewController()
-        navigationController?.pushViewController(mealSetupVC, animated: true)
+        
     }
     
 }
@@ -67,10 +67,7 @@ extension IngredientsTableViewController: UISearchBarDelegate, UISearchResultsUp
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        
+        // Make call to api
     }
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        
-    }
 }

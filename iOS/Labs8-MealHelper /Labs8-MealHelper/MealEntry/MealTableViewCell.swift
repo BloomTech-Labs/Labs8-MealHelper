@@ -49,7 +49,7 @@ class MealTableViewCell: UITableViewCell {
         return button
     }()
     
-    private lazy var nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Meal"

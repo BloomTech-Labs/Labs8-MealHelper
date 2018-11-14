@@ -10,6 +10,8 @@
 		3D023D78219C40F60075C038 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D023D77219C40F60075C038 /* Food.swift */; };
 		3D023D7A219C94B80075C038 /* IngredientsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D023D79219C94B80075C038 /* IngredientsTableViewController.swift */; };
 		3D023D7C219C9A6E0075C038 /* MealsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D023D7B219C9A6E0075C038 /* MealsTableViewController.swift */; };
+		3D023D81219CC08A0075C038 /* FoodSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D023D80219CC08A0075C038 /* FoodSummaryView.swift */; };
+		3D023D83219CC3610075C038 /* IngredientDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D023D82219CC3610075C038 /* IngredientDetailViewController.swift */; };
 		3D56A9D221934FAA00A91EF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9D121934FAA00A91EF4 /* AppDelegate.swift */; };
 		3D56A9D921934FAC00A91EF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D56A9D821934FAC00A91EF4 /* Assets.xcassets */; };
 		3D56A9DC21934FAC00A91EF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D56A9DA21934FAC00A91EF4 /* LaunchScreen.storyboard */; };
@@ -74,6 +76,8 @@
 		3D023D77219C40F60075C038 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		3D023D79219C94B80075C038 /* IngredientsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewController.swift; sourceTree = "<group>"; };
 		3D023D7B219C9A6E0075C038 /* MealsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsTableViewController.swift; sourceTree = "<group>"; };
+		3D023D80219CC08A0075C038 /* FoodSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSummaryView.swift; sourceTree = "<group>"; };
+		3D023D82219CC3610075C038 /* IngredientDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDetailViewController.swift; sourceTree = "<group>"; };
 		3D56A9CE21934FAA00A91EF4 /* Labs8-MealHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Labs8-MealHelper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D56A9D121934FAA00A91EF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D56A9D821934FAC00A91EF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -186,11 +190,13 @@
 			isa = PBXGroup;
 			children = (
 				3D90DE6A2194CE3F006C116B /* FoodsTableViewController.swift */,
+				3D023D80219CC08A0075C038 /* FoodSummaryView.swift */,
 				3D023D7B219C9A6E0075C038 /* MealsTableViewController.swift */,
 				3D90DE6C2194CFFE006C116B /* MealTableViewCell.swift */,
 				3D83EDDA219B4C0600A65973 /* MealSetupTableViewController.swift */,
 				3D83EDDC219B4F3E00A65973 /* MealSetupTableViewCell.swift */,
 				3D023D79219C94B80075C038 /* IngredientsTableViewController.swift */,
+				3D023D82219CC3610075C038 /* IngredientDetailViewController.swift */,
 				3D90DE6E2194D39D006C116B /* MealEntry.xcassets */,
 			);
 			path = MealEntry;
@@ -354,6 +360,7 @@
 				3DB65F282196200D007AA68A /* APIClient.swift in Sources */,
 				3D56A9EF2193503300A91EF4 /* Utils.swift in Sources */,
 				3D83EDDD219B4F3E00A65973 /* MealSetupTableViewCell.swift in Sources */,
+				3D023D81219CC08A0075C038 /* FoodSummaryView.swift in Sources */,
 				AC4D10822194E80B00317F4C /* User.swift in Sources */,
 				3D56A9F4219350C200A91EF4 /* LoginView.swift in Sources */,
 				3DB18BE82196FAB800C0E728 /* InputField.swift in Sources */,
@@ -361,6 +368,7 @@
 				AC62FAC8219B24BA00D8C35C /* GenericTableViewController.swift in Sources */,
 				AC4D10782194A7BC00317F4C /* OnboardingCollectionViewCell.swift in Sources */,
 				3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */,
+				3D023D83219CC3610075C038 /* IngredientDetailViewController.swift in Sources */,
 				AC1DE867219473DD0066172C /* HomeCollectionViewController.swift in Sources */,
 				3D023D7A219C94B80075C038 /* IngredientsTableViewController.swift in Sources */,
 				3D56A9F12193504700A91EF4 /* Theme.swift in Sources */,
