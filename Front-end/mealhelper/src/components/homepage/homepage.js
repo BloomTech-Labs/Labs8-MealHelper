@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import "./homepage.css";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link, Route, Switch } from "react-router-dom";
 import { Alert } from "reactstrap";
+import Weather from "../weather/weather";
 
 class HomePage extends Component {
 	constructor(props) {
@@ -42,13 +43,26 @@ class HomePage extends Component {
 		return (
 			<div className="home-container">
                 <div className="sidebar">
-                    <h2 className="titlelinks">Weather</h2>
-                    <h2 className="titlelinks">Recipes</h2>
+                    <Link to="/homepage/weather" style={{ textDecoration: 'none' }}>
+                        <h2 className="titlelinks">Weather</h2>
+                    </Link>
+                    <Link to="/homepage/recipes" style={{ textDecoration: 'none' }}>
+                        <h2 className="titlelinks">Recipes</h2>
+                    </Link>
                     <h2 className="titlelinks">Alarms</h2>
                     <h2 className="titlelinks">Meals</h2>
                     <h2 className="titlelinks">Billing</h2>
                     <h2 className="titlelinks">Settings</h2>
                 </div>	
+                <div className="dynamic-display">
+                    <Switch>
+							<Route path="/homepage/weather" render={() => <Weather />} />
+							{/* <Route path="/homepage/recipes" render={() => <Recipes />} /> */}
+							{/* <Route path="/homepage/alarms" render={() => <Alarms />} />
+							<Route path="/homepage/billing" render={() => <Billing />} />
+                            <Route path="/homepage/settings" render={() => <Settings />} /> */}
+				    </Switch>
+                </div>
 			</div>
 		);
 	}

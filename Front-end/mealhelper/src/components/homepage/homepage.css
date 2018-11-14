@@ -5,6 +5,8 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    justify-content: space-between;
   }
 
   .sidebar {
@@ -30,8 +32,16 @@
       padding: 5%;
   }
 
+  .in-app-links {
+      text-decoration: none;
+  }
+
   .titlelinks:hover {
-    font-size: 31px;
-    font-weight: bold;
+    font-weight: 600;
     color: #A3CeA0
+  }
+
+  .dynamic-display {
+    margin-top: 10%;
+    padding-right: 30%;
   }
