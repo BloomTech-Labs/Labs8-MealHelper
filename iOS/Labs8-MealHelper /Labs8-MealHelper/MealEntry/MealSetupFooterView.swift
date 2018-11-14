@@ -73,7 +73,6 @@ class MealSetupFooterView: UIView {
         mainStackView.addArrangedSubview(dateTextField)
         
         mainStackView.anchor(top: self.layoutMarginsGuide.topAnchor, leading: self.layoutMarginsGuide.leadingAnchor, bottom: self.layoutMarginsGuide.bottomAnchor, trailing: self.layoutMarginsGuide.trailingAnchor, padding: UIEdgeInsets(top: 16.0, left: 0.0, bottom: 0.0, right: 0.0))
-        //notesTextView.heightAnchor.constraint(equalToConstant: 150).isActive = true
         
         self.backgroundColor = UIColor.lightGray
         

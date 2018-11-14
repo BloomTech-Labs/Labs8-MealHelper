@@ -25,16 +25,6 @@ class MealSetupHeaderView: UIView {
         return stackView
     }()
     
-//    private lazy var calorieLabel: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.numberOfLines = 2
-//        label.textAlignment = .center
-//        label.text = "\(calories)\ncal"
-//        label.font = UIFont.systemFont(ofSize: 14.0)
-//        return label
-//    }()
-    
     // MARK: - Init
     
     override init(frame: CGRect) {

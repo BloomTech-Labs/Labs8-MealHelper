@@ -12,13 +12,11 @@ class MealSetupTableViewController: UITableViewController {
     
     // MARK: - Public properties
     
-    
+    var meals = ["Kraft Cheese", "Sausage"]
     
     // MARK: - Private properties
 
-    lazy private var saveBarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
-    }()
+    lazy private var saveBarButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
     
     // MARK: - Life Cycle
     
@@ -27,12 +25,11 @@ class MealSetupTableViewController: UITableViewController {
         
         tableView.register(MealSetupTableViewCell.self, forCellReuseIdentifier: "MealSetup")
         
-        // Header view
-        //tableView.tableHeaderView = UIImageView(image: UIImage(named: "weatherTest"))
+        // Header view - Shows macro nutrients
         let mealSetupHeaderView = MealSetupHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 100.0))
         tableView.tableHeaderView = mealSetupHeaderView
         
-        // Footer view
+        // Footer view - Input for notes, weather, date
         let mealSetupFooterView = MealSetupFooterView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 400.0))
         tableView.tableFooterView = mealSetupFooterView
         
@@ -46,7 +43,7 @@ class MealSetupTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return meals.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,12 +63,25 @@ class MealSetupTableViewController: UITableViewController {
     // MARK: - Configuration
     
     private func setupViews() {
-        // tableView.tableHeaderView // metrics view
         title = "Add meal"
         navigationItem.setRightBarButton(saveBarButton, animated: true)
         
         tableView.allowsSelection = false
     }
 
+    
+}
+
+// MARK: - MealSetupTableViewCellDelegate
+
+extension MealSetupTableViewController: MealSetupTableViewCellDelegate {
+    
+    func setServingQty(with qty: String, for meal: Any) {
+        // Save qty for meal
+    }
+    
+    func setServingType(with type: String, for meal: Any) {
+        // Save type for meal
+    }
     
 }

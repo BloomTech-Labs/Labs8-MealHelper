@@ -8,16 +8,17 @@
 
 import UIKit
 
+protocol MealSetupTableViewCellDelegate {
+    func setServingQty(with qty: String, for meal: Any)
+    func setServingType(with type: String, for meal: Any)
+}
+
 class MealSetupTableViewCell: UITableViewCell {
     
     // MARK: - Public properties
     
-    var meal: Any? {
-        didSet {
-            
-        }
-    }
-    
+    var meal: Any = "meal"
+    var delegate: MealSetupTableViewCellDelegate?
     var servingQtys = (1...20).map { String($0) }
     var servingTypes = ["cup", "100 g", "container", "ounce"]
 
@@ -69,7 +70,7 @@ class MealSetupTableViewCell: UITableViewCell {
         return label
     }()
     
-    // MARK: - UITableViewCell
+    // MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -78,6 +79,16 @@ class MealSetupTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - MealSetupTableViewCellDelegate
+    
+    func setServingQty(with qty: String, for meal: Any) {
+        delegate?.setServingQty(with: qty, for: meal)
+    }
+    
+    func setServingType(with type: String, for meal: Any) {
+        delegate?.setServingType(with: type, for: meal)
     }
     
     // MARK: - Configuration
@@ -134,9 +145,13 @@ extension MealSetupTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView.accessibilityIdentifier {
         case "servingSize":
-            self.servingSizeInputField.text = servingTypes[row]
+            let type = servingTypes[row]
+            servingSizeInputField.text = type
+            setServingType(with: type, for: meal)
         case "servingQty":
-            self.servingQtyInputField.text = servingQtys[row]
+            let qty = servingQtys[row]
+            servingQtyInputField.text = qty
+            setServingQty(with: qty, for: meal)
         default:
             break
         }
