@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
-import { addUser } from "../actions/actions";
+import { addUser } from "../../store/actions/userActions";
 import { withRouter } from "react-router-dom";
 import { Alert } from "reactstrap";
 
