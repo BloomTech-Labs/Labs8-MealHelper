@@ -37,7 +37,6 @@ exports.seed = async function(knex, Promise) {
 	await knex.schema.table("ingredients", function(tbl) {
 		tbl.foreign("recipe_id").references("recipe.id");
 	});
-
 	await knex.schema.table("nutrients", function(tbl) {
 		tbl.foreign("ingredient_id").references("ingredients.id");
 	});
