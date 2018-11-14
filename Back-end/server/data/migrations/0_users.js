@@ -25,8 +25,6 @@ exports.up = function(knex) {
 			recipe.integer("servings", 3).notNullable();
 			recipe.integer("meal_id");
 			recipe.foreign("meal_id").references("mealList.id");
-
-			recipe.string("ingredients_id");
 		}),
 		knex.schema.createTable("ingredients", function(ingredients) {
 			ingredients.increments("id").primary();
