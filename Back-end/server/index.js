@@ -70,9 +70,19 @@ server.post("/register", (req, res) => {
 	console.log(user);
 	db("users")
 		.insert(user)
-		.then(user => {
+		.then(userReturn => {
 			const token = generateToken(user);
-			res.status(201).json({ userID: user, token: token });
+			console.log(user);
+			db("users")
+				.where({ email: user.email })
+				.first()
+				.then(user => {
+					console.log(user);
+					res.status(200).json({ userID: user.id, token: token });
+				})
+				.catch(err => {
+					res.status(400).json({ error: "could not grab user" });
+				});
 		})
 		.catch(err => {
 			res.status(400).json({ msg: err, error: "Could not create a user" });
@@ -90,7 +100,7 @@ server.post("/login", (req, res) => {
 			if (user && bcrypt.compareSync(userLogin.password, user.password)) {
 				const token = generateToken(user);
 
-				res.status(200).json({ userID: user, token: token });
+				res.status(200).json({ userID: user.id, token: token });
 			} else {
 				res
 					.status(500)
@@ -127,7 +137,7 @@ server.put("/users/:id", (req, res) => {
 					})
 					.then(ids => {
 						//Creates a token upon successfullying updating user
-						const token = generateToken({ email: credentials.email });
+						const token = generateToken(credentials);
 						res.status(200).json({ token: token, id: id });
 					})
 					.catch(err => {
