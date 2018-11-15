@@ -13,6 +13,7 @@ exports.seed = async function(knex, Promise) {
 	});
 	await knex.schema.table("ingredients", function(tbl) {
 		tbl.dropForeign("recipe_id");
+		tbl.dropForeign("user_id");
 	});
 	await knex.schema.table("nutrients", function(tbl) {
 		tbl.dropForeign("ingredient_id");
@@ -36,6 +37,7 @@ exports.seed = async function(knex, Promise) {
 	});
 	await knex.schema.table("ingredients", function(tbl) {
 		tbl.foreign("recipe_id").references("recipe.id");
+		tbl.foreign("user_id").references("users.id");
 	});
 	await knex.schema.table("nutrients", function(tbl) {
 		tbl.foreign("ingredient_id").references("ingredients.id");
