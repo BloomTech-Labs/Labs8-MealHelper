@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 // import { Alert } from "reactstrap";
-import "./lpnav.css";
+import SignUp from "../signup/signup";
+import "./landingpage.css";
 
 class Landingpage extends Component {
 	constructor(props) {
