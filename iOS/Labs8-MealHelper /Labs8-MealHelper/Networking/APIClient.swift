@@ -16,7 +16,7 @@ class APIClient {
 //    func fetch(items: <Resource: Codable>, httpMethod: HTTPMethod, endpoint: )
     
     func login(with email: String, password: String, completion: @escaping (Response<String>) -> ()){
-        let url = URL(string: "http://localhost:3300/login/")!
+        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/login/")!
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = HTTPMethod.post.rawValue
@@ -60,7 +60,7 @@ class APIClient {
     
     func register(with userCredentials: User, completion: @escaping (Response<Int>) -> ()) {
     
-        let url = URL(string: "http://localhost:3300/register/")
+        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/register/")
         
         var urlRequest = URLRequest(url: url!)
         urlRequest.httpMethod = HTTPMethod.post.rawValue

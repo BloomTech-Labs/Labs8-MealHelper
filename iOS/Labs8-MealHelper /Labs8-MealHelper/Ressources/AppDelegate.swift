@@ -17,12 +17,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let mealsVC = MealsTableViewController(navTitle: "Meals")
-        let navController = UINavigationController(rootViewController: mealsVC)
-        navController.navigationBar.prefersLargeTitles = true
-        //        let homeCollectionViewController = HomeCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        //        window?.rootViewController = homeCollectionViewController
-        window?.rootViewController = navController
+
+        
+        //For full flow, use this
+        let loginController = LoginViewController()
+        window?.rootViewController = loginController
+        
+        
+        //To start on HomeScreen, use this
+//        let homeViewController = HomeViewController()
+//        window?.rootViewController = homeViewController
+        
+        
+        //To start at meals table view use this
+//        let mealsTableViewController = MealsTableViewController(navTitle: "Meals")
+//        let navController = UINavigationController(rootViewController: mealsTableViewController)
+//        navController.navigationBar.prefersLargeTitles = true
+//        window?.rootViewController = navController
         
         return true
     }

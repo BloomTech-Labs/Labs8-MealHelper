@@ -47,7 +47,7 @@ class FoodClient {
         }.resume()
     }
     
-    func fetchIngredients(with searchTerm: String, completion: @escaping (Response<[Ingredient]>) -> ()) {
+    func fetchIngredients(with searchTerm: String, completion: @escaping (Response<usdaIngredients>) -> ()) {
         var urlComponents = URLComponents(url: usdaBaseUrl, resolvingAgainstBaseURL: true)!
         urlComponents.queryItems = [
             URLQueryItem(name: "format", value: "json"),
@@ -81,7 +81,7 @@ class FoodClient {
             
             do {
                 let ingredients = try JSONDecoder().decode(usdaIngredients.self, from: data)
-                completion(Response.success(ingredients.item))
+                completion(Response.success(ingredients))
             } catch {
                 NSLog("Error decoding data: \(error)")
                 completion(Response.error(error))

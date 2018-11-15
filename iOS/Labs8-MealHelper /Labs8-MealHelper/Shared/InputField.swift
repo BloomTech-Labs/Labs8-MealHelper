@@ -11,7 +11,7 @@ import UIKit
 
 class InputField: UITextField {
     
-    var icon: UIImage? // TODO: Add an icon to the text field
+    var icon: UIImage?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,6 +31,7 @@ class InputField: UITextField {
     }
     
     private func setupView() {
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.setLeftPaddingPoints(10.0)
         self.setRightPaddingPoints(10.0)
         self.backgroundColor = .white
