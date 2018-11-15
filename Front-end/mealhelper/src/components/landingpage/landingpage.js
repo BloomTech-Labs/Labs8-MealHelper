@@ -6,7 +6,7 @@ import { withRouter, Link } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import "./lpnav.css";
 
-class LPnav extends Component {
+class Landingpage extends Component {
 	constructor(props) {
 		super(props);
 
@@ -65,4 +65,4 @@ const mapStateToProps = state => ({
 export default connect(
 	mapStateToProps,
 	{ addUser }
-)(withRouter(LPnav));
+)(withRouter(Landingpage));
