@@ -5,6 +5,7 @@ import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import SignUp from "../signup/signup";
+import Sign from "../../components/Sign";
 import "./landingpage.css";
 
 class Landingpage extends Component {
@@ -41,20 +42,23 @@ class Landingpage extends Component {
 
 	render() {
 		return (
-			    <div className="main-container">
-					<div className="entry-button-group">
-						<Link to="/signup">
-							<button className="signup-button">
-								<span>Signup</span>
-							</button>
-						</Link>
-						<Link to="/login">
-							<button className="login-button">
-								<span>Login</span>
-							</button>
-						</Link>
-					</div>
-                </div>
+			<div className="main-container">
+				<div>
+					<Sign />
+				</div>
+				<div className="entry-button-group">
+					<Link to="/signup">
+						<button className="signup-button">
+							<span>Signup</span>
+						</button>
+					</Link>
+					<Link to="/login">
+						<button className="login-button">
+							<span>Login</span>
+						</button>
+					</Link>
+				</div>
+			</div>
 		);
 	}
 }
