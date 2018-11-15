@@ -79,6 +79,7 @@ class Auth0Client extends Component {
 		this.idToken = null;
 		this.profile = null;
 		this.expiresAt = null;
+		localStorage.removeItem("email");
 	}
 }
 
