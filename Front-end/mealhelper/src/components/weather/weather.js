@@ -23,7 +23,7 @@ class Weather extends Component {
 	
 		};
     }
-    
+    ///converted to Imperial measurement
     componentDidMount() {
         axios.get(`https://api.openweathermap.org/data/2.5/find?q=Bangor&units=imperial&appid=46454cdfa908cad35b14a05756470e5c`)
       .then(response => {
@@ -62,10 +62,7 @@ class Weather extends Component {
             <div className="weather-container">
 			    <div className="weather-card">
                     <h1>{this.state.weather.name}</h1>
-                    <h1>{this.state.weather.description}</h1>
-                    <h1>{this.state.weather.temp}</h1>
-                    <h1>{this.state.weather.humidity}</h1>
-                    <h1>{this.state.weather.pressure}</h1>
+                    <h1>{this.state.weather.country}</h1>
 			    </div>
             </div>
 		);
