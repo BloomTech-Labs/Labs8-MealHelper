@@ -93,6 +93,12 @@ class FoodsTableViewController: UITableViewController, NSFetchedResultsControlle
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        selectFood(at: indexPath)
+        
+    }
+
+    func selectFood(at indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? MealTableViewCell {
             cell.selectRow(cell.selectButton)
         }
@@ -103,7 +109,6 @@ class FoodsTableViewController: UITableViewController, NSFetchedResultsControlle
         } else {
             selectedFoodAtIndex.append(indexPath.row)
         }
-        
     }
     
     // MARK: - User Actions
