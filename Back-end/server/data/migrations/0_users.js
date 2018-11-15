@@ -33,6 +33,8 @@ exports.up = function(knex) {
 			ingredients.string("nutrients_id");
 			ingredients.integer("recipe_id");
 			ingredients.foreign("recipe_id").references("recipe.id");
+			ingredients.integer("user_id");
+			ingredients.foreign("user_id").references("users.id");
 		}),
 		knex.schema.createTable("nutrients", function(nutrients) {
 			nutrients.increments("id").primary();
