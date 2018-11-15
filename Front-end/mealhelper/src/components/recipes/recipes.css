@@ -1,4 +1,4 @@
-.weather-card {
+.recipe-card {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -7,6 +7,6 @@
     height: 300px;
     outline: 3px solid #F1E7E8;
     background: linear-gradient(
-        rgb(145, 14, 20, .75), 
-        rgb(145, 14, 20, .75));
+        rgb(163, 206, 160, .75), 
+        rgb(163, 206, 160, .75));
 }
