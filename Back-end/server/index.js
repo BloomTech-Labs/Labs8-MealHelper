@@ -118,6 +118,9 @@ server.post("/registerAuth0", (req, res) => {
 							error: "Wrong Email and/or Password, please try again"
 						});
 					});
+			} else {
+				const token = generateToken(user);
+				res.status(201).json({ userID: userMsg, token: token });
 			}
 		})
 		.catch(err => {
