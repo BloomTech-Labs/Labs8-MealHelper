@@ -1,4 +1,3 @@
-
 const express = require("express");
 const helmet = require("helmet");
 const knex = require("knex");
@@ -869,3 +868,4 @@ server.delete("/alarms/:id", (req, res) => {
 
 server.listen(port, () => {
 	console.log(`Server now listening on Port ${port}`);
+});
