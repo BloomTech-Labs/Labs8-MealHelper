@@ -6,7 +6,7 @@ exports.up = function(knex) {
 				.string("email", 40)
 				.unique()
 				.notNullable();
-			users.string("password", 255).notNullable();
+			users.string("password", 255);
 			users.integer("zip", 5);
 			users.string("healthCondition", 20);
 		}),
