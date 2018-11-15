@@ -27,5 +27,4 @@ struct Utils {
         massFormatter.isForPersonMassUse = true
         return massFormatter.string(fromKilograms: kg)
     }
-    
 }

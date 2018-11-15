@@ -37,6 +37,7 @@
 		AC85F38D219E0C1D007765CA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85F38C219E0C1D007765CA /* LoginViewController.swift */; };
 		AC85F38F219E0E1E007765CA /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85F38E219E0E1E007765CA /* UIColor+Theme.swift */; };
 		AC85F391219E0E91007765CA /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC85F390219E0E91007765CA /* Montserrat-SemiBold.ttf */; };
+		AC85F393219E1071007765CA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85F392219E1071007765CA /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		AC85F38C219E0C1D007765CA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AC85F38E219E0E1E007765CA /* UIColor+Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
 		AC85F390219E0E91007765CA /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		AC85F392219E1071007765CA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 				3D56A9F02193504700A91EF4 /* Theme.swift */,
 				3D56A9FD21939D3A00A91EF4 /* AutoLayout.swift */,
 				3DB18BE72196FAB800C0E728 /* InputField.swift */,
+				AC85F392219E1071007765CA /* Extensions.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				AC85F38F219E0E1E007765CA /* UIColor+Theme.swift in Sources */,
 				AC62FAC8219B24BA00D8C35C /* GenericTableViewController.swift in Sources */,
 				AC4D10782194A7BC00317F4C /* OnboardingCollectionViewCell.swift in Sources */,
+				AC85F393219E1071007765CA /* Extensions.swift in Sources */,
 				3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */,
 				AC1DE867219473DD0066172C /* HomeViewController.swift in Sources */,
 				3D56A9F12193504700A91EF4 /* Theme.swift in Sources */,

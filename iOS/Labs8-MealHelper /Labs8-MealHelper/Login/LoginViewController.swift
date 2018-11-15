@@ -121,7 +121,7 @@ class LoginViewController: UIViewController
     
     override func viewDidLayoutSubviews() {
         authButton.layer.cornerRadius = authButton.frame.height / 2
-        authButton.setGradientButton(colorOne: UIColor.correctGreen.cgColor, colorTwo: UIColor.lightPurple.cgColor, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
+        authButton.setGradientBackground(colorOne: UIColor.correctGreen.cgColor, colorTwo: UIColor.lightPurple.cgColor, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
     }
     
     override func viewDidLoad()
@@ -243,7 +243,7 @@ class LoginViewController: UIViewController
     
     private func handleLogin(_ email: String, _ password: String)
     {
-        APIClient.shared.login(with: user, password: password) { (response) in
+        APIClient.shared.login(with: email, password: password) { (response) in
             
             DispatchQueue.main.async {
                 switch response {
