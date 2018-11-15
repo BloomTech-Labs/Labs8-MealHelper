@@ -8,6 +8,6 @@
     height: 300px;
     outline: 3px solid #F1E7E8;
     background: linear-gradient(
-        rgb(145, 14, 20, .75), 
-        rgb(145, 14, 20, .75));
+        rgb(145, 14, 20, .50), 
+        rgb(145, 14, 20, .50));
 }

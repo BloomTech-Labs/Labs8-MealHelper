@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route, Switch } from "react-router-dom";
-import { Alert } from "reactstrap";
+import { withRouter} from "react-router-dom";
+// import { Alert } from "reactstrap";
+import axios from "axios";
 import "./weather.css";
 
 class Weather extends Component {
@@ -11,13 +12,31 @@ class Weather extends Component {
 		super(props);
 
 		this.state = {
-			email: "",
-			password: "",
-			zip: null,
-			healthCondition: "",
-			visable: false
+            weather: {
+                name: "",
+                description: "",
+                temp:null,
+                humidity:null,
+                pressure:null
+
+            }
+	
 		};
-	}
+    }
+    
+    componentDidMount() {
+        axios.get(`https://api.openweathermap.org/data/2.5/find?q=Bangor&units=imperial&appid=46454cdfa908cad35b14a05756470e5c`)
+      .then(response => {
+        this.setState({
+          weather: response.data.list[0]
+    });
+        console.log(response.data.list[0]); //returns JSON correctly
+        console.log(this.state.weather.main.temp); //returns correct value (304.15)
+    })
+      .catch(error => {
+        console.log('Error', error);
+    });
+}
 
 	handleChange = event => {
 		event.preventDefault();
@@ -42,7 +61,11 @@ class Weather extends Component {
 		return (
             <div className="weather-container">
 			    <div className="weather-card">
-                    <h1>Hell Yea There's Weather</h1>
+                    <h1>{this.state.weather.name}</h1>
+                    <h1>{this.state.weather.description}</h1>
+                    <h1>{this.state.weather.temp}</h1>
+                    <h1>{this.state.weather.humidity}</h1>
+                    <h1>{this.state.weather.pressure}</h1>
 			    </div>
             </div>
 		);

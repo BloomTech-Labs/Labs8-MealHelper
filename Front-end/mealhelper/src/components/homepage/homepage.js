@@ -4,7 +4,7 @@ import "./homepage.css";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
-import { Alert } from "reactstrap";
+// import { Alert } from "reactstrap";
 import Weather from "../weather/weather";
 
 class HomePage extends Component {
