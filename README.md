@@ -10,14 +10,14 @@
 
 - Allows a registered user to log in
 - Takes the entered password and hashes it to compare with the stored one.
-- Returns: a welcome with the username, a token, and the id of the user.
+- Returns: the user and a token from JWTToken
 
 ## PUT /users/:id
 
 - Allows a user to change their username, zip, health condition or password/
 - Requires them to type in their old password (front end will be saved as password).
 - Takes in the new password and hashes it, if old password matches what is stored in db, it will set password to the new hash pass.
-- Returns: A new token, and the user ID
+- Returns: the user and a token from JWTToken
 
 ## DELETE /users/:id
 

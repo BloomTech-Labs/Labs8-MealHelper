@@ -1,0 +1,125 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+                     rgba(20,20,20, .75), 
+                     rgba(20,20,20, .75));
+    width: 300px;
+    height: 540px;
+    padding: 0% 1% 3% 1%;
+    outline: 3px solid rgb(192, 181, 31);
+
+}
+
+.signup-title {
+    color: rgb(192, 181, 31);;
+    padding-top: .3em;
+    padding-bottom: .3em;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-top: 1.2em;
+    padding-bottom: .5em;
+  }
+
+  label {
+    position: absolute;
+    top: 0;
+    font-size: var(--font-size-small);
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.2s ease-out;
+    color: rgb(192, 181, 31);;
+  }
+  
+  input:placeholder-shown + label {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  
+  
+  input {
+      width: 200px;
+      height: 50px;
+      font-size: 12px;
+  }
+
+  input:focus {
+    outline: 3px solid rgb(192, 181, 31);
+  }
+  .signup {
+    position: relative;
+    color: rgb(192, 181, 31);
+    width: 256px;
+    height: 64px;
+    line-height: 64px;
+    transition: all 0.3s;
+    margin-top: 3%;
+    cursor: pointer;
+  }
+
+  .signup:hover {
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  .signup span {
+    transition: all 0.3s;
+    transform: scale(1, 1);
+  }
+  
+  .signup::before, .signup::after {
+    content: '';
+    position: absolute;
+    transition: all 0.3s;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .signup-two::before, .signup-two::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+      height: 100%;
+    bottom: 0;
+      left: 0;
+      z-index: 1;
+    transition: all 0.3s;
+    border: 1px solid rgb(192, 181, 31);
+  }
+  
+  .signup-two:hover::after {
+    animation-name: rotatecw;
+    animation-duration: 2s;
+  }
+  .signup-two:hover::before {
+    animation-name: rotateccw; 
+    animation-duration: 3s;
+  }
+  .signup-two:hover::after, .signup-two:hover::before {
+    left: 96px;
+    width: 64px;
+    
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  
+  @keyframes rotatecw {
+      from {transform: rotate(0deg);}
+      to {transform: rotate(360deg);}
+  }
+  
+  @keyframes rotateccw {
+      from {transform: rotate(0deg);}
+      to {transform: rotate(-360deg);}
+  }
