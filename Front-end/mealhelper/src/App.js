@@ -9,8 +9,9 @@ import Login from "./components/login/login";
 import Thanks from "./components/thanks/thanks";
 ////////////////////////
 
-import Callback from './Callback';
-import Sign from './components/Sign'
+import Callback from "./Callback";
+import Sign from "./components/Sign";
+import Log from "./components/Login";
 
 import "./App.css";
 
@@ -20,15 +21,11 @@ class App extends Component {
 			<div className="App">
 				<div className="main-container">
 					<div className="entry-button-group">
-					
-					
-					<div>
+						<div>
 							<Sign />
-							<Route exact path='/callback' component={Callback} />
-					</div>
-
-
-
+							<Log />
+							<Route exact path="/callback" component={Callback} />
+						</div>
 
 						<Link to="/signup">
 							<button className="signup-button">

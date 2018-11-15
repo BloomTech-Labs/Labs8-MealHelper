@@ -1,7 +1,7 @@
 import auth0 from "auth0-js";
 import { connect } from "react-redux";
 //change the route for this
-import { addUser } from "./store/actions/userActions";
+import { loginUser } from "./store/actions/userActions";
 import { withRouter } from "react-router-dom";
 
 class Auth {
@@ -52,12 +52,12 @@ class Auth {
 				if (this.profile.email !== "") {
 					const { email } = this.profile.email;
 					const user = { email };
-					// this.props.addUser(user);
+					// this.props.loginUser(user);
 				} else {
 					//Else set the full name as "email" and send that
 					const { email } = this.profile.name;
 					const user = { email };
-					// this.props.addUser(user);
+					// this.props.loginUser(user);
 				}
 
 				this.expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
@@ -81,5 +81,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ addUser }
+	{ loginUser }
 )(withRouter(auth0Client));

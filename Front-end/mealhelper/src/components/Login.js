@@ -2,7 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import auth0Client from "../Auth";
 
-function Sign(props) {
+function Login(props) {
 	const signOut = () => {
 		auth0Client.signOut();
 		props.history.replace("/");
@@ -12,7 +12,7 @@ function Sign(props) {
 		<nav className="navbar">
 			{!auth0Client.isAuthenticated() && (
 				<button className="btn btn-dark" onClick={auth0Client.signIn}>
-					Sign Up With Auth0
+					Log in With Auth0
 				</button>
 			)}
 			{auth0Client.isAuthenticated() && (
@@ -34,4 +34,4 @@ function Sign(props) {
 	);
 }
 
-export default withRouter(Sign);
+export default withRouter(Login);

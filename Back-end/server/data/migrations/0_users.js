@@ -6,9 +6,9 @@ exports.up = function(knex) {
 				.string("email", 40)
 				.unique()
 				.notNullable();
-			users.string("password", 255).notNullable();
+			users.string("password", 255);
 			users.integer("zip", 5);
-			users.string("healthCondition", 20).notNullable();
+			users.string("healthCondition", 20);
 		}),
 		knex.schema.createTable("mealList", function(mealList) {
 			mealList.increments("id").primary();
