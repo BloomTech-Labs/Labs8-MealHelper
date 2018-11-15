@@ -16,8 +16,15 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     private var captureSession: AVCaptureSession!
     private var recordOutput: AVCaptureMovieFileOutput!
     
-    @IBOutlet weak var previewView: CameraPreview!
-    @IBOutlet weak var recordButton: UIButton!
+    var previewView = CameraPreview()
+    private lazy var recordButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(toggleRecord(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +42,9 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         captureSession.stopRunning()
     }
     
-    @IBAction func toggleRecord(_ sender: Any) {
+    // MARK: - User actions
+    
+    @objc func toggleRecord(_ sender: Any) {
         if recordOutput.isRecording {
             recordOutput.stopRecording()
         } else {
@@ -61,16 +70,20 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         }
     }
     
-    // MARK: - Private
+    // MARK: - Configuration
     
     private func updateViews() {
         guard isViewLoaded else { return }
         
-        let recordButtonImageName = recordOutput.isRecording ? "Stop" : "Record"
+        let recordButtonImageName = recordOutput.isRecording ? "add" : "checked"
         recordButton.setImage(UIImage(named: recordButtonImageName), for: .normal)
     }
     
     private func setupCapture() {
+        view.addSubview(previewView)
+        previewView.addSubview(recordButton)
+        previewView.fillSuperview()
+        
         // Session will hold all the components needed for video (input, output)
         let captureSession = AVCaptureSession()
         let device = bestCamera()
@@ -103,7 +116,6 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     }
     
     // Camera's nowadays have a variety of cameras, so this function takes the best camera on the device
-    // Could also let the user choose
     private func bestCamera() -> AVCaptureDevice {
         if let device = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) {
             return device

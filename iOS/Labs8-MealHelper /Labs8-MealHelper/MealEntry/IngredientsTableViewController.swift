@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class IngredientsTableViewController: MealsTableViewController {
     
@@ -71,7 +72,27 @@ extension IngredientsTableViewController: UISearchBarDelegate, UISearchResultsUp
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         // On clicking the bookmark button present a camera view
         let cameraVC = CameraViewController()
-        present(cameraVC, animated: true, completion: nil)
+        
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            present(cameraVC, animated: true, completion: nil)
+            break
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { (granted) in
+                // Show alert message instead:
+                //if !granted { fatalError("MealHelper needs camera access") }
+                
+                self.present(cameraVC, animated: true, completion: nil)
+            }
+            break
+        case .denied:
+            // Fall through to next case statement
+            fallthrough
+        case .restricted:
+            // Show alert message instead:
+            //fatalError("MealHelper needs camera access")
+            break
+        }
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
