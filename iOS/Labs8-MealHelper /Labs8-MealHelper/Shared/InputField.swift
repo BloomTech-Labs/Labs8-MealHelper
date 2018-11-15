@@ -31,6 +31,7 @@ class InputField: UITextField {
     }
     
     private func setupView() {
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.setLeftPaddingPoints(10.0)
         self.setRightPaddingPoints(10.0)
         self.backgroundColor = .white

@@ -12,8 +12,6 @@
 		3D56A9DC21934FAC00A91EF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D56A9DA21934FAC00A91EF4 /* LaunchScreen.storyboard */; };
 		3D56A9EF2193503300A91EF4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9EE2193503300A91EF4 /* Utils.swift */; };
 		3D56A9F12193504700A91EF4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9F02193504700A91EF4 /* Theme.swift */; };
-		3D56A9F4219350C200A91EF4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9F2219350C200A91EF4 /* LoginView.swift */; };
-		3D56A9F5219350C200A91EF4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9F3219350C200A91EF4 /* LoginViewController.swift */; };
 		3D56A9F8219350EA00A91EF4 /* OnboardingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9F6219350E900A91EF4 /* OnboardingCollectionViewController.swift */; };
 		3D56A9FE21939D3A00A91EF4 /* AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56A9FD21939D3A00A91EF4 /* AutoLayout.swift */; };
 		3D90DE6B2194CE3F006C116B /* MealsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90DE6A2194CE3F006C116B /* MealsTableViewController.swift */; };
@@ -34,6 +32,11 @@
 		AC62FACF219B408B00D8C35C /* StretchyHeaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FACE219B408B00D8C35C /* StretchyHeaderLayout.swift */; };
 		AC62FAD1219B499600D8C35C /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */; };
 		AC62FAD3219B4C1D00D8C35C /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FAD2219B4C1D00D8C35C /* HomeHeaderView.swift */; };
+		AC85F38A219E0B2F007765CA /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85F388219E0B2E007765CA /* LoadingButton.swift */; };
+		AC85F38B219E0B2F007765CA /* LeftIconTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85F389219E0B2F007765CA /* LeftIconTextField.swift */; };
+		AC85F38D219E0C1D007765CA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85F38C219E0C1D007765CA /* LoginViewController.swift */; };
+		AC85F38F219E0E1E007765CA /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85F38E219E0E1E007765CA /* UIColor+Theme.swift */; };
+		AC85F391219E0E91007765CA /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC85F390219E0E91007765CA /* Montserrat-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,8 +78,6 @@
 		3D56A9DD21934FAC00A91EF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D56A9EE2193503300A91EF4 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		3D56A9F02193504700A91EF4 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		3D56A9F2219350C200A91EF4 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		3D56A9F3219350C200A91EF4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3D56A9F6219350E900A91EF4 /* OnboardingCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewController.swift; sourceTree = "<group>"; };
 		3D56A9FD21939D3A00A91EF4 /* AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLayout.swift; sourceTree = "<group>"; };
 		3D90DE6A2194CE3F006C116B /* MealsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsTableViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +98,11 @@
 		AC62FACE219B408B00D8C35C /* StretchyHeaderLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyHeaderLayout.swift; sourceTree = "<group>"; };
 		AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionView.swift; sourceTree = "<group>"; };
 		AC62FAD2219B4C1D00D8C35C /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		AC85F388219E0B2E007765CA /* LoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
+		AC85F389219E0B2F007765CA /* LeftIconTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftIconTextField.swift; sourceTree = "<group>"; };
+		AC85F38C219E0C1D007765CA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		AC85F38E219E0E1E007765CA /* UIColor+Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
+		AC85F390219E0E91007765CA /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,8 +153,7 @@
 		3D56A9E321934FCA00A91EF4 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				3D56A9F2219350C200A91EF4 /* LoginView.swift */,
-				3D56A9F3219350C200A91EF4 /* LoginViewController.swift */,
+				AC85F38C219E0C1D007765CA /* LoginViewController.swift */,
 				AC4D10772194A7BC00317F4C /* OnboardingCollectionViewCell.swift */,
 				3D56A9F6219350E900A91EF4 /* OnboardingCollectionViewController.swift */,
 				3D90DE702194D46D006C116B /* Login.xcassets */,
@@ -159,8 +164,11 @@
 		3D56A9ED2193501200A91EF4 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				AC85F388219E0B2E007765CA /* LoadingButton.swift */,
+				AC85F389219E0B2F007765CA /* LeftIconTextField.swift */,
 				AC62FAC7219B24BA00D8C35C /* GenericTableViewController.swift */,
 				3D56A9EE2193503300A91EF4 /* Utils.swift */,
+				AC85F38E219E0E1E007765CA /* UIColor+Theme.swift */,
 				3D56A9F02193504700A91EF4 /* Theme.swift */,
 				3D56A9FD21939D3A00A91EF4 /* AutoLayout.swift */,
 				3DB18BE72196FAB800C0E728 /* InputField.swift */,
@@ -219,6 +227,7 @@
 		AC1DE86521946ED50066172C /* Ressources */ = {
 			isa = PBXGroup;
 			children = (
+				AC85F390219E0E91007765CA /* Montserrat-SemiBold.ttf */,
 				3D56A9D821934FAC00A91EF4 /* Assets.xcassets */,
 				3D56A9DA21934FAC00A91EF4 /* LaunchScreen.storyboard */,
 				3D56A9DD21934FAC00A91EF4 /* Info.plist */,
@@ -331,6 +340,7 @@
 				3D56A9D921934FAC00A91EF4 /* Assets.xcassets in Resources */,
 				3D90DE6F2194D39D006C116B /* MealEntry.xcassets in Resources */,
 				3D90DE712194D46D006C116B /* Login.xcassets in Resources */,
+				AC85F391219E0E91007765CA /* Montserrat-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,17 +355,19 @@
 				AC1DE8692194748F0066172C /* MealCell.swift in Sources */,
 				3D90DE6B2194CE3F006C116B /* MealsTableViewController.swift in Sources */,
 				AC62FACF219B408B00D8C35C /* StretchyHeaderLayout.swift in Sources */,
+				AC85F38B219E0B2F007765CA /* LeftIconTextField.swift in Sources */,
 				3D56A9D221934FAA00A91EF4 /* AppDelegate.swift in Sources */,
 				3DB65F292196200D007AA68A /* Response.swift in Sources */,
+				AC85F38A219E0B2F007765CA /* LoadingButton.swift in Sources */,
 				3D56A9F8219350EA00A91EF4 /* OnboardingCollectionViewController.swift in Sources */,
 				3D56A9FE21939D3A00A91EF4 /* AutoLayout.swift in Sources */,
+				AC85F38D219E0C1D007765CA /* LoginViewController.swift in Sources */,
 				3DB65F282196200D007AA68A /* APIClient.swift in Sources */,
 				3D56A9EF2193503300A91EF4 /* Utils.swift in Sources */,
 				AC4D10822194E80B00317F4C /* User.swift in Sources */,
-				3D56A9F4219350C200A91EF4 /* LoginView.swift in Sources */,
 				AC62FAD3219B4C1D00D8C35C /* HomeHeaderView.swift in Sources */,
 				3DB18BE82196FAB800C0E728 /* InputField.swift in Sources */,
-				3D56A9F5219350C200A91EF4 /* LoginViewController.swift in Sources */,
+				AC85F38F219E0E1E007765CA /* UIColor+Theme.swift in Sources */,
 				AC62FAC8219B24BA00D8C35C /* GenericTableViewController.swift in Sources */,
 				AC4D10782194A7BC00317F4C /* OnboardingCollectionViewCell.swift in Sources */,
 				3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */,
