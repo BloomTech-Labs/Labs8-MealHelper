@@ -1,0 +1,48 @@
+.main-container {
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../../img/laptop-fruit-tea.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .entry-button-group {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1%;
+  }
+  
+  .login-button{
+    width: 200px;
+    height: 50px;
+    font-size: 1em;
+    margin: 6px;
+    outline: 3px solid rgb(192, 181, 31);
+    background: linear-gradient(
+                       rgba(226, 220, 220, 0.151), 
+                       rgba(226, 220, 220, 0.151));
+    }
+  
+  .login-button:hover { 
+    box-shadow: -1px 9px 6px -8px rgba(0,0,0,0.75);
+    font-size: 17px;
+    font-weight: bold;
+  }
+  
+  .signup-button{
+    width: 200px;
+    height: 50px;
+    font-size: 1em;
+    margin: 6px;
+    outline: 3px solid rgb(192, 181, 31);
+    background: linear-gradient(
+                       rgba(226, 220, 220, 0.151), 
+                       rgba(226, 220, 220, 0.151));
+    }
+  
+  .signup-button:hover { 
+    box-shadow: -1px 9px 6px -8px rgba(0,0,0,0.75);
+    font-size: 17px;
+    font-weight: bold;
+  }
