@@ -6,7 +6,7 @@ class Callback extends Component {
 	async componentDidMount() {
 		await auth0Client.handleAuthentication();
 		//Replace with /homepage
-		this.props.history.replace("/");
+		this.props.history.replace("/homepage");
 	}
 
 	render() {
