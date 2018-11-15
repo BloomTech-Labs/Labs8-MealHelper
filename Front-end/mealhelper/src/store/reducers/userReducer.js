@@ -3,6 +3,9 @@ import {
 	ADDING_USER,
 	ADDED_USER,
 	ADDING_USER_ERROR,
+	ADDING_AUTH_USER,
+	GOT_AUTH_USER,
+	GETTING_AUTH_USER_ERROR,
 	GETTING_USER,
 	GOT_USER,
 	GETTING_USERS_ERROR,
@@ -18,6 +21,7 @@ import axios from "axios";
 let initialState = {
 	user: [],
 	addingUser: false,
+	addingAuthUser: false,
 	gettingUser: false,
 	deletingUser: false,
 	changingUser: false,
@@ -35,6 +39,12 @@ export const userReducer = (state = initialState, action) => {
 		case ADDING_USER_ERROR:
 			//Shoots off if there is an error creating a new user
 			return { ...state, fetchingNotes: false, error: action.payload };
+		case ADDING_AUTH_USER:
+			return { ...state, addingAuthUser: true };
+		case GOT_AUTH_USER:
+			return { ...state, addingAuthUser: false, user: action.payload };
+		case GETTING_AUTH_USER_ERROR:
+			return { ...state, addingAuthUser: false, error: action.payload };
 		case GETTING_USER:
 			//Initial logging in user
 			return { ...state, gettingUser: true };

@@ -11,7 +11,6 @@ import Thanks from "./components/thanks/thanks";
 
 import Callback from "./Callback";
 import Sign from "./components/Sign";
-import Log from "./components/Login";
 
 import "./App.css";
 
@@ -23,7 +22,6 @@ class App extends Component {
 					<div className="entry-button-group">
 						<div>
 							<Sign />
-							<Log />
 							<Route exact path="/callback" component={Callback} />
 						</div>
 

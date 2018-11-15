@@ -12,7 +12,7 @@ function Sign(props) {
 		<nav className="navbar">
 			{!auth0Client.isAuthenticated() && (
 				<button className="btn btn-dark" onClick={auth0Client.signIn}>
-					Sign Up With Auth0
+					Log in with Auth0
 				</button>
 			)}
 			{auth0Client.isAuthenticated() && (
