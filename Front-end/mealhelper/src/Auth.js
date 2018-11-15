@@ -52,12 +52,12 @@ class Auth {
 				if (this.profile.email !== "") {
 					const { email } = this.profile.email;
 					const user = { email };
-					// this.props.addUser(user);
+					this.props.addUser(user);
 				} else {
 					//Else set the full name as "email" and send that
 					const { email } = this.profile.name;
 					const user = { email };
-					// this.props.addUser(user);
+					this.props.addUser(user);
 				}
 
 				this.expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
