@@ -3,12 +3,10 @@ import { combineReducers } from "redux";
 import { recipesReducer } from "./recipesReducer";
 import { ingredsReducer } from "./ingredsReducer";
 import { alarmsReducer } from "./alarmsReducer";
-import { userReducer } from "./userReducer";
 
 export default combineReducers({
-	// mealsReducer,
-	recipesReducer,
-	ingredsReducer,
-	alarmsReducer,
-	userReducer
+ // mealsReducer,
+  recipesReducer,
+  ingredsReducer,
+  alarmsReducer
 });

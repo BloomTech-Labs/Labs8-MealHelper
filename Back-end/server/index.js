@@ -378,30 +378,6 @@ server.get("/ingredients/:userid", (req, res) => {
 			res.status(400).json({ err, error: "could not find meal" });
 		});
 });
-//GET request to grab a single ingredient by id made by a specific user
-server.get("/ingredients/:userid/:id", (req, res) => {
-	const userId = req.params.userid;
-	const id = req.params.id;
-	db("ingredients")
-		//Finds the corrosponding ingredients based on user ID
-		.where({ user_id: userId })
-		.then(ingredients => {
-			db("ingredients")
-				//Finds the corrosponding ingredients based on user ID
-				.where({ id: id })
-				.first()
-				.then(ingredient => {
-					//Returns the single ingredient by id
-					res.status(200).json(ingredient);
-				})
-				.catch(err => {
-					res.status(400).json({ err, error: "could not find meal" });
-				});
-		})
-		.catch(err => {
-			res.status(400).json({ err, error: "could not find meal" });
-		});
-});
 //POST request to create an ingredients
 server.post("/ingredients/:userid", (req, res) => {
 	//grabs the user id from the req.params
