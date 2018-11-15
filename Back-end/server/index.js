@@ -88,6 +88,42 @@ server.post("/register", (req, res) => {
 			res.status(400).json({ msg: err, error: "Could not create a user" });
 		});
 });
+//Registers and checks auth0
+server.post("/registerAuth0", (req, res) => {
+	//Abstraction of req.body
+	const { email, password, zip, healthCondition } = req.body;
+	console.log(req.body);
+	//Sets the user to a JSON object of what we pulled from req.body
+	const user = { email, password, zip, healthCondition };
+	//Hashing the password
+
+	const hash = bcrypt.hashSync(user.password, 15);
+	//Setting the password to our hash
+	user.password = hash;
+	console.log(user);
+	db("users")
+		.insert(user)
+		.then(userMsg => {
+			if (userMsg.msg.detail) {
+				db("users")
+					.where({ email: user.email })
+					.first()
+					.then(user => {
+						const token = generateToken(user);
+
+						res.status(200).json({ userID: user, token: token });
+					})
+					.catch(err => {
+						res.status(500).json({
+							error: "Wrong Email and/or Password, please try again"
+						});
+					});
+			}
+		})
+		.catch(err => {
+			res.status(400).json({ msg: err, error: "Could not create a user" });
+		});
+});
 
 // Login a user
 server.post("/login", (req, res) => {
