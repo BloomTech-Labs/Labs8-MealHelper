@@ -17,12 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-//        let loginController = LoginViewController()
+        let loginController = LoginViewController()
 //        let navController = UINavigationController(rootViewController: loginController)
 //        navController.navigationBar.prefersLargeTitles = true
 //        window?.rootViewController = navController
-        let homeViewController = HomeViewController()
-        window?.rootViewController = homeViewController
+//        let homeViewController = HomeViewController()
+        window?.rootViewController = loginController
         
         return true
     }

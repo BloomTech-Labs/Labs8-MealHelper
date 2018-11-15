@@ -49,7 +49,7 @@ class LoginViewController: UIViewController
     {
         let label = UILabel()
         label.text = "EMAIL ADDRESS"
-        label.font = Appearance.appFont(with: 12)
+        label.font = Appearance.appFont(with: 10)
         label.textColor = .white
         label.sizeToFit()
         
@@ -69,7 +69,7 @@ class LoginViewController: UIViewController
     {
         let label = UILabel()
         label.text = "PASSWORD"
-        label.font = Appearance.appFont(with: 12)
+        label.font = Appearance.appFont(with: 10)
         label.textColor = .white
         label.sizeToFit()
         
@@ -85,11 +85,11 @@ class LoginViewController: UIViewController
         return tf
     }()
     
-    let usernameLabel: UILabel =
+    let healthConditionLabel: UILabel =
     {
         let label = UILabel()
-        label.text = "USERNAME"
-        label.font = Appearance.appFont(with: 12)
+        label.text = "HEALTH CONDITION"
+        label.font = Appearance.appFont(with: 10)
         label.textColor = .white
         label.sizeToFit()
         label.alpha = 0
@@ -97,12 +97,35 @@ class LoginViewController: UIViewController
         return label
     }()
     
-    let usernameTextField: LeftIconTextField =
+    let healthConditionTextField: LeftIconTextField =
     {
         let tf = LeftIconTextField()
         tf.leftImage = #imageLiteral(resourceName: "user_male")
         tf.alpha = 0
         tf.isHidden = true
+        
+        return tf
+    }()
+    
+    let zipCodeLabel: UILabel =
+    {
+        let label = UILabel()
+        label.text = "ZIP CODE"
+        label.font = Appearance.appFont(with: 10)
+        label.textColor = .white
+        label.sizeToFit()
+        label.alpha = 0
+        
+        return label
+    }()
+    
+    let zipCodeTextField: LeftIconTextField =
+    {
+        let tf = LeftIconTextField()
+        tf.leftImage = #imageLiteral(resourceName: "location")
+        tf.alpha = 0
+        tf.isHidden = true
+        tf.keyboardType = .decimalPad
         
         return tf
     }()
@@ -122,6 +145,10 @@ class LoginViewController: UIViewController
     override func viewDidLayoutSubviews() {
         authButton.layer.cornerRadius = authButton.frame.height / 2
         authButton.setGradientBackground(colorOne: UIColor.correctGreen.cgColor, colorTwo: UIColor.lightPurple.cgColor, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func viewDidLoad()
@@ -192,14 +219,18 @@ class LoginViewController: UIViewController
     
     private func registrationTransition()
     {
-        stackViewHeight?.constant = isInLoginState ? 197.5 : 120
-        usernameLabel.isHidden = isInLoginState ? false : true
-        usernameTextField.isHidden = isInLoginState ? false : true
+        stackViewHeight?.constant = isInLoginState ? 227 : 100
+        healthConditionLabel.isHidden = isInLoginState ? false : true
+        healthConditionTextField.isHidden = isInLoginState ? false : true
+        zipCodeLabel.isHidden = isInLoginState ? false : true
+        zipCodeTextField.isHidden = isInLoginState ? false : true
         welcomeLabel.text = isInLoginState ? "Welcome aboard!" : "Good to see you!"
         
         UIView.animate(withDuration: 0.3) {
-            self.usernameTextField.alpha = self.isInLoginState ? 1 : 0
-            self.usernameLabel.alpha = self.isInLoginState ? 1 : 0
+            self.healthConditionTextField.alpha = self.isInLoginState ? 1 : 0
+            self.healthConditionLabel.alpha = self.isInLoginState ? 1 : 0
+            self.zipCodeTextField.alpha = self.isInLoginState ? 1 : 0
+            self.zipCodeLabel.alpha = self.isInLoginState ? 1 : 0
             self.authButton.setTitle(self.isInLoginState ? "Register" : "Login", for: .normal)
             self.view.layoutIfNeeded()
         }
@@ -225,9 +256,8 @@ class LoginViewController: UIViewController
             return
         }
         
-        guard password.count > 5, email.contains("@") else {
+        guard password.count > 2, email.contains("@") else {
             showAlert(with: "Please make sure you entered a valid email and your password is at least 6 characters long.")
-            authButton.stopLoading()
             return
         }
         
@@ -243,67 +273,47 @@ class LoginViewController: UIViewController
     
     private func handleLogin(_ email: String, _ password: String)
     {
+        authButton.startLoading()
+        
         APIClient.shared.login(with: email, password: password) { (response) in
             
             DispatchQueue.main.async {
                 switch response {
                 case .success(let email):
-                    //navigate to homeview
                     print("Login with \(email) completed")
+                    let homeVC = HomeViewController()
+                    self.present(homeVC, animated: true, completion: nil)
                 case .error(let error):
-                    self.loginView.showError(for: .incorrectLogin)
+                    self.showAlert(with: "Something went wrong, please make sure you entered the right credentials and try again.")
+                    self.authButton.stopLoading()
                     return
                 }
             }
         }
-        
-        authButton.startLoading()
-        Auth.auth().createUser(withEmail: email, password: password) { (_, error) in
-            
-            if let error = error
-            {
-                self.showAlert(with: "Something went wrong, please make sure you entered the right credentials and try again.")
-                self.authButton.stopLoading()
-                NSLog("Failed to login: \(error)")
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.authButton.stopLoading()
-                self.dismiss(animated: true, completion: nil)
-            }
-        }
     }
     
-    //MARK: - INCOMPLETE
     private func handleRegistration(_ email: String, _ password: String)
     {
-        guard let username = usernameTextField.text, username.count > 1 else {
-            showAlert(with: "Please choose a username that is at least 2 characters long.")
+        guard let healthCondition = healthConditionTextField.text, let zipCode = zipCodeTextField.text, let zipCodeInt = Int(zipCode) else {
+            showAlert(with: "Please make sure you have filled in all the fields.")
             return
         }
         
+        let user = User(email: email, password: password, zip: zipCodeInt, healthCondition: healthCondition)
         authButton.startLoading()
-        
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            
-            if let error = error
-            {
-                self.showAlert(with: "Something went wrong, check your internet connection or try another email.")
-                self.authButton.stopLoading()
-                NSLog("Failed to register: \(error)")
-                return
-            }
-            
-            guard let uid = user?.user.uid else { return }
-            let dictionary = [uid: ["email": email, "username": username]]
-            
-            Database.database().reference().child("users").updateChildValues(dictionary)
-            //needs to save username in db
+        APIClient.shared.register(with: user) { (response) in
             
             DispatchQueue.main.async {
-                self.authButton.stopLoading()
-                self.dismiss(animated: true, completion: nil)
+                switch response {
+                case .success(let id):
+                    print("success: \(id)")
+                    let homeVC = HomeViewController()
+                    self.present(homeVC, animated: true, completion: nil)
+                case .error(let error):
+                    self.authButton.stopLoading()
+                    print(error)
+                    return
+                }
             }
         }
     }
@@ -315,40 +325,50 @@ class LoginViewController: UIViewController
     
     private func setupViews()
     {
-        view.addSubview(lightBlurEffect)
-        lightBlurEffect.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, width: 0, height: 0)
+        let imageView = UIImageView(image: #imageLiteral(resourceName: "foodbackground"))
+        imageView.contentMode = .scaleAspectFill
         
-        let stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, usernameTextField])
+        view.addSubview(imageView)
+        imageView.fillSuperview()
+        
+        view.addSubview(lightBlurEffect)
+        lightBlurEffect.fillSuperview()
+        
+        let stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, healthConditionTextField, zipCodeTextField])
         stackView.axis = .vertical
-        stackView.spacing = 35
+        stackView.spacing = 28
         stackView.distribution = .fillEqually
         
         view.addSubview(stackView)
-        stackView.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 20, paddingRight: 20, paddingBottom: 0, width: 0, height: 0)
+        stackView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20), size: .zero)
         stackViewHeight = stackView.heightAnchor.constraint(equalToConstant: 120)
         stackViewHeight?.isActive = true
         stackViewCenterY = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         stackViewCenterY?.isActive = true
         
         view.addSubview(authButton)
-        authButton.anchor(top: stackView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 40, paddingLeft: 40, paddingRight: 40, paddingBottom: 0, width: 0, height: 60)
+        authButton.anchor(top: stackView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 30, left: 40, bottom: 0, right: 40), size: CGSize(width: 0, height: 60))
         
         view.addSubview(segmentedControl)
-        segmentedControl.anchor(top: nil, left: nil, bottom: stackView.topAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: -50, width: 200, height: 30)
+        segmentedControl.anchor(top: nil, leading: nil, bottom: stackView.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0), size: CGSize(width: 200, height: 30))
         segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(emailLabel)
         view.addSubview(passwordLabel)
-        view.addSubview(usernameLabel)
+        view.addSubview(healthConditionLabel)
+        view.addSubview(zipCodeLabel)
         
-        emailLabel.anchor(top: nil, left: emailTextField.leftAnchor, bottom: emailTextField.topAnchor, right: nil, paddingTop: 0, paddingLeft: 4, paddingRight: 0, paddingBottom: -6, width: 0, height: 0)
+        emailLabel.anchor(top: nil, leading: emailTextField.leadingAnchor, bottom: emailTextField.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 4, bottom: 6, right: 0), size: .zero)
         
-        passwordLabel.anchor(top: nil, left: passwordTextField.leftAnchor, bottom: passwordTextField.topAnchor, right: nil, paddingTop: 0, paddingLeft: 4, paddingRight: 0, paddingBottom: -6, width: 0, height: 0)
+        passwordLabel.anchor(top: nil, leading: passwordTextField.leadingAnchor, bottom: passwordTextField.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 4, bottom: 6, right: 0), size: .zero)
         
-        usernameLabel.anchor(top: nil, left: usernameTextField.leftAnchor, bottom: usernameTextField.topAnchor, right: nil, paddingTop: 0, paddingLeft: 4, paddingRight: 0, paddingBottom: -6, width: 0, height: 0)
+        healthConditionLabel.anchor(top: nil, leading: healthConditionTextField.leadingAnchor, bottom: healthConditionTextField.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 4, bottom: 6, right: 0), size: .zero)
+        
+        zipCodeLabel.anchor(top: nil, leading: zipCodeTextField.leadingAnchor, bottom: zipCodeTextField.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 4, bottom: 6, right: 0), size: .zero)
         
         view.addSubview(welcomeLabel)
-        welcomeLabel.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 20, paddingRight: 0, paddingBottom: 0, width: 0, height: 0)
+        
+        welcomeLabel.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0), size: .zero)
         welcomeLabelTop = welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0)
         welcomeLabelBottom = welcomeLabel.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -35)
         welcomeLabelTop?.isActive = true
