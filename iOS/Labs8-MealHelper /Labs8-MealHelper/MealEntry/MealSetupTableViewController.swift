@@ -12,7 +12,8 @@ class MealSetupTableViewController: UITableViewController {
     
     // MARK: - Public properties
     
-    var recipes = ["Kraft Cheese", "Sausage"]
+    //var recipes = ["Kraft Cheese", "Sausage"]
+    var recipes: [Recipe]?
     
     // MARK: - Private properties
 
@@ -43,12 +44,13 @@ class MealSetupTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recipes.count
+        return recipes?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MealSetup", for: indexPath) as! MealSetupTableViewCell
 
+        cell.recipe = recipes?[indexPath.row]
         cell.backgroundColor = UIColor.lightGray
         
         return cell

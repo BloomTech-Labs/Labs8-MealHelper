@@ -8,11 +8,11 @@
 
 import UIKit
 
-class MealTableViewCell<Resource>: UITableViewCell {
+class FoodTableViewCell<Resource>: UITableViewCell {
     
     // MARK: - Public properties
     
-    var recipe: Resource? {
+    var food: Resource? {
         didSet {
             setupViews()
         }
@@ -99,6 +99,21 @@ class MealTableViewCell<Resource>: UITableViewCell {
         
         selectButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         // selectButton.addTarget(self, action: #selector(selectRow), for: .touchUpInside)
+        
+        if let recipe = food as? Recipe {
+            nameLabel.text = recipe.name
+            
+            guard let serving = recipe.servings else { return }
+            if serving > 1 {
+                servingQtyLabel.text = "\(serving) servings"
+            } else {
+                servingQtyLabel.text = "\(serving) serving"
+            }
+            
+        } else if let ingredient = food as? Ingredient {
+            nameLabel.text = ingredient.name
+            servingQtyLabel.text = nil
+        }
         
     }
 

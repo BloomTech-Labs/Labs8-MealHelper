@@ -18,6 +18,7 @@ class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewCont
     var cellReuseId: String!
     var selectedFoodAtIndex = [Int]() {
         didSet {
+            print(selectedFoodAtIndex)
             if selectedFoodAtIndex.isEmpty {
                 navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
             } else {
@@ -96,7 +97,7 @@ class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewCont
     }
 
     func selectFood(at indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? MealTableViewCell<Resource> {
+        if let cell = tableView.cellForRow(at: indexPath) as? FoodTableViewCell<Resource> {
             cell.selectRow(cell.selectButton)
         }
         
@@ -106,6 +107,15 @@ class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewCont
         } else {
             selectedFoodAtIndex.append(indexPath.row)
         }
+    }
+    
+    func getSelectedFoods() -> [Resource] {
+        var selectedFoods = [Resource]()
+        for index in selectedFoodAtIndex {
+            guard let food = foods?[index] else { continue }
+            selectedFoods.append(food)
+        }
+        return selectedFoods
     }
     
     // MARK: - User Actions

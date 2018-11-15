@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class IngredientsTableViewController: FoodsTableViewController<Ingredient, MealTableViewCell<Ingredient>>, UISearchBarDelegate, UISearchResultsUpdating {
+class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodTableViewCell<Ingredient>>, UISearchBarDelegate, UISearchResultsUpdating {
     
     // MARK: - Private properties
     
@@ -37,10 +37,10 @@ class IngredientsTableViewController: FoodsTableViewController<Ingredient, MealT
     // MARK: - UITableViewController
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as! MealTableViewCell<Ingredient>
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as! FoodTableViewCell<Ingredient>
         
         guard let ingredient = foods?[indexPath.row] else { return cell }
-        cell.recipe = ingredient
+        cell.food = ingredient
         
         return cell
     }

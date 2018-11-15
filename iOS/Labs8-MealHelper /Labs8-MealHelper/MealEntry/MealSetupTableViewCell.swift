@@ -17,7 +17,12 @@ class MealSetupTableViewCell: UITableViewCell {
     
     // MARK: - Public properties
     
-    var recipe: Any = "meal"
+    var recipe: Recipe? {
+        didSet {
+            setupViews()
+        }
+    }
+    
     var delegate: MealSetupTableViewCellDelegate?
     var servingQtys = (1...20).map { String($0) }
     var servingTypes = ["cup", "100 g", "container", "ounce"]
@@ -104,13 +109,15 @@ class MealSetupTableViewCell: UITableViewCell {
         mainStackView.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor)
         inputStackView.anchor(top: nil, leading: mainStackView.leadingAnchor, bottom: nil, trailing: mainStackView.trailingAnchor)
         
-        nameLabel.text = "Kraft Cheese"
-        servingLabel.text = "1 cup"
-        
         servingSizeInputField.picker.delegate = self
         servingSizeInputField.picker.dataSource = self
         servingQtyInputField.picker.delegate = self
         servingQtyInputField.picker.dataSource = self
+        
+        if let ingredient = recipe {
+            nameLabel.text = ingredient.name
+            servingLabel.text = "asdflkdj"
+        }
     }
     
 }

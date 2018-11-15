@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MealsTableViewController: FoodsTableViewController<Recipe, MealTableViewCell<Recipe>> {
+class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCell<Recipe>> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,7 +17,8 @@ class MealsTableViewController: FoodsTableViewController<Recipe, MealTableViewCe
         let testRecipes: [Recipe] = [
             Recipe(name: "test1", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1),
             Recipe(name: "test2", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1),
-            Recipe(name: "test3", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1)]
+            Recipe(name: "test3", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1),
+        ]
         
         foods = testRecipes
 //        FoodClient.shared.fetchRecipes(for: User()) { (response) in
@@ -34,10 +35,10 @@ class MealsTableViewController: FoodsTableViewController<Recipe, MealTableViewCe
     }
         
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as! MealTableViewCell<Recipe>
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as! FoodTableViewCell<Recipe>
         
         guard let recipe = foods?[indexPath.row] else { return cell }
-        cell.recipe = recipe
+        cell.food = recipe
         
         return cell
     }
@@ -49,6 +50,7 @@ class MealsTableViewController: FoodsTableViewController<Recipe, MealTableViewCe
     
     override func itemsSelectedAction() {
         let mealSetupVC = MealSetupTableViewController()
+        mealSetupVC.recipes = getSelectedFoods()
         navigationController?.pushViewController(mealSetupVC, animated: true)
     }
     
