@@ -9,6 +9,9 @@ import Login from "./components/login/login";
 import Thanks from "./components/thanks/thanks";
 ////////////////////////
 
+import Callback from './Callback';
+import Sign from './components/Sign'
+
 import "./App.css";
 
 class App extends Component {
@@ -17,6 +20,16 @@ class App extends Component {
 			<div className="App">
 				<div className="main-container">
 					<div className="entry-button-group">
+					
+					
+					<div>
+							<Sign />
+							<Route exact path='/callback' component={Callback} />
+					</div>
+
+
+
+
 						<Link to="/signup">
 							<button className="signup-button">
 								<span>Signup</span>
