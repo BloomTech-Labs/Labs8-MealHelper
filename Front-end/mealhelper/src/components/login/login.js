@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../../store/actions/userActions";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
 
 class Login extends Component {
@@ -36,6 +36,19 @@ class Login extends Component {
 
 	render() {
 		return (
+			<div className="main-container">
+			<div className="entry-button-group">
+						<Link to="/signup">
+							<button className="signup-button">
+								<span>Signup</span>
+							</button>
+						</Link>
+						<Link to="/login">
+							<button className="login-button">
+								<span>Login</span>
+							</button>
+						</Link>
+					</div>
 			<div className="user-form-container">
 				<form className="forms">
 					<input
@@ -67,6 +80,7 @@ class Login extends Component {
 					</button>
 				</form>
 			</div>
+		</div>
 		);
 	}
 }
