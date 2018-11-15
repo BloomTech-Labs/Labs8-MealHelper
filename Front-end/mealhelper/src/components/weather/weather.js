@@ -2,41 +2,42 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import axios from "axios";
-import "./weather.css";
+// import "./weather.css";
 
 class Weather extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-            weather: {
-                name: "",
-                description: "",
-                main: {temp:null},
-                humidity:null,
-                pressure:null
-
-            }
-	
+			weather: {
+				name: "",
+				description: "",
+				main: { temp: null },
+				humidity: null,
+				pressure: null
+			}
 		};
-    }
-    ///converted to Imperial measurement
-    componentDidMount() {
-        axios.get(`https://api.openweathermap.org/data/2.5/find?q=Seattle&units=imperial&appid=46454cdfa908cad35b14a05756470e5c`)
-      .then(response => {
-        this.setState({
-          weather: response.data.list[0]
-    });
-        console.log(response.data.list[0]); //returns JSON correctly
-        console.log(this.state.weather.main.temp); //returns correct value in imperial
-    })
-      .catch(error => {
-        console.log('Error', error);
-    });
-}
+	}
+	///converted to Imperial measurement
+	componentDidMount() {
+		axios
+			.get(
+				`https://api.openweathermap.org/data/2.5/find?q=Seattle&units=imperial&appid=46454cdfa908cad35b14a05756470e5c`
+			)
+			.then(response => {
+				this.setState({
+					weather: response.data.list[0]
+				});
+				console.log(response.data.list[0]); //returns JSON correctly
+				console.log(this.state.weather.main.temp); //returns correct value in imperial
+			})
+			.catch(error => {
+				console.log("Error", error);
+			});
+	}
 
 	handleChange = event => {
 		event.preventDefault();
@@ -59,12 +60,13 @@ class Weather extends Component {
 
 	render() {
 		return (
-            <div className="weather-container">
-			    <div className="weather-card">
-                    <h1>City: {this.state.weather.name}</h1><br/>
-                    <h1>Temp:{this.state.weather.main.temp}</h1>
-			    </div>
-            </div>
+			<div className="weather-container">
+				<div className="weather-card">
+					<h1>City: {this.state.weather.name}</h1>
+					<br />
+					<h1>Temp:{this.state.weather.main.temp}</h1>
+				</div>
+			</div>
 		);
 	}
 }
