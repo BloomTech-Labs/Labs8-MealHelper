@@ -15,7 +15,6 @@ class Recipe extends Component {
             nutrients: []
 
         }
-	console.log(this.state);
 		};
     ///converted to Imperial measurement
     componentDidMount() {
@@ -55,7 +54,7 @@ class Recipe extends Component {
 		return (
             <div className="weather-container">
 			    <div className="recipe-card">
-                    <h1>A Food Name</h1>
+                    <h1>{this.state.nutrients}</h1>
 			    </div>
             </div>
 		);
