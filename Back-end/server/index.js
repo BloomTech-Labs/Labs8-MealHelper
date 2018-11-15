@@ -101,27 +101,23 @@ server.post("/registerAuth0", (req, res) => {
 	db("users")
 		.insert(user)
 		.then(userMsg => {
-			if (userMsg.msg.detail) {
-				db("users")
-					.where({ email: user.email })
-					.first()
-					.then(user => {
-						const token = generateToken(user);
-
-						res.status(200).json({ userID: user, token: token });
-					})
-					.catch(err => {
-						res.status(500).json({
-							error: "Wrong Email and/or Password, please try again"
-						});
-					});
-			} else {
-				const token = generateToken(user);
-				res.status(201).json({ userID: userMsg, token: token });
-			}
+			const token = generateToken(user);
+			res.status(201).json({ userID: userMsg, token: token });
 		})
 		.catch(err => {
-			res.status(400).json({ msg: err, error: "Could not create a user" });
+			db("users")
+				.where({ email: user.email })
+				.first()
+				.then(user => {
+					const token = generateToken(user);
+
+					res.status(200).json({ userID: user, token: token });
+				})
+				.catch(err => {
+					res.status(500).json({
+						error: "Wrong Email and/or Password, please try again"
+					});
+				});
 		});
 });
 
