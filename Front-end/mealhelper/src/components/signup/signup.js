@@ -1,100 +1,71 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-//change the route for this
-import { addUser } from "../../store/actions/userActions";
-import { withRouter } from "react-router-dom";
-import { Alert } from "reactstrap";
+import './signup.css';
+import axios from "axios";
 
-class Register extends Component {
-	constructor(props) {
-		super(props);
+class Signup extends Component {
+    /////REMOVE THIS IN THE SECOND WEEK
+    constructor(props) {
+        super(props);
+        this.state = {
+          users: [],
+          user: 
+          {
+            email: '',
+            password: '',
+            zip:'',
+            healthCondition:''
+          },
+        };
+      }
 
-		this.state = {
-			email: "",
-			password: "",
-			zip: null,
-			healthCondition: "",
-			visable: false
-		};
-	}
+    handleChange = event => {
+        event.preventDefault();
+        this.setState({
+          user: {
+            ...this.state.users,
+            [event.target.name]: event.target.value,
+          }
+        });
+      };
 
-	handleChange = event => {
-		event.preventDefault();
-		this.setState({
-			[event.target.name]: event.target.value
-		});
-	};
+    handleAddNewUser = event => {
+        event.preventDefault();
+        console.log('firing');
+         axios
+        .post('https://labs8-meal-helper.herokuapp.com/register', this.state.user)
+        .then(response => this.setState({user: response.data }), window.location ="/thanks")
+        console.log(this.state.user);
+    };
 
-	createUser = event => {
-		event.preventDefault();
-		if (!this.state.email || !this.state.password) {
-			this.setState({ visable: true });
-		} else {
-			const { email, password, zip, healthCondition } = this.state;
-			const user = { email, password, zip, healthCondition };
-			this.props.addUser(user);
-			// this.props.history.push("/");
-		}
-	};
 
-	render() {
-		return (
-			<div className="user-form-container">
-				<form className="forms">
-					<input
-						className="email-input"
-						type="text-title"
-						name="email"
-						value={this.state.email}
-						onChange={this.handleChange}
-						placeholder="Email"
-						required
-					/>
-					<input
-						className="password-input"
-						type="password"
-						name="password"
-						onChange={this.handleChange}
-						value={this.state.password}
-						placeholder="Password"
-						required
-					/>
-					<input
-						className="zip-input"
-						type="text"
-						name="zip"
-						onChange={this.handleChange}
-						value={this.state.zip}
-						placeholder="Zip"
-					/>
-					<input
-						className="condition-input"
-						type="text"
-						name="healthCondition"
-						onChange={this.handleChange}
-						value={this.state.healthCondition}
-						placeholder="Health Condition"
-					/>
-					<div className="alert-box">
-						<Alert isOpen={this.state.visable} color="danger">
-							Please enter an email and address
-						</Alert>
-					</div>
-
-					<button onClick={this.createUser} className="savenote-button">
-						Save
-					</button>
-				</form>
-			</div>
-		);
-	}
+  render() {
+    return (
+        <div className="form">
+            <h1 className="signup-title">Sign Up</h1>
+                <form>
+                <div className="form-group">
+                    <input type="text" id="dynamic-label-input" placeholder="Email" onChange={this.handleChange}/>
+                    <label htmlFor="dynamic-label-input">Email</label>
+                </div>
+                <div className="form-group">
+                    <input type="password" id="dynamic-label-input" placeholder="Password" onChange={this.handleChange}/>
+                    <label htmlFor="dynamic-label-input">Password</label>
+                </div>
+                <div className="form-group">
+                    <input type="text" id="dynamic-label-input" placeholder="Zip"onChange={this.handleChange}/>
+                    <label htmlFor="dynamic-label-input">Zip</label>
+                </div>
+                <div className="form-group">
+                    <input type="text" id="dynamic-label-input" placeholder="Health Condition" onChange={this.handleChange}/>
+                    <label htmlFor="dynamic-label-input">Health Condition</label>
+                </div>
+                <div className="signup signup-two" onClick={this.handleAddNewUser}>
+                    <span>Sign Up</span>
+                </div>
+            </form>
+        </div>
+    );
+  }
 }
 
-const mapStateToProps = state => ({
-	user: state.user
-});
-
-export default connect(
-	mapStateToProps,
-	{ addUser }
-)(withRouter(Register));
+export default Signup;
