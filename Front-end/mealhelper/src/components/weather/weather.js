@@ -15,7 +15,7 @@ class Weather extends Component {
             weather: {
                 name: "",
                 description: "",
-                temp:null,
+                main: {temp:null},
                 humidity:null,
                 pressure:null
 
@@ -31,7 +31,7 @@ class Weather extends Component {
           weather: response.data.list[0]
     });
         console.log(response.data.list[0]); //returns JSON correctly
-        console.log(this.state.weather.main.temp); //returns correct value (304.15)
+        console.log(this.state.weather.main.temp); //returns correct value in imperial
     })
       .catch(error => {
         console.log('Error', error);
@@ -62,7 +62,7 @@ class Weather extends Component {
             <div className="weather-container">
 			    <div className="weather-card">
                     <h1>City: {this.state.weather.name}</h1><br/>
-                    {/* <h1>Temp:{this.state.weather.temp}</h1> */}
+                    <h1>Temp:{this.state.weather.main.temp}</h1>
 			    </div>
             </div>
 		);
