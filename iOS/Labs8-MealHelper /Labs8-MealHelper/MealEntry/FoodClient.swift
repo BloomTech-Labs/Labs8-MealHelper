@@ -11,7 +11,8 @@ import Foundation
 class FoodClient {
     
     static let shared = FoodClient()
-    let usdaBaseUrl: URL = URL(string: "")!
+    let usdaBaseUrl: URL = URL(string: "https://api.nal.usda.gov/ndb/search/")!
+    let usdaAPIKey = "c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6"
     let baseUrl: URL = URL(string: "https://labs8-meal-helper.herokuapp.com/")!
     
     // MARK: - Public
@@ -46,27 +47,53 @@ class FoodClient {
         }.resume()
     }
     
+    func fetchIngredients(with searchTerm: String, completion: @escaping (Response<[Ingredient]>) -> ()) {
+        var urlComponents = URLComponents(url: usdaBaseUrl, resolvingAgainstBaseURL: true)!
+        urlComponents.queryItems = [
+            URLQueryItem(name: "format", value: "json"),
+            URLQueryItem(name: "sort", value: "n"),
+            URLQueryItem(name: "max", value: "25"),
+            URLQueryItem(name: "offset", value: "0"),
+            URLQueryItem(name: "offset", value: usdaAPIKey)
+        ]
+        
+        guard let requestURL = urlComponents.url else {
+            NSLog("Problem constructing search URL for \(searchTerm)")
+            completion(Response.error(NSError()))
+            return
+        }
+        
+        let request = URLRequest(url: requestURL)
+        
+        URLSession.shared.dataTask(with: request) { (data, res, error) in
+            
+            if let error = error {
+                NSLog("Error with urlReqeust: \(error)")
+                completion(Response.error(error))
+                return
+            }
+            
+            guard let data = data else {
+                NSLog("No data returned")
+                completion(Response.error(NSError()))
+                return
+            }
+            
+            do {
+                let ingredients = try JSONDecoder().decode([Ingredient].self, from: data)
+                completion(Response.success(ingredients))
+            } catch {
+                NSLog("Error decoding data: \(error)")
+                completion(Response.error(error))
+                return
+            }
+        }.resume()
+    }
+    
     // MARK: - Private
     
 }
 
-//func fetchPhotos(from rover: MarsRover,
-//                 onSol sol: Int,
-//                 using session: URLSession = URLSession.shared,
-//                 completion: @escaping ([MarsPhotoReference]?, Error?) -> Void) {
-//
-//    let url = self.url(forPhotosfromRover: rover.name, on: sol)
-//    fetch(from: url, using: session) { (dictionary: [String : [MarsPhotoReference]]?, error: Error?) in
-//        guard let photos = dictionary?["photos"] else {
-//            completion(nil, error)
-//            return
-//        }
-//        completion(photos, nil)
-//    }
-//}
-//
-//// MARK: - Private
-//
 //private func fetch<T: Codable>(from url: URL,
 //                               using session: URLSession = URLSession.shared,
 //                               completion: @escaping (T?, Error?) -> Void) {

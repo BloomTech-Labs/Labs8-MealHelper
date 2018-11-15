@@ -39,6 +39,7 @@ struct Recipe: Codable {
     init(name: String, calories: Int, servings: Int, ingredients: [Ingredient] = [], userId: Int?, mealId: Int?) {
         self.name = name
         self.calories = calories
+        self.servings = servings
         self.ingredients = ingredients
         self.userId = userId
     }
@@ -96,6 +97,36 @@ struct Nutrient: Codable {
         case unit
         case value
         case gm
+    }
+    
+}
+
+struct usdaIngredient: Codable {
+    
+    var nbdId: Int?
+    var name: String?
+    var manufacturer: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case ndbno = "id"
+        case name = "nbd_id"
+        case manufacturer = "manu"
+    }
+    
+}
+
+struct usdaNutrient: Codable {
+    
+    var identifier: String? // usda nutrient id
+    var name: String?
+    var unit: String?
+    var value: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case identifier = "nutrient_id"
+        case name
+        case unit
+        case value
     }
     
 }
