@@ -6,9 +6,9 @@ exports.up = function(knex) {
 				.string("email", 40)
 				.unique()
 				.notNullable();
-			users.string("password", 255).notNullable();
+			users.string("password", 255);
 			users.integer("zip", 5);
-			users.string("healthCondition", 20).notNullable();
+			users.string("healthCondition", 20);
 		}),
 		knex.schema.createTable("mealList", function(mealList) {
 			mealList.increments("id").primary();
@@ -25,21 +25,14 @@ exports.up = function(knex) {
 			recipe.integer("servings", 3).notNullable();
 			recipe.integer("meal_id");
 			recipe.foreign("meal_id").references("mealList.id");
-			recipe.integer("user_id");
-			recipe
-				.foreign("user_id")
-				.references("users.id")
-				.onDelete("cascade");
-
-			recipe.string("ingredients_id");
 		}),
 		knex.schema.createTable("ingredients", function(ingredients) {
 			ingredients.increments("id").primary();
 			ingredients.integer("ndb_id");
 			ingredients.string("name", 51).notNullable();
 			ingredients.string("nutrients_id");
-			ingredients.integer("user_id");
-			ingredients.foreign("user_id").references("users.id");
+			ingredients.integer("recipe_id");
+			ingredients.foreign("recipe_id").references("recipe.id");
 		}),
 		knex.schema.createTable("nutrients", function(nutrients) {
 			nutrients.increments("id").primary();
@@ -48,8 +41,8 @@ exports.up = function(knex) {
 			nutrients.string("unit", 6).notNullable();
 			nutrients.integer("value", 6).notNullable();
 			nutrients.integer("nutrients_id").notNullable();
-			nutrients.integer("user_id");
-			nutrients.foreign("user_id").references("users.id");
+			nutrients.integer("ingredient_id");
+			nutrients.foreign("ingredient_id").references("ingredients.id");
 		}),
 		knex.schema.createTable("weather", function(weather) {
 			weather.increments("id").primary();
