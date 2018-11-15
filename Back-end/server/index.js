@@ -98,10 +98,6 @@ server.post("/registerAuth0", (req, res) => {
 	const user = { email };
 	//Hashing the password
 	console.log(user);
-	const hash = bcrypt.hashSync(user.password, 15);
-	//Setting the password to our hash
-	user.password = hash;
-	console.log(user);
 	db("users")
 		.insert(user)
 		.then(userMsg => {
