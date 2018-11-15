@@ -1,3 +1,4 @@
+
 const express = require("express");
 const helmet = require("helmet");
 const knex = require("knex");
@@ -86,6 +87,38 @@ server.post("/register", (req, res) => {
 		})
 		.catch(err => {
 			res.status(400).json({ msg: err, error: "Could not create a user" });
+		});
+});
+//Registers and checks auth0
+server.post("/registerAuth0", (req, res) => {
+	//Abstraction of req.body
+	console.log(req.body);
+	const { email } = req.body;
+	console.log(req.body);
+	//Sets the user to a JSON object of what we pulled from req.body
+	const user = { email };
+	//Hashing the password
+	console.log(user);
+	db("users")
+		.insert(user)
+		.then(userMsg => {
+			const token = generateToken(user);
+			res.status(201).json({ userID: userMsg, token: token });
+		})
+		.catch(err => {
+			db("users")
+				.where({ email: user.email })
+				.first()
+				.then(user => {
+					const token = generateToken(user);
+
+					res.status(200).json({ userID: user, token: token });
+				})
+				.catch(err => {
+					res.status(500).json({
+						error: "Wrong Email and/or Password, please try again"
+					});
+				});
 		});
 });
 
@@ -378,30 +411,7 @@ server.get("/ingredients/:userid", (req, res) => {
 			res.status(400).json({ err, error: "could not find meal" });
 		});
 });
-//GET request to grab a single ingredient by id made by a specific user
-server.get("/ingredients/:userid/:id", (req, res) => {
-	const userId = req.params.userid;
-	const id = req.params.id;
-	db("ingredients")
-		//Finds the corrosponding ingredients based on user ID
-		.where({ user_id: userId })
-		.then(ingredients => {
-			db("ingredients")
-				//Finds the corrosponding ingredients based on user ID
-				.where({ id: id })
-				.first()
-				.then(ingredient => {
-					//Returns the single ingredient by id
-					res.status(200).json(ingredient);
-				})
-				.catch(err => {
-					res.status(400).json({ err, error: "could not find meal" });
-				});
-		})
-		.catch(err => {
-			res.status(400).json({ err, error: "could not find meal" });
-		});
-});
+
 //POST request to create an ingredients
 server.post("/ingredients/:userid", (req, res) => {
 	//grabs the user id from the req.params
@@ -487,8 +497,15 @@ server.get("/nutrients/:ingredientID", (req, res) => {
 		//Doing a where request returns an array, so we want the first index of that array.
 		.first()
 		.then(ingredients => {
-			//Returns the nutrient ids (in string form) of the recipe.
-			res.status(200).json(ingredients.nutrients_id);
+			db("nutrients")
+				.where({ ingredient_id: ingredientId })
+				.then(nutrients => {
+					//Returns all the nutrients
+					res.status(200).json(nutrients);
+				})
+				.catch(err => {
+					res.status(400).json({ err, error: "could not find nutrients" });
+				});
 		})
 		.catch(err => {
 			res.status(400).json({ err, error: "could not find meal" });
@@ -852,4 +869,3 @@ server.delete("/alarms/:id", (req, res) => {
 
 server.listen(port, () => {
 	console.log(`Server now listening on Port ${port}`);
-});
