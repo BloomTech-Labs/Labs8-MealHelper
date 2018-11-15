@@ -9,7 +9,7 @@ import Login from "./components/login/login";
 import HomePage from "./components/homepage/homepage";
 import Weather from "./components/weather/weather";
 import Recipes from "./components/recipes/recipes";
-import LandingPage from "./components/landingpagenav/lpnav";
+import LandingPage from "./components/landingpage/landingpage";
 ////////////////////////
 
 import "./App.css";

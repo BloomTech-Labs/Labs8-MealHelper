@@ -25,7 +25,7 @@ class Weather extends Component {
     }
     ///converted to Imperial measurement
     componentDidMount() {
-        axios.get(`https://api.openweathermap.org/data/2.5/find?q=Bangor&units=imperial&appid=46454cdfa908cad35b14a05756470e5c`)
+        axios.get(`https://api.openweathermap.org/data/2.5/find?q=Seattle&units=imperial&appid=46454cdfa908cad35b14a05756470e5c`)
       .then(response => {
         this.setState({
           weather: response.data.list[0]

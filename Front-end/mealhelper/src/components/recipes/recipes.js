@@ -18,7 +18,7 @@ class Recipe extends Component {
 		};
     ///converted to Imperial measurement
     componentDidMount() {
-        axios.get(`https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6&nutrients=205&nutrients=204&nutrients=208&nutrients=269&ndbno=01009`)
+        axios.get(`https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6&nutrients=205&nutrients=204&nutrients=208&nutrients=269&ndbno=01008`)
       .then(response => {
         this.setState({
           nutrients: response.data.report.foods[0].name
