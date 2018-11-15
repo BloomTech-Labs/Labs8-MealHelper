@@ -10,7 +10,8 @@ import {
 	DELETED_USER,
 	DELETING_USER_ERROR,
 	CHANGING_USER,
-	CHANGED_USER
+	CHANGED_USER,
+	CHANGING_USER_ERROR
 } from "../actions/userActions";
 import axios from "axios";
 
@@ -23,7 +24,7 @@ let initialState = {
 	error: null
 };
 
-export const noteReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case ADDING_USER:
 			//Initial adding user
