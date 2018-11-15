@@ -5,6 +5,9 @@ export const ERROR = "ERROR";
 export const ADDING_USER = "ADDING_USER";
 export const ADDED_USER = "ADDED_USER";
 export const ADDING_USER_ERROR = "ADDING_USER_ERROR";
+export const ADDING_AUTH_USER = "ADDING_AUTH_USER";
+export const GOT_AUTH_USER = "GOT_AUTH_USER";
+export const GETTING_AUTH_USER_ERROR = "GETTING_AUTH_USER_ERROR";
 export const GETTING_USER = "GETTING_USER";
 export const GOT_USER = "GOT_USER";
 export const GETTING_USERS_ERROR = "GETTING_USERS_ERROR";
@@ -43,6 +46,20 @@ export const loginUser = credentials => dispatch => {
 		})
 		.catch(err => {
 			dispatch({ type: GETTING_USERS_ERROR, payload: err });
+		});
+};
+//login auth user
+export const loginAuthUser = credentials => dispatch => {
+	dispatch({ type: ADDING_AUTH_USER });
+
+	axios
+		//Passes credentials to the /login Route.
+		.post("https://labs8-meal-helper.herokuapp.com/registerAuth0", credentials)
+		.then(response => {
+			dispatch({ type: GOT_AUTH_USER, payload: response.data });
+		})
+		.catch(err => {
+			dispatch({ type: GETTING_AUTH_USER_ERROR, payload: err });
 		});
 };
 //PUT REQ to change user settings
