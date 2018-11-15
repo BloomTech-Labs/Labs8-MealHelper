@@ -20,7 +20,7 @@ class IngredientsTableViewController: MealsTableViewController {
         definesPresentationContext = true
         sc.searchBar.delegate = self
         sc.searchBar.showsBookmarkButton = true
-        sc.searchBar.setImage(UIImage(named: "camera")!.withRenderingMode(.alwaysTemplate), for: .bookmark, state: .normal)
+        sc.searchBar.setImage(UIImage(named: "camera")!.withRenderingMode(.alwaysTemplate), for: .bookmark, state: .normal) // Set the bookmarkButton to a camera button
         sc.searchBar.tintColor = view.tintColor
         return sc
     }()
@@ -69,7 +69,9 @@ extension IngredientsTableViewController: UISearchBarDelegate, UISearchResultsUp
     }
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        // Handle searchBar button click (Image Controller)
+        // On clicking the bookmark button present a camera view
+        let cameraVC = CameraViewController()
+        present(cameraVC, animated: true, completion: nil)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
