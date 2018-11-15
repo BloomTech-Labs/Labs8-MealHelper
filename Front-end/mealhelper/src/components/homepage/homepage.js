@@ -5,8 +5,8 @@ import "./homepage.css";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
 // import { Alert } from "reactstrap";
-import Weather from "../weather/weather";
-import Recipes from "../recipes/recipes";
+// import Weather from "../weather/weather";
+// import Recipes from "../recipes/recipes";
 
 class HomePage extends Component {
 	constructor(props) {
@@ -65,8 +65,8 @@ class HomePage extends Component {
                 </div>	
                 <div className="dynamic-display">
                     <Switch>
-							<Route path="/homepage/weather" render={() => <Weather />} />
-							<Route path="/homepage/recipes" render={() => <Recipes />} />
+							{/* <Route path="/homepage/weather" render={() => <Weather />} />
+							<Route path="/homepage/recipes" render={() => <Recipes />} /> */}
 							{/* <Route path="/homepage/alarms" render={() => <Alarms />} />
 							<Route path="/homepage/billing" render={() => <Billing />} />
                             <Route path="/homepage/settings" render={() => <Settings />} /> */}
