@@ -33,10 +33,10 @@ class App extends Component {
 					</div>
 					<div className="signin">
 						<Switch>
-							<Route exact path="/signup" render={() => <Signup />} />
+							<Route path="/signup" render={() => <Signup />} />
 							<Route path="/login" render={() => <Login />} />
 							<Route path="/thanks" render={() => <Thanks />} />
-							<Route path="/homepage" render={() => <HomePage />} />
+							<Route exact path="/homepage" render={() => <HomePage />} />
 							<Route path="/homepage/weather" render={() => <Weather />} />
 							<Route path="/homepage/recipes" render={() => <Recipes />} />
 						</Switch>

@@ -61,8 +61,8 @@ class Weather extends Component {
 		return (
             <div className="weather-container">
 			    <div className="weather-card">
-                    <h1>{this.state.weather.name}</h1>
-                    <h1>{this.state.weather.country}</h1>
+                    <h1>City: {this.state.weather.name}</h1><br/>
+                    {/* <h1>Temp:{this.state.weather.temp}</h1> */}
 			    </div>
             </div>
 		);
