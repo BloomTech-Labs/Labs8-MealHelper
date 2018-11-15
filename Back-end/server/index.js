@@ -91,12 +91,13 @@ server.post("/register", (req, res) => {
 //Registers and checks auth0
 server.post("/registerAuth0", (req, res) => {
 	//Abstraction of req.body
-	const { email, password, zip, healthCondition } = req.body;
+	console.log(req.body);
+	const { email } = req.body;
 	console.log(req.body);
 	//Sets the user to a JSON object of what we pulled from req.body
-	const user = { email, password, zip, healthCondition };
+	const user = { email };
 	//Hashing the password
-
+	console.log(user);
 	const hash = bcrypt.hashSync(user.password, 15);
 	//Setting the password to our hash
 	user.password = hash;
