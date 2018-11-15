@@ -9,19 +9,41 @@
 import Foundation
 import UIKit
 
-class MealsTableViewController: FoodsTableViewController {
+class MealsTableViewController: FoodsTableViewController<Recipe, MealTableViewCell<Recipe>> {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let testRecipes: [Recipe] = [
+            Recipe(name: "test1", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1),
+            Recipe(name: "test2", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1),
+            Recipe(name: "test3", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1)]
+        
+        foods = testRecipes
+//        FoodClient.shared.fetchRecipes(for: User()) { (response) in
+//            DispatchQueue.main.async {
+//                switch response {
+//                case .success(let recipes):
+//                    self.foods = recipes
+//                case .error(let error):
+//                    // Handle error in UI
+//                    break
+//                }
+//            }
+//        }
+    }
         
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as! MealTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as! MealTableViewCell<Recipe>
         
-        guard let recipe = foods[indexPath.row] as? String else { return cell }
+        guard let recipe = foods?[indexPath.row] else { return cell }
         cell.recipe = recipe
         
         return cell
     }
     
     override func noItemsSelectedAction() {
-        let ingredientsVC = IngredientsTableViewController(navTitle: "Ingredients", cell: MealTableViewCell.self, foods: ["Chicken tandori", "Pork BBQ", "French Fries"])
+        let ingredientsVC = IngredientsTableViewController(navTitle: "Ingredients")
         navigationController?.pushViewController(ingredientsVC, animated: true)
     }
     

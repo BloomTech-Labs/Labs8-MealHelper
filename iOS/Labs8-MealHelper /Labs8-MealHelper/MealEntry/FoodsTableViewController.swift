@@ -9,13 +9,12 @@
 import UIKit
 import CoreData
 
-class FoodsTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewController, NSFetchedResultsControllerDelegate {
 
     // MARK: - Public properties
     
-    var foods: [Any]
+    var foods: [Resource]?
     var navTitle: String!
-    var cell: UITableViewCell.Type!
     var cellReuseId: String!
     var selectedFoodAtIndex = [Int]() {
         didSet {
@@ -39,14 +38,12 @@ class FoodsTableViewController: UITableViewController, NSFetchedResultsControlle
     
     // MARK: - Init
     
-    init(navTitle: String, cell: UITableViewCell.Type, foods: [Any]) {
+    init(navTitle: String) {
         self.navTitle = navTitle
-        self.cell = cell
-        self.foods = foods
         self.cellReuseId = "\(String(describing: navTitle))Cell"
         
         super.init(style: .plain)
-        self.tableView.register(cell, forCellReuseIdentifier: self.cellReuseId)
+        self.tableView.register(Cell.self, forCellReuseIdentifier: self.cellReuseId)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -63,7 +60,7 @@ class FoodsTableViewController: UITableViewController, NSFetchedResultsControlle
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return foods.count
+        return foods?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -99,7 +96,7 @@ class FoodsTableViewController: UITableViewController, NSFetchedResultsControlle
     }
 
     func selectFood(at indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? MealTableViewCell {
+        if let cell = tableView.cellForRow(at: indexPath) as? MealTableViewCell<Resource> {
             cell.selectRow(cell.selectButton)
         }
         

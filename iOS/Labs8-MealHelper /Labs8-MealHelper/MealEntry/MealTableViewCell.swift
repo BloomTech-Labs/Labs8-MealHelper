@@ -8,17 +8,15 @@
 
 import UIKit
 
-class MealTableViewCell: UITableViewCell {
+class MealTableViewCell<Resource>: UITableViewCell {
     
     // MARK: - Public properties
     
-//    var recipe: Recipe? {
-//        didSet {
-//            setupViews()
-//        }
-//    }
-    
-    var recipe: String?
+    var recipe: Resource? {
+        didSet {
+            setupViews()
+        }
+    }
     
     // MARK: - Private properties
     

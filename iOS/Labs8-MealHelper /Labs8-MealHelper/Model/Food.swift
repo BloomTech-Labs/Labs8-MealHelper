@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Meal: Encodable {
+struct Meal: Codable {
     
     init(mealTime: String, experience: String, date: String, userId: Int) {
         self.mealTime = mealTime
@@ -34,7 +34,7 @@ struct Meal: Encodable {
     
 }
 
-struct Recipe: Encodable {
+struct Recipe: Codable {
     
     init(name: String, calories: Int, servings: Int, ingredients: [Ingredient] = [], userId: Int?, mealId: Int?) {
         self.name = name
@@ -64,7 +64,7 @@ struct Recipe: Encodable {
     
 }
 
-struct Ingredient: Encodable {
+struct Ingredient: Codable {
     
     var identifier: Int?
     var name: String?
@@ -82,7 +82,7 @@ struct Ingredient: Encodable {
     
 }
 
-struct Nutrient: Encodable {
+struct Nutrient: Codable {
     
     var identifier: String? // usda nutrient id
     var name: String?
