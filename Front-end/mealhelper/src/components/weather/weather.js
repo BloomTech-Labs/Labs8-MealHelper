@@ -5,7 +5,7 @@ import { addUser } from "../../store/actions/userActions";
 import { withRouter } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import axios from "axios";
-// import "./weather.css";
+import "./weather.css";
 
 class Weather extends Component {
 	constructor(props) {
@@ -63,7 +63,7 @@ class Weather extends Component {
 			<div className="weather-container">
 				<div className="weather-card">
 					<h1>City: {this.state.weather.name}</h1>
-					<br />
+					<hr/>
 					<h1>Temp:{this.state.weather.main.temp}</h1>
 				</div>
 			</div>

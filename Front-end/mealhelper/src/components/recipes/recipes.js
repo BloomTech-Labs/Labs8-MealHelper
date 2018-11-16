@@ -5,7 +5,7 @@ import { addUser } from "../../store/actions/userActions";
 import { withRouter } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import axios from "axios";
-// import "./recipes.css";
+import "./recipes.css";
 
 class Recipe extends Component {
 	constructor(props) {

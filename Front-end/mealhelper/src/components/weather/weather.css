@@ -1,0 +1,12 @@
+.weather-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    width: 600px;
+    height: 300px;
+    outline: 3px solid #F1E7E8;
+    background: linear-gradient(
+        rgb(163, 206, 160, .75), 
+        rgb(163, 206, 160, .75));
+}
