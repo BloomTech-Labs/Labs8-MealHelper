@@ -1,7 +1,11 @@
+
+.formcenter {
+  margin-left: 43%;
+}
 .user-form-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     background: linear-gradient(
                      rgba(20,20,20, .75), 
@@ -31,12 +35,12 @@
 
   label {
     position: absolute;
-    top: 0;
+    top: -4px;
     font-size: var(--font-size-small);
     opacity: 1;
     transform: translateY(0);
     transition: all 0.2s ease-out;
-    color: rgb(192, 181, 31);;
+    color: rgb(192, 181, 31);
   }
   
   input:placeholder-shown + label {
@@ -57,7 +61,7 @@
   .signup {
     position: relative;
     color: rgb(192, 181, 31);
-    width: 256px;
+    width: 274.14px;
     height: 64px;
     line-height: 64px;
     transition: all 0.3s;
@@ -122,4 +126,8 @@
   @keyframes rotateccw {
       from {transform: rotate(0deg);}
       to {transform: rotate(-360deg);}
+  }
+
+  .alert-box {
+    margin-top: 11%;
   }
