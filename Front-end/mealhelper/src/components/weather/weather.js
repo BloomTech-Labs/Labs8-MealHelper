@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter, Link, Switch, Route } from "react-router-dom";
 // import { Alert } from "reactstrap";
+import Recipes from '../recipes/recipes';
 import axios from "axios";
 import "./weather.css";
 
@@ -61,36 +62,44 @@ class Weather extends Component {
 	render() {
 		return (
 			<div className="home-container">
-				<div className="sidebar">
-					<Link to="/homepage/weather" style={{ textDecoration: "none" }}>
-						<h2 className="titlelinks">Weather</h2>
-					</Link>
-					<Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
-						<h2 className="titlelinks">Recipes</h2>
-					</Link>
-					<Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
-						<h2 className="titlelinks">Alarms</h2>
-					</Link>
-					<Link to="/homepage/meals" style={{ textDecoration: "none" }}>
-						<h2 className="titlelinks">Meals</h2>
-					</Link>
-					<Link to="/homepage/billing" style={{ textDecoration: "none" }}>
-						<h2 className="titlelinks">Billing</h2>
-					</Link>
-					<Link to="/homepage/settings" style={{ textDecoration: "none" }}>
-						<h2 className="titlelinks">Settings</h2>
-					</Link>
-				</div>
-				<div className="weather-container">
-					<div className="weather-card">
-						<h1>City: {this.state.weather.name}</h1>
-						<hr />
-						<h1>Temp:{this.state.weather.main.temp}</h1>
+                <div className="sidebar">
+                    <Link to="/homepage/weather" style={{ textDecoration: "none" }}>
+                        <h2 className="titlelinks">Weather</h2>
+                    </Link>
+                    <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
+                        <h2 className="titlelinks">Recipes</h2>
+                    </Link>
+                    <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
+                        <h2 className="titlelinks">Alarms</h2>
+                    </Link>
+                    <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
+                        <h2 className="titlelinks">Meals</h2>
+                    </Link>
+                    <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
+                        <h2 className="titlelinks">Billing</h2>
+                    </Link>
+                    <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
+                        <h2 className="titlelinks">Settings</h2>
+                    </Link>
+                </div>
+                <div className="weather-container">
+                    <div className="weather-card">
+                        <h1>City: {this.state.weather.name}</h1>
+                        <hr />
+                        <h1>Temp:{this.state.weather.main.temp}</h1>
 					</div>
+                    </div>
 
-					<div className="dynamic-display" />
-				</div>
-			</div>
+                    <div className="dynamic-display">
+                        <Switch>
+                            <Route path="/homepage/weather" render={() => <Weather />} />
+                            <Route path="/homepage/recipes" render={() => <Recipes />} /> */
+                            {/* <Route path="/homepage/alarms" render={() => <Alarms />} />
+                            <Route path="/homepage/billing" render={() => <Billing />} />
+                            <Route path="/homepage/settings" render={() => <Settings />} /> */}
+                        </Switch>
+					</div>
+                </div>
 		);
 	}
 }
