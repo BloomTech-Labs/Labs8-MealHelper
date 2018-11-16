@@ -20,7 +20,7 @@ exports.up = function(knex) {
 		}),
 		knex.schema.createTable("recipe", function(recipe) {
 			recipe.increments("id").primary();
-			recipe.string("name", 51).notNullable();
+			recipe.string("name", 255).notNullable();
 			recipe.integer("calories", 6).notNullable();
 			recipe.integer("servings", 3).notNullable();
 			recipe.integer("meal_id");
@@ -29,7 +29,7 @@ exports.up = function(knex) {
 		knex.schema.createTable("ingredients", function(ingredients) {
 			ingredients.increments("id").primary();
 			ingredients.integer("ndb_id");
-			ingredients.string("name", 51).notNullable();
+			ingredients.string("name", 255).notNullable();
 			ingredients.string("nutrients_id");
 			ingredients.integer("recipe_id");
 			ingredients.foreign("recipe_id").references("recipe.id");
@@ -38,7 +38,7 @@ exports.up = function(knex) {
 		}),
 		knex.schema.createTable("nutrients", function(nutrients) {
 			nutrients.increments("id").primary();
-			nutrients.string("name", 51).notNullable();
+			nutrients.string("name", 255).notNullable();
 			//Explain unit convo to team
 			nutrients.string("unit", 6).notNullable();
 			nutrients.integer("value", 6).notNullable();

@@ -10,6 +10,7 @@ import HomePage from "./components/homepage/homepage";
 import Weather from "./components/weather/weather";
 import Recipes from "./components/recipes/recipes";
 import LandingPage from "./components/landingpage/landingpage";
+import MyIngredients from "./components/recipes/myrecipe";
 ////////////////////////
 
 import Callback from "./Callback";
@@ -28,6 +29,10 @@ class App extends Component {
 					<Route exact path="/homepage" render={() => <HomePage />} />
 					<Route path="/homepage/weather" render={() => <Weather />} />
 					<Route path="/homepage/recipes" render={() => <Recipes />} />
+					<Route
+						path="/homepage/ingredients/myingredients"
+						render={() => <MyIngredients />}
+					/>
 				</Switch>
 			</div>
 		);

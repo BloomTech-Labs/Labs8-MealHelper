@@ -1,85 +1,97 @@
 import {
-  ERROR,
-  GET_MEALS,
-  GETTING_MEALS,
-  GET_SINGLE_MEAL,
-  GETTING_SINGLE_MEAL,
-  CREATING_MEAL,
-  CREATE_MEAL,
-  UPDATE_MEALS,
-  UPDATING_MEAL,
-  DELETE_MEAL,
-  DELETING_MEAL
-} from "../actions";
+	ADDING_MEALS,
+	ADDED_MEALS,
+	ADDING_MEAL_ERRORS,
+	ADDING_MEAL,
+	ADDED_MEAL,
+	ADDING_MEAL_ERROR,
+	GETTING_MEAL,
+	GOT_MEAL,
+	GETTING_MEAL_ERROR,
+	GETTING_MEALS,
+	GOT_MEALS,
+	GETTING_MEAL_ERRORS,
+	PUTTING_MEAL,
+	PUT_MEAL,
+	PUTTING_MEAL_ERROR,
+	DELETING_MEAL,
+	DELETED_MEAL,
+	DELETING_MEAL_ERROR
+} from "../actions/mealActions";
 
 /* Meals Reducer */
 
 const initialState = {
-  meals: [],
-  singleMeal: {},
-  gettingMeals: false,
-  getMeals: false,
-  creatingMeal: false,
-  updatingMeal: false,
-  deletingMeal: false,
-  error: ""
+	meals: [],
+	singleMeal: [],
+	gettingMeals: false,
+	gettingMeal: false,
+	addingMeal: false,
+	updatingMeal: false,
+	deletingMeal: false,
+	error: ""
 };
 
-/*
-Alternatively, initialState could look like this:
-
-const initialState = {
-  meals: [],
-  singleMeal: {},
-  getting: false,
-  success: false,
-  error: ''
-}
-
-*/
-
-/*
 export const mealsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case GETTING_MEALS:
-      return {
-        ...state,
-        gettingMeals: true,
-        getMeals: false
-      };
-      /*
-      Using alternate initialState:
-      return {
-        ...state, 
-        getting: true, 
-        success: false
-      } 
-      */
-    // case GET_MEALS:
-    //   return {
-    //     ...state,
-    //     meals: action.payload,
-    //     gettingMeals: false,
-    //     getMeals: true
-    //   };
-      /*
-      Using alternate initialState:
-      return {
-        ...state, 
-        meal: action.payload,
-        getting: false, 
-        success: true
-      } 
-      */
-//     case CREATING_MEAL:
-//       return {
-//         ...state,
-//         creatingMeal: true
-//       };
-//     case CREATE_MEAL:
-//       return {
-//         ...state,
-//         creatingMeal: false
-//       };
-//   }
-// };
+	switch (action.type) {
+		case ADDING_MEALS:
+			//Initial adding user
+			return { ...state, addingMeal: true };
+		case ADDED_MEALS:
+			//Returns the user ID and the JWT token and sets it as JSON to user
+			return { ...state, addingMeal: false, meals: action.payload };
+		case ADDING_MEAL_ERRORS:
+			//Shoots off if there is an error creating a new user
+			return { ...state, addingMeal: false, error: action.payload };
+		case ADDING_MEAL:
+			//Initial adding user
+			return { ...state, addingMeal: true };
+		case ADDED_MEAL:
+			//Returns the user ID and the JWT token and sets it as JSON to user
+			return {
+				...state,
+				addingMeal: false,
+				singleMeal: action.payload,
+				meals: action.payload
+			};
+		case ADDING_MEAL_ERROR:
+			//Shoots off if there is an error creating a new user
+			return { ...state, addingMeal: false, error: action.payload };
+		case GETTING_MEAL:
+			return { ...state, gettingMeal: true };
+		case GOT_MEAL:
+			return { ...state, gettingMeal: false, meals: action.payload };
+		case GETTING_MEAL_ERROR:
+			return { ...state, gettingMeal: false, error: action.payload };
+		case GETTING_MEALS:
+			//Initial logging in user
+			return { ...state, gettingMeals: true };
+		case GOT_MEALS:
+			//Returns the user ID and the JWT token and sets it as JSON to user
+			return { ...state, gettingMeals: false, meals: action.payload };
+		case GETTING_MEAL_ERRORS:
+			//Shoots off if there is an error logging in a user
+			return { ...state, gettingMeals: false, error: action.payload };
+		case PUTTING_MEAL:
+			//Initial deleting a user
+			return { ...state, updatingMeal: true };
+		case PUT_MEAL:
+			//Returns a 1 if deleted and sets that in the user array (front end check for that)
+			return { ...state, updatingMeal: false, meals: action.payload };
+		case PUTTING_MEAL_ERROR:
+			//Shoots off if there is an error deleting a user
+			return { ...state, updatingMeal: false, error: action.payload };
+
+		case DELETING_MEAL:
+			//Initial updating of a user
+			return { ...state, deletingMeal: true };
+		case DELETED_MEAL:
+			//Returns the user ID and a new JWT token
+			return { ...state, deletingMeal: false, meals: action.payload };
+		case DELETING_MEAL_ERROR:
+			//Shoots off if there is an error updating a user
+			return { ...state, deletingMeal: false, error: action.payload };
+		default:
+			return state;
+	}
+};

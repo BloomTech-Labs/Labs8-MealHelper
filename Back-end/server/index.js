@@ -215,6 +215,28 @@ server.get("/users/:userid/meals", (req, res) => {
 		});
 });
 
+server.get("/users/:id/meals/:mealId", (req, res) => {
+	const userId = req.params.userid;
+	const mealID = req.params.mealId;
+	db("mealList")
+		//Finds the corrosponding meals based on user ID
+		.where({ user_id: userId })
+		.then(meal => {
+			db("mealList")
+				.where({ id: mealID })
+				.first()
+				.then(meal => {
+					res.status(200).json(meal);
+				})
+				.catch(err => {
+					res.status(400).json(err);
+				});
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not find meal" });
+		});
+});
+
 server.post("/users/:userid/meals", (req, res) => {
 	//grabs either the user id from req.params OR from the req.body (need to make choice later)
 	const userId = req.params.userid;
@@ -415,16 +437,24 @@ server.get("/ingredients/:userid", (req, res) => {
 server.post("/ingredients/:userid", (req, res) => {
 	//grabs the user id from the req.params
 	const user_id = req.params.userid;
-	const { name, nutrients_id } = req.body;
+	const ndb_id = req.body.ndbno;
+	const { name } = req.body;
 	//Grabs the associated data from req.body and sets it as a JSON to recipe
 	//NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-	const ingredient = { name, nutrients_id, user_id };
-
+	const ingredient = { name, ndb_id, user_id };
+	console.log(ingredient);
 	db("ingredients")
 		.insert(ingredient)
 		.then(ingredientID => {
-			//Returns the ingredients ID
-			res.status(200).json(ingredientID);
+			db("ingredients")
+				.where({ user_id: user_id })
+				.first()
+				.then(ingredient => {
+					res.status(200).json(ingredient);
+				})
+				.catch(err => {
+					res.status(500).json({ error: "could not grab user" });
+				});
 		})
 		.catch(err => {
 			res.status(400).json({ err, error: "Error creating a new meal." });
