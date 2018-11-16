@@ -1,2 +1,6 @@
 [build]
 base = "Front-end/mealhelper/"
+
+[[redirects]]
+  from = "/callback"
+  to = "/homepage"
