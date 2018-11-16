@@ -49,10 +49,9 @@ exports.up = function(knex) {
 		knex.schema.createTable("weather", function(weather) {
 			weather.increments("id").primary();
 			weather.string("name").notNullable();
-			weather.string("description");
-			weather.integer("temp").notNullable();
-			weather.integer("humidity");
-			weather.integer("pressure");
+			weather.float("temp").notNullable();
+			weather.float("humidity");
+			weather.float("pressure");
 			weather.integer("meal_id");
 			weather
 				.foreign("meal_id")

@@ -27,6 +27,7 @@ export const addWeather = weather => dispatch => {
 export const addWeatherByUser = weather => dispatch => {
 	dispatch({ type: ADDING_WEATHER });
 	const user_id = weather.user_id;
+	console.log(weather);
 	const promise = axios.post(
 		`https://labs8-meal-helper.herokuapp.com/weather/user/${user_id}`,
 		weather
