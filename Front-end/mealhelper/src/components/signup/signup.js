@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
+import "./signup.css";
 
 class SignUp extends Component {
 	constructor(props) {
@@ -52,51 +53,70 @@ class SignUp extends Component {
 						</button>
 					</Link>
 				</div>
+				<div>
 				<div className="user-form-container">
-					<form className="forms">
-						<input
-							className="email-input"
-							type="text-title"
-							name="email"
-							value={this.state.email}
-							onChange={this.handleChange}
-							placeholder="Email"
-							required
-						/>
-						<input
-							className="password-input"
-							type="password"
-							name="password"
-							onChange={this.handleChange}
-							value={this.state.password}
-							placeholder="Password"
-							required
-						/>
-						<input
-							className="zip-input"
-							type="text"
-							name="zip"
-							onChange={this.handleChange}
-							value={this.state.zip}
-							placeholder="Zip"
-						/>
-						<input
-							className="condition-input"
-							type="text"
-							name="healthCondition"
-							onChange={this.handleChange}
-							value={this.state.healthCondition}
-							placeholder="Health Condition"
-						/>
-						<div className="alert-box">
-							<Alert isOpen={this.state.visable} color="danger">
-								Please enter an email and address
-							</Alert>
-						</div>
-						<button onClick={this.createUser} className="savenote-button">
-							Save
-						</button>
-					</form>
+					<h1 className="signup-title">Sign Up</h1>
+						<form className="signup-form">
+							<div className="form-group">
+							<label htmlFor="dynamic-label-input">Email</label>
+								<input
+									id="dynamic-label-input"
+									// className="email-input"
+									type="text-title"
+									// name="email"
+									value={this.state.email}
+									onChange={this.handleChange}
+									placeholder="Email"
+									required
+								/>
+							</div>
+							<div className="form-group">
+								<label htmlFor="dynamic-label-input">Password</label>
+								<input
+									id="dynamic-label-input"
+									// className="password-input"
+									type="password"
+									// name="password"
+									onChange={this.handleChange}
+									value={this.state.password}
+									placeholder="Password"
+									required
+								/>
+							</div>
+							<div className="form-group">
+								<label htmlFor="dynamic-label-input">Zip Code</label>
+								<input
+									id="dynamic-label-input"
+									// className="zip-input"
+									type="text"
+									// name="zip"
+									onChange={this.handleChange}
+									value={this.state.zip}
+									placeholder="Zip"
+								/>
+							</div>
+							<div className="form-group">
+								<label htmlFor="dynamic-label-input">Health Condition</label>
+								<input
+									id="dynamic-label-input"
+									// className="condition-input"
+									type="text"
+									// name="healthCondition"
+									onChange={this.handleChange}
+									value={this.state.healthCondition}
+									placeholder="Health Condition"
+								/>
+							</div>
+									{/* <div className="alert-box">
+										<Alert isOpen={this.state.visable} color="danger">
+											Please enter an email and address
+										</Alert>
+									</div> */}
+								<div className="signup signup-two" onClick={this.createUser} >
+									<span>Sign Up</span>
+								</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		);
