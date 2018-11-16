@@ -23,7 +23,6 @@ class App extends Component {
 			<div className="App">
 				<Switch>
 					<Route exact path="/" render={() => <LandingPage />} />
-					<Route exact path="/callback" component={Callback} />
 					<Route path="/signup" render={() => <Signup />} />
 					<Route path="/login" render={() => <Login />} />
 					<Route path="/homepage" render={() => <HomePage />} />
