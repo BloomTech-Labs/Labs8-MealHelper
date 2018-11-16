@@ -25,7 +25,7 @@ class App extends Component {
 					<Route exact path="/" render={() => <LandingPage />} />
 					<Route path="/signup" render={() => <Signup />} />
 					<Route path="/login" render={() => <Login />} />
-					<Route path="/homepage" render={() => <HomePage />} />
+					<Route exact path="/homepage" render={() => <HomePage />} />
 					<Route path="/homepage/weather" render={() => <Weather />} />
 					<Route path="/homepage/recipes" render={() => <Recipes />} />
 				</Switch>
