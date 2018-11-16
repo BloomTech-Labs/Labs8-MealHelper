@@ -5,7 +5,6 @@ import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
 
-
 class SignUp extends Component {
 	constructor(props) {
 		super(props);
@@ -34,7 +33,7 @@ class SignUp extends Component {
 			const { email, password, zip, healthCondition } = this.state;
 			const user = { email, password, zip, healthCondition };
 			this.props.addUser(user);
-			// this.props.history.push("/");
+			this.props.history.push("/homepage");
 		}
 	};
 
@@ -42,17 +41,17 @@ class SignUp extends Component {
 		return (
 			<div className="main-container">
 				<div className="entry-button-group">
-						<Link to="/signup">
-							<button className="signup-button">
-								<span>Signup</span>
-							</button>
-						</Link>
-						<Link to="/login">
-							<button className="login-button">
-								<span>Login</span>
-							</button>
-						</Link>
-					</div>
+					<Link to="/signup">
+						<button className="signup-button">
+							<span>Signup</span>
+						</button>
+					</Link>
+					<Link to="/login">
+						<button className="login-button">
+							<span>Login</span>
+						</button>
+					</Link>
+				</div>
 				<div className="user-form-container">
 					<form className="forms">
 						<input
@@ -95,11 +94,11 @@ class SignUp extends Component {
 							</Alert>
 						</div>
 						<button onClick={this.createUser} className="savenote-button">
-						Save
-					</button>
-				</form>
+							Save
+						</button>
+					</form>
+				</div>
 			</div>
-		</div>
 		);
 	}
 }
