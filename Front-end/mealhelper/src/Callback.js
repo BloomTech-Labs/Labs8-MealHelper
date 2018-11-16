@@ -9,6 +9,7 @@ class Callback extends Component {
 	async componentDidMount() {
 		await auth0Client.handleAuthentication();
 		//Replace with /homepage
+		console.log("im in Callback Component");
 		const email = localStorage.getItem("email");
 		const user = { email };
 		this.props.loginAuthUser(user);
