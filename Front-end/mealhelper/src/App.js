@@ -11,6 +11,7 @@ import Weather from "./components/weather/weather";
 import Recipes from "./components/recipes/recipes";
 import LandingPage from "./components/landingpage/landingpage";
 import MyIngredients from "./components/recipes/myrecipe";
+import MyWeather from "./components/weather/myweather";
 ////////////////////////
 
 import Callback from "./Callback";
@@ -29,6 +30,10 @@ class App extends Component {
 					<Route path="/login" render={() => <Login />} />
 					<Route exact path="/homepage" render={() => <HomePage />} />
 					<Route path="/homepage/weather" render={() => <Weather />} />
+					<Route
+						path="/homepage/weather/myweather"
+						render={() => <MyWeather />}
+					/>
 					<Route path="/homepage/recipes" render={() => <Recipes />} />
 					<Route
 						path="/homepage/ingredients/myingredients"

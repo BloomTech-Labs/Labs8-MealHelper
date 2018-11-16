@@ -58,6 +58,11 @@ exports.up = function(knex) {
 				.foreign("meal_id")
 				.references("mealList.id")
 				.onDelete("cascade");
+			weather.integer("user_id");
+			weather
+				.foreign("user_id")
+				.references("users.id")
+				.onDelete("cascade");
 		}),
 		knex.schema.createTable("alarms", function(alarms) {
 			alarms.increments("id").primary();

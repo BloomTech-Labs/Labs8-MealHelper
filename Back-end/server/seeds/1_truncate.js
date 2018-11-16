@@ -24,6 +24,7 @@ exports.seed = async function(knex, Promise) {
 
 	await knex.schema.table("weather", function(tbl) {
 		tbl.dropForeign("meal_id");
+		tbl.dropForeign("user_id");
 	});
 	await knex.schema.table("notes", function(tbl) {
 		tbl.dropForeign("meal_id");
@@ -47,6 +48,7 @@ exports.seed = async function(knex, Promise) {
 	});
 	await knex.schema.table("weather", function(tbl) {
 		tbl.foreign("meal_id").references("mealList.id");
+		tbl.foreign("user_id").references("users.id");
 	});
 
 	await knex.schema.table("notes", function(tbl) {
