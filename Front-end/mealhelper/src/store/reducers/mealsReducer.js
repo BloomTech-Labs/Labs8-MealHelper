@@ -1,4 +1,7 @@
 import {
+	ADDING_MEALS,
+	ADDED_MEALS,
+	ADDING_MEAL_ERRORS,
 	ADDING_MEAL,
 	ADDED_MEAL,
 	ADDING_MEAL_ERROR,
@@ -29,14 +32,23 @@ const initialState = {
 	error: ""
 };
 
-export const mealReducer = (state = initialState, action) => {
+export const mealsReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case ADDING_MEALS:
+			//Initial adding user
+			return { ...state, addingMeal: true };
+		case ADDED_MEALS:
+			//Returns the user ID and the JWT token and sets it as JSON to user
+			return { ...state, addingMeal: false, meals: action.payload };
+		case ADDING_MEAL_ERRORS:
+			//Shoots off if there is an error creating a new user
+			return { ...state, addingMeal: false, error: action.payload };
 		case ADDING_MEAL:
 			//Initial adding user
 			return { ...state, addingMeal: true };
 		case ADDED_MEAL:
 			//Returns the user ID and the JWT token and sets it as JSON to user
-			return { ...state, addingMeal: false, meals: action.payload };
+			return { ...state, addingMeal: false, singleMeal: action.payload };
 		case ADDING_MEAL_ERROR:
 			//Shoots off if there is an error creating a new user
 			return { ...state, addingMeal: false, error: action.payload };

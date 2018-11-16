@@ -4,6 +4,9 @@ import axios from "axios";
 export const ADDING_MEAL = "ADDING_MEAL";
 export const ADDED_MEAL = "ADDED_MEAL";
 export const ADDING_MEAL_ERROR = "ADDING_MEAL_ERROR";
+export const ADDING_MEALS = "ADDING_MEALS";
+export const ADDED_MEALS = "ADDED_MEALS";
+export const ADDING_MEAL_ERRORS = "ADDING_MEAL_ERRORS";
 export const GETTING_MEAL = "GETTING_MEAL";
 export const GOT_MEAL = "GOT_MEAL";
 export const GETTING_MEAL_ERROR = "GETTING_MEAL_ERROR";
@@ -22,7 +25,7 @@ export const addMeal = meal => dispatch => {
 	dispatch({ type: ADDING_MEAL });
 	const user_id = meal.user_id;
 	const promise = axios.post(
-		`https://labs8-meal-helper.herokuapp.com/users/${user_id}/meals`,
+		`https://labs8-meal-helper.herokuapp.com/ingredients/${user_id}`,
 		meal
 	);
 	promise
@@ -39,7 +42,7 @@ export const getMeals = id => dispatch => {
 	const user_id = id.user_id;
 	axios
 
-		.get(`https://labs8-meal-helper.herokuapp.com/users/${user_id}/meals`)
+		.get(`https://labs8-meal-helper.herokuapp.com/ingredients/${user_id}`)
 		.then(response => {
 			dispatch({ type: GOT_MEALS, payload: response.data });
 		})

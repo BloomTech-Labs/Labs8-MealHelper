@@ -15,7 +15,7 @@ let initialState = {
 	error: null
 };
 
-export const userReducer = (state = initialState, action) => {
+export const ingredsReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case ADDING_INGREDIENT:
 			//Initial adding ingredient

@@ -5,51 +5,44 @@ import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import axios from "axios";
+import Recipe from "./recipe";
 import "./recipes.css";
 
-class Recipe extends Component {
+class Recipes extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			nutrients: []
+			list: [],
+			search: "",
+			name: "",
+			ndbno: null
 		};
 	}
-	///converted to Imperial measurement
-	componentDidMount() {
+	searchFood = event => {
+		event.preventDefault();
 		axios
 			.get(
-				`https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6&nutrients=205&nutrients=204&nutrients=208&nutrients=269&ndbno=01008`
+				`https://api.nal.usda.gov/ndb/search/?format=json&q=${
+					this.state.search
+				}&sort=n&max=25&offset=0&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6`
 			)
 			.then(response => {
+				console.log(response);
 				this.setState({
-					nutrients: response.data.report.foods[0].name
+					list: response.data.list.item
 				});
-				console.log(response.data.report.foods[0].name); //returns JSON correctly
-				console.log(this.state.nutrients); //returns correct value (304.15)
 			})
 			.catch(error => {
 				console.log("Error", error);
 			});
-	}
+	};
 
 	handleChange = event => {
 		event.preventDefault();
 		this.setState({
 			[event.target.name]: event.target.value
 		});
-	};
-
-	createUser = event => {
-		event.preventDefault();
-		if (!this.state.email || !this.state.password) {
-			this.setState({ visable: true });
-		} else {
-			const { email, password, zip, healthCondition } = this.state;
-			const user = { email, password, zip, healthCondition };
-			this.props.addUser(user);
-			// this.props.history.push("/");
-		}
 	};
 
 	render() {
@@ -78,9 +71,27 @@ class Recipe extends Component {
 					</div>
 
 					<div className="recipe-card">
-						<h1>{this.state.nutrients}</h1>
+						<form>
+							<input
+								className="food-search"
+								type="text-title"
+								name="search"
+								value={this.state.email}
+								onChange={this.handleChange}
+								placeholder="Search Food. . ."
+								required
+							/>
+							<button onClick={this.searchFood}>Search</button>
+						</form>
 					</div>
-
+					{this.state.list.map(item => (
+						<Recipe
+							item={item}
+							key={item.ndbno}
+							name={item.name}
+							ndbno={item.ndbno}
+						/>
+					))}
 					<div className="dynamic-display" />
 				</div>
 			</div>
@@ -95,4 +106,4 @@ const mapStateToProps = state => ({
 export default connect(
 	mapStateToProps,
 	{ addUser }
-)(withRouter(Recipe));
+)(withRouter(Recipes));

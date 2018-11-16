@@ -15,7 +15,7 @@ let initialState = {
 	error: null
 };
 
-export const userReducer = (state = initialState, action) => {
+export const weatherReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case ADDING_WEATHER:
 			//Initial adding ingredient
