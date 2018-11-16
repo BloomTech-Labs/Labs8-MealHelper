@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
-import { addUser } from "../../store/actions/userActions";
+import { getMeals } from "../../store/actions/mealActions.js";
 import { withRouter, Link, Route } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import axios from "axios";
 import Recipe from "./recipe";
 import "./recipes.css";
 
-class Recipes extends Component {
+class MyRecipes extends Component {
 	constructor(props) {
 		super(props);
 
@@ -19,24 +19,17 @@ class Recipes extends Component {
 			ndbno: null
 		};
 	}
-	searchFood = event => {
-		event.preventDefault();
-		axios
-			.get(
-				`https://api.nal.usda.gov/ndb/search/?format=json&q=${
-					this.state.search
-				}&sort=n&max=25&offset=0&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6`
-			)
-			.then(response => {
-				console.log(response);
-				this.setState({
-					list: response.data.list.item
-				});
-			})
-			.catch(error => {
-				console.log("Error", error);
-			});
-	};
+	componentDidMount() {
+		const id = this.props.user.userID;
+		this.props.getMeals(id);
+	}
+	componentWillReceiveProps(nextProps) {
+		this.setState({ list: nextProps.meals });
+	}
+
+	settingState() {
+		this.setState({ list: this.props.meals });
+	}
 
 	handleChange = event => {
 		event.preventDefault();
@@ -69,22 +62,6 @@ class Recipes extends Component {
 							<h2 className="titlelinks">Settings</h2>
 						</Link>
 					</div>
-
-					<div className="recipe-card">
-						<form>
-							<input
-								className="food-search"
-								type="text-title"
-								name="search"
-								value={this.state.email}
-								onChange={this.handleChange}
-								placeholder="Search Food. . ."
-								required
-							/>
-							<button onClick={this.searchFood}>Search</button>
-						</form>
-					</div>
-
 					<div className="dynamic-display">
 						{this.state.list.map(item => (
 							<Recipe
@@ -94,12 +71,6 @@ class Recipes extends Component {
 								ndbno={item.ndbno}
 							/>
 						))}
-						<Link
-							to="/homepage/ingredients/myingredients"
-							style={{ textDecoration: "none" }}
-						>
-							<h2 className="titlelinks">View my saved ingredients</h2>
-						</Link>
 					</div>
 				</div>
 			</div>
@@ -107,11 +78,15 @@ class Recipes extends Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	user: state.user
-});
+const mapStateToProps = state => {
+	console.log(state);
+	return {
+		user: state.userReducer.user,
+		meals: state.mealsReducer.meals
+	};
+};
 
 export default connect(
 	mapStateToProps,
-	{ addUser }
-)(withRouter(Recipes));
+	{ getMeals }
+)(withRouter(MyRecipes));

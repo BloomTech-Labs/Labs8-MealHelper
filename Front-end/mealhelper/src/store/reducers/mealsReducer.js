@@ -48,14 +48,19 @@ export const mealsReducer = (state = initialState, action) => {
 			return { ...state, addingMeal: true };
 		case ADDED_MEAL:
 			//Returns the user ID and the JWT token and sets it as JSON to user
-			return { ...state, addingMeal: false, singleMeal: action.payload };
+			return {
+				...state,
+				addingMeal: false,
+				singleMeal: action.payload,
+				meals: action.payload
+			};
 		case ADDING_MEAL_ERROR:
 			//Shoots off if there is an error creating a new user
 			return { ...state, addingMeal: false, error: action.payload };
 		case GETTING_MEAL:
 			return { ...state, gettingMeal: true };
 		case GOT_MEAL:
-			return { ...state, gettingMeal: false, singleMeal: action.payload };
+			return { ...state, gettingMeal: false, meals: action.payload };
 		case GETTING_MEAL_ERROR:
 			return { ...state, gettingMeal: false, error: action.payload };
 		case GETTING_MEALS:

@@ -40,10 +40,10 @@ export const addMeal = meal => dispatch => {
 //Route to login a user
 export const getMeals = id => dispatch => {
 	dispatch({ type: GETTING_MEALS });
-	const user_id = id.user_id;
+
 	axios
 
-		.get(`https://labs8-meal-helper.herokuapp.com/ingredients/${user_id}`)
+		.get(`https://labs8-meal-helper.herokuapp.com/ingredients/${id}`)
 		.then(response => {
 			dispatch({ type: GOT_MEALS, payload: response.data });
 		})

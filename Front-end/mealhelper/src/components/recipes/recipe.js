@@ -26,12 +26,12 @@ class Recipe extends Component {
 		console.log(this.props);
 		const user_id = this.props.user.userID;
 		console.log(user_id);
-		const { name } = this.state;
-		const ndbno = parseInt(this.state.ndbno);
+		const { name, ndbno } = this.state;
+
 		const meal = { name, ndbno, user_id };
 		console.log(meal);
 		this.props.addMeal(meal);
-		// this.props.history.push("/homepage");
+		this.props.history.push("/homepage");
 	};
 
 	handleChange = event => {
