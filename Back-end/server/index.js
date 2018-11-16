@@ -781,6 +781,19 @@ server.get("/weather/:mealid", (req, res) => {
 			res.status(400).json({ error: "could not find the weather data" });
 		});
 });
+server.get("/weather/user/:userid", (req, res) => {
+	const user_id = req.params.userid;
+	db("weather")
+		//Finds the corrosponding weather data for that meal
+		.where({ user_id: user_id })
+		.then(weather => {
+			//Returns the weather for that meal
+			res.status(200).json(weather);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not find the weather data" });
+		});
+});
 //POST req to create a weather report for that meal
 server.post("/weather/:mealid", (req, res) => {
 	//Grabs the meal id from req.params
@@ -796,7 +809,32 @@ server.post("/weather/:mealid", (req, res) => {
 			res.status(201).json(weather);
 		})
 		.catch(err => {
-			res.status(400).json({ error: "Could not create weather" });
+			res.status(400).json({ msg: err, error: "Could not create weather" });
+		});
+});
+
+server.post("/weather/user/:userid", (req, res) => {
+	//Grabs the meal id from req.params
+	const user_id = req.params.userid;
+	const { name, humidity, pressure, temp } = req.body;
+
+	//Adds the meal id to the weather object
+	const weather = {
+		name,
+		temp,
+		humidity,
+		pressure,
+		user_id
+	};
+	db("weather")
+		//Inserts the weather and associates it to a meal
+		.insert(weather)
+		.then(weather => {
+			//Returns the weather
+			res.status(201).json(weather);
+		})
+		.catch(err => {
+			res.status(400).json({ msg: err, error: "Could not create weather" });
 		});
 });
 

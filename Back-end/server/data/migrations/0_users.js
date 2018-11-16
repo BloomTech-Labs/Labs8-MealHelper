@@ -49,14 +49,18 @@ exports.up = function(knex) {
 		knex.schema.createTable("weather", function(weather) {
 			weather.increments("id").primary();
 			weather.string("name").notNullable();
-			weather.string("description").notNullable();
-			weather.integer("temp").notNullable();
-			weather.integer("humidity").notNullable();
-			weather.integer("pressure").notNullable();
+			weather.float("temp").notNullable();
+			weather.float("humidity");
+			weather.float("pressure");
 			weather.integer("meal_id");
 			weather
 				.foreign("meal_id")
 				.references("mealList.id")
+				.onDelete("cascade");
+			weather.integer("user_id");
+			weather
+				.foreign("user_id")
+				.references("users.id")
 				.onDelete("cascade");
 		}),
 		knex.schema.createTable("alarms", function(alarms) {
