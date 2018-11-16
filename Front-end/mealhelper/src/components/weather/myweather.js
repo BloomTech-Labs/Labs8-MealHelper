@@ -7,14 +7,13 @@ import { withRouter, Link, Route } from "react-router-dom";
 import axios from "axios";
 import "./weather.css";
 
-class Weather extends Component {
+class MyWeather extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			name: "",
-			description: "",
-			main: { temp: null },
+			temp: null,
 			humidity: null,
 			pressure: null
 		};
@@ -32,10 +31,9 @@ class Weather extends Component {
 	}
 
 	getWeather = event => {
-		event.preventDefault();
 		const user_id = this.props.user.userID;
-		const { name, description, main, humidity, pressure } = this.state.weather;
-		const weather = { name, description, main, humidity, pressure, user_id };
+		const { name, humidity, pressure, temp } = this.state;
+		const weather = { name, humidity, pressure, temp, user_id };
 		this.props.getWeatherByUserID(weather);
 	};
 
@@ -71,7 +69,7 @@ class Weather extends Component {
 				</div>
 				<div className="weather-container">
 					Name: {this.state.name}
-					Temp: {this.state.main.temp}
+					Temp: {this.state.temp}
 					Humidity: {this.state.humidity}
 					Pressure: {this.state.pressure}
 				</div>
@@ -81,11 +79,11 @@ class Weather extends Component {
 }
 
 const mapStateToProps = state => ({
-	user: state.user,
+	user: state.userReducer.user,
 	weather: state.weatherReducer
 });
 
 export default connect(
 	mapStateToProps,
 	{ getWeatherByUserID }
-)(withRouter(Weather));
+)(withRouter(MyWeather));

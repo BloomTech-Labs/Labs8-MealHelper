@@ -60,7 +60,7 @@ export const getWeatherByUserID = id => dispatch => {
 	const userID = id.user_id;
 	axios
 
-		.get(`https://labs8-meal-helper.herokuapp.com/weather/${userID}`)
+		.get(`https://labs8-meal-helper.herokuapp.com/weather/user/${userID}`)
 		.then(response => {
 			dispatch({ type: GOT_WEATHER, payload: response.data });
 		})

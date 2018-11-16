@@ -781,7 +781,7 @@ server.get("/weather/:mealid", (req, res) => {
 			res.status(400).json({ error: "could not find the weather data" });
 		});
 });
-server.get("/weather/:userid", (req, res) => {
+server.get("/weather/user/:userid", (req, res) => {
 	const user_id = req.params.userid;
 	db("weather")
 		//Finds the corrosponding weather data for that meal

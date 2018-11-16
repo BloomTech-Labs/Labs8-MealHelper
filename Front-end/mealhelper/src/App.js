@@ -29,7 +29,7 @@ class App extends Component {
 					<Route path="/callback" render={() => <Callback />} />
 					<Route path="/login" render={() => <Login />} />
 					<Route exact path="/homepage" render={() => <HomePage />} />
-					<Route path="/homepage/weather" render={() => <Weather />} />
+					<Route exact path="/homepage/weather" render={() => <Weather />} />
 					<Route
 						path="/homepage/weather/myweather"
 						render={() => <MyWeather />}
