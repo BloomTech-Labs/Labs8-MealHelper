@@ -446,8 +446,15 @@ server.post("/ingredients/:userid", (req, res) => {
 	db("ingredients")
 		.insert(ingredient)
 		.then(ingredientID => {
-			//Returns the ingredients ID
-			res.status(200).json(ingredientID);
+			db("ingredients")
+				.where({ user_id: user_id })
+				.first()
+				.then(ingredient => {
+					res.status(200).json(ingredient);
+				})
+				.catch(err => {
+					res.status(500).json({ error: "could not grab user" });
+				});
 		})
 		.catch(err => {
 			res.status(400).json({ err, error: "Error creating a new meal." });
