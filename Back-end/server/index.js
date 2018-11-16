@@ -809,7 +809,7 @@ server.post("/weather/:mealid", (req, res) => {
 			res.status(201).json(weather);
 		})
 		.catch(err => {
-			res.status(400).json({ error: "Could not create weather" });
+			res.status(400).json({ msg: err, error: "Could not create weather" });
 		});
 });
 
@@ -834,7 +834,7 @@ server.post("/weather/user/:userid", (req, res) => {
 			res.status(201).json(weather);
 		})
 		.catch(err => {
-			res.status(400).json({ error: "Could not create weather" });
+			res.status(400).json({ msg: err, error: "Could not create weather" });
 		});
 });
 
