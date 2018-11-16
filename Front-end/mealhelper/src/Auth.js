@@ -12,7 +12,7 @@ class Auth0Client extends Component {
 			domain: "meal-helper.auth0.com",
 			audience: "https://meal-helper.auth0.com/userinfo",
 			clientID: "8tgiI3YtUYxGba-t1sgTpV9xJKyMLgaW",
-			redirectUri: "http://localhost:3000/callback",
+			redirectUri: "https://lambdamealhelper.netlify.com/callback",
 			responseType: "token id_token",
 			scope: "openid email profile"
 		});
