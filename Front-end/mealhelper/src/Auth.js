@@ -45,7 +45,6 @@ class Auth0Client extends Component {
 	}
 
 	handleAuthentication() {
-		console.log("im in handle Auth");
 		return new Promise((resolve, reject) => {
 			this.auth0.parseHash((err, authResult) => {
 				if (err) return reject(err);
