@@ -45,6 +45,7 @@ class Auth0Client extends Component {
 	}
 
 	handleAuthentication() {
+		console.log("im in handle Auth");
 		return new Promise((resolve, reject) => {
 			this.auth0.parseHash((err, authResult) => {
 				if (err) return reject(err);
@@ -55,19 +56,6 @@ class Auth0Client extends Component {
 				this.profile = authResult.idTokenPayload;
 				console.log(this.profile);
 				localStorage.setItem("email", this.profile.email);
-				//Checks to see if an email is returnd
-				// if (this.profile.email !== "") {
-				// 	const { email } = this.profile.email;
-				// 	const user = { email };
-				// 	console.log(this);
-				// 	this.signupRedux(user);
-				// } else {
-				// 	//Else set the full name as "email" and send that
-				// 	const { email } = this.profile.name;
-				// 	const user = { email };
-				// 	console.log(this);
-				// 	this.signupRedux(user);
-				// }
 
 				this.expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
 				resolve();
