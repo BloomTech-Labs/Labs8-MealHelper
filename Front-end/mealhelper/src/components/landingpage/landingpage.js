@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link, Route } from "react-router-dom";
 // import { Alert } from "reactstrap";
-import SignUp from "../signup/signup";
 import Sign from "../../components/Sign";
+import Callback from "../../Callback";
 import "./landingpage.css";
 
 class Landingpage extends Component {
@@ -45,6 +45,7 @@ class Landingpage extends Component {
 			<div className="main-container">
 				<div>
 					<Sign />
+					<Route exact path="/callback" component={Callback} />
 				</div>
 				<div className="entry-button-group">
 					<Link to="/signup">
