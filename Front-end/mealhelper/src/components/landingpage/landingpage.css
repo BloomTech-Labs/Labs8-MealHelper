@@ -23,6 +23,8 @@
                        rgba(226, 220, 220, 0.151), 
                        rgba(226, 220, 220, 0.151));
     }
+
+    .login-button:focus {outline:0;}
   
   .login-button:hover { 
     box-shadow: -1px 9px 6px -8px rgba(0,0,0,0.75);
@@ -40,6 +42,8 @@
                        rgba(226, 220, 220, 0.151), 
                        rgba(226, 220, 220, 0.151));
     }
+
+    .signup-button:focus {outline:0;}
   
   .signup-button:hover { 
     box-shadow: -1px 9px 6px -8px rgba(0,0,0,0.75);
