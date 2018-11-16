@@ -57,7 +57,10 @@ class Weather extends Component {
 			)
 			.then(response => {
 				this.setState({
-					weather: response.data.list[0]
+					name: response.data.list[0].name,
+					temp: response.data.list[0].main.temp,
+					humidity: response.data.list[0].main.humidity,
+					pressure: response.data.list[0].main.pressure
 				});
 				console.log(response.data.list[0]); //returns JSON correctly
 				console.log(this.state.weather.main.temp); //returns correct value in imperial

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 //change the route for this
 import { getWeatherByUserID } from "../../store/actions/weatherActions";
 import { withRouter, Link, Route } from "react-router-dom";
+import OneWeather from "./OneWeather";
 // import { Alert } from "reactstrap";
 import axios from "axios";
 import "./weather.css";
@@ -15,7 +16,8 @@ class MyWeather extends Component {
 			name: "",
 			temp: null,
 			humidity: null,
-			pressure: null
+			pressure: null,
+			list: []
 		};
 	}
 	///converted to Imperial measurement
@@ -27,7 +29,8 @@ class MyWeather extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		console.log("im in component did recieve props");
-		console.log(nextProps);
+		console.log(nextProps.weather);
+		this.setState({ list: nextProps.weather.weather });
 	}
 
 	getWeather = event => {
@@ -68,10 +71,15 @@ class MyWeather extends Component {
 					</Link>
 				</div>
 				<div className="weather-container">
-					Name: {this.state.name}
-					Temp: {this.state.temp}
-					Humidity: {this.state.humidity}
-					Pressure: {this.state.pressure}
+					{this.state.list.map(weather => (
+						<OneWeather
+							weather={weather}
+							name={weather.name}
+							temp={weather.temp}
+							humidity={weather.humidity}
+							pressure={weather.pressure}
+						/>
+					))}
 				</div>
 			</div>
 		);
