@@ -813,19 +813,17 @@ server.post("/weather/:mealid", (req, res) => {
 		});
 });
 
-server.post("/weather/:userid", (req, res) => {
+server.post("/weather/user/:userid", (req, res) => {
 	//Grabs the meal id from req.params
 	const user_id = req.params.userid;
-	const { name, description, humidity, pressure } = req.body;
-	const { temp } = req.body.main;
+	const { name, humidity, pressure, temp } = req.body;
+
 	//Adds the meal id to the weather object
 	const weather = {
 		name,
-		description,
 		temp,
 		humidity,
 		pressure,
-		mealId,
 		user_id
 	};
 	db("weather")

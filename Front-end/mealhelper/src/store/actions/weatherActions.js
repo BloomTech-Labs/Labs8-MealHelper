@@ -24,6 +24,21 @@ export const addWeather = weather => dispatch => {
 			dispatch({ type: ADDING_WEATHER_ERROR, payload: err });
 		});
 };
+export const addWeatherByUser = weather => dispatch => {
+	dispatch({ type: ADDING_WEATHER });
+	const user_id = weather.user_id;
+	const promise = axios.post(
+		`https://labs8-meal-helper.herokuapp.com/weather/user/${user_id}`,
+		weather
+	);
+	promise
+		.then(response => {
+			dispatch({ type: ADDED_WEATHER, payload: response.data });
+		})
+		.catch(err => {
+			dispatch({ type: ADDING_WEATHER_ERROR, payload: err });
+		});
+};
 //Route to login a user
 export const getWeatherByMealID = id => dispatch => {
 	dispatch({ type: GETTING_WEATHER });

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
-import { addWeather } from "../../store/actions/weatherActions";
+import { addWeatherByUser } from "../../store/actions/weatherActions";
 import { withRouter, Link, Route } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import axios from "axios";
@@ -14,17 +14,14 @@ class Weather extends Component {
 		this.state = {
 			city: "",
 			zip: "",
-			weather: {
-				name: "",
-				description: "",
-				main: { temp: null },
-				humidity: null,
-				pressure: null
-			}
+
+			name: "",
+			temp: null,
+			humidity: null,
+			pressure: null
 		};
 	}
 	///converted to Imperial measurement
-	componentDidMount() {}
 
 	getWeatherCity = event => {
 		event.preventDefault();
@@ -36,8 +33,12 @@ class Weather extends Component {
 			)
 			.then(response => {
 				this.setState({
-					weather: response.data.list[0]
+					name: response.data.list[0].name,
+					temp: response.data.list[0].main.temp,
+					humidity: response.data.list[0].main.humidity,
+					pressure: response.data.list[0].main.pressure
 				});
+				console.log(this.state);
 				console.log(response.data.list[0]); //returns JSON correctly
 				console.log(this.state.weather.main.temp); //returns correct value in imperial
 			})
@@ -68,9 +69,11 @@ class Weather extends Component {
 
 	saveWeather = event => {
 		event.preventDefault();
-		const { name, description, main, humidity, pressure } = this.state.weather;
-		const weather = { name, description, main, humidity, pressure };
-		this.props.addWeather(weather);
+		const user_id = this.props.user.userID;
+		const { name, humidity, pressure, temp } = this.state;
+		const weather = { name, humidity, pressure, temp, user_id };
+		console.log(weather);
+		this.props.addWeatherByUser(weather);
 		this.props.history.push("/homepage");
 	};
 
@@ -128,9 +131,7 @@ class Weather extends Component {
 						<button onClick={this.getWeatherZip}>Search By Zip</button>
 					</form>
 					<div className="dynamic-display">City: {this.state.city}</div>
-					<div className="dynamic-display">
-						Temp: {this.state.weather.main.temp}
-					</div>
+					<div className="dynamic-display">Temp: {this.state.temp}</div>
 					<button onClick={this.saveWeather}>Save Weather</button>
 
 					<Link
@@ -146,10 +147,10 @@ class Weather extends Component {
 }
 
 const mapStateToProps = state => ({
-	user: state.user
+	user: state.userReducer.user
 });
 
 export default connect(
 	mapStateToProps,
-	{ addWeather }
+	{ addWeatherByUser }
 )(withRouter(Weather));
