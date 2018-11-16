@@ -23,7 +23,7 @@ import {
 
 const initialState = {
 	meals: [],
-	singleMeal: {},
+	singleMeal: [],
 	gettingMeals: false,
 	gettingMeal: false,
 	addingMeal: false,

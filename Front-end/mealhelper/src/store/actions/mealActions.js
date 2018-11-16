@@ -24,6 +24,7 @@ export const DELETING_MEAL_ERROR = "DELETING_MEAL_ERROR";
 export const addMeal = meal => dispatch => {
 	dispatch({ type: ADDING_MEAL });
 	const user_id = meal.user_id;
+	console.log(meal);
 	const promise = axios.post(
 		`https://labs8-meal-helper.herokuapp.com/ingredients/${user_id}`,
 		meal
