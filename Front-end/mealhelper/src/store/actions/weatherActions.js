@@ -13,7 +13,7 @@ export const addWeather = weather => dispatch => {
 	dispatch({ type: ADDING_WEATHER });
 	const mealID = weather.user_id;
 	const promise = axios.post(
-		`https://labs8-meal-helper.herokuapp.com//weather/${mealID}`,
+		`https://labs8-meal-helper.herokuapp.com/weather/${mealID}`,
 		weather
 	);
 	promise
@@ -30,7 +30,7 @@ export const getIngredient = ingredient => dispatch => {
 	const mealID = weather.user_id;
 	axios
 
-		.get(`https://labs8-meal-helper.herokuapp.com//weather/${mealID}`)
+		.get(`https://labs8-meal-helper.herokuapp.com/weather/${mealID}`)
 		.then(response => {
 			dispatch({ type: GOT_WEATHER, payload: response.data });
 		})

@@ -215,6 +215,28 @@ server.get("/users/:userid/meals", (req, res) => {
 		});
 });
 
+server.get("/users/:id/meals/:mealId", (req, res) => {
+	const userId = req.params.userid;
+	const mealID = req.params.mealId;
+	db("mealList")
+		//Finds the corrosponding meals based on user ID
+		.where({ user_id: userId })
+		.then(meal => {
+			db("mealList")
+				.where({ id: mealID })
+				.first()
+				.then(meal => {
+					res.status(200).json(meal);
+				})
+				.catch(err => {
+					res.status(400).json(err);
+				});
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not find meal" });
+		});
+});
+
 server.post("/users/:userid/meals", (req, res) => {
 	//grabs either the user id from req.params OR from the req.body (need to make choice later)
 	const userId = req.params.userid;
