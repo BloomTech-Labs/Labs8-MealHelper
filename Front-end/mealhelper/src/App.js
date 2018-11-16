@@ -25,6 +25,7 @@ class App extends Component {
 				<Switch>
 					<Route exact path="/" render={() => <LandingPage />} />
 					<Route path="/signup" render={() => <Signup />} />
+					<Route path="/callback" render={() => <Callback />} />
 					<Route path="/login" render={() => <Login />} />
 					<Route exact path="/homepage" render={() => <HomePage />} />
 					<Route path="/homepage/weather" render={() => <Weather />} />
