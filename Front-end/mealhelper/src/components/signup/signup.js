@@ -108,6 +108,10 @@ class SignUp extends Component {
 								<div className="signup signup-two" onClick={this.createUser} >
 									<span>Sign Up</span>
 								</div>
+								<div className="auth">
+								<p className="signuptext">Already have an account?</p>
+
+								</div>
 								<div className="alert-box">
 										<Alert isOpen={this.state.visable} color="danger">
 											Please enter an email and address
