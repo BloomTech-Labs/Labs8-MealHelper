@@ -1,6 +1,6 @@
 
 .formcenter {
-  margin-left: 40%;
+  margin-left: 37%;
 }
 .user-form-container {
     display: flex;
@@ -10,15 +10,17 @@
     background: linear-gradient(
                      rgba(20,20,20, .75), 
                      rgba(20,20,20, .75));
-    width: 500px;
-    height: 540px;
+    width: 618px;
+    height: 580px;
     padding: 0% 1% 3% 1%;
     outline: 3px solid rgb(192, 181, 31);
 
 }
 
 .signup-title {
-    color: rgb(192, 181, 31);;
+    color: rgb(192, 181, 31);
+    font-weight: 300;
+    font-size: 3em;
     padding-top: .3em;
     padding-bottom: .3em;
 }
@@ -50,9 +52,16 @@
   
   
   input {
-      width: 200px;
+      width: 345px;
       height: 50px;
       font-size: 12px;
+      background: linear-gradient(
+                     rgba(20,20,20, .75), 
+                     rgba(20,20,20, .75));
+      border-width:1px;
+      border-color: rgb(192, 181, 31);
+      color: rgb(192, 181, 31);
+      
   }
 
   input:focus {
@@ -61,7 +70,7 @@
   .signup {
     position: relative;
     color: rgb(192, 181, 31);
-    width: 274.14px;
+    width: 345px;
     height: 64px;
     line-height: 64px;
     transition: all 0.3s;
@@ -111,8 +120,8 @@
     animation-duration: 3s;
   }
   .signup-two:hover::after, .signup-two:hover::before {
-    left: 96px;
-    width: 64px;
+    left: 132px;
+    width: 80px;
     
     animation-iteration-count: infinite;
     animation-timing-function: linear;
