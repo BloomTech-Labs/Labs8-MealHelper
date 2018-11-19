@@ -41,7 +41,7 @@ class SignUp extends Component {
 	render() {
 		return (
 			<div className="main-container">
-				<div className="entry-button-group">
+				{/* <div className="entry-button-group">
 					<Link to="/signup">
 						<button className="signup-button">
 							<span>Signup</span>
@@ -52,7 +52,7 @@ class SignUp extends Component {
 							<span>Login</span>
 						</button>
 					</Link>
-				</div>
+				</div> */}
 				<div className="formcenter">
 				<div className="user-form-container">
 					<h1 className="signup-title">Sign Up</h1>
@@ -110,7 +110,11 @@ class SignUp extends Component {
 								</div>
 								<div className="auth">
 								<p className="signuptext">Already have an account?</p>
-
+								<Link to="/login">
+									<button className="login-button">
+										<span>Login</span>
+									</button>
+								</Link>
 								</div>
 								<div className="alert-box">
 										<Alert isOpen={this.state.visable} color="danger">
