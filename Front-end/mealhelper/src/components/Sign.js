@@ -1,7 +1,6 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import auth0Client from "../Auth";
-import Authlogo from "../img/auth0.png";
 import Facelogo from "../img/facebook.png";
 import Googlogo from "../img/google.png";
 

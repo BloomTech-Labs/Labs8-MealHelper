@@ -42,8 +42,8 @@ class SignUp extends Component {
 
 	render() {
 		return (
-			<div className="main-container">
-				<div className="formcenter">
+			<div className="main-container">	
+			<div className="formcenter">
 				<div className="user-form-container">
 					<h1 className="signup-title">Sign Up</h1>
 						<form className="signup-form">
@@ -118,9 +118,11 @@ class SignUp extends Component {
 											Please enter an email
 										</Alert>
 									</div>
-						</form>
+						</form>	
 					</div>
+					
 				</div>
+		
 			</div>
 		);
 	}
