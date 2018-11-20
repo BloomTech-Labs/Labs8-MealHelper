@@ -2,6 +2,10 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import auth0Client from "../Auth";
 import Authlogo from "../img/auth0.png";
+import Facelogo from "../img/facebook.png";
+import Googlogo from "../img/google.png";
+
+import "./Sign.css";
 
 function Sign(props) {
 	const signOut = () => {
@@ -13,7 +17,10 @@ function Sign(props) {
 		<nav>
 			{!auth0Client.isAuthenticated() && (
 				<button className="login-button" onClick={auth0Client.signIn}>
-					{Authlogo}
+					<div className="authlogos">
+					<img src={Facelogo} className="authlogo1" alt="Facebook" />
+					<img src={Googlogo} className="authlogo2" alt="Google" />
+					</div>
 				</button>
 			)}
 			{auth0Client.isAuthenticated() && (

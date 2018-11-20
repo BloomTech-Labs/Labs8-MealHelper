@@ -108,7 +108,7 @@ class SignUp extends Component {
 										</button>
 									</Link>
 									<p className="signuptext">
-									Or connect with
+									Or
 									</p>
 									<Sign />
                     				<Route exact path="/callback" component={Callback} />
