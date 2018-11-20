@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import Sign from "../Sign";
+import Callback from "../../Callback";
 import { connect } from "react-redux";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link, Route,  } from "react-router-dom";
 import { Alert } from "reactstrap";
 import "./signup.css";
 
@@ -40,20 +42,8 @@ class SignUp extends Component {
 
 	render() {
 		return (
-			<div className="main-container">
-				<div className="entry-button-group">
-					<Link to="/signup">
-						<button className="signup-button">
-							<span>Signup</span>
-						</button>
-					</Link>
-					<Link to="/login">
-						<button className="login-button">
-							<span>Login</span>
-						</button>
-					</Link>
-				</div>
-				<div className="formcenter">
+			<div className="main-container">	
+			<div className="formcenter">
 				<div className="user-form-container">
 					<h1 className="signup-title">Sign Up</h1>
 						<form className="signup-form">
@@ -108,14 +98,31 @@ class SignUp extends Component {
 								<div className="signup signup-two" onClick={this.createUser} >
 									<span>Sign Up</span>
 								</div>
+								<div className="auth">
+								<p className="signuptext">Already have an account?</p>
+								</div>
+								<div className="existinguser">
+									<Link to="/login">
+										<button className="login-button">
+											<span>Login</span>
+										</button>
+									</Link>
+									<p className="signuptext">
+									Or
+									</p>
+									<Sign />
+                    				<Route exact path="/callback" component={Callback} />
+								</div>
 								<div className="alert-box">
 										<Alert isOpen={this.state.visable} color="danger">
-											Please enter an email and address
+											Please enter an email
 										</Alert>
 									</div>
-						</form>
+						</form>	
 					</div>
+					
 				</div>
+		
 			</div>
 		);
 	}

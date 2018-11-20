@@ -1,6 +1,16 @@
+.main-container {
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../../img/laptop-fruit-tea.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 .formcenter {
-  margin-left: 43%;
+  display: flex;
+  justify-content: center;
+  padding: 4%;
 }
 .user-form-container {
     display: flex;
@@ -8,17 +18,19 @@
     justify-content: space-between;
     align-items: center;
     background: linear-gradient(
-                     rgba(20,20,20, .75), 
-                     rgba(20,20,20, .75));
-    width: 300px;
-    height: 540px;
-    padding: 0% 1% 3% 1%;
-    outline: 3px solid rgb(192, 181, 31);
+                     rgba(20,20,20, .8), 
+                     rgba(20,20,20, .8));
+    width: 675px;
+    height: 680px;
+    margin-left: 34px;
+    outline: 1px solid rgb(192, 181, 31);
 
 }
 
 .signup-title {
-    color: rgb(192, 181, 31);;
+    color: rgb(192, 181, 31);
+    font-weight: 300;
+    font-size: 3em;
     padding-top: .3em;
     padding-bottom: .3em;
 }
@@ -50,18 +62,30 @@
   
   
   input {
-      width: 200px;
+      width: 345px;
       height: 50px;
       font-size: 12px;
+      background: linear-gradient(
+                     rgba(20,20,20, .50), 
+                     rgba(20,20,20, .50));
+      border-width: 1px;
+      border-color: rgb(192, 181, 31);
+      color: rgb(192, 181, 31);
+      
+  }
+
+  input:hover {
+    box-shadow: -1px 9px 6px -8px rgb(192, 181, 31,.75);
   }
 
   input:focus {
-    outline: 3px solid rgb(192, 181, 31);
+    outline: 2px solid rgb(192, 181, 31);
   }
   .signup {
     position: relative;
     color: rgb(192, 181, 31);
-    width: 274.14px;
+    width: 345px;
+    font-size: 20px;
     height: 64px;
     line-height: 64px;
     transition: all 0.3s;
@@ -111,8 +135,8 @@
     animation-duration: 3s;
   }
   .signup-two:hover::after, .signup-two:hover::before {
-    left: 96px;
-    width: 64px;
+    left: 132px;
+    width: 80px;
     
     animation-iteration-count: infinite;
     animation-timing-function: linear;
@@ -126,6 +150,70 @@
   @keyframes rotateccw {
       from {transform: rotate(0deg);}
       to {transform: rotate(-360deg);}
+  }
+
+.signuptext {
+  padding-top: 20px;
+  color: rgb(192, 181, 31);
+}
+
+.login-button {
+  position: relative;
+  background: linear-gradient(
+                     rgba(20,20,20, .25), 
+                     rgba(20,20,20, .25));
+  width: 150px;
+  height: 64px;
+  line-height: 64px;
+  transition: all 0.3s;
+  border-width: 1px;
+  border-color: rgb(192, 181, 31);
+  color: rgb(192, 181, 31);
+}
+
+.login-button span {
+  transition: all 0.3s;
+  transform: scale(1, 1);
+}
+
+.login-button::before, .login-button::after {
+  content: '';
+  position: absolute;
+  transition: all 0.3s;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+  .login-button::before {
+    opacity: 0;
+    background: rgb(192, 181, 31, 0.1);
+    transform: scale(1, 0.1);
+  }
+  
+  .login-button:hover::before {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+  
+  .login-button::after {
+    transition: all 0.3s;
+    border: 1px solid rgb(192, 181, 31, 0.5);
+    font: bold;
+  }
+  
+  .login-button:hover::after {
+    transform: scale(1, .1);
+    opacity: 0;
+    font: bold;
+  }
+  
+  .existinguser {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   .alert-box {
