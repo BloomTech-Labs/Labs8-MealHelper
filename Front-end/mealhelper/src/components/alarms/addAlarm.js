@@ -9,7 +9,9 @@ class AddAlarm extends Component {
     super(props);
 
     this.state = {
-      
+      beginTime: 0,
+      endTime: 0,
+      repeats: 0
     }
   }
 
