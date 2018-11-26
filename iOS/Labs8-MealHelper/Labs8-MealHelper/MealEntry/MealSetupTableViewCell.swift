@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MealSetupTableViewCellDelegate {
+protocol MealSetupTableViewCellDelegate: class {
     func setServingQty(with qty: String, for recipe: Any)
     func setServingType(with type: String, for recipe: Any)
 }
@@ -23,10 +23,10 @@ class MealSetupTableViewCell: UITableViewCell {
         }
     }
     
-    var delegate: MealSetupTableViewCellDelegate?
+    weak var delegate: MealSetupTableViewCellDelegate?
     var servingQtys = (1...20).map { String($0) }
     var servingTypes = ["cup", "100 g", "container", "ounce"]
-
+    
     // MARK: - Private properties
     
     let servingSizeInputField: PickerInputField = {
@@ -97,7 +97,7 @@ class MealSetupTableViewCell: UITableViewCell {
     }
     
     // MARK: - Configuration
-
+    
     private func setupViews() {
         addSubview(mainStackView)
         mainStackView.addArrangedSubview(nameLabel)
@@ -116,14 +116,13 @@ class MealSetupTableViewCell: UITableViewCell {
         
         if let ingredient = recipe {
             nameLabel.text = ingredient.name
-            servingLabel.text = "asdflkdj"
         }
     }
     
 }
 
 extension MealSetupTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
-
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -155,11 +154,11 @@ extension MealSetupTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
         case "servingSize":
             let type = servingTypes[row]
             servingSizeInputField.text = type
-            setServingType(with: type, for: recipe)
+            //setServingType(with: type, for: recipe)
         case "servingQty":
             let qty = servingQtys[row]
             servingQtyInputField.text = qty
-            setServingQty(with: qty, for: recipe)
+            //setServingQty(with: qty, for: recipe)
         default:
             break
         }

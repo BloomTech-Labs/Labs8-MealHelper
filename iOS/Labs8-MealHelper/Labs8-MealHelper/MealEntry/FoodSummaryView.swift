@@ -19,15 +19,18 @@ class FoodSummaryView: UIView {
     
     // MARK: - Public properties
     
-    var food: Any = "meal"
+    var title: String? {
+        didSet {
+            setupViews()
+        }
+    }
     var servingQty: String?
     var servingType: String?
     var servingQtys = (1...20).map { String($0) }
     var servingTypes = ["cup", "100 g", "container", "ounce"]
-
     
     // MARK: - Private properties
-
+    
     private let servingSizeInputField: PickerInputField = {
         let inputField = PickerInputField(defaultValue: "cup")
         inputField.picker.accessibilityIdentifier = "servingSize"
@@ -98,8 +101,8 @@ class FoodSummaryView: UIView {
         mainStackView.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor)
         inputStackView.anchor(top: nil, leading: mainStackView.leadingAnchor, bottom: nil, trailing: mainStackView.trailingAnchor)
         
-        nameLabel.text = "Kraft Cheese"
-        servingLabel.text = "1 cup"
+        nameLabel.text = title
+        servingLabel.text = "Some subtitle"
         
         servingSizeInputField.picker.delegate = self
         servingSizeInputField.picker.dataSource = self
@@ -143,12 +146,12 @@ extension FoodSummaryView: UIPickerViewDelegate, UIPickerViewDataSource {
             let type = servingTypes[row]
             servingSizeInputField.text = type
             servingType = type
-            //setServingType(with: type, for: food)
+        //setServingType(with: type, for: food)
         case "servingQty":
             let qty = servingQtys[row]
             servingQtyInputField.text = qty
             servingQty = qty
-            //setServingQty(with: qty, for: food)
+        //setServingQty(with: qty, for: food)
         default:
             break
         }
