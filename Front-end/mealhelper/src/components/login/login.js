@@ -37,36 +37,24 @@ class Login extends Component {
 	render() {
 		return (
 			<div className="main-container">
-				<div className="entry-button-group">
-					<Link to="/signup">
-						<button className="signup-button">
-							<span>Signup</span>
-						</button>
-					</Link>
-					<Link to="/login">
-						<button className="login-button">
-							<span>Login</span>
-						</button>
-					</Link>
-				</div>
 				<div className="formcenter">
-				<div className="user-form-container">
-				<h1 className="signup-title">Login</h1>
-					<form className="login-form">
-					<div className="form-group">
-						<input
-							id="dynamic-label-input"
-							className="email-input"
-							type="email"
-							name="email"
-							value={this.state.email}
-							onChange={this.handleChange}
-							placeholder="Email"
-							required
-						/>
-						<label htmlFor="dynamic-label-input">Email</label>
-					</div>
-					<div className="form-group">
+					<div className="user-form-container">
+						<h1 className="signup-title">Login</h1>
+						<form className="login-form">
+							<div className="form-group">
+								<input
+									id="dynamic-label-input"
+									className="email-input"
+									type="email"
+									name="email"
+									value={this.state.email}
+									onChange={this.handleChange}
+									placeholder="Email"
+									required
+								/>
+								<label htmlFor="dynamic-label-input">Email</label>
+							</div>
+							<div className="form-group">
 								<input
 									id="dynamic-label-input"
 									className="password-input"
@@ -77,18 +65,25 @@ class Login extends Component {
 									placeholder="Password"
 								/>
 								<label htmlFor="dynamic-label-input">Password</label>
-								</div>
-						<div className="signup signup-two" onClick={this.createUser} >
-									<span>Sign Up</span>
-						</div>
-						<div className="alert-box">
-							<Alert isOpen={this.state.visable} color="danger">
-								Please enter an email and address
-							</Alert>
-						</div>
-					</form>
+							</div>
+							<div className="signup signup-two" onClick={this.createUser}>
+								<span>Log In</span>
+							</div>
+							<div className="entry-button-group">
+								<Link to="/signup">
+									<button className="signup signup-two">
+										<span>Signup</span>
+									</button>
+								</Link>
+							</div>
+							<div className="alert-box">
+								<Alert isOpen={this.state.visable} color="danger">
+									Please enter an email and address
+								</Alert>
+							</div>
+						</form>
+					</div>
 				</div>
-			</div>
 			</div>
 		);
 	}
