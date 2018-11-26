@@ -3,9 +3,17 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 export default class GetIngredient extends Component {
-	state = {
-		ingredients: [],
-		selected: 'null'
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			ingredients: [],
+			selected: 'null'
+		};
+	}
+
+	handleClick = async e => {
+		e.preventDefault();
 	};
 
 	componentDidMount = () => {
