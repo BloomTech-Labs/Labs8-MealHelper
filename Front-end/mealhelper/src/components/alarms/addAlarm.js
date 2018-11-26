@@ -51,8 +51,16 @@ class AddAlarms extends Component {
     });
   };
 
+  dropDownState = opt => {
+    this.setState({ beginTime: opt })
+  }
+
   addAlarm = event => {
     event.preventDefault();
+    console.log("hello!")
+    console.log("start time", this.state.beginTime)
+    console.log("end time", this.state.endTime)
+    console.log("hours between", this.state.repeats)
     //make sure all required fields are filled in
     //get fields from state
     //assign values to alarm body
@@ -75,7 +83,10 @@ class AddAlarms extends Component {
         options={options}
         className="time"
         name="beginTime"
-        placeholder="Start Time" />
+        placeholder="Start Time"
+        //onChange={startOpt => console.log("start time", startOpt.label, startOpt.value)}
+        onChange={opt => this.setState({ beginTime: opt.value })}
+         />
           {/* <input
             className="time"
             name="beginTime"
@@ -87,7 +98,9 @@ class AddAlarms extends Component {
         options={options}
         className="time"
         name="endTime"
-        placeholder="End Time" />
+        placeholder="End Time"
+        onChange={opt => this.setState({ endTime: opt.value })}
+        />
           {/* <input
             className="time"
             name="endTime"
@@ -96,8 +109,8 @@ class AddAlarms extends Component {
             placeholder="Ending Time"
           /> */}
           <input
-            className="repeat"
-            name="repeat"
+            className="repeats"
+            name="repeats"
             value={this.state.repeats}
             onChange={this.handleChange}
             placeholder="Hours between each alarm"
