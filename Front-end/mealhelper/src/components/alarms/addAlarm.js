@@ -9,9 +9,9 @@ class AddAlarms extends Component {
     super(props);
 
     this.state = {
-      beginTime: 0,
-      endTime: 0,
-      repeats: 0
+      beginTime: null,
+      endTime: null,
+      repeats: null
     }
   }
 
@@ -32,12 +32,13 @@ class AddAlarms extends Component {
   }
 
   //convert beginTime and endTime to military time
-  // calculate how many alarms between beginTime and endTime using repeats
-  // take amount of alarms and insert bulk data to database
+  //calculate how many alarms between beginTime and endTime using repeats
+  //take amount of alarms and insert bulk data to database
 
   render() {
     return (
       <div className="alarms-container">
+      <div className="home-container">
       <h1>Add Alarms</h1>
         <form className="forms">
           <input
@@ -57,7 +58,7 @@ class AddAlarms extends Component {
           <input
             className="repeat"
             name="repeat"
-            value={this.state.repeat}
+            value={this.state.repeats}
             onChange={this.handleChange}
             placeholder="Hours between each alarm"
           />
@@ -65,6 +66,7 @@ class AddAlarms extends Component {
         <button onClick={this.addAlarm} className="add-alarms btn">
           Add Alarms
         </button>
+        </div>
       </div>
     )
   }
