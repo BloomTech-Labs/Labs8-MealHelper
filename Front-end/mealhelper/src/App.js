@@ -41,7 +41,7 @@ class App extends Component {
 						path="/homepage/ingredients/myingredients"
 						render={() => <MyIngredients />}
 					/>
-					<Route path="/homepage/alarms" render={() => <MyAlarms />} />
+					<Route exact path="/homepage/alarms" render={() => <MyAlarms />} />
 					<Route path="/homepage/alarms/add-alarms" render={() => <AddAlarms />} />
 				</Switch>
 			</div>
