@@ -71,21 +71,30 @@ class AddAlarms extends Component {
       <div className="home-container">
       <h1>Add Alarms</h1>
         <form className="forms">
-        <Select options={options} />
-          <input
+        <Select 
+        options={options}
+        className="time"
+        name="beginTime"
+        placeholder="Start Time" />
+          {/* <input
             className="time"
             name="beginTime"
             value={this.state.beginTime}
             onChange={this.handleChange}
             placeholder="Beginning Time"
-          />
-          <input
+          /> */}
+        <Select 
+        options={options}
+        className="time"
+        name="endTime"
+        placeholder="End Time" />
+          {/* <input
             className="time"
             name="endTime"
             value={this.state.endTime}
             onChange={this.handleChange}
             placeholder="Ending Time"
-          />
+          /> */}
           <input
             className="repeat"
             name="repeat"
