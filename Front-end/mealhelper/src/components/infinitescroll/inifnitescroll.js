@@ -24,7 +24,7 @@ class InfiniteScroll extends Component {
         },
       } = this;
 
-      // Bails early if:
+      // Notifys if:
       // * there's an error
       // * it's already loading
       // * there's nothing left to load
