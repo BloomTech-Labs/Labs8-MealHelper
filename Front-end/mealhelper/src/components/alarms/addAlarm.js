@@ -38,6 +38,7 @@ class AddAlarms extends Component {
   render() {
     return (
       <div className="alarms-container">
+      <h1>Add Alarms</h1>
         <form className="forms">
           <input
             className="time"

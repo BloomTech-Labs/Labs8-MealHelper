@@ -31,6 +31,7 @@ class MyAlarms extends Component {
 
           <div className="dynamic-display">
             {/* map out list of alarms */}
+            <h1>Alarms</h1>
           </div>
         </div>
       </div>
