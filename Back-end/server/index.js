@@ -78,7 +78,9 @@ server.post("/register", (req, res) => {
 				.first()
 				.then(user => {
 					console.log(user);
-					res.status(200).json({ userID: user.id, token: token });
+					res
+						.status(200)
+						.json({ userID: user.id, token: token, zip: user.zip });
 				})
 				.catch(err => {
 					res.status(400).json({ error: "could not grab user" });
@@ -132,7 +134,7 @@ server.post("/login", (req, res) => {
 			if (user && bcrypt.compareSync(userLogin.password, user.password)) {
 				const token = generateToken(user);
 
-				res.status(200).json({ userID: user.id, token: token });
+				res.status(200).json({ userID: user.id, token: token, zip: user.zip });
 			} else {
 				res
 					.status(500)
