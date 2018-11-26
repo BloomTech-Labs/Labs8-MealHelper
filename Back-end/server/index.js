@@ -241,10 +241,34 @@ server.get("/users/:id/meals/:mealId", (req, res) => {
 
 server.post("/users/:userid/meals", (req, res) => {
 	//grabs either the user id from req.params OR from the req.body (need to make choice later)
-	const userId = req.params.userid;
-	const { user_id, mealTime, experience, date } = req.body;
+
+	const {
+		user_id,
+		mealTime,
+		experience,
+		date,
+		notes,
+		name,
+		temp,
+		humidity,
+		pressure,
+		recipe,
+		servings
+	} = req.body;
 	//Grabs the associated data from req.body and sets it as a JSON to meal
-	const meal = { user_id, mealTime, experience, date };
+	const meal = {
+		user_id,
+		mealTime,
+		experience,
+		date,
+		notes,
+		name,
+		temp,
+		humidity,
+		pressure,
+		recipe,
+		servings
+	};
 	console.log(meal);
 
 	db("mealList")
