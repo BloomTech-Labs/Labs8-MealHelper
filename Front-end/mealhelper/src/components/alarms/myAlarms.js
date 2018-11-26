@@ -19,7 +19,23 @@ class MyAlarms extends Component {
   componentWillReceiveProps(nextProps) {
     //update list of alarms
   }
+  
+  render() {
+    return (
+      <div className="alarms-container">
+        <div className="home-container">
+          <div className="sidebar">
+    {/* sidebar stuff */}
+          </div>
 
+          <div className="dynamic-display">
+            {/* map out list of alarms */}
+          </div>
+        </div>
+      </div>
+      
+    )
+  }
   
 }
 
