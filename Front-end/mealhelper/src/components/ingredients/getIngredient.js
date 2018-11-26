@@ -1,29 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import axios from 'axios';
 
-export default class getIngredient extends React {
+export default class GetIngredient extends Component {
 	state = {
 		ingredients: []
 	};
 
 	componentDidMount = () => {
-		axios({
-			method: 'GET',
-			url: 'https://api.nal.usda.gov/ndb/reports?',
-			data: {
-				q: 'cheese',
-				sort: 'n',
-				format: JSON,
-				api_key: process.env.NDB_API_KEY
-			}
-		})
-			.then(res => {
-				const ingredients = res.data;
-				this.setState({ ingredients });
+		axios
+			.get(
+				'https://api.nal.usda.gov/ndb/search/?q=cheese&sort=n&format=json&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6'
+			)
+			.then(response => {
+				const ingredient = response.data;
+				this.setState({ ingredient });
+				console.log(ingredient);
 			})
 			.catch(err => {
-				console.log('error: ', err);
+				console.log(err + '\n' + 'statusCode: ', err.status);
 			});
 	};
 
@@ -31,7 +26,7 @@ export default class getIngredient extends React {
 		return (
 			<ul>
 				{this.state.ingredients.map(ingredient => (
-					<li>{ingredient.item}</li>
+					<li>{ingredient.list.ingredient.name}</li>
 				))}
 			</ul>
 		);
