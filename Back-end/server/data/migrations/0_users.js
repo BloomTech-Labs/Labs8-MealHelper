@@ -41,8 +41,7 @@ exports.up = function(knex) {
 			ingredients.integer("ndb_id");
 			ingredients.string("name", 255).notNullable();
 			ingredients.string("nutrients_id");
-			ingredients.integer("recipe_id");
-			ingredients.foreign("recipe_id").references("recipe.id");
+			ingredients.foreign("nutrients_id").references("nutrients.id");
 			ingredients.integer("user_id");
 			ingredients.foreign("user_id").references("users.id");
 		}),
@@ -52,9 +51,8 @@ exports.up = function(knex) {
 			//Explain unit convo to team
 			nutrients.string("unit", 6).notNullable();
 			nutrients.integer("value", 6).notNullable();
+			//NDBNO
 			nutrients.integer("nutrients_id").notNullable();
-			nutrients.integer("ingredient_id");
-			nutrients.foreign("ingredient_id").references("ingredients.id");
 		}),
 		knex.schema.createTable("weather", function(weather) {
 			weather.increments("id").primary();
