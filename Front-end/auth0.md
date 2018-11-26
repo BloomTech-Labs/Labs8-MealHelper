@@ -19,7 +19,7 @@ yarn add dotenv
 
 ### Add script tags
 - In public folder, add to index.html outside of body:
-```
+```javascript
 <script type="text/javascript" src="node_modules/auth0-js/build/auth0.js"></script>
 
 <script src="https://cdn.auth0.com/js/lock/11.10/lock.min.js"></script>
@@ -37,18 +37,18 @@ REACT_APP_DOMAIN_URL=bakerc.auth0.com
 
 ### Require dotenv
 - In src/index.js:
-```
+```javascript
 require("dotenv").config();
 ```
 
 ### Initialize Lock
 - In Sign In/Sign Up component
 - Import Auth0Lock:
-```
+```javascript
 import { Auth0Lock } from "auth0-lock";
 ```
 - Create lock, referencing env:
-```
+```javascript
 var lock = new Auth0Lock(
   process.env.REACT_APP_CLIENT_ID,
   process.env.REACT_APP_DOMAIN_URL
@@ -57,7 +57,7 @@ var lock = new Auth0Lock(
 
 ### Show lock:
 - Example button:
-```
+```javascript
   <div 
       onClick={ function () {
         lock.show();
@@ -69,7 +69,8 @@ var lock = new Auth0Lock(
 
 ### Web Auth and parseHash
 - Actually not sure how much of this we'll be keeping or changing based on app's needs and discussion tomorrow:
-```
+
+```javascript
 var webAuth = new auth0.WebAuth({
   domain: process.env.REACT_APP_DOMAIN_URL,
   clientID: process.env.REACT_APP_CLIENT_ID,
