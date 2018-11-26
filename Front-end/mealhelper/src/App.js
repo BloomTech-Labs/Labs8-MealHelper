@@ -42,7 +42,7 @@ class App extends Component {
 						render={() => <MyIngredients />}
 					/>
 					<Route path="/homepage/alarms" render={() => <MyAlarms />} />
-					<Route path="/homepage/add-alarms" render={() => <AddAlarms/>} />
+					<Route path="/homepage/alarms/add-alarms" render={() => <AddAlarms/>} />
 				</Switch>
 			</div>
 		);
