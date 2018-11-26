@@ -10,13 +10,13 @@ class InfiniteScroll extends Component {
       error: false,
       hasMore: true,
       isLoading: false,
-      mealList: [],
+      recipe: [],
     };
 
     // Binds our scroll event handler
     window.onscroll = () => {
       const {
-        loadUsers,
+        loadRecipes,
         state: {
           error,
           isLoading,
@@ -35,40 +35,38 @@ class InfiniteScroll extends Component {
         window.innerHeight + document.documentElement.scrollTop
         === document.documentElement.offsetHeight
       ) {
-        loadUsers();
+        loadRecipes();
       }
     };
   }
 
   componentWillMount() {
-    // Loads some users on initial load
-    this.loadUsers();
+    // Loads some recipes initial load
+    this.loadRecipes();
   }
 
-  loadUsers = () => {
+  loadRecipes = () => {
     this.setState({ isLoading: true }, () => {
       request
         .get('https://labs8-meal-helper.herokuapp.com/users/:userid/meals?results=5')
         .then((results) => {          
           // Creates a massaged array of user data
-          const nextUsers = results.body.results.map(user => ({
-            email: user.email,
-            name: Object.values(user.name).join(' '),
-            photo: user.picture.medium,
-            username: user.login.username,
-            uuid: user.login.uuid,
+          const nextRecipes = results.body.results.map(user => ({
+            name: recipe.name,
+            calories: recipe.calories,
+            servings: recipe.servings,
           }));
 
-          // Merges the next users into our existing users
+          // Merges the next recipes into existing recipes
           this.setState({
-            // Note: Depending on the API you're using, this value may be
+            // Check to see if API returns this value. May be
             // returned as part of the payload to indicate that there is no
             // additional data to be loaded
-            hasMore: (this.state.users.length < 100),
+            hasMore: (this.state.recipes.length < 100),
             isLoading: false,
-            users: [
-              ...this.state.users,
-              ...nextUsers,
+            recipes: [
+              ...this.state.recipes,
+              ...nextRecipes,
             ],
           });
         })
@@ -91,30 +89,18 @@ class InfiniteScroll extends Component {
 
     return (
       <div>
-        <h1>Infinite Users!</h1>
-        <p>Scroll down to load more!!</p>
-        {users.map(user => (
-          <Fragment key={user.username}>
+        <p>Scroll down to load more recipes!!</p>
+        {recipes.map(recipe => (
+          <Fragment key={recipe.name}>
             <hr />
-            <div style={{ display: 'flex' }}>
-              <img
-                alt={user.username}
-                src={user.photo}
-                style={{
-                  borderRadius: '50%',
-                  height: 72,
-                  marginRight: 20,
-                  width: 72,
-                }}
-              />
               <div>
                 <h2 style={{ marginTop: 0 }}>
                   @{user.username}
                 </h2>
-                <p>Name: {user.name}</p>
-                <p>Email: {user.email}</p>
+                <p>Name: {recipe.name}</p>
+                <p>Calories: {recipe.calories}</p>
+                <p>Servings: {recipe.servings}</p>
               </div>
-            </div>
           </Fragment>
         ))}
         <hr />
@@ -127,8 +113,9 @@ class InfiniteScroll extends Component {
           <div>Loading...</div>
         }
         {!hasMore &&
-          <div>You did it! You reached the end!</div>
+          <div>There are no more recipes in your book</div>
         }
+        {/* Include "click here" to add another */}
       </div>
     );
   }

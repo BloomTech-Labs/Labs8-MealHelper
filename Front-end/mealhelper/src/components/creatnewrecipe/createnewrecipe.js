@@ -83,6 +83,7 @@ class CreateNewRecipe extends Component {
         })
     }
 
+
 	render() {
 		return (
 			<div className="weather-container">
@@ -140,7 +141,7 @@ class CreateNewRecipe extends Component {
 							/>
                             <br/>
                             <p>Recipe Ingredients:</p>
-                            <form onSubmit={this.addRecipe}>
+                            <form onSubmit={this.handleSubmit}>
 							<input
 								className="food-search"
 								type="text-title"
