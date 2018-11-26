@@ -7,20 +7,31 @@ export default class GetIngredient extends Component {
 		super(props);
 
 		this.state = {
-			ingredients: [],
-			selected: 'null'
+			ingredients: []
 		};
 	}
 
-	handleClick = async e => {
+	handleSelect = async e => {
 		e.preventDefault();
+		this.getNutrients()
+			.then(
+				axios({
+					method: 'GET'
+				})
+			)
+			.catch();
 	};
 
 	componentDidMount = () => {
 		axios
-			.get(
-				'https://api.nal.usda.gov/ndb/search/?q=cheese&sort=n&format=json&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6'
-			)
+			.get('https://api.nal.usda.gov/ndb/search/?', {
+				params: {
+					q: 'cheese',
+					sort: 'n',
+					format: 'json',
+					api_key: 'c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6'
+				}
+			})
 			.then(response => {
 				const ingredient = response.data.list.item;
 				this.setState({ ingredients: ingredient });
