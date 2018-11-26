@@ -20,8 +20,11 @@ exports.up = function(knex) {
 			mealList.float("temp").notNullable();
 			mealList.float("humidity");
 			mealList.float("pressure");
-			mealList.string("notebody");
+			mealList.string("notes");
 			mealList.string("date").notNullable();
+			mealList.integer("servings");
+			mealList.integer("recipe_id");
+			mealList.foreign("recipe_id").references("recipe.id");
 		}),
 		knex.schema.createTable("recipe", function(recipe) {
 			recipe.increments("id").primary();

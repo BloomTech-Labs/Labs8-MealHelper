@@ -96,6 +96,7 @@ class Meals extends Component {
 	saveMeal = event => {
 		event.preventDefault();
 		const user_id = this.props.user.userID;
+		const recipe_id = this.state.recipe.id;
 		const {
 			mealTime,
 			experience,
@@ -105,7 +106,6 @@ class Meals extends Component {
 			temp,
 			humidity,
 			pressure,
-			recipe,
 			servings
 		} = this.state;
 		const meal = {
@@ -118,7 +118,7 @@ class Meals extends Component {
 			temp,
 			humidity,
 			pressure,
-			recipe,
+			recipe_id,
 			servings
 		};
 		this.props.addMeal(meal);

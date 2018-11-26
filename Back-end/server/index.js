@@ -252,7 +252,7 @@ server.post("/users/:userid/meals", (req, res) => {
 		temp,
 		humidity,
 		pressure,
-		recipe,
+		recipe_id,
 		servings
 	} = req.body;
 	//Grabs the associated data from req.body and sets it as a JSON to meal
@@ -266,7 +266,7 @@ server.post("/users/:userid/meals", (req, res) => {
 		temp,
 		humidity,
 		pressure,
-		recipe,
+		recipe_id,
 		servings
 	};
 	console.log(meal);
@@ -284,8 +284,32 @@ server.post("/users/:userid/meals", (req, res) => {
 //PUT request to change the recipes, meal time, experience or experience
 server.put("/meals/:mealID", (req, res) => {
 	const id = req.params.mealID;
-	const { user_id, mealTime, experience } = req.body;
-	const meal = { user_id, mealTime, experience };
+	const {
+		user_id,
+		mealTime,
+		experience,
+		date,
+		notes,
+		name,
+		temp,
+		humidity,
+		pressure,
+		recipe_id,
+		servings
+	} = req.body;
+	const meal = {
+		user_id,
+		mealTime,
+		experience,
+		date,
+		notes,
+		name,
+		temp,
+		humidity,
+		pressure,
+		recipe_id,
+		servings
+	};
 	db("mealList")
 		.where({ id: id })
 		.update({
