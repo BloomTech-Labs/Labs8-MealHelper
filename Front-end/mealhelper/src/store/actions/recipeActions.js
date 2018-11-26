@@ -20,14 +20,14 @@ export const DELETING_RECIPE = "DELETING_RECIPE";
 export const DELETED_RECIPE = "DELETED_RECIPE";
 export const DELETING_RECIPE_ERROR = "DELETING_RECIPE_ERROR";
 
-//Route to sign up a user
+//Route to sign up a recipes
 export const addRecipe = recipe => dispatch => {
 	dispatch({ type: ADDING_RECIPE });
 	const userId = recipe.user_id;
 	console.log(recipe);
 	const promise = axios.post(
 		`https://labs8-meal-helper.herokuapp.com/recipe/${userId}`,
-		meal
+		recipe
 	);
 	promise
 		.then(response => {
@@ -53,7 +53,7 @@ export const addRecipe = recipe => dispatch => {
 // };
 
 //Route to Get Specific Users Recipes
-export const getMeal = id => dispatch => {
+export const getRecipe = id => dispatch => {
 	dispatch({ type: GETTING_RECIPES });
 	// const recipe_id = id.recipeID;
 	const userId = id.userID;
@@ -83,7 +83,7 @@ export const changeRecipe = recipe => dispatch => {
 			dispatch({ type: PUTTING_RECIPE_ERROR, payload: err });
 		});
 };
-export const deleteMeal = id => dispatch => {
+export const deleteRecipe = id => dispatch => {
 	dispatch({ type: DELETING_RECIPE });
 	const recipeID = id.recipeID;
 	// const user_id = id.userID;
