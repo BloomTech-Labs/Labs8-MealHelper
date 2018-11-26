@@ -47,6 +47,13 @@ class AddAlarm extends Component {
             onChange={this.handleChange}
             placeholder="Ending Time"
           />
+          <input
+            className="repeat"
+            name="repeat"
+            value={this.state.repeat}
+            onChange={this.handleChange}
+            placeholder="Hours between each alarm"
+          />
         </form>
       </div>
     )
