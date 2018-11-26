@@ -13,9 +13,14 @@ class IngredientDetailViewController: UIViewController {
     
     // MARK: - Public properties
     
-    var delegate: IngredientsTableViewController?
-    var delegateIndexPath: IndexPath?
-    var foodLabels = ["Gluten-free", "No sugar", "High-fiber"]
+    var ingredient: Ingredient? {
+        didSet {
+            setupViews()
+        }
+    }
+    weak var delegate: IngredientsTableViewController?
+    var delegateIndexPath: IndexPath? // TODO: add protocol
+    var foodLabels = ["Gluten-free", "No sugar", "High-fiber", "Low Fat", "High Protein", "Saturated Fat-Free", "Low-Sodium"] // TODO: Handle food labels
     
     // MARK: - Private properties
     
@@ -59,6 +64,7 @@ class IngredientDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        setupFoodLabels()
     }
     
     // MARK: - User actions
@@ -80,9 +86,7 @@ class IngredientDetailViewController: UIViewController {
         view.addSubview(containerView)
         containerView.addSubview(ingredientSummaryView)
         containerView.addSubview(foodLabelStackView)
-        //foodLabelStackView.addArrangedSubview(foodLabelView)
         containerView.addSubview(addButton)
-        
         
         containerView.centerInSuperview(size: CGSize(width: view.bounds.width * 0.9, height: view.bounds.height * 0.8))
         ingredientSummaryView.anchor(top: containerView.topAnchor, leading: containerView.leadingAnchor, bottom: nil, trailing: containerView.trailingAnchor)
@@ -91,7 +95,11 @@ class IngredientDetailViewController: UIViewController {
         
         view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         ingredientSummaryView.backgroundColor = UIColor.lightGray
+        ingredientSummaryView.title = ingredient?.name
         
+    }
+    
+    private func setupFoodLabels() {
         for (index, label) in foodLabels.enumerated() {
             let isSelected = index % 2 == 0 ? true: false
             let foodLabel = createFoodLabel(with: label, isSelected: isSelected)
@@ -119,5 +127,5 @@ class IngredientDetailViewController: UIViewController {
             dismiss(animated: true, completion: nil)
         }
     }
-
+    
 }

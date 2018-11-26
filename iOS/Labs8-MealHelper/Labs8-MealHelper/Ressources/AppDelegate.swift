@@ -7,22 +7,47 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        FirebaseApp.configure()
+        
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let mealsVC = MealsTableViewController(navTitle: "Meals")
-        let navController = UINavigationController(rootViewController: mealsVC)
-        navController.navigationBar.prefersLargeTitles = true
-        //        let homeCollectionViewController = HomeCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        //        window?.rootViewController = homeCollectionViewController
-        window?.rootViewController = navController
+
+        //For full flow, use this
+//        let loginController = LoginViewController()
+//        window?.rootViewController = loginController
+        
+        //To start on HomeScreen, use this
+        let homeViewController = HomeViewController()
+        window?.rootViewController = homeViewController
+        
+        //To start at meals table view use this
+//        let mealsVC = MealsTableViewController(navTitle: "Meals")
+//        let navController = UINavigationController(rootViewController: mealsVC)
+//        navController.navigationBar.prefersLargeTitles = true
+//        window?.rootViewController = navController
+        
+        // TODO: Handle initial views (login or home view)
+//        let userDefaults = UserDefaults()
+//        let userId = userDefaults.loggedInUserId()
+//
+//        if userDefaults.isLoggedIn() && userId != 0 {
+//            userDefaults.setIsLoggedIn(value: true, userId: userId)
+//            let homeViewController = HomeViewController()
+//            window?.rootViewController = homeViewController
+//        } else {
+//            let loginController = LoginViewController()
+//            window?.rootViewController = loginController
+//        }
         
         return true
     }

@@ -1,0 +1,6 @@
+framework module Pods_Labs8_MealHelper {
+  umbrella header "Pods-Labs8-MealHelper-umbrella.h"
+
+  export *
+  module * { export * }
+}
