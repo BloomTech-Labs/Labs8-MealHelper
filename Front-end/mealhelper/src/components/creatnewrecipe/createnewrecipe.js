@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
-import { getMeals } from "../../store/actions/mealActions.js";
+import { addRecipe, getRecipe } from "../../store/actions/recipeActions.js";
 import { withRouter, Link, Route } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import axios from "axios";
@@ -24,9 +24,12 @@ class CreateNewRecipe extends Component {
 		super(props);
 
 		this.state = {
-			list: [],
+            list: [],
+            ingredients: [],
 			search: "",
-			name: "",
+            name: "",
+            calories:"",
+            serving:"",
             ndbno: null,
             modal: false
         };
@@ -59,7 +62,7 @@ class CreateNewRecipe extends Component {
 	componentDidMount() {
 
 		const id = this.props.user.userID;
-		this.props.getMeals(id);
+		this.props.getRecipe(id);
 	}
 	componentWillReceiveProps(nextProps) {
 		this.setState({ list: nextProps.recipes });
@@ -76,11 +79,28 @@ class CreateNewRecipe extends Component {
 		});
     };
     
-    handleSubmit = event => {
-        event.preventDefault();
-        this.setState({
-
-        })
+    handleSubmit = event  => {
+		event.preventDefault();
+        const user_id = this.props.user.userID;
+        const ingredient_id = this.state.ingredients.id;
+		const {
+            name,
+            calories,
+            servings
+		} = this.state;
+		const recipe = {
+			user_id,
+            name,
+            calories,
+            servings
+		};
+		this.props.addRecipe(recipe);
+    };
+    
+    saveItem = (item) => {
+        this.setState ({
+            ingredients: item
+        });
     }
 
 
@@ -157,12 +177,13 @@ class CreateNewRecipe extends Component {
 						</form>
 						<div className="dynamic-display">
 						{this.state.list.map(item => (
-							<Recipe
+							<button
+                                onClick={() => this.saveItem(item)}
 								item={item}
 								key={item.ndbno}
 								name={item.name}
 								ndbno={item.ndbno}
-							/>
+							> {item.name}</button>
 						))}
 						<Link
 							to="/homepage/ingredients/myingredients"
@@ -210,7 +231,7 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ getMeals }
+	{ addRecipe, getRecipe }
 )(withRouter(CreateNewRecipe));
 
 

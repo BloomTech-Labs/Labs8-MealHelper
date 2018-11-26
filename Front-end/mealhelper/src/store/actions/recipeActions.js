@@ -55,12 +55,10 @@ export const addRecipe = recipe => dispatch => {
 //Route to Get Specific Users Recipes
 export const getRecipe = id => dispatch => {
 	dispatch({ type: GETTING_RECIPES });
-	// const recipe_id = id.recipeID;
-	const userId = id.userID;
 	axios
 
 		.get(
-			`https://labs8-meal-helper.herokuapp.com/recipe/${userId}`
+			`https://labs8-meal-helper.herokuapp.com/recipe/${id}`
 		)
 		.then(response => {
 			dispatch({ type: GOT_RECIPE, payload: response.data });
@@ -75,7 +73,7 @@ export const changeRecipe = recipe => dispatch => {
 	const recipeID = recipe.recipeID;
 	axios
 
-		.put(`https://labs8-meal-helper.herokuapp.com/recipe/${recipeID}`, meal)
+		.put(`https://labs8-meal-helper.herokuapp.com/recipe/${recipeID}`, recipe)
 		.then(response => {
 			dispatch({ type: PUT_RECIPE, payload: response.data });
 		})
