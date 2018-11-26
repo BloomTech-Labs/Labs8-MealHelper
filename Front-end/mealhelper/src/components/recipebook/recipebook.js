@@ -70,7 +70,10 @@ class RecipeBook extends Component {
 						</Link>
 					</div>
 					<div className="recipe-card">
-					<h1>Recipe Book</h1> 
+					<h1>Recipe Book</h1>
+					<Link to="/homepage/recipes/myrecipes" style={{ textDecoration: "none" }}>
+					<h2>Add A New Recipe</h2>
+					</Link> 
 						
 						<div className="dynamic-display">
 						{this.state.list.map(item => (

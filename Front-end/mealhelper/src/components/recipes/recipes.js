@@ -71,12 +71,8 @@ class Recipes extends Component {
 					</div>
 
 					<div className="recipe-card">
-					<Link to="/homepage/recipes/myrecipeboook">
+					<Link to="/homepage/recipes/createnewrecipe">
 					<h1>Add Your Recipe</h1> 
-					</Link>
-					<h1>or</h1>
-					<Link to="/homepage/recipe/recipe">
-					<h1> Build A New Recipe</h1>
 					</Link>
 						<form>
 							<input
