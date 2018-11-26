@@ -71,6 +71,13 @@ class Recipes extends Component {
 					</div>
 
 					<div className="recipe-card">
+					<Link to="/homepage/recipes/myrecipeboook">
+					<h1>Add Your Recipe</h1> 
+					</Link>
+					<h1>or</h1>
+					<Link to="/homepage/recipe/recipe">
+					<h1> Build A New Recipe</h1>
+					</Link>
 						<form>
 							<input
 								className="food-search"
@@ -83,9 +90,7 @@ class Recipes extends Component {
 							/>
 							<button onClick={this.searchFood}>Search</button>
 						</form>
-					</div>
-
-					<div className="dynamic-display">
+						<div className="dynamic-display">
 						{this.state.list.map(item => (
 							<Recipe
 								item={item}
@@ -98,8 +103,9 @@ class Recipes extends Component {
 							to="/homepage/ingredients/myingredients"
 							style={{ textDecoration: "none" }}
 						>
-							<h2 className="titlelinks">View my saved ingredients</h2>
+							<h2 className="titlelinksrecipe">View my saved ingredients</h2>
 						</Link>
+					</div>
 					</div>
 				</div>
 			</div>
