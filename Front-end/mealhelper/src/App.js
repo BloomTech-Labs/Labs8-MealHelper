@@ -5,7 +5,7 @@ import { Route, Switch, Link } from "react-router-dom";
 
 /////Dev. Created/////////
 import Signup from "./components/signup/signup";
-// import Login from "./components/login/login";
+import Login from "./components/login/login";
 import HomePage from "./components/homepage/homepage";
 import Weather from "./components/weather/weather";
 import Recipes from "./components/recipes/recipes";
@@ -25,9 +25,9 @@ class App extends Component {
 			<div className="App">
 				<Switch>
 					{/* <Route exact path="/" render={() => <LandingPage />} /> */}
-					<Route path="/" render={() => <Signup />} />
+					<Route exact path="/" render={() => <Signup />} />
 					<Route path="/callback" render={() => <Callback />} />
-					{/* <Route path="/login" render={() => <Login />} /> */}
+					<Route path="/login" render={() => <Login />} />
 					<Route exact path="/homepage" render={() => <HomePage />} />
 					<Route exact path="/homepage/weather" render={() => <Weather />} />
 					<Route
