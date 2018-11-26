@@ -68,8 +68,8 @@ class Meals extends Component {
 	}
 	///converted to Imperial measurement
 	componentDidMount(props) {
-		console.log(this.props.user[0].zip);
-		this.setState({ zip: this.props.user[0].zip });
+		console.log(this.props.user.zip);
+		this.setState({ zip: this.props.user.zip });
 	}
 	toggle() {
 		this.setState({
@@ -110,21 +110,20 @@ class Meals extends Component {
 	};
 	getWeatherZip = event => {
 		event.preventDefault();
-		const zip = this.state.zip.trim();
+		const zip = `${this.state.zip}`;
 		console.log(zip);
 		axios
 			.get(
 				`http://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=46454cdfa908cad35b14a05756470e5c`
 			)
 			.then(response => {
+				console.log(response);
 				this.setState({
-					name: response.data.list[0].name,
-					temp: response.data.list[0].main.temp,
-					humidity: response.data.list[0].main.humidity,
-					pressure: response.data.list[0].main.pressure
+					name: response.data.name,
+					temp: response.data.main.temp,
+					humidity: response.data.main.humidity,
+					pressure: response.data.main.pressure
 				});
-				console.log(response.data.list[0]); //returns JSON correctly
-				console.log(this.state.weather.main.temp); //returns correct value in imperial
 			})
 			.catch(error => {
 				console.log("Error", error);
@@ -223,7 +222,11 @@ class Meals extends Component {
 						</ModalBody>
 						<ModalBody>
 							<p>Weather:</p>
-							<button>Get Weather</button>
+							<p>City: {this.state.name},</p>
+							<p>Temp: {this.state.temp} °F</p>
+							<p>Humidity: {this.state.humidity}</p>
+							<p>Pressure: {this.state.pressure}</p>
+							<button onClick={this.getWeatherZip}>Get Weather</button>
 						</ModalBody>
 						<ModalFooter>
 							<Button color="success" onClick={this.saveMeal}>
