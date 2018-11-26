@@ -26,7 +26,7 @@ export const addMeal = meal => dispatch => {
 	const user_id = meal.user_id;
 	console.log(meal);
 	const promise = axios.post(
-		`https://labs8-meal-helper.herokuapp.com/ingredients/${user_id}`,
+		`https://labs8-meal-helper.herokuapp.com/users/${user_id}/meals`,
 		meal
 	);
 	promise
@@ -43,7 +43,7 @@ export const getMeals = id => dispatch => {
 
 	axios
 
-		.get(`https://labs8-meal-helper.herokuapp.com/ingredients/${id}`)
+		.get(`https://labs8-meal-helper.herokuapp.com/users/${id}/meals`)
 		.then(response => {
 			dispatch({ type: GOT_MEALS, payload: response.data });
 		})

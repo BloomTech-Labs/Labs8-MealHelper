@@ -16,6 +16,11 @@ exports.up = function(knex) {
 			mealList.foreign("user_id").references("users.id");
 			mealList.string("mealTime").notNullable();
 			mealList.string("experience");
+			mealList.string("name").notNullable();
+			mealList.float("temp").notNullable();
+			mealList.float("humidity");
+			mealList.float("pressure");
+			mealList.string("notebody");
 			mealList.string("date").notNullable();
 		}),
 		knex.schema.createTable("recipe", function(recipe) {
