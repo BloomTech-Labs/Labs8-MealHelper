@@ -13,8 +13,8 @@ export default class GetIngredient extends Component {
 				'https://api.nal.usda.gov/ndb/search/?q=cheese&sort=n&format=json&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6'
 			)
 			.then(response => {
-				const ingredient = response.data;
-				this.setState({ ingredient });
+				const ingredient = response.data.list.item;
+				this.setState({ ingredients: ingredient });
 				console.log(ingredient);
 			})
 			.catch(err => {
@@ -26,7 +26,7 @@ export default class GetIngredient extends Component {
 		return (
 			<ul>
 				{this.state.ingredients.map(ingredient => (
-					<li>{ingredient.list.ingredient.name}</li>
+					<li>{ingredient.name}</li>
 				))}
 			</ul>
 		);
