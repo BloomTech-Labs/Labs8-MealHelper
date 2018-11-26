@@ -1,8 +1,37 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom"
-import moment from "moment";
+//import moment from "moment";
+import Select from "react-select";
 // import actions
+
+//this is embarrassingly not DRY; auto-populate ASAP
+const options = [
+  { value: 100, label: '1:00 AM' },
+  { value: 200, label: '2:00 AM' },
+  { value: 300, label: '3:00 AM' },
+  { value: 400, label: '4:00 AM' },
+  { value: 500, label: '5:00 AM' },
+  { value: 600, label: '6:00 AM' },
+  { value: 700, label: '7:00 AM' },
+  { value: 800, label: '8:00 AM' },
+  { value: 900, label: '9:00 AM' },
+  { value: 1000, label: '10:00 AM' },
+  { value: 1100, label: '11:00 AM' },
+  { value: 1200, label: '12:00 PM' },
+  { value: 1300, label: '1:00 PM' },
+  { value: 1400, label: '2:00 PM' },
+  { value: 1500, label: '3:00 PM' },
+  { value: 1600, label: '4:00 PM' },
+  { value: 1700, label: '5:00 PM' },
+  { value: 1800, label: '6:00 PM' },
+  { value: 1900, label: '7:00 PM' },
+  { value: 2000, label: '8:00 PM' },
+  { value: 2100, label: '9:00 PM' },
+  { value: 2200, label: '10:00 PM' },
+  { value: 2300, label: '11:00 PM' },
+  { value: 2400, label: '12:00 AM (midnight)' },
+]
 
 class AddAlarms extends Component {
   constructor(props) {
@@ -31,6 +60,7 @@ class AddAlarms extends Component {
     //this.props.history.push to alarms list
   }
 
+
   //convert beginTime and endTime to military time
   //calculate how many alarms between beginTime and endTime using repeats
   //take amount of alarms and insert bulk data to database
@@ -41,6 +71,7 @@ class AddAlarms extends Component {
       <div className="home-container">
       <h1>Add Alarms</h1>
         <form className="forms">
+        <Select options={options} />
           <input
             className="time"
             name="beginTime"
