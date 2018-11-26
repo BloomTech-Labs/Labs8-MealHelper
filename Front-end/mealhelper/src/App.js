@@ -1,23 +1,24 @@
 /////Static Imports/////////
-import React, { Component } from "react";
-import { Route, Switch, Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { Route, Switch, Link } from 'react-router-dom';
 //////////////////////////
 
 /////Dev. Created/////////
-import Signup from "./components/signup/signup";
-import Login from "./components/login/login";
-import HomePage from "./components/homepage/homepage";
-import Weather from "./components/weather/weather";
-import Recipes from "./components/recipes/recipes";
+import Signup from './components/signup/signup';
+import Login from './components/login/login';
+import HomePage from './components/homepage/homepage';
+import Weather from './components/weather/weather';
+import Recipes from './components/recipes/recipes';
 // import LandingPage from "./components/landingpage/landingpage";
-import MyIngredients from "./components/recipes/myrecipe";
-import MyWeather from "./components/weather/myweather";
+import MyIngredients from './components/recipes/myrecipe';
+import MyWeather from './components/weather/myweather';
+import getIngredient from './components/ingredients/getIngredient';
 ////////////////////////
 
-import Callback from "./Callback";
-import Sign from "./components/Sign";
+import Callback from './Callback';
+import Sign from './components/Sign';
 
-import "./App.css";
+import './App.css';
 
 class App extends Component {
 	render() {
@@ -30,15 +31,10 @@ class App extends Component {
 					<Route path="/login" render={() => <Login />} />
 					<Route exact path="/homepage" render={() => <HomePage />} />
 					<Route exact path="/homepage/weather" render={() => <Weather />} />
-					<Route
-						path="/homepage/weather/myweather"
-						render={() => <MyWeather />}
-					/>
+					<Route path="/homepage/weather/myweather" render={() => <MyWeather />} />
+					<Route exact path="/ingredients" render={() => <getIngredient />} />
 					<Route path="/homepage/recipes" render={() => <Recipes />} />
-					<Route
-						path="/homepage/ingredients/myingredients"
-						render={() => <MyIngredients />}
-					/>
+					<Route path="/homepage/ingredients/myingredients" render={() => <MyIngredients />} />
 				</Switch>
 			</div>
 		);
