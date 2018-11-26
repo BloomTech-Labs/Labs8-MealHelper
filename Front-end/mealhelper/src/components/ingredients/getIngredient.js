@@ -26,7 +26,7 @@ export default class GetIngredient extends Component {
 		return (
 			<ul>
 				{this.state.ingredients.map(ingredient => (
-					<li>{ingredient.name}</li>
+					<li key={ingredient.offset}>{ingredient.name}</li>
 				))}
 			</ul>
 		);
