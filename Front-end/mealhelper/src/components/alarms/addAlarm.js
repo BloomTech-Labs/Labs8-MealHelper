@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom"
 import moment from "moment";
 // import actions
 
-class AddAlarm extends Component {
+class AddAlarms extends Component {
   constructor(props) {
     super(props);
 
@@ -30,6 +30,10 @@ class AddAlarm extends Component {
     //pass alarm body to addAlarm actions
     //this.props.history.push to alarms list
   }
+
+  //convert beginTime and endTime to military time
+  // calculate how many alarms between beginTime and endTime using repeats
+  // take amount of alarms and insert bulk data to database
 
   render() {
     return (
@@ -57,6 +61,9 @@ class AddAlarm extends Component {
             placeholder="Hours between each alarm"
           />
         </form>
+        <button onClick={this.addAlarm} className="add-alarms btn">
+          Add Alarms
+        </button>
       </div>
     )
   }
@@ -69,4 +76,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   //action
-)(withRouter(AddAlarm));
+)(withRouter(AddAlarms));

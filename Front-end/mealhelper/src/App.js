@@ -12,6 +12,8 @@ import Recipes from "./components/recipes/recipes";
 // import LandingPage from "./components/landingpage/landingpage";
 import MyIngredients from "./components/recipes/myrecipe";
 import MyWeather from "./components/weather/myweather";
+import MyAlarms from "./components/alarms/myAlarms";
+import AddAlarms from "./components/alarms/addAlarm";
 ////////////////////////
 
 import Callback from "./Callback";
@@ -39,6 +41,8 @@ class App extends Component {
 						path="/homepage/ingredients/myingredients"
 						render={() => <MyIngredients />}
 					/>
+					<Route path="/homepage/alarms" render={() => <MyAlarms />} />
+					<Route path="/homepage/add-alarms" render={() => <AddAlarms/>} />
 				</Switch>
 			</div>
 		);

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 //import actions
 
 class MyAlarms extends Component {
@@ -7,7 +8,7 @@ class MyAlarms extends Component {
     super(props);
 
     this.state = {
-
+      alarmsList: []
     };
   }
 
@@ -19,7 +20,7 @@ class MyAlarms extends Component {
   componentWillReceiveProps(nextProps) {
     //update list of alarms
   }
-  
+
   render() {
     return (
       <div className="alarms-container">
@@ -46,5 +47,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   // alarm action
-)(withRouter(Alarms));
-)
+)(withRouter(MyAlarms));
