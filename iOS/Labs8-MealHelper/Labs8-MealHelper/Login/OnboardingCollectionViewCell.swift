@@ -135,9 +135,9 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     @objc func save() {
         guard let email = personalInfoView.email, let password = personalInfoView.password, let zip = personalInfoView.zip, let healthCondition = personalInfoView.healthCondition else { return }
         
-        let user = User(email: email, password: password, zip: zip, healthCondition: healthCondition)
+//        let user = User(email: email, password: password, zip: zip, healthCondition: healthCondition)
         
-        delegate?.save(user: user)
+//        delegate?.save(user: user)
     }
     
     // MARK: - Configuration

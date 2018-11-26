@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - MealHelper
+
 struct Meal: Codable {
     
     init(mealTime: String, experience: String, date: String, userId: Int) {
@@ -31,7 +33,6 @@ struct Meal: Codable {
         case date
         case userId = "user_id"
     }
-    
 }
 
 struct Recipe: Codable {
@@ -62,25 +63,31 @@ struct Recipe: Codable {
         case userId = "user_id"
         case ingredientId = "ingredients_id"
     }
-    
 }
 
 struct Ingredient: Codable {
     
+    init(name: String, nbdId: String) {
+        self.name = name
+        self.nbdId = nbdId
+    }
+    
     var identifier: Int?
     var name: String?
-    var nbdId: Int?
+    var nbdId: String?
     var userId: Int?
     var nutrientIds: [Int]?
+    var recipeId: Int?
     var nutrients: [Nutrient]?
     
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
+        case name
         case nbdId = "nbd_id"
         case userId = "user_id"
         case nutrientIds = "nutrients_id"
+        case recipeId = "recipe_id"
     }
-    
 }
 
 struct Nutrient: Codable {
@@ -98,33 +105,40 @@ struct Nutrient: Codable {
         case value
         case gm
     }
-    
 }
 
-struct usdaIngredients: Codable {
+// MARK: - USDA
+
+struct UsdaIngredients: Codable {
     
-    var items: [usdaIngredient]
+    var list: Item
     
     enum CodingKeys: String, CodingKey {
-        case items
+        case list
     }
     
-    struct usdaIngredient: Codable {
-        var nbdId: Int?
-        var name: String?
-        var manufacturer: String?
+    struct Item: Codable {
+        var item: [UsdaIngredient]
         
         enum CodingKeys: String, CodingKey {
-            case nbdId = "ndbno"
-            case name
-            case manufacturer = "manu"
+            case item
+        }
+        
+        struct UsdaIngredient: Codable {
+            var ndbId: String
+            var name: String
+            var manufacturer: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case ndbId = "ndbno"
+                case name
+                case manufacturer = "manu"
+            }
         }
     }
-    
-    
 }
 
-struct usdaNutrient: Codable {
+struct UsdaNutrient: Codable {
     
     var identifier: String? // usda nutrient id
     var name: String?
@@ -154,7 +168,5 @@ struct usdaNutrient: Codable {
             case qty
             case value
         }
-        
     }
-    
 }
