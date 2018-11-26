@@ -199,6 +199,20 @@ class Meals extends Component {
 								/>
 							</form>
 						</ModalBody>
+						<ModalBody>
+							<p>Servings:</p>
+							<form>
+								<input
+									id="servings"
+									className="date-meal"
+									type="number"
+									name="servings"
+									onChange={this.handleChange}
+									value={this.state.servings}
+									placeholder=""
+								/>
+							</form>
+						</ModalBody>
 						<ModalBody>Recipe: {this.state.recipe.name}</ModalBody>
 						<UncontrolledDropdown>
 							<DropdownToggle caret>Dropdown</DropdownToggle>
