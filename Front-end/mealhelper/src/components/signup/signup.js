@@ -4,7 +4,7 @@ import Callback from "../../Callback";
 import { connect } from "react-redux";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route,  } from "react-router-dom";
+import { withRouter, Link, Route } from "react-router-dom";
 import { Alert } from "reactstrap";
 import "./signup.css";
 
@@ -42,10 +42,10 @@ class SignUp extends Component {
 
 	render() {
 		return (
-			<div className="main-container">	
-			<div className="formcenter">
-				<div className="user-form-container">
-					<h1 className="signup-title">Sign Up</h1>
+			<div className="main-container">
+				<div className="formcenter">
+					<div className="user-form-container">
+						<h1 className="signup-title">Sign Up</h1>
 						<form className="signup-form">
 							<div className="form-group">
 								<input
@@ -95,34 +95,32 @@ class SignUp extends Component {
 								/>
 								<label htmlFor="dynamic-label-input">Health Condition</label>
 							</div>
-								<div className="signup signup-two" onClick={this.createUser} >
-									<span>Sign Up</span>
-								</div>
-								<div className="auth">
+							<div className="signup signup-two" onClick={this.createUser}>
+								<span>Sign Up</span>
+							</div>
+							<div className="auth">
 								<p className="signuptext">Already have an account?</p>
-								</div>
-								<div className="existinguser">
-									<Link to="/login">
-										<button className="login-button">
-											<span>Login</span>
-										</button>
-									</Link>
-									<p className="signuptext">
-									Or
-									</p>
+							</div>
+							<div className="existinguser">
+								<Link to="/login">
+									<button className="login-button">
+										<span>Login</span>
+									</button>
+								</Link>
+								<p className="signuptext">Or</p>
+								<div>
 									<Sign />
-                    				<Route exact path="/callback" component={Callback} />
+									<Route exact path="/callback" component={Callback} />
 								</div>
-								<div className="alert-box">
-										<Alert isOpen={this.state.visable} color="danger">
-											Please enter an email
-										</Alert>
-									</div>
-						</form>	
+							</div>
+							<div className="alert-box">
+								<Alert isOpen={this.state.visable} color="danger">
+									Please enter an email
+								</Alert>
+							</div>
+						</form>
 					</div>
-					
 				</div>
-		
 			</div>
 		);
 	}
