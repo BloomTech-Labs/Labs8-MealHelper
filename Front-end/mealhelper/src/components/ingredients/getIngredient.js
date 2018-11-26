@@ -4,7 +4,8 @@ import axios from 'axios';
 
 export default class GetIngredient extends Component {
 	state = {
-		ingredients: []
+		ingredients: [],
+		selected: 'null'
 	};
 
 	componentDidMount = () => {
@@ -26,7 +27,11 @@ export default class GetIngredient extends Component {
 		return (
 			<ul>
 				{this.state.ingredients.map(ingredient => (
-					<li key={ingredient.offset}>{ingredient.name}</li>
+					<li key={ingredient.offset} style={{ textDecoration: 'none' }}>
+						<a href="#" style={{ color: '#000' }}>
+							{ingredient.name}
+						</a>
+					</li>
 				))}
 			</ul>
 		);
