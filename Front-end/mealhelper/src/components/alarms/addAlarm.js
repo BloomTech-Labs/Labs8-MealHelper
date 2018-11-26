@@ -28,14 +28,36 @@ class AddAlarm extends Component {
     //pass alarm body to addAlarm actions
     //this.props.history.push to alarms list
   }
+
+  render() {
+    return (
+      <div className="alarms-container">
+        <form className="forms">
+          <input
+            className="time"
+            name="beginTime"
+            value={this.state.beginTime}
+            onChange={this.handleChange}
+            placeholder="Beginning Time"
+          />
+          <input
+            className="time"
+            name="endTime"
+            value={this.state.endTime}
+            onChange={this.handleChange}
+            placeholder="Ending Time"
+          />
+        </form>
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = state => ({
   //map the state
-})
+});
 
 export default connect(
   mapStateToProps,
   //action
-)(withRouter(AddAlarm))
-)
+)(withRouter(AddAlarm));
