@@ -50,7 +50,7 @@ class MealCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.init(white: 0.9, alpha: 1)
+        backgroundColor = .white
         setupViews()
     }
     

@@ -65,7 +65,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
                 switch response {
                 case .success(let meals):
                     self.collectionView.meals = meals
-                case .error(let error):
+                case .error:
                     self.showAlert(with: "Unable to load your meals, please check your internet connection and try again.")
                 }
             }
@@ -99,16 +99,14 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
 //        view.setGradientBackground(colorOne: UIColor.sunOrange.cgColor, colorTwo: UIColor.sunRed.cgColor, startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0.8, y: 0.3))
     }
     
- 
     private func setupFooterView() {
         
         view.addSubview(countDownLabel)
-        countDownLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 150, left: 0, bottom: -8, right: 0), size: .zero)
+        countDownLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 150, left: 0, bottom: 0, right: 0), size: .zero)
         countDownLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(collectionView)
-        collectionView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .zero, size: CGSize(width: view.frame.width, height: 400))
-        collectionView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        collectionView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 0, bottom: -16, right: 0), size: CGSize(width: view.frame.width, height: 400))
         
         view.addSubview(footerView)
         footerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0), size: CGSize(width: view.frame.width, height: 50))
