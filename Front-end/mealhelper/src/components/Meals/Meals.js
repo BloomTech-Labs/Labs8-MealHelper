@@ -12,7 +12,7 @@ import {
 	DropdownItem
 } from "reactstrap";
 //change the route for this
-import { addWeatherByUser } from "../../store/actions/weatherActions";
+import { addMeal } from "../../store/actions/mealActions";
 import { withRouter, Link, Route } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import Recipes from "../recipes/recipes";
@@ -55,10 +55,11 @@ class Meals extends Component {
 			meals: [],
 			recipe: [],
 			mealTime: "",
-			experience: "",
+			experience: [],
 			date: "",
+			notes: "",
+			servings: "",
 
-			city: "",
 			name: "",
 			temp: null,
 			humidity: null,
@@ -71,6 +72,9 @@ class Meals extends Component {
 		console.log(this.props.user.zip);
 		this.setState({ zip: this.props.user.zip });
 	}
+	// componentWillReceiveProps(prevState){
+
+	// }
 	toggle() {
 		this.setState({
 			modal: !this.state.modal
@@ -92,11 +96,32 @@ class Meals extends Component {
 	saveMeal = event => {
 		event.preventDefault();
 		const user_id = this.props.user.userID;
-		const { name, humidity, pressure, temp } = this.state;
-		const weather = { name, humidity, pressure, temp, user_id };
-		console.log(weather);
-		this.props.addWeatherByUser(weather);
-		this.props.history.push("/homepage");
+		const recipe_id = this.state.recipe.id;
+		const {
+			mealTime,
+			experience,
+			date,
+			notes,
+			name,
+			temp,
+			humidity,
+			pressure,
+			servings
+		} = this.state;
+		const meal = {
+			user_id,
+			mealTime,
+			experience,
+			date,
+			notes,
+			name,
+			temp,
+			humidity,
+			pressure,
+			recipe_id,
+			servings
+		};
+		this.props.addMeal(meal);
 	};
 	chooseRecipe = recipe => {
 		console.log(recipe);
@@ -114,7 +139,7 @@ class Meals extends Component {
 		console.log(zip);
 		axios
 			.get(
-				`http://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=46454cdfa908cad35b14a05756470e5c`
+				`https://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=46454cdfa908cad35b14a05756470e5c`
 			)
 			.then(response => {
 				console.log(response);
@@ -134,9 +159,6 @@ class Meals extends Component {
 		return (
 			<div className="home-container">
 				<div className="sidebar">
-					<Link to="/homepage/weather" style={{ textDecoration: "none" }}>
-						<h2 className="titlelinks">Weather</h2>
-					</Link>
 					<Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
 						<h2 className="titlelinks">Recipes</h2>
 					</Link>
@@ -163,6 +185,34 @@ class Meals extends Component {
 						className={this.props.className}
 					>
 						<ModalHeader toggle={this.toggle}>New Meal</ModalHeader>
+						<ModalBody>
+							<p>Date:</p>
+							<form>
+								<input
+									id="date"
+									className="date-meal"
+									type="date"
+									name="date"
+									onChange={this.handleChange}
+									value={this.state.date}
+									placeholder=" / /"
+								/>
+							</form>
+						</ModalBody>
+						<ModalBody>
+							<p>Servings:</p>
+							<form>
+								<input
+									id="servings"
+									className="date-meal"
+									type="number"
+									name="servings"
+									onChange={this.handleChange}
+									value={this.state.servings}
+									placeholder=""
+								/>
+							</form>
+						</ModalBody>
 						<ModalBody>Recipe: {this.state.recipe.name}</ModalBody>
 						<UncontrolledDropdown>
 							<DropdownToggle caret>Dropdown</DropdownToggle>
@@ -218,7 +268,17 @@ class Meals extends Component {
 						</UncontrolledDropdown>
 						<ModalBody>
 							<p>Notes:</p>
-							<textarea> </textarea>
+							<form>
+								<input
+									id="notes"
+									className="notes-meal"
+									type="text"
+									name="notes"
+									onChange={this.handleChange}
+									value={this.state.notes}
+									placeholder="Notes. . ."
+								/>
+							</form>
 						</ModalBody>
 						<ModalBody>
 							<p>Weather:</p>
@@ -254,10 +314,11 @@ class Meals extends Component {
 }
 
 const mapStateToProps = state => ({
-	user: state.userReducer.user
+	user: state.userReducer.user,
+	meals: state.mealsReducer.meals
 });
 
 export default connect(
 	mapStateToProps,
-	{ addWeatherByUser }
+	{ addMeal }
 )(withRouter(Meals));

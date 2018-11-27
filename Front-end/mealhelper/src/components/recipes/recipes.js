@@ -50,9 +50,6 @@ class Recipes extends Component {
 			<div className="weather-container">
 				<div className="home-container">
 					<div className="sidebar">
-						<Link to="/homepage/weather" style={{ textDecoration: "none" }}>
-							<h2 className="titlelinks">Weather</h2>
-						</Link>
 						<Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
 							<h2 className="titlelinks">Recipes</h2>
 						</Link>

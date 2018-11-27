@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol FoodTableViewCellDelegate: class {
+    func selectFood(from cell: UITableViewCell)
+}
+
 class FoodTableViewCell<Resource>: UITableViewCell {
     
     // MARK: - Public properties
@@ -17,6 +21,7 @@ class FoodTableViewCell<Resource>: UITableViewCell {
             setupViews()
         }
     }
+    weak var delegate: FoodTableViewCellDelegate?
     
     // MARK: - Private properties
     
@@ -77,13 +82,15 @@ class FoodTableViewCell<Resource>: UITableViewCell {
     // MARK: - User Actions
     
     @objc func selectRow(_ button: UIButton) {
-        button.isSelected = !button.isSelected
+        delegate?.selectFood(from: self)
+    }
+    
+    func updateLayouts() {
+        selectButton.isSelected = !selectButton.isSelected
         
-        let tintColor = button.isSelected
+        selectButton.tintColor = selectButton.isSelected
             ? UIColor.green
             : UIColor.lightGray
-
-        button.tintColor = tintColor
     }
     
     // MARK: - Configuration
@@ -98,7 +105,9 @@ class FoodTableViewCell<Resource>: UITableViewCell {
         mainStackView.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0))
         
         selectButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        // selectButton.addTarget(self, action: #selector(selectRow), for: .touchUpInside)
+        selectButton.addTarget(self, action: #selector(selectRow), for: .touchUpInside)
+        
+        self.selectionStyle = .none
         
         if let recipe = food as? Recipe {
             nameLabel.text = recipe.name
@@ -116,5 +125,5 @@ class FoodTableViewCell<Resource>: UITableViewCell {
         }
         
     }
-
+    
 }
