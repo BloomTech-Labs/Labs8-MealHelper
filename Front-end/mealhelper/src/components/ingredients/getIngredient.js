@@ -7,39 +7,57 @@ export default class GetIngredient extends Component {
 		super(props);
 
 		this.state = {
-			ingredients: []
+			list: [],
+			search: '',
+			name: '',
+			ndbno: null
 		};
 	}
 
-	getNutrients = () => {
-		let req_ndbno = this.state.ingredients.ndbno;
+	// getNutrients = () => {
+	// 	let req_ndbno = this.state.ingredients.ndbno;
 
+	// 	axios
+	// 		.get('https://api.nal.usda.gov/ndb/reports', {
+	// 			params: {
+	// 				ndbno: { req_ndbno },
+	// 				type: 'b',
+	// 				format: 'json',
+	// 				api_key: 'c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6'
+	// 			}
+	// 		})
+	// 		.then(res => {
+	// 			let nutr_Info = res.data;
+	// 			console.log(nutr_Info);
+	// 			return nutr_Info;
+	// 		})
+	// 		.catch(err => {
+	// 			console.log(err + '\n' + 'statusCode: ', err.status);
+	// 		});
+	// };
+
+	searchFood = event => {
+		event.preventDefault();
 		axios
-			.get('https://api.nal.usda.gov/ndb/reports', {
-				params: {
-					ndbno: { req_ndbno },
-					type: 'b',
-					format: 'json',
-					api_key: 'c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6'
-				}
+			.get(
+				`https://api.nal.usda.gov/ndb/search/?format=json&q=${
+					this.state.search
+				}&sort=n&max=25&offset=0&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6`
+			)
+			.then(response => {
+				console.log(response);
+				this.setState({
+					list: response.data.list.item
+				});
 			})
-			.then(res => {
-				let nutr_Info = res.data;
-				console.log(nutr_Info);
-				return nutr_Info;
-			})
-			.catch(err => {
-				console.log(err + '\n' + 'statusCode: ', err.status);
+			.catch(error => {
+				console.log('Error', error);
 			});
 	};
 
 	handleSelect = async e => {
 		e.preventDefault();
-		this.getNutrients()
-			.then(axios.post())
-			.catch(err => {
-				console.log(err + '\n' + 'statusCode: ', err.status);
-			});
+		this.getNutrients();
 	};
 
 	componentDidMount = () => {
@@ -64,15 +82,18 @@ export default class GetIngredient extends Component {
 
 	render() {
 		return (
-			<ul>
-				{this.state.ingredients.map(ingredient => (
-					<li key={ingredient.offset} style={{ textDecoration: 'none' }}>
-						<a href="#" style={{ color: '#000' }}>
-							{ingredient.name}
-						</a>
-					</li>
-				))}
-			</ul>
+			<div>
+				<button onClick={this.searchFood}>Search</button>
+				<ul>
+					{this.state.ingredients.map(ingredient => (
+						<li key={ingredient.offset} style={{ textDecoration: 'none' }}>
+							<a href="#" style={{ color: '#000' }}>
+								{ingredient.name}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
 		);
 	}
 }
