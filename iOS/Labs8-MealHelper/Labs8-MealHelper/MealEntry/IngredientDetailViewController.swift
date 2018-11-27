@@ -20,7 +20,7 @@ class IngredientDetailViewController: UIViewController {
     }
     weak var delegate: IngredientsTableViewController?
     var delegateIndexPath: IndexPath? // TODO: add protocol
-    var foodLabels = ["Gluten-free", "No sugar", "High-fiber", "Low Fat", "High Protein", "Saturated Fat-Free", "Low-Sodium"] // TODO: Handle food labels
+    var foodLabels = ["Gluten-free", "No sugar", "High-fiber", "Low Fat", "High Protein", "Low-Sodium"] // TODO: Handle food labels
     
     // MARK: - Private properties
     
@@ -34,20 +34,9 @@ class IngredientDetailViewController: UIViewController {
         return view
     }()
     
-    private lazy var foodLabelStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.alignment = .center
-        stackView.spacing = 8.0
-        return stackView
-    }()
-    
     private lazy var foodLabelView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .gray
         return view
     }()
     
@@ -85,26 +74,51 @@ class IngredientDetailViewController: UIViewController {
     private func setupViews() {
         view.addSubview(containerView)
         containerView.addSubview(ingredientSummaryView)
-        containerView.addSubview(foodLabelStackView)
+        containerView.addSubview(foodLabelView)
         containerView.addSubview(addButton)
         
         containerView.centerInSuperview(size: CGSize(width: view.bounds.width * 0.9, height: view.bounds.height * 0.8))
         ingredientSummaryView.anchor(top: containerView.topAnchor, leading: containerView.leadingAnchor, bottom: nil, trailing: containerView.trailingAnchor)
-        foodLabelStackView.anchor(top: ingredientSummaryView.bottomAnchor, leading: containerView.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: containerView.layoutMarginsGuide.trailingAnchor, padding: UIEdgeInsets(top: 10.0, left: 0.0, bottom: 0.0, right: 0.0))
+        foodLabelView.anchor(top: ingredientSummaryView.bottomAnchor, leading: containerView.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: containerView.layoutMarginsGuide.trailingAnchor, padding: UIEdgeInsets(top: 10.0, left: 0.0, bottom: 0.0, right: 0.0))
         addButton.anchor(top: nil, leading: containerView.leadingAnchor, bottom: containerView.bottomAnchor, trailing: containerView.trailingAnchor, size: CGSize(width: 0.0, height: 40.0))
         
         view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         ingredientSummaryView.backgroundColor = UIColor.lightGray
         ingredientSummaryView.title = ingredient?.name
         
+        view.layoutIfNeeded()
     }
     
     private func setupFoodLabels() {
+        var previous: UILabel?
+        var accumulatedWidth: CGFloat = 0.0
+        var accumulatedHeight: CGFloat = 0.0
+        
         for (index, label) in foodLabels.enumerated() {
-            let isSelected = index % 2 == 0 ? true: false
+            let isSelected = index % 2 == 0 ? true: false // TODO: Add logic
             let foodLabel = createFoodLabel(with: label, isSelected: isSelected)
-            foodLabelStackView.addArrangedSubview(foodLabel)
+            foodLabelView.addSubview(foodLabel)
+            
+            foodLabel.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
+            foodLabel.widthAnchor.constraint(equalToConstant: foodLabel.intrinsicContentSize.width + 20.0).isActive = true
+            accumulatedWidth += foodLabel.intrinsicContentSize.width + 20.0
+            
+            if let previous = previous {
+                if accumulatedWidth > foodLabelView.bounds.width {
+                    foodLabel.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 8.0).isActive = true
+                    accumulatedWidth = 0.0
+                    accumulatedHeight += 30.0 + 8.0
+                } else {
+                    foodLabel.topAnchor.constraint(equalTo: foodLabelView.topAnchor, constant: accumulatedHeight).isActive = true
+                    foodLabel.leadingAnchor.constraint(equalTo: previous.trailingAnchor, constant: 8.0).isActive = true
+                }
+            }
+            
+            previous = foodLabel
         }
+        
+        foodLabelView.heightAnchor.constraint(equalToConstant: accumulatedHeight + 38.0).isActive = true
+        view.layoutIfNeeded()
     }
     
     private func createFoodLabel(with title: String, isSelected: Bool) -> UILabel {
@@ -116,7 +130,6 @@ class IngredientDetailViewController: UIViewController {
         label.layer.cornerRadius = 30 / 2
         label.layer.masksToBounds = true
         label.backgroundColor = isSelected ? .green : UIColor.lightGray
-        label.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return label
     }
     

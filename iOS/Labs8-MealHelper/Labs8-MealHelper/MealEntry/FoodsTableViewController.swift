@@ -37,7 +37,7 @@ class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewCont
     }()
     
     lazy var itemsSelectedBarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(actionWhenItemsSelected))
+        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(actionWhenItemsSelected))
     }()
     
     // MARK: - Init

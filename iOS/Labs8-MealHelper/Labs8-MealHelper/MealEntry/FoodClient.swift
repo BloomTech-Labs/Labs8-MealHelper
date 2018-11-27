@@ -56,8 +56,9 @@ class FoodClient {
             "user_id": userId,
             "mealTime": mealTime,
             "experience": experience,
-            "date": date
-        ]
+            "date": date,
+            "temp": Float(exactly: 123)
+            ] as [String : Any]
         
         post(with: url, requestBody: reqBody, completion: completion)
         
@@ -150,7 +151,7 @@ class FoodClient {
         }.resume()
     }
     
-    private func post<Resource: Codable>(with url: URL, requestBody: Dictionary<String, String?>, using session: URLSession = URLSession.shared, completion: @escaping ((Response<Resource>) -> ())) {
+    private func post<Resource: Codable>(with url: URL, requestBody: Dictionary<String, Any?>, using session: URLSession = URLSession.shared, completion: @escaping ((Response<Resource>) -> ())) {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = HTTPMethod.post.rawValue
@@ -160,8 +161,8 @@ class FoodClient {
             let requestBody = requestBody
             let encoder = JSONEncoder()
             encoder.outputFormatting = .prettyPrinted
-            let requestBodyJson = try encoder.encode(requestBody)
-            urlRequest.httpBody = requestBodyJson
+            let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) //encoder.encode(requestBody)
+            urlRequest.httpBody = jsonData
         } catch {
             NSLog("Failed to encode foods: \(error)")
             completion(Response.error(error))

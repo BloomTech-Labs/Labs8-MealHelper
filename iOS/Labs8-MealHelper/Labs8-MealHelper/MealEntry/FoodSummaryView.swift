@@ -34,12 +34,14 @@ class FoodSummaryView: UIView {
     private let servingSizeInputField: PickerInputField = {
         let inputField = PickerInputField(defaultValue: "cup")
         inputField.picker.accessibilityIdentifier = "servingSize"
+        inputField.leftImage = #imageLiteral(resourceName: "message")
         return inputField
     }()
     
     private let servingQtyInputField: PickerInputField = {
         let inputField = PickerInputField(defaultValue: "1")
         inputField.picker.accessibilityIdentifier = "servingQty"
+        inputField.leftImage = #imageLiteral(resourceName: "message")
         return inputField
     }()
     
