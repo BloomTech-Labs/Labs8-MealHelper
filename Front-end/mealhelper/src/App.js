@@ -10,6 +10,9 @@ import Meals from "./components/Meals/Meals";
 import HomePage from "./components/homepage/homepage";
 import Weather from "./components/weather/weather";
 import Recipes from "./components/recipes/recipes";
+import MyRecipes from './components/recipes/myrecipes';
+import RecipeBook from './components/recipebook/recipebook';
+import CreateNewRecipe from './components/creatnewrecipe/createnewrecipe';
 // import LandingPage from "./components/landingpage/landingpage";
 import MyIngredients from "./components/recipes/myrecipe";
 import MyWeather from "./components/weather/myweather";
@@ -36,7 +39,11 @@ class App extends Component {
 						path="/homepage/weather/myweather"
 						render={() => <MyWeather />}
 					/>
-					<Route path="/homepage/recipes" render={() => <Recipes />} />
+					<Route exact path="/homepage/recipes" render={() => <Recipes />} />
+					<Route path="/homepage/recipes/myrecipes" render={() => <MyRecipes />} />
+					<Route path="/homepage/recipes/recipebook" render={() => <RecipeBook />} />
+					<Route path="/homepage/recipes/createnewrecipe" render={() => <CreateNewRecipe />} />
+
 					<Route
 						path="/homepage/ingredients/myingredients"
 						render={() => <MyIngredients />}

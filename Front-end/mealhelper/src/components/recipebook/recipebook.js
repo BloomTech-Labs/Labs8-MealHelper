@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
-import { getMeals } from "../../store/actions/mealActions.js";
+import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import axios from "axios";
-import Recipe from "./recipe";
-import "./recipes.css";
+import MyRecipes from "../recipes/myrecipes";
+import "../recipes/recipes.css";
 
-class MyRecipes extends Component {
+class RecipeBook extends Component {
 	constructor(props) {
 		super(props);
 
@@ -19,17 +19,24 @@ class MyRecipes extends Component {
 			ndbno: null
 		};
 	}
-	componentDidMount() {
-		const id = this.props.user.userID;
-		this.props.getMeals(id);
-	}
-	componentWillReceiveProps(nextProps) {
-		this.setState({ list: nextProps.meals });
-	}
-
-	settingState() {
-		this.setState({ list: this.props.meals });
-	}
+	searchFood = event => {
+		event.preventDefault();
+		axios
+			.get(
+				`https://api.nal.usda.gov/ndb/search/?format=json&q=${
+					this.state.search
+				}&sort=n&max=25&offset=0&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6`
+			)
+			.then(response => {
+				console.log(response);
+				this.setState({
+					list: response.data.list.item
+				});
+			})
+			.catch(error => {
+				console.log("Error", error);
+			});
+	};
 
 	handleChange = event => {
 		event.preventDefault();
@@ -43,6 +50,9 @@ class MyRecipes extends Component {
 			<div className="weather-container">
 				<div className="home-container">
 					<div className="sidebar">
+						<Link to="/homepage/weather" style={{ textDecoration: "none" }}>
+							<h2 className="titlelinks">Weather</h2>
+						</Link>
 						<Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
 							<h2 className="titlelinks">Recipes</h2>
 						</Link>
@@ -60,10 +70,14 @@ class MyRecipes extends Component {
 						</Link>
 					</div>
 					<div className="recipe-card">
-					<h2>My Recipes</h2>
-					<div className="dynamic-display">
+					<h1>Recipe Book</h1>
+					<Link to="/homepage/recipes/myrecipes" style={{ textDecoration: "none" }}>
+					<h2>Add A New Recipe</h2>
+					</Link> 
+						
+						<div className="dynamic-display">
 						{this.state.list.map(item => (
-							<Recipe
+							<MyRecipes
 								item={item}
 								key={item.ndbno}
 								name={item.name}
@@ -78,15 +92,11 @@ class MyRecipes extends Component {
 	}
 }
 
-const mapStateToProps = state => {
-	console.log(state);
-	return {
-		user: state.userReducer.user,
-		meals: state.mealsReducer.meals
-	};
-};
+const mapStateToProps = state => ({
+	user: state.user
+});
 
 export default connect(
 	mapStateToProps,
-	{ getMeals }
-)(withRouter(MyRecipes));
+	{ addUser }
+)(withRouter(RecipeBook));
