@@ -16,6 +16,7 @@ class IngredientDetailViewController: UIViewController {
     var ingredient: Ingredient? {
         didSet {
             setupViews()
+            setupNutrientTable()
         }
     }
     weak var delegate: IngredientsTableViewController?
@@ -39,6 +40,8 @@ class IngredientDetailViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    private let nutrientTableView = NutrientDetailTableViewController()
     
     private lazy var addButton: UIButton = {
         let button = UIButton(type: .system)
@@ -75,11 +78,13 @@ class IngredientDetailViewController: UIViewController {
         view.addSubview(containerView)
         containerView.addSubview(ingredientSummaryView)
         containerView.addSubview(foodLabelView)
+        containerView.addSubview(nutrientTableView.tableView)
         containerView.addSubview(addButton)
         
         containerView.centerInSuperview(size: CGSize(width: view.bounds.width * 0.9, height: view.bounds.height * 0.8))
         ingredientSummaryView.anchor(top: containerView.topAnchor, leading: containerView.leadingAnchor, bottom: nil, trailing: containerView.trailingAnchor)
         foodLabelView.anchor(top: ingredientSummaryView.bottomAnchor, leading: containerView.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: containerView.layoutMarginsGuide.trailingAnchor, padding: UIEdgeInsets(top: 10.0, left: 0.0, bottom: 0.0, right: 0.0))
+        nutrientTableView.tableView.anchor(top: foodLabelView.bottomAnchor, leading: containerView.layoutMarginsGuide.leadingAnchor, bottom: addButton.topAnchor, trailing: containerView.layoutMarginsGuide.trailingAnchor)
         addButton.anchor(top: nil, leading: containerView.leadingAnchor, bottom: containerView.bottomAnchor, trailing: containerView.trailingAnchor, size: CGSize(width: 0.0, height: 40.0))
         
         view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
@@ -121,6 +126,21 @@ class IngredientDetailViewController: UIViewController {
         
         foodLabelView.heightAnchor.constraint(equalToConstant: accumulatedHeight + labelHeight + padding).isActive = true
         view.layoutIfNeeded()
+    }
+    
+    private func setupNutrientTable() {
+        guard let ingredient = ingredient, let ndbno = ingredient.nbdId else { return }
+        
+        FoodClient.shared.fetchUsdaNutrients(for: ndbno) { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let nutrients):
+                    self.nutrientTableView.nutrients = nutrients
+                case .error(let error):
+                    NSLog("Error fetching ingredients: \(error)")
+                }
+            }
+        }
     }
     
     private func createFoodLabel(with title: String, isSelected: Bool) -> UILabel {

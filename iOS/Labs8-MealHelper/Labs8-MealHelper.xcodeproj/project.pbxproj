@@ -345,9 +345,9 @@
 				AC85F3D4219E3525007765CA /* CameraPreview.swift */,
 				3DFEEDAF21A2FBA300465FCB /* BarcodeScanner.swift */,
 				AC85F3CF219E3524007765CA /* FoodClient.swift */,
-				AC8F0B58219E3AE300E623FB /* MealEntry.xcassets */,
 				3DDB4A1B21A774E4007A1B5E /* SwipeableViewController.swift */,
 				3DB3341421ADB216002602C7 /* NutrientDetailTableViewController.swift */,
+				AC8F0B58219E3AE300E623FB /* MealEntry.xcassets */,
 			);
 			path = MealEntry;
 			sourceTree = "<group>";
