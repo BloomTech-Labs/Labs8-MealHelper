@@ -92,16 +92,9 @@ class AddAlarms extends Component {
         className="time"
         name="beginTime"
         placeholder="Start Time"
-        //onChange={startOpt => console.log("start time", startOpt.label, startOpt.value)}
         onChange={opt => this.setState({ beginTime: opt.value })}
          />
-          {/* <input
-            className="time"
-            name="beginTime"
-            value={this.state.beginTime}
-            onChange={this.handleChange}
-            placeholder="Beginning Time"
-          /> */}
+      
         <Select 
         options={options}
         className="time"
