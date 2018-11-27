@@ -19,6 +19,7 @@
 		3D77DD1A219F111B009B21ED /* ProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D77DD19219F111B009B21ED /* ProgressIndicator.swift */; };
 		3D90DE712194D46D006C116B /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D90DE702194D46D006C116B /* Login.xcassets */; };
 		3DB18BE82196FAB800C0E728 /* InputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB18BE72196FAB800C0E728 /* InputField.swift */; };
+		3DB3341521ADB216002602C7 /* NutrientDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3341421ADB216002602C7 /* NutrientDetailTableViewController.swift */; };
 		3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F242196200D007AA68A /* HTTPMethod.swift */; };
 		3DB65F282196200D007AA68A /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F252196200D007AA68A /* APIClient.swift */; };
 		3DB65F292196200D007AA68A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F262196200D007AA68A /* Response.swift */; };
@@ -103,6 +104,7 @@
 		3D77DD19219F111B009B21ED /* ProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicator.swift; sourceTree = "<group>"; };
 		3D90DE702194D46D006C116B /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
 		3DB18BE72196FAB800C0E728 /* InputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputField.swift; sourceTree = "<group>"; };
+		3DB3341421ADB216002602C7 /* NutrientDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutrientDetailTableViewController.swift; sourceTree = "<group>"; };
 		3DB65F242196200D007AA68A /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPMethod.swift; path = "Labs8-MealHelper/Networking/HTTPMethod.swift"; sourceTree = SOURCE_ROOT; };
 		3DB65F252196200D007AA68A /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIClient.swift; path = "Labs8-MealHelper/Networking/APIClient.swift"; sourceTree = SOURCE_ROOT; };
 		3DB65F262196200D007AA68A /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Response.swift; path = "Labs8-MealHelper/Networking/Response.swift"; sourceTree = SOURCE_ROOT; };
@@ -345,6 +347,7 @@
 				AC85F3CF219E3524007765CA /* FoodClient.swift */,
 				AC8F0B58219E3AE300E623FB /* MealEntry.xcassets */,
 				3DDB4A1B21A774E4007A1B5E /* SwipeableViewController.swift */,
+				3DB3341421ADB216002602C7 /* NutrientDetailTableViewController.swift */,
 			);
 			path = MealEntry;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				AC85F393219E1071007765CA /* Extensions.swift in Sources */,
 				AC85F3E4219E3526007765CA /* FoodsTableViewController.swift in Sources */,
 				3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */,
+				3DB3341521ADB216002602C7 /* NutrientDetailTableViewController.swift in Sources */,
 				AC1DE867219473DD0066172C /* HomeViewController.swift in Sources */,
 				AC62FAD1219B499600D8C35C /* HomeCollectionView.swift in Sources */,
 			);

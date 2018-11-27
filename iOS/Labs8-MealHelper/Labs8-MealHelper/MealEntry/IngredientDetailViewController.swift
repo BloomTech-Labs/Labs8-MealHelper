@@ -91,6 +91,8 @@ class IngredientDetailViewController: UIViewController {
     
     private func setupFoodLabels() {
         var previous: UILabel?
+        let labelHeight: CGFloat = 30.0
+        let padding: CGFloat = 8.0
         var accumulatedWidth: CGFloat = 0.0
         var accumulatedHeight: CGFloat = 0.0
         
@@ -99,25 +101,25 @@ class IngredientDetailViewController: UIViewController {
             let foodLabel = createFoodLabel(with: label, isSelected: isSelected)
             foodLabelView.addSubview(foodLabel)
             
-            foodLabel.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
+            foodLabel.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
             foodLabel.widthAnchor.constraint(equalToConstant: foodLabel.intrinsicContentSize.width + 20.0).isActive = true
             accumulatedWidth += foodLabel.intrinsicContentSize.width + 20.0
             
             if let previous = previous {
                 if accumulatedWidth > foodLabelView.bounds.width {
-                    foodLabel.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 8.0).isActive = true
+                    foodLabel.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: padding).isActive = true
                     accumulatedWidth = 0.0
-                    accumulatedHeight += 30.0 + 8.0
+                    accumulatedHeight += labelHeight + padding
                 } else {
                     foodLabel.topAnchor.constraint(equalTo: foodLabelView.topAnchor, constant: accumulatedHeight).isActive = true
-                    foodLabel.leadingAnchor.constraint(equalTo: previous.trailingAnchor, constant: 8.0).isActive = true
+                    foodLabel.leadingAnchor.constraint(equalTo: previous.trailingAnchor, constant: padding).isActive = true
                 }
             }
             
             previous = foodLabel
         }
         
-        foodLabelView.heightAnchor.constraint(equalToConstant: accumulatedHeight + 38.0).isActive = true
+        foodLabelView.heightAnchor.constraint(equalToConstant: accumulatedHeight + labelHeight + padding).isActive = true
         view.layoutIfNeeded()
     }
     
@@ -133,7 +135,7 @@ class IngredientDetailViewController: UIViewController {
         return label
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { // Dismisses the view when user taps outside of the detail view.
         guard let touch = touches.first, let tappedView = touch.view else { return }
         
         if tappedView != containerView && !tappedView.isDescendant(of: containerView) {
