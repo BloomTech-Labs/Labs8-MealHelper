@@ -61,17 +61,30 @@ class AddAlarms extends Component {
     console.log("start time", this.state.beginTime)
     console.log("end time", this.state.endTime)
     console.log("hours between", this.state.repeats)
+    // if (!this.state.beginTime || !this.state.endTime || !this.state.repeats) {
+    //   //alert that all fields are required
+    // }
+    // else {
+      let start = this.state.beginTime; //200
+      let end = this.state.endTime; //800
+      let repeats = +(this.state.repeats) * 100;
+      console.log("repeats", repeats)
+      let alarmTimes = [];
+      for (let i = start; i <= end; i+=repeats) {
+        alarmTimes.push(i);
+      }
+     // }
+      console.log("alarmTimes", alarmTimes);
+    }
     //make sure all required fields are filled in
     //get fields from state
+    //calculate how many alarms between beginTime and endTime using repeats
+    //take amount of alarms and insert bulk data to database
     //assign values to alarm body
     //pass alarm body to addAlarm actions
     //this.props.history.push to alarms list
-  }
-
-
-  //convert beginTime and endTime to military time
-  //calculate how many alarms between beginTime and endTime using repeats
-  //take amount of alarms and insert bulk data to database
+  
+  
 
   render() {
     return (
@@ -101,13 +114,6 @@ class AddAlarms extends Component {
         placeholder="End Time"
         onChange={opt => this.setState({ endTime: opt.value })}
         />
-          {/* <input
-            className="time"
-            name="endTime"
-            value={this.state.endTime}
-            onChange={this.handleChange}
-            placeholder="Ending Time"
-          /> */}
           <input
             className="repeats"
             name="repeats"
