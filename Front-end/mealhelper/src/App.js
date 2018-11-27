@@ -5,14 +5,14 @@ import { Route, Switch, Link } from 'react-router-dom';
 
 /////Dev. Created/////////
 
-import Signup from './components/signup/signup';
-import Login from './components/login/login';
-import HomePage from './components/homepage/homepage';
-import Weather from './components/weather/weather';
-import Recipes from './components/recipes/recipes';
+//import Signup from './components/signup/signup';
+//import Login from './components/login/login';
+//import HomePage from './components/homepage/homepage';
+//import Weather from './components/weather/weather';
+//import Recipes from './components/recipes/recipes';
 // import LandingPage from "./components/landingpage/landingpage";
-import MyIngredients from './components/recipes/myrecipe';
-import MyWeather from './components/weather/myweather';
+//import MyIngredients from './components/recipes/myrecipe';
+//import MyWeather from './components/weather/myweather';
 import GetIngredient from './components/ingredients/getIngredient';
 
 import Signup from "./components/signup/signup";
