@@ -213,7 +213,7 @@ server.get("/users/:userid/meals", (req, res) => {
 			res.status(200).json(meal);
 		})
 		.catch(err => {
-			res.status(400).json({ error: "could not find meal" });
+			res.status(400).json({ error: "Could not find meal" });
 		});
 });
 
@@ -235,7 +235,7 @@ server.get("/users/:id/meals/:mealId", (req, res) => {
 				});
 		})
 		.catch(err => {
-			res.status(400).json({ error: "could not find meal" });
+			res.status(400).json({ error: "Could not find meal" });
 		});
 });
 
