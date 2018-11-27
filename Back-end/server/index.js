@@ -213,7 +213,7 @@ server.get("/users/:userid/meals", (req, res) => {
 			res.status(200).json(meal);
 		})
 		.catch(err => {
-			res.status(400).json({ error: "could not find meal" });
+			res.status(400).json({ error: "Could not find meal" });
 		});
 });
 
@@ -235,16 +235,40 @@ server.get("/users/:id/meals/:mealId", (req, res) => {
 				});
 		})
 		.catch(err => {
-			res.status(400).json({ error: "could not find meal" });
+			res.status(400).json({ error: "Could not find meal" });
 		});
 });
 
 server.post("/users/:userid/meals", (req, res) => {
 	//grabs either the user id from req.params OR from the req.body (need to make choice later)
-	const userId = req.params.userid;
-	const { user_id, mealTime, experience, date } = req.body;
+
+	const {
+		user_id,
+		mealTime,
+		experience,
+		date,
+		notes,
+		name,
+		temp,
+		humidity,
+		pressure,
+		recipe_id,
+		servings
+	} = req.body;
 	//Grabs the associated data from req.body and sets it as a JSON to meal
-	const meal = { user_id, mealTime, experience, date };
+	const meal = {
+		user_id,
+		mealTime,
+		experience,
+		date,
+		notes,
+		name,
+		temp,
+		humidity,
+		pressure,
+		recipe_id,
+		servings
+	};
 	console.log(meal);
 
 	db("mealList")
@@ -260,8 +284,32 @@ server.post("/users/:userid/meals", (req, res) => {
 //PUT request to change the recipes, meal time, experience or experience
 server.put("/meals/:mealID", (req, res) => {
 	const id = req.params.mealID;
-	const { user_id, mealTime, experience } = req.body;
-	const meal = { user_id, mealTime, experience };
+	const {
+		user_id,
+		mealTime,
+		experience,
+		date,
+		notes,
+		name,
+		temp,
+		humidity,
+		pressure,
+		recipe_id,
+		servings
+	} = req.body;
+	const meal = {
+		user_id,
+		mealTime,
+		experience,
+		date,
+		notes,
+		name,
+		temp,
+		humidity,
+		pressure,
+		recipe_id,
+		servings
+	};
 	db("mealList")
 		.where({ id: id })
 		.update({

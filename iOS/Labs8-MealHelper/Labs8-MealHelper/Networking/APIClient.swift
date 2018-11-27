@@ -12,6 +12,41 @@ class APIClient {
     
     static let shared = APIClient()
     
+    func fetchMeals(completion: @escaping (Response<[Meal]>) -> ()) {
+        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/users/1/meals/")!
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = HTTPMethod.get.rawValue
+        
+        URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
+            
+            if let error = error {
+                NSLog("Error with urlReqeust: \(error)")
+                completion(Response.error(error))
+                return
+            }
+            
+            guard let data = data else {
+                NSLog("Error unwrapping data")
+                completion(Response.error(NSError()))
+                return
+            }
+            
+            do {
+                
+                let meal = try JSONDecoder().decode([Meal].self, from: data)
+                completion(Response.success(meal))
+                
+            } catch {
+                NSLog("Error decoding data: \(error)")
+                completion(Response.error(error))
+                return
+            }
+            
+        }.resume()
+    }
+    
+    
     //Gonna create a general fetch function we can use for all GET requests
 //    func fetch(items: <Resource: Codable>, httpMethod: HTTPMethod, endpoint: )
     
