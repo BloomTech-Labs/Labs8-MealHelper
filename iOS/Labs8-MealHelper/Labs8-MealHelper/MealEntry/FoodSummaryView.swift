@@ -27,7 +27,7 @@ class FoodSummaryView: UIView {
     var servingQty: String?
     var servingType: String?
     var servingQtys = (1...20).map { String($0) }
-    var servingTypes = ["cup", "100 g", "container", "ounce"]
+    var servingTypes = FoodHelper.Units.allCases.map { $0 } // ["cup", "100 g", "container", "ounce"]
     
     // MARK: - Private properties
     
@@ -134,7 +134,7 @@ extension FoodSummaryView: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView.accessibilityIdentifier {
         case "servingSize":
-            return servingTypes[row]
+            return servingTypes[row].rawValue
         case "servingQty":
             return servingQtys[row]
         default:
@@ -146,14 +146,16 @@ extension FoodSummaryView: UIPickerViewDelegate, UIPickerViewDataSource {
         switch pickerView.accessibilityIdentifier {
         case "servingSize":
             let type = servingTypes[row]
-            servingSizeInputField.text = type
-            servingType = type
+            servingSizeInputField.text = type.rawValue
+            servingType = type.rawValue
         //setServingType(with: type, for: food)
+            NotificationCenter.default.post(name: .MHServingTypeDidChange, object: nil, userInfo: ["servingType": type])
         case "servingQty":
             let qty = servingQtys[row]
             servingQtyInputField.text = qty
             servingQty = qty
         //setServingQty(with: qty, for: food)
+            NotificationCenter.default.post(name: .MHServingQtyDidChange, object: nil, userInfo: ["servingQty": qty])
         default:
             break
         }

@@ -20,6 +20,8 @@
 		3D90DE712194D46D006C116B /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D90DE702194D46D006C116B /* Login.xcassets */; };
 		3DB18BE82196FAB800C0E728 /* InputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB18BE72196FAB800C0E728 /* InputField.swift */; };
 		3DB3341521ADB216002602C7 /* NutrientDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3341421ADB216002602C7 /* NutrientDetailTableViewController.swift */; };
+		3DB3341821ADD167002602C7 /* FoodHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3341721ADD167002602C7 /* FoodHelper.swift */; };
+		3DB3341A21ADD8EB002602C7 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3341921ADD8EB002602C7 /* Notification+Name.swift */; };
 		3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F242196200D007AA68A /* HTTPMethod.swift */; };
 		3DB65F282196200D007AA68A /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F252196200D007AA68A /* APIClient.swift */; };
 		3DB65F292196200D007AA68A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F262196200D007AA68A /* Response.swift */; };
@@ -105,6 +107,8 @@
 		3D90DE702194D46D006C116B /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
 		3DB18BE72196FAB800C0E728 /* InputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputField.swift; sourceTree = "<group>"; };
 		3DB3341421ADB216002602C7 /* NutrientDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutrientDetailTableViewController.swift; sourceTree = "<group>"; };
+		3DB3341721ADD167002602C7 /* FoodHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHelper.swift; sourceTree = "<group>"; };
+		3DB3341921ADD8EB002602C7 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
 		3DB65F242196200D007AA68A /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPMethod.swift; path = "Labs8-MealHelper/Networking/HTTPMethod.swift"; sourceTree = SOURCE_ROOT; };
 		3DB65F252196200D007AA68A /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIClient.swift; path = "Labs8-MealHelper/Networking/APIClient.swift"; sourceTree = SOURCE_ROOT; };
 		3DB65F262196200D007AA68A /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Response.swift; path = "Labs8-MealHelper/Networking/Response.swift"; sourceTree = SOURCE_ROOT; };
@@ -188,6 +192,7 @@
 				3D56A9FD21939D3A00A91EF4 /* AutoLayout.swift */,
 				AC85F392219E1071007765CA /* Extensions.swift */,
 				3D131CD421A198B3009681D0 /* UserDefault+Helper.swift */,
+				3DB3341921ADD8EB002602C7 /* Notification+Name.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -335,6 +340,7 @@
 		AC85F3C9219E3510007765CA /* MealEntry */ = {
 			isa = PBXGroup;
 			children = (
+				3DB3341721ADD167002602C7 /* FoodHelper.swift */,
 				AC85F3D5219E3525007765CA /* FoodsTableViewController.swift */,
 				AC85F3D6219E3525007765CA /* FoodTableViewCell.swift */,
 				AC85F3CA219E3523007765CA /* FoodSummaryView.swift */,
@@ -522,6 +528,7 @@
 				3DB65F292196200D007AA68A /* Response.swift in Sources */,
 				AC85F38A219E0B2F007765CA /* LoadingButton.swift in Sources */,
 				3DFEEDB021A2FBA300465FCB /* BarcodeScanner.swift in Sources */,
+				3DB3341A21ADD8EB002602C7 /* Notification+Name.swift in Sources */,
 				3D131CD521A198B3009681D0 /* UserDefault+Helper.swift in Sources */,
 				AC85F3C8219E350C007765CA /* Food.swift in Sources */,
 				AC85F3DF219E3526007765CA /* CameraViewController.swift in Sources */,
@@ -534,6 +541,7 @@
 				3D77DD1A219F111B009B21ED /* ProgressIndicator.swift in Sources */,
 				AC85F3DE219E3526007765CA /* FoodClient.swift in Sources */,
 				AC8F0B57219E375300E623FB /* Utils.swift in Sources */,
+				3DB3341821ADD167002602C7 /* FoodHelper.swift in Sources */,
 				3D77DD17219EF4A8009B21ED /* WeatherView.swift in Sources */,
 				AC85F3E3219E3526007765CA /* CameraPreview.swift in Sources */,
 				3DB18BE82196FAB800C0E728 /* InputField.swift in Sources */,
