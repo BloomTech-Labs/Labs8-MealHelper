@@ -74,7 +74,7 @@ class AddAlarms extends Component {
      //create new alarmslist table
      //split alarmTimes, add note field to alarm body
      //bulk send alarmTimes to alarmslist
-     this.props.history.push('/homepage/alarms')
+    // this.props.history.push('/homepage/alarms')
      }
  
     }
