@@ -16,6 +16,12 @@ class MealCell: UICollectionViewCell {
         }
     }
    
+    let mealName: UILabel = {
+        let label = UILabel()
+        label.sizeToFit()
+        
+        return label
+    }()
     
     
     

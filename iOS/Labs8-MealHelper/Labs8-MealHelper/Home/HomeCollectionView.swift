@@ -29,6 +29,7 @@ class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
         dataSource = self
         backgroundColor = .white
         register(MealCell.self, forCellWithReuseIdentifier: cellId)
+        contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

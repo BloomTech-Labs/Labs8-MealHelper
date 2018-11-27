@@ -11,16 +11,25 @@ import ExpandableButton
 
 class HomeViewController: UIViewController, UICollectionViewDelegate {
 
-    let headerView: HomeHeaderView = {
-        let hv = HomeHeaderView()
+    var timer: Timer?
+    
+    let countDownLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = Appearance.appFont(with: 50)
+        label.text = "60.00"
+        label.sizeToFit()
         
-        return hv
+        return label
     }()
+    
     
     lazy var collectionView: HomeCollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = HomeCollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.scrollDelegate = self
+        cv.layer.cornerRadius = 16
+        cv.layer.masksToBounds = true
         
         return cv
     }()
@@ -35,49 +44,67 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     lazy var expandableButtonView: ExpandableButtonView = {
         let ebv = ExpandableButtonView(buttonSizes: CGSize(width: 50, height: 50))
         ebv.buttonImages(main: UIImage(named: "plus")!, mostLeft: UIImage(named: "plus")!, left: UIImage(named: "apple")!, right: UIImage(named: "plus")!, mostRight: UIImage(named: "plus")!)
-        ebv.buttonColors(main: .black, mostLeft: .black, left: .black, right: .black, mostRight: .black)
-        ebv.isLineHidden = false
-        ebv.lineColor = .lightGray
-        ebv.lineWidth = 0.5
+        ebv.buttonColors(main: .white, mostLeft: .white, left: .white, right: .white, mostRight: .white)
+        ebv.isLineHidden = true
         ebv.collapseWhenTapped = true
         ebv.delegate = self
         
         return ebv
     }()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(handleCountdown), userInfo: nil, repeats: true)
+    }
+    
+    @objc private func handleCountdown() {
+        var currentTime = Double(countDownLabel.text!)!
+        currentTime -= 1
+        countDownLabel.text = String(currentTime)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         setupFooterView()
     }
     
-    func resetHeaderHeight() {
-        self.headerViewHeightAnchor?.constant = 200
+    override func viewDidLayoutSubviews() {
         
-        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
-        self.view.layoutIfNeeded()
-        }, completion: nil)
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [UIColor.sunOrange.cgColor, UIColor.sunRed.cgColor]
+        gradientLayer.locations = [0.0, 0.75]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+
+        view.layer.insertSublayer(gradientLayer, at: 0)
+        
+//        view.setGradientBackground(colorOne: UIColor.sunOrange.cgColor, colorTwo: UIColor.sunRed.cgColor, startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0.8, y: 0.3))
     }
     
-    private var headerViewHeightAnchor: NSLayoutConstraint?
-    
+ 
     private func setupFooterView() {
         
-        view.addSubview(headerView)
-        headerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor)
-        headerViewHeightAnchor = headerView.heightAnchor.constraint(equalToConstant: 200)
-        headerViewHeightAnchor?.isActive = true
+        view.addSubview(countDownLabel)
+        countDownLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 150, left: 0, bottom: 0, right: 0), size: .zero)
+        countDownLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(collectionView)
-        collectionView.anchor(top: headerView.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        collectionView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .zero, size: CGSize(width: view.frame.width, height: 400))
+        collectionView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         
         view.addSubview(footerView)
         footerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0), size: CGSize(width: view.frame.width, height: 50))
         
-        footerView.addSubview(expandableButtonView)
-        expandableButtonView.centerInSuperview(size: CGSize(width: 300, height: 53))
+        view.addSubview(expandableButtonView)
+        expandableButtonView.anchor(top: nil, leading: nil, bottom: collectionView.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0), size: CGSize(width: 300, height: 50))
+        expandableButtonView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
-    
 }
 
 extension HomeViewController: ExpandableButtonViewDelegate {
@@ -96,28 +123,6 @@ extension HomeViewController: ExpandableButtonViewDelegate {
             print("Right")
         case .mostRight:
             print("Most Right")
-        }
-    }
-}
-
-extension HomeViewController: HomeCollectionViewDelegate {
-    
-    func didScrollDown(offsetY: CGFloat) {
-        headerViewHeightAnchor?.constant += abs(offsetY)
-    }
-    
-    func didScrollUp(offsetY: CGFloat) {
-        if headerViewHeightAnchor?.constant ?? 0 > 65 {
-            headerViewHeightAnchor?.constant -= offsetY/75
-            if headerViewHeightAnchor?.constant ?? 0 < 65 {
-                headerViewHeightAnchor?.constant = 65
-            }
-        }
-    }
-    
-    func didEndDragging() {
-        if headerViewHeightAnchor?.constant ?? 0 > 200 {
-            resetHeaderHeight()
         }
     }
 }
