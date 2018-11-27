@@ -11,14 +11,27 @@ export default class GetIngredient extends Component {
 		};
 	}
 
+	getNutrients = async () => {
+		let req_ndbno = this.state.ingredient.ndbno;
+		const nutr_Info = await axios
+			.get('https://api.nal.usda.gov/ndb/reports', {
+				params: {
+					ndbno: { req_ndbno },
+					type: 'b',
+					format: 'json',
+					api_key: 'c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6'
+				}
+			})
+			.then(res => (nutr_Info = res.data))
+			.catch(err => {
+				console.log(err + '\n' + 'statusCode: ', err.status);
+			});
+	};
+
 	handleSelect = async e => {
 		e.preventDefault();
 		this.getNutrients()
-			.then(
-				axios({
-					method: 'GET'
-				})
-			)
+			.then(axios.post())
 			.catch();
 	};
 
