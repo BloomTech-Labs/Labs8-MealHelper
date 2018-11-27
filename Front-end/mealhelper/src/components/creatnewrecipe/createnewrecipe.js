@@ -89,7 +89,8 @@ class CreateNewRecipe extends Component {
             servings
 		} = this.state;
 		const recipe = {
-			user_id,
+            user_id,
+            ingredient_id,
             name,
             calories,
             servings
@@ -97,9 +98,13 @@ class CreateNewRecipe extends Component {
 		this.props.addRecipe(recipe);
     };
     
-    saveItem = (item) => {
+    saveItem = (item, event) => {
+        console.log(event);
+        event.preventDefault();
+        const { manu, ndbno } = item;
+        const ingredient = { manu, ndbno };
         this.setState ({
-            ingredients: item
+            ingredients: ingredient
         });
     }
 
@@ -137,7 +142,7 @@ class CreateNewRecipe extends Component {
 						<ModalBody>
 							<p>Details</p>
                             <hr/>
-							<form>
+							<form onSubmit={this.handleSubmit}>
                             <p>Recipe Name:</p>
 								<input
 									id="name"
@@ -160,21 +165,19 @@ class CreateNewRecipe extends Component {
 								    placeholder="Calories"
 							/>
                             <br/>
-                            <p>Recipe Ingredients:</p>
-                            <form onSubmit={this.handleSubmit}>
+                            <p>Recipe Ingredients: {this.state.ingredients}</p>
 							<input
 								className="food-search"
-								type="text-title"
-								name="search"
-								value={this.state.ingredients}
-								onChange={this.handleChange}
-								placeholder="Search Food. . ."
+								type="text"
+                                name="search"
+                                onChange={this.handleChange}
+								value={this.state.search}
+								placeholder="Search Ingredients. . ."
 								required
 							/>
                             <br/>
 							<button onClick={this.searchIngredients}>Search</button>
                             <button onClick={this.addIngredients}>Add</button>
-						</form>
 						<div className="dynamic-display">
 						{this.state.list.map(item => (
 							<button
@@ -222,10 +225,9 @@ class CreateNewRecipe extends Component {
 }
 
 const mapStateToProps = state => {
-	console.log(state);
 	return {
 		user: state.userReducer.user,
-		meals: state.mealsReducer.meals
+		recipe: state.recipesReducer.recipe
 	};
 };
 
