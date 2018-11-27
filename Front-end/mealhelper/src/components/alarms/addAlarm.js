@@ -51,10 +51,6 @@ class AddAlarms extends Component {
     });
   };
 
-  dropDownState = opt => {
-    this.setState({ beginTime: opt })
-  }
-
   addAlarm = event => {
     event.preventDefault();
     console.log("hello!")
@@ -74,16 +70,14 @@ class AddAlarms extends Component {
         alarmTimes.push(i);
       }
       console.log("alarmTimes", alarmTimes);
+     //send beginTime/endTime/repeats to alarms table
+     //create new alarmslist table
+     //split alarmTimes, add note field to alarm body
+     //bulk send alarmTimes to alarmslist
+     this.props.history.push('/homepage/alarms')
      }
  
     }
-    //make sure all required fields are filled in
-    //get fields from state
-    //calculate how many alarms between beginTime and endTime using repeats
-    //take amount of alarms and insert bulk data to database
-    //assign values to alarm body
-    //pass alarm body to addAlarm actions
-    //this.props.history.push to alarms list
   
   
 
