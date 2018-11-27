@@ -1,12 +1,31 @@
 .recipe-card {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-content: center;
-    width: 600px;
-    height: 300px;
+    margin-right: 25%;
+    margin-top: 5%;
+    width: 900px;
+    height: 500px;
     outline: 3px solid #F1E7E8;
     background: linear-gradient(
         rgb(163, 206, 160, .75), 
         rgb(163, 206, 160, .75));
+}
+
+.titlelinksrecipe {
+    display: flex;
+    justify-content: flex-end;
+    line-height: 1.2em;
+    color: #F1E7E8;
+    padding: 5%;
+}
+
+.in-app-links {
+    text-decoration: none;
+}
+
+.titlelinksrecipe:hover {
+  font-weight: 600;
+  color: orange;
 }
