@@ -8,17 +8,19 @@
 
 import Foundation
 
-struct User: Encodable {
+struct User: Codable {
     
     var email: String?
     var password: String?
     var zip: Int?
     var healthCondition: String?
+    var id: Int?
     
     enum CodingKeys: String, CodingKey {
         case email
         case password
         case zip
         case healthCondition
+        case id
     }
 }

@@ -16,7 +16,7 @@ class MealSetupTableViewController: UITableViewController {
     var recipes: [Recipe]?
     
     // MARK: - Private properties
-
+    
     lazy private var saveBarButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
     
     // MARK: - Life Cycle
@@ -36,20 +36,20 @@ class MealSetupTableViewController: UITableViewController {
         
         setupViews()
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipes?.count ?? 0
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MealSetup", for: indexPath) as! MealSetupTableViewCell
-
+        
         cell.recipe = recipes?[indexPath.row]
         cell.backgroundColor = UIColor.lightGray
         
@@ -60,8 +60,13 @@ class MealSetupTableViewController: UITableViewController {
     
     @objc func save() {
         print("saved")
-        let meal = Meal(mealTime: "", experience: "", date: "", userId: 1)
+        // let meal = Meal(mealTime: "", experience: "", date: "", userId: 1)
         // API call to /users/:userid/meals
+        // TODO: Pass in user, or probably leave it out and have FoodClient extract user id
+        FoodClient.shared.postMeal(with: User(), mealTime: "Lunch", experience: "happy", date: "11/16/2018") { (response) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
     }
     
     // MARK: - Configuration
@@ -72,7 +77,7 @@ class MealSetupTableViewController: UITableViewController {
         
         tableView.allowsSelection = false
     }
-
+    
 }
 
 // MARK: - MealSetupTableViewCellDelegate
@@ -150,6 +155,7 @@ class MealSetupFooterView: UIView {
     
     var date: Date?
     var note: String?
+    var weatherView = WeatherView()
     
     // MARK: - Private properties
     
@@ -206,6 +212,7 @@ class MealSetupFooterView: UIView {
         // Main view
         self.addSubview(mainStackView)
         mainStackView.addArrangedSubview(notesTextView)
+        mainStackView.addArrangedSubview(weatherView)
         mainStackView.addArrangedSubview(dateTextField)
         
         mainStackView.anchor(top: self.layoutMarginsGuide.topAnchor, leading: self.layoutMarginsGuide.leadingAnchor, bottom: self.layoutMarginsGuide.bottomAnchor, trailing: self.layoutMarginsGuide.trailingAnchor, padding: UIEdgeInsets(top: 16.0, left: 0.0, bottom: 0.0, right: 0.0))
