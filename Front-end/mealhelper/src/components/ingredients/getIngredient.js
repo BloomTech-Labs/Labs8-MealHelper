@@ -11,9 +11,10 @@ export default class GetIngredient extends Component {
 		};
 	}
 
-	getNutrients = async () => {
-		let req_ndbno = this.state.ingredient.ndbno;
-		const nutr_Info = await axios
+	getNutrients = () => {
+		let req_ndbno = this.state.ingredients.ndbno;
+
+		axios
 			.get('https://api.nal.usda.gov/ndb/reports', {
 				params: {
 					ndbno: { req_ndbno },
@@ -22,7 +23,11 @@ export default class GetIngredient extends Component {
 					api_key: 'c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6'
 				}
 			})
-			.then(res => (nutr_Info = res.data))
+			.then(res => {
+				let nutr_Info = res.data;
+				console.log(nutr_Info);
+				return nutr_Info;
+			})
 			.catch(err => {
 				console.log(err + '\n' + 'statusCode: ', err.status);
 			});
@@ -32,7 +37,9 @@ export default class GetIngredient extends Component {
 		e.preventDefault();
 		this.getNutrients()
 			.then(axios.post())
-			.catch();
+			.catch(err => {
+				console.log(err + '\n' + 'statusCode: ', err.status);
+			});
 	};
 
 	componentDidMount = () => {
