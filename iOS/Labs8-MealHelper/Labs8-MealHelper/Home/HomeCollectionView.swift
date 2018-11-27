@@ -8,16 +8,15 @@
 
 import UIKit
 
-protocol HomeCollectionViewDelegate: class {
-    func didScrollDown(offsetY: CGFloat)
-    func didScrollUp(offsetY: CGFloat)
-    func didEndDragging()
-}
-
 class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
-    weak var scrollDelegate: HomeCollectionViewDelegate?
     private let cellId = "mealCell"
+    
+    var meals: [Meal]? {
+        didSet {
+            self.reloadData()
+        }
+    }
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
@@ -33,11 +32,17 @@ class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return meals?.count ?? 0
         return 50
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MealCell
+        
+//        let meal = meals?[indexPath.item]
+//        cell.mealNameLabel.text = meal?.mealTime
+//        cell.dateLabel.text = meal?.date
+//        cell.experienceLabel.text = meal?.experience
         
         return cell
     }
@@ -49,23 +54,4 @@ class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
-
-extension HomeCollectionView: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y < 0 {
-            scrollDelegate?.didScrollDown(offsetY: scrollView.contentOffset.y)
-        } else if scrollView.contentOffset.y > 0 {
-            scrollDelegate?.didScrollUp(offsetY: scrollView.contentOffset.y)
-        }
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        scrollDelegate?.didEndDragging()
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        scrollDelegate?.didEndDragging()
-    }
-    
 }

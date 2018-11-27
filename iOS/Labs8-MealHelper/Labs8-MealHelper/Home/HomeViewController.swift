@@ -59,6 +59,18 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        APIClient.shared.fetchMeals { (response) in
+            
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let meals):
+                    self.collectionView.meals = meals
+                case .error(let error):
+                    self.showAlert(with: "Unable to load your meals, please check your internet connection and try again.")
+                }
+            }
+        }
+        
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(handleCountdown), userInfo: nil, repeats: true)
     }
     
@@ -91,7 +103,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     private func setupFooterView() {
         
         view.addSubview(countDownLabel)
-        countDownLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 150, left: 0, bottom: 0, right: 0), size: .zero)
+        countDownLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 150, left: 0, bottom: -8, right: 0), size: .zero)
         countDownLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(collectionView)
