@@ -930,7 +930,7 @@ server.post("/alarms/:userid", (req, res) => {
 	const { time } = req.body;
 	const label = "";
 	//Adds the user id to the alarm object
-	const alarm = { beginTime, endTime, beginLimit, endLimit, repeats, user_ID };
+	const alarm = { time, label, user_ID };
 	db("alarms")
 		//Inserts the alarm and sets it to the user
 		.insert(alarm)
