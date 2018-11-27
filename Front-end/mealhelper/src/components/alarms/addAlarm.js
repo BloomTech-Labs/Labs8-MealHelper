@@ -61,10 +61,10 @@ class AddAlarms extends Component {
     console.log("start time", this.state.beginTime)
     console.log("end time", this.state.endTime)
     console.log("hours between", this.state.repeats)
-    // if (!this.state.beginTime || !this.state.endTime || !this.state.repeats) {
-    //   //alert that all fields are required
-    // }
-    // else {
+    if (!this.state.beginTime || !this.state.endTime || !this.state.repeats) {
+      //alert that all fields are required
+    }
+    else {
       let start = this.state.beginTime; //200
       let end = this.state.endTime; //800
       let repeats = +(this.state.repeats) * 100;
@@ -73,8 +73,9 @@ class AddAlarms extends Component {
       for (let i = start; i <= end; i+=repeats) {
         alarmTimes.push(i);
       }
-     // }
       console.log("alarmTimes", alarmTimes);
+     }
+ 
     }
     //make sure all required fields are filled in
     //get fields from state
