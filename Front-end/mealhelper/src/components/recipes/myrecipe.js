@@ -43,9 +43,6 @@ class MyRecipes extends Component {
 			<div className="weather-container">
 				<div className="home-container">
 					<div className="sidebar">
-						<Link to="/homepage/weather" style={{ textDecoration: "none" }}>
-							<h2 className="titlelinks">Weather</h2>
-						</Link>
 						<Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
 							<h2 className="titlelinks">Recipes</h2>
 						</Link>
@@ -62,6 +59,8 @@ class MyRecipes extends Component {
 							<h2 className="titlelinks">Settings</h2>
 						</Link>
 					</div>
+					<div className="recipe-card">
+					<h2>My Recipes</h2>
 					<div className="dynamic-display">
 						{this.state.list.map(item => (
 							<Recipe
@@ -71,6 +70,7 @@ class MyRecipes extends Component {
 								ndbno={item.ndbno}
 							/>
 						))}
+					</div>
 					</div>
 				</div>
 			</div>

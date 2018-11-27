@@ -9,16 +9,19 @@
 import UIKit
 import CoreData
 
-class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewController, NSFetchedResultsControllerDelegate {
-
+class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewController, FoodTableViewCellDelegate {
+    
     // MARK: - Public properties
     
-    var foods: [Resource]?
+    var foods: [Resource]? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     var navTitle: String!
     var cellReuseId: String!
     var selectedFoodAtIndex = [Int]() {
         didSet {
-            print(selectedFoodAtIndex)
             if selectedFoodAtIndex.isEmpty {
                 navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
             } else {
@@ -28,13 +31,13 @@ class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewCont
     }
     
     // MARK: - Private properties
-        
-    lazy private var noItemSelectedbarButton: UIBarButtonItem = {
-       return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(noItemsSelectedAction))
+    
+    lazy var noItemSelectedbarButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(actionWhenNoItemsSelected))
     }()
     
-    lazy private var itemsSelectedBarButton: UIBarButtonItem = {
-       return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(itemsSelectedAction))
+    lazy var itemsSelectedBarButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(actionWhenItemsSelected))
     }()
     
     // MARK: - Init
@@ -59,19 +62,20 @@ class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewCont
     }
     
     // MARK: - Table view data source
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return foods?.count ?? 0
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as! FoodTableViewCell<Resource>
+        
+        cell.delegate = self
         //cell.recipe = recipes[indexPath.row]
-
+        
         return cell
     }
-
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -89,16 +93,16 @@ class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewCont
         
         return [remove, edit]
     }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         selectFood(at: indexPath)
         
     }
-
+    
     func selectFood(at indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? FoodTableViewCell<Resource> {
-            cell.selectRow(cell.selectButton)
+            cell.updateLayouts()
         }
         
         if selectedFoodAtIndex.contains(indexPath.row) {
@@ -107,6 +111,11 @@ class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewCont
         } else {
             selectedFoodAtIndex.append(indexPath.row)
         }
+    }
+    
+    func selectFood(from cell: UITableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        selectFood(at: indexPath)
     }
     
     func getSelectedFoods() -> [Resource] {
@@ -120,13 +129,9 @@ class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewCont
     
     // MARK: - User Actions
     
-    @objc func noItemsSelectedAction() {
-        
-    }
+    @objc func actionWhenNoItemsSelected() { }
     
-    @objc func itemsSelectedAction() {
-        
-    }
+    @objc func actionWhenItemsSelected() { }
     
     // MARK: - Configuration
     
@@ -134,5 +139,5 @@ class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewCont
         self.title = navTitle
         navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
     }
-
+    
 }
