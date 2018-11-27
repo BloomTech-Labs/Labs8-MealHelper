@@ -8,10 +8,12 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  a.dropColumnIfExists('label');
-  a.renameColumn('time', 'beginTime');
-  a.integer("endTime").notNullable();
-	a.integer("beginLimit").notNullable();
-	a.integer("endLimit").notNullable();
-	a.integer("repeats").notNullable();
+  return knex.schema.table('alarms', function(a) {
+    a.dropColumn('label');
+    a.renameColumn('time', 'beginTime');
+    a.integer("endTime").notNullable();
+    a.integer("beginLimit").notNullable();
+    a.integer("endLimit").notNullable();
+    a.integer("repeats").notNullable();
+  })
 };
