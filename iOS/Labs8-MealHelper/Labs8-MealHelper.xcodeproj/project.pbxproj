@@ -34,7 +34,6 @@
 		AC62FAC8219B24BA00D8C35C /* GenericTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FAC7219B24BA00D8C35C /* GenericTableViewController.swift */; };
 		AC62FACF219B408B00D8C35C /* StretchyHeaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FACE219B408B00D8C35C /* StretchyHeaderLayout.swift */; };
 		AC62FAD1219B499600D8C35C /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */; };
-		AC62FAD3219B4C1D00D8C35C /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FAD2219B4C1D00D8C35C /* HomeHeaderView.swift */; };
 		AC85F38A219E0B2F007765CA /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85F388219E0B2E007765CA /* LoadingButton.swift */; };
 		AC85F38B219E0B2F007765CA /* LeftIconTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85F389219E0B2F007765CA /* LeftIconTextField.swift */; };
 		AC85F38D219E0C1D007765CA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85F38C219E0C1D007765CA /* LoginViewController.swift */; };
@@ -57,6 +56,7 @@
 		AC8F0B55219E372E00E623FB /* PickerInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F0B54219E372E00E623FB /* PickerInputField.swift */; };
 		AC8F0B57219E375300E623FB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F0B56219E375300E623FB /* Utils.swift */; };
 		AC8F0B59219E3AE300E623FB /* MealEntry.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC8F0B58219E3AE300E623FB /* MealEntry.xcassets */; };
+		ACE1FA5C21ADA8C2003A0030 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA5B21ADA8C2003A0030 /* AlarmViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,7 +121,6 @@
 		AC62FAC7219B24BA00D8C35C /* GenericTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTableViewController.swift; sourceTree = "<group>"; };
 		AC62FACE219B408B00D8C35C /* StretchyHeaderLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyHeaderLayout.swift; sourceTree = "<group>"; };
 		AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionView.swift; sourceTree = "<group>"; };
-		AC62FAD2219B4C1D00D8C35C /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		AC85F388219E0B2E007765CA /* LoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 		AC85F389219E0B2F007765CA /* LeftIconTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftIconTextField.swift; sourceTree = "<group>"; };
 		AC85F38C219E0C1D007765CA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +143,7 @@
 		AC8F0B54219E372E00E623FB /* PickerInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerInputField.swift; sourceTree = "<group>"; };
 		AC8F0B56219E375300E623FB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		AC8F0B58219E3AE300E623FB /* MealEntry.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MealEntry.xcassets; sourceTree = "<group>"; };
+		ACE1FA5B21ADA8C2003A0030 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +223,7 @@
 		3D56A9D021934FAA00A91EF4 /* Labs8-MealHelper */ = {
 			isa = PBXGroup;
 			children = (
+				ACE1FA5A21ADA8A1003A0030 /* Alarm */,
 				AC85F3C9219E3510007765CA /* MealEntry */,
 				AC85F3C4219E3501007765CA /* Model */,
 				AC62FACD219B406D00D8C35C /* Layouts */,
@@ -264,7 +265,6 @@
 				AC1DE866219473DD0066172C /* HomeViewController.swift */,
 				AC1DE8682194748F0066172C /* MealCell.swift */,
 				AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */,
-				AC62FAD2219B4C1D00D8C35C /* HomeHeaderView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -353,6 +353,14 @@
 				3DDB4A1B21A774E4007A1B5E /* SwipeableViewController.swift */,
 			);
 			path = MealEntry;
+			sourceTree = "<group>";
+		};
+		ACE1FA5A21ADA8A1003A0030 /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				ACE1FA5B21ADA8C2003A0030 /* AlarmViewController.swift */,
+			);
+			path = Alarm;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -512,6 +520,7 @@
 				AC62FACF219B408B00D8C35C /* StretchyHeaderLayout.swift in Sources */,
 				AC85F38B219E0B2F007765CA /* LeftIconTextField.swift in Sources */,
 				3D56A9D221934FAA00A91EF4 /* AppDelegate.swift in Sources */,
+				ACE1FA5C21ADA8C2003A0030 /* AlarmViewController.swift in Sources */,
 				AC85F3E1219E3526007765CA /* IngredientDetailViewController.swift in Sources */,
 				3DB65F292196200D007AA68A /* Response.swift in Sources */,
 				AC85F38A219E0B2F007765CA /* LoadingButton.swift in Sources */,
@@ -531,7 +540,6 @@
 				3D77DD17219EF4A8009B21ED /* WeatherView.swift in Sources */,
 				AC85F3E3219E3526007765CA /* CameraPreview.swift in Sources */,
 				AC85F3DA219E3525007765CA /* MealSetupTableViewController.swift in Sources */,
-				AC62FAD3219B4C1D00D8C35C /* HomeHeaderView.swift in Sources */,
 				3DB18BE82196FAB800C0E728 /* InputField.swift in Sources */,
 				AC8F0B51219E36AE00E623FB /* User.swift in Sources */,
 				AC8F0B55219E372E00E623FB /* PickerInputField.swift in Sources */,

@@ -59,6 +59,8 @@ class MyRecipes extends Component {
 							<h2 className="titlelinks">Settings</h2>
 						</Link>
 					</div>
+					<div className="recipe-card">
+					<h2>My Recipes</h2>
 					<div className="dynamic-display">
 						{this.state.list.map(item => (
 							<Recipe
@@ -68,6 +70,7 @@ class MyRecipes extends Component {
 								ndbno={item.ndbno}
 							/>
 						))}
+					</div>
 					</div>
 				</div>
 			</div>
