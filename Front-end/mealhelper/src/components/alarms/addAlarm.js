@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom"
 //import moment from "moment";
 import Select from "react-select";
-// import actions
+
 
 //this is embarrassingly not DRY; auto-populate ASAP
 const options = [
@@ -66,8 +66,9 @@ class AddAlarms extends Component {
       let repeats = +(this.state.repeats) * 100;
       console.log("repeats", repeats)
       let alarmTimes = [];
-      for (let i = start; i <= end; i+=repeats) {
-        alarmTimes.push(i);
+  for (let i = start; i <= end; i+=repeats) {
+      let time = i.toString();
+      alarmTimes.push({time: time, label: ""});
       }
       
        
