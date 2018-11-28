@@ -62,14 +62,20 @@ class AddAlarms extends Component {
       //alert that all fields are required
     }
     else {
-      let start = this.state.beginTime; //200
-      let end = this.state.endTime; //800
+      let start = Number(this.state.beginTime); //200
+      let end = Number(this.state.endTime); //800
       let repeats = +(this.state.repeats) * 100;
       console.log("repeats", repeats)
       let alarmTimes = [];
   for (let i = start; i <= end; i+=repeats) {
+    if(i.toString().length === 3) {
+      let time = 0 + i.toString();
+      alarmTimes.push({time: time, label: ""});
+    } else {
       let time = i.toString();
       alarmTimes.push({time: time, label: ""});
+    }
+      
 
       alarmTimes.map(alarm => this.props.addAlarms(alarm))
       }
