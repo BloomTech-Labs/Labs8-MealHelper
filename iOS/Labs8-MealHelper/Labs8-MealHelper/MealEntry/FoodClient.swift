@@ -20,8 +20,9 @@ class FoodClient {
         Recipe(name: "Mørbradbøffer", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1),
         Recipe(name: "Æbleflæsk", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1)
     ]
+    var nutrients = ["208", "269", "204", "205"]
     
-    let usdaBaseUrl: URL = URL(string: "https://api.nal.usda.gov/ndb/search/")!
+    let usdaBaseUrl: URL = URL(string: "https://api.nal.usda.gov/ndb/")!
     let usdaAPIKey = "c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6"
     let baseUrl: URL = URL(string: "https://labs8-meal-helper.herokuapp.com/")!
     var userId = Constants.User().id // TODO: to be deleted.
@@ -56,8 +57,9 @@ class FoodClient {
             "user_id": userId,
             "mealTime": mealTime,
             "experience": experience,
-            "date": date
-        ]
+            "date": date,
+            "temp": Float(exactly: 123)
+            ] as [String : Any]
         
         post(with: url, requestBody: reqBody, completion: completion)
         
@@ -75,7 +77,8 @@ class FoodClient {
     // MARK: USDA
     
     func fetchUsdaIngredients(with searchTerm: String, completion: @escaping (Response<[Ingredient]>) -> ()) {
-        var urlComponents = URLComponents(url: usdaBaseUrl, resolvingAgainstBaseURL: true)!
+        let url = self.url(with: usdaBaseUrl, pathComponents: ["search"])
+        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)!
         urlComponents.queryItems = [
             URLQueryItem(name: "format", value: "json"),
             URLQueryItem(name: "sort", value: "n"),
@@ -121,6 +124,49 @@ class FoodClient {
         }.resume()
     }
     
+    func fetchUsdaNutrients(for ndbno: String, completion: @escaping (Response<[Nutrient]>) -> ()) {
+        let url = self.url(with: usdaBaseUrl, pathComponents: ["nutrients"])
+        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+        urlComponents.queryItems = nutrients.map { URLQueryItem(name: "nutrients", value: $0) } + [URLQueryItem(name: "api_key", value: usdaAPIKey), URLQueryItem(name: "ndbno", value: ndbno)]
+        
+        guard let requestURL = urlComponents.url else {
+            NSLog("Problem constructing search URL for \(ndbno)")
+            completion(Response.error(NSError()))
+            return
+        }
+        
+        let request = URLRequest(url: requestURL)
+        
+        URLSession.shared.dataTask(with: request) { (data, res, error) in
+            
+            if let error = error {
+                NSLog("Error with urlRequest: \(error)")
+                completion(Response.error(error))
+                return
+            }
+            
+            guard let data = data else {
+                NSLog("No data returned")
+                completion(Response.error(NSError()))
+                return
+            }
+            
+            do {
+                let usdaNutrients = try JSONDecoder().decode(UsdaNutrient.self, from: data)
+                if let nutrients = usdaNutrients.report.foods.first?.nutrients {
+                    completion(Response.success(nutrients))
+                } else {
+                    completion(Response.error(NSError()))
+                }
+            } catch {
+                NSLog("Error decoding data: \(error)")
+                completion(Response.error(error))
+                return
+            }
+            
+            }.resume()
+    }
+    
     // MARK: - Generic methods
     
     private func fetch<Resource: Codable>(from url: URL, using session: URLSession = URLSession.shared, completion: @escaping ((Response<Resource>) -> ())) {
@@ -150,7 +196,7 @@ class FoodClient {
         }.resume()
     }
     
-    private func post<Resource: Codable>(with url: URL, requestBody: Dictionary<String, String?>, using session: URLSession = URLSession.shared, completion: @escaping ((Response<Resource>) -> ())) {
+    private func post<Resource: Codable>(with url: URL, requestBody: Dictionary<String, Any?>, using session: URLSession = URLSession.shared, completion: @escaping ((Response<Resource>) -> ())) {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = HTTPMethod.post.rawValue
@@ -160,8 +206,8 @@ class FoodClient {
             let requestBody = requestBody
             let encoder = JSONEncoder()
             encoder.outputFormatting = .prettyPrinted
-            let requestBodyJson = try encoder.encode(requestBody)
-            urlRequest.httpBody = requestBodyJson
+            let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) //encoder.encode(requestBody)
+            urlRequest.httpBody = jsonData
         } catch {
             NSLog("Failed to encode foods: \(error)")
             completion(Response.error(error))
