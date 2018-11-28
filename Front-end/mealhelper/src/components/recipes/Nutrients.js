@@ -58,24 +58,30 @@ class Nutrients extends Component {
     console.log(prop);
     return foods
       .reduce((memo, food) => parseInt(food.nutrients[0].value, 10) + memo, 0.0)
-      .toFixed(2);
+      .toFixed(0);
   };
   sumProtein = (foods, prop) => {
     console.log(prop);
     return foods
-      .reduce((memo, food) => parseInt(food.nutrients[1].value, 10) + memo, 0.0)
+      .reduce((memo, food) => parseFloat(food.nutrients[1].value) + memo, 0.0)
       .toFixed(2);
   };
   sumFat = (foods, prop) => {
     console.log(prop);
     return foods
-      .reduce((memo, food) => parseInt(food.nutrients[2].value, 10) + memo, 0.0)
+      .reduce(
+        (memo, food) => parseFloat(food.nutrients[2].value, 10) + memo,
+        0.0
+      )
       .toFixed(2);
   };
   sumCarb = (foods, prop) => {
     console.log(prop);
     return foods
-      .reduce((memo, food) => parseInt(food.nutrients[3].value, 10) + memo, 0.0)
+      .reduce(
+        (memo, food) => parseFloat(food.nutrients[3].value, 10) + memo,
+        0.0
+      )
       .toFixed(2);
   };
   render(props) {
@@ -95,10 +101,10 @@ class Nutrients extends Component {
         onClick={() => this.removeFoodItem(idx)}
       >
         <td>{food.name}</td>
-        <td className="right aligned">{food.nutrients[0].value}</td>
-        <td className="right aligned">{food.nutrients[1].value}</td>
-        <td className="right aligned">{food.nutrients[2].value}</td>
-        <td className="right aligned">{food.nutrients[3].value}</td>
+        <td className="right aligned">{food.nutrients[0].value + "Cal"}</td>
+        <td className="right aligned">{food.nutrients[1].value + "g"}</td>
+        <td className="right aligned">{food.nutrients[2].value + "g"}</td>
+        <td className="right aligned">{food.nutrients[3].value + "g"}</td>
       </tr>
     ));
     return (
