@@ -26,6 +26,8 @@ extension UIColor
     static let bronze = UIColor.rgb(red: 161, green: 105, blue: 40)
     static let sunOrange = UIColor.rgb(red: 255, green: 111, blue: 56)
     static let sunRed = UIColor.rgb(red: 226, green: 17, blue: 58)
+    static let mountainBlue = UIColor.rgb(red: 47, green: 157, blue: 254)
+    static let mountainDark = UIColor.rgb(red: 36, green: 36, blue: 36)
 }
 
 enum Appearance
