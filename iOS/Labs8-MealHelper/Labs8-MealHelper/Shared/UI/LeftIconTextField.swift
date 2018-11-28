@@ -59,6 +59,5 @@ class LeftIconTextField: UITextField
         self.backgroundColor = UIColor.init(white: 1, alpha: 0.5)
         self.layer.cornerRadius = 6
         self.layer.masksToBounds = true
-        self.tintColor = .lightPurple
     }
 }
