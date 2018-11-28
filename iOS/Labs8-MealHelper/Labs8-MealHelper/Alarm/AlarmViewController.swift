@@ -78,8 +78,7 @@ class AlarmViewController: UIViewController {
     @objc private func handleKeyboard(notification: NSNotification)
     {
         guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval,
-            let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt, let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        let keyboardHeight = keyboardFrame.cgRectValue.height
+            let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else { return }
         
         switch notification.name {
         case UIResponder.keyboardWillShowNotification:
