@@ -43,7 +43,11 @@ class App extends Component {
 					<Route exact path="/homepage/meals" render={() => <Meals />} />
 					<Route exact path="/homepage/weather" render={() => <Weather />} />
 					<Route path="/ingredients" render={() => <GetIngredient />} />
-					<Route path="/homepage/recipes" render={() => <Recipes />} />
+					<Route exact path="/homepage/recipes" render={() => <Recipes />} />
+					<Route
+						path="/homepage/recipes/createnewrecipe"
+						render={() => <CreateNewRecipe />}
+					/>
 					<Route
 						path="/homepage/ingredients/myingredients"
 						render={() => <MyIngredients />}
@@ -52,7 +56,6 @@ class App extends Component {
 						path="/homepage/weather/myweather"
 						render={() => <MyWeather />}
 					/>
-					<Route exact path="/homepage/recipes" render={() => <Recipes />} />
 					<Route
 						path="/homepage/recipes/myrecipes"
 						render={() => <MyRecipes />}
@@ -60,10 +63,6 @@ class App extends Component {
 					<Route
 						path="/homepage/recipes/recipebook"
 						render={() => <RecipeBook />}
-					/>
-					<Route
-						path="/homepage/recipes/createnewrecipe"
-						render={() => <CreateNewRecipe />}
 					/>
 
 					<Route
