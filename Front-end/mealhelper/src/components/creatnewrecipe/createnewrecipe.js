@@ -34,7 +34,8 @@ class CreateNewRecipe extends Component {
       calories: 0,
       serving: "",
       ndbno: null,
-      modal: false
+      modal: false,
+      modalLogout: false
     };
   }
 
@@ -102,13 +103,25 @@ class CreateNewRecipe extends Component {
   saveCalories = caloriesTotal => {
     this.setState({ calories: caloriesTotal });
   };
-
+  toggleLogout = () => {
+    this.setState({
+      modalLogout: !this.state.modalLogout
+    });
+  };
+  logout = event => {
+    event.preventDefault();
+    localStorage.removeItem("token");
+    this.props.history.push("/");
+  };
   render() {
     const { selectedFoods } = this.state;
     return (
       <div>
         <div className="home-container">
           <div className="sidebar">
+            <Link to="/homepage" style={{ textDecoration: "none" }}>
+              <h2 className="titlelinks">Home</h2>
+            </Link>
             <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
               <h2 className="titlelinks">Recipes</h2>
             </Link>
@@ -124,6 +137,9 @@ class CreateNewRecipe extends Component {
             <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
               <h2 className="titlelinks">Settings</h2>
             </Link>
+            <Button color="danger" onClick={this.toggleLogout}>
+              Log Out
+            </Button>
           </div>
           <div>
             <Button color="success" onClick={this.toggle}>
@@ -167,7 +183,7 @@ class CreateNewRecipe extends Component {
                 <Button color="success" onClick={this.saveMeal}>
                   Save Recipe
                 </Button>{" "}
-                <Button color="secondary" onClick={this.toggle}>
+                <Button color="secondary" onClick={this.toggleLogout}>
                   Cancel
                 </Button>
               </ModalFooter>
@@ -184,6 +200,21 @@ class CreateNewRecipe extends Component {
 						/>
 					))} */}
           </div>
+          <Modal
+            isOpen={this.state.modalLogout}
+            toggle={this.toggleLogout}
+            className={this.props.className}
+          >
+            <ModalHeader toggle={this.toggleLogout}>
+              Do you wish to log out?
+            </ModalHeader>
+            <Button onClick={this.logout} color="danger">
+              Log out
+            </Button>
+            <Button onClick={this.toggleLogout} color="primary">
+              Cancel
+            </Button>
+          </Modal>
         </div>
       </div>
     );
