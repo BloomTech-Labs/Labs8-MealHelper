@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom"
 //import moment from "moment";
 import Select from "react-select";
+import { addAlarms } from "../../store/actions/alarmActions";
 
 
 //this is embarrassingly not DRY; auto-populate ASAP
@@ -69,6 +70,8 @@ class AddAlarms extends Component {
   for (let i = start; i <= end; i+=repeats) {
       let time = i.toString();
       alarmTimes.push({time: time, label: ""});
+
+      alarmTimes.map(alarm => this.props.addAlarms(alarm))
       }
       
        
