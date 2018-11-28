@@ -941,13 +941,13 @@ server.post("/alarms/:userid", (req, res) => {
 	const user_ID = req.params.userid;
 	const { label, alarm } = req.body;
 	//Adds the user id to the alarm object
-	const alarm = { user_ID, label, alarm };
+	const alarmBody = { user_ID, label, alarm };
 	db("alarms")
 		//Inserts the alarm and sets it to the user
-		.insert(alarm)
+		.insert(alarmBody)
 		.then(alarm => {
 			//Returns the alarm
-			res.status(201).json(alarm);
+			res.status(201).json(alarmBody);
 		})
 		.catch(err => {
 			res.status(400).json({ msg: err, error: "Could not create alarm" });
@@ -960,12 +960,12 @@ server.put("/alarms/:id", (req, res) => {
   const id = req.params.userid;
   const { label, alarm } = req.body;
   // Sets the req.body to an alarm object that gets passed into the update
-  const alarm = { label, alarm };
+  const alarmBody = { label, alarm };
   db("alarms")
     .where({ id: id })
     .update({
-      label: alarm.label,
-      alarm: alarm.alarm
+      label: alarmBody.label,
+      alarm: alarmBody.alarm
     })
     .then(alarmID => {
       //Returns the alarm ID
