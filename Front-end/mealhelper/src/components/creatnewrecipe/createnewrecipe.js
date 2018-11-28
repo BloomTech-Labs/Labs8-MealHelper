@@ -102,7 +102,7 @@ class CreateNewRecipe extends Component {
   render() {
     const { selectedFoods } = this.state;
     return (
-      <div className="weather-container">
+      <div>
         <div className="home-container">
           <div className="sidebar">
             <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
