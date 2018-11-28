@@ -15,11 +15,11 @@ protocol FoodSummaryViewDelegate {
     func setServingType(with type: String, for recipe: Any)
 }
 
-class FoodSummaryView: UIView {
+class FoodSummaryView: UIViewController {
     
     // MARK: - Public properties
     
-    var title: String? {
+    var titleString: String? {
         didSet {
             setupViews()
         }
@@ -27,7 +27,7 @@ class FoodSummaryView: UIView {
     var servingQty: String?
     var servingType: String?
     var servingQtys = (1...20).map { String($0) }
-    var servingTypes = FoodHelper.ServingTypes.allCases.map { $0 } // ["cup", "100 g", "container", "ounce"]
+    var servingTypes = FoodHelper.ServingTypes.allCases.map { $0 }
     
     // MARK: - Private properties
     
@@ -65,46 +65,42 @@ class FoodSummaryView: UIView {
         return stackView
     }()
     
-    private lazy var nameLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 20.0)
         return label
     }()
     
-    private lazy var servingLabel: UILabel = {
+    private lazy var subtitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 17.0)
         return label
     }()
     
-    // MARK: - Init
+    // MARK: - Life Cycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         setupViews()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Configuration
     
     private func setupViews() {
-        addSubview(mainStackView)
-        mainStackView.addArrangedSubview(nameLabel)
-        mainStackView.addArrangedSubview(servingLabel)
+        view.addSubview(mainStackView)
+        mainStackView.addArrangedSubview(titleLabel)
+        mainStackView.addArrangedSubview(subtitleLabel)
         mainStackView.addArrangedSubview(inputStackView)
         inputStackView.addArrangedSubview(servingSizeInputField)
         inputStackView.addArrangedSubview(servingQtyInputField)
         
-        mainStackView.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor)
+        mainStackView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 20.0, left: 10.0, bottom: 20.0, right: 10.0))
         inputStackView.anchor(top: nil, leading: mainStackView.leadingAnchor, bottom: nil, trailing: mainStackView.trailingAnchor)
         
-        nameLabel.text = title
-        servingLabel.text = "Some subtitle"
+        titleLabel.text = titleString
+        subtitleLabel.text = "Some subtitle"
         
         servingSizeInputField.picker.delegate = self
         servingSizeInputField.picker.dataSource = self
