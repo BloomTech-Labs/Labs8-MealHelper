@@ -937,7 +937,6 @@ server.get("/alarms/:userid", (req, res) => {
 });
 //POST req to create a alarm for the user
 server.post("/alarms/:userid", (req, res) => {
-<<<<<<< HEAD
 	//Grabs the user id from req.params
 	const user_ID = req.params.userid;
 	console.log("user_ID", user_ID);
@@ -960,24 +959,6 @@ server.post("/alarms/:userid", (req, res) => {
 			console.log("alarm catch", err)
 			res.status(400).json({ msg: err, error: "Could not create alarm" });
 		});
-=======
-  //Grabs the user id from req.params
-  const user_ID = req.params.userid;
-  const { time } = req.body;
-  const label = "";
-  //Adds the user id to the alarm object
-  const alarm = { time, label, user_ID };
-  db("alarms")
-    //Inserts the alarm and sets it to the user
-    .insert(alarm)
-    .then(alarm => {
-      //Returns the alarm
-      res.status(201).json(alarm);
-    })
-    .catch(err => {
-      res.status(400).json({ msg: err, error: "Could not create alarm" });
-    });
->>>>>>> b1d1bb79ea58752195c14d029b34a1f730ed99eb
 });
 
 //PUT request to change the alarm settings
