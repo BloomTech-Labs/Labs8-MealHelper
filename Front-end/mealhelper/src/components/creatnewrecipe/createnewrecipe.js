@@ -172,6 +172,8 @@ class CreateNewRecipe extends Component {
                   <div className="dynamic-display">
                     <FoodSearch onFoodClick={this.addFood} />
                     <SelectedFoods
+                      logoutModal={this.state.modal}
+                      logoutMethod={this.toggle}
                       setCalories={this.saveCalories}
                       foods={selectedFoods}
                       onFoodClick={this.removeFoodItem}
@@ -179,14 +181,6 @@ class CreateNewRecipe extends Component {
                   </div>
                 </form>
               </ModalBody>
-              <ModalFooter>
-                <Button color="success" onClick={this.saveMeal}>
-                  Save Recipe
-                </Button>{" "}
-                <Button color="secondary" onClick={this.toggleLogout}>
-                  Cancel
-                </Button>
-              </ModalFooter>
             </Modal>
           </div>
 

@@ -647,7 +647,7 @@ server.post("/nutrients/:ingredientID", (req, res) => {
 server.post("/nutrients/:id", (req, res) => {
   const user_id = req.params.id;
   //grabs the name unit and value from req.body
-  const { name, unit, value } = req.body;
+  const { nutrient, nutrient_id, unit, value } = req.body;
   //set the what we grabbed to a new "nutrient"
   const nutrient = { name, unit, value, user_id };
 
