@@ -81,11 +81,9 @@ class AddAlarms extends Component {
       }
       
        
-     //send beginTime/endTime/repeats to alarms table
-     //create new alarmslist table
-     //split alarmTimes, add note field to alarm body
+     
      // this.props.history.push('/homepage/alarms')
-     //bulk send alarmTimes to alarmslist
+
      }
  
     }
