@@ -230,12 +230,6 @@ extension CameraViewController: BarcodeScannerDelegate {
                     
                     swipeVC.view.fillSuperview()
                     titleLabel.anchor(top: swipeVC.popupView.topAnchor, leading: swipeVC.popupView.leadingAnchor, bottom: nil, trailing: swipeVC.popupView.trailingAnchor)
-                    
-                    let ingredientDetailVC = IngredientDetailViewController()
-                    swipeVC.addChild(ingredientDetailVC)
-                    ingredientDetailVC.view.frame = swipeVC.popupView.frame
-                    swipeVC.popupView.addSubview(ingredientDetailVC.view)
-                    ingredientDetailVC.didMove(toParent: self)
                 }
             
             case .error(let error):
