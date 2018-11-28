@@ -12,6 +12,27 @@ class APIClient {
     
     static let shared = APIClient()
     
+    func uploadAlarm(time: String, note: String, userId: Int, completion: @escaping (Response<Alarm>) -> ()) {
+        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(userId)")!
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = HTTPMethod.post.rawValue
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+//            let alarmJson = try encoder.encode(alarm)
+//            urlRequest.httpBody = alarmJson
+            
+        } catch {
+            NSLog("Error encoding alarm: \(error)")
+            completion(Response.error(error))
+            return
+        }
+    }
+    
     func fetchMeals(completion: @escaping (Response<[Meal]>) -> ()) {
         let url = URL(string: "https://labs8-meal-helper.herokuapp.com/users/1/meals/")!
         
