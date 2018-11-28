@@ -125,10 +125,10 @@ class AddAlarms extends Component {
 }
 
 const mapStateToProps = state => ({
-  //map the state
+  alarms: state.alarms
 });
 
 export default connect(
   mapStateToProps,
-  //action
+  { addAlarms }
 )(withRouter(AddAlarms));
