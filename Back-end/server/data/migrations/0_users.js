@@ -40,7 +40,7 @@ exports.up = function(knex) {
       ingredients.increments("id").primary();
       ingredients.integer("ndb_id");
       ingredients.string("name", 255).notNullable();
-      ingredients.string("nutrients_id");
+      ingredients.integer("nutrients_id");
       ingredients.foreign("nutrients_id").references("nutrients.id");
       ingredients.integer("user_id");
       ingredients.foreign("user_id").references("users.id");
