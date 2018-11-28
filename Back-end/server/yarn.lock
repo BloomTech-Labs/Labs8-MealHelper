@@ -1331,6 +1331,7 @@ kind-of@^6.0.0, kind-of@^6.0.2:
 knex@^0.15.2:
   version "0.15.2"
   resolved "https://registry.yarnpkg.com/knex/-/knex-0.15.2.tgz#6059b87489605f4cc87599a6d2a9d265709e9340"
+  integrity sha1-YFm4dIlgX0zIdZmm0qnSZXCek0A=
   dependencies:
     babel-runtime "^6.26.0"
     bluebird "^3.5.1"

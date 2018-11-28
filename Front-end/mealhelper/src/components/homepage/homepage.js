@@ -8,6 +8,7 @@ import { Alert } from "reactstrap";
 import Weather from "../weather/weather";
 import Recipes from "../recipes/recipes";
 import Meals from "../Meals/Meals";
+import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
 
 class HomePage extends Component {
 	constructor(props) {
@@ -64,8 +65,12 @@ class HomePage extends Component {
 				<div className="dynamic-display">
 					<Switch>
 						<Route path="/homepage/weather" render={() => <Weather />} />
-						<Route path="/homepage/recipes" render={() => <Recipes />} />
+						<Route exact path="/homepage/recipes" render={() => <Recipes />} />
 						<Route exact path="/homepage/meals" render={() => <Meals />} />
+						<Route
+							path="/homepage/recipes/createnewrecipe"
+							render={() => <CreateNewRecipe />}
+						/>
 						{/* <Route path="/homepage/alarms" render={() => <Alarms />} />
 							<Route path="/homepage/billing" render={() => <Billing />} />
                             <Route path="/homepage/settings" render={() => <Settings />} /> */}
