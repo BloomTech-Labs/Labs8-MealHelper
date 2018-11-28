@@ -958,17 +958,14 @@ server.post("/alarms/:userid", (req, res) => {
 server.put("/alarms/:id", (req, res) => {
   //Grabs the alarm id from req.params
   const id = req.params.userid;
-  const { beginTime, endTime, beginLimit, endLimit, repeat } = req.body;
+  const { label, alarm } = req.body;
   // Sets the req.body to an alarm object that gets passed into the update
-  const alarm = { beginTime, endTime, beginLimit, endLimit, repeat };
+  const alarm = { label, alarm };
   db("alarms")
     .where({ id: id })
     .update({
-      beginTime: alarm.beginTime,
-      endTime: alarm.endTime,
-      beginLimit: alarm.beginLimit,
-      endLimit: alarm.beginLimit,
-      repeat: alarm.repeat
+      label: alarm.label,
+      alarm: alarm.alarm
     })
     .then(alarmID => {
       //Returns the alarm ID
