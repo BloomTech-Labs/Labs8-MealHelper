@@ -28,6 +28,16 @@ class SignUp extends Component {
     });
   };
 
+  signupp = event => {
+    if (localStorage.getItem("token") !== undefined) {
+      this.props.history.push("/homepage");
+    } else {
+      setTimeout(() => {
+        this.signupp();
+      }, 6000);
+    }
+  };
+
   createUser = event => {
     event.preventDefault();
     if (!this.state.email || !this.state.password) {
@@ -36,7 +46,9 @@ class SignUp extends Component {
       const { email, password, zip, healthCondition } = this.state;
       const user = { email, password, zip, healthCondition };
       this.props.addUser(user);
-      this.props.history.push("/homepage");
+      setTimeout(() => {
+        this.loggin();
+      }, 6000);
     }
   };
 
