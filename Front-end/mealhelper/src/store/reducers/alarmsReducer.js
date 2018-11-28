@@ -1,6 +1,6 @@
-// import * as actionTypes from '../actions';
-
-// /* Alarms Reducer */
+/* Alarms Reducer */
+import * as actionTypes from '../actions';
+import axios from 'axios';
 
 // const initialState = {
 //   //state
