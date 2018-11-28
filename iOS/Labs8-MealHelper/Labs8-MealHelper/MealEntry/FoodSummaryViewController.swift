@@ -19,11 +19,12 @@ class FoodSummaryViewController: UIViewController {
     
     // MARK: - Public properties
     
-    var titleString: String? {
+    var titleName: String? {
         didSet {
             setupViews()
         }
     }
+    
     var servingQty: String?
     var servingType: String?
     var leftPickerFieldValues = (1...20).map { String($0) }
@@ -93,7 +94,6 @@ class FoodSummaryViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 17.0)
-        label.text = "Some subtitle"
         return label
     }()
     
@@ -112,7 +112,7 @@ class FoodSummaryViewController: UIViewController {
         editableTitle == true
             ? mainStackView.addArrangedSubview(titleTextField)
             : mainStackView.addArrangedSubview(titleLabel)
-        mainStackView.addArrangedSubview(subtitleLabel)
+        //mainStackView.addArrangedSubview(subtitleLabel)
         mainStackView.addArrangedSubview(inputStackView)
         inputStackView.addArrangedSubview(leftInputField)
         inputStackView.addArrangedSubview(rightInputField)
@@ -120,7 +120,7 @@ class FoodSummaryViewController: UIViewController {
         mainStackView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 20.0, left: 10.0, bottom: 20.0, right: 10.0))
         inputStackView.anchor(top: nil, leading: mainStackView.leadingAnchor, bottom: nil, trailing: mainStackView.trailingAnchor)
         
-        titleLabel.text = titleString
+        titleLabel.text = titleName
         
         leftInputField.picker.delegate = self
         leftInputField.picker.dataSource = self

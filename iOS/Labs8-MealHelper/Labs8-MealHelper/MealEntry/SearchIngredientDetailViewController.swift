@@ -53,6 +53,9 @@ class SearchIngredientDetailViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Add to basket", for: .normal)
         button.addTarget(self, action: #selector(addToBasket), for: .touchUpInside)
+        button.backgroundColor = .mountainBlue
+        button.tintColor = .white
+        button.titleLabel?.font = Appearance.appFont(with: 17)
         return button
     }()
     
@@ -127,7 +130,7 @@ class SearchIngredientDetailViewController: UIViewController {
         
         view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         ingredientSummaryView.view.backgroundColor = UIColor.lightGray
-        ingredientSummaryView.titleString = ingredient?.name
+        ingredientSummaryView.titleName = ingredient?.name
         
         view.layoutIfNeeded()
     }

@@ -54,17 +54,17 @@ class FoodTableViewCell<Resource>: UITableViewCell {
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Meal"
-        label.font = UIFont.systemFont(ofSize: 17.0)
+        label.textColor = .white
+        label.font = Appearance.appFont(with: 17)
+        label.sizeToFit()
         return label
     }()
     
     private let servingQtyLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "5 cups"
-        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.textColor = .white
+        label.font = Appearance.appFont(with: 14)
+        label.sizeToFit()
         return label
     }()
     
@@ -107,7 +107,8 @@ class FoodTableViewCell<Resource>: UITableViewCell {
         selectButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         selectButton.addTarget(self, action: #selector(selectRow), for: .touchUpInside)
         
-        self.selectionStyle = .none
+        selectionStyle = .none
+        backgroundColor = .clear
         
         if let recipe = food as? Recipe {
             nameLabel.text = recipe.name
