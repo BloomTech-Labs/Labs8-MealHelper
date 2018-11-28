@@ -31,7 +31,7 @@ class CreateNewRecipe extends Component {
       ingredients: [],
       search: "",
       name: "",
-      calories: "",
+      calories: 0,
       serving: "",
       ndbno: null,
       modal: false
@@ -99,6 +99,10 @@ class CreateNewRecipe extends Component {
     this.setState({ selectedFoods: newFoods });
   };
 
+  saveCalories = caloriesTotal => {
+    this.setState({ calories: caloriesTotal });
+  };
+
   render() {
     const { selectedFoods } = this.state;
     return (
@@ -145,22 +149,14 @@ class CreateNewRecipe extends Component {
                     value={this.state.name}
                     placeholder="Recipe Name"
                   />
-                  <br />
-                  <p>Recipe Calories:</p>
-                  <input
-                    id="calories"
-                    className="calories-recipe"
-                    type="text"
-                    name="calories"
-                    onChange={this.handleChange}
-                    value={this.state.calories}
-                    placeholder="Calories"
-                  />
-                  <br />
 
+                  <br />
+                  <p>Total Calories: {this.state.calories}</p>
+                  <br />
                   <div className="dynamic-display">
                     <FoodSearch onFoodClick={this.addFood} />
                     <SelectedFoods
+                      setCalories={this.saveCalories}
                       foods={selectedFoods}
                       onFoodClick={this.removeFoodItem}
                     />
@@ -177,6 +173,7 @@ class CreateNewRecipe extends Component {
               </ModalFooter>
             </Modal>
           </div>
+
           <div className="mealList-Display">
             {/* {this.state.meals.map(meal => (
 						<OneMeal

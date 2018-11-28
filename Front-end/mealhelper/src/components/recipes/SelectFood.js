@@ -67,6 +67,7 @@ class SelectFood extends Component {
         </table>
         <div>
           <Nutrients
+            setCalories={this.props.setCalories}
             onFoodClick={this.props.onFoodClick}
             selectedFoods={this.state.selectedFoods}
           />

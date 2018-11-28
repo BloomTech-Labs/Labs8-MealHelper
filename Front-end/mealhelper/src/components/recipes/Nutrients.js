@@ -56,6 +56,7 @@ class Nutrients extends Component {
 
   sumKCAL = (foods, prop) => {
     console.log(prop);
+
     return foods
       .reduce((memo, food) => parseInt(food.nutrients[0].value, 10) + memo, 0.0)
       .toFixed(0);
@@ -133,7 +134,10 @@ class Nutrients extends Component {
                 <th>Total</th>
 
                 <th className="right aligned" id="total-kcal">
-                  {this.sumKCAL(this.state.nutrients, "kcal") + "Cal"}
+                  {this.sumKCAL(this.state.nutrients, "kcal") + "Cal"}{" "}
+                  {this.props.setCalories(
+                    this.sumKCAL(this.state.nutrients, "kcal")
+                  )}
                 </th>
                 <th className="right aligned" id="total-protein_g">
                   {this.sumProtein(this.state.nutrients, "protein_g") + "g"}
