@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PickerInputField: LeftIconTextField {
+class PickerInputField: UITextField {
     
     var icon: UIImage?
     
@@ -40,7 +40,6 @@ class PickerInputField: LeftIconTextField {
         self.font = UIFont.systemFont(ofSize: fontSize)
         self.icon = icon
         
-        updateView()
         setupView()
         setupPicker()
     }
@@ -50,6 +49,12 @@ class PickerInputField: LeftIconTextField {
     }
     
     private func setupView() {
+        self.setLeftPaddingPoints(10.0)
+        self.setRightPaddingPoints(10.0)
+        self.backgroundColor = UIColor.white
+        self.layer.cornerRadius = 8.0
+        self.layer.masksToBounds = false
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
