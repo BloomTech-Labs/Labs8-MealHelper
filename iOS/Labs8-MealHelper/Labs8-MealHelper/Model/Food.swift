@@ -65,7 +65,7 @@ struct Recipe: Codable {
     }
 }
 
-struct Ingredient: Codable {
+struct Ingredient: Codable, Equatable {
     
     init(name: String, nbdId: String) {
         self.name = name
@@ -90,13 +90,17 @@ struct Ingredient: Codable {
     }
 }
 
+func ==(lhs: Ingredient, rhs: Ingredient) -> Bool {
+    return lhs.nbdId == rhs.nbdId
+}
+
 struct Nutrient: Codable {
     
-    var identifier: String? // usda nutrient id
-    var name: String?
-    var unit: String?
-    var value: String?
-    var gm: Double? // The 100 gram equivalent value for the nutrient
+    var identifier: String // usda nutrient id
+    var name: String
+    var unit: String
+    var value: String
+    var gm: Double // The 100 gram equivalent value for the nutrient
     
     enum CodingKeys: String, CodingKey {
         case identifier = "nutrient_id"
@@ -140,33 +144,32 @@ struct UsdaIngredients: Codable {
 
 struct UsdaNutrient: Codable {
     
-    var identifier: String? // usda nutrient id
-    var name: String?
-    var unit: String?
-    var value: String?
-    var measures: [Measure]
+    var report: Report
     
     enum CodingKeys: String, CodingKey {
-        case identifier = "nutrient_id"
-        case name
-        case unit
-        case value
-        case measures
+        case report
     }
     
-    struct Measure: Codable {
-        var label: String?
-        var eqv: String?
-        var eunit: String?
-        var qty: Double?
-        var value: String?
+    struct Report: Codable {
+        var foods: [Food]
         
-        enum CodingKeys: String, CodingKey {
-            case label
-            case eqv
-            case eunit
-            case qty
-            case value
+        enum FoodCodingKeys: String, CodingKey {
+            case foods
+        }
+        
+        struct Food: Codable {
+            var ndbno: String?
+            var name: String?
+            var weight: Double?
+            var measure: String?
+            var nutrients: [Nutrient]
+            
+            enum CodingKeys: String, CodingKey {
+                case ndbno
+                case name
+                case measure
+                case nutrients
+            }
         }
     }
 }
