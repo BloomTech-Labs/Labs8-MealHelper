@@ -50,9 +50,11 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
     }
     
     override func actionWhenItemsSelected() {
-        let mealSetupVC = MealSetupTableViewController()
-        mealSetupVC.recipes = getSelectedFoods()
-        navigationController?.pushViewController(mealSetupVC, animated: true)
+        let foods = getSelectedFoods()
+        // TODO: save selected meals
+        FoodClient.shared.postMeal(mealTime: "Lunch", experience: "happy", date: "11/16/2018") { (response) in
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
 }
