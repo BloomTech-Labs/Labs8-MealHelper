@@ -61,6 +61,7 @@ class LoginViewController: UIViewController
         let tf = LeftIconTextField()
         tf.leftImage = #imageLiteral(resourceName: "message")
         tf.keyboardType = .emailAddress
+        tf.tintColor = .lightPurple
         
         return tf
     }()
@@ -81,6 +82,7 @@ class LoginViewController: UIViewController
         let tf = LeftIconTextField()
         tf.leftImage = #imageLiteral(resourceName: "password")
         tf.isSecureTextEntry = true
+        tf.tintColor = .lightPurple
 
         return tf
     }()
@@ -103,6 +105,7 @@ class LoginViewController: UIViewController
         tf.leftImage = #imageLiteral(resourceName: "user_male")
         tf.alpha = 0
         tf.isHidden = true
+        tf.tintColor = .lightPurple
         
         return tf
     }()
@@ -126,6 +129,7 @@ class LoginViewController: UIViewController
         tf.alpha = 0
         tf.isHidden = true
         tf.keyboardType = .decimalPad
+        tf.tintColor = .lightPurple
         
         return tf
     }()

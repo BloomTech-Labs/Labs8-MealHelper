@@ -57,6 +57,9 @@
 		AC8F0B57219E375300E623FB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F0B56219E375300E623FB /* Utils.swift */; };
 		AC8F0B59219E3AE300E623FB /* MealEntry.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC8F0B58219E3AE300E623FB /* MealEntry.xcassets */; };
 		ACE1FA5C21ADA8C2003A0030 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA5B21ADA8C2003A0030 /* AlarmViewController.swift */; };
+		ACE1FA6321ADE796003A0030 /* CreateAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6221ADE796003A0030 /* CreateAlarmView.swift */; };
+		ACE1FA6521AE13D5003A0030 /* AlarmTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6421AE13D5003A0030 /* AlarmTableView.swift */; };
+		ACE1FA6721AE1429003A0030 /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6621AE1429003A0030 /* AlarmCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +147,9 @@
 		AC8F0B56219E375300E623FB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		AC8F0B58219E3AE300E623FB /* MealEntry.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MealEntry.xcassets; sourceTree = "<group>"; };
 		ACE1FA5B21ADA8C2003A0030 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
+		ACE1FA6221ADE796003A0030 /* CreateAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlarmView.swift; sourceTree = "<group>"; };
+		ACE1FA6421AE13D5003A0030 /* AlarmTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableView.swift; sourceTree = "<group>"; };
+		ACE1FA6621AE1429003A0030 /* AlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,6 +365,9 @@
 			isa = PBXGroup;
 			children = (
 				ACE1FA5B21ADA8C2003A0030 /* AlarmViewController.swift */,
+				ACE1FA6221ADE796003A0030 /* CreateAlarmView.swift */,
+				ACE1FA6421AE13D5003A0030 /* AlarmTableView.swift */,
+				ACE1FA6621AE1429003A0030 /* AlarmCell.swift */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -525,6 +534,8 @@
 				3DB65F292196200D007AA68A /* Response.swift in Sources */,
 				AC85F38A219E0B2F007765CA /* LoadingButton.swift in Sources */,
 				3DFEEDB021A2FBA300465FCB /* BarcodeScanner.swift in Sources */,
+				ACE1FA6721AE1429003A0030 /* AlarmCell.swift in Sources */,
+				ACE1FA6521AE13D5003A0030 /* AlarmTableView.swift in Sources */,
 				3D131CD521A198B3009681D0 /* UserDefault+Helper.swift in Sources */,
 				AC85F3C8219E350C007765CA /* Food.swift in Sources */,
 				AC85F3DF219E3526007765CA /* CameraViewController.swift in Sources */,
@@ -540,6 +551,7 @@
 				3D77DD17219EF4A8009B21ED /* WeatherView.swift in Sources */,
 				AC85F3E3219E3526007765CA /* CameraPreview.swift in Sources */,
 				AC85F3DA219E3525007765CA /* MealSetupTableViewController.swift in Sources */,
+				ACE1FA6321ADE796003A0030 /* CreateAlarmView.swift in Sources */,
 				3DB18BE82196FAB800C0E728 /* InputField.swift in Sources */,
 				AC8F0B51219E36AE00E623FB /* User.swift in Sources */,
 				AC8F0B55219E372E00E623FB /* PickerInputField.swift in Sources */,
