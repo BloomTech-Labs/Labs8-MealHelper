@@ -65,7 +65,7 @@ struct Recipe: Codable {
     }
 }
 
-struct Ingredient: Codable {
+struct Ingredient: Codable, Equatable {
     
     init(name: String, nbdId: String) {
         self.name = name
@@ -88,6 +88,10 @@ struct Ingredient: Codable {
         case nutrientIds = "nutrients_id"
         case recipeId = "recipe_id"
     }
+}
+
+func ==(lhs: Ingredient, rhs: Ingredient) -> Bool {
+    return lhs.nbdId == rhs.nbdId
 }
 
 struct Nutrient: Codable {

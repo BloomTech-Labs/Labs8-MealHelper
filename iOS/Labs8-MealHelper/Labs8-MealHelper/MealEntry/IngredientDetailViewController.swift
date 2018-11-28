@@ -9,8 +9,9 @@
 import Foundation
 import UIKit
 
-protocol IngredientDetailDelegate {
-    
+protocol IngredientDetailDelegate: class {
+    func updateIngredient(_ ingredient: Ingredient)
+    func selectFood(at indexPath: IndexPath)
 }
 
 class IngredientDetailViewController: UIViewController {
@@ -23,7 +24,7 @@ class IngredientDetailViewController: UIViewController {
             nutrientTableView.nutrients = ingredient?.nutrients
         }
     }
-    weak var delegate: IngredientsTableViewController?
+    weak var delegate: IngredientDetailDelegate?
     var delegateIndexPath: IndexPath? // TODO: add protocol
     var foodLabels = ["Gluten-free", "No sugar", "High-fiber", "Low Fat", "High Protein", "Low-Sodium"]
     
@@ -75,8 +76,9 @@ class IngredientDetailViewController: UIViewController {
         
         // When user taps on addToBasket then we tell the delegate VC to select and highlight the appropriate row
         dismiss(animated: true) {
-            if let indexPath = self.delegateIndexPath {
+            if let indexPath = self.delegateIndexPath, let ingredient = self.ingredient {
                 self.delegate?.selectFood(at: indexPath)
+                self.delegate?.updateIngredient(ingredient)
             }
         }
     }
