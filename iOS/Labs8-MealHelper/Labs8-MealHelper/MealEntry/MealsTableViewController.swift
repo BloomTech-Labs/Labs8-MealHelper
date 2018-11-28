@@ -45,7 +45,7 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
     }
     
     override func actionWhenNoItemsSelected() {
-        let ingredientsVC = IngredientsTableViewController(navTitle: "Ingredients")
+        let ingredientsVC = SearchIngredientsTableViewController(navTitle: "Ingredients")
         navigationController?.pushViewController(ingredientsVC, animated: true)
     }
     
