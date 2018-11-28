@@ -81,12 +81,11 @@ class FoodSummaryViewController: UIViewController {
     let titleTextField: LeftIconTextField = {
         let tf = LeftIconTextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.leftImage = nil
         tf.tintColor = .lightPurple
         tf.keyboardType = .default
         tf.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        tf.backgroundColor = .white
         tf.placeholder = "Add a recipe name"
-        tf.leftImage = #imageLiteral(resourceName: "message")
         return tf
     }()
     
