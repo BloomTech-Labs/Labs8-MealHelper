@@ -10,18 +10,22 @@ import Foundation
 
 struct FoodHelper {
     
-    enum Units: String, CaseIterable {
+    enum Units: String {
+        case kcal, grams = "g"
+    }
+    
+    enum ServingTypes: String, CaseIterable {
         case cup, tablespoon, hundertGrams = "100g", ounce
     }
     
-    func convertHundertGrams(_ gm: Double, to unit: Units) -> Double {
+    func convertHundertGrams(_ gm: Double, to unit: ServingTypes) -> Double {
         switch unit {
         case .cup:
             return gm * 1.5
         case .tablespoon:
-            return gm / 10
+            return gm / 7.067
         case .ounce:
-            return gm * 3.527396195
+            return gm / 3.527396195
         case .hundertGrams:
             return gm
         }

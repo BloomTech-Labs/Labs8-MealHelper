@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodTableViewCell<Ingredient>>, UISearchBarDelegate, UISearchResultsUpdating {
+class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodTableViewCell<Ingredient>> {
     
     // MARK: - Public properties
     
@@ -140,6 +140,13 @@ class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodT
         self.navigationController?.popViewController(animated: true)
     }
     
+    // MARK: - Private methods
+    
+    
+    
+}
+
+extension IngredientsTableViewController: UISearchBarDelegate, UISearchResultsUpdating {
     // MARK: - UISearchBarDelegate, UISearchResultsUpdating
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -189,5 +196,4 @@ class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodT
             }
         }
     }
-    
 }

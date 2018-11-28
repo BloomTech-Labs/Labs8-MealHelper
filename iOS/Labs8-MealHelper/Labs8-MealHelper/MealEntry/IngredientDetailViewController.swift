@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol IngredientDetailDelegate {
+    
+}
+
 class IngredientDetailViewController: UIViewController {
     
     // MARK: - Public properties
@@ -16,7 +20,7 @@ class IngredientDetailViewController: UIViewController {
     var ingredient: Ingredient? {
         didSet {
             setupViews()
-            setupNutrientTable()
+            nutrientTableView.nutrients = ingredient?.nutrients
         }
     }
     weak var delegate: IngredientsTableViewController?
@@ -57,6 +61,11 @@ class IngredientDetailViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupFoodLabels()
+        setupNutrientTable()
+        
+        // Listen for user changing serving types or qty
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingType), name: .MHServingTypeDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingQty), name: .MHServingQtyDidChange, object: nil)
     }
     
     // MARK: - User actions
@@ -69,6 +78,33 @@ class IngredientDetailViewController: UIViewController {
             if let indexPath = self.delegateIndexPath {
                 self.delegate?.selectFood(at: indexPath)
             }
+        }
+    }
+    
+    @objc private func didChangeServingType(note: Notification) {
+        if let userInfo = note.userInfo, let servingType = userInfo["servingType"] as? FoodHelper.ServingTypes, let nutrients = ingredient?.nutrients {
+            let updatedNutrients = nutrients.map { (nutrient: Nutrient) -> Nutrient in
+                var updatedNutrient = nutrient
+                let convertedValue = FoodHelper().convertHundertGrams(nutrient.gm, to: servingType)
+                updatedNutrient.value = String(format: "%.02f", convertedValue)
+                updatedNutrient.unit = servingType.rawValue
+                return updatedNutrient
+            }
+            
+            ingredient?.nutrients = updatedNutrients
+        }
+    }
+    
+    @objc private func didChangeServingQty(note: Notification) {
+        if let userInfo = note.userInfo, let servingQty = userInfo["servingQty"] as? Double, let nutrients = ingredient?.nutrients {
+            let updatedNutrients = nutrients.map { (nutrient: Nutrient) -> Nutrient in
+                var updatedNutrient = nutrient
+                let convertedValue = (Double(updatedNutrient.value) ?? 0) * servingQty
+                updatedNutrient.value = String(format: "%.02f", convertedValue)
+                return updatedNutrient
+            }
+            
+            ingredient?.nutrients = updatedNutrients
         }
     }
     
@@ -135,7 +171,7 @@ class IngredientDetailViewController: UIViewController {
             DispatchQueue.main.async {
                 switch response {
                 case .success(let nutrients):
-                    self.nutrientTableView.nutrients = nutrients
+                    self.ingredient?.nutrients = nutrients
                 case .error(let error):
                     NSLog("Error fetching ingredients: \(error)")
                 }

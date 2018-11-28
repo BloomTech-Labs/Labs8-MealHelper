@@ -92,11 +92,11 @@ struct Ingredient: Codable {
 
 struct Nutrient: Codable {
     
-    var identifier: String? // usda nutrient id
-    var name: String?
-    var unit: String?
-    var value: String?
-    var gm: Double? // The 100 gram equivalent value for the nutrient
+    var identifier: String // usda nutrient id
+    var name: String
+    var unit: String
+    var value: String
+    var gm: Double // The 100 gram equivalent value for the nutrient
     
     enum CodingKeys: String, CodingKey {
         case identifier = "nutrient_id"

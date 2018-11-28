@@ -16,32 +16,15 @@ class NutrientDetailTableViewController: UITableViewController {
         }
     }
     
+    var servingType = FoodHelper.ServingTypes.cup
+    
     private let cellReuseId = "nutrientCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseId)
-        
-        // Listen for user changing serving types or qty
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingType), name: .MHServingTypeDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingQty), name: .MHServingQtyDidChange, object: nil)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseId)       
     }
     
-    // MARK: - User actions
-    
-    @objc private func didChangeServingType(note: Notification) {
-        if let userInfo = note.userInfo, let servingQty = userInfo["servingType"] {
-            
-        }
-    }
-    
-    @objc private func didChangeServingQty(note: Notification) {
-        if let userInfo = note.userInfo, let servingQty = userInfo["servingQty"] {
-            
-        }
-    }
-
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

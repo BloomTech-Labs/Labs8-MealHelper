@@ -27,7 +27,7 @@ class FoodSummaryView: UIView {
     var servingQty: String?
     var servingType: String?
     var servingQtys = (1...20).map { String($0) }
-    var servingTypes = FoodHelper.Units.allCases.map { $0 } // ["cup", "100 g", "container", "ounce"]
+    var servingTypes = FoodHelper.ServingTypes.allCases.map { $0 } // ["cup", "100 g", "container", "ounce"]
     
     // MARK: - Private properties
     
