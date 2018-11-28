@@ -37,7 +37,7 @@ class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodT
     override lazy var noItemSelectedbarButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(actionWhenNoItemsSelected))
     }()
-
+    
     override lazy var itemsSelectedBarButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(actionWhenItemsSelected))
     }()
@@ -49,7 +49,7 @@ class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodT
         tableView.tableHeaderView = searchController.searchBar
         
         // Fetch previously saved ingredients
-        FoodClient.shared.fetchIngredients(for: User()) { (response) in
+        FoodClient.shared.fetchIngredients { (response) in
             DispatchQueue.main.async {
                 switch response {
                 case .success(let ingredients):
@@ -112,28 +112,15 @@ class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodT
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // On row click, show a ingredient detail modal
-//        let ingredientDetailVC = IngredientDetailViewController()
-//        ingredientDetailVC.modalPresentationStyle = .overFullScreen
-//        ingredientDetailVC.delegate = self // We use a delegation pattern so the dismissing detailVC can handle selection of an ingredient
-//        ingredientDetailVC.delegateIndexPath = indexPath // Select ingredient at indexPath
-//
-//        let ingredient = foods?[indexPath.row]
-//        ingredientDetailVC.ingredient = ingredient
-//
-//        present(ingredientDetailVC, animated: true, completion: nil)
-        let swipeVC = SwipableViewController()
-        swipeVC.modalPresentationStyle = .overFullScreen
-        let titleLabel = UILabel()
-        titleLabel.text = "Gagi"
-        titleLabel.textAlignment = .center
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
-        addChild(swipeVC)
-        swipeVC.didMove(toParent: self)
-        tableView.addSubview(swipeVC.view)
-        swipeVC.popupView.addSubview(titleLabel)
+        let ingredientDetailVC = IngredientDetailViewController()
+        ingredientDetailVC.modalPresentationStyle = .overFullScreen
+        ingredientDetailVC.delegate = self // We use a delegation pattern so the dismissing detailVC can handle selection of an ingredient
+        ingredientDetailVC.delegateIndexPath = indexPath // Select ingredient at indexPath
         
-        swipeVC.view.fillSuperview()
-        tableView.bringSubviewToFront(swipeVC.view)
+        let ingredient = foods?[indexPath.row]
+        ingredientDetailVC.ingredient = ingredient
+        
+        present(ingredientDetailVC, animated: true, completion: nil)
     }
     
     override func actionWhenNoItemsSelected() {
@@ -143,7 +130,7 @@ class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodT
     override func actionWhenItemsSelected() {
         for index in selectedFoodAtIndex {
             guard let foods = foods, let name = foods[index].name else { continue }
-            FoodClient.shared.postIngredient(with: User(), name: name, nutrientId: "", completion: { (response) in
+            FoodClient.shared.postIngredient(name: name, nutrientId: "", completion: { (response) in
                 // Handle http response
             })
         }
@@ -152,7 +139,6 @@ class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodT
         
         self.navigationController?.popViewController(animated: true)
     }
-    
     // MARK: - UISearchBarDelegate, UISearchResultsUpdating
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -202,5 +188,16 @@ class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodT
             }
         }
     }
+    
+}
+
+extension IngredientsTableViewController: IngredientDetailDelegate {
+    
+    func updateIngredient(_ ingredient: Ingredient) {
+        guard let index = foods?.index(of: ingredient) else { return }
+        foods?.remove(at: index)
+        foods?.insert(ingredient, at: index)
+    }
+    
     
 }
