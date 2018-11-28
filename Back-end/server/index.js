@@ -927,8 +927,7 @@ server.get("/alarms/:userid", (req, res) => {
 server.post("/alarms/:userid", (req, res) => {
 	//Grabs the user id from req.params
 	const user_ID = req.params.userid;
-	const { time } = req.body;
-	const label = "";
+	const { time, label } = req.body;
 	//Adds the user id to the alarm object
 	const alarm = { time, label, user_ID };
 	db("alarms")

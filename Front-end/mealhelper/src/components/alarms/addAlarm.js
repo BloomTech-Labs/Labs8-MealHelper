@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom"
 //import moment from "moment";
 import Select from "react-select";
-// import actions
+import { addAlarms } from "../../store/actions/alarmActions";
+
 
 //this is embarrassingly not DRY; auto-populate ASAP
 const options = [
@@ -66,11 +67,14 @@ class AddAlarms extends Component {
       let repeats = +(this.state.repeats) * 100;
       console.log("repeats", repeats)
       let alarmTimes = [];
-      for (let i = start; i <= end; i+=repeats) {
-        alarmTimes.push(i);
-      }
-      console.log("alarmTimes", alarmTimes);
+  for (let i = start; i <= end; i+=repeats) {
+      let time = i.toString();
+      alarmTimes.push({time: time, label: ""});
 
+      alarmTimes.map(alarm => this.props.addAlarms(alarm))
+      }
+      
+       
      //send beginTime/endTime/repeats to alarms table
      //create new alarmslist table
      //split alarmTimes, add note field to alarm body
@@ -121,10 +125,10 @@ class AddAlarms extends Component {
 }
 
 const mapStateToProps = state => ({
-  //map the state
+  alarms: state.alarms
 });
 
 export default connect(
   mapStateToProps,
-  //action
+  { addAlarms }
 )(withRouter(AddAlarms));
