@@ -69,8 +69,8 @@ class AddAlarms extends Component {
       for (let i = start; i <= end; i+=repeats) {
         alarmTimes.push(i);
       }
-      console.log("alarmTimes", alarmTimes);
-
+      
+       
      //send beginTime/endTime/repeats to alarms table
      //create new alarmslist table
      //split alarmTimes, add note field to alarm body
