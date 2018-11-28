@@ -120,10 +120,6 @@ class SignUp extends Component {
                   </button>
                 </Link>
                 <p className="signuptext">Or</p>
-                <div>
-                  <Route exact path="/callback" component={Callback} />
-                  <Sign />
-                </div>
               </div>
               <div className="alert-box">
                 <Alert isOpen={this.state.visable} color="danger">
@@ -131,6 +127,9 @@ class SignUp extends Component {
                 </Alert>
               </div>
             </form>
+
+            <Sign />
+            <Route exact path="/callback" component={Callback} />
           </div>
         </div>
       </div>

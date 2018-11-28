@@ -15,7 +15,7 @@ function Sign(props) {
   return (
     <nav className="navbar">
       {!auth0Client.isAuthenticated() && (
-        <button className="btn btn-dark" onClick={auth0Client.signIn}>
+        <button className="authlogos" onClick={auth0Client.signIn}>
           <img src={Facelogo} className="authlogo1" alt="Facebook" />
           <img src={Googlogo} className="authlogo2" alt="Google" />
         </button>

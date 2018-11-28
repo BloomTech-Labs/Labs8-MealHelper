@@ -38,6 +38,7 @@ class App extends Component {
           {/* <Route exact path="/" render={() => <LandingPage />} /> */}
           <Route exact path="/" render={() => <Signup />} />
           <Route exact path="/callback" render={() => <Callback />} />
+
           <Route path="/login" render={() => <Login />} />
           <Route exact path="/homepage" render={() => <HomePage />} />
           <Route exact path="/homepage/meals" render={() => <Meals />} />
