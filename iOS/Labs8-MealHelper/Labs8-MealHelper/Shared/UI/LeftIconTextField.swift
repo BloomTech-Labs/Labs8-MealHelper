@@ -27,15 +27,17 @@ class LeftIconTextField: UITextField
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect
     {
-        guard let leftViewWidth = self.leftView?.bounds.width,  let leftViewspacing = self.leftView?.frame.minX else { return CGRect.zero }
+        let leftViewWidth = self.leftView?.bounds.width ?? 0
         let textSpacing: CGFloat = 10
+        let leftViewspacing: CGFloat = self.leftView?.frame.minX ?? 0.0
         let textOffset = leftViewWidth + leftViewspacing + textSpacing
         return CGRect(origin: CGPoint(x: textOffset, y: 0), size: bounds.size)
     }
     
     override func textRect(forBounds bounds: CGRect) -> CGRect
     {
-        guard let leftViewWidth = self.leftView?.bounds.width,  let leftViewspacing = self.leftView?.frame.minX else { return CGRect.zero }
+        let leftViewWidth = self.leftView?.bounds.width ?? 0.0
+        let leftViewspacing: CGFloat = self.leftView?.frame.minX ?? 0.0
         let textSpacing: CGFloat = 10
         let textOffset = leftViewWidth + leftViewspacing + textSpacing
         return CGRect(origin: CGPoint(x: textOffset, y: 0), size: bounds.size)

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodTableViewCell<Ingredient>>, UISearchBarDelegate, UISearchResultsUpdating {
+class SearchIngredientsTableViewController: FoodsTableViewController<Ingredient, FoodTableViewCell<Ingredient>>, UISearchBarDelegate, UISearchResultsUpdating {
     
     // MARK: - Public properties
     
@@ -112,12 +112,12 @@ class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodT
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // On row click, show a ingredient detail modal
-        let ingredientDetailVC = IngredientDetailViewController()
+        let ingredientDetailVC = SearchIngredientDetailViewController()
         ingredientDetailVC.modalPresentationStyle = .overFullScreen
         ingredientDetailVC.delegate = self // We use a delegation pattern so the dismissing detailVC can handle selection of an ingredient
         ingredientDetailVC.delegateIndexPath = indexPath // Select ingredient at indexPath
         
-        let ingredient = foods?[indexPath.row]
+        let ingredient = indexPath.section == 0 ? foods?[indexPath.row] : previousIngredients[indexPath.row]
         ingredientDetailVC.ingredient = ingredient
         
         present(ingredientDetailVC, animated: true, completion: nil)
@@ -128,17 +128,11 @@ class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodT
     }
     
     override func actionWhenItemsSelected() {
-        for index in selectedFoodAtIndex {
-            guard let foods = foods, let name = foods[index].name else { continue }
-            FoodClient.shared.postIngredient(name: name, nutrientId: "", completion: { (response) in
-                // Handle http response
-            })
-        }
-        
-        // TODO: // Save ingredients to recipe
-        
-        self.navigationController?.popViewController(animated: true)
+        let saveRecipeVC = SaveRecipeViewController()
+        saveRecipeVC.ingredients = getSelectedFoods()
+        navigationController?.pushViewController(saveRecipeVC, animated: true)
     }
+    
     // MARK: - UISearchBarDelegate, UISearchResultsUpdating
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -191,7 +185,7 @@ class IngredientsTableViewController: FoodsTableViewController<Ingredient, FoodT
     
 }
 
-extension IngredientsTableViewController: IngredientDetailDelegate {
+extension SearchIngredientsTableViewController: SearchIngredientDetailDelegate {
     
     func updateIngredient(_ ingredient: Ingredient) {
         guard let index = foods?.index(of: ingredient) else { return }
