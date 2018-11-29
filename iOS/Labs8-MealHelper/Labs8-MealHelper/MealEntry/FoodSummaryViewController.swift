@@ -53,7 +53,6 @@ class FoodSummaryViewController: UIViewController {
     
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
@@ -63,7 +62,6 @@ class FoodSummaryViewController: UIViewController {
     
     private lazy var inputStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
@@ -73,7 +71,6 @@ class FoodSummaryViewController: UIViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 20.0)
         return label
     }()
@@ -81,7 +78,6 @@ class FoodSummaryViewController: UIViewController {
     
     let titleTextField: LeftIconTextField = {
         let tf = LeftIconTextField()
-        tf.translatesAutoresizingMaskIntoConstraints = false
         tf.leftImage = nil
         tf.tintColor = .lightPurple
         tf.keyboardType = .default
@@ -92,7 +88,6 @@ class FoodSummaryViewController: UIViewController {
     
     private lazy var subtitleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 17.0)
         return label
     }()

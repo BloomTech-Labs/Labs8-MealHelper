@@ -18,11 +18,14 @@ class SaveRecipeViewController: UIViewController {
         }
     }
     
+    var recipeName: String?
+    var serving: Int = 1
+    var mealTime = "Snack"
+    
     // MARK: - Private properties
 
     private let recipeSettingsVC: FoodSummaryViewController = {
         let vc = FoodSummaryViewController()
-        vc.view.translatesAutoresizingMaskIntoConstraints = false
         vc.view.backgroundColor = UIColor.lightGray
         vc.rightPickerFieldValues = (1...20).map { String($0) }
         vc.rightPickerFieldDefaultValue = "1"
@@ -35,13 +38,11 @@ class SaveRecipeViewController: UIViewController {
     
     private let nutrientTableVC: NutrientDetailTableViewController = {
         let tv = NutrientDetailTableViewController()
-        tv.view.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
     
     private let ingredientTableVC: IngredientTableViewController = {
         let tv = IngredientTableViewController()
-        tv.view.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
     
@@ -60,12 +61,19 @@ class SaveRecipeViewController: UIViewController {
         add(ingredientTableVC)
         
         setupViews()
+        hideKeyboardWhenTappedAround()
+        setupKeyboardNotifications()
     }
     
     // MARK: - User actions
     
     @objc private func save() {
         // Save recipe
+    }
+    
+    
+    @objc private func handleKeyboard(notification: NSNotification) {
+        
     }
     
     // MARK: - Configuration
@@ -75,6 +83,11 @@ class SaveRecipeViewController: UIViewController {
         recipeSettingsVC.view.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor)
         ingredientTableVC.tableView.anchor(top: recipeSettingsVC.view.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         
+    }
+    
+    private func setupKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
 }

@@ -35,7 +35,6 @@ class SearchIngredientDetailViewController: UIViewController {
     
     private lazy var containerView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 8.0
         view.layer.masksToBounds = true
         view.backgroundColor = .white
@@ -44,14 +43,12 @@ class SearchIngredientDetailViewController: UIViewController {
     
     private lazy var foodLabelView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private lazy var addButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Add to basket", for: .normal)
+        button.setTitle("Add to recipe", for: .normal)
         button.addTarget(self, action: #selector(addToBasket), for: .touchUpInside)
         button.backgroundColor = .mountainBlue
         button.tintColor = .white
@@ -166,6 +163,7 @@ class SearchIngredientDetailViewController: UIViewController {
         }
         
         foodLabelView.heightAnchor.constraint(equalToConstant: accumulatedHeight + labelHeight + padding).isActive = true
+        
         view.layoutIfNeeded()
     }
     
@@ -196,12 +194,12 @@ class SearchIngredientDetailViewController: UIViewController {
         return label
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { // Dismisses the view when user taps outside of the detail view.
-        guard let touch = touches.first, let tappedView = touch.view else { return }
-        
-        if tappedView != containerView && !tappedView.isDescendant(of: containerView) {
-            dismiss(animated: true, completion: nil)
-        }
-    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { // Dismisses the view when user taps outside of the detail view.
+//        guard let touch = touches.first, let tappedView = touch.view else { return }
+//
+//        if tappedView != containerView && !tappedView.isDescendant(of: containerView) {
+//            dismiss(animated: true, completion: nil)
+//        }
+//    }
     
 }

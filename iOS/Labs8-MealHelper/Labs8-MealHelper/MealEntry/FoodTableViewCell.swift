@@ -27,7 +27,6 @@ class FoodTableViewCell<Resource>: UITableViewCell {
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 10.0
@@ -36,7 +35,6 @@ class FoodTableViewCell<Resource>: UITableViewCell {
     
     private let labelStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
@@ -45,7 +43,6 @@ class FoodTableViewCell<Resource>: UITableViewCell {
     
     let selectButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "add")!.withRenderingMode(.alwaysTemplate), for: .normal)
         button.setImage(UIImage(named: "checked")!.withRenderingMode(.alwaysTemplate), for: .selected)
         button.tintColor = UIColor.lightGray
