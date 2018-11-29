@@ -25,7 +25,12 @@ export const alarmsReducer = (state = initialState, action) => {
       return {...state, addingAlarms: false, alarms: action.payload };
     case actionTypes.ADDING_ALARMS_ERROR:
       return {...state, addingAlarms: false, error: action.payload};
-    
+      case actionTypes.UPDATING_ALARM:
+			return { ...state, updatingAlarm: true };
+		case actionTypes.UPDATED_ALARM:
+			return { ...state, updatingAlarm: false, alarms: action.payload };
+		case actionTypes.UPDATING_ALARM_ERROR:
+			return { ...state, updatingAlarm: false, error: action.payload };
     default:
       return state;
   }
