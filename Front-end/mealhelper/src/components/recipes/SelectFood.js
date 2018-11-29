@@ -67,6 +67,8 @@ class SelectFood extends Component {
         </table>
         <div>
           <Nutrients
+            logoutModal={this.props.logoutModal}
+            logoutMethod={this.props.logoutMethod}
             setCalories={this.props.setCalories}
             onFoodClick={this.props.onFoodClick}
             selectedFoods={this.state.selectedFoods}
