@@ -72,10 +72,10 @@ class AddAlarms extends Component {
       for (let i = start; i <= end; i += repeats) {
         if (i.toString().length === 3) {
           let alarm = 0 + i.toString();
-          alarmTimes.push({ user_id: user_id, alarm: alarm, label: "" });
+          alarmTimes.push({ user_id: user_id, label: "", alarm: alarm });
         } else {
           let alarm = i.toString();
-          alarmTimes.push({ user_id: user_id, alarm: alarm, label: "" });
+          alarmTimes.push({ user_id: user_id, label: "", alarm: alarm });
         }
       }
       console.log("alarmTimes", alarmTimes)
