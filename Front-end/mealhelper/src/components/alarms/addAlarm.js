@@ -57,6 +57,10 @@ class AddAlarms extends Component {
     console.log("start time", this.state.beginTime);
     console.log("end time", this.state.endTime);
     console.log("hours between", this.state.repeats);
+
+    console.log("this.props", this.props);
+    console.log("this.props.user", this.props.user)
+   // const user_id = this.props.user.userID;
     if (!this.state.beginTime || !this.state.endTime || !this.state.repeats) {
       //alert that all fields are required
     } else {
@@ -68,13 +72,15 @@ class AddAlarms extends Component {
       for (let i = start; i <= end; i += repeats) {
         if (i.toString().length === 3) {
           let time = 0 + i.toString();
-          alarmTimes.push({ time: time, label: "" });
+          alarmTimes.push({ /*user_id: user_id,*/ time: time, label: "" });
         } else {
           let time = i.toString();
-          alarmTimes.push({ time: time, label: "" });
+          alarmTimes.push({ /*user_id: user_id,*/ time: time, label: "" });
         }
-        alarmTimes.map(alarm => this.props.addAlarms(alarm));
       }
+      console.log("alarmTimes", alarmTimes)
+        alarmTimes.map(alarm => console.log("alarm map", alarm));
+        alarmTimes.map(alarm => this.props.addAlarms(alarm));
       // this.props.history.push('/homepage/alarms')
     }
   };
@@ -118,7 +124,7 @@ class AddAlarms extends Component {
 }
 
 const mapStateToProps = state => ({
-  alarms: state.alarms
+  user: state.userReducer.user
 });
 
 export default connect(
