@@ -20,6 +20,8 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import { Elements, StripeProvider } from "react-stripe-elements";
+import CheckoutForm from "../checkout/CheckoutForm";
 
 class HomePage extends Component {
   constructor(props) {
@@ -90,6 +92,14 @@ class HomePage extends Component {
           <Button color="danger" onClick={this.toggle}>
             Log Out
           </Button>
+          <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
+            <div className="example">
+              <h1>React Stripe Elements Example</h1>
+              <Elements>
+                <CheckoutForm />
+              </Elements>
+            </div>
+          </StripeProvider>
         </div>
         <div className="dynamic-display">
           <Switch>
