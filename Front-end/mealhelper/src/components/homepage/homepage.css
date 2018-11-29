@@ -5,8 +5,8 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	display: flex;
-	justify-content: space-between;
+	/* display: flex;
+	justify-content: space-between; */
 }
 
 .sidebar {
@@ -43,11 +43,6 @@
 	margin-top: 10%;
 	padding-right: 30%;
 }
-
-/* .hide-nav {
-	visibility: hidden;
-	background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
-} */
 
 @media screen and (max-width: 800px) {
 	.sidebar {

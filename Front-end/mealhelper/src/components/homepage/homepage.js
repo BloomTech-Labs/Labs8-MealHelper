@@ -46,8 +46,8 @@ class HomePage extends Component {
 	render() {
 		return (
 			<div>
-				<NavMenu className="hide-nav" />
 				<div className="home-container">
+					<NavMenu className="hide-nav" />
 					<div className="sidebar">
 						<Link to="/homepage/recipes" style={{ textDecoration: 'none' }}>
 							<h2 className="titlelinks">Recipes</h2>
