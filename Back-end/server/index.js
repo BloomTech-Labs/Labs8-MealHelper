@@ -650,7 +650,7 @@ server.post("/nutrients/:id", (req, res) => {
   const { nutrient, nutrients_id, unit, value } = req.body;
   //set the what we grabbed to a new "nutrient"
   const nutrientsAll = { nutrient, nutrients_id, unit, value };
-
+  console.log(nutrientsAll);
   db("nutrients")
     .insert(nutrientsAll)
     .then(nutrientID => {
