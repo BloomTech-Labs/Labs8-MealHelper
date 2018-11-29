@@ -65,8 +65,8 @@ class SearchIngredientDetailViewController: UIViewController {
         setupNutrientTable()
         
         // Listen for user changing serving types or qty
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingType), name: .MHTypePickerDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingQty), name: .MHQuantityPickerDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingType), name: .MHFoodSummaryTypePickerDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingQty), name: .MHFoodSummaryQuantityPickerDidChange, object: nil)
     }
     
     // MARK: - User actions

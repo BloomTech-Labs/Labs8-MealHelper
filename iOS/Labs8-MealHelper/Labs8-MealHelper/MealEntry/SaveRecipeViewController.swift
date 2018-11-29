@@ -63,7 +63,7 @@ class SaveRecipeViewController: UIViewController {
         setupViews()
         hideKeyboardWhenTappedAround()
         setupKeyboardNotifications()
-        setupPickerNotifications()
+        setupRecipeSettingsNotifications()
     }
     
     // MARK: - User actions
@@ -89,6 +89,12 @@ class SaveRecipeViewController: UIViewController {
         }
     }
     
+    @objc private func handleRecipeNameSetting(notification: NSNotification) {
+        if let userInfo = notification.userInfo, let recipeName = userInfo["textField"] as? String {
+            self.recipeName = recipeName
+        }
+    }
+    
     // MARK: - Configuration
     
     private func setupViews() {
@@ -96,6 +102,7 @@ class SaveRecipeViewController: UIViewController {
         recipeSettingsVC.view.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor)
         ingredientTableVC.tableView.anchor(top: recipeSettingsVC.view.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         
+        navigationItem.setRightBarButton(saveBarButton, animated: true)
     }
     
     private func setupKeyboardNotifications() {
@@ -103,9 +110,10 @@ class SaveRecipeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    private func setupPickerNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleMealTimeSetting), name: .MHTypePickerDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleServingSetting), name: .MHQuantityPickerDidChange, object: nil)
+    private func setupRecipeSettingsNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleMealTimeSetting), name: .MHFoodSummaryTypePickerDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleServingSetting), name: .MHFoodSummaryQuantityPickerDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRecipeNameSetting), name: .MHFoodSummaryTextFieldDidChange, object: nil)
     }
     
 }

@@ -83,7 +83,6 @@ class FoodSummaryViewController: UIViewController {
         return label
     }()
     
-    
     let titleTextField: LeftIconTextField = {
         let tf = LeftIconTextField()
         tf.leftImage = nil
@@ -94,11 +93,11 @@ class FoodSummaryViewController: UIViewController {
         return tf
     }()
     
-    private lazy var subtitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17.0)
-        return label
-    }()
+//    private lazy var subtitleLabel: UILabel = {
+//        let label = UILabel()
+//        label.font = UIFont.systemFont(ofSize: 17.0)
+//        return label
+//    }()
     
     // MARK: - Life Cycle
     
@@ -129,6 +128,7 @@ class FoodSummaryViewController: UIViewController {
         typeInputField.picker.dataSource = self
         quantityInputField.picker.delegate = self
         quantityInputField.picker.dataSource = self
+        titleTextField.delegate = self
     }
     
 }
@@ -168,13 +168,13 @@ extension FoodSummaryViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             typeInputField.text = type
             servingType = type
             //setServingType(with: type, for: food)
-            NotificationCenter.default.post(name: .MHTypePickerDidChange, object: nil, userInfo: ["type": type])
+            NotificationCenter.default.post(name: .MHFoodSummaryTypePickerDidChange, object: nil, userInfo: ["type": type])
         case "servingQty":
             let qty = typePickerFieldValues[row]
             quantityInputField.text = qty
             servingQty = qty
             //setServingQty(with: qty, for: food)
-            NotificationCenter.default.post(name: .MHQuantityPickerDidChange, object: nil, userInfo: ["quantity": qty])
+            NotificationCenter.default.post(name: .MHFoodSummaryQuantityPickerDidChange, object: nil, userInfo: ["quantity": qty])
         default:
             break
         }
@@ -182,3 +182,11 @@ extension FoodSummaryViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     
 }
 
+extension FoodSummaryViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        NotificationCenter.default.post(name: .MHFoodSummaryTextFieldDidChange, object: nil, userInfo: ["textField": text])
+    }
+    
+}
