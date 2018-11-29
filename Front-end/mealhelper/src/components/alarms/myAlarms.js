@@ -69,7 +69,7 @@ class MyAlarms extends Component {
           <div className="dynamic-display">
           <h1>Alarms</h1>
           <Link to="/homepage/alarms/add-alarms">Add New Alarms</Link>
-             {/* {this.props.alarms.map((alarm) => (
+              {this.props.alarms.map((alarm) => (
             <div
               key={alarm.id}
               id={alarm.id}
@@ -78,7 +78,7 @@ class MyAlarms extends Component {
               > <br/>
               <h2>{alarm.alarm}</h2>
               <h2>{alarm.label}</h2></div>
-              ))}  */}
+              ))}  
             
           </div>
         </div>
