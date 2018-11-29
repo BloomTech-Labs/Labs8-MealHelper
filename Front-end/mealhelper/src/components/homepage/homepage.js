@@ -110,9 +110,9 @@ class HomePage extends Component {
               path="/homepage/recipes/createnewrecipe"
               render={() => <CreateNewRecipe />}
             />
-            {/* <Route path="/homepage/alarms" render={() => <Alarms />} />
-							<Route path="/homepage/billing" render={() => <Billing />} />
-                            <Route path="/homepage/settings" render={() => <Settings />} /> */}
+            {/* <Route path="/homepage/alarms" render={() => <Alarms />} /> */}
+            <Route path="/homepage/billing" render={() => <Billing />} />
+            {/* <Route path="/homepage/settings" render={() => <Settings />} /> */}
           </Switch>
         </div>
 
