@@ -12,7 +12,7 @@ export const addAlarms = alarms => dispatch => {
   console.log(alarms);
   const user_id = alarms.user_id;
   axios
-    .post(`https://labs8-meal-helper.herokuapp.com/alarms/${user_id}`, alarms)
+    .post(`https://labs8-meal-helper.herokuapp.com/alarms/1`, alarms)
     .then(response => {
       dispatch({ type: ADDED_ALARMS, payload: response.data });
     })

@@ -945,7 +945,7 @@ server.post("/alarms/:userid", (req, res) => {
 	db("alarms")
 		//Inserts the alarm and sets it to the user
 		.insert(alarmBody)
-		.then(alarm => {
+		.then(alarmBody => {
 			//Returns the alarm
 			res.status(201).json(alarmBody);
 		})
