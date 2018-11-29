@@ -53,11 +53,13 @@ class Nutrients extends Component {
       return nutrient.nutrients;
     });
     console.log(nutrients.length);
-    let count = nutrients.length;
-
+    let countNutrients = nutrients.length;
+    let countIngredients = this.state.selectedFoods.length;
+    console.log("this is the count of ingredients array", countIngredients);
     this.props.addMultipleIngredients(
       this.state.selectedFoods,
-      this.props.user.userID
+      this.props.user.userID,
+      countIngredients
     );
     console.log(this.props.ingredients);
     // this.props.addMultipleNutrients(nutrients, this.props.user.userID, count, this.props.ingredients);
@@ -102,10 +104,6 @@ class Nutrients extends Component {
       .toFixed(2);
   };
   render(props) {
-    console.log(this.state.selectedFoods);
-    console.log(this.state.nutrients);
-    console.log(this.props);
-
     const foodRows = this.state.nutrients.map((food, idx) => (
       <tr
         food={food}
@@ -184,7 +182,6 @@ class Nutrients extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     user: state.userReducer.user,
     meals: state.mealsReducer.meals,

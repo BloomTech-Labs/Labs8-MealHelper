@@ -510,7 +510,6 @@ server.post("/ingredients/:userid", (req, res) => {
     .then(ingredientID => {
       db("ingredients")
         .where({ user_id: user_id })
-        .first()
         .then(ingredient => {
           res.status(200).json(ingredient);
         })
