@@ -70,15 +70,16 @@ class MyAlarms extends Component {
           <h1>Alarms</h1>
           <Link to="/homepage/alarms/add-alarms">Add New Alarms</Link>
               {this.props.alarms.map((alarm) => (
-            <div
+            <div 
               key={alarm.id}
               id={alarm.id}
               label={alarm.label}
-              alarm={alarm.alarm}              
+              alarm={alarm.alarm}
+              onClick={() => this.props.history.push(`alarm/${alarm.id}`)}              
               > <br/>
               <h2>{alarm.alarm}</h2>
               <h2>{alarm.label}</h2></div>
-              ))}  
+              ))}
             
           </div>
         </div>

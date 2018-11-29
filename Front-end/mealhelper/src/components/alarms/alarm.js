@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 class Alarm extends Component {
   render() {
     return (
-      <div className="label">
+      <div className="alarm-container">
+        <h2>{alarm}</h2>
         <h2>{label}</h2>
-        <h3>{alarm}</h3>
       </div>
     )
   }
