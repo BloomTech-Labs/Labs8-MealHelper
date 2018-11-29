@@ -45,37 +45,35 @@ class HomePage extends Component {
 
 	render() {
 		return (
-			<div>
-				<div className="home-container">
-					<NavMenu className="hide-nav" />
-					<div className="sidebar">
-						<Link to="/homepage/recipes" style={{ textDecoration: 'none' }}>
-							<h2 className="titlelinks">Recipes</h2>
-						</Link>
-						<Link to="/homepage/alarms" style={{ textDecoration: 'none' }}>
-							<h2 className="titlelinks">Alarms</h2>
-						</Link>
-						<Link to="/homepage/meals" style={{ textDecoration: 'none' }}>
-							<h2 className="titlelinks">Meals</h2>
-						</Link>
-						<Link to="/homepage/billing" style={{ textDecoration: 'none' }}>
-							<h2 className="titlelinks">Billing</h2>
-						</Link>
-						<Link to="/homepage/settings" style={{ textDecoration: 'none' }}>
-							<h2 className="titlelinks">Settings</h2>
-						</Link>
-					</div>
-					<div className="dynamic-display">
-						<Switch>
-							<Route path="/homepage/weather" render={() => <Weather />} />
-							<Route exact path="/homepage/recipes" render={() => <Recipes />} />
-							<Route exact path="/homepage/meals" render={() => <Meals />} />
-							<Route path="/homepage/recipes/createnewrecipe" render={() => <CreateNewRecipe />} />
-							{/* <Route path="/homepage/alarms" render={() => <Alarms />} />
+			<div className="home-container">
+				<NavMenu className="hide-nav" />
+				<div className="sidebar">
+					<Link to="/homepage/recipes" style={{ textDecoration: 'none' }}>
+						<h2 className="titlelinks">Recipes</h2>
+					</Link>
+					<Link to="/homepage/alarms" style={{ textDecoration: 'none' }}>
+						<h2 className="titlelinks">Alarms</h2>
+					</Link>
+					<Link to="/homepage/meals" style={{ textDecoration: 'none' }}>
+						<h2 className="titlelinks">Meals</h2>
+					</Link>
+					<Link to="/homepage/billing" style={{ textDecoration: 'none' }}>
+						<h2 className="titlelinks">Billing</h2>
+					</Link>
+					<Link to="/homepage/settings" style={{ textDecoration: 'none' }}>
+						<h2 className="titlelinks">Settings</h2>
+					</Link>
+				</div>
+				<div className="dynamic-display">
+					<Switch>
+						<Route path="/homepage/weather" render={() => <Weather />} />
+						<Route exact path="/homepage/recipes" render={() => <Recipes />} />
+						<Route exact path="/homepage/meals" render={() => <Meals />} />
+						<Route path="/homepage/recipes/createnewrecipe" render={() => <CreateNewRecipe />} />
+						{/* <Route path="/homepage/alarms" render={() => <Alarms />} />
 							<Route path="/homepage/billing" render={() => <Billing />} />
 			                <Route path="/homepage/settings" render={() => <Settings />} /> */}
-						</Switch>
-					</div>
+					</Switch>
 				</div>
 			</div>
 		);
