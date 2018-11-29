@@ -29,7 +29,7 @@ exports.up = function(knex) {
     knex.schema.createTable("recipe", function(recipe) {
       recipe.increments("id").primary();
       recipe.string("name", 255).notNullable();
-      recipe.integer("calories", 6).notNullable();
+      recipe.string("calories", 6).notNullable();
       recipe.integer("servings", 3).notNullable();
       recipe.integer("user_id");
       recipe.foreign("user_id").references("users.id");
