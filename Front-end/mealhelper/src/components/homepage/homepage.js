@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './homepage.css';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 //change the route for this
 import { addUser } from '../../store/actions/userActions';
 import { withRouter, Link, Route, Switch } from 'react-router-dom';
@@ -10,7 +9,7 @@ import Weather from '../weather/weather';
 import Recipes from '../recipes/recipes';
 import Meals from '../Meals/Meals';
 import CreateNewRecipe from '../creatnewrecipe/createnewrecipe';
-// import NavMenu from '../navMenu/navMenu'
+import NavMenu from '../navMenu/navMenu';
 
 class HomePage extends Component {
 	constructor(props) {
@@ -21,16 +20,9 @@ class HomePage extends Component {
 			password: '',
 			zip: null,
 			healthCondition: '',
-			visable: false,
-			collapsed: true
+			visable: false
 		};
 	}
-
-	toggleNavbar = () => {
-		this.setState({
-			collapsed: !this.state.collapsed
-		});
-	};
 
 	handleChange = event => {
 		event.preventDefault();
@@ -54,50 +46,8 @@ class HomePage extends Component {
 	render() {
 		return (
 			<div>
-				<Navbar className="hide-nav">
-					<NavbarBrand href="/homepage" className="mr-auto">
-						<h3 className="titlelinks">MealHelper</h3>
-					</NavbarBrand>
-					<NavbarToggler onClick={this.toggleNavbar} className="mr-2">
-						<div className="hb-btn">
-							<div />
-							<div />
-							<div />
-						</div>
-					</NavbarToggler>
-					<Collapse isOpen={!this.state.collapsed} navbar>
-						<Nav navbar>
-							<NavItem style={{ textDecoration: 'none' }}>
-								<NavLink href="/homepage/recipes">
-									<h4 className="titlelinks">Recipes</h4>
-								</NavLink>
-							</NavItem>
-							<NavItem style={{ textDecoration: 'none' }}>
-								<NavLink href="/homepage/alarms">
-									<h4 className="titlelinks">Alarms</h4>
-								</NavLink>
-							</NavItem>
-							<NavItem style={{ textDecoration: 'none' }}>
-								<NavLink href="/homepage/meals">
-									<h4 className="titlelinks">Meals</h4>
-								</NavLink>
-							</NavItem>
-							<NavItem style={{ textDecoration: 'none' }}>
-								<NavLink href="/homepage/billing">
-									<h4 className="titlelinks">Billing</h4>
-								</NavLink>
-							</NavItem>
-							<NavItem style={{ textDecoration: 'none' }}>
-								<NavLink href="/homepage/settings">
-									<h4 className="titlelinks">Settings</h4>
-								</NavLink>
-							</NavItem>
-						</Nav>
-					</Collapse>
-				</Navbar>
-				{/* Break at 800px */}
+				<NavMenu className="hide-nav" />
 				<div className="home-container">
-					{/* <NavMenu /> */}
 					<div className="sidebar">
 						<Link to="/homepage/recipes" style={{ textDecoration: 'none' }}>
 							<h2 className="titlelinks">Recipes</h2>

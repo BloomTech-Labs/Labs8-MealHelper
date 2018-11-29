@@ -44,32 +44,13 @@
 	padding-right: 30%;
 }
 
-.hide-nav {
+/* .hide-nav {
 	visibility: hidden;
 	background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
-}
-
-.hb-btn {
-	display: flex;
-	flex-direction: column;
-	cursor: pointer;
-	background-color: white;
-	width: 35px;
-	height: 5px;
-	margin: 6px 0;
-}
-
-.nav-item {
-	display: flex;
-	justify-content: flex-end;
-	color: #f1e7e8;
-}
+} */
 
 @media screen and (max-width: 800px) {
 	.sidebar {
 		visibility: hidden;
-	}
-	.hide-nav {
-		visibility: visible;
 	}
 }
