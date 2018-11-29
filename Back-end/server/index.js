@@ -437,8 +437,16 @@ server.post("/recipe/:userid", (req, res) => {
   db("recipe")
     .insert(recipe)
     .then(recipeID => {
-      //Returns the meal ID
-      res.status(200).json(recipeID);
+      db("recipe")
+        //Finds the corrosponding recipes based on user ID
+        .where({ user_id: userId })
+        .then(meal => {
+          //Returns all the recipes from that user
+          res.status(200).json(meal);
+        })
+        .catch(err => {
+          res.status(400).json({ err, error: "could not find meal" });
+        });
     })
     .catch(err => {
       res.status(400).json({ err, error: "Error creating a new meal." });
