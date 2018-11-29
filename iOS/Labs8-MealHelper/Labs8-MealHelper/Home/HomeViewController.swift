@@ -136,9 +136,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         view.addSubview(collectionView)
         collectionView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12), size: CGSize(width: 0, height: 300))
         
-        view.addSubview(emptyLabel)
-        emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 180).isActive = true
+//        view.addSubview(emptyLabel)
+//        emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 180).isActive = true
         
         view.addSubview(expandableButtonView)
         expandableButtonView.anchor(top: nil, leading: nil, bottom: collectionView.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0), size: CGSize(width: 300, height: 50))
