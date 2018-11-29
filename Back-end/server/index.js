@@ -411,7 +411,7 @@ server.get("/recipe", (req, res) => {
     });
 });
 //GET request to grab all recipes made by a specific user
-server.get("/recipe/:userid", (req, res) => {
+server.get("/recipe/user/:userid", (req, res) => {
   const userId = req.params.userid;
   db("recipe")
     //Finds the corrosponding recipes based on user ID
