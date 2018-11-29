@@ -31,8 +31,6 @@ exports.up = function(knex) {
       recipe.string("name", 255).notNullable();
       recipe.integer("calories", 6).notNullable();
       recipe.integer("servings", 3).notNullable();
-      recipe.integer("ingredients_id");
-      recipe.foreign("ingredients_id").references("ingredients.id");
       recipe.integer("user_id");
       recipe.foreign("user_id").references("users.id");
     }),
@@ -40,7 +38,8 @@ exports.up = function(knex) {
       ingredients.increments("id").primary();
       ingredients.integer("ndb_id");
       ingredients.string("name", 255).notNullable();
-
+      ingredients.integer("recipe_id");
+      ingredients.foreign("recipe_id").references("recipe.id");
       ingredients.integer("user_id");
       ingredients.foreign("user_id").references("users.id");
     }),

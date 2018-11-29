@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 //change the route for this
 import { addMultipleIngredients } from "../../store/actions/ingredActions.js";
 import { addMultipleNutrients } from "../../store/actions/nutrientsActions";
+import { addRecipe } from "../../store/actions/recipeActions";
 import { withRouter, Link, Route } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import { Button } from "reactstrap";
@@ -55,12 +56,15 @@ class Nutrients extends Component {
     console.log(nutrients.length);
     let countNutrients = nutrients.length;
     let countIngredients = this.state.selectedFoods.length;
-    console.log("this is the count of ingredients array", countIngredients);
-    this.props.addMultipleIngredients(
-      this.state.selectedFoods,
-      this.props.user.userID,
-      countIngredients
-    );
+    const { name, calories, servings } = this.props;
+    const recipe = { name, calories, servings };
+    this.props.addRecipe(recipe, this.props.user.userID);
+    // console.log("this is the count of ingredients array", countIngredients);
+    // this.props.addMultipleIngredients(
+    //   this.state.selectedFoods,
+    //   this.props.user.userID,
+    //   countIngredients
+    // );
     console.log(this.props.ingredients);
     // this.props.addMultipleNutrients(nutrients, this.props.user.userID, count, this.props.ingredients);
   };
@@ -192,5 +196,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { addMultipleNutrients, addMultipleIngredients }
+  { addRecipe, addMultipleNutrients, addMultipleIngredients }
 )(withRouter(Nutrients));
