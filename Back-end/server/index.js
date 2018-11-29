@@ -503,7 +503,7 @@ server.post("/ingredients/:userid", (req, res) => {
   const { name } = req.body;
   //Grabs the associated data from req.body and sets it as a JSON to recipe
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-  const ingredient = { name, ndb_id, user_id };
+  const ingredient = { name, ndb_id, user_id, nutrient_ids };
   console.log(ingredient);
   db("ingredients")
     .insert(ingredient)
@@ -649,10 +649,10 @@ server.post("/nutrients/:id", (req, res) => {
   //grabs the name unit and value from req.body
   const { nutrient, nutrient_id, unit, value } = req.body;
   //set the what we grabbed to a new "nutrient"
-  const nutrient = { name, unit, value, user_id };
+  const nutrientsAll = { nutrient, nutrient_id, unit, value, user_id };
 
   db("nutrients")
-    .insert(nutrient)
+    .insert(nutrientsAll)
     .then(nutrientID => {
       //Returns the nutrient ID
       res.status(200).json(nutrientID);
