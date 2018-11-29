@@ -950,7 +950,11 @@ server.post("/alarms/:userid", (req, res) => {
     .insert(alarmBody)
     .then(alarmBody => {
       //Returns the alarm
-      res.status(201).json(alarmBody);
+      db("alarms")
+        .where({ user_id: user_id })
+        .then(alarms => {
+          res.status(200).json(alarms);
+        });
     })
     .catch(err => {
       res.status(400).json({ msg: err, error: "Could not create alarm" });
