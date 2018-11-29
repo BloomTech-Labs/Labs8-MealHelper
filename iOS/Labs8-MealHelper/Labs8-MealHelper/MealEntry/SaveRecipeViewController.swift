@@ -14,7 +14,7 @@ class SaveRecipeViewController: UIViewController {
     
     var ingredients: [Ingredient]? {
         didSet {
-            
+            ingredientTableVC.ingredients = ingredients
         }
     }
     

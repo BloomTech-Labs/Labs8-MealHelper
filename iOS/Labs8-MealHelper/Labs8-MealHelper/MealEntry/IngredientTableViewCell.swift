@@ -10,13 +10,17 @@ import UIKit
 
 class IngredientTableViewCell: UITableViewCell {
     
-    let titleLabel: UILabel = {
+    var title: String? {
+        didSet {
+            setupViews()
+        }
+    }
+    
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = Appearance.appFont(with: 17)
         label.sizeToFit()
-        label.text = "1 TS McCormick Smoked"
-        
         return label
     }()
     
@@ -30,6 +34,7 @@ class IngredientTableViewCell: UITableViewCell {
         addSubview(titleLabel)
         titleLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0), size: .zero)
         
+        titleLabel.text = title
     }
     
     required init?(coder aDecoder: NSCoder) {

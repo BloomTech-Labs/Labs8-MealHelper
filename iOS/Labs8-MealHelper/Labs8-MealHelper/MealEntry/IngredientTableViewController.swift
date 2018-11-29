@@ -12,6 +12,12 @@ class IngredientTableViewController: UITableViewController  {
 
     let reuseCellId = "IngredientCell"
     
+    var ingredients: [Ingredient]? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,11 +30,14 @@ class IngredientTableViewController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return ingredients?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseCellId, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseCellId, for: indexPath) as! IngredientTableViewCell
+        
+        let ingredient = ingredients?[indexPath.row]
+        cell.title = ingredient?.name
         
         return cell
     }

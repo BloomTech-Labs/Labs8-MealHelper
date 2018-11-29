@@ -129,6 +129,7 @@ class SearchIngredientsTableViewController: FoodsTableViewController<Ingredient,
     
     override func actionWhenItemsSelected() {
         let saveRecipeVC = SaveRecipeViewController()
+        saveRecipeVC.ingredients = getSelectedFoods()
         navigationController?.pushViewController(saveRecipeVC, animated: true)
         
         //        for index in selectedFoodAtIndex {
