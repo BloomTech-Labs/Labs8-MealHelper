@@ -94,7 +94,7 @@ class HomePage extends Component {
           </Button>
           <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
             <div className="example">
-              <h1>React Stripe Elements Example</h1>
+              <h1>Pay Up Health Nut</h1>
               <Elements>
                 <CheckoutForm />
               </Elements>
