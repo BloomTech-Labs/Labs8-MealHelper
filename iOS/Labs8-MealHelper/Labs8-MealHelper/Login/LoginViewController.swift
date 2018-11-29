@@ -288,7 +288,7 @@ class LoginViewController: UIViewController
                      UserDefaults().setIsLoggedIn(value: true, userId: userId.id!)
                     let homeVC = HomeViewController()
                     self.present(homeVC, animated: true, completion: nil)
-                case .error(let error):
+                case .error:
                     self.showAlert(with: "Something went wrong, please make sure you entered the right credentials and try again.")
                     self.authButton.stopLoading()
                     return

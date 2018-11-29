@@ -63,6 +63,7 @@
 		ACE1FA6721AE1429003A0030 /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6621AE1429003A0030 /* AlarmCell.swift */; };
 		ACE1FA6D21AF091B003A0030 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6C21AF091B003A0030 /* Alarm.swift */; };
 		ACE1FA7021AF1A53003A0030 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6F21AF1A53003A0030 /* SettingsViewController.swift */; };
+		ACE1FA7321AF56C4003A0030 /* SkyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA7221AF56C4003A0030 /* SkyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,6 +157,7 @@
 		ACE1FA6621AE1429003A0030 /* AlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
 		ACE1FA6C21AF091B003A0030 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		ACE1FA6F21AF1A53003A0030 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		ACE1FA7221AF56C4003A0030 /* SkyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				3D77DD19219F111B009B21ED /* ProgressIndicator.swift */,
-				3D77DD16219EF4A8009B21ED /* WeatherForecast.swift */,
 				3D77DD15219EF4A7009B21ED /* WeatherView.swift */,
 				AC8F0B54219E372E00E623FB /* PickerInputField.swift */,
 				AC85F388219E0B2E007765CA /* LoadingButton.swift */,
@@ -279,6 +280,7 @@
 				AC1DE866219473DD0066172C /* HomeViewController.swift */,
 				AC1DE8682194748F0066172C /* MealCell.swift */,
 				AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */,
+				ACE1FA7221AF56C4003A0030 /* SkyView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -342,6 +344,7 @@
 		AC85F3C4219E3501007765CA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3D77DD16219EF4A8009B21ED /* WeatherForecast.swift */,
 				AC85F3C6219E350C007765CA /* Food.swift */,
 				AC8F0B50219E36AE00E623FB /* User.swift */,
 				ACE1FA6C21AF091B003A0030 /* Alarm.swift */,
@@ -582,6 +585,7 @@
 				AC4D10782194A7BC00317F4C /* OnboardingCollectionViewCell.swift in Sources */,
 				AC85F3D9219E3525007765CA /* FoodSummaryView.swift in Sources */,
 				3D77DD18219EF4A8009B21ED /* WeatherForecast.swift in Sources */,
+				ACE1FA7321AF56C4003A0030 /* SkyView.swift in Sources */,
 				AC85F393219E1071007765CA /* Extensions.swift in Sources */,
 				AC85F3E4219E3526007765CA /* FoodsTableViewController.swift in Sources */,
 				3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */,
