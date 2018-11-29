@@ -10,7 +10,7 @@ import Foundation
 
 extension Notification.Name {
     // MH = suffix for MealHelper
-    static let MHServingTypeDidChange = Notification.Name("MHServingTypeDidChange")
-    static let MHServingQtyDidChange = Notification.Name("MHServingQtyDidChange")
+    static let MHTypePickerDidChange = Notification.Name("MHTypePickerDidChange")
+    static let MHQuantityPickerDidChange = Notification.Name("MHQuantityPickerDidChange")
     
 }

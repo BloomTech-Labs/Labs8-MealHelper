@@ -24,13 +24,13 @@ class SaveRecipeViewController: UIViewController {
     
     // MARK: - Private properties
 
-    private let recipeSettingsVC: FoodSummaryViewController = {
+    private lazy var recipeSettingsVC: FoodSummaryViewController = {
         let vc = FoodSummaryViewController()
         vc.view.backgroundColor = UIColor.lightGray
-        vc.rightPickerFieldValues = (1...20).map { String($0) }
-        vc.rightPickerFieldDefaultValue = "1"
-        vc.leftPickerFieldValues = ["Breakfast", "Lunch", "Dinner", "Snack"]
-        vc.leftPickerFieldDefaultValue = "Snack"
+        vc.quantityPickerFieldValues = ["Breakfast", "Lunch", "Dinner", "Snack"]
+        vc.quantityPickerFieldDefaultValue = String(serving)
+        vc.typePickerFieldValues = (1...20).map { String($0) }
+        vc.typePickerFieldDefaultValue = mealTime
         vc.editableTitle = true
         vc.setupViews()
         return vc
@@ -63,6 +63,7 @@ class SaveRecipeViewController: UIViewController {
         setupViews()
         hideKeyboardWhenTappedAround()
         setupKeyboardNotifications()
+        setupPickerNotifications()
     }
     
     // MARK: - User actions
@@ -74,6 +75,18 @@ class SaveRecipeViewController: UIViewController {
     
     @objc private func handleKeyboard(notification: NSNotification) {
         
+    }
+    
+    @objc private func handleMealTimeSetting(notification: NSNotification) {
+        if let userInfo = notification.userInfo, let pickedMealTime = userInfo["type"] as? String {
+            self.mealTime = pickedMealTime
+        }
+    }
+    
+    @objc private func handleServingSetting(notification: NSNotification) {
+        if let userInfo = notification.userInfo, let pickedServingString = userInfo["quantity"] as? String, let pickedServingInt = Int(pickedServingString) {
+            self.serving = pickedServingInt
+        }
     }
     
     // MARK: - Configuration
@@ -88,6 +101,11 @@ class SaveRecipeViewController: UIViewController {
     private func setupKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func setupPickerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleMealTimeSetting), name: .MHTypePickerDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleServingSetting), name: .MHQuantityPickerDidChange, object: nil)
     }
     
 }

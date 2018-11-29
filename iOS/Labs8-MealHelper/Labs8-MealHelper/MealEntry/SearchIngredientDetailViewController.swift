@@ -65,8 +65,8 @@ class SearchIngredientDetailViewController: UIViewController {
         setupNutrientTable()
         
         // Listen for user changing serving types or qty
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingType), name: .MHServingTypeDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingQty), name: .MHServingQtyDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingType), name: .MHTypePickerDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingQty), name: .MHQuantityPickerDidChange, object: nil)
     }
     
     // MARK: - User actions
@@ -84,7 +84,7 @@ class SearchIngredientDetailViewController: UIViewController {
     }
     
     @objc private func didChangeServingType(note: Notification) {
-        if let userInfo = note.userInfo, let servingType = userInfo["servingType"] as? FoodHelper.ServingTypes.RawValue, let nutrients = ingredient?.nutrients {
+        if let userInfo = note.userInfo, let servingType = userInfo["type"] as? FoodHelper.ServingTypes.RawValue, let nutrients = ingredient?.nutrients {
             let updatedNutrients = nutrients.map { (nutrient: Nutrient) -> Nutrient in
                 var updatedNutrient = nutrient
                 let convertedValue = FoodHelper().convertHundertGrams(nutrient.gm, to: servingType)
@@ -98,7 +98,7 @@ class SearchIngredientDetailViewController: UIViewController {
     }
     
     @objc private func didChangeServingQty(note: Notification) {
-        if let userInfo = note.userInfo, let servingQty = userInfo["servingQty"] as? Double, let nutrients = ingredient?.nutrients {
+        if let userInfo = note.userInfo, let servingQty = userInfo["quantity"] as? Double, let nutrients = ingredient?.nutrients {
             let updatedNutrients = nutrients.map { (nutrient: Nutrient) -> Nutrient in
                 var updatedNutrient = nutrient
                 let convertedValue = (Double(updatedNutrient.value) ?? 0) * servingQty

@@ -27,27 +27,35 @@ class FoodSummaryViewController: UIViewController {
     
     var servingQty: String?
     var servingType: String?
-    var leftPickerFieldValues = (1...20).map { String($0) }
-    var rightPickerFieldValues: [String] = FoodHelper.ServingTypes.allCases.map { $0.rawValue }
-    var leftPickerFieldDefaultValue = "cup"
-    var rightPickerFieldDefaultValue = "1"
-    var leftPickerFieldImage = #imageLiteral(resourceName: "message")
-    var rightPickerFieldImage = #imageLiteral(resourceName: "message")
+    var typePickerFieldValues = (1...20).map { String($0) }
+    var quantityPickerFieldValues: [String] = FoodHelper.ServingTypes.allCases.map { $0.rawValue }
+    var typePickerFieldDefaultValue = "cup" {
+        didSet {
+            typeInputField.text = typePickerFieldDefaultValue
+        }
+    }
+    var quantityPickerFieldDefaultValue = "1" {
+        didSet {
+            quantityInputField.text = quantityPickerFieldDefaultValue
+        }
+    }
+    var typePickerFieldImage = #imageLiteral(resourceName: "message")
+    var quantityPickerFieldImage = #imageLiteral(resourceName: "message")
     var editableTitle = false
     
     // MARK: - Private properties
     
-    private lazy var leftInputField: PickerInputField = {
-        let inputField = PickerInputField(defaultValue: leftPickerFieldDefaultValue)
+    private lazy var typeInputField: PickerInputField = {
+        let inputField = PickerInputField(defaultValue: typePickerFieldDefaultValue)
         inputField.picker.accessibilityIdentifier = "servingSize"
-        inputField.leftImage = leftPickerFieldImage
+        inputField.leftImage = typePickerFieldImage
         return inputField
     }()
     
-    private lazy var rightInputField: PickerInputField = {
-        let inputField = PickerInputField(defaultValue: rightPickerFieldDefaultValue)
+    private lazy var quantityInputField: PickerInputField = {
+        let inputField = PickerInputField(defaultValue: quantityPickerFieldDefaultValue)
         inputField.picker.accessibilityIdentifier = "servingQty"
-        inputField.leftImage = rightPickerFieldImage
+        inputField.leftImage = quantityPickerFieldImage
         return inputField
     }()
     
@@ -109,18 +117,18 @@ class FoodSummaryViewController: UIViewController {
             : mainStackView.addArrangedSubview(titleLabel)
         //mainStackView.addArrangedSubview(subtitleLabel)
         mainStackView.addArrangedSubview(inputStackView)
-        inputStackView.addArrangedSubview(leftInputField)
-        inputStackView.addArrangedSubview(rightInputField)
+        inputStackView.addArrangedSubview(typeInputField)
+        inputStackView.addArrangedSubview(quantityInputField)
         
         mainStackView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 20.0, left: 10.0, bottom: 20.0, right: 10.0))
         inputStackView.anchor(top: nil, leading: mainStackView.leadingAnchor, bottom: nil, trailing: mainStackView.trailingAnchor)
         
         titleLabel.text = titleName
         
-        leftInputField.picker.delegate = self
-        leftInputField.picker.dataSource = self
-        rightInputField.picker.delegate = self
-        rightInputField.picker.dataSource = self
+        typeInputField.picker.delegate = self
+        typeInputField.picker.dataSource = self
+        quantityInputField.picker.delegate = self
+        quantityInputField.picker.dataSource = self
     }
     
 }
@@ -134,9 +142,9 @@ extension FoodSummaryViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView.accessibilityIdentifier {
         case "servingSize":
-            return rightPickerFieldValues.count
+            return quantityPickerFieldValues.count
         case "servingQty":
-            return leftPickerFieldValues.count
+            return typePickerFieldValues.count
         default:
             return 0
         }
@@ -145,9 +153,9 @@ extension FoodSummaryViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView.accessibilityIdentifier {
         case "servingSize":
-            return rightPickerFieldValues[row]
+            return quantityPickerFieldValues[row]
         case "servingQty":
-            return leftPickerFieldValues[row]
+            return typePickerFieldValues[row]
         default:
             return nil
         }
@@ -156,17 +164,17 @@ extension FoodSummaryViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView.accessibilityIdentifier {
         case "servingSize":
-            let type = rightPickerFieldValues[row]
-            leftInputField.text = type
+            let type = quantityPickerFieldValues[row]
+            typeInputField.text = type
             servingType = type
             //setServingType(with: type, for: food)
-            NotificationCenter.default.post(name: .MHServingTypeDidChange, object: nil, userInfo: ["servingType": type])
+            NotificationCenter.default.post(name: .MHTypePickerDidChange, object: nil, userInfo: ["type": type])
         case "servingQty":
-            let qty = leftPickerFieldValues[row]
-            rightInputField.text = qty
+            let qty = typePickerFieldValues[row]
+            quantityInputField.text = qty
             servingQty = qty
             //setServingQty(with: qty, for: food)
-            NotificationCenter.default.post(name: .MHServingQtyDidChange, object: nil, userInfo: ["servingQty": qty])
+            NotificationCenter.default.post(name: .MHQuantityPickerDidChange, object: nil, userInfo: ["quantity": qty])
         default:
             break
         }
