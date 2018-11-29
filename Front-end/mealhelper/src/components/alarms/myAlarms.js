@@ -36,20 +36,27 @@ class MyAlarms extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      alarmsList: []
-    };
+    // this.state = {
+    //   alarmsList: []
+    // };
   }
 
   componentDidMount() {
     console.log("this.props", this.props);
     let userID = this.props.user.userID;
+    console.log("this.props.user.userID", this.props.user.userID)
     this.props.fetchAlarms(userID);
+    console.log("this.props.alarms", this.props.alarms)
   }
 
-  componentWillReceiveProps(nextProps) {
-   //
-  }
+  componentDidUpdate(prevProps) {
+    console.log("in componentDidUpdate");
+    let userID = this.props.user.userID;
+    if(JSON.stringify(this.props.alarms) !== JSON.stringify(prevProps.alarms)) {
+        this.props.fetchAlarms(userID);
+        console.log("this.props.alarms", this.props.alarms)
+    }
+ }
 ;
   render() {
     return (
