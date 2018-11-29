@@ -284,10 +284,8 @@ class LoginViewController: UIViewController
             DispatchQueue.main.async {
                 switch response {
                 case .success(let userId):
-                    print("Login with \(userId.id!) completed")
                      UserDefaults().setIsLoggedIn(value: true, userId: userId.id!)
-                    let homeVC = HomeViewController()
-                    self.present(homeVC, animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 case .error:
                     self.showAlert(with: "Something went wrong, please make sure you entered the right credentials and try again.")
                     self.authButton.stopLoading()
@@ -312,8 +310,7 @@ class LoginViewController: UIViewController
                 switch response {
                 case .success(let userId):
                     UserDefaults().setIsLoggedIn(value: true, userId: userId.id!)
-                    let homeVC = HomeViewController()
-                    self.present(homeVC, animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 case .error(let error):
                     self.authButton.stopLoading()
                     print(error)
@@ -330,11 +327,11 @@ class LoginViewController: UIViewController
     
     private func setupViews()
     {
-        let imageView = UIImageView(image: #imageLiteral(resourceName: "foodbackground"))
-        imageView.contentMode = .scaleAspectFill
-        
-        view.addSubview(imageView)
-        imageView.fillSuperview()
+//        let imageView = UIImageView(image: #imageLiteral(resourceName: "foodbackground"))
+//        imageView.contentMode = .scaleAspectFill
+//
+//        view.addSubview(imageView)
+//        imageView.fillSuperview()
         
         view.addSubview(lightBlurEffect)
         lightBlurEffect.fillSuperview()

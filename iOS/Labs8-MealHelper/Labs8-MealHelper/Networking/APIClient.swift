@@ -12,6 +12,38 @@ class APIClient {
     
     static let shared = APIClient()
     
+    func fetchAlarms(userId: Int, completion: @escaping (Response<[Alarm]>) -> ()) {
+        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(userId)")!
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = HTTPMethod.get.rawValue
+        
+        URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
+            
+            if let error = error {
+                NSLog("Error with urlReqeust: \(error)")
+                completion(Response.error(error))
+                return
+            }
+            
+            guard let data = data else {
+                NSLog("Error unwrapping data")
+                completion(Response.error(NSError()))
+                return
+            }
+            
+            do {
+                let alarms = try JSONDecoder().decode([Alarm].self, from: data)
+                completion(Response.success(alarms))
+                
+            } catch {
+                NSLog("Error decoding data: \(error)")
+                completion(Response.error(error))
+                return
+            }
+        }.resume()
+    }
+    
     func uploadAlarm(time: String, note: String, userId: Int, completion: @escaping (Response<Alarm>) -> ()) {
         let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(userId)")!
         
@@ -21,16 +53,42 @@ class APIClient {
         
         do {
             
+            let alarm = ["alarm": time, "label": note]
             let encoder = JSONEncoder()
             encoder.outputFormatting = .prettyPrinted
-//            let alarmJson = try encoder.encode(alarm)
-//            urlRequest.httpBody = alarmJson
+            let alarmJson = try encoder.encode(alarm)
+            urlRequest.httpBody = alarmJson
             
         } catch {
             NSLog("Error encoding alarm: \(error)")
             completion(Response.error(error))
             return
         }
+    
+        URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
+            
+            if let error = error {
+                NSLog("Error with urlReqeust: \(error)")
+                completion(Response.error(error))
+                return
+            }
+            
+            guard let data = data else {
+                NSLog("No data returned")
+                completion(Response.error(NSError()))
+                return
+            }
+
+            do {
+                let alarm = try JSONDecoder().decode(Alarm.self, from: data)
+                completion(Response.success(alarm))
+            } catch {
+                NSLog("Error decoding data: \(error)")
+                completion(Response.error(error))
+                return
+            }
+        }.resume()
+        
     }
     
     func fetchMeals(completion: @escaping (Response<[Meal]>) -> ()) {
@@ -114,20 +172,6 @@ class APIClient {
                 completion(Response.error(error))
                 return
             }
-            
-//            if let httpResponse = res as? HTTPURLResponse {
-//                print(httpResponse.statusCode)
-//                switch httpResponse.statusCode {
-//                case 200:
-//                    //successful
-//                    completion(Response.success(email))
-//                case 500:
-//                    //error
-//                    completion(Response.error(NSError()))
-//                default:
-//                    completion(Response.error(NSError()))
-//                }
-//            }
         }.resume()
     }
     

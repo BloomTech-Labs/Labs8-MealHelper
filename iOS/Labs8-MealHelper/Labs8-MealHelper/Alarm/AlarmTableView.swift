@@ -11,6 +11,11 @@ import UIKit
 class AlarmTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
     let cellId = "AlarmCell"
+    var alarms: [Alarm]? {
+        didSet {
+            self.reloadData()
+        }
+    }
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -24,11 +29,15 @@ class AlarmTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return alarms?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+        let cell = dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! AlarmCell
+        
+        let alarm = alarms?[indexPath.row]
+        cell.timeLabel.text = alarm?.time
+        cell.noteLabel.text = alarm?.note
         
         return cell
     }

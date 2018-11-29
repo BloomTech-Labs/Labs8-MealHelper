@@ -99,6 +99,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = .black
         setupFooterView()
+        
+        let loginController = LoginViewController()
+        loginController.modalPresentationStyle = .overCurrentContext
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.present(loginController, animated: true, completion: nil)
+        }
     }
     
     override func viewDidLayoutSubviews() {

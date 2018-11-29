@@ -67,6 +67,24 @@ class AlarmViewController: UIViewController {
         setupViews()
         
         createAlarmView.headerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(animateAlarmView)))
+        
+        APIClient.shared.fetchAlarms(userId: UserDefaults.standard.loggedInUserId()) { (response) in
+            
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let alarms):
+                    self.tableView.alarms = alarms
+                case .error:
+                    self.showAlert(with: "We couldn't find your alarms, please check your internet connection and try again.")
+                    return
+                }
+            }
+        }
+    }
+    
+    private func setupAlarm(alarm: Alarm) {
+
+        
     }
     
     private func setupKeyboardNotifications()
@@ -152,6 +170,17 @@ extension AlarmViewController: CreateAlarmViewDelegate {
     func didSetAlarm(with time: String, note: String) {
         animateAlarmView()
         
-        print(time)
+        APIClient.shared.uploadAlarm(time: time, note: note, userId: UserDefaults.standard.loggedInUserId()) { (response) in
+            
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let alarm):
+                    self.tableView.alarms?.append(alarm)
+                    self.setupAlarm(alarm: alarm)
+                case .error:
+                    self.showAlert(with: "There was a problem when setting up your alarm, please try again.")
+                }
+            }
+        }
     }
 }
