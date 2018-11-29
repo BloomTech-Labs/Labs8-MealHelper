@@ -25,32 +25,7 @@ class Meals extends Component {
     this.state = {
       modal: false,
       dropdownOpen: false,
-      recipes: [
-        {
-          id: 1,
-          name: "Pepperoni Pizza Slice",
-          calories: 250,
-          servings: 1,
-          meal_id: 3,
-          user_id: 1
-        },
-        {
-          id: 2,
-          name: "Mac and Cheese",
-          calories: 300,
-          servings: 2,
-          meal_id: 2,
-          user_id: 2
-        },
-        {
-          id: 3,
-          name: "Ham and Cheese Sandwhich",
-          calories: 175,
-          servings: 4,
-          meal_id: 1,
-          user_id: 3
-        }
-      ],
+      recipes: [],
       zip: "",
       meals: [],
       recipe: [],
@@ -70,12 +45,25 @@ class Meals extends Component {
   ///converted to Imperial measurement
   componentDidMount(props) {
     console.log(this.props.user.zip);
+    const id = this.props.user.userID;
+    axios
+      .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
+      .then(recipess => {
+        this.setState({ recipes: recipess.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
     this.setState({ zip: this.props.user.zip });
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
   }
   // componentWillReceiveProps(prevState){
 
   // }
   toggle() {
+    console.log(this.props);
     this.setState({
       modal: !this.state.modal
     });
@@ -346,7 +334,8 @@ class Meals extends Component {
 
 const mapStateToProps = state => ({
   user: state.userReducer.user,
-  meals: state.mealsReducer.meals
+  meals: state.mealsReducer.meals,
+  recipes: state.recipesReducer.recipes
 });
 
 export default connect(
