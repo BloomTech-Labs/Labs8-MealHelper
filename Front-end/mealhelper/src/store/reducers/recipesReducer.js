@@ -42,7 +42,6 @@ export const recipesReducer = (state = initialState, action) => {
       return {
         ...state,
         addingRecipe: false,
-        singleRecipe: action.payload,
         recipes: action.payload
       };
     case ADDING_RECIPE_ERROR:
