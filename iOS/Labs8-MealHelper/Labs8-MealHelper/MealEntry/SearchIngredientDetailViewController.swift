@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-protocol IngredientDetailDelegate: class {
+protocol SearchIngredientDetailDelegate: class {
     func updateIngredient(_ ingredient: Ingredient)
     func selectFood(at indexPath: IndexPath)
 }
 
-class IngredientDetailViewController: UIViewController {
+class SearchIngredientDetailViewController: UIViewController {
     
     // MARK: - Public properties
     
@@ -24,16 +24,23 @@ class IngredientDetailViewController: UIViewController {
             nutrientTableView.nutrients = ingredient?.nutrients
         }
     }
-    weak var delegate: IngredientDetailDelegate?
+    weak var delegate: SearchIngredientDetailDelegate?
     var delegateIndexPath: IndexPath? // TODO: add protocol
     var foodLabels = ["Gluten-free", "No sugar", "High-fiber", "Low Fat", "High Protein", "Low-Sodium"]
     
     // MARK: - Private properties
     
-    private let ingredientSummaryView = FoodSummaryView()
+    private let ingredientSummaryView: FoodSummaryViewController = {
+        let vc = FoodSummaryViewController()
+        vc.view.backgroundColor = UIColor.lightGray
+        vc.setupViews()
+        return vc
+    }()
+    
+    private let nutrientTableView = NutrientDetailTableViewController()
+    
     private lazy var containerView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 8.0
         view.layer.masksToBounds = true
         view.backgroundColor = .white
@@ -42,17 +49,16 @@ class IngredientDetailViewController: UIViewController {
     
     private lazy var foodLabelView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let nutrientTableView = NutrientDetailTableViewController()
-    
     private lazy var addButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Add to basket", for: .normal)
+        button.setTitle("Add to recipe", for: .normal)
         button.addTarget(self, action: #selector(addToBasket), for: .touchUpInside)
+        button.backgroundColor = .mountainBlue
+        button.tintColor = .white
+        button.titleLabel?.font = Appearance.appFont(with: 17)
         return button
     }()
     
@@ -65,8 +71,8 @@ class IngredientDetailViewController: UIViewController {
         setupNutrientTable()
         
         // Listen for user changing serving types or qty
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingType), name: .MHServingTypeDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingQty), name: .MHServingQtyDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingType), name: .MHFoodSummaryTypePickerDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingQty), name: .MHFoodSummaryQuantityPickerDidChange, object: nil)
     }
     
     // MARK: - User actions
@@ -84,12 +90,23 @@ class IngredientDetailViewController: UIViewController {
     }
     
     @objc private func didChangeServingType(note: Notification) {
-        if let userInfo = note.userInfo, let servingType = userInfo["servingType"] as? FoodHelper.ServingTypes, let nutrients = ingredient?.nutrients {
+        if let userInfo = note.userInfo,
+            let servingType = userInfo["type"] as? FoodHelper.ServingTypes.RawValue,
+            let servingQtyString = userInfo["quantity"] as? String,
+            let servingQty = Double(servingQtyString),
+            let nutrients = ingredient?.nutrients {
+            
+            ingredient?.nutrients = udpateNutrients(nutrients, to: servingType, amount: servingQty)
+        }
+    }
+    
+    @objc private func didChangeServingQty(note: Notification) {
+        if let userInfo = note.userInfo, let servingQtyString = userInfo["quantity"] as? String, let nutrients = ingredient?.nutrients {
             let updatedNutrients = nutrients.map { (nutrient: Nutrient) -> Nutrient in
                 var updatedNutrient = nutrient
-                let convertedValue = FoodHelper().convertHundertGrams(nutrient.gm, to: servingType)
+                let servingQty = Double(servingQtyString) ?? 0
+                let convertedValue =  (Double(updatedNutrient.value) ?? 0.0) * servingQty
                 updatedNutrient.value = String(format: "%.02f", convertedValue)
-                updatedNutrient.unit = servingType.rawValue
                 return updatedNutrient
             }
             
@@ -97,16 +114,12 @@ class IngredientDetailViewController: UIViewController {
         }
     }
     
-    @objc private func didChangeServingQty(note: Notification) {
-        if let userInfo = note.userInfo, let servingQty = userInfo["servingQty"] as? Double, let nutrients = ingredient?.nutrients {
-            let updatedNutrients = nutrients.map { (nutrient: Nutrient) -> Nutrient in
-                var updatedNutrient = nutrient
-                let convertedValue = (Double(updatedNutrient.value) ?? 0) * servingQty
-                updatedNutrient.value = String(format: "%.02f", convertedValue)
-                return updatedNutrient
-            }
-            
-            ingredient?.nutrients = updatedNutrients
+    private func udpateNutrients(_ nutrients: [Nutrient], to type: String, amount: Double = 1.0) -> [Nutrient] {
+        return nutrients.map { (nutrient: Nutrient) -> Nutrient in
+            var updatedNutrient = nutrient
+            let convertedValue = FoodHelper().convertHundertGrams(nutrient.gm, to: type) * amount
+            updatedNutrient.value = String(format: "%.02f", convertedValue)
+            return updatedNutrient
         }
     }
     
@@ -114,20 +127,19 @@ class IngredientDetailViewController: UIViewController {
     
     private func setupViews() {
         view.addSubview(containerView)
-        containerView.addSubview(ingredientSummaryView)
+        containerView.addSubview(ingredientSummaryView.view)
         containerView.addSubview(foodLabelView)
         containerView.addSubview(nutrientTableView.tableView)
         containerView.addSubview(addButton)
         
         containerView.centerInSuperview(size: CGSize(width: view.bounds.width * 0.9, height: view.bounds.height * 0.8))
-        ingredientSummaryView.anchor(top: containerView.topAnchor, leading: containerView.leadingAnchor, bottom: nil, trailing: containerView.trailingAnchor)
-        foodLabelView.anchor(top: ingredientSummaryView.bottomAnchor, leading: containerView.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: containerView.layoutMarginsGuide.trailingAnchor, padding: UIEdgeInsets(top: 10.0, left: 0.0, bottom: 0.0, right: 0.0))
+        ingredientSummaryView.view.anchor(top: containerView.topAnchor, leading: containerView.leadingAnchor, bottom: nil, trailing: containerView.trailingAnchor)
+        foodLabelView.anchor(top: ingredientSummaryView.view.bottomAnchor, leading: containerView.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: containerView.layoutMarginsGuide.trailingAnchor, padding: UIEdgeInsets(top: 10.0, left: 0.0, bottom: 0.0, right: 0.0))
         nutrientTableView.tableView.anchor(top: foodLabelView.bottomAnchor, leading: containerView.layoutMarginsGuide.leadingAnchor, bottom: addButton.topAnchor, trailing: containerView.layoutMarginsGuide.trailingAnchor)
         addButton.anchor(top: nil, leading: containerView.leadingAnchor, bottom: containerView.bottomAnchor, trailing: containerView.trailingAnchor, size: CGSize(width: 0.0, height: 40.0))
         
         view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        ingredientSummaryView.backgroundColor = UIColor.lightGray
-        ingredientSummaryView.title = ingredient?.name
+        ingredientSummaryView.titleName = ingredient?.name
         
         view.layoutIfNeeded()
     }
@@ -163,6 +175,7 @@ class IngredientDetailViewController: UIViewController {
         }
         
         foodLabelView.heightAnchor.constraint(equalToConstant: accumulatedHeight + labelHeight + padding).isActive = true
+        
         view.layoutIfNeeded()
     }
     
@@ -173,6 +186,7 @@ class IngredientDetailViewController: UIViewController {
             DispatchQueue.main.async {
                 switch response {
                 case .success(let nutrients):
+                    let updatedNutrients = self.udpateNutrients(nutrients, to: "cup")
                     self.ingredient?.nutrients = nutrients
                 case .error(let error):
                     NSLog("Error fetching ingredients: \(error)")
@@ -193,12 +207,12 @@ class IngredientDetailViewController: UIViewController {
         return label
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { // Dismisses the view when user taps outside of the detail view.
-        guard let touch = touches.first, let tappedView = touch.view else { return }
-        
-        if tappedView != containerView && !tappedView.isDescendant(of: containerView) {
-            dismiss(animated: true, completion: nil)
-        }
-    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { // Dismisses the view when user taps outside of the detail view.
+//        guard let touch = touches.first, let tappedView = touch.view else { return }
+//
+//        if tappedView != containerView && !tappedView.isDescendant(of: containerView) {
+//            dismiss(animated: true, completion: nil)
+//        }
+//    }
     
 }

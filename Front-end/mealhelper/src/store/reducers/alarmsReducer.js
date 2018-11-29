@@ -1,11 +1,31 @@
-// import * as actionTypes from '../actions';
+/* Alarms Reducer */
+import * as actionTypes from '../actions';
+import axios from 'axios';
 
-// /* Alarms Reducer */
+const initialState = {
+  alarms: [],
+  fetchingAlarms: false,
+  addingAlarms: false,
+  updatingAlarm: false,
+  deletingAlarm: false,
+  error: null
+};
 
-// const initialState = {
-//   //state
-// }
-
-// export const alarmsReducer = (state = initialState, action) => {
-//   //switch cases
-// }
+export const alarmsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    // case FETCHING_ALARMS:
+    //   return {...state, fetchingAlarms: true };
+    // case FETCHED_ALARMS:
+    //   return {...state, fetchingAlarms: false, alarms: action.payload }
+    // case ALARMS_FETCHING_ERROR:
+    //   return {...state, fetchingAlarms: false, error: action.payload}
+    case actionTypes.ADDING_ALARMS:
+      return {...state, addingAlarms: true };
+    case actionTypes.ADDED_ALARMS:
+      return {...state, addingAlarms: false};
+    case actionTypes.ADDING_ALARMS_ERROR:
+      return {...state, addingAlarms: false, error: action.payload};
+    default:
+      return state;
+  }
+}

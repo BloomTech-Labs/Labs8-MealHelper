@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
-import { getMeals } from "../../store/actions/mealActions.js";
+import { addMultipleIngredients } from "../../store/actions/ingredActions.js";
+import { addMultipleNutrients } from "../../store/actions/nutrientsActions";
 import { withRouter, Link, Route } from "react-router-dom";
 // import { Alert } from "reactstrap";
+import { Button } from "reactstrap";
 import axios from "axios";
 import Recipe from "./recipe";
 import "./recipes.css";
@@ -45,7 +47,23 @@ class Nutrients extends Component {
         });
     });
   };
-
+  saveRecipe = event => {
+    event.preventDefault();
+    const nutrients = this.state.nutrients.map(nutrient => {
+      return nutrient.nutrients;
+    });
+    console.log(nutrients.length);
+    let countNutrients = nutrients.length;
+    let countIngredients = this.state.selectedFoods.length;
+    console.log("this is the count of ingredients array", countIngredients);
+    this.props.addMultipleIngredients(
+      this.state.selectedFoods,
+      this.props.user.userID,
+      countIngredients
+    );
+    console.log(this.props.ingredients);
+    // this.props.addMultipleNutrients(nutrients, this.props.user.userID, count, this.props.ingredients);
+  };
   removeFoodItem = itemIndex => {
     const filteredFoods = this.state.nutrients.filter(
       (item, idx) => itemIndex !== idx
@@ -86,10 +104,6 @@ class Nutrients extends Component {
       .toFixed(2);
   };
   render(props) {
-    console.log(this.state.selectedFoods);
-    console.log(this.state.nutrients);
-    console.log(this.props);
-
     const foodRows = this.state.nutrients.map((food, idx) => (
       <tr
         food={food}
@@ -152,21 +166,31 @@ class Nutrients extends Component {
             </tfoot>
           </table>
         </div>
+        <br /> <br />
         <button onClick={this.addNutrients}>Apply Selected Foods</button>
+        <br /> <br />
+        <br /> <br />
+        <Button color="success" onClick={this.saveRecipe}>
+          Save Recipe
+        </Button>{" "}
+        <Button color="secondary" onClick={this.props.logoutMethod}>
+          Cancel
+        </Button>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     user: state.userReducer.user,
-    meals: state.mealsReducer.meals
+    meals: state.mealsReducer.meals,
+    ingredients: state.ingredsReducer.ingredient,
+    nutrients: state.nutrientsReducer.nutrients
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getMeals }
+  { addMultipleNutrients, addMultipleIngredients }
 )(withRouter(Nutrients));

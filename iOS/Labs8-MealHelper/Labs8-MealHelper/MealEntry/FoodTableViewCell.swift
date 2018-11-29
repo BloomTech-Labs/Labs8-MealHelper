@@ -27,7 +27,6 @@ class FoodTableViewCell<Resource>: UITableViewCell {
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 10.0
@@ -36,7 +35,6 @@ class FoodTableViewCell<Resource>: UITableViewCell {
     
     private let labelStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
@@ -45,7 +43,6 @@ class FoodTableViewCell<Resource>: UITableViewCell {
     
     let selectButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "add")!.withRenderingMode(.alwaysTemplate), for: .normal)
         button.setImage(UIImage(named: "checked")!.withRenderingMode(.alwaysTemplate), for: .selected)
         button.tintColor = UIColor.lightGray
@@ -54,17 +51,17 @@ class FoodTableViewCell<Resource>: UITableViewCell {
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Meal"
-        label.font = UIFont.systemFont(ofSize: 17.0)
+        label.textColor = .white
+        label.font = Appearance.appFont(with: 17)
+        label.sizeToFit()
         return label
     }()
     
     private let servingQtyLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "5 cups"
-        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.textColor = .white
+        label.font = Appearance.appFont(with: 14)
+        label.sizeToFit()
         return label
     }()
     
@@ -107,7 +104,8 @@ class FoodTableViewCell<Resource>: UITableViewCell {
         selectButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         selectButton.addTarget(self, action: #selector(selectRow), for: .touchUpInside)
         
-        self.selectionStyle = .none
+        selectionStyle = .none
+        backgroundColor = .clear
         
         if let recipe = food as? Recipe {
             nameLabel.text = recipe.name

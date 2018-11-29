@@ -43,3 +43,11 @@
   margin-top: 10%;
   padding-right: 30%;
 }
+
+.example {
+  background: lightblue;
+}
+
+.danger {
+  margin-top: 5%;
+}
