@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { loginUser } from "../../store/actions/userActions";
-import { withRouter, Link } from "react-router-dom";
-import { Alert } from "reactstrap";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { loginUser } from '../../store/actions/userActions';
+import { withRouter, Link } from 'react-router-dom';
+import { Alert } from 'reactstrap';
 
 class Login extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			email: "",
-			password: "",
+			email: '',
+			password: '',
 			visable: false
 		};
 	}
@@ -30,7 +30,7 @@ class Login extends Component {
 			const { email, password } = this.state;
 			const user = { email, password };
 			this.props.loginUser(user);
-			this.props.history.push("/homepage");
+			this.props.history.push('/homepage');
 		}
 	};
 
@@ -70,7 +70,7 @@ class Login extends Component {
 								<span>Log In</span>
 							</div>
 							<div className="entry-button-group">
-								<Link to="/signup">
+								<Link to="/">
 									<button className="signup signup-two">
 										<span>Signup</span>
 									</button>
