@@ -190,5 +190,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { addMultipleIngredients, addMultipleNutrients }
+  { addMultipleNutrients }
 )(withRouter(Nutrients));

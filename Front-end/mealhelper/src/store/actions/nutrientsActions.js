@@ -16,7 +16,7 @@ export const addMultipleNutrients = (nutrient, userID) => dispatch => {
     console.log(id);
     console.log(nutrient);
     const promise = axios.post(
-      `https://labs8-meal-helper.herokuapp.com/ingredients/${id}`,
+      `https://labs8-meal-helper.herokuapp.com/nutrients/${id}`,
       nutrient[i]
     );
     promise
@@ -28,12 +28,13 @@ export const addMultipleNutrients = (nutrient, userID) => dispatch => {
       });
   }
 };
-export const addMultipleIngredients = (ingredient, userId) => dispatch => {
+export const getMultipleNutrients = (ingredient, userId) => dispatch => {
   for (let i = 0; i < ingredient.length; i++) {
     dispatch({ type: GETTING_NUTRIENT });
     const id = userId;
     console.log(id);
     console.log(ingredient);
+    //Needs to grab them from the ingredient
     const promise = axios.post(
       `https://labs8-meal-helper.herokuapp.com/ingredients/${id}`,
       ingredient[i]
