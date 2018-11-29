@@ -603,54 +603,54 @@ server.get("/nutrients/:ingredientID", (req, res) => {
     });
 });
 //POST request to create an ingredients
-server.post("/nutrients/:ingredientID", (req, res) => {
-  //grabs the ingredient id from the req.params
-  const ingredientId = req.params.ingredientID;
-  //Grabs the id of the nutrient sent by req.body
-  const id = req.body.id;
-  const nutrient_id = { id };
-  db("ingredients")
-    //Finds the corrosponding nutrients based on ingredient ID
-    .where({ id: ingredientId })
-    .first()
-    .then(ingredient => {
-      //Appends the previous nutrient ID's and adds a new id at the end, seperated by a ,
-      let oldNutrients = ingredient.nutrients_id;
+// server.post("/nutrients/:ingredientID", (req, res) => {
+//   //grabs the ingredient id from the req.params
+//   const ingredientId = req.params.ingredientID;
+//   //Grabs the id of the nutrient sent by req.body
+//   const id = req.body.id;
+//   const nutrient_id = { id };
+//   db("ingredients")
+//     //Finds the corrosponding nutrients based on ingredient ID
+//     .where({ id: ingredientId })
+//     .first()
+//     .then(ingredient => {
+//       //Appends the previous nutrient ID's and adds a new id at the end, seperated by a ,
+//       let oldNutrients = ingredient.nutrients_id;
 
-      let newNutrients = oldNutrients + ", " + nutrient_id.id;
-      db("ingredients")
-        //Finds the corrosponding nutrients based on ingredient ID
-        .where({ id: ingredientId })
-        //Doing a where request returns an array, so we want the first index of that array.
-        .first()
-        //Reaplces the old nutrients with the new ones
-        .update({ nutrients_id: newNutrients })
-        .then(ingredients => {
-          //Returns the ingredient
-          db("ingredients")
-            //Finds the corrosponding nutrients based on ingredient ID
-            .where({ id: ingredientId })
-            .first()
-            .then(ingredient => {
-              res.status(200).json(ingredient);
-            })
-            .catch(err => {
-              res.status(400).json({ error: "error returning ingredient" });
-            });
-        })
-        .catch(err => {
-          res.status(400).json({ err, error: "could not add nutrients" });
-        });
-    });
-});
+//       let newNutrients = oldNutrients + ", " + nutrient_id.id;
+//       db("ingredients")
+//         //Finds the corrosponding nutrients based on ingredient ID
+//         .where({ id: ingredientId })
+//         //Doing a where request returns an array, so we want the first index of that array.
+//         .first()
+//         //Reaplces the old nutrients with the new ones
+//         .update({ nutrients_id: newNutrients })
+//         .then(ingredients => {
+//           //Returns the ingredient
+//           db("ingredients")
+//             //Finds the corrosponding nutrients based on ingredient ID
+//             .where({ id: ingredientId })
+//             .first()
+//             .then(ingredient => {
+//               res.status(200).json(ingredient);
+//             })
+//             .catch(err => {
+//               res.status(400).json({ error: "error returning ingredient" });
+//             });
+//         })
+//         .catch(err => {
+//           res.status(400).json({ err, error: "could not add nutrients" });
+//         });
+//     });
+// });
 //POST request so user can make their own nutrient
 server.post("/nutrients/:id", (req, res) => {
   const user_id = req.params.id;
   //grabs the name unit and value from req.body
-  const { nutrient, nutrient_id, unit, value } = req.body;
+  const { nutrient, nutrients_id, unit, value } = req.body;
   //set the what we grabbed to a new "nutrient"
-  const nutrientsAll = { nutrient, nutrient_id, unit, value, user_id };
-
+  const nutrientsAll = { nutrient, nutrients_id, unit, value };
+  console.log(nutrientsAll);
   db("nutrients")
     .insert(nutrientsAll)
     .then(nutrientID => {
