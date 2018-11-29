@@ -18,7 +18,8 @@
 		"morgan": "^1.9.1",
 		"pg": "^7.6.1",
 		"scripts": "^0.1.0",
-		"sqlite3": "^4.0.3"
+		"sqlite3": "^4.0.3",
+		"stripe": "^6.17.0"
 	},
 	"devDependencies": {
 		"nodemon": "^1.18.6"
