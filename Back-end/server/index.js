@@ -937,39 +937,35 @@ server.get("/alarms/:userid", (req, res) => {
 });
 //POST req to create a alarm for the user
 server.post("/alarms/:userid", (req, res) => {
-  //Grabs the user id from req.params
-  const user_ID = req.params.userid;
-  const { time } = req.body;
-  const label = "";
-  //Adds the user id to the alarm object
-  const alarm = { time, label, user_ID };
-  db("alarms")
-    //Inserts the alarm and sets it to the user
-    .insert(alarm)
-    .then(alarm => {
-      //Returns the alarm
-      res.status(201).json(alarm);
-    })
-    .catch(err => {
-      res.status(400).json({ msg: err, error: "Could not create alarm" });
-    });
+	//Grabs the user id from req.params
+	const user_ID = req.params.userid;
+	const { label, alarm } = req.body;
+	//Adds the user id to the alarm object
+	const alarmBody = { user_ID, label, alarm };
+	db("alarms")
+		//Inserts the alarm and sets it to the user
+		.insert(alarmBody)
+		.then(alarm => {
+			//Returns the alarm
+			res.status(201).json(alarmBody);
+		})
+		.catch(err => {
+			res.status(400).json({ msg: err, error: "Could not create alarm" });
+		});
 });
 
 //PUT request to change the alarm settings
 server.put("/alarms/:id", (req, res) => {
   //Grabs the alarm id from req.params
   const id = req.params.userid;
-  const { beginTime, endTime, beginLimit, endLimit, repeat } = req.body;
+  const { label, alarm } = req.body;
   // Sets the req.body to an alarm object that gets passed into the update
-  const alarm = { beginTime, endTime, beginLimit, endLimit, repeat };
+  const alarmBody = { label, alarm };
   db("alarms")
     .where({ id: id })
     .update({
-      beginTime: alarm.beginTime,
-      endTime: alarm.endTime,
-      beginLimit: alarm.beginLimit,
-      endLimit: alarm.beginLimit,
-      repeat: alarm.repeat
+      label: alarmBody.label,
+      alarm: alarmBody.alarm
     })
     .then(alarmID => {
       //Returns the alarm ID

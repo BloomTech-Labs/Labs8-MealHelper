@@ -38,6 +38,16 @@ class SignUp extends Component {
     }
   };
 
+  loggin = event => {
+    if (localStorage.getItem("token") !== undefined) {
+      this.props.history.push("/homepage");
+    } else {
+      setTimeout(() => {
+        this.loggin();
+      }, 6000);
+    }
+  };
+
   createUser = event => {
     event.preventDefault();
     if (!this.state.email || !this.state.password) {

@@ -22,6 +22,7 @@ import MyIngredients from "./components/recipes/myrecipe";
 import MyWeather from "./components/weather/myweather";
 import MyAlarms from "./components/alarms/myAlarms";
 import AddAlarms from "./components/alarms/addAlarm";
+import Billing from "./components/billing/billing";
 
 ////////////////////////
 
@@ -45,6 +46,7 @@ class App extends Component {
           <Route exact path="/homepage/weather" render={() => <Weather />} />
           <Route path="/ingredients" render={() => <GetIngredient />} />
           <Route exact path="/homepage/recipes" render={() => <Recipes />} />
+          <Route exact path="/homepage/billing" render={() => <Billing />} />
           <Route
             path="/homepage/recipes/createnewrecipe"
             render={() => <CreateNewRecipe />}
