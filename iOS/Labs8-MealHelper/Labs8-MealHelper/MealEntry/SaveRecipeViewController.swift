@@ -55,7 +55,7 @@ class SaveRecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .mountainDark
-        title = "Recipe"
+        title = "Save Recipe"
         
         add(recipeSettingsVC)
         add(ingredientTableVC)
@@ -128,17 +128,8 @@ class SaveRecipeViewController: UIViewController {
         
         // Save ingredient, incl. nutrient values
         
-        FoodClient.shared.postRecipe(name: recipeName, calories: self.getTotalCalories(), servings: self.serving) { (response) in
-            switch response {
-            case .success(let recipeId):
-                print("saved recipe successfully for id: \(recipeId)")
-                self.dismiss(animated: true, completion: nil)
-            case .error(let error):
-                print(error)
-                // Handle error in UI
-                break
-            }
-        }
+        saveRecipe(with: recipeName, calories: self.getTotalCalories(), servings: self.serving)
+        
     }
     
     
@@ -165,6 +156,25 @@ class SaveRecipeViewController: UIViewController {
     }
     
     // MARK: - Private methods
+    
+    func saveRecipe(with name: String, calories: Int, servings: Int) {
+        FoodClient.shared.postRecipe(name: name, calories: calories, servings: servings) { (response) in
+            switch response {
+            case .success(let recipeId):
+                print("saved recipe successfully for id: \(recipeId)")
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            case .error(let error):
+                print(error)
+                // Handle error in UI
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }// TODO: to be deleted
+                break
+            }
+        }
+    }
     
     private func getTotalCalories() -> Int {
         guard let ingredients = ingredients else { return 0 }
@@ -210,3 +220,30 @@ class SaveRecipeViewController: UIViewController {
     
 }
 
+class EditRecipeViewController: SaveRecipeViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Edit Recipe"
+    }
+    
+    override func saveRecipe(with name: String, calories: Int, servings: Int) {
+        FoodClient.shared.postRecipe(name: name, calories: calories, servings: servings) { (response) in
+            switch response {
+            case .success(let recipeId):
+                print("saved recipe successfully for id: \(recipeId)")
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            case .error(let error):
+                print(error)
+                // Handle error in UI
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                } // TODO: to be deleted
+                break
+            }
+        }
+    }
+    
+}

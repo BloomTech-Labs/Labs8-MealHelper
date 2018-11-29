@@ -55,15 +55,20 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        guard let recipe = self.foods?[indexPath.row] else { return nil }
+        
         let edit = UITableViewRowAction(style: .normal, title: "Edit") { (save, indexPath) in
-            // Go to ingredients tbv
+            let editRecipeVC = EditRecipeViewController()
+            editRecipeVC.ingredients = recipe.ingredients
+            editRecipeVC.recipeName = recipe.name
+            self.navigationController?.pushViewController(editRecipeVC, animated: true)
         }
         edit.backgroundColor = .green
         
         let remove = UITableViewRowAction(style: .destructive, title: "Delete") { (remove, indexPath) in
             let foodClient = FoodClient.shared
             
-            if let recipe = self.foods?[indexPath.row], let id = recipe.identifier {
+            if let id = recipe.identifier {
                 
                 foodClient.deleteRecipe(withId: String(id), completion: { (response) in
                     switch response {
