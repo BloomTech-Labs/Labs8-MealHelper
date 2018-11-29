@@ -73,11 +73,8 @@ exports.up = function(knex) {
     }),
     knex.schema.createTable("alarms", function(alarms) {
       alarms.increments("id").primary();
-      alarms.integer("beginTime").notNullable();
-      alarms.integer("endTime").notNullable();
-      alarms.integer("beginLimit").notNullable();
-      alarms.integer("endLimit").notNullable();
-      alarms.integer("repeats").notNullable();
+      alarms.string("label");
+      alarms.string("alarm").notNullable;
       alarms.integer("user_id");
       alarms
         .foreign("user_id")
