@@ -1,5 +1,6 @@
 .hb-container {
 	max-width: 100vw;
+	max-height: 100vh;
 	background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
 }
 
