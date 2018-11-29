@@ -939,13 +939,16 @@ server.get("/alarms/:userid", (req, res) => {
 server.post("/alarms/:userid", (req, res) => {
 	//Grabs the user id from req.params
 	const user_ID = req.params.userid;
+	console.log("req.params.userid", req.params.userid, "user_ID", user_ID)
 	const { label, alarm } = req.body;
+	console.log("req.body", req.body, "label, alarm", label, alarm)
 	//Adds the user id to the alarm object
-	const alarmBody = { user_ID, label, alarm };
+	const alarmBody = { label, alarm, user_ID };
+	console.log("alarmBody", alarmBody);
 	db("alarms")
 		//Inserts the alarm and sets it to the user
 		.insert(alarmBody)
-		.then(alarm => {
+		.then(alarmBody => {
 			//Returns the alarm
 			res.status(201).json(alarmBody);
 		})
