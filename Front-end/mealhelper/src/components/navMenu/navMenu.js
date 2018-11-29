@@ -20,7 +20,7 @@ export default class NavMenu extends Component {
 
 	render() {
 		return (
-			<div className="container">
+			<div className="hb-container">
 				<Navbar>
 					<NavbarBrand href="/homepage" className="mr-auto">
 						<h3 className="titlelinks">MealHelper</h3>

@@ -1,4 +1,4 @@
-.container {
+.hb-container {
 	max-width: 100vw;
 	background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
 }
@@ -20,7 +20,7 @@
 }
 
 @media screen and (min-width: 800px) {
-	.container {
+	.hb-container {
 		visibility: hidden;
 	}
 }
