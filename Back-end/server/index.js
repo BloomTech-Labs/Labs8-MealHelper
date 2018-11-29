@@ -439,7 +439,7 @@ server.post("/recipe/:userid", (req, res) => {
     .then(recipeID => {
       db("recipe")
         //Finds the corrosponding recipes based on user ID
-        .where({ user_id: userId })
+        .where({ user_id: user_id })
         .then(meal => {
           //Returns all the recipes from that user
           res.status(200).json(meal);
