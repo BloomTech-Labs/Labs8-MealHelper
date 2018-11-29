@@ -4,18 +4,23 @@ import { CardElement, injectStripe } from "react-stripe-elements";
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { complete: false, value: "" };
+    this.state = { complete: false, inputValue: "" };
     this.submit = this.submit.bind(this);
   }
 
-  //   async
-  submit(ev) {
+  updateInputValue(evt) {
+    this.setState({
+      inputValue: evt.target.value
+    });
+  }
+
+  async submit(ev) {
     // let { token } = await this.props.stripe.createToken({ name: "Name" });
     // let response = await fetch("/charge", {
     //   method: "POST",
     //   headers: { "Content-Type": "text/plain" },
     //   body: token.id
-    if (this.state.value) {
+    if (this.state.inputValue.split("").length > 4) {
       this.setState({ complete: true });
     } else {
       alert("Please enter valid information");
@@ -31,7 +36,10 @@ class CheckoutForm extends Component {
       <div className="checkout">
         <p>Would you like to complete the purchase?</p>
         <span>Name</span>
-        <input value={this.state.value} />
+        <input
+          value={this.state.inputValue}
+          onChange={evt => this.updateInputValue(evt)}
+        />
         <CardElement />
         <button onClick={this.submit}>Send</button>
       </div>
