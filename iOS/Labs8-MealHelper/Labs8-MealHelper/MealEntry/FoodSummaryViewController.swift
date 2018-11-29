@@ -25,8 +25,8 @@ class FoodSummaryViewController: UIViewController {
         }
     }
     
-    var servingQty: String?
-    var servingType: String?
+    var servingQty: String = "1"
+    var servingType: String = "cup"
     var typePickerFieldValues = (1...20).map { String($0) }
     var quantityPickerFieldValues: [String] = FoodHelper.ServingTypes.allCases.map { $0.rawValue }
     var typePickerFieldDefaultValue = "cup" {
@@ -168,13 +168,13 @@ extension FoodSummaryViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             typeInputField.text = type
             servingType = type
             //setServingType(with: type, for: food)
-            NotificationCenter.default.post(name: .MHFoodSummaryTypePickerDidChange, object: nil, userInfo: ["type": type])
+            NotificationCenter.default.post(name: .MHFoodSummaryTypePickerDidChange, object: nil, userInfo: ["quantity": servingQty, "type": servingType])
         case "servingQty":
             let qty = typePickerFieldValues[row]
             quantityInputField.text = qty
             servingQty = qty
             //setServingQty(with: qty, for: food)
-            NotificationCenter.default.post(name: .MHFoodSummaryQuantityPickerDidChange, object: nil, userInfo: ["quantity": qty])
+            NotificationCenter.default.post(name: .MHFoodSummaryTypePickerDidChange, object: nil, userInfo: ["quantity": servingQty, "type": servingType])
         default:
             break
         }

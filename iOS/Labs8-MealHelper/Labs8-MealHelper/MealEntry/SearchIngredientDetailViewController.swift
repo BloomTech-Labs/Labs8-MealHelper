@@ -30,7 +30,13 @@ class SearchIngredientDetailViewController: UIViewController {
     
     // MARK: - Private properties
     
-    private let ingredientSummaryView = FoodSummaryViewController()
+    private let ingredientSummaryView: FoodSummaryViewController = {
+        let vc = FoodSummaryViewController()
+        vc.view.backgroundColor = UIColor.lightGray
+        vc.setupViews()
+        return vc
+    }()
+    
     private let nutrientTableView = NutrientDetailTableViewController()
     
     private lazy var containerView: UIView = {
@@ -84,16 +90,13 @@ class SearchIngredientDetailViewController: UIViewController {
     }
     
     @objc private func didChangeServingType(note: Notification) {
-        if let userInfo = note.userInfo, let servingType = userInfo["type"] as? FoodHelper.ServingTypes.RawValue, let nutrients = ingredient?.nutrients {
-            let updatedNutrients = nutrients.map { (nutrient: Nutrient) -> Nutrient in
-                var updatedNutrient = nutrient
-                let convertedValue = FoodHelper().convertHundertGrams(nutrient.gm, to: servingType)
-                updatedNutrient.value = String(format: "%.02f", convertedValue)
-                updatedNutrient.unit = servingType
-                return updatedNutrient
-            }
+        if let userInfo = note.userInfo,
+            let servingType = userInfo["type"] as? FoodHelper.ServingTypes.RawValue,
+            let servingQtyString = userInfo["quantity"] as? String,
+            let servingQty = Double(servingQtyString),
+            let nutrients = ingredient?.nutrients {
             
-            ingredient?.nutrients = updatedNutrients
+            ingredient?.nutrients = udpateNutrients(nutrients, to: servingType, amount: servingQty)
         }
     }
     
@@ -102,12 +105,21 @@ class SearchIngredientDetailViewController: UIViewController {
             let updatedNutrients = nutrients.map { (nutrient: Nutrient) -> Nutrient in
                 var updatedNutrient = nutrient
                 let servingQty = Double(servingQtyString) ?? 0
-                let convertedValue =  Double(updatedNutrient.gm) * servingQty
+                let convertedValue =  (Double(updatedNutrient.value) ?? 0.0) * servingQty
                 updatedNutrient.value = String(format: "%.02f", convertedValue)
                 return updatedNutrient
             }
             
             ingredient?.nutrients = updatedNutrients
+        }
+    }
+    
+    private func udpateNutrients(_ nutrients: [Nutrient], to type: String, amount: Double = 1.0) -> [Nutrient] {
+        return nutrients.map { (nutrient: Nutrient) -> Nutrient in
+            var updatedNutrient = nutrient
+            let convertedValue = FoodHelper().convertHundertGrams(nutrient.gm, to: type) * amount
+            updatedNutrient.value = String(format: "%.02f", convertedValue)
+            return updatedNutrient
         }
     }
     
@@ -127,7 +139,6 @@ class SearchIngredientDetailViewController: UIViewController {
         addButton.anchor(top: nil, leading: containerView.leadingAnchor, bottom: containerView.bottomAnchor, trailing: containerView.trailingAnchor, size: CGSize(width: 0.0, height: 40.0))
         
         view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        ingredientSummaryView.view.backgroundColor = UIColor.lightGray
         ingredientSummaryView.titleName = ingredient?.name
         
         view.layoutIfNeeded()
@@ -175,6 +186,7 @@ class SearchIngredientDetailViewController: UIViewController {
             DispatchQueue.main.async {
                 switch response {
                 case .success(let nutrients):
+                    let updatedNutrients = self.udpateNutrients(nutrients, to: "cup")
                     self.ingredient?.nutrients = nutrients
                 case .error(let error):
                     NSLog("Error fetching ingredients: \(error)")

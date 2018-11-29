@@ -26,18 +26,19 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
         navigationItem.leftBarButtonItem = cancelBarButton
         
         //foods = FoodClient.shared.recipes
-        FoodClient.shared.fetchRecipes { (response) in
-            DispatchQueue.main.async {
-                switch response {
-                case .success(let recipes):
-                    self.foods = recipes
-                case .error(let error):
-                    print(error)
-                    // Handle error in UI
-                    break
-                }
-            }
-        }
+//        FoodClient.shared.fetchRecipes { (response) in
+//            DispatchQueue.main.async {
+//                switch response {
+//                case .success(let recipes):
+//                    self.foods = recipes
+//                    self.tableView.reloadData()
+//                case .error(let error):
+//                    print(error)
+//                    // Handle error in UI
+//                    break
+//                }
+//            }
+//        }
     }
     
     @objc private func dismissMealView() {

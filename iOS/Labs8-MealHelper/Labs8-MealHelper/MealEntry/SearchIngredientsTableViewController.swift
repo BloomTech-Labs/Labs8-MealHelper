@@ -131,18 +131,8 @@ class SearchIngredientsTableViewController: FoodsTableViewController<Ingredient,
         let saveRecipeVC = SaveRecipeViewController()
         saveRecipeVC.ingredients = getSelectedFoods()
         navigationController?.pushViewController(saveRecipeVC, animated: true)
-        
-        //        for index in selectedFoodAtIndex {
-        //            guard let foods = foods, let name = foods[index].name else { continue }
-        //            FoodClient.shared.postIngredient(name: name, nutrientId: "", completion: { (response) in
-        //                // Handle http response
-        //            })
-        //        }
-        //
-        //        // TODO: // Save ingredients to recipe
-        //
-        //        self.navigationController?.popViewController(animated: true)
     }
+    
     // MARK: - UISearchBarDelegate, UISearchResultsUpdating
     
     func updateSearchResults(for searchController: UISearchController) {

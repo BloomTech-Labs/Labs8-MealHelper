@@ -69,14 +69,14 @@ class SaveRecipeViewController: UIViewController {
     // MARK: - User actions
     
     @objc private func save() {
-        guard let ingredients = ingredients, let recipeName = recipeName else {
-            NSLog("No ingredients added to recipe")
-            return
-        }
+//        guard let ingredients = self.ingredients, let recipeName = recipeName else {
+//            NSLog("No ingredients added to recipe")
+//            return
+//        }
         
         var ingredientIds = [Int]()
         
-        ingredients.forEach { ingredient in
+        ingredients?.forEach { ingredient in
             // Save nutrients of ingredient
             guard let nutrients = ingredient.nutrients else {
                 NSLog("Ingredient has no nutrients")
@@ -128,7 +128,7 @@ class SaveRecipeViewController: UIViewController {
         
         // Save ingredient, incl. nutrient values
         
-        saveRecipe(with: recipeName, calories: self.getTotalCalories(), servings: self.serving)
+        saveRecipe(with: recipeName ?? "", calories: self.getTotalCalories(), servings: self.serving)
         
     }
     
@@ -173,7 +173,9 @@ class SaveRecipeViewController: UIViewController {
                 }// TODO: to be deleted
                 break
             }
+            
         }
+        
     }
     
     private func getTotalCalories() -> Int {
@@ -205,6 +207,10 @@ class SaveRecipeViewController: UIViewController {
         ingredientTableVC.tableView.anchor(top: recipeSettingsVC.view.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         
         navigationItem.setRightBarButton(saveBarButton, animated: true)
+        
+        if let recipeName = recipeName {
+            recipeSettingsVC.titleTextField.text = recipeName
+        }
     }
     
     private func setupKeyboardNotifications() {
