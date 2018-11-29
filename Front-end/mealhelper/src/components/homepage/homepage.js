@@ -9,6 +9,22 @@ import Weather from '../weather/weather';
 import Recipes from '../recipes/recipes';
 import Meals from '../Meals/Meals';
 import CreateNewRecipe from '../creatnewrecipe/createnewrecipe';
+import AddAlarms from '../alarms/addAlarm';
+import MyAlarms from '../alarms/myAlarms';
+import {
+	Button,
+	Modal,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
+	UncontrolledDropdown,
+	DropdownToggle,
+	DropdownMenu,
+	DropdownItem
+} from 'reactstrap';
+import { Elements, StripeProvider } from 'react-stripe-elements';
+import CheckoutForm from '../checkout/CheckoutForm';
+import Billing from '../billing/billing';
 import NavMenu from '../navMenu/navMenu';
 
 class HomePage extends Component {
@@ -20,7 +36,8 @@ class HomePage extends Component {
 			password: '',
 			zip: null,
 			healthCondition: '',
-			visable: false
+			visable: false,
+			modal: false
 		};
 	}
 
@@ -42,12 +59,26 @@ class HomePage extends Component {
 			// this.props.history.push("/");
 		}
 	};
+	toggle = () => {
+		this.setState({
+			modal: !this.state.modal
+		});
+	};
+
+	logout = event => {
+		event.preventDefault();
+		localStorage.removeItem('token');
+		this.props.history.push('/');
+	};
 
 	render() {
 		return (
 			<div className="home-container">
 				<NavMenu className="hide-nav" />
 				<div className="sidebar">
+					<Link to="/homepage" style={{ textDecoration: 'none' }}>
+						<h2 className="titlelinks">Home</h2>
+					</Link>
 					<Link to="/homepage/recipes" style={{ textDecoration: 'none' }}>
 						<h2 className="titlelinks">Recipes</h2>
 					</Link>
@@ -60,9 +91,25 @@ class HomePage extends Component {
 					<Link to="/homepage/billing" style={{ textDecoration: 'none' }}>
 						<h2 className="titlelinks">Billing</h2>
 					</Link>
-					<Link to="/homepage/settings" style={{ textDecoration: 'none' }}>
+					<Link to="/homepage/settings/:id" style={{ textDecoration: 'none' }}>
 						<h2 className="titlelinks">Settings</h2>
 					</Link>
+					<Button color="danger" onClick={this.toggle}>
+						Log Out
+					</Button>
+					<Link to="homepage/billing">
+						<Button className="danger" color="danger">
+							Upgrade to Premium
+						</Button>
+					</Link>
+					{/* <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
+            <div className="example">
+              <h1>Pay Up Health Nut</h1>
+              <Elements>
+                <CheckoutForm />
+              </Elements>
+            </div>
+          </StripeProvider> */}
 				</div>
 				<div className="dynamic-display">
 					<Switch>
@@ -70,11 +117,22 @@ class HomePage extends Component {
 						<Route exact path="/homepage/recipes" render={() => <Recipes />} />
 						<Route exact path="/homepage/meals" render={() => <Meals />} />
 						<Route path="/homepage/recipes/createnewrecipe" render={() => <CreateNewRecipe />} />
-						{/* <Route path="/homepage/alarms" render={() => <Alarms />} />
-							<Route path="/homepage/billing" render={() => <Billing />} />
-			                <Route path="/homepage/settings" render={() => <Settings />} /> */}
+						<Route exact path="/homepage/alarms" render={() => <MyAlarms />} />
+						<Route path="/homepage/alarms/add-alarms" render={() => <AddAlarms />} />
+						<Route path="/homepage/billing" render={() => <Billing />} />
+						{/* <Route path="/homepage/settings" render={() => <Settings />} /> */}
 					</Switch>
 				</div>
+
+				<Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+					<ModalHeader toggle={this.toggle}>Do you wish to log out?</ModalHeader>
+					<Button onClick={this.logout} color="danger" className="danger">
+						Log out
+					</Button>
+					<Button onClick={this.toggle} color="primary">
+						Cancel
+					</Button>
+				</Modal>
 			</div>
 		);
 	}

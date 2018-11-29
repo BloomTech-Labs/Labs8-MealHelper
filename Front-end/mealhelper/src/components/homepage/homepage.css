@@ -49,3 +49,11 @@
 		visibility: hidden;
 	}
 }
+
+.example {
+  background: lightblue;
+}
+
+.danger {
+  margin-top: 5%;
+}

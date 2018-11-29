@@ -22,6 +22,16 @@ class Login extends Component {
 		});
 	};
 
+	loggin = event => {
+		if (localStorage.getItem('token') !== undefined) {
+			this.props.history.push('/homepage');
+		} else {
+			setTimeout(() => {
+				this.loggin();
+			}, 2000);
+		}
+	};
+
 	createUser = event => {
 		event.preventDefault();
 		if (!this.state.email || !this.state.password) {
@@ -30,7 +40,10 @@ class Login extends Component {
 			const { email, password } = this.state;
 			const user = { email, password };
 			this.props.loginUser(user);
-			this.props.history.push('/homepage');
+			console.log(this.props);
+			setTimeout(() => {
+				this.loggin();
+			}, 6000);
 		}
 	};
 
@@ -70,7 +83,7 @@ class Login extends Component {
 								<span>Log In</span>
 							</div>
 							<div className="entry-button-group">
-								<Link to="/">
+								<Link to="/signup">
 									<button className="signup signup-two">
 										<span>Signup</span>
 									</button>
@@ -90,7 +103,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-	user: state.user
+	user: state.userReducer.user
 });
 
 export default connect(

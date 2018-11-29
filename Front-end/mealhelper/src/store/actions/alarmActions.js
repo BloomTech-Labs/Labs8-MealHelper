@@ -10,8 +10,9 @@ export const ADDING_ALARMS_ERROR = "ADDING_ALARMS_ERROR";
 export const addAlarms = alarms => dispatch => {
   dispatch({ type: ADDING_ALARMS });
   console.log(alarms);
+  const user_id = alarms.user_id;
   axios
-    .post("https://labs8-meal-helper.herokuapp.com/alarms/:userid", alarms)
+    .post(`https://labs8-meal-helper.herokuapp.com/alarms/${user_id}`, alarms)
     .then(response => {
       dispatch({ type: ADDED_ALARMS, payload: response.data });
     })
