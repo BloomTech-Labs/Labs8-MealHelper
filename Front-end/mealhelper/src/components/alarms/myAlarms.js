@@ -5,6 +5,33 @@ import axios from "axios";
 //import { fetchAlarms } from "../../store/actions"
 //import { Alarm } from "./alarm";
 
+const alarms = [
+  {
+    id: 1,
+    label: "breakfast",
+    alarm: "0600",
+    user_id: 1
+  },
+  {
+    id: 2,
+    label: "lunch",
+    alarm: "1200",
+    user_id: 1
+  },
+  {
+    id: 3,
+    label: "snack",
+    alarm: "1300",
+    user_id: 1
+  },
+  {
+    id: 4,
+    label: "dinner",
+    alarm: "1600",
+    user_id: 1
+  }
+]
+
 class MyAlarms extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +42,7 @@ class MyAlarms extends Component {
   }
 
   componentDidMount() {
-  //  this.props.fetchAlarms();
+    this.setState({ alarmsList: this.alarms })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,14 +60,16 @@ class MyAlarms extends Component {
           <div className="dynamic-display">
           <h1>Alarms</h1>
           <Link to="alarms/add-alarms">Add New Alarms</Link>
-            {/* {this.props.alarms.map((alarm) => (
+             {alarms.map((alarm) => (
             <div
               key={alarm.id}
               id={alarm.id}
               label={alarm.label}
               alarm={alarm.alarm}              
-              />
-              ))} */}
+              > <br/>
+              <h2>{alarm.alarm}</h2>
+              <h2>{alarm.label}</h2></div>
+              ))} 
             
           </div>
         </div>
