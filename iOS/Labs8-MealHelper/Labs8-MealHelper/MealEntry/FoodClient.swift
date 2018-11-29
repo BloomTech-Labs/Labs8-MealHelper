@@ -82,7 +82,7 @@ class FoodClient {
     }
     
     func putIngredient(withId ingredientId: Int, nutrientIds: [Int], completion: @escaping (Response<Int>) -> ()) {
-        let url = self.url(with: baseUrl, pathComponents: ["nutrients","ingredients", String(ingredientId)])
+        let url = self.url(with: baseUrl, pathComponents: ["nutrients", "ingredients", String(ingredientId)])
         let reqBody = ["ids": nutrientIds]
         
         post(with: url, requestBody: reqBody, completion: completion)
@@ -102,6 +102,27 @@ class FoodClient {
         let reqBody = ["id": nutrientId]
         
         post(with: url, requestBody: reqBody, completion: completion)
+        
+    }
+    
+    func deleteRecipe(withId id: String, completion: @escaping (Response<Int>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["recipe", id])
+        
+        delete(with: url, completion: completion)
+        
+    }
+    
+    func deleteIngredient(withId id: String, completion: @escaping (Response<Int>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["ingredients", id])
+        
+        delete(with: url, completion: completion)
+        
+    }
+    
+    func deleteNutrient(withId id: String, completion: @escaping (Response<Int>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["nutrients", id])
+        
+        delete(with: url, completion: completion)
         
     }
     
@@ -203,7 +224,7 @@ class FoodClient {
         session.dataTask(with: url) { (data, res, error) in
             
             if let error = error {
-                NSLog("Error with fetching foods: \(error)")
+                NSLog("Error with FETCH urlRequest: \(error)")
                 completion(Response.error(error))
                 return
             }
@@ -247,7 +268,7 @@ class FoodClient {
         URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
             
             if let error = error {
-                NSLog("Error with urlRequest: \(error)")
+                NSLog("Error with POST urlRequest: \(error)")
                 completion(Response.error(error))
                 return
             }
@@ -266,7 +287,37 @@ class FoodClient {
                 completion(Response.error(error))
                 return
             }
-            }.resume()
+        }.resume()
+    }
+    
+    private func delete<Resource: Codable>(with url: URL, using session: URLSession = URLSession.shared, completion: @escaping ((Response<Resource>) -> ())) {
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = HTTPMethod.delete.rawValue
+        
+        URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
+            
+            if let error = error {
+                NSLog("Error with DELETE urlRequest: \(error)")
+                completion(Response.error(error))
+                return
+            }
+            
+            guard let data = data else {
+                NSLog("No data returned")
+                completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
+                return
+            }
+            
+            do {
+                let response = try JSONDecoder().decode(Resource.self, from: data)
+                completion(Response.success(response))
+            } catch {
+                NSLog("Error decoding data: \(error)")
+                completion(Response.error(error))
+                return
+            }
+        }.resume()
     }
     
     // MARK: - Private methods
