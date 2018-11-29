@@ -532,7 +532,6 @@ server.post("/ingredients/:userid", (req, res) => {
     .then(ingredientID => {
       db("ingredients")
         .where({ user_id: user_id })
-        .first()
         .then(ingredient => {
           res.status(200).json(ingredient);
         })
@@ -624,57 +623,57 @@ server.get("/nutrients/:ingredientID", (req, res) => {
       res.status(400).json({ err, error: "could not find meal" });
     });
 });
-//POST request to create a nutrient
-server.post("/nutrients/:ingredientID", (req, res) => {
-  //grabs the ingredient id from the req.params
-  const ingredientId = req.params.ingredientID;
-  //Grabs the id of the nutrient sent by req.body
-  const id = req.body.id;
-  const nutrient_id = { id };
-  db("ingredients")
-    //Finds the corrosponding nutrients based on ingredient ID
-    .where({ id: ingredientId })
-    .first()
-    .then(ingredient => {
-      //Appends the previous nutrient ID's and adds a new id at the end, seperated by a ,
-      let oldNutrients = ingredient.nutrients_id;
+//POST request to create an ingredients
+// server.post("/nutrients/:ingredientID", (req, res) => {
+//   //grabs the ingredient id from the req.params
+//   const ingredientId = req.params.ingredientID;
+//   //Grabs the id of the nutrient sent by req.body
+//   const id = req.body.id;
+//   const nutrient_id = { id };
+//   db("ingredients")
+//     //Finds the corrosponding nutrients based on ingredient ID
+//     .where({ id: ingredientId })
+//     .first()
+//     .then(ingredient => {
+//       //Appends the previous nutrient ID's and adds a new id at the end, seperated by a ,
+//       let oldNutrients = ingredient.nutrients_id;
 
-      let newNutrients = oldNutrients + ", " + nutrient_id.id;
-      db("ingredients")
-        //Finds the corrosponding nutrients based on ingredient ID
-        .where({ id: ingredientId })
-        //Doing a where request returns an array, so we want the first index of that array.
-        .first()
-        //Reaplces the old nutrients with the new ones
-        .update({ nutrients_id: newNutrients })
-        .then(ingredients => {
-          //Returns the ingredient
-          db("ingredients")
-            //Finds the corrosponding nutrients based on ingredient ID
-            .where({ id: ingredientId })
-            .first()
-            .then(ingredient => {
-              res.status(200).json(ingredient);
-            })
-            .catch(err => {
-              res.status(400).json({ error: "error returning ingredient" });
-            });
-        })
-        .catch(err => {
-          res.status(400).json({ err, error: "could not add nutrients" });
-        });
-    });
-});
+//       let newNutrients = oldNutrients + ", " + nutrient_id.id;
+//       db("ingredients")
+//         //Finds the corrosponding nutrients based on ingredient ID
+//         .where({ id: ingredientId })
+//         //Doing a where request returns an array, so we want the first index of that array.
+//         .first()
+//         //Reaplces the old nutrients with the new ones
+//         .update({ nutrients_id: newNutrients })
+//         .then(ingredients => {
+//           //Returns the ingredient
+//           db("ingredients")
+//             //Finds the corrosponding nutrients based on ingredient ID
+//             .where({ id: ingredientId })
+//             .first()
+//             .then(ingredient => {
+//               res.status(200).json(ingredient);
+//             })
+//             .catch(err => {
+//               res.status(400).json({ error: "error returning ingredient" });
+//             });
+//         })
+//         .catch(err => {
+//           res.status(400).json({ err, error: "could not add nutrients" });
+//         });
+//     });
+// });
 //POST request so user can make their own nutrient
 server.post("/nutrients/:id", (req, res) => {
   const user_id = req.params.id;
   //grabs the name unit and value from req.body
-  const { name, unit, value } = req.body;
+  const { nutrient, nutrient_id, unit, value, ingredients_id } = req.body;
   //set the what we grabbed to a new "nutrient"
-  const nutrient = { name, unit, value, user_id };
-
+  const nutrientsAll = { nutrient, nutrient_id, unit, value, ingredients_id };
+  console.log(nutrientsAll);
   db("nutrients")
-    .insert(nutrient)
+    .insert(nutrientsAll)
     .then(nutrientID => {
       //Returns the nutrient ID
       res.status(200).json(nutrientID);
@@ -960,16 +959,23 @@ server.get("/alarms/:userid", (req, res) => {
 //POST req to create a alarm for the user
 server.post("/alarms/:userid", (req, res) => {
   //Grabs the user id from req.params
-  const user_ID = req.params.userid;
+  const user_id = req.params.userid;
+  console.log("req.params.userid", req.params.userid, "user_ID", user_id);
   const { label, alarm } = req.body;
+  console.log("req.body", req.body, "label, alarm", label, alarm);
   //Adds the user id to the alarm object
-  const alarmBody = { user_ID, label, alarm };
+  const alarmBody = { label, alarm, user_id };
+  console.log("alarmBody", alarmBody);
   db("alarms")
     //Inserts the alarm and sets it to the user
     .insert(alarmBody)
-    .then(alarm => {
+    .then(alarmBody => {
       //Returns the alarm
-      res.status(201).json(alarmBody);
+      db("alarms")
+        .where({ user_id: user_id })
+        .then(alarms => {
+          res.status(200).json(alarms);
+        });
     })
     .catch(err => {
       res.status(400).json({ msg: err, error: "Could not create alarm" });
@@ -979,7 +985,7 @@ server.post("/alarms/:userid", (req, res) => {
 //PUT request to change the alarm settings
 server.put("/alarms/:id", (req, res) => {
   //Grabs the alarm id from req.params
-  const id = req.params.userid;
+  const id = req.params.id;
   const { label, alarm } = req.body;
   // Sets the req.body to an alarm object that gets passed into the update
   const alarmBody = { label, alarm };
@@ -1001,7 +1007,7 @@ server.put("/alarms/:id", (req, res) => {
 //Deletes the alarm for the user
 server.delete("/alarms/:id", (req, res) => {
   //Grabs alarm id from req.params
-  const id = req.params.mealid;
+  const id = req.params.id;
   db("alarms")
     //FInds the meal thats associated with that weather report
     .where({ id: id })

@@ -28,7 +28,7 @@ class Login extends Component {
     } else {
       setTimeout(() => {
         this.loggin();
-      }, 6000);
+      }, 2000);
     }
   };
 
