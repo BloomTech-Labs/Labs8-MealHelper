@@ -58,9 +58,9 @@ class AddAlarms extends Component {
     console.log("end time", this.state.endTime);
     console.log("hours between", this.state.repeats);
 
-    console.log("this.props", this.props);
-    console.log("this.props.user", this.props.user)
-   // const user_id = this.props.user.userID;
+    console.log("THIS.PROPS", this.props);
+    console.log("THIS.PROPS.USER", this.props.user)
+   const user_id = 1; /*this.props.user.userID;*/
     if (!this.state.beginTime || !this.state.endTime || !this.state.repeats) {
       //alert that all fields are required
     } else {
@@ -71,11 +71,11 @@ class AddAlarms extends Component {
       let alarmTimes = [];
       for (let i = start; i <= end; i += repeats) {
         if (i.toString().length === 3) {
-          let time = 0 + i.toString();
-          alarmTimes.push({ /*user_id: user_id,*/ time: time, label: "" });
+          let alarm = 0 + i.toString();
+          alarmTimes.push({ user_id: user_id, alarm: alarm, label: "" });
         } else {
-          let time = i.toString();
-          alarmTimes.push({ /*user_id: user_id,*/ time: time, label: "" });
+          let alarm = i.toString();
+          alarmTimes.push({ user_id: user_id, alarm: alarm, label: "" });
         }
       }
       console.log("alarmTimes", alarmTimes)
