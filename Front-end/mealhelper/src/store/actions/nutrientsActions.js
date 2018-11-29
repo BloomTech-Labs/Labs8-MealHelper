@@ -1,12 +1,12 @@
 import axios from "axios";
 
 //Ingredient
-export const ADDING_NUTRIENT = "ADDING_INGREDIENT";
-export const ADDED_NUTRIENT = "ADDED_INGREDIENT";
-export const ADDING_NUTRIENT_ERROR = "ADDING_INGREDIENT_ERROR";
-export const GETTING_NUTRIENT = "GETTING_INGREDIENT";
-export const GOT_NUTRIENT = "GOT_INGREDIENT";
-export const GETTING_NUTRIENT_ERROR = "GETTING_INGREDIENT_ERROR";
+export const ADDING_NUTRIENT = "ADDING_NUTRIENT";
+export const ADDED_NUTRIENT = "ADDED_NUTRIENT";
+export const ADDING_NUTRIENT_ERROR = "ADDING_NUTRIENT_ERROR";
+export const GETTING_NUTRIENT = "GETTING_NUTRIENT";
+export const GOT_NUTRIENT = "GOT_NUTRIENT";
+export const GETTING_NUTRIENT_ERROR = "GETTING_NUTRIENT_ERROR";
 
 //Route to sign up a user
 export const addMultipleNutrients = (nutrient, userID, count) => dispatch => {

@@ -647,9 +647,9 @@ server.get("/nutrients/:ingredientID", (req, res) => {
 server.post("/nutrients/:id", (req, res) => {
   const user_id = req.params.id;
   //grabs the name unit and value from req.body
-  const { nutrient, nutrient_id, unit, value } = req.body;
+  const { nutrient, nutrient_id, unit, value, ingredients_id } = req.body;
   //set the what we grabbed to a new "nutrient"
-  const nutrientsAll = { nutrient, nutrient_id, unit, value };
+  const nutrientsAll = { nutrient, nutrient_id, unit, value, ingredients_id };
   console.log(nutrientsAll);
   db("nutrients")
     .insert(nutrientsAll)

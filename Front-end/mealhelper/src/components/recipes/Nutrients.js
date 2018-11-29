@@ -54,12 +54,13 @@ class Nutrients extends Component {
     });
     console.log(nutrients.length);
     let count = nutrients.length;
-    this.props.addMultipleNutrients(nutrients, this.props.user.userID, count);
-    // console.log(nutrients);
-    // this.props.addMultipleIngredients(
-    //   this.state.nutrients,
-    //   this.props.user.userID
-    // );
+
+    this.props.addMultipleIngredients(
+      this.state.selectedFoods,
+      this.props.user.userID
+    );
+    console.log(this.props.ingredients);
+    // this.props.addMultipleNutrients(nutrients, this.props.user.userID, count, this.props.ingredients);
   };
   removeFoodItem = itemIndex => {
     const filteredFoods = this.state.nutrients.filter(
@@ -186,11 +187,13 @@ const mapStateToProps = state => {
   console.log(state);
   return {
     user: state.userReducer.user,
-    meals: state.mealsReducer.meals
+    meals: state.mealsReducer.meals,
+    ingredients: state.ingredsReducer.ingredient,
+    nutrients: state.nutrientsReducer.nutrients
   };
 };
 
 export default connect(
   mapStateToProps,
-  { addMultipleNutrients }
+  { addMultipleNutrients, addMultipleIngredients }
 )(withRouter(Nutrients));
