@@ -18,15 +18,17 @@ struct FoodHelper {
         case cup, tablespoon, hundertGrams = "100g", ounce
     }
     
-    func convertHundertGrams(_ gm: Double, to unit: ServingTypes) -> Double {
+    func convertHundertGrams(_ gm: Double, to unit: ServingTypes.RawValue) -> Double {
         switch unit {
-        case .cup:
+        case ServingTypes.cup.rawValue:
             return gm * 1.5
-        case .tablespoon:
+        case ServingTypes.tablespoon.rawValue:
             return gm / 7.067
-        case .ounce:
+        case ServingTypes.ounce.rawValue:
             return gm / 3.527396195
-        case .hundertGrams:
+        case ServingTypes.hundertGrams.rawValue:
+            return gm
+        default:
             return gm
         }
     }

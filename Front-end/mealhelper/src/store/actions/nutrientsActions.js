@@ -1,31 +1,33 @@
 import axios from "axios";
 
 //Ingredient
-export const ADDING_NUTRIENT = "ADDING_INGREDIENT";
-export const ADDED_NUTRIENT = "ADDED_INGREDIENT";
-export const ADDING_NUTRIENT_ERROR = "ADDING_INGREDIENT_ERROR";
-export const GETTING_NUTRIENT = "GETTING_INGREDIENT";
-export const GOT_NUTRIENT = "GOT_INGREDIENT";
-export const GETTING_NUTRIENT_ERROR = "GETTING_INGREDIENT_ERROR";
+export const ADDING_NUTRIENT = "ADDING_NUTRIENT";
+export const ADDED_NUTRIENT = "ADDED_NUTRIENT";
+export const ADDING_NUTRIENT_ERROR = "ADDING_NUTRIENT_ERROR";
+export const GETTING_NUTRIENT = "GETTING_NUTRIENT";
+export const GOT_NUTRIENT = "GOT_NUTRIENT";
+export const GETTING_NUTRIENT_ERROR = "GETTING_NUTRIENT_ERROR";
 
 //Route to sign up a user
-export const addMultipleNutrients = (nutrient, userID) => dispatch => {
-  for (let i = 0; i < nutrient.length; i++) {
-    dispatch({ type: ADDING_NUTRIENT });
-    const id = userID;
-    console.log(id);
-    console.log(nutrient);
-    const promise = axios.post(
-      `https://labs8-meal-helper.herokuapp.com/nutrients/${id}`,
-      nutrient[i]
-    );
-    promise
-      .then(response => {
-        dispatch({ type: ADDED_NUTRIENT, payload: response.data });
-      })
-      .catch(err => {
-        dispatch({ type: ADDING_NUTRIENT_ERROR, payload: err });
-      });
+export const addMultipleNutrients = (nutrient, userID, count) => dispatch => {
+  for (let i = 0; i < count; i++) {
+    for (let j = 0; j < 4; j++) {
+      dispatch({ type: ADDING_NUTRIENT });
+      const id = userID;
+
+      console.log("This is what is posting at this second", nutrient[i][j]);
+      const promise = axios.post(
+        `https://labs8-meal-helper.herokuapp.com/nutrients/${id}`,
+        nutrient[i][j]
+      );
+      promise
+        .then(response => {
+          dispatch({ type: ADDED_NUTRIENT, payload: response.data });
+        })
+        .catch(err => {
+          dispatch({ type: ADDING_NUTRIENT_ERROR, payload: err });
+        });
+    }
   }
 };
 export const getMultipleNutrients = (ingredient, userId) => dispatch => {

@@ -22,10 +22,11 @@ export const ingredsReducer = (state = initialState, action) => {
       return { ...state, addingIngredient: true };
     case ADDED_INGREDIENT:
       //Adds ingredient to the store
+      console.log("this is the payload this time", action.payload);
       return {
         ...state,
         addingIngredient: false,
-        ingredient: [...this.state.ingredient, action.payload]
+        ingredient: action.payload
       };
     case ADDING_INGREDIENT_ERROR:
       //Shoots off if there is an error creating a new ingredient

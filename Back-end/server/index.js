@@ -14,9 +14,12 @@ const bcrypt = require("bcrypt");
 
 const cors = require("cors");
 
+const stripe = require("stripe")("sk_test_cNEaPmZynbb27q2E7BHuZLMA");
+
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
+server.use(require("body-parser").text());
 
 const jwtSecret = "thisisthesecretkeyplzdonttouch";
 
@@ -41,6 +44,25 @@ function generateToken(user) {
 
 server.get("/", (req, res) => {
   res.status(200).json({ Welcome: " Welcome !" });
+});
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++ Stripe ENDPOINT +++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+server.post("/charge", async (req, res) => {
+  try {
+    let { status } = await stripe.charges.create({
+      amount: 2000,
+      currency: "usd",
+      description: "An example charge",
+      source: req.body
+    });
+
+    res.json({ status });
+  } catch (err) {
+    res.status(500).end();
+  }
 });
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -503,14 +525,13 @@ server.post("/ingredients/:userid", (req, res) => {
   const { name } = req.body;
   //Grabs the associated data from req.body and sets it as a JSON to recipe
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-  const ingredient = { name, ndb_id, user_id, nutrient_ids };
+  const ingredient = { name, ndb_id, user_id };
   console.log(ingredient);
   db("ingredients")
     .insert(ingredient)
     .then(ingredientID => {
       db("ingredients")
         .where({ user_id: user_id })
-        .first()
         .then(ingredient => {
           res.status(200).json(ingredient);
         })
@@ -647,9 +668,9 @@ server.get("/nutrients/:ingredientID", (req, res) => {
 server.post("/nutrients/:id", (req, res) => {
   const user_id = req.params.id;
   //grabs the name unit and value from req.body
-  const { nutrient, nutrients_id, unit, value } = req.body;
+  const { nutrient, nutrient_id, unit, value, ingredients_id } = req.body;
   //set the what we grabbed to a new "nutrient"
-  const nutrientsAll = { nutrient, nutrients_id, unit, value };
+  const nutrientsAll = { nutrient, nutrient_id, unit, value, ingredients_id };
   console.log(nutrientsAll);
   db("nutrients")
     .insert(nutrientsAll)
@@ -964,7 +985,7 @@ server.post("/alarms/:userid", (req, res) => {
 //PUT request to change the alarm settings
 server.put("/alarms/:id", (req, res) => {
   //Grabs the alarm id from req.params
-	const id = req.params.id;
+  const id = req.params.id;
   const { label, alarm } = req.body;
   // Sets the req.body to an alarm object that gets passed into the update
   const alarmBody = { label, alarm };

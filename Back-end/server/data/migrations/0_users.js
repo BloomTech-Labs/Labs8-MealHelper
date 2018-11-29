@@ -40,19 +40,20 @@ exports.up = function(knex) {
       ingredients.increments("id").primary();
       ingredients.integer("ndb_id");
       ingredients.string("name", 255).notNullable();
-      ingredients.integer("nutrients_id");
-      ingredients.foreign("nutrients_id").references("nutrients.id");
+
       ingredients.integer("user_id");
       ingredients.foreign("user_id").references("users.id");
     }),
     knex.schema.createTable("nutrients", function(nutrients) {
       nutrients.increments("id").primary();
       nutrients.string("nutrient", 255).notNullable();
+      nutrients.integer("ingredients_id");
+      nutrients.foreign("ingredients_id").references("ingredients.id");
       //Explain unit convo to team
       nutrients.string("unit", 6).notNullable();
       nutrients.string("value", 6).notNullable();
       //NDBNO
-      nutrients.integer("nutrients_id").notNullable();
+      nutrients.integer("nutrient_id").notNullable();
     }),
     knex.schema.createTable("weather", function(weather) {
       weather.increments("id").primary();

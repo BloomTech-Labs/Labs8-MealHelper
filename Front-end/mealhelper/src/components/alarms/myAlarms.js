@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
-import { fetchAlarms } from "../../store/actions"
+import { fetchAlarms } from "../../store/actions/alarmActions";
 //import { Alarm } from "./alarm";
 
 const alarms = [
@@ -42,12 +42,13 @@ class MyAlarms extends Component {
   }
 
   componentDidMount() {
-
-    this.setState({ alarmsList: this.alarms })
+    console.log("this.props", this.props);
+    let userID = this.props.user.userID;
+    this.props.fetchAlarms(userID);
   }
 
   componentWillReceiveProps(nextProps) {
-    //update list of alarms
+   //
   }
 ;
   render() {
@@ -60,8 +61,8 @@ class MyAlarms extends Component {
 
           <div className="dynamic-display">
           <h1>Alarms</h1>
-          <Link to="alarms/add-alarms">Add New Alarms</Link>
-             {alarms.map((alarm) => (
+          <Link to="/homepage/alarms/add-alarms">Add New Alarms</Link>
+             {/* {this.props.alarms.map((alarm) => (
             <div
               key={alarm.id}
               id={alarm.id}
@@ -70,7 +71,7 @@ class MyAlarms extends Component {
               > <br/>
               <h2>{alarm.alarm}</h2>
               <h2>{alarm.label}</h2></div>
-              ))} 
+              ))}  */}
             
           </div>
         </div>
@@ -82,10 +83,11 @@ class MyAlarms extends Component {
 }
 
 const mapStateToProps = state => ({
-  alarms: state.alarms
+  alarms: state.alarmsReducer.alarms,
+  user: state.userReducer.user
 })
 
 export default connect(
-  mapStateToProps
-//  { fetchAlarms }
+  mapStateToProps,
+  { fetchAlarms }
 )(withRouter(MyAlarms));

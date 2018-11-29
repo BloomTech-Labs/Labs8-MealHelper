@@ -81,7 +81,7 @@ class AddAlarms extends Component {
       console.log("alarmTimes", alarmTimes)
         alarmTimes.map(alarm => console.log("alarm map", alarm));
         alarmTimes.map(alarm => this.props.addAlarms(alarm));
-      // this.props.history.push('/homepage/alarms')
+       this.props.history.push('/homepage/alarms')
     }
   };
 
