@@ -57,7 +57,7 @@ export const getRecipe = id => dispatch => {
   dispatch({ type: GETTING_RECIPES });
   axios
 
-    .get(`https://labs8-meal-helper.herokuapp.com/recipe/${id}`)
+    .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
     .then(response => {
       dispatch({ type: GOT_RECIPE, payload: response.data });
     })
