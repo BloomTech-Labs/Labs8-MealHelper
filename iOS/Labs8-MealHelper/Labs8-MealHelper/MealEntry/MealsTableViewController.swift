@@ -64,26 +64,33 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
         let date = Utils().dateString(for: Date())
         var temp = 0.0 // TODO: Change
         
-        let dispatchGroup = DispatchGroup()
+        let weatherDispatchGroup = DispatchGroup()
         
-        dispatchGroup.enter()
+        weatherDispatchGroup.enter()
         WeatherAPIClient().fetchWeather(for: 8038) { (weatherForecast) in
+            
             temp = weatherForecast?.main.temp ?? 0
-            dispatchGroup.leave()
+            weatherDispatchGroup.leave()
         }
         
-        for food in foods {
-            dispatchGroup.enter()
-            let name = food.name ?? ""
+        weatherDispatchGroup.notify(queue: .main) {
+            let foodDispatchGroup = DispatchGroup()
             
-            FoodClient.shared.postMeal(name: name, mealTime: "n/a", date: date, temp: temp) { (response) in
-                dispatchGroup.leave()
+            for food in foods {
+                foodDispatchGroup.enter()
+                let name = food.name ?? ""
+                
+                FoodClient.shared.postMeal(name: name, mealTime: "n/a", date: date, temp: temp) { (response) in
+                    foodDispatchGroup.leave()
+                }
+            }
+            
+            foodDispatchGroup.notify(queue: .main) {
+                self.dismiss(animated: true, completion: nil)
             }
         }
         
-        dispatchGroup.notify(queue: .main) {
-            self.dismiss(animated: true, completion: nil)
-        }
+        
     }
     
     
