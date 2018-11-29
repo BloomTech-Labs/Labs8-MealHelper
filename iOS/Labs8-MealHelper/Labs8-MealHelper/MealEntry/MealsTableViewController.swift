@@ -54,6 +54,38 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let edit = UITableViewRowAction(style: .normal, title: "Edit") { (save, indexPath) in
+            // Go to ingredients tbv
+        }
+        edit.backgroundColor = .green
+        
+        let remove = UITableViewRowAction(style: .destructive, title: "Delete") { (remove, indexPath) in
+            let foodClient = FoodClient.shared
+            
+            if let recipe = self.foods?[indexPath.row], let id = recipe.identifier {
+                
+                foodClient.deleteRecipe(withId: String(id), completion: { (response) in
+                    switch response {
+                    case .success(let response):
+                        if response == 1 {
+                            guard let index = self.foods?.index(of: recipe) else { return }
+                            self.foods?.remove(at: index)
+                            self.tableView.reloadData()
+                    }
+                    
+                    case .error(let error):
+                        print(error)
+                        //Handle error
+                    }
+                })
+                    
+            }
+        }
+        
+        return [remove, edit]
+    }
+    
     override func actionWhenNoItemsSelected() {
         let ingredientsVC = SearchIngredientsTableViewController(navTitle: "Ingredients")
         navigationController?.pushViewController(ingredientsVC, animated: true)
@@ -80,7 +112,7 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
                 foodDispatchGroup.enter()
                 let name = food.name ?? ""
                 
-                FoodClient.shared.postMeal(name: name, mealTime: "n/a", date: date, temp: temp) { (response) in
+                FoodClient.shared.postMeal(name: name, mealTime: name, date: date, temp: temp) { (response) in
                     foodDispatchGroup.leave()
                 }
             }

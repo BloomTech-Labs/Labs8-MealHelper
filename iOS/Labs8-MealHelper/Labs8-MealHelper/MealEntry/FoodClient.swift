@@ -105,6 +105,13 @@ class FoodClient {
         
     }
     
+    func deleteMeal(withId id: String, completion: @escaping (Response<Int>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["users", id, "meals"])
+        
+        delete(with: url, completion: completion)
+        
+    }
+    
     func deleteRecipe(withId id: String, completion: @escaping (Response<Int>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["recipe", id])
         

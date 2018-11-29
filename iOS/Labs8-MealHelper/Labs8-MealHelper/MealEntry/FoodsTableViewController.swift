@@ -80,20 +80,6 @@ class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewCont
         return true
     }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let edit = UITableViewRowAction(style: .normal, title: "Edit") { (save, indexPath) in
-            // Go to ingredients tbv
-        }
-        edit.backgroundColor = .green
-        
-        let remove = UITableViewRowAction(style: .destructive, title: "Delete") { (remove, indexPath) in
-            
-            // Remove
-        }
-        
-        return [remove, edit]
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         selectFood(at: indexPath)
