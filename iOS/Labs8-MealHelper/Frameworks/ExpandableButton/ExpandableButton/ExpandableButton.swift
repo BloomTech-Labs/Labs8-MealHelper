@@ -221,7 +221,7 @@ public class ExpandableButtonView: UIView
             self.hideSubButtons = self.isExpanded ? false : true
         }
         
-        UIView.transition(with: mainButton, duration: 0.4, options: .transitionFlipFromTop, animations: {
+        UIView.transition(with: mainButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
             
             self.mainButton.setImage(self.isExpanded ? self.collapsedMainImage : self.expandedMainImage, for: .normal)
             

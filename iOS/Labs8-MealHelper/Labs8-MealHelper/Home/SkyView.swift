@@ -44,7 +44,7 @@ class SkyView: UIView {
     
     override func draw(_ rect: CGRect) {
         
-        path = UIBezierPath(arcCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY + 100), radius: self.bounds.width / 2, startAngle: CGFloat(180).toRadians(), endAngle: CGFloat(0).toRadians(), clockwise: true)
+        path = UIBezierPath(arcCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY + 50), radius: self.bounds.width / 2, startAngle: CGFloat(180).toRadians(), endAngle: CGFloat(0).toRadians(), clockwise: true)
 //        path?.move(to: CGPoint(x: self.bounds.minX, y: self.bounds.midY))
 //        path?.addQuadCurve(to: CGPoint(x: self.bounds.maxX, y: self.bounds.midY), controlPoint: CGPoint(x: self.bounds.midX, y: self.bounds.midY - 200))
         

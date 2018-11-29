@@ -58,7 +58,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     
     lazy var expandableButtonView: ExpandableButtonView = {
         let ebv = ExpandableButtonView(buttonSizes: CGSize(width: 50, height: 50))
-        ebv.buttonImages(mainCollapsed: UIImage(named: "plus-icon")!, mainExpanded: UIImage(named: "minus-icon")!, mostLeft: UIImage(named: "alarm_clock")!, left: UIImage(named: "apple")!, right: UIImage(named: "plus-icon")!, mostRight: UIImage(named: "plus-icon")!)
+        ebv.buttonImages(mainCollapsed: UIImage(named: "plus-icon")!, mainExpanded: UIImage(named: "minus-icon")!, mostLeft: UIImage(named: "alarm_clock")!, left: UIImage(named: "create_new")!, right: UIImage(named: "export")!, mostRight: UIImage(named: "settings")!)
         ebv.buttonColors(main: .white, mostLeft: .white, left: .white, right: .white, mostRight: .white)
         ebv.isLineHidden = true
         ebv.collapseWhenTapped = true
