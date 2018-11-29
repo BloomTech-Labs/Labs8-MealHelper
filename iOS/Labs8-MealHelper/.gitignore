@@ -182,6 +182,10 @@ iOSInjectionProject/
 
 !*.xcworkspace/contents.xcworkspacedata
 
+!*.xcworkspace/*
+
+*.xcworkspace/*
+
 /*.gcno
 
 **/xcshareddata/WorkspaceSettings.xcsettings
