@@ -964,12 +964,12 @@ server.post("/alarms/:userid", (req, res) => {
 //PUT request to change the alarm settings
 server.put("/alarms/:id", (req, res) => {
   //Grabs the alarm id from req.params
-  const id = req.params.userid;
+	const id = req.params.id;
   const { label, alarm } = req.body;
   // Sets the req.body to an alarm object that gets passed into the update
   const alarmBody = { label, alarm };
   db("alarms")
-    .where({ id: id })
+		.where({ id: id })
     .update({
       label: alarmBody.label,
       alarm: alarmBody.alarm
@@ -986,7 +986,7 @@ server.put("/alarms/:id", (req, res) => {
 //Deletes the alarm for the user
 server.delete("/alarms/:id", (req, res) => {
   //Grabs alarm id from req.params
-  const id = req.params.mealid;
+  const id = req.params.id;
   db("alarms")
     //FInds the meal thats associated with that weather report
     .where({ id: id })

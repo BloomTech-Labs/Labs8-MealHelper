@@ -9,7 +9,7 @@ export const ADDING_ALARMS_ERROR = "ADDING_ALARMS_ERROR";
 //Action Creators
 export const addAlarms = alarms => dispatch => {
   dispatch({ type: ADDING_ALARMS });
-  console.log(alarms);
+  console.log("ALARMS", alarms);
   const user_id = alarms.user_id;
   axios
     .post(`https://labs8-meal-helper.herokuapp.com/alarms/${user_id}`, alarms)
