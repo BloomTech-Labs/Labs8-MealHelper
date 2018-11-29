@@ -939,24 +939,17 @@ server.get("/alarms/:userid", (req, res) => {
 server.post("/alarms/:userid", (req, res) => {
 	//Grabs the user id from req.params
 	const user_ID = req.params.userid;
-	console.log("user_ID", user_ID);
-	const { time, label } = req.body;
-	console.log("time", time, "label", label)
+	const { label, alarm } = req.body;
 	//Adds the user id to the alarm object
-	const alarm = { time, label, user_ID };
-	console.log("alarm, above db", alarm)
+	const alarmBody = { user_ID, label, alarm };
 	db("alarms")
-	console.log("alarm, under db", alarm)
 		//Inserts the alarm and sets it to the user
-		.insert(alarm)
-		console.log("alarm insert")
+		.insert(alarmBody)
 		.then(alarm => {
 			//Returns the alarm
-			console.log("alarm then")
-			res.status(201).json(alarm);
+			res.status(201).json(alarmBody);
 		})
 		.catch(err => {
-			console.log("alarm catch", err)
 			res.status(400).json({ msg: err, error: "Could not create alarm" });
 		});
 });
@@ -965,17 +958,14 @@ server.post("/alarms/:userid", (req, res) => {
 server.put("/alarms/:id", (req, res) => {
   //Grabs the alarm id from req.params
   const id = req.params.userid;
-  const { beginTime, endTime, beginLimit, endLimit, repeat } = req.body;
+  const { label, alarm } = req.body;
   // Sets the req.body to an alarm object that gets passed into the update
-  const alarm = { beginTime, endTime, beginLimit, endLimit, repeat };
+  const alarmBody = { label, alarm };
   db("alarms")
     .where({ id: id })
     .update({
-      beginTime: alarm.beginTime,
-      endTime: alarm.endTime,
-      beginLimit: alarm.beginLimit,
-      endLimit: alarm.beginLimit,
-      repeat: alarm.repeat
+      label: alarmBody.label,
+      alarm: alarmBody.alarm
     })
     .then(alarmID => {
       //Returns the alarm ID

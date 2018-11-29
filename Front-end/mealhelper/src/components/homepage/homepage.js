@@ -9,6 +9,8 @@ import Weather from "../weather/weather";
 import Recipes from "../recipes/recipes";
 import Meals from "../Meals/Meals";
 import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
+import AddAlarms from "../alarms/addAlarm";
+import MyAlarms from "../alarms/myAlarms";
 import {
   Button,
   Modal,
@@ -116,8 +118,12 @@ class HomePage extends Component {
               path="/homepage/recipes/createnewrecipe"
               render={() => <CreateNewRecipe />}
             />
-            {/* <Route path="/homepage/alarms" render={() => <Alarms />} /> */}
-            <Route exact path="/homepage/billing" render={() => <Billing />} />
+            <Route exact path="/homepage/alarms" render={() => <MyAlarms />} />
+            <Route
+              path="/homepage/alarms/add-alarms"
+              render={() => <AddAlarms />}
+            />
+            <Route path="/homepage/billing" render={() => <Billing />} />
             {/* <Route path="/homepage/settings" render={() => <Settings />} /> */}
           </Switch>
         </div>
