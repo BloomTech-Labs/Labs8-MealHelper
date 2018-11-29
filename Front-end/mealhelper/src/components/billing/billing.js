@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./homepage.css";
+import "./billing.css";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
-import { Alert } from "reactstrap";
-import Weather from "../weather/weather";
-import Recipes from "../recipes/recipes";
-import Meals from "../Meals/Meals";
-import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
+// import { Alert } from "reactstrap";
+// import Weather from "../weather/weather";
+// import Recipes from "../recipes/recipes";
+// import Meals from "../Meals/Meals";
+// import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
 import {
   Button,
   Modal,
@@ -22,9 +22,8 @@ import {
 } from "reactstrap";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../checkout/CheckoutForm";
-import Billing from "../billing/billing";
 
-class HomePage extends Component {
+class Billing extends Component {
   constructor(props) {
     super(props);
 
@@ -108,18 +107,14 @@ class HomePage extends Component {
           </StripeProvider> */}
         </div>
         <div className="dynamic-display">
-          <Switch>
-            <Route path="/homepage/weather" render={() => <Weather />} />
-            <Route exact path="/homepage/recipes" render={() => <Recipes />} />
-            <Route exact path="/homepage/meals" render={() => <Meals />} />
-            <Route
-              path="/homepage/recipes/createnewrecipe"
-              render={() => <CreateNewRecipe />}
-            />
-            {/* <Route path="/homepage/alarms" render={() => <Alarms />} /> */}
-            <Route exact path="/homepage/billing" render={() => <Billing />} />
-            {/* <Route path="/homepage/settings" render={() => <Settings />} /> */}
-          </Switch>
+          <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
+            <div className="example">
+              <h1>Pay Up Health Nut</h1>
+              <Elements>
+                <CheckoutForm />
+              </Elements>
+            </div>
+          </StripeProvider>
         </div>
 
         <Modal
@@ -149,4 +144,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { addUser }
-)(withRouter(HomePage));
+)(withRouter(Billing));
