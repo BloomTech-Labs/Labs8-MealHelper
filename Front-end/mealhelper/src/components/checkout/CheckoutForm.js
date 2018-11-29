@@ -4,7 +4,7 @@ import { CardElement, injectStripe } from "react-stripe-elements";
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { complete: fales };
+    this.state = { complete: false };
     this.submit = this.submit.bind(this);
   }
 
