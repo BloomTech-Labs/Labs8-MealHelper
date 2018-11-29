@@ -75,7 +75,7 @@ class MyAlarms extends Component {
               id={alarm.id}
               label={alarm.label}
               alarm={alarm.alarm}
-              //onClick={() => this.props.history.push(`alarm/${alarm.id}`)}              
+              onClick={() => this.props.history.push(`alarm/${alarm.id}`)}              
               > <br/>
               <h2>{alarm.alarm}</h2>
               <h2>{alarm.label}</h2>

@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 
 class Alarm extends Component {
+  constructor(props) {
+    super(props);
+  }
   componentDidMount() {}
 
   render() {
