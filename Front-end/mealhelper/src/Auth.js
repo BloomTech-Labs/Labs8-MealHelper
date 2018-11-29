@@ -55,6 +55,7 @@ class Auth0Client extends Component {
         this.profile = authResult.idTokenPayload;
         console.log(this.profile);
         localStorage.setItem("email", this.profile.email);
+        localStorage.setItem("token", this.idToken);
 
         this.expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
         resolve();

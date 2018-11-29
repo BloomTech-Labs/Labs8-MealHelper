@@ -57,7 +57,7 @@ class SignUp extends Component {
       const user = { email, password, zip, healthCondition };
       this.props.addUser(user);
       setTimeout(() => {
-        this.loggin();
+        this.signupp();
       }, 6000);
     }
   };
