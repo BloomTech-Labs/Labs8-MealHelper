@@ -6,7 +6,7 @@ const localPg = {
   password: process.env.DB_PASS
 };
 
-const dbConnection = process.env.HEROKU_POSTGRESQL_PURPLE_URL || localPg;
+const dbConnection = process.env.DATABASE_URL || localPg;
 
 module.exports = {
   development: {
