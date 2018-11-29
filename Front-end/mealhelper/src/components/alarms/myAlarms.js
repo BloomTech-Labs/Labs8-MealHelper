@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
-import { fetchAlarms } from "../../store/actions/alarmActions";
+import { fetchAlarms, deleteAlarm } from "../../store/actions/alarmActions";
 //import { Alarm } from "./alarm";
 
 const alarms = [
@@ -75,10 +75,12 @@ class MyAlarms extends Component {
               id={alarm.id}
               label={alarm.label}
               alarm={alarm.alarm}
-              onClick={() => this.props.history.push(`alarm/${alarm.id}`)}              
+              //onClick={() => this.props.history.push(`alarm/${alarm.id}`)}              
               > <br/>
               <h2>{alarm.alarm}</h2>
-              <h2>{alarm.label}</h2></div>
+              <h2>{alarm.label}</h2>
+              <button onClick={() => this.props.deleteAlarm(alarm.id)}>Delete</button>
+              </div>
               ))}
             
           </div>
@@ -97,5 +99,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchAlarms }
+  { fetchAlarms, deleteAlarm }
 )(withRouter(MyAlarms));

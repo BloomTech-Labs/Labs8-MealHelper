@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 
 class Alarm extends Component {
+  componentDidMount() {}
+
   render() {
     return (
       <div className="alarm-container">
