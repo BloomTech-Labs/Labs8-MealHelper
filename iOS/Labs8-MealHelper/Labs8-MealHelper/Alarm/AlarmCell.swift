@@ -40,6 +40,13 @@ class AlarmCell: UITableViewCell {
         return sw
     }()
     
+    let seperatorLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .mountainBlue
+        
+        return view
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .clear
@@ -56,6 +63,9 @@ class AlarmCell: UITableViewCell {
         addSubview(stateSwitch)
         stateSwitch.anchor(top: nil, leading: nil, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12), size: .zero)
         stateSwitch.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        addSubview(seperatorLine)
+        seperatorLine.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, size: CGSize(width: 0, height: 0.5))
     }
     
     required init?(coder aDecoder: NSCoder) {

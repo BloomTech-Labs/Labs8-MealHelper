@@ -44,7 +44,7 @@ class APIClient {
         }.resume()
     }
     
-    func uploadAlarm(time: String, note: String, userId: Int, completion: @escaping (Response<Alarm>) -> ()) {
+    func uploadAlarm(time: String, note: String, userId: Int, timestamp: String, completion: @escaping (Response<Alarm>) -> ()) {
         let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(userId)")!
         
         var urlRequest = URLRequest(url: url)
@@ -53,7 +53,7 @@ class APIClient {
         
         do {
             
-            let alarm = ["alarm": time, "label": note]
+            let alarm = ["alarm": time, "label": note, "timestamp": timestamp]
             let encoder = JSONEncoder()
             encoder.outputFormatting = .prettyPrinted
             let alarmJson = try encoder.encode(alarm)
@@ -80,8 +80,11 @@ class APIClient {
             }
 
             do {
-                let alarm = try JSONDecoder().decode(Alarm.self, from: data)
-                completion(Response.success(alarm))
+                let alarms = try JSONDecoder().decode([Alarm].self, from: data)
+                let sortedAlarms = alarms.sorted(by: { $0.timestamp > $1.timestamp })
+                let createdAlarm = sortedAlarms.first
+                completion(Response.success(createdAlarm!))
+                
             } catch {
                 NSLog("Error decoding data: \(error)")
                 completion(Response.error(error))

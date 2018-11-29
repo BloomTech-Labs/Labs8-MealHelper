@@ -14,11 +14,13 @@ struct Alarm: Codable {
     var userId: Int
     var note: String
     var time: String
+    var timestamp: Int
     
     enum CodingKeys: String, CodingKey {
         case id
         case userId = "user_id"
         case note = "label"
         case time = "alarm"
+        case timestamp
     }
 }

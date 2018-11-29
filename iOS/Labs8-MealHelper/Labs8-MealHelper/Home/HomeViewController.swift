@@ -32,7 +32,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .white
-        label.font = Appearance.appFont(with: 60)
+        label.font = Appearance.appFont(with: 50)
         label.text = "60.00"
         label.sizeToFit()
         
@@ -49,11 +49,16 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         return cv
     }()
     
-    let footerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
+    let emptyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "No meals have been entered yet"
+        label.font = Appearance.appFont(with: 14)
+        label.textColor = UIColor.init(white: 0.9, alpha: 1)
+        label.sizeToFit()
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
         
-        return view
+        return label
     }()
     
     lazy var expandableButtonView: ExpandableButtonView = {
@@ -79,6 +84,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
             DispatchQueue.main.async {
                 switch response {
                 case .success(let meals):
+                    self.emptyLabel.isEnabled = meals.isEmpty ? true : false
                     self.collectionView.meals = meals
                 case .error:
                     self.showAlert(with: "Unable to load your meals, please check your internet connection and try again.")
@@ -86,6 +92,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
             }
         }
         
+        timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(handleCountdown), userInfo: nil, repeats: true)
     }
     
@@ -100,26 +107,17 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         view.backgroundColor = .black
         setupFooterView()
         
+        emptyLabel.isEnabled = collectionView.meals.isEmpty ? true : false
+        
         let loginController = LoginViewController()
         loginController.modalPresentationStyle = .overCurrentContext
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.present(loginController, animated: true, completion: nil)
         }
     }
     
     override func viewDidLayoutSubviews() {
-        
-//        let gradientLayer = CAGradientLayer()
-//        gradientLayer.frame = view.bounds
-//        gradientLayer.colors = [UIColor.nightSkyDark.cgColor, UIColor.nightSkyBlue.cgColor]
-////        gradientLayer.colors = [UIColor.sunOrange.cgColor, UIColor.morningSkyBlue.cgColor]
-//        gradientLayer.locations = [0.0, 0.75]
-//        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-//        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-//
-//        backgroundView.layer.insertSublayer(gradientLayer, at: 0)
-        
         skyView.setGradientBackground(colorOne: UIColor.nightSkyDark.cgColor, colorTwo: UIColor.nightSkyBlue.cgColor, startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0.8, y: 0.3))
     }
     
@@ -138,8 +136,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         view.addSubview(collectionView)
         collectionView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12), size: CGSize(width: 0, height: 300))
         
-        view.addSubview(footerView)
-        footerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0), size: CGSize(width: view.frame.width, height: 50))
+        view.addSubview(emptyLabel)
+        emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 180).isActive = true
         
         view.addSubview(expandableButtonView)
         expandableButtonView.anchor(top: nil, leading: nil, bottom: collectionView.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0), size: CGSize(width: 300, height: 50))

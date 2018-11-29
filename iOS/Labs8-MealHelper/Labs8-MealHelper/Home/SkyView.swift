@@ -19,8 +19,6 @@ class SkyView: UIView {
         return iv
     }()
     
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -34,7 +32,7 @@ class SkyView: UIView {
         
         let animation = CAKeyframeAnimation(keyPath: "position")
         animation.path = self.path?.cgPath
-        animation.duration = 60
+        animation.duration = 2000
         animation.fillMode = .forwards
         animation.delegate = self
         
@@ -44,14 +42,7 @@ class SkyView: UIView {
     
     override func draw(_ rect: CGRect) {
         
-        path = UIBezierPath(arcCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY + 50), radius: self.bounds.width / 2, startAngle: CGFloat(180).toRadians(), endAngle: CGFloat(0).toRadians(), clockwise: true)
-//        path?.move(to: CGPoint(x: self.bounds.minX, y: self.bounds.midY))
-//        path?.addQuadCurve(to: CGPoint(x: self.bounds.maxX, y: self.bounds.midY), controlPoint: CGPoint(x: self.bounds.midX, y: self.bounds.midY - 200))
-        
-        
-//        path?.addArc(withCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY), radius: self.bounds.height / 2, startAngle: 180, endAngle: 0, clockwise: true)
-//        path?.lineWidth = 2
-//        UIColor.clear.setStroke()
+        path = UIBezierPath(arcCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY + 50), radius: self.bounds.width / 2, startAngle: CGFloat(225).toRadians(), endAngle: CGFloat(0).toRadians(), clockwise: true)
         path?.stroke()
     }
     

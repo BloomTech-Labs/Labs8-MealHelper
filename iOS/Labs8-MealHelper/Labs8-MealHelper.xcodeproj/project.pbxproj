@@ -64,7 +64,7 @@
 		ACE1FA6D21AF091B003A0030 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6C21AF091B003A0030 /* Alarm.swift */; };
 		ACE1FA7021AF1A53003A0030 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6F21AF1A53003A0030 /* SettingsViewController.swift */; };
 		ACE1FA7321AF56C4003A0030 /* SkyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA7221AF56C4003A0030 /* SkyView.swift */; };
-		ACE1FA7521B0582F003A0030 /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA7421B0582F003A0030 /* LocalNotifications.swift */; };
+		ACE1FA7521B0582F003A0030 /* LocalNotificationsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA7421B0582F003A0030 /* LocalNotificationsHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,7 +159,7 @@
 		ACE1FA6C21AF091B003A0030 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		ACE1FA6F21AF1A53003A0030 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		ACE1FA7221AF56C4003A0030 /* SkyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyView.swift; sourceTree = "<group>"; };
-		ACE1FA7421B0582F003A0030 /* LocalNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifications.swift; sourceTree = "<group>"; };
+		ACE1FA7421B0582F003A0030 /* LocalNotificationsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -382,7 +382,7 @@
 				ACE1FA6221ADE796003A0030 /* CreateAlarmView.swift */,
 				ACE1FA6421AE13D5003A0030 /* AlarmTableView.swift */,
 				ACE1FA6621AE1429003A0030 /* AlarmCell.swift */,
-				ACE1FA7421B0582F003A0030 /* LocalNotifications.swift */,
+				ACE1FA7421B0582F003A0030 /* LocalNotificationsHelper.swift */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -568,7 +568,7 @@
 				3D7AD09421AF1B0800A68323 /* Notification+Name.swift in Sources */,
 				3D56A9FE21939D3A00A91EF4 /* AutoLayout.swift in Sources */,
 				AC85F38D219E0C1D007765CA /* LoginViewController.swift in Sources */,
-				ACE1FA7521B0582F003A0030 /* LocalNotifications.swift in Sources */,
+				ACE1FA7521B0582F003A0030 /* LocalNotificationsHelper.swift in Sources */,
 				3DB65F282196200D007AA68A /* APIClient.swift in Sources */,
 				AC85F3E7219E3526007765CA /* IngredientsTableViewController.swift in Sources */,
 				3DDB4A1C21A774E4007A1B5E /* SwipeableViewController.swift in Sources */,

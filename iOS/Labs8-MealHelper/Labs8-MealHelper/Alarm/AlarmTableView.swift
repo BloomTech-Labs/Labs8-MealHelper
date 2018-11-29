@@ -11,7 +11,7 @@ import UIKit
 class AlarmTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
     let cellId = "AlarmCell"
-    var alarms: [Alarm]? {
+    var alarms = [Alarm]() {
         didSet {
             self.reloadData()
         }
@@ -23,21 +23,36 @@ class AlarmTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         delegate = self
         dataSource = self
         register(AlarmCell.self, forCellReuseIdentifier: cellId)
-        separatorColor = .mountainBlue
-        separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        separatorStyle = .none
         allowsSelection = false
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return alarms?.count ?? 0
+        return alarms.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return alarms.isEmpty ? 200 : 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "No alarms have been created yet"
+        label.textColor = UIColor.init(white: 0.8, alpha: 1)
+        label.font = Appearance.appFont(with: 16)
+        label.textAlignment = .center
+        
+        return label
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! AlarmCell
         
-        let alarm = alarms?[indexPath.row]
-        cell.timeLabel.text = alarm?.time
-        cell.noteLabel.text = alarm?.note
+        let alarm = alarms[indexPath.row]
+        var alarmTime = alarm.time
+        alarmTime.insert(":", at: alarmTime.index(alarmTime.startIndex, offsetBy: 2))
+        cell.timeLabel.text = alarmTime
+        cell.noteLabel.text = alarm.note
         
         return cell
     }

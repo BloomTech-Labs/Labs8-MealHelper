@@ -30,26 +30,23 @@ class LocalNotificationHelper
         }
     }
     
-    func scheuleDailyReminderNotification()
-    {
+    func createNotification(hour: Int, minute: Int, id: Int, note: String) {
         let content = UNMutableNotificationContent()
-        content.title = "Daily Reminder"
-        content.body = "Remember to add a memory for today!"
+        content.title = "Meal reminder"
+        content.body = note
         content.sound = UNNotificationSound.default
         
         var dateComponent = DateComponents()
-        dateComponent.hour = 20 //Not sure how to set it to 8PM?
+        dateComponent.hour = 20
+        dateComponent.minute = minute
         
-        let notificationRequest = UNNotificationRequest(identifier: "dailyReminder", content: content, trigger: UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false))
+        let notificationRequest = UNNotificationRequest(identifier: "\(id)", content: content, trigger: UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false))
         
         let center = UNUserNotificationCenter.current()
         center.add(notificationRequest) { (error) in
-            if let error = error
-            {
+            if let error = error {
                 NSLog("There was an error scheduling a notification: \(error)")
             }
         }
     }
-    
-    
 }

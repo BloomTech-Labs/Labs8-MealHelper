@@ -12,7 +12,7 @@ class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
     
     private let cellId = "mealCell"
     
-    var meals: [Meal]? {
+    var meals = [Meal]() {
         didSet {
             self.reloadData()
         }
@@ -35,17 +35,16 @@ class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return meals?.count ?? 0
-//        return 50
+        return meals.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MealCell
         
-        let meal = meals?[indexPath.item]
-        cell.mealNameLabel.text = meal?.mealTime
-        cell.dateLabel.text = meal?.date
-        cell.experienceLabel.text = meal?.experience
+        let meal = meals[indexPath.item]
+        cell.mealNameLabel.text = meal.mealTime
+        cell.dateLabel.text = meal.date
+        cell.experienceLabel.text = meal.experience
         
         return cell
     }
