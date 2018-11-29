@@ -11,6 +11,10 @@ import UIKit
 
 class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCell<Recipe>> {
     
+    lazy var cancelBarButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissMealView))
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         foods = FoodClient.shared.recipes
@@ -19,19 +23,25 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.leftBarButtonItem = cancelBarButton
         
-        foods = FoodClient.shared.recipes
-        //        FoodClient.shared.fetchRecipes(for: User()) { (response) in
-        //            DispatchQueue.main.async {
-        //                switch response {
-        //                case .success(let recipes):
-        //                    self.foods = recipes
-        //                case .error(let error):
-        //                    // Handle error in UI
-        //                    break
-        //                }
-        //            }
-        //        }
+        //foods = FoodClient.shared.recipes
+        FoodClient.shared.fetchRecipes { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let recipes):
+                    self.foods = recipes
+                case .error(let error):
+                    print(error)
+                    // Handle error in UI
+                    break
+                }
+            }
+        }
+    }
+    
+    @objc private func dismissMealView() {
+        dismiss(animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -52,7 +62,7 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
     override func actionWhenItemsSelected() {
         let foods = getSelectedFoods()
         // TODO: save selected meals
-        FoodClient.shared.postMeal(mealTime: "Lunch", experience: "happy", date: "11/16/2018") { (response) in
+        FoodClient.shared.postMeal(name: "test", mealTime: "Lunch", experience: "happy", date: "11/16/2018", temp: 123.0) { (response) in
             self.dismiss(animated: true, completion: nil)
         }
     }

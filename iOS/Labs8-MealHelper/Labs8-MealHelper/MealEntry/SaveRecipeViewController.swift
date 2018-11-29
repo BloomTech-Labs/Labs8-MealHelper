@@ -70,6 +70,9 @@ class SaveRecipeViewController: UIViewController {
     
     @objc private func save() {
         // Save recipe
+        FoodClient.shared.postIngredient(name: "test", nutrientId: "", completion: { (response) in
+                // Handle http response
+            })
     }
     
     

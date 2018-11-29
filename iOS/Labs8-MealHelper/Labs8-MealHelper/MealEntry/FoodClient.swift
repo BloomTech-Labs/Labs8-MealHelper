@@ -51,9 +51,10 @@ class FoodClient {
         
     }
     
-    func postMeal(mealTime: String, experience: String?, date: String, completion: @escaping (Response<Int>) -> ()) {
+    func postMeal(name: String, mealTime: String, experience: String?, date: String, temp: Float, completion: @escaping (Response<Int>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["users", userId, "meals"])
         let reqBody = [
+            "name": name,
             "user_id": userId,
             "mealTime": mealTime,
             "experience": experience,

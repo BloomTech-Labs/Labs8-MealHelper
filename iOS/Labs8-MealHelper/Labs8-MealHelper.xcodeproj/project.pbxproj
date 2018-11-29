@@ -188,7 +188,6 @@
 			isa = PBXGroup;
 			children = (
 				3D77DD19219F111B009B21ED /* ProgressIndicator.swift */,
-				3D77DD16219EF4A8009B21ED /* WeatherForecast.swift */,
 				3D77DD15219EF4A7009B21ED /* WeatherView.swift */,
 				AC8F0B54219E372E00E623FB /* PickerInputField.swift */,
 				AC85F388219E0B2E007765CA /* LoadingButton.swift */,
@@ -348,6 +347,7 @@
 			children = (
 				AC85F3C6219E350C007765CA /* Food.swift */,
 				AC8F0B50219E36AE00E623FB /* User.swift */,
+				3D77DD16219EF4A8009B21ED /* WeatherForecast.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
