@@ -58,10 +58,16 @@ class HomePage extends Component {
 					<NavbarBrand href="/homepage" className="mr-auto">
 						<h3 className="titlelinks">MealHelper</h3>
 					</NavbarBrand>
-					<NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+					<NavbarToggler onClick={this.toggleNavbar} className="mr-2">
+						<div className="hb-btn">
+							<div />
+							<div />
+							<div />
+						</div>
+					</NavbarToggler>
 					<Collapse isOpen={!this.state.collapsed} navbar>
 						<Nav navbar>
-							<NavItem style={{ textDecoration: 'none', color: 'black' }}>
+							<NavItem style={{ textDecoration: 'none' }}>
 								<NavLink href="/homepage/recipes">
 									<h4 className="titlelinks">Recipes</h4>
 								</NavLink>

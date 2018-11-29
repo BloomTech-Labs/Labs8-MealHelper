@@ -47,18 +47,22 @@
 .hide-nav {
 	visibility: hidden;
 	background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
-	color: white;
+}
+
+.hb-btn {
+	display: flex;
+	flex-direction: column;
+	cursor: pointer;
+	background-color: white;
+	width: 35px;
+	height: 5px;
+	margin: 6px 0;
 }
 
 .nav-item {
 	display: flex;
 	justify-content: flex-end;
 	color: #f1e7e8;
-}
-
-.nav-item:hover {
-	font-weight: 600;
-	color: #a3cea0;
 }
 
 @media screen and (max-width: 800px) {
