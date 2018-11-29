@@ -25,6 +25,7 @@ export const addMultipleIngredients = (
     );
     promise
       .then(response => {
+        console.log(response);
         dispatch({ type: ADDED_INGREDIENT, payload: response.data });
       })
       .catch(err => {

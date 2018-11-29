@@ -14,9 +14,12 @@ const bcrypt = require("bcrypt");
 
 const cors = require("cors");
 
+const stripe = require("stripe")("sk_test_cNEaPmZynbb27q2E7BHuZLMA");
+
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
+server.use(require("body-parser").text());
 
 const jwtSecret = "thisisthesecretkeyplzdonttouch";
 
@@ -41,6 +44,25 @@ function generateToken(user) {
 
 server.get("/", (req, res) => {
   res.status(200).json({ Welcome: " Welcome !" });
+});
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++ Stripe ENDPOINT +++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+app.post("/charge", async (req, res) => {
+  try {
+    let { status } = await stripe.charges.create({
+      amount: 2000,
+      currency: "usd",
+      description: "An example charge",
+      source: req.body
+    });
+
+    res.json({ status });
+  } catch (err) {
+    res.status(500).end();
+  }
 });
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -601,6 +623,7 @@ server.get("/nutrients/:ingredientID", (req, res) => {
       res.status(400).json({ err, error: "could not find meal" });
     });
 });
+<<<<<<< HEAD
 //POST request to create an ingredients
 // server.post("/nutrients/:ingredientID", (req, res) => {
 //   //grabs the ingredient id from the req.params
@@ -642,6 +665,49 @@ server.get("/nutrients/:ingredientID", (req, res) => {
 //         });
 //     });
 // });
+=======
+//POST request to create a nutrient
+server.post("/nutrients/:ingredientID", (req, res) => {
+  //grabs the ingredient id from the req.params
+  const ingredientId = req.params.ingredientID;
+  //Grabs the id of the nutrient sent by req.body
+  const id = req.body.id;
+  const nutrient_id = { id };
+  db("ingredients")
+    //Finds the corrosponding nutrients based on ingredient ID
+    .where({ id: ingredientId })
+    .first()
+    .then(ingredient => {
+      //Appends the previous nutrient ID's and adds a new id at the end, seperated by a ,
+      let oldNutrients = ingredient.nutrients_id;
+
+      let newNutrients = oldNutrients + ", " + nutrient_id.id;
+      db("ingredients")
+        //Finds the corrosponding nutrients based on ingredient ID
+        .where({ id: ingredientId })
+        //Doing a where request returns an array, so we want the first index of that array.
+        .first()
+        //Reaplces the old nutrients with the new ones
+        .update({ nutrients_id: newNutrients })
+        .then(ingredients => {
+          //Returns the ingredient
+          db("ingredients")
+            //Finds the corrosponding nutrients based on ingredient ID
+            .where({ id: ingredientId })
+            .first()
+            .then(ingredient => {
+              res.status(200).json(ingredient);
+            })
+            .catch(err => {
+              res.status(400).json({ error: "error returning ingredient" });
+            });
+        })
+        .catch(err => {
+          res.status(400).json({ err, error: "could not add nutrients" });
+        });
+    });
+});
+>>>>>>> 8bde1aa11a897bd65b4c7efd6b72a87cf342a5ee
 //POST request so user can make their own nutrient
 server.post("/nutrients/:id", (req, res) => {
   const user_id = req.params.id;
@@ -937,6 +1003,7 @@ server.get("/alarms/:userid", (req, res) => {
 //POST req to create a alarm for the user
 server.post("/alarms/:userid", (req, res) => {
   //Grabs the user id from req.params
+<<<<<<< HEAD
   const user_id = req.params.userid;
   console.log("req.params.userid", req.params.userid, "user_ID", user_id);
   const { label, alarm } = req.body;
@@ -954,6 +1021,18 @@ server.post("/alarms/:userid", (req, res) => {
         .then(alarms => {
           res.status(200).json(alarms);
         });
+=======
+  const user_ID = req.params.userid;
+  const { label, alarm } = req.body;
+  //Adds the user id to the alarm object
+  const alarmBody = { user_ID, label, alarm };
+  db("alarms")
+    //Inserts the alarm and sets it to the user
+    .insert(alarmBody)
+    .then(alarm => {
+      //Returns the alarm
+      res.status(201).json(alarmBody);
+>>>>>>> 8bde1aa11a897bd65b4c7efd6b72a87cf342a5ee
     })
     .catch(err => {
       res.status(400).json({ msg: err, error: "Could not create alarm" });
