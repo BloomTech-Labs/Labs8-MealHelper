@@ -11,16 +11,16 @@ export const ADDING_ALARMS_ERROR = "ADDING_ALARMS_ERROR";
 export const DELETING_ALARM = "DELETING_ALARM";
 export const DELETED_ALARM = "DELETED_ALARM";
 export const DELETING_ALARM_ERROR = "DELETING_ALARM_ERROR";
-export const UPDATING_ALARMS = "UPDATING_ALARMS";
-export const UPDATED_ALARMS = "UPDATED_ALARMS";
-export const UPDATING_ALARMS_ERROR = "UPDATING_ALARMS_ERROR";
+export const UPDATING_ALARM = "UPDATING_ALARM";
+export const UPDATED_ALARM = "UPDATED_ALARM";
+export const UPDATING_ALARM_ERROR = "UPDATING_ALARM_ERROR";
 
 //Action Creators
 export const fetchAlarms = () => dispatch => {
-  const { id } = req.params;
+  //const { id } = req.params;
   dispatch({ type: FETCHING_ALARMS });
   const promise = axios.get(
-    `https://labs8-meal-helper.herokuapp.com/alarms/${id}`
+    `https://labs8-meal-helper.herokuapp.com/alarms/`
   );
   promise
     .then(response => {
@@ -50,10 +50,10 @@ export const deleteAlarm = id => dispatch => {
   axios
     .delete(`URL`)
     .then(response => {
-      dispatch({ type: DELETED_NOTE, payload: response.data });
+      dispatch({ type: DELETED_ALARM, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: DELETED_NOTE_ERROR, payload: err });
+      dispatch({ type: DELETING_ALARM_ERROR, payload: err });
     });
 }
 
@@ -66,9 +66,9 @@ export const updateAlarm = alarm => dispatch => {
   axios
     .put( `URL`, updatedAlarm)
     .then(response => {
-      dispatch({ type: UPDATED_NOTE, payload: response.data });
+      dispatch({ type: UPDATED_ALARM, payload: response.data });
     })
     .catch(err => {
-      dispatch({ type: UPDATING_NOTE_ERROR, payload: err })
+      dispatch({ type: UPDATING_ALARM_ERROR, payload: err })
     })
 };

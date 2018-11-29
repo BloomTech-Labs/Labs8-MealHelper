@@ -1,5 +1,19 @@
 /* Alarms Reducer */
 import * as actionTypes from '../actions';
+import { 
+  FETCHING_ALARMS,
+  FETCHED_ALARMS,
+  FETCHING_ALARMS_ERROR,
+  ADDING_ALARMS,
+  ADDED_ALARMS,
+  ADDING_ALARMS_ERROR,
+  UPDATING_ALARM,
+	UPDATED_ALARM,
+	UPDATING_ALARM_ERROR,
+	DELETING_ALARM,
+	DELETED_ALARM,
+	DELETING_ALARM_ERROR
+} from '../actions/alarmActions';
 import axios from 'axios';
 
 const initialState = {
@@ -13,29 +27,29 @@ const initialState = {
 
 export const alarmsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.FETCHING_ALARMS:
+    case FETCHING_ALARMS:
       return {...state, fetchingAlarms: true };
-    case actionTypes.FETCHED_ALARMS:
+    case FETCHED_ALARMS:
       return {...state, fetchingAlarms: false, alarms: action.payload }
-    case actionTypes.FETCHING__ALARMS_ERROR:
+    case FETCHING_ALARMS_ERROR:
       return {...state, fetchingAlarms: false, error: action.payload}
-    case actionTypes.ADDING_ALARMS:
+    case ADDING_ALARMS:
       return {...state, addingAlarms: true };
-    case actionTypes.ADDED_ALARMS:
+    case ADDED_ALARMS:
       return {...state, addingAlarms: false, alarms: action.payload };
-    case actionTypes.ADDING_ALARMS_ERROR:
+    case ADDING_ALARMS_ERROR:
       return {...state, addingAlarms: false, error: action.payload};
-      case actionTypes.UPDATING_ALARM:
+      case UPDATING_ALARM:
 			return { ...state, updatingAlarm: true };
-		case actionTypes.UPDATED_ALARM:
+		case UPDATED_ALARM:
 			return { ...state, updatingAlarm: false, alarms: action.payload };
-		case actionTypes.UPDATING_ALARM_ERROR:
+		case UPDATING_ALARM_ERROR:
 			return { ...state, updatingAlarm: false, error: action.payload };
-      case actionTypes.DELETING_ALARM:
+    case DELETING_ALARM:
 			return { ...state, deletingAlarm: true };
-		case actionTypes.DELETED_ALARM:
+		case DELETED_ALARM:
 			return { ...state, deletingAlarm: false, notes: action.payload };
-		case actionTypes.DELETED_ALARM_ERROR:
+		case DELETING_ALARM_ERROR:
 			return { ...state, deletingAlarm: false, error: action.payload };
       default:
       return state;
