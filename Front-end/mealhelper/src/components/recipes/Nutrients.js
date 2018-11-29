@@ -52,7 +52,9 @@ class Nutrients extends Component {
     const nutrients = this.state.nutrients.map(nutrient => {
       return nutrient.nutrients;
     });
-    this.props.addMultipleNutrients(nutrients, this.props.user.userID);
+    console.log(nutrients.length);
+    let count = nutrients.length;
+    this.props.addMultipleNutrients(nutrients, this.props.user.userID, count);
     // console.log(nutrients);
     // this.props.addMultipleIngredients(
     //   this.state.nutrients,

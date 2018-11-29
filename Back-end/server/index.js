@@ -647,9 +647,9 @@ server.get("/nutrients/:ingredientID", (req, res) => {
 server.post("/nutrients/:id", (req, res) => {
   const user_id = req.params.id;
   //grabs the name unit and value from req.body
-  const { nutrient, nutrients_id, unit, value } = req.body;
+  const { nutrient, nutrient_id, unit, value } = req.body;
   //set the what we grabbed to a new "nutrient"
-  const nutrientsAll = { nutrient, nutrients_id, unit, value };
+  const nutrientsAll = { nutrient, nutrient_id, unit, value };
   console.log(nutrientsAll);
   db("nutrients")
     .insert(nutrientsAll)
@@ -964,7 +964,7 @@ server.post("/alarms/:userid", (req, res) => {
 //PUT request to change the alarm settings
 server.put("/alarms/:id", (req, res) => {
   //Grabs the alarm id from req.params
-  const id = req.params.userid;
+  const id = req.params.id;
   const { label, alarm } = req.body;
   // Sets the req.body to an alarm object that gets passed into the update
   const alarmBody = { label, alarm };
@@ -986,7 +986,7 @@ server.put("/alarms/:id", (req, res) => {
 //Deletes the alarm for the user
 server.delete("/alarms/:id", (req, res) => {
   //Grabs alarm id from req.params
-  const id = req.params.mealid;
+  const id = req.params.id;
   db("alarms")
     //FInds the meal thats associated with that weather report
     .where({ id: id })

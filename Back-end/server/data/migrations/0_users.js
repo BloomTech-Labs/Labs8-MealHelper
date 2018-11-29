@@ -52,7 +52,7 @@ exports.up = function(knex) {
       nutrients.string("unit", 6).notNullable();
       nutrients.string("value", 6).notNullable();
       //NDBNO
-      nutrients.integer("nutrients_id").notNullable();
+      nutrients.integer("nutrient_id").notNullable();
     }),
     knex.schema.createTable("weather", function(weather) {
       weather.increments("id").primary();
