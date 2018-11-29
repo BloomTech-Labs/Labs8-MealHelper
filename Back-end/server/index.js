@@ -428,10 +428,10 @@ server.get("/recipe/user/:userid", (req, res) => {
 server.post("/recipe/:userid", (req, res) => {
   //grabs the user id from the req.params
   const user_id = req.params.userid;
-  const { name, calories, servings, recipe_id } = req.body;
+  const { name, calories, servings } = req.body;
   //Grabs the associated data from req.body and sets it as a JSON to recipe
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-  const recipe = { name, user_id, calories, servings, recipe_id };
+  const recipe = { name, user_id, calories, servings };
   console.log(recipe);
 
   db("recipe")
@@ -530,10 +530,10 @@ server.post("/ingredients/:userid", (req, res) => {
   //grabs the user id from the req.params
   const user_id = req.params.userid;
   const ndb_id = req.body.ndbno;
-  const { name } = req.body;
+  const { name, recipe_id } = req.body;
   //Grabs the associated data from req.body and sets it as a JSON to recipe
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-  const ingredient = { name, ndb_id, user_id };
+  const ingredient = { name, ndb_id, user_id, recipe_id };
   console.log(ingredient);
   db("ingredients")
     .insert(ingredient)
