@@ -28,6 +28,9 @@ extension UIColor
     static let sunRed = UIColor.rgb(red: 226, green: 17, blue: 58)
     static let mountainBlue = UIColor.rgb(red: 47, green: 157, blue: 254)
     static let mountainDark = UIColor.rgb(red: 36, green: 36, blue: 36)
+    static let nightSkyBlue = UIColor.rgb(red: 5, green: 102, blue: 141)
+    static let nightSkyDark = UIColor.rgb(red: 11, green: 19, blue: 43)
+    static let morningSkyBlue = UIColor.rgb(red: 105, green: 221, blue: 255)
 }
 
 enum Appearance

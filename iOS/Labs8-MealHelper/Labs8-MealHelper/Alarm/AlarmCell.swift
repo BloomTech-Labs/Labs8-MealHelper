@@ -40,6 +40,13 @@ class AlarmCell: UITableViewCell {
         return sw
     }()
     
+    let seperatorLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .mountainBlue
+        
+        return view
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .clear
@@ -48,14 +55,17 @@ class AlarmCell: UITableViewCell {
     
     private func setupViews() {
         addSubview(timeLabel)
-        timeLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 8, left: 14, bottom: 0, right: 0), size: .zero)
+        timeLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 8, left: 16, bottom: 0, right: 0), size: .zero)
         
         addSubview(noteLabel)
-        noteLabel.anchor(top: timeLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0), size: .zero)
+        noteLabel.anchor(top: timeLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0), size: .zero)
         
         addSubview(stateSwitch)
         stateSwitch.anchor(top: nil, leading: nil, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12), size: .zero)
         stateSwitch.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        addSubview(seperatorLine)
+        seperatorLine.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, size: CGSize(width: 0, height: 0.5))
     }
     
     required init?(coder aDecoder: NSCoder) {

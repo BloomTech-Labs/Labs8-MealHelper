@@ -26,6 +26,8 @@ public class ExpandableButtonView: UIView
     private var lineViewHeight: NSLayoutConstraint?
     
     private var isExpanded = false
+    private var expandedMainImage: UIImage?
+    private var collapsedMainImage: UIImage?
     
     private var hideSubButtons = true {
         didSet {
@@ -43,6 +45,11 @@ public class ExpandableButtonView: UIView
         button.translatesAutoresizingMaskIntoConstraints = false
         button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(handleAnimation), for: .touchUpInside)
+        button.backgroundColor = UIColor.init(white: 0, alpha: 0.35)
+        button.layer.cornerRadius = 25 //needs to be dynamic
+        button.layer.masksToBounds = true
+        button.layer.borderWidth = 0.5
+        button.layer.borderColor = UIColor.init(white: 0, alpha: 0.6).cgColor
         
         return button
     }()
@@ -56,6 +63,11 @@ public class ExpandableButtonView: UIView
         button.layer.zPosition = -1
         button.isHidden = true
         button.addTarget(self, action: #selector(handleSubButton(sender:)), for: .touchUpInside)
+        button.backgroundColor = UIColor.init(white: 0, alpha: 0.35)
+        button.layer.cornerRadius = 25 //needs to be dynamic
+        button.layer.masksToBounds = true
+        button.layer.borderWidth = 0.5
+        button.layer.borderColor = UIColor.init(white: 0, alpha: 0.6).cgColor
         
         return button
     }()
@@ -69,6 +81,11 @@ public class ExpandableButtonView: UIView
         button.layer.zPosition = -1
         button.isHidden = true
         button.addTarget(self, action: #selector(handleSubButton(sender:)), for: .touchUpInside)
+        button.backgroundColor = UIColor.init(white: 0, alpha: 0.35)
+        button.layer.cornerRadius = 25 //needs to be dynamic
+        button.layer.masksToBounds = true
+        button.layer.borderWidth = 0.5
+        button.layer.borderColor = UIColor.init(white: 0, alpha: 0.6).cgColor
         
         return button
     }()
@@ -82,6 +99,11 @@ public class ExpandableButtonView: UIView
         button.layer.zPosition = -1
         button.isHidden = true
         button.addTarget(self, action: #selector(handleSubButton(sender:)), for: .touchUpInside)
+        button.backgroundColor = UIColor.init(white: 0, alpha: 0.35)
+        button.layer.cornerRadius = 25 //needs to be dynamic
+        button.layer.masksToBounds = true
+        button.layer.borderWidth = 0.5
+        button.layer.borderColor = UIColor.init(white: 0, alpha: 0.6).cgColor
         
         return button
     }()
@@ -95,6 +117,11 @@ public class ExpandableButtonView: UIView
         button.layer.zPosition = -1
         button.isHidden = true
         button.addTarget(self, action: #selector(handleSubButton(sender:)), for: .touchUpInside)
+        button.backgroundColor = UIColor.init(white: 0, alpha: 0.35)
+        button.layer.cornerRadius = 25 //needs to be dynamic
+        button.layer.masksToBounds = true
+        button.layer.borderWidth = 0.5
+        button.layer.borderColor = UIColor.init(white: 0, alpha: 0.6).cgColor
         
         return button
     }()
@@ -112,12 +139,14 @@ public class ExpandableButtonView: UIView
     
     public weak var delegate: ExpandableButtonViewDelegate?
     
-    public func buttonImages(main: UIImage, mostLeft: UIImage, left: UIImage, right: UIImage, mostRight: UIImage) {
-        mainButton.setImage(main.withRenderingMode(.alwaysTemplate), for: .normal)
+    public func buttonImages(mainCollapsed: UIImage, mainExpanded: UIImage, mostLeft: UIImage, left: UIImage, right: UIImage, mostRight: UIImage) {
+        mainButton.setImage(mainCollapsed.withRenderingMode(.alwaysTemplate), for: .normal)
         mostLeftButton.setImage(mostLeft.withRenderingMode(.alwaysTemplate), for: .normal)
         leftButton.setImage(left.withRenderingMode(.alwaysTemplate), for: .normal)
         rightButton.setImage(right.withRenderingMode(.alwaysTemplate), for: .normal)
         mostRightButton.setImage(mostRight.withRenderingMode(.alwaysTemplate), for: .normal)
+        expandedMainImage = mainExpanded.withRenderingMode(.alwaysTemplate)
+        collapsedMainImage = mainCollapsed.withRenderingMode(.alwaysTemplate)
     }
     
     public func buttonColors(main: UIColor, mostLeft: UIColor, left: UIColor, right: UIColor, mostRight: UIColor) {
@@ -191,6 +220,12 @@ public class ExpandableButtonView: UIView
             self.isUserInteractionEnabled = true
             self.hideSubButtons = self.isExpanded ? false : true
         }
+        
+        UIView.transition(with: mainButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            
+            self.mainButton.setImage(self.isExpanded ? self.collapsedMainImage : self.expandedMainImage, for: .normal)
+            
+        }, completion: nil)
     }
     
     @objc private func handleSubButton(sender: UIButton) {

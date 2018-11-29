@@ -139,7 +139,7 @@ class CreateAlarmView: UIView {
         colonLabel.centerXAnchor.constraint(equalTo: datePicker.centerXAnchor, constant: -5).isActive = true
         
         addSubview(seperatorLine)
-        seperatorLine.anchor(top: datePicker.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, size: CGSize(width: 0, height: 0.4))
+        seperatorLine.anchor(top: datePicker.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, size: CGSize(width: 0, height: 0.5))
         
         addSubview(noteTextField)
         noteTextField.anchor(top: seperatorLine.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 30, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 40))
