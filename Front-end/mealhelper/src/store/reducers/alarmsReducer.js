@@ -4,6 +4,9 @@ import {
   FETCHING_ALARMS,
   FETCHED_ALARMS,
   FETCHING_ALARMS_ERROR,
+  FETCHING_SINGLE_ALARM,
+  FETCHED_SINGLE_ALARM,
+  FETCHING_SINGLE_ALARM_ERROR,
   ADDING_ALARMS,
   ADDED_ALARMS,
   ADDING_ALARMS_ERROR,
@@ -18,7 +21,9 @@ import axios from 'axios';
 
 const initialState = {
   alarms: [],
+  alarm: {},
   fetchingAlarms: false,
+  fetchingSingleAlarm: false,
   addingAlarms: false,
   updatingAlarm: false,
   deletingAlarm: false,
@@ -33,6 +38,12 @@ export const alarmsReducer = (state = initialState, action) => {
       return {...state, fetchingAlarms: false, alarms: action.payload }
     case FETCHING_ALARMS_ERROR:
       return {...state, fetchingAlarms: false, error: action.payload}
+      case FETCHING_SINGLE_ALARM:
+      return {...state, fetchingSingleAlarm: true };
+    case FETCHED_SINGLE_ALARM:
+      return {...state, fetchingSingleAlarm: false, alarms: action.payload }
+    case FETCHING_SINGLE_ALARM_ERROR:
+      return {...state, fetchingSingleAlarm: false, error: action.payload}
     case ADDING_ALARMS:
       return {...state, addingAlarms: true };
     case ADDED_ALARMS:
