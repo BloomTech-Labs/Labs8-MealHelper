@@ -14,9 +14,12 @@ const bcrypt = require("bcrypt");
 
 const cors = require("cors");
 
+const stripe = require("stripe")("sk_test_cNEaPmZynbb27q2E7BHuZLMA");
+
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
+server.use(require("body-parser").text());
 
 const jwtSecret = "thisisthesecretkeyplzdonttouch";
 
@@ -41,6 +44,25 @@ function generateToken(user) {
 
 server.get("/", (req, res) => {
   res.status(200).json({ Welcome: " Welcome !" });
+});
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++ Stripe ENDPOINT +++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+app.post("/charge", async (req, res) => {
+  try {
+    let { status } = await stripe.charges.create({
+      amount: 2000,
+      currency: "usd",
+      description: "An example charge",
+      source: req.body
+    });
+
+    res.json({ status });
+  } catch (err) {
+    res.status(500).end();
+  }
 });
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -602,7 +624,7 @@ server.get("/nutrients/:ingredientID", (req, res) => {
       res.status(400).json({ err, error: "could not find meal" });
     });
 });
-//POST request to create an ingredients
+//POST request to create a nutrient
 server.post("/nutrients/:ingredientID", (req, res) => {
   //grabs the ingredient id from the req.params
   const ingredientId = req.params.ingredientID;
@@ -937,24 +959,21 @@ server.get("/alarms/:userid", (req, res) => {
 });
 //POST req to create a alarm for the user
 server.post("/alarms/:userid", (req, res) => {
-	//Grabs the user id from req.params
-	const user_ID = req.params.userid;
-	console.log("req.params.userid", req.params.userid, "user_ID", user_ID)
-	const { label, alarm } = req.body;
-	console.log("req.body", req.body, "label, alarm", label, alarm)
-	//Adds the user id to the alarm object
-	const alarmBody = { label, alarm, user_ID };
-	console.log("alarmBody", alarmBody);
-	db("alarms")
-		//Inserts the alarm and sets it to the user
-		.insert(alarmBody)
-		.then(alarmBody => {
-			//Returns the alarm
-			res.status(201).json(alarmBody);
-		})
-		.catch(err => {
-			res.status(400).json({ msg: err, error: "Could not create alarm" });
-		});
+  //Grabs the user id from req.params
+  const user_ID = req.params.userid;
+  const { label, alarm } = req.body;
+  //Adds the user id to the alarm object
+  const alarmBody = { user_ID, label, alarm };
+  db("alarms")
+    //Inserts the alarm and sets it to the user
+    .insert(alarmBody)
+    .then(alarm => {
+      //Returns the alarm
+      res.status(201).json(alarmBody);
+    })
+    .catch(err => {
+      res.status(400).json({ msg: err, error: "Could not create alarm" });
+    });
 });
 
 //PUT request to change the alarm settings
