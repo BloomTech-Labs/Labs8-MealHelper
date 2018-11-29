@@ -123,6 +123,10 @@ class HomePage extends Component {
               path="/homepage/alarms/add-alarms"
               render={() => <AddAlarms />}
             />
+            {/* <Route
+              path="/homepage/alarms/alarm"
+              render={() => <Alarm />} */}
+            />
             <Route path="/homepage/billing" render={() => <Billing />} />
             {/* <Route path="/homepage/settings" render={() => <Settings />} /> */}
           </Switch>
