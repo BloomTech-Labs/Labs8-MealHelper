@@ -17,7 +17,7 @@ export const alarmsReducer = (state = initialState, action) => {
       return {...state, fetchingAlarms: true };
     case actionTypes.FETCHED_ALARMS:
       return {...state, fetchingAlarms: false, alarms: action.payload }
-    case actionTypes.ALARMS_FETCHING_ERROR:
+    case actionTypes.FETCHING__ALARMS_ERROR:
       return {...state, fetchingAlarms: false, error: action.payload}
     case actionTypes.ADDING_ALARMS:
       return {...state, addingAlarms: true };
@@ -31,7 +31,13 @@ export const alarmsReducer = (state = initialState, action) => {
 			return { ...state, updatingAlarm: false, alarms: action.payload };
 		case actionTypes.UPDATING_ALARM_ERROR:
 			return { ...state, updatingAlarm: false, error: action.payload };
-    default:
+      case actionTypes.DELETING_ALARM:
+			return { ...state, deletingAlarm: true };
+		case actionTypes.DELETED_ALARM:
+			return { ...state, deletingAlarm: false, notes: action.payload };
+		case actionTypes.DELETED_ALARM_ERROR:
+			return { ...state, deletingAlarm: false, error: action.payload };
+      default:
       return state;
   }
 }

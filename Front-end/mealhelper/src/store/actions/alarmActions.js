@@ -8,18 +8,19 @@ export const FETCHING_ALARMS_ERROR = "FETCHING_ALARMS_ERROR";
 export const ADDING_ALARMS = "ADDING_ALARMS";
 export const ADDED_ALARMS = "ADDED_ALARMS";
 export const ADDING_ALARMS_ERROR = "ADDING_ALARMS_ERROR";
-export const DELETING_ALARMS = "ADDING_ALARMS";
-export const DELETED_ALARMS = "ADDED_ALARMS";
-export const DELETING_ALARMS_ERROR = "ADDING_ALARMS_ERROR";
+export const DELETING_ALARM = "DELETING_ALARMS";
+export const DELETED_ALARM = "DELETED_ALARMS";
+export const DELETING_ALARM_ERROR = "DELETING_ALARMS_ERROR";
 export const UPDATING_ALARMS = "UPDATING_ALARMS";
 export const UPDATED_ALARMS = "UPDATED_ALARMS";
 export const UPDATING_ALARMS_ERROR = "UPDATING_ALARMS_ERROR";
 
 //Action Creators
 export const fetchAlarms = () => dispatch => {
+  const { id } = req.params;
   dispatch({ type: FETCHING_ALARMS });
   const promise = axios.get(
-    "URL"
+    `https://labs8-meal-helper.herokuapp.com/alarms/${id}`
   );
   promise
     .then(response => {

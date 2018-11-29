@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
-//import { fetchAlarms } from "../../store/actions"
+import { fetchAlarms } from "../../store/actions"
 //import { Alarm } from "./alarm";
 
 const alarms = [
@@ -42,6 +42,7 @@ class MyAlarms extends Component {
   }
 
   componentDidMount() {
+
     this.setState({ alarmsList: this.alarms })
   }
 
