@@ -937,24 +937,24 @@ server.get("/alarms/:userid", (req, res) => {
 });
 //POST req to create a alarm for the user
 server.post("/alarms/:userid", (req, res) => {
-	//Grabs the user id from req.params
-	const user_ID = req.params.userid;
-	console.log("req.params.userid", req.params.userid, "user_ID", user_ID)
-	const { label, alarm } = req.body;
-	console.log("req.body", req.body, "label, alarm", label, alarm)
-	//Adds the user id to the alarm object
-	const alarmBody = { label, alarm, user_ID };
-	console.log("alarmBody", alarmBody);
-	db("alarms")
-		//Inserts the alarm and sets it to the user
-		.insert(alarmBody)
-		.then(alarmBody => {
-			//Returns the alarm
-			res.status(201).json(alarmBody);
-		})
-		.catch(err => {
-			res.status(400).json({ msg: err, error: "Could not create alarm" });
-		});
+  //Grabs the user id from req.params
+  const user_id = req.params.userid;
+  console.log("req.params.userid", req.params.userid, "user_ID", user_id);
+  const { label, alarm } = req.body;
+  console.log("req.body", req.body, "label, alarm", label, alarm);
+  //Adds the user id to the alarm object
+  const alarmBody = { label, alarm, user_id };
+  console.log("alarmBody", alarmBody);
+  db("alarms")
+    //Inserts the alarm and sets it to the user
+    .insert(alarmBody)
+    .then(alarmBody => {
+      //Returns the alarm
+      res.status(201).json(alarmBody);
+    })
+    .catch(err => {
+      res.status(400).json({ msg: err, error: "Could not create alarm" });
+    });
 });
 
 //PUT request to change the alarm settings
