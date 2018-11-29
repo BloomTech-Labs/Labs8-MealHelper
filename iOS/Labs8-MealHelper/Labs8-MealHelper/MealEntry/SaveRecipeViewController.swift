@@ -69,10 +69,76 @@ class SaveRecipeViewController: UIViewController {
     // MARK: - User actions
     
     @objc private func save() {
-        // Save recipe
-        FoodClient.shared.postIngredient(name: "test", nutrientId: "", completion: { (response) in
-                // Handle http response
+        guard let ingredients = ingredients, let recipeName = recipeName else {
+            NSLog("No ingredients added to recipe")
+            return
+        }
+        
+        var ingredientIds = [Int]()
+        
+        ingredients.forEach { ingredient in
+            // Save nutrients of ingredient
+            guard let nutrients = ingredient.nutrients else {
+                NSLog("Ingredient has no nutrients")
+                return
+            }
+            let dispatchGroup = DispatchGroup()
+            
+            var nutrientIds = [Int]()
+            nutrients.forEach { nutrient in
+                dispatchGroup.enter()
+                FoodClient.shared.postNutrient(nutrient, completion: { (response) in
+                    switch response {
+                    case .success(let nutrientId):
+                        nutrientIds.append(nutrientId)
+                    case .error(let error):
+                        print(error)
+                        // Handle error in UI
+                        break
+                    }
+                    
+                    dispatchGroup.leave()
+                })
+            }
+            
+            dispatchGroup.notify(queue: .main, execute: {
+                FoodClient.shared.postIngredient(ingredient, completion: { (response) in
+                    switch response {
+                    case .success(let ingredientId):
+                        FoodClient.shared.putIngredient(withId: ingredientId, nutrientIds: nutrientIds, completion: { (response) in
+                            switch response {
+                            case .success(let nutrientId):
+                                nutrientIds.append(nutrientId)
+                            case .error(let error):
+                                print(error)
+                                // Handle error in UI
+                                break
+                            }
+                        })
+                        
+                    case .error(let error):
+                        print(error)
+                        // Handle error in UI
+                        break
+                    }
+                })
             })
+            
+        }
+        
+        // Save ingredient, incl. nutrient values
+        
+        FoodClient.shared.postRecipe(name: recipeName, calories: self.getTotalCalories(), servings: self.serving) { (response) in
+            switch response {
+            case .success(let recipeId):
+                print("saved recipe successfully for id: \(recipeId)")
+                self.dismiss(animated: true, completion: nil)
+            case .error(let error):
+                print(error)
+                // Handle error in UI
+                break
+            }
+        }
     }
     
     
@@ -96,6 +162,29 @@ class SaveRecipeViewController: UIViewController {
         if let userInfo = notification.userInfo, let recipeName = userInfo["textField"] as? String {
             self.recipeName = recipeName
         }
+    }
+    
+    // MARK: - Private methods
+    
+    private func getTotalCalories() -> Int {
+        guard let ingredients = ingredients else { return 0 }
+        
+        var calories = 0
+        
+        for ingredient in ingredients {
+            guard let nutrients = ingredient.nutrients else { continue }
+            for nutrient in nutrients {
+                if nutrient.identifier == "208" { // id for energy/kcal
+                    calories += Int(nutrient.value) ?? 0
+                }
+            }
+        }
+        
+        return calories
+    }
+    
+    private func updateNutrients() {
+        
     }
     
     // MARK: - Configuration

@@ -51,40 +51,47 @@ class FoodClient {
         
     }
     
-    func postMeal(name: String, mealTime: String, experience: String?, date: String, temp: Float, completion: @escaping (Response<Int>) -> ()) {
+    func postMeal(name: String, mealTime: String, date: String, temp: Double, completion: @escaping (Response<Int>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["users", userId, "meals"])
         let reqBody = [
             "name": name,
             "user_id": userId,
             "mealTime": mealTime,
-            "experience": experience,
             "date": date,
-            "temp": Float(exactly: 123)
+            "temp": temp
             ] as [String : Any]
         
         post(with: url, requestBody: reqBody, completion: completion)
         
     }
     
-    func postRecipe(name: String, nutrientId: String?, ndbno: String? = nil, completion: @escaping (Response<Int>) -> ()) {
+    func postRecipe(name: String, calories: Int, servings: Int, completion: @escaping (Response<Int>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["recipe", userId])
-        let reqBody = ["name": name, "nutrients_id": nutrientId]
+        let reqBody = ["name": name, "calories": calories, "servings": servings] as [String : Any]
         
         post(with: url, requestBody: reqBody, completion: completion)
         
     }
     
-    func postIngredient(name: String, nutrientId: String?, ndbno: String? = nil, completion: @escaping (Response<Int>) -> ()) {
+    func postIngredient(_ ingredient: Ingredient, completion: @escaping (Response<Int>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["ingredients", userId])
-        let reqBody = ["name": name, "nutrients_id": nutrientId]
+        let reqBody = ["name": ingredient.name, "ndbno": ingredient.nbdId]
         
         post(with: url, requestBody: reqBody, completion: completion)
         
     }
     
-    func postNutrient(name: String, unit: String, value: Int, completion: @escaping (Response<Int>) -> ()) {
+    func putIngredient(withId ingredientId: Int, nutrientIds: [Int], completion: @escaping (Response<Int>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["nutrients","ingredients", String(ingredientId)])
+        let reqBody = ["ids": nutrientIds]
+        
+        post(with: url, requestBody: reqBody, completion: completion)
+        
+    }
+    
+    func postNutrient(_ nutrient: Nutrient, completion: @escaping (Response<Int>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["nutrients", userId])
-        let reqBody = ["name": name, "unit": unit, "value": value] as [String : Any]
+        let reqBody = ["name": nutrient.name, "unit": nutrient.unit, "value": nutrient.value] as [String : Any]
         
         post(with: url, requestBody: reqBody, completion: completion)
         

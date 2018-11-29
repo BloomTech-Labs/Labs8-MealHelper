@@ -98,10 +98,11 @@ class SearchIngredientDetailViewController: UIViewController {
     }
     
     @objc private func didChangeServingQty(note: Notification) {
-        if let userInfo = note.userInfo, let servingQty = userInfo["quantity"] as? Double, let nutrients = ingredient?.nutrients {
+        if let userInfo = note.userInfo, let servingQtyString = userInfo["quantity"] as? String, let nutrients = ingredient?.nutrients {
             let updatedNutrients = nutrients.map { (nutrient: Nutrient) -> Nutrient in
                 var updatedNutrient = nutrient
-                let convertedValue = (Double(updatedNutrient.value) ?? 0) * servingQty
+                let servingQty = Double(servingQtyString) ?? 0
+                let convertedValue =  Double(updatedNutrient.gm) * servingQty
                 updatedNutrient.value = String(format: "%.02f", convertedValue)
                 return updatedNutrient
             }

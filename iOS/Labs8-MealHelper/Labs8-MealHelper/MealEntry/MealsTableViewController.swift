@@ -61,10 +61,30 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
     
     override func actionWhenItemsSelected() {
         let foods = getSelectedFoods()
-        // TODO: save selected meals
-        FoodClient.shared.postMeal(name: "test", mealTime: "Lunch", experience: "happy", date: "11/16/2018", temp: 123.0) { (response) in
+        let date = Utils().dateString(for: Date())
+        var temp = 0.0 // TODO: Change
+        
+        let dispatchGroup = DispatchGroup()
+        
+        dispatchGroup.enter()
+        WeatherAPIClient().fetchWeather(for: 8038) { (weatherForecast) in
+            temp = weatherForecast?.main.temp ?? 0
+            dispatchGroup.leave()
+        }
+        
+        for food in foods {
+            dispatchGroup.enter()
+            let name = food.name ?? ""
+            
+            FoodClient.shared.postMeal(name: name, mealTime: "n/a", date: date, temp: temp) { (response) in
+                dispatchGroup.leave()
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
     
 }
