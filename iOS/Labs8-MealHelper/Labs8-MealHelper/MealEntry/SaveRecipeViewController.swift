@@ -98,20 +98,20 @@ class SaveRecipeViewController: UIViewController {
                     }
                     
                     
+                    let dispatchGroup = DispatchGroup()
                     nutrients.forEach { nutrient in
-                        let dispatchGroup = DispatchGroup()
                         
                         dispatchGroup.enter()
                         self.saveNutrient(with: nutrient, ingredientId: ingredientId, completion: { (error) in
                             dispatchGroup.leave()
                         })
                         
-                        dispatchGroup.notify(queue: .main, execute: {
-                            print("Saved recipe succeeded")
-                            self.dismiss(animated: true, completion: nil)
-                        })
                     }
                     
+                    dispatchGroup.notify(queue: .main, execute: {
+                        print("Saved recipe succeeded")
+                        self.dismiss(animated: true, completion: nil)
+                    })
                     
                 })
                 
