@@ -9,66 +9,66 @@ import Callback from "../../Callback";
 import "./landingpage.css";
 
 class Landingpage extends Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
-		this.state = {
-			email: "",
-			password: "",
-			zip: null,
-			healthCondition: "",
-			visable: false
-		};
-	}
+    this.state = {
+      email: "",
+      password: "",
+      zip: null,
+      healthCondition: "",
+      visable: false
+    };
+  }
 
-	handleChange = event => {
-		event.preventDefault();
-		this.setState({
-			[event.target.name]: event.target.value
-		});
-	};
+  handleChange = event => {
+    event.preventDefault();
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
 
-	createUser = event => {
-		event.preventDefault();
-		if (!this.state.email || !this.state.password) {
-			this.setState({ visable: true });
-		} else {
-			const { email, password, zip, healthCondition } = this.state;
-			const user = { email, password, zip, healthCondition };
-			this.props.addUser(user);
-			// this.props.history.push("/");
-		}
-	};
+  createUser = event => {
+    event.preventDefault();
+    if (!this.state.email || !this.state.password) {
+      this.setState({ visable: true });
+    } else {
+      const { email, password, zip, healthCondition } = this.state;
+      const user = { email, password, zip, healthCondition };
+      this.props.addUser(user);
+      // this.props.history.push("/");
+    }
+  };
 
-	render() {
-		return (
-			<div className="main-container">
-				<div>
-					<Sign />
-					<Route exact path="/callback" component={Callback} />
-				</div>
-				<div className="entry-button-group">
-					<Link to="/signup">
-						<button className="signup-button">
-							<span>Signup</span>
-						</button>
-					</Link>
-					<Link to="/login">
-						<button className="login-button">
-							<span>Login</span>
-						</button>
-					</Link>
-				</div>
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div className="main-container">
+        <div className="entry-button-group">
+          <Link to="/signup">
+            <button className="signup-button">
+              <span>Signup</span>
+            </button>
+          </Link>
+          <Link to="/login">
+            <button className="login-button">
+              <span>Login</span>
+            </button>
+          </Link>
+          <div>
+            <Sign />
+            <Route exact path="/callback" component={Callback} />
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => ({
-	user: state.user
+  user: state.user
 });
 
 export default connect(
-	mapStateToProps,
-	{ addUser }
+  mapStateToProps,
+  { addUser }
 )(withRouter(Landingpage));

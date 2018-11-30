@@ -151,8 +151,9 @@ class HomePage extends Component {
               <div>
                 <div className="mealDisplay-Flex">
                   {this.state.meals
-                    .slice(0, 4)
                     .reverse()
+                    .slice(0, 4)
+
                     .map(meal => (
                       <MealDisplay
                         key={meal.id}
@@ -176,8 +177,9 @@ class HomePage extends Component {
               <div>
                 <div className="mealDisplay-Flex">
                   {this.state.recipes
-                    .slice(0, 4)
                     .reverse()
+                    .slice(0, 4)
+
                     .map(recipe => (
                       <RecipeDisplay
                         key={recipe.id}
