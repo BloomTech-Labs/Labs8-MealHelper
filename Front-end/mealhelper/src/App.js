@@ -41,11 +41,9 @@ class App extends Component {
     return (
       <div className="App">
         <Switch>
-          {/* <Route exact path="/" render={() => <LandingPage />} /> */}
           <Route exact path="/" render={() => <LandingPage />} />
           <Route exact path="/signup" render={() => <Signup />} />
           <Route exact path="/callback" render={() => <Callback />} />
-
           <Route path="/login" render={() => <Login />} />
           <Route exact path="/homepage" render={() => <HomePage />} />
           <Route exact path="/homepage/meals" render={() => <Meals />} />
