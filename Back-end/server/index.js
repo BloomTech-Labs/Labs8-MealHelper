@@ -1057,18 +1057,18 @@ server.get("/alarms/:userid/:alarmid", (req, res) => {
     })
     .catch(err => {
       res.status(400).json({ error: "could not find the alarm with that id" });
-    })
-})
+    });
+});
 
 //POST req to create a alarm for the user
 server.post("/alarms/:userid", (req, res) => {
   //Grabs the user id from req.params
   const user_id = req.params.userid;
   console.log("req.params.userid", req.params.userid, "user_ID", user_id);
-  const { label, alarm } = req.body;
+  const { label, alarm, timestamp } = req.body;
   console.log("req.body", req.body, "label, alarm", label, alarm);
   //Adds the user id to the alarm object
-  const alarmBody = { label, alarm, user_id };
+  const alarmBody = { label, alarm, user_id, timestamp };
   console.log("alarmBody", alarmBody);
   db("alarms")
     //Inserts the alarm and sets it to the user
@@ -1090,11 +1090,11 @@ server.post("/alarms/:userid", (req, res) => {
 server.put("/alarms/:id", (req, res) => {
   //Grabs the alarm id from req.params
   const id = req.params.id;
-  const { label, alarm } = req.body;
+  const { label, alarm, timestamp } = req.body;
   // Sets the req.body to an alarm object that gets passed into the update
-  const alarmBody = { label, alarm };
+  const alarmBody = { label, alarm, timestamp };
   db("alarms")
-		.where({ id: id })
+    .where({ id: id })
     .update({
       label: alarmBody.label,
       alarm: alarmBody.alarm
