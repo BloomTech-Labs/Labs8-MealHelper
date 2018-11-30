@@ -236,9 +236,8 @@ server.put("/users/password/:id", (req, res) => {
         db("users")
           .where({ id: id })
           .update({
-            //Changing of the credentials
-            password: credentials.newpassword
             //Sets the password of user to the hashed new password
+            password: credentials.newpassword
           })
           .then(ids => {
             //Creates a token upon successfullying updating user

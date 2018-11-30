@@ -34,6 +34,7 @@ import "./App.css";
 import LandingPage from "./components/landingpage/landingpage";
 import EditEmail from "./components/Settings/EditEmail";
 import EditPassword from "./components/Settings/EditPassword";
+import EditZip from "./components/Settings/EditZip";
 
 class App extends Component {
   render() {
@@ -96,6 +97,7 @@ class App extends Component {
             path="/homepage/settings/password"
             render={() => <EditPassword />}
           />
+          <Route path="/homepage/settings/zip" render={() => <EditZip />} />
         </Switch>
       </div>
     );

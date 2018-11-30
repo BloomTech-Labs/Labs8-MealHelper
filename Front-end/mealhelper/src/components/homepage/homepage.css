@@ -46,6 +46,12 @@
   color: white;
   font-weight: bolder;
 }
+.editsettingstextZip {
+  color: white;
+  font-weight: bolder;
+  padding-top: 15px;
+  padding-right: 2%;
+}
 .email-input {
   margin-right: 5%;
 }
@@ -96,6 +102,14 @@
   width: 100%;
 }
 .recentMeals {
+  font-size: 36px;
+  background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
+  color: white;
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+.recentMealsZip {
   font-size: 36px;
   background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
   color: white;

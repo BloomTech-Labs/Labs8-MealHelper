@@ -68,6 +68,8 @@ class EditPassword extends Component {
   goHome = () => {
     if (this.state.updated === true) {
       this.props.history.push("/homepage");
+    } else {
+      alert("Error updating settins. Our server may be down.");
     }
   };
   async confirmChange() {
@@ -214,7 +216,8 @@ class EditPassword extends Component {
           </div>
           <div className="alert-box2">
             <Alert isOpen={this.state.updated} color="success">
-              Settings have been updated!
+              Settings have been updated! Please wait while you are
+              redirected...
             </Alert>
           </div>
 
