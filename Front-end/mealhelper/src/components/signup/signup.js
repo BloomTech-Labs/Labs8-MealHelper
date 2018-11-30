@@ -123,23 +123,24 @@ class SignUp extends Component {
               <div className="auth">
                 <p className="signuptext">Already have an account?</p>
               </div>
-              <div className="existinguser">
-                <Link to="/login">
-                  <button className="login-button">
+              <Link to="/login">
+                <div className="signup signup-two">
+                  <button className="buttons">
                     <span>Login</span>
                   </button>
-                </Link>
-                <p className="signuptext">Or</p>
-              </div>
+                </div>
+              </Link>
+              <p className="signuptext">- Or -</p>
               <div className="alert-box">
                 <Alert isOpen={this.state.visable} color="danger">
                   Please enter an email
                 </Alert>
               </div>
             </form>
-
-            <Sign />
-            <Route exact path="/callback" component={Callback} />
+            <div>
+              <Sign />
+              <Route exact path="/callback" component={Callback} />
+            </div>
           </div>
         </div>
       </div>

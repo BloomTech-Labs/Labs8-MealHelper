@@ -30,6 +30,7 @@ import Callback from "./Callback";
 import Sign from "./components/Sign";
 
 import "./App.css";
+import LandingPage from "./components/landingpage/landingpage";
 
 class App extends Component {
   render() {
@@ -37,7 +38,8 @@ class App extends Component {
       <div className="App">
         <Switch>
           {/* <Route exact path="/" render={() => <LandingPage />} /> */}
-          <Route exact path="/" render={() => <Signup />} />
+          <Route exact path="/" render={() => <LandingPage />} />
+          <Route exact path="/signup" render={() => <Signup />} />
           <Route exact path="/callback" render={() => <Callback />} />
 
           <Route path="/login" render={() => <Login />} />

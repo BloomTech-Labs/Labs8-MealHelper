@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../../store/actions/userActions";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link, Route } from "react-router-dom";
 import { Alert } from "reactstrap";
+import Sign from "../Sign";
+import Callback from "../../Callback";
 
 class Login extends Component {
   constructor(props) {
@@ -51,7 +53,7 @@ class Login extends Component {
     return (
       <div className="main-container">
         <div className="formcenter">
-          <div className="user-form-container">
+          <div className="user-form-container-login">
             <h1 className="signup-title">Login</h1>
             <form className="login-form">
               <div className="form-group">
@@ -67,7 +69,7 @@ class Login extends Component {
                 />
                 <label htmlFor="dynamic-label-input">Email</label>
               </div>
-              <div className="form-group">
+              <div className="form-group2">
                 <input
                   id="dynamic-label-input"
                   className="password-input"
@@ -82,19 +84,28 @@ class Login extends Component {
               <div className="signup signup-two" onClick={this.createUser}>
                 <span>Log In</span>
               </div>
-              <div className="entry-button-group">
-                <Link to="/signup">
-                  <button className="signup signup-two">
+              <div className="auth">
+                <p className="signuptext">Don't have an account?</p>
+              </div>
+              <Link to="/signup">
+                <div className="signup signup-two">
+                  <button className="buttons">
                     <span>Signup</span>
                   </button>
-                </Link>
-              </div>
+                </div>
+              </Link>
               <div className="alert-box">
                 <Alert isOpen={this.state.visable} color="danger">
                   Please enter an email and address
                 </Alert>
               </div>
+              <p className="signuptext2">- Or -</p>
             </form>
+
+            <div>
+              <Sign />
+              <Route exact path="/callback" component={Callback} />
+            </div>
           </div>
         </div>
       </div>
