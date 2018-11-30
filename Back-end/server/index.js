@@ -308,8 +308,13 @@ server.post("/users/:userid/meals", (req, res) => {
   db("mealList")
     .insert(meal)
     .then(mealID => {
-      //Returns the meal ID
-      res.status(200).json(mealID);
+      db("mealList")
+        //Finds the corrosponding meals based on user ID
+        .where({ user_id: user_id })
+        .then(meal => {
+          //Returns all the meals from that user
+          res.status(200).json(meal);
+        });
     })
     .catch(err => {
       res.status(400).json({ msg: err, error: "Error creating a new meal." });

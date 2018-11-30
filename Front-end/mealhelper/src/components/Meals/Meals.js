@@ -110,6 +110,7 @@ class Meals extends Component {
       servings
     };
     this.props.addMeal(meal);
+    this.toggle();
   };
   chooseRecipe = recipe => {
     console.log(recipe);
