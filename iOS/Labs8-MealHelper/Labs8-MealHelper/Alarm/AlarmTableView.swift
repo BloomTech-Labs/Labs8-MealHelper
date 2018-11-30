@@ -13,11 +13,7 @@ class AlarmTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     var localNotificationHelper: LocalNotificationHelper?
     
     let cellId = "AlarmCell"
-    var alarms = [Alarm]() {
-        didSet {
-            self.reloadData()
-        }
-    }
+    var alarms = [Alarm]()
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)

@@ -62,6 +62,7 @@
 		AC8F0B57219E375300E623FB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F0B56219E375300E623FB /* Utils.swift */; };
 		AC8F0B59219E3AE300E623FB /* MealEntry.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC8F0B58219E3AE300E623FB /* MealEntry.xcassets */; };
 		AC9BE30321B16CE600B6DEBB /* MealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9BE30221B16CE600B6DEBB /* MealDetailViewController.swift */; };
+		AC9BE30621B1A07700B6DEBB /* NutrientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9BE30521B1A07700B6DEBB /* NutrientsView.swift */; };
 		ACE1FA5C21ADA8C2003A0030 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA5B21ADA8C2003A0030 /* AlarmViewController.swift */; };
 		ACE1FA6321ADE796003A0030 /* CreateAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6221ADE796003A0030 /* CreateAlarmView.swift */; };
 		ACE1FA6521AE13D5003A0030 /* AlarmTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6421AE13D5003A0030 /* AlarmTableView.swift */; };
@@ -162,6 +163,7 @@
 		AC8F0B56219E375300E623FB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		AC8F0B58219E3AE300E623FB /* MealEntry.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MealEntry.xcassets; sourceTree = "<group>"; };
 		AC9BE30221B16CE600B6DEBB /* MealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailViewController.swift; sourceTree = "<group>"; };
+		AC9BE30521B1A07700B6DEBB /* NutrientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutrientsView.swift; sourceTree = "<group>"; };
 		ACE1FA5B21ADA8C2003A0030 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		ACE1FA6221ADE796003A0030 /* CreateAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlarmView.swift; sourceTree = "<group>"; };
 		ACE1FA6421AE13D5003A0030 /* AlarmTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableView.swift; sourceTree = "<group>"; };
@@ -290,11 +292,11 @@
 		3D56A9FC21939CE200A91EF4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				AC9BE30421B19FD300B6DEBB /* MealDetail */,
 				AC1DE866219473DD0066172C /* HomeViewController.swift */,
 				AC1DE8682194748F0066172C /* MealCell.swift */,
 				AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */,
 				ACE1FA7221AF56C4003A0030 /* SkyView.swift */,
-				AC9BE30221B16CE600B6DEBB /* MealDetailViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -388,6 +390,15 @@
 				AC8F0B58219E3AE300E623FB /* MealEntry.xcassets */,
 			);
 			path = MealEntry;
+			sourceTree = "<group>";
+		};
+		AC9BE30421B19FD300B6DEBB /* MealDetail */ = {
+			isa = PBXGroup;
+			children = (
+				AC9BE30221B16CE600B6DEBB /* MealDetailViewController.swift */,
+				AC9BE30521B1A07700B6DEBB /* NutrientsView.swift */,
+			);
+			path = MealDetail;
 			sourceTree = "<group>";
 		};
 		ACE1FA5A21ADA8A1003A0030 /* Alarm */ = {
@@ -596,6 +607,7 @@
 				AC8F0B57219E375300E623FB /* Utils.swift in Sources */,
 				3D7AD09221AF1AC900A68323 /* NutrientDetailTableViewController.swift in Sources */,
 				3D77DD17219EF4A8009B21ED /* WeatherView.swift in Sources */,
+				AC9BE30621B1A07700B6DEBB /* NutrientsView.swift in Sources */,
 				AC85F3E3219E3526007765CA /* CameraPreview.swift in Sources */,
 				ACE1FA6321ADE796003A0030 /* CreateAlarmView.swift in Sources */,
 				3DB18BE82196FAB800C0E728 /* InputField.swift in Sources */,

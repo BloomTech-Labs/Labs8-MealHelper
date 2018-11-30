@@ -41,10 +41,10 @@ enum Appearance
     }
     
     static func setupNavBar() {
-        UINavigationBar.appearance().barTintColor = .clear
+        UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 10, green: 10, blue: 10)
         UINavigationBar.appearance().tintColor = .white
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: Appearance.appFont(with: 20)]
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: Appearance.appFont(with: 30)]
-//        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().isTranslucent = false
     }
 }

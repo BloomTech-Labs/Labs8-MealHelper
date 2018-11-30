@@ -13,7 +13,7 @@ class APIClient {
     static let shared = APIClient()
     
     func deleteAlarm(with id: Int, completion: @escaping (Response<Int>) -> ()) {
-        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(id)")!
+        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(id)/user/\(String(UserDefaults.standard.loggedInUserId()))")!
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = HTTPMethod.delete.rawValue
@@ -27,7 +27,7 @@ class APIClient {
             }
             
             completion(Response.success(1))
-        }
+        }.resume()
     }
     
     func editAlarm(with id: Int, completion: @escaping (Response<Int>) -> ()) {
@@ -45,7 +45,7 @@ class APIClient {
             }
             
             completion(Response.success(1))
-        }
+        }.resume()
     }
     
     func fetchAlarms(userId: Int, completion: @escaping (Response<[Alarm]>) -> ()) {

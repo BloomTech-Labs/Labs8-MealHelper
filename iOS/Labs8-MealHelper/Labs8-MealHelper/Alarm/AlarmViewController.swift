@@ -98,6 +98,12 @@ class AlarmViewController: UIViewController {
                 switch response {
                 case .success(let alarms):
                     self.tableView.alarms = alarms
+                    self.tableView.reloadData()
+                    if let alarmsToCreate = self.localNotificationsHelper.alarmsNotSetup(alarms: alarms) {
+                        for alarm in alarmsToCreate {
+                            self.setupAlarm(alarm: alarm)
+                        }
+                    }
                 case .error:
                     self.showAlert(with: "We couldn't find your alarms, please check your internet connection and try again.")
                     return
@@ -109,10 +115,8 @@ class AlarmViewController: UIViewController {
     private func setupAlarm(alarm: Alarm) {
         
         let hour = String(alarm.time.prefix(2))
-        print(hour)
         let hourInt = Int(hour)!
         let minute = String(alarm.time.suffix(2))
-        print(minute)
         let minuteInt = Int(minute)!
         
         localNotificationsHelper.createNotification(hour: hourInt, minute: minuteInt, id: alarm.id, note: alarm.note)
@@ -203,13 +207,15 @@ extension AlarmViewController: CreateAlarmViewDelegate {
         
         let timestamp = Int(Date().timeIntervalSince1970)
         let timestampString = String(timestamp)
+        let userId = UserDefaults.standard.loggedInUserId()
         
-        APIClient.shared.uploadAlarm(time: time, note: note, userId: UserDefaults.standard.loggedInUserId(), timestamp: timestampString) { (response) in
+        APIClient.shared.uploadAlarm(time: time, note: note, userId: userId, timestamp: timestampString) { (response) in
             
             DispatchQueue.main.async {
                 switch response {
                 case .success(let alarm):
-                    self.tableView.alarms.append(alarm)
+                    self.tableView.alarms.insert(alarm, at: 0)
+                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
                     self.setupAlarm(alarm: alarm)
                 case .error:
                     self.showAlert(with: "There was a problem when setting up your alarm, please try again.")

@@ -106,12 +106,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         
         emptyLabel.isEnabled = collectionView.meals.isEmpty ? true : false
         
-//        let loginController = LoginViewController()
-//        loginController.modalPresentationStyle = .overCurrentContext
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//            self.present(loginController, animated: true, completion: nil)
-//        }
+        let loginController = LoginViewController()
+        loginController.modalPresentationStyle = .overCurrentContext
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.present(loginController, animated: true, completion: nil)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -161,7 +161,7 @@ extension HomeViewController: ExpandableButtonViewDelegate {
             present(alarmViewController, animated: true, completion: nil)
         case .left:
             let mealsTableViewController = MealsTableViewController(navTitle: "Meals")
-            let navController = UINavigationController(rootViewController: mealsTableViewController)
+            let navController = WhiteStatusNavController(rootViewController: mealsTableViewController)
             navController.navigationBar.prefersLargeTitles = true
             present(navController, animated: true, completion: nil)
             print("Left")

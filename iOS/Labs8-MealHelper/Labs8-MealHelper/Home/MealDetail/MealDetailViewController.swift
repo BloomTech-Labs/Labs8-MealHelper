@@ -16,8 +16,8 @@ class MealDetailViewController: UIViewController {
         }
     }
     
-    let nutrientsView: UIView = {
-        let view = UIView()
+    let nutrientsView: NutrientsView = {
+        let view = NutrientsView()
         view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         view.layer.cornerRadius = 12
         
@@ -91,7 +91,7 @@ class MealDetailViewController: UIViewController {
         blurEffect.fillSuperview()
         
         view.addSubview(nutrientsView)
-        nutrientsView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 30, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 100))
+        nutrientsView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 30, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 80))
         
         view.addSubview(ingredientsTableView)
         ingredientsTableView.anchor(top: nutrientsView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 200))
