@@ -278,7 +278,7 @@ class LoginViewController: UIViewController
     private func handleLogin(_ email: String, _ password: String)
     {
         authButton.startLoading()
-        
+                
         APIClient.shared.login(with: email, password: password) { (response) in
             
             DispatchQueue.main.async {

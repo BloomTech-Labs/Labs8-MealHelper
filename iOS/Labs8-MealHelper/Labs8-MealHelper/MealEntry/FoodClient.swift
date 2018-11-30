@@ -12,14 +12,6 @@ class FoodClient {
     
     static let shared = FoodClient()
     
-    // TODO: to be deleted. just a hack for saving data
-    var recipes = [
-        Recipe(name: "Smørrebrød", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1),
-        Recipe(name: "Leverpostej", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1),
-        Recipe(name: "Fiskefrikadeller", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1),
-        Recipe(name: "Mørbradbøffer", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1),
-        Recipe(name: "Æbleflæsk", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1)
-    ]
     var nutrients = ["208", "269", "204", "205"]
     
     let usdaBaseUrl: URL = URL(string: "https://api.nal.usda.gov/ndb/")!
@@ -38,7 +30,7 @@ class FoodClient {
     }
     
     func fetchRecipes(completion: @escaping (Response<[Recipe]>) -> ()) {
-        let url = self.url(with: baseUrl, pathComponents: ["recipe", userId])
+        let url = self.url(with: baseUrl, pathComponents: ["recipe", "user", userId])
         
         fetch(from: url, completion: completion)
         

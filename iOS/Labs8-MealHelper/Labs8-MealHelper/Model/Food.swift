@@ -37,7 +37,7 @@ struct Meal: Codable {
 
 struct Recipe: Codable, Equatable {
     
-    init(name: String, calories: Int, servings: Int, ingredients: [Ingredient] = [], userId: Int?, mealId: Int?) {
+    init(name: String, calories: String, servings: Int, ingredients: [Ingredient] = [], userId: Int?, mealId: Int?) {
         self.name = name
         self.calories = calories
         self.servings = servings
@@ -47,11 +47,9 @@ struct Recipe: Codable, Equatable {
     
     var identifier: Int?
     var name: String?
-    var calories: Int?
+    var calories: String?
     var servings: Int?
-    var mealId: Int?
     var userId: Int?
-    var ingredientId: Int?
     var ingredients: [Ingredient]?
     
     enum CodingKeys: String, CodingKey {
@@ -59,9 +57,7 @@ struct Recipe: Codable, Equatable {
         case name
         case calories
         case servings
-        case mealId = "meal_id"
         case userId = "user_id"
-        case ingredientId = "ingredients_id"
     }
 }
 

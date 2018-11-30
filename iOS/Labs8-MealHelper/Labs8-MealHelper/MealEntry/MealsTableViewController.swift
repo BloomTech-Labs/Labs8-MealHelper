@@ -15,30 +15,23 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
         return UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissMealView))
     }()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        foods = FoodClient.shared.recipes
-        tableView.reloadData()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = cancelBarButton
         
-        //foods = FoodClient.shared.recipes
-//        FoodClient.shared.fetchRecipes { (response) in
-//            DispatchQueue.main.async {
-//                switch response {
-//                case .success(let recipes):
-//                    self.foods = recipes
-//                    self.tableView.reloadData()
-//                case .error(let error):
-//                    print(error)
-//                    // Handle error in UI
-//                    break
-//                }
-//            }
-//        }
+        FoodClient.shared.fetchRecipes { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let recipes):
+                    self.foods = recipes
+                    self.tableView.reloadData()
+                case .error(let error):
+                    print(error)
+                    // Handle error in UI
+                    break
+                }
+            }
+        }
     }
     
     @objc private func dismissMealView() {
