@@ -23,6 +23,7 @@ import MyWeather from "./components/weather/myweather";
 import MyAlarms from "./components/alarms/myAlarms";
 import AddAlarms from "./components/alarms/addAlarm";
 import Billing from "./components/billing/billing";
+import SettingsMain from "./components/Settings/SettingsMain";
 
 ////////////////////////
 
@@ -31,6 +32,7 @@ import Sign from "./components/Sign";
 
 import "./App.css";
 import LandingPage from "./components/landingpage/landingpage";
+import EditEmail from "./components/Settings/EditEmail";
 
 class App extends Component {
   render() {
@@ -79,6 +81,16 @@ class App extends Component {
             path="/homepage/alarms/add-alarms"
             render={() => <AddAlarms />}
           />
+          <Route
+            path="/homepage/alarms/add-alarms"
+            render={() => <AddAlarms />}
+          />
+          <Route
+            exact
+            path="/homepage/settings"
+            render={() => <SettingsMain />}
+          />
+          <Route path="/homepage/settings/email" render={() => <EditEmail />} />
         </Switch>
       </div>
     );

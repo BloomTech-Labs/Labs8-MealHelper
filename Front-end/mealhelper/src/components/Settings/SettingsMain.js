@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import "./homepage.css";
-import MealDisplay from "./MealDisplay.js";
-import RecipeDisplay from "./RecipeDisplay.js";
+import "../homepage/homepage";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
@@ -29,49 +27,32 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../checkout/CheckoutForm";
 import Billing from "../billing/billing";
 
-class HomePage extends Component {
+class SettingsMain extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      user: [],
       email: "",
       password: "",
       zip: null,
       healthCondition: "",
       visable: false,
-      modal: false,
-      meals: [],
-      recipes: []
+      modal: false
     };
   }
 
   componentDidMount = () => {
     const id = this.props.user.userID;
     axios
-      .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
-      .then(recipess => {
-        this.setState({ recipes: recipess.data });
+      .get(`https://labs8-meal-helper.herokuapp.com/users/${id}`)
+      .then(user => {
+        this.setState({ user: user.data });
       })
       .catch(err => {
         console.log(err);
       });
-    this.componentGetMeals();
   };
-
-  componentGetMeals() {
-    console.log(this.state.recipes);
-    const id = this.props.user.userID;
-    axios
-      .get(`https://labs8-meal-helper.herokuapp.com/users/${id}/meals`)
-      .then(meals => {
-        console.log(meals);
-        this.setState({ meals: meals.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    console.log(this.state.meals);
-  }
 
   handleChange = event => {
     event.preventDefault();
@@ -122,7 +103,7 @@ class HomePage extends Component {
           <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Billing</h2>
           </Link>
-          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
+          <Link to="/homepage/settings/:id" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Settings</h2>
           </Link>
           <Button color="danger" onClick={this.toggle}>
@@ -142,56 +123,27 @@ class HomePage extends Component {
             </div>
           </StripeProvider> */}
         </div>
-        <div className="flex-me">
+        <div className="flex-me-settings">
           <div className="dynamic-display-home-meals">
-            <p className="recentMeals">4 Most Recently Made Meals: </p>
+            <p className="recentMeals">Settings Page </p>
           </div>
-          <div className="dynamic-display-home">
-            <div className="mealsRecipe-Container">
-              <div>
-                <div className="mealDisplay-Flex">
-                  {this.state.meals
-                    .reverse()
-                    .slice(0, 4)
-
-                    .map(meal => (
-                      <MealDisplay
-                        key={meal.id}
-                        meal={meal}
-                        mealTime={meal.mealTime}
-                        temp={meal.temp}
-                        experience={meal.experience}
-                        date={meal.date}
-                        city={meal.name}
-                      />
-                    ))}
-                </div>
-              </div>
-            </div>
+          <div className="dynamic-display-home-settings">
+            <p className="recentMeals">Email </p>
+            <Link className="buttons" to="/homepage/settings/email">
+              <button className="buttons-settings">Edit</button>
+            </Link>
           </div>
-          <div className="dynamic-display-home-meals">
-            <p className="recentMeals">4 Most Recently Made Recipes: </p>
+          <div className="dynamic-display-home-settings">
+            <p className="recentMeals">Password </p>
+            <Link className="buttons" to="/homepage/settings/password">
+              <button className="buttons-settings">Edit</button>
+            </Link>
           </div>
-          <div className="dynamic-display-home">
-            <div className="mealsRecipe-Container">
-              <div>
-                <div className="mealDisplay-Flex">
-                  {this.state.recipes
-                    .reverse()
-                    .slice(0, 4)
-
-                    .map(recipe => (
-                      <RecipeDisplay
-                        key={recipe.id}
-                        recipe={recipe}
-                        servings={recipe.servings}
-                        calories={recipe.calories}
-                        name={recipe.name}
-                      />
-                    ))}
-                </div>
-              </div>
-            </div>
+          <div className="dynamic-display-home-settings">
+            <p className="recentMeals">Zip </p>
+            <Link className="buttons" to="/homepage/settings/zip">
+              <button className="buttons-settings">Edit</button>
+            </Link>
           </div>
 
           <Switch>
@@ -240,4 +192,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { addUser }
-)(withRouter(HomePage));
+)(withRouter(SettingsMain));

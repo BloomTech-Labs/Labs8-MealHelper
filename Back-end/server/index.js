@@ -177,14 +177,54 @@ server.post("/login", (req, res) => {
     });
 });
 
-//PUT request to change the email or password
-server.put("/users/:id", (req, res) => {
-  const id = req.body.id;
+//PUT request to change the email
+server.put("/users/email/:id", (req, res) => {
+  const id = req.params.id;
   const credentials = req.body;
   console.log(credentials.password);
   db("users")
     //Finds the user by email
-    .where({ email: credentials.email })
+    .where({ id: id })
+    .first()
+    .then(user => {
+      //Checking old password to verify it is correct
+      if (user && bcrypt.compareSync(credentials.password, user.password)) {
+        //Hashing the new password to be stored in DB (NOTE: its named newpassword not password)
+        // const hash = bcrypt.hashSync(credentials.newpassword, 15);
+        //Sets the newpassword method to the hash to be stored
+        // credentials.newpassword = hash;
+        db("users")
+          .where({ id: id })
+          .update({
+            //Changing of the credentials
+            email: credentials.email
+            //Sets the password of user to the hashed new password
+          })
+          .then(ids => {
+            //Creates a token upon successfullying updating user
+            const token = generateToken(credentials);
+            res.status(200).json({ token: token, id: id });
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: "Could not update User" });
+          });
+      } else {
+        //Else statement goes off if the comparison if old password check does not match
+        res
+          .status(500)
+          .json({ error: "Wrong Email and/or Password, please try again" });
+      }
+    });
+});
+//PUT to change the users password
+server.put("/users/password/:id", (req, res) => {
+  const id = req.params.id;
+  const credentials = req.body;
+  console.log(credentials.password);
+  db("users")
+    //Finds the user by email
+    .where({ id: id })
     .first()
     .then(user => {
       //Checking old password to verify it is correct
@@ -197,11 +237,49 @@ server.put("/users/:id", (req, res) => {
           .where({ id: id })
           .update({
             //Changing of the credentials
-            email: credentials.email,
+            password: credentials.newpassword
             //Sets the password of user to the hashed new password
-            password: credentials.newpassword,
-            zip: credentials.zip,
-            healthCondition: credentials.healthCondition
+          })
+          .then(ids => {
+            //Creates a token upon successfullying updating user
+            const token = generateToken(credentials);
+            res.status(200).json({ token: token, id: id });
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: "Could not update User" });
+          });
+      } else {
+        //Else statement goes off if the comparison if old password check does not match
+        res
+          .status(500)
+          .json({ error: "Wrong Email and/or Password, please try again" });
+      }
+    });
+});
+
+//PUT to change the users ZIP
+server.put("/users/zip/:id", (req, res) => {
+  const id = req.params.id;
+  const credentials = req.body;
+  console.log(credentials.password);
+  db("users")
+    //Finds the user by email
+    .where({ id: id })
+    .first()
+    .then(user => {
+      //Checking old password to verify it is correct
+      if (user && bcrypt.compareSync(credentials.password, user.password)) {
+        //Hashing the new password to be stored in DB (NOTE: its named newpassword not password)
+
+        //Sets the newpassword method to the hash to be stored
+
+        db("users")
+          .where({ id: id })
+          .update({
+            //Changing of the credentials
+            zip: credentials.zip
+            //Sets the password of user to the hashed new password
           })
           .then(ids => {
             //Creates a token upon successfullying updating user
