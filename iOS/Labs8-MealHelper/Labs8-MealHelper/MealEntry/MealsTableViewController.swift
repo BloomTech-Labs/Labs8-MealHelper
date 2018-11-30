@@ -60,20 +60,16 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
         edit.backgroundColor = .green
         
         let remove = UITableViewRowAction(style: .destructive, title: "Delete") { (remove, indexPath) in
-            let foodClient = FoodClient.shared
-            
             if let id = recipe.identifier {
-                
-                foodClient.deleteRecipe(withId: String(id), completion: { (response) in
+                FoodClient.shared.deleteRecipe(withId: String(id), completion: { (response) in
                     DispatchQueue.main.async {
                         switch response {
                         case .success(let response):
                             if response == "1" {
-                                guard let index = self.foods?.index(of: recipe) else { return }
-                                self.foods?.remove(at: index)
-                                self.tableView.reloadData()
+                                //guard let index = self.foods?.index(of: recipe) else { return }
+                                self.foods?.remove(at: indexPath.row)
+                                self.tableView.deleteRows(at: [indexPath], with: .automatic)
                             }
-                            
                         case .error(let error):
                             print(error)
                             //Handle error
