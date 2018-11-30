@@ -65,17 +65,19 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
             if let id = recipe.identifier {
                 
                 foodClient.deleteRecipe(withId: String(id), completion: { (response) in
-                    switch response {
-                    case .success(let response):
-                        if response == 1 {
-                            guard let index = self.foods?.index(of: recipe) else { return }
-                            self.foods?.remove(at: index)
-                            self.tableView.reloadData()
-                    }
-                    
-                    case .error(let error):
-                        print(error)
-                        //Handle error
+                    DispatchQueue.main.async {
+                        switch response {
+                        case .success(let response):
+                            if response == "1" {
+                                guard let index = self.foods?.index(of: recipe) else { return }
+                                self.foods?.remove(at: index)
+                                self.tableView.reloadData()
+                            }
+                            
+                        case .error(let error):
+                            print(error)
+                            //Handle error
+                        }
                     }
                 })
                     

@@ -97,28 +97,28 @@ class FoodClient {
         
     }
     
-    func deleteMeal(withId id: String, completion: @escaping (Response<Int>) -> ()) {
+    func deleteMeal(withId id: String, completion: @escaping (Response<String>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["users", id, "meals"])
         
         delete(with: url, completion: completion)
         
     }
     
-    func deleteRecipe(withId id: String, completion: @escaping (Response<Int>) -> ()) {
+    func deleteRecipe(withId id: String, completion: @escaping (Response<String>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["recipe", id])
         
         delete(with: url, completion: completion)
         
     }
     
-    func deleteIngredient(withId id: String, completion: @escaping (Response<Int>) -> ()) {
+    func deleteIngredient(withId id: String, completion: @escaping (Response<String>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["ingredients", id])
         
         delete(with: url, completion: completion)
         
     }
     
-    func deleteNutrient(withId id: String, completion: @escaping (Response<Int>) -> ()) {
+    func deleteNutrient(withId id: String, completion: @escaping (Response<String>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["nutrients", id])
         
         delete(with: url, completion: completion)
@@ -289,7 +289,7 @@ class FoodClient {
         }.resume()
     }
     
-    private func delete<Resource: Codable>(with url: URL, using session: URLSession = URLSession.shared, completion: @escaping ((Response<Resource>) -> ())) {
+    private func delete(with url: URL, using session: URLSession = URLSession.shared, completion: @escaping ((Response<String>) -> ())) {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = HTTPMethod.delete.rawValue
@@ -308,14 +308,15 @@ class FoodClient {
                 return
             }
             
-            do {
-                let response = try JSONDecoder().decode(Resource.self, from: data)
+            // API return "1" if deletion successful, else return "0"
+            let response = String(data: data, encoding: .utf8) ?? "0"
+            
+            if response == "1" {
                 completion(Response.success(response))
-            } catch {
-                NSLog("Error decoding data: \(error)")
-                completion(Response.error(error))
-                return
+            } else {
+                completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
             }
+                
         }.resume()
     }
     
