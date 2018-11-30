@@ -81,7 +81,8 @@ class MyAlarms extends Component {
       alarmToUpdate: {
         label: '',
         alarm: ''
-      }
+      },
+      label: ''
     };
   }
 
@@ -188,7 +189,7 @@ class MyAlarms extends Component {
                 <h2>Edit Alarm</h2>
                 <input
                 type="text"
-                value={this.state.alarmToUpdate.label}
+                value={this.state.label}
                 name="label"
                 onChange={() => this.handleChange}></input>
                  <Select
