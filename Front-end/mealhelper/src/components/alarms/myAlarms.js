@@ -101,7 +101,7 @@ class MyAlarms extends Component {
         this.props.fetchAlarms(userID);
         console.log("this.props.alarms", this.props.alarms)
     } 
-    console.log("ALARM TO UPDATE cdu", this.state.alarmToUpdate);
+    console.log(this.state.label);
  };
 
  handleChange = event => {
@@ -119,8 +119,11 @@ class MyAlarms extends Component {
       ...prevState.alarmToUpdate,
       label: label
     }
-   }, () => this.props.updateAlarm(this.state.alarmToUpdate)))
+   }), 
+   () => this.props.updateAlarm(this.state.alarmToUpdate),
+   () => console.log("send to Edit, alarmToUpdate", this.state.alarmToUpdate) )
 }
+
 
  showModal = (alarmID) => {
   // if (this.state.show) {
