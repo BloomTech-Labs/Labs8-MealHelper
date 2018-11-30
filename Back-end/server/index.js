@@ -1087,9 +1087,10 @@ server.post("/alarms/:userid", (req, res) => {
 });
 
 //PUT request to change the alarm settings
-server.put("/alarms/:id", (req, res) => {
+server.put("/editalarms/:id/user/:userid", (req, res) => {
   //Grabs the alarm id from req.params
   const id = req.params.id;
+  const user_id = req.params.userid;
   const { label, alarm, timestamp } = req.body;
   // Sets the req.body to an alarm object that gets passed into the update
   const alarmBody = { label, alarm, timestamp };
@@ -1100,8 +1101,11 @@ server.put("/alarms/:id", (req, res) => {
       alarm: alarmBody.alarm
     })
     .then(alarmID => {
-      //Returns the alarm ID
-      res.status(200).json(alarmID);
+      db("alarms")
+        .where({ user_id: user_id })
+        .then(alarms => {
+          res.status(200).json(alarms);
+        });
     })
     .catch(err => {
       res.status(400).json({ error: "Could not update alarm" });
