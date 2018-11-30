@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
 import { getMeals } from "../../store/actions/mealActions.js";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 // import { Alert } from "reactstrap";
-import axios from "axios";
+// import axios from "axios";
 import Recipe from "./recipe";
 import "./recipes.css";
 

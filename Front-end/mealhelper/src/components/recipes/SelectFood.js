@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Nutrients from "./Nutrients";
 // import { Alert } from "reactstrap";
-import axios from "axios";
-import Recipe from "./recipe";
-import SelectedFoods from "./SelectedFoods";
-import FoodSearch from "./FoodSearch";
+// import axios from "axios";
+// import Recipe from "./recipe";
+// import SelectedFoods from "./SelectedFoods";
+// import FoodSearch from "./FoodSearch";
 import "./recipes.css";
 
 class SelectFood extends Component {
