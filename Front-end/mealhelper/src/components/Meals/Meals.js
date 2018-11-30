@@ -17,6 +17,7 @@ import { withRouter, Link, Route } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import Recipes from "../recipes/recipes";
 import axios from "axios";
+import "./meals.css";
 
 class Meals extends Component {
   constructor(props) {
@@ -201,7 +202,7 @@ class Meals extends Component {
             Log Out
           </Button>
         </div>
-        <div>
+        <div className="create-recipe-background">
           <Button color="success" onClick={this.toggle}>
             + New Meal
           </Button>

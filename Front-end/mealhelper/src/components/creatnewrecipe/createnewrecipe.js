@@ -146,7 +146,8 @@ class CreateNewRecipe extends Component {
               Log Out
             </Button>
           </div>
-          <div>
+
+          <div className="create-recipe-background">
             <Button color="success" onClick={this.toggle}>
               + New Recipe
             </Button>
