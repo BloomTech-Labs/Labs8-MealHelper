@@ -25,8 +25,8 @@ import {
   // DropdownMenu,
   // DropdownItem
 } from "reactstrap";
-// import { Elements, StripeProvider } from "react-stripe-elements";
-// import CheckoutForm from "../checkout/CheckoutForm";
+import { Elements, StripeProvider } from "react-stripe-elements";
+import CheckoutForm from "../checkout/CheckoutForm";
 import Billing from "../billing/billing";
 
 class SideBar extends Component {
@@ -137,14 +137,14 @@ class SideBar extends Component {
             Upgrade to Premium
           </Button>
         </Link>
-        {/* <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
-            <div className="example">
-              <h1>Pay Up Health Nut</h1>
-              <Elements>
-                <CheckoutForm />
-              </Elements>
-            </div>
-          </StripeProvider> */}
+        <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
+          <div className="example">
+            <h1>Pay Up Health Nut</h1>
+            <Elements>
+              <CheckoutForm />
+            </Elements>
+          </div>
+        </StripeProvider>
 
         <Switch>
           <Route path="/homepage/weather" render={() => <Weather />} />

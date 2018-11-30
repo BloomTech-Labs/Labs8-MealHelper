@@ -7,6 +7,7 @@ import { withRouter, Link } from "react-router-dom";
 // import axios from "axios";
 import Recipe from "./recipe";
 import "./recipes.css";
+import SideBar from "../sidebar/sidebar";
 
 class MyRecipes extends Component {
   constructor(props) {
@@ -46,7 +47,7 @@ class MyRecipes extends Component {
     return (
       <div className="weather-container">
         <div className="home-container">
-          <div className="sidebar">
+          {/* <div className="sidebar">
             <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
               <h2 className="titlelinks">Recipes</h2>
             </Link>
@@ -62,7 +63,8 @@ class MyRecipes extends Component {
             <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
               <h2 className="titlelinks">Settings</h2>
             </Link>
-          </div>
+          </div> */}
+          <SideBar />
           <div className="dynamic-display">
             {this.state.list.map(item => (
               <Recipe

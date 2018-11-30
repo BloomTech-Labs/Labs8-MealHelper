@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
 import { addRecipe, getRecipe } from "../../store/actions/recipeActions.js";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 // import { Alert } from "reactstrap";
 // import axios from "axios";
 // import Recipe from "../recipes/recipe";
@@ -20,6 +20,7 @@ import {
   // DropdownItem
 } from "reactstrap";
 import "../recipes/recipes.css";
+import SideBar from "../sidebar/sidebar";
 
 class CreateNewRecipe extends Component {
   constructor(props) {
@@ -122,7 +123,7 @@ class CreateNewRecipe extends Component {
     return (
       <div>
         <div className="home-container">
-          <div className="sidebar">
+          {/* <div className="sidebar">
             <Link to="/homepage" style={{ textDecoration: "none" }}>
               <h2 className="titlelinks">Home</h2>
             </Link>
@@ -144,7 +145,8 @@ class CreateNewRecipe extends Component {
             <Button color="danger" onClick={this.toggleLogout}>
               Log Out
             </Button>
-          </div>
+          </div> */}
+          {/* <SideBar /> */}
           <div>
             <Button color="success" onClick={this.toggle}>
               + New Recipe

@@ -6,6 +6,7 @@ import { withRouter, Link } from "react-router-dom";
 // import { Alert } from "reactstrap";
 // import axios from "axios";
 import Recipe from "./recipe";
+import SideBar from "../sidebar/sidebar";
 import "./recipes.css";
 
 class MyRecipes extends Component {
@@ -42,7 +43,7 @@ class MyRecipes extends Component {
     return (
       <div className="weather-container">
         <div className="home-container">
-          <div className="sidebar">
+          {/* <div className="sidebar">
             <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
               <h2 className="titlelinks">Recipes</h2>
             </Link>
@@ -58,7 +59,8 @@ class MyRecipes extends Component {
             <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
               <h2 className="titlelinks">Settings</h2>
             </Link>
-          </div>
+          </div> */}
+          <SideBar />
           <div className="recipe-card">
             <h2>My Recipes</h2>
             <div className="dynamic-display">
