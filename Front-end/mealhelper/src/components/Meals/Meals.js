@@ -54,16 +54,32 @@ class Meals extends Component {
       .catch(err => {
         console.log(err);
       });
-    this.setState({ zip: this.props.user.zip });
-  }
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-  }
-  // componentWillReceiveProps(prevState){
 
+    this.setState({ zip: this.props.user.zip });
+    this.componentGetMeals();
+  }
+
+  componentGetMeals() {
+    const id = this.props.user.userID;
+    axios
+      .get(`https://labs8-meal-helper.herokuapp.com/users/${id}/meals`)
+      .then(meals => {
+        console.log(meals);
+        this.setState({ meals: meals.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    console.log(this.state.meals);
+  }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log("im in component did recieve props");
+  //   console.log(nextProps);
   // }
+
   toggle() {
     console.log(this.props);
+    console.log(this.state.meals);
     this.setState({
       modal: !this.state.modal
     });

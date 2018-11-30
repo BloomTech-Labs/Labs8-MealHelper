@@ -149,7 +149,8 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  meals: state.mealsReducer.meals
 });
 
 export default connect(
