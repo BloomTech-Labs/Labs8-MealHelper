@@ -5,7 +5,18 @@ import axios from "axios";
 import { fetchAlarms, deleteAlarm, updateAlarm } from "../../store/actions/alarmActions";
 //import { Alarm } from "./alarm";
 import Select from "react-select";
-import Modal from './editAlarmModal';
+import editAlarmModal from './editAlarmModal';
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
 
 const alarms = [
   {
@@ -67,25 +78,19 @@ class MyAlarms extends Component {
 
     this.state = {
       show: false,
-      alarmToUpdate: {}
+      alarmToUpdate: {
+        label: '',
+        alarm: ''
+      }
     };
   }
 
   componentDidMount() {
-<<<<<<< HEAD
     console.log("this.props", this.props);
     let userID = this.props.user.userID;
     console.log("this.props.user.userID", this.props.user.userID)
     this.props.fetchAlarms(userID);
     console.log("this.props.alarms", this.props.alarms)
-=======
-    if (localStorage.getItem("token")) {
-      //establish user id
-      //get alarms
-    } else {
-      this.props.history.push("/");
-    }
->>>>>>> e60a7124fce499c946e4248163a45f8c3d277676
   }
 
   componentDidUpdate(prevProps) {
@@ -112,18 +117,18 @@ class MyAlarms extends Component {
 //  }
 
  showModal = (alarmID) => {
-  if (this.state.show) {
-    this.setState ({
-      show: !this.state.show,
-    })
-  } else {
-  const alarmToUpdate = alarms.find(alarm => alarm.id === alarmID);
+  // if (this.state.show) {
+  //   this.setState ({
+  //     show: !this.state.show,
+  //   })
+  // } else {
+  const alarmToUpdate = this.props.alarms.find(alarm => alarm.id === alarmID);
   this.setState ({
     ...this.state,
     show: !this.state.show,
     alarmToUpdate: alarmToUpdate
   }, () => console.log("ALARM TO UPDATE", this.state.alarmToUpdate))
-}
+//}
 }
 
   render() {
@@ -132,12 +137,37 @@ class MyAlarms extends Component {
      
       <div className="alarms-container">
         <div className="home-container">
-          <div className="sidebar">{/* sidebar stuff */}</div>
+          <div className="sidebar"><Link to="/homepage" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Home</h2>
+          </Link>
+          <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Recipes</h2>
+          </Link>
+          <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Alarms</h2>
+          </Link>
+          <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Meals</h2>
+          </Link>
+          <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Billing</h2>
+          </Link>
+          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Settings</h2>
+          </Link>
+          <Button color="danger" onClick={this.toggle}>
+            Log Out
+          </Button>
+          <Link to="homepage/billing">
+            <Button className="danger" color="danger">
+              Upgrade to Premium
+            </Button>
+          </Link></div>
 
           <div className="dynamic-display">
           <h1>Alarms</h1>
           <Link to="/homepage/alarms/add-alarms">Add New Alarms</Link>
-              {alarms.map((alarm) => (
+              {this.props.alarms.map((alarm) => (
             <div 
               key={alarm.id}
               id={alarm.id}
@@ -152,7 +182,7 @@ class MyAlarms extends Component {
               </div>
               ))}
             
-            <Modal show={this.state.show}>
+            <editAlarmModal show={this.state.show}>
                 
                 <div className="edit-modal">
                 <h2>Edit Alarm</h2>
@@ -172,11 +202,11 @@ class MyAlarms extends Component {
                 }
               }))}
             />
-                {/* <button onClick={this.props.updateAlarm(this.state.alarmToUpdate)}>Submit</button> */}
+                <button onClick={this.props.updateAlarm(this.state.alarmToUpdate)}>Submit</button>
                 <button onClick={this.showModal}>Nevermind</button>
                 </div>
             
-            </Modal>
+            </editAlarmModal>
           </div>
         </div>
       </div>
@@ -185,7 +215,6 @@ class MyAlarms extends Component {
 }
 
 const mapStateToProps = state => ({
-<<<<<<< HEAD
   alarms: state.alarmsReducer.alarms,
   alarm: state.alarmsReducer.alarm,
   user: state.userReducer.user
@@ -194,12 +223,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { fetchAlarms, deleteAlarm, updateAlarm }
-=======
-  // state to be mapped
-});
-
-export default connect(
-  mapStateToProps
-  // alarm action
->>>>>>> e60a7124fce499c946e4248163a45f8c3d277676
 )(withRouter(MyAlarms));

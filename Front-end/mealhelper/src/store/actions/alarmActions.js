@@ -73,10 +73,10 @@ export const deleteAlarm = id => dispatch => {
     });
 }
 
-export const updateAlarm = alarm => dispatch => {
-  const id = alarm.id;
-  const label = alarm.label;
-  const alarm = alarm.alarm;
+export const updateAlarm = alarmToUpdate => dispatch => {
+  const id = alarmToUpdate.id;
+  const label = alarmToUpdate.label;
+  const alarm = alarmToUpdate.alarm;
   const updatedAlarm = { label, alarm };
   dispatch({ type: UPDATING_ALARM });
   axios
