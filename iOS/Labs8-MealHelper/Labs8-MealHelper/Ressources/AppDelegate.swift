@@ -9,6 +9,12 @@
 import UIKit
 import Firebase
 
+class WhiteStatusNavController: UINavigationController {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -17,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
-        
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
@@ -28,7 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //To start on HomeScreen, use this
         let homeViewController = HomeViewController()
-        window?.rootViewController = homeViewController
+        let navController = WhiteStatusNavController(rootViewController: homeViewController)
+        navController.navigationBar.isHidden = true
+        Appearance.setupNavBar()
+        window?.rootViewController = navController
         
         //To start at meals table view use this
 //        let mealsVC = MealsTableViewController(navTitle: "Meals")

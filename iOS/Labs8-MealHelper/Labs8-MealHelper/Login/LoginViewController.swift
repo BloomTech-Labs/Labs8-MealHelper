@@ -12,8 +12,7 @@ class LoginViewController: UIViewController
 {
     private var isInLoginState = true
     
-    let lightBlurEffect: UIVisualEffectView =
-    {
+    let blurEffect: UIVisualEffectView = {
         let frost = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         frost.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
@@ -325,16 +324,9 @@ class LoginViewController: UIViewController
     private var welcomeLabelTop: NSLayoutConstraint?
     private var welcomeLabelBottom: NSLayoutConstraint?
     
-    private func setupViews()
-    {
-//        let imageView = UIImageView(image: #imageLiteral(resourceName: "foodbackground"))
-//        imageView.contentMode = .scaleAspectFill
-//
-//        view.addSubview(imageView)
-//        imageView.fillSuperview()
-        
-        view.addSubview(lightBlurEffect)
-        lightBlurEffect.fillSuperview()
+    private func setupViews() {
+        view.addSubview(blurEffect)
+        blurEffect.fillSuperview()
         
         let stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, healthConditionTextField, zipCodeTextField])
         stackView.axis = .vertical

@@ -45,6 +45,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         let cv = HomeCollectionView(frame: .zero, collectionViewLayout: layout)
         cv.layer.cornerRadius = 16
         cv.layer.masksToBounds = true
+        cv.actionDelegate = self
         
         return cv
     }()
@@ -71,10 +72,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         
         return ebv
     }()
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -109,12 +106,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         
         emptyLabel.isEnabled = collectionView.meals.isEmpty ? true : false
         
-        let loginController = LoginViewController()
-        loginController.modalPresentationStyle = .overCurrentContext
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.present(loginController, animated: true, completion: nil)
-        }
+//        let loginController = LoginViewController()
+//        loginController.modalPresentationStyle = .overCurrentContext
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            self.present(loginController, animated: true, completion: nil)
+//        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -143,6 +140,15 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         view.addSubview(expandableButtonView)
         expandableButtonView.anchor(top: nil, leading: nil, bottom: collectionView.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0), size: CGSize(width: 300, height: 50))
         expandableButtonView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+}
+
+extension HomeViewController: HomeCollectionViewDelegate {
+    func didSelect(meal: Meal) {
+        let mealDetailViewController = MealDetailViewController()
+        mealDetailViewController.meal = meal
+        print("here")
+        navigationController?.pushViewController(mealDetailViewController, animated: true)
     }
 }
 
