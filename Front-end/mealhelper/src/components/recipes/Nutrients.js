@@ -55,7 +55,7 @@ class Nutrients extends Component {
     const { name, calories, servings } = this.props;
     const recipe = { name, calories, servings };
     const data = await this.props.addRecipe(recipe, this.props.user.userID);
-    console.log(data);
+
     // console.log("this is the count of ingredients array", countIngredients);
     this.saveRecipeIngredients();
   }
@@ -63,26 +63,27 @@ class Nutrients extends Component {
   async saveRecipeIngredients(props) {
     let countIngredients = this.state.selectedFoods.length;
     let recipe_ids = this.props.recipes.pop();
-    console.log(recipe_ids);
+    const id = localStorage.getItem("user_id");
+
     const data = await this.props.addMultipleIngredients(
       this.state.selectedFoods,
-      this.props.user.userID,
+      id,
       countIngredients,
       recipe_ids.id
     );
-    console.log(data);
 
     this.saveRecipeNutrition();
   }
 
   saveRecipeNutrition = () => {
+    const id = localStorage.getItem("user_id");
     const nutrients = this.state.nutrients.map(nutrient => {
       return nutrient.nutrients;
     });
     let countNutrients = nutrients.length;
     this.props.addMultipleNutrients(
       nutrients,
-      this.props.user.userID,
+      id,
       countNutrients,
       this.props.ingredients
     );
@@ -91,25 +92,21 @@ class Nutrients extends Component {
     const filteredFoods = this.state.nutrients.filter(
       (item, idx) => itemIndex !== idx
     );
-    console.log(filteredFoods);
+
     this.setState({ nutrients: filteredFoods });
   };
 
   sumKCAL = (foods, prop) => {
-    console.log(prop);
-
     return foods
       .reduce((memo, food) => parseInt(food.nutrients[0].value, 10) + memo, 0.0)
       .toFixed(0);
   };
   sumProtein = (foods, prop) => {
-    console.log(prop);
     return foods
       .reduce((memo, food) => parseFloat(food.nutrients[1].value) + memo, 0.0)
       .toFixed(2);
   };
   sumFat = (foods, prop) => {
-    console.log(prop);
     return foods
       .reduce(
         (memo, food) => parseFloat(food.nutrients[2].value, 10) + memo,
@@ -118,7 +115,6 @@ class Nutrients extends Component {
       .toFixed(2);
   };
   sumCarb = (foods, prop) => {
-    console.log(prop);
     return foods
       .reduce(
         (memo, food) => parseFloat(food.nutrients[3].value, 10) + memo,

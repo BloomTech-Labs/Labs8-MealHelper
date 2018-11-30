@@ -26,7 +26,7 @@ input[type="number"] {
 .formcenter {
   display: flex;
   justify-content: center;
-  padding: 4%;
+  padding: 2%;
 }
 .user-form-container {
   display: flex;
@@ -106,7 +106,7 @@ input {
 }
 
 input:hover {
-  box-shadow: -1px 9px 6px -8px rgb(192, 181, 31, 0.75);
+  box-shadow: -4px 9px 6px -7px rgb(249, 117, 34, 1);
 }
 
 input:focus {
@@ -124,7 +124,7 @@ input:focus {
   margin-top: 3%;
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.1);
-  outline: 2px solid rgb(192, 181, 31);
+  outline: 1px solid rgb(192, 181, 31);
 }
 
 .signup:hover {
@@ -181,7 +181,6 @@ input:focus {
 .signup-two:hover::before {
   left: 132px;
   width: 80px;
-
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
@@ -275,7 +274,16 @@ input:focus {
   padding-top: 25px;
   font-weight: bold;
 }
-
+.loader {
+  display: block;
+}
+.loading {
+  margin: 20px;
+}
+.isLoading {
+  margin: 10% auto;
+  background: linear-gradient(rgba(20, 20, 20, 0.5), rgba(20, 20, 20, 0.5));
+}
 .alert-box {
   margin-top: 11%;
 }

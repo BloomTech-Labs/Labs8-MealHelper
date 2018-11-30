@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import "./homepage.css";
-import MealDisplay from "./MealDisplay.js";
-import RecipeDisplay from "./RecipeDisplay.js";
+// import MealDisplay from "../display/MealDisplay.js";
+// import RecipeDisplay from "../display/RecipeDisplay.js";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
@@ -28,6 +28,8 @@ import {
 import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../checkout/CheckoutForm";
 import Billing from "../billing/billing";
+import SideBar from "../sidebar/sidebar";
+import Display from "../display/display";
 
 class HomePage extends Component {
   constructor(props) {
@@ -47,7 +49,8 @@ class HomePage extends Component {
 
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
-      const id = this.props.user.userID;
+      const id = localStorage.getItem("user_id");
+      console.log(id);
       axios
         .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
         .then(recipess => {
@@ -63,8 +66,8 @@ class HomePage extends Component {
   };
 
   componentGetMeals() {
-    console.log(this.state.recipes);
-    const id = this.props.user.userID;
+    const id = localStorage.getItem("user_id");
+    console.log(id);
     axios
       .get(`https://labs8-meal-helper.herokuapp.com/users/${id}/meals`)
       .then(meals => {
@@ -104,6 +107,7 @@ class HomePage extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
 
