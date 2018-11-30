@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import "./homepage.css";
+import "../homepage/homepage.css";
 
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
@@ -28,7 +28,7 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../checkout/CheckoutForm";
 import Billing from "../billing/billing";
 
-class MealDisplay extends Component {
+class RecipeDisplay extends Component {
   handleChange = event => {
     event.preventDefault();
     this.setState({
@@ -51,17 +51,12 @@ class MealDisplay extends Component {
   render() {
     return (
       <div className="MealDisplay">
-        <div className="meal-card-header">
-          <p className="meal-experience">{this.props.experience}</p>
+        <div className="recipe-card-header">
+          <p className="recipe-experience">Servings: {this.props.servings}</p>
+          <p className="recipe-experience">{this.props.calories} Calories</p>
         </div>
-        <div className="meal-card-center">
-          <h1 className="meal-time">{this.props.mealTime}</h1>
-          <h4 className="meal-date">{this.props.date}</h4>
-        </div>
-
-        <div className="meal-card-footer">
-          <h5 className="meal-city">{this.props.city}</h5>
-          <h5 className="meal-temp">{this.props.temp} &#176;F</h5>
+        <div className="recipe-card-center">
+          <h1 className="recipe-time">{this.props.name}</h1>
         </div>
       </div>
     );
@@ -76,4 +71,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { addUser }
-)(withRouter(MealDisplay));
+)(withRouter(RecipeDisplay));
