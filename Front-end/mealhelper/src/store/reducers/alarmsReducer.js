@@ -53,7 +53,7 @@ export const alarmsReducer = (state = initialState, action) => {
       case UPDATING_ALARM:
 			return { ...state, updatingAlarm: true };
 		case UPDATED_ALARM:
-			return { ...state, updatingAlarm: false, alarms: action.payload };
+			return { ...state, updatingAlarm: false, alarm: action.payload };
 		case UPDATING_ALARM_ERROR:
 			return { ...state, updatingAlarm: false, error: action.payload };
     case DELETING_ALARM:
