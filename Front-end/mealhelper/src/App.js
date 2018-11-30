@@ -1,6 +1,6 @@
 /////Static Imports/////////
 import React, { Component } from "react";
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 //////////////////////////
 
 /////Dev. Created/////////
@@ -28,7 +28,7 @@ import SettingsMain from "./components/Settings/SettingsMain";
 ////////////////////////
 
 import Callback from "./Callback";
-import Sign from "./components/Sign";
+// import Sign from "./components/Sign";
 
 import "./App.css";
 import LandingPage from "./components/landingpage/landingpage";
