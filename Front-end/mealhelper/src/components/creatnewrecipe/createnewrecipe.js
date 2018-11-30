@@ -46,7 +46,7 @@ class CreateNewRecipe extends Component {
   };
   componentDidMount() {
     if (localStorage.getItem("token")) {
-      const id = this.props.user.userID;
+      const id = localStorage.getItem("user_id");
       this.props.getRecipe(id);
     } else {
       this.props.history.push("/");
@@ -115,6 +115,7 @@ class CreateNewRecipe extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
   render() {

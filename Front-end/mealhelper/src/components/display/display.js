@@ -48,7 +48,7 @@ class Display extends Component {
 
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
-      const id = this.props.user.userID;
+      const id = localStorage.getItem("user_id");
       axios
         .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
         .then(recipess => {
@@ -65,7 +65,7 @@ class Display extends Component {
 
   componentGetMeals() {
     console.log(this.state.recipes);
-    const id = this.props.user.userID;
+    const id = localStorage.getItem("user_id");
     axios
       .get(`https://labs8-meal-helper.herokuapp.com/users/${id}/meals`)
       .then(meals => {
