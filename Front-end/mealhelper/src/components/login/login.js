@@ -5,6 +5,7 @@ import { withRouter, Link, Route } from "react-router-dom";
 import { Alert } from "reactstrap";
 import Sign from "../Sign";
 import Callback from "../../Callback";
+import "../homepage/homepage";
 
 class Login extends Component {
   constructor(props) {
@@ -13,8 +14,10 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      visable: false
+      visable: false,
+      visableError: false
     };
+    this.confirmLogin = this.confirmLogin.bind(this);
   }
 
   handleChange = event => {
@@ -24,37 +27,44 @@ class Login extends Component {
     });
   };
 
+  toggleVisability = () => {
+    this.setState({ visableError: false, visable: false });
+  };
   loggin = event => {
-    if (localStorage.getItem("token") !== undefined) {
-      this.props.history.push("/homepage");
+    if (!localStorage.getItem("token")) {
+      this.setState({ visableError: true });
+      setTimeout(this.toggleVisability, 3000);
     } else {
-      setTimeout(() => {
-        this.loggin();
-      }, 2000);
+      this.props.history.push("/homepage");
     }
   };
-
+  async confirmLogin() {
+    const confirmed = await this.createUser();
+    setTimeout(this.loggin, 4000);
+  }
   createUser = event => {
-    event.preventDefault();
     if (!this.state.email || !this.state.password) {
       this.setState({ visable: true });
+      setTimeout(this.toggleVisability, 3000);
     } else {
       const { email, password } = this.state;
       const user = { email, password };
       this.props.loginUser(user);
-      console.log(this.props);
-      setTimeout(() => {
-        this.loggin();
-      }, 6000);
     }
   };
 
   render() {
     return (
       <div className="main-container">
+        <div className="alert-box3">
+          <Alert isOpen={this.state.visableError} color="danger">
+            Invalid Email and/or Password. Please Try Again.
+          </Alert>
+        </div>
         <div className="formcenter">
           <div className="user-form-container-login">
             <h1 className="signup-title">Login</h1>
+
             <form className="login-form">
               <div className="form-group">
                 <input
@@ -81,7 +91,7 @@ class Login extends Component {
                 />
                 <label htmlFor="dynamic-label-input">Password</label>
               </div>
-              <div className="signup signup-two" onClick={this.createUser}>
+              <div className="signup signup-two" onClick={this.confirmLogin}>
                 <span>Log In</span>
               </div>
               <div className="auth">
@@ -94,11 +104,7 @@ class Login extends Component {
                   </button>
                 </div>
               </Link>
-              <div className="alert-box">
-                <Alert isOpen={this.state.visable} color="danger">
-                  Please enter an email and address
-                </Alert>
-              </div>
+
               <p className="signuptext2">- Or -</p>
             </form>
 

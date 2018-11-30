@@ -75,6 +75,7 @@ class EditEmail extends Component {
   toggleVisability = () => {
     this.setState({ visable: false });
   };
+
   changeEmail = event => {
     if (!this.state.email || !this.state.password) {
       this.setState({ visable: true });
