@@ -42,7 +42,9 @@ class Display extends Component {
       visable: false,
       modal: false,
       meals: [],
-      recipes: []
+      recipes: [],
+      recipe_SIZE: null,
+      meal_SIZE: null
     };
   }
 
@@ -52,11 +54,13 @@ class Display extends Component {
       axios
         .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
         .then(recipess => {
-          this.setState({ recipes: recipess.data });
+          const recipe_SIZE = recipess.data.length;
+          this.setState({ recipes: recipess.data, recipe_SIZE: recipe_SIZE });
         })
         .catch(err => {
           console.log(err);
         });
+
       this.componentGetMeals();
     } else {
       this.props.history.push("/");
@@ -70,11 +74,13 @@ class Display extends Component {
       .get(`https://labs8-meal-helper.herokuapp.com/users/${id}/meals`)
       .then(meals => {
         console.log(meals);
-        this.setState({ meals: meals.data });
+        const meal_SIZE = meals.data.length;
+        this.setState({ meals: meals.data, meal_SIZE: meal_SIZE });
       })
       .catch(err => {
         console.log(err);
       });
+
     console.log(this.state.meals);
   }
 
@@ -118,9 +124,10 @@ class Display extends Component {
           <div className="mealsRecipe-Container">
             <div>
               <div className="mealDisplay-Flex">
+                {console.log("meal array size", this.state.meal_SIZE)}
                 {this.state.meals
                   .reverse()
-                  .slice(0, 4)
+                  .slice(this.state.meal_SIZE - 4, this.state.meal_SIZE)
 
                   .map(meal => (
                     <MealDisplay
@@ -144,9 +151,10 @@ class Display extends Component {
           <div className="mealsRecipe-Container">
             <div>
               <div className="mealDisplay-Flex">
+                {console.log("recipe array size", this.state.recipe_SIZE)}
                 {this.state.recipes
                   .reverse()
-                  .slice(0, 4)
+                  .slice(this.state.recipe_SIZE - 4, this.state.recipe_SIZE)
                   .map(recipe => (
                     <RecipeDisplay
                       key={recipe.id}
