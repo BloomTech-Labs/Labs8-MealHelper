@@ -48,7 +48,7 @@ class SignUp extends Component {
   };
   async confirmSignup() {
     const confirmed = await this.createUser();
-    setTimeout(this.loggin, 4000);
+    setTimeout(this.loggin, 7000);
   }
   createUser = event => {
     if (!this.state.email || !this.state.password) {
