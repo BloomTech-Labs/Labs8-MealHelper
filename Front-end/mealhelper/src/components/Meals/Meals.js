@@ -45,7 +45,7 @@ class Meals extends Component {
   ///converted to Imperial measurement
   componentDidMount(props) {
     if (localStorage.getItem("token")) {
-      const id = this.props.user.userID;
+      const id = localStorage.getItem("user_id");
       axios
         .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
         .then(recipess => {
@@ -63,7 +63,7 @@ class Meals extends Component {
   }
 
   componentGetMeals() {
-    const id = this.props.user.userID;
+    const id = localStorage.getItem("user_id");
     axios
       .get(`https://labs8-meal-helper.herokuapp.com/users/${id}/meals`)
       .then(meals => {
@@ -102,7 +102,8 @@ class Meals extends Component {
   }
   saveMeal = event => {
     event.preventDefault();
-    const user_id = this.props.user.userID;
+
+    const user_id = localStorage.getItem("user_id");
     const recipe_id = this.state.recipe.id;
     const {
       mealTime,
@@ -149,6 +150,7 @@ class Meals extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
   getWeatherZip = event => {
