@@ -25,32 +25,7 @@ class Meals extends Component {
     this.state = {
       modal: false,
       dropdownOpen: false,
-      recipes: [
-        {
-          id: 1,
-          name: "Pepperoni Pizza Slice",
-          calories: 250,
-          servings: 1,
-          meal_id: 3,
-          user_id: 1
-        },
-        {
-          id: 2,
-          name: "Mac and Cheese",
-          calories: 300,
-          servings: 2,
-          meal_id: 2,
-          user_id: 2
-        },
-        {
-          id: 3,
-          name: "Ham and Cheese Sandwhich",
-          calories: 175,
-          servings: 4,
-          meal_id: 1,
-          user_id: 3
-        }
-      ],
+      recipes: [],
       zip: "",
       meals: [],
       recipe: [],
@@ -69,13 +44,45 @@ class Meals extends Component {
   }
   ///converted to Imperial measurement
   componentDidMount(props) {
-    console.log(this.props.user.zip);
-    this.setState({ zip: this.props.user.zip });
-  }
-  // componentWillReceiveProps(prevState){
+    if (localStorage.getItem("token")) {
+      const id = this.props.user.userID;
+      axios
+        .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
+        .then(recipess => {
+          this.setState({ recipes: recipess.data });
+        })
+        .catch(err => {
+          console.log(err);
+        });
 
+      this.setState({ zip: this.props.user.zip });
+      this.componentGetMeals();
+    } else {
+      this.props.history.push("/");
+    }
+  }
+
+  componentGetMeals() {
+    const id = this.props.user.userID;
+    axios
+      .get(`https://labs8-meal-helper.herokuapp.com/users/${id}/meals`)
+      .then(meals => {
+        console.log(meals);
+        this.setState({ meals: meals.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    console.log(this.state.meals);
+  }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log("im in component did recieve props");
+  //   console.log(nextProps);
   // }
+
   toggle() {
+    console.log(this.props);
+    console.log(this.state.meals);
     this.setState({
       modal: !this.state.modal
     });
@@ -122,6 +129,7 @@ class Meals extends Component {
       servings
     };
     this.props.addMeal(meal);
+    this.toggle();
   };
   chooseRecipe = recipe => {
     console.log(recipe);
@@ -346,7 +354,8 @@ class Meals extends Component {
 
 const mapStateToProps = state => ({
   user: state.userReducer.user,
-  meals: state.mealsReducer.meals
+  meals: state.mealsReducer.meals,
+  recipes: state.recipesReducer.recipes
 });
 
 export default connect(

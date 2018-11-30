@@ -72,11 +72,20 @@ class MyAlarms extends Component {
   }
 
   componentDidMount() {
+<<<<<<< HEAD
     console.log("this.props", this.props);
     let userID = this.props.user.userID;
     console.log("this.props.user.userID", this.props.user.userID)
     this.props.fetchAlarms(userID);
     console.log("this.props.alarms", this.props.alarms)
+=======
+    if (localStorage.getItem("token")) {
+      //establish user id
+      //get alarms
+    } else {
+      this.props.history.push("/");
+    }
+>>>>>>> e60a7124fce499c946e4248163a45f8c3d277676
   }
 
   componentDidUpdate(prevProps) {
@@ -123,9 +132,7 @@ class MyAlarms extends Component {
      
       <div className="alarms-container">
         <div className="home-container">
-          <div className="sidebar">
-    {/* sidebar stuff */}
-          </div>
+          <div className="sidebar">{/* sidebar stuff */}</div>
 
           <div className="dynamic-display">
           <h1>Alarms</h1>
@@ -173,13 +180,12 @@ class MyAlarms extends Component {
           </div>
         </div>
       </div>
-      
-    )
+    );
   }
-  
 }
 
 const mapStateToProps = state => ({
+<<<<<<< HEAD
   alarms: state.alarmsReducer.alarms,
   alarm: state.alarmsReducer.alarm,
   user: state.userReducer.user
@@ -188,4 +194,12 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { fetchAlarms, deleteAlarm, updateAlarm }
+=======
+  // state to be mapped
+});
+
+export default connect(
+  mapStateToProps
+  // alarm action
+>>>>>>> e60a7124fce499c946e4248163a45f8c3d277676
 )(withRouter(MyAlarms));

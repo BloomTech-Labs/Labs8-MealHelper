@@ -1,19 +1,34 @@
 .main-container {
-    height: 100vh;
-    width: 100vw;
-    background-image: url("../../img/laptop-fruit-tea.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  
-  .entry-button-group {
-    display: flex;
-    justify-content: flex-end;
-    padding: 1%;
-  }
-  
-  /* .login-button{
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../../img/laptop-fruit-tea.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.typing {
+  font-size: 64px;
+  padding: 3%;
+}
+.checklist {
+  padding-bottom: 50px;
+}
+.landpage-content {
+  background: linear-gradient(rgba(20, 20, 20, 0.93), rgba(20, 20, 20, 0.93));
+  color: rgb(226, 213, 35);
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  width: 90%;
+  margin: 0 auto;
+}
+.entry-button-group {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1%;
+}
+
+/* .login-button{
     width: 200px;
     height: 50px;
     font-size: 1em;
@@ -31,22 +46,23 @@
     font-size: 17px;
     font-weight: bold;
   } */
-  
-  .signup-button{
-    width: 200px;
-    height: 50px;
-    font-size: 1em;
-    margin: 6px;
-    outline: 3px solid rgb(192, 181, 31);
-    background: linear-gradient(
-                       rgba(226, 220, 220, 0.151), 
-                       rgba(226, 220, 220, 0.151));
-    }
 
-    .signup-button:focus {outline:0;}
-  
-  .signup-button:hover { 
-    box-shadow: -1px 9px 6px -8px rgba(0,0,0,0.75);
-    font-size: 17px;
-    font-weight: bold;
-  }
+.signup-button {
+  width: 200px;
+  height: 50px;
+  font-size: 1em;
+  margin: 6px;
+  color: rgb(192, 181, 31);
+  border: 1px solid rgb(192, 181, 31);
+  background: linear-gradient(rgba(20, 20, 20, 0.93), rgba(20, 20, 20, 0.93));
+}
+
+.signup-button:focus {
+  outline: 0;
+}
+
+.signup-button:hover {
+  box-shadow: -1px 9px 6px -8px rgba(0, 0, 0, 0.75);
+  font-size: 17px;
+  font-weight: bold;
+}

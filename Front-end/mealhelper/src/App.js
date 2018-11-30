@@ -23,6 +23,7 @@ import MyWeather from "./components/weather/myweather";
 import MyAlarms from "./components/alarms/myAlarms";
 import AddAlarms from "./components/alarms/addAlarm";
 import Billing from "./components/billing/billing";
+import SettingsMain from "./components/Settings/SettingsMain";
 
 ////////////////////////
 
@@ -30,6 +31,10 @@ import Callback from "./Callback";
 import Sign from "./components/Sign";
 
 import "./App.css";
+import LandingPage from "./components/landingpage/landingpage";
+import EditEmail from "./components/Settings/EditEmail";
+import EditPassword from "./components/Settings/EditPassword";
+import EditZip from "./components/Settings/EditZip";
 
 class App extends Component {
   render() {
@@ -37,7 +42,8 @@ class App extends Component {
       <div className="App">
         <Switch>
           {/* <Route exact path="/" render={() => <LandingPage />} /> */}
-          <Route exact path="/" render={() => <Signup />} />
+          <Route exact path="/" render={() => <LandingPage />} />
+          <Route exact path="/signup" render={() => <Signup />} />
           <Route exact path="/callback" render={() => <Callback />} />
 
           <Route path="/login" render={() => <Login />} />
@@ -77,6 +83,21 @@ class App extends Component {
             path="/homepage/alarms/add-alarms"
             render={() => <AddAlarms />}
           />
+          <Route
+            path="/homepage/alarms/add-alarms"
+            render={() => <AddAlarms />}
+          />
+          <Route
+            exact
+            path="/homepage/settings"
+            render={() => <SettingsMain />}
+          />
+          <Route path="/homepage/settings/email" render={() => <EditEmail />} />
+          <Route
+            path="/homepage/settings/password"
+            render={() => <EditPassword />}
+          />
+          <Route path="/homepage/settings/zip" render={() => <EditZip />} />
         </Switch>
       </div>
     );

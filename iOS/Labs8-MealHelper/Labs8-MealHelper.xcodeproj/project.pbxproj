@@ -65,6 +65,10 @@
 		ACE1FA6321ADE796003A0030 /* CreateAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6221ADE796003A0030 /* CreateAlarmView.swift */; };
 		ACE1FA6521AE13D5003A0030 /* AlarmTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6421AE13D5003A0030 /* AlarmTableView.swift */; };
 		ACE1FA6721AE1429003A0030 /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6621AE1429003A0030 /* AlarmCell.swift */; };
+		ACE1FA6D21AF091B003A0030 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6C21AF091B003A0030 /* Alarm.swift */; };
+		ACE1FA7021AF1A53003A0030 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6F21AF1A53003A0030 /* SettingsViewController.swift */; };
+		ACE1FA7321AF56C4003A0030 /* SkyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA7221AF56C4003A0030 /* SkyView.swift */; };
+		ACE1FA7521B0582F003A0030 /* LocalNotificationsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA7421B0582F003A0030 /* LocalNotificationsHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +164,10 @@
 		ACE1FA6221ADE796003A0030 /* CreateAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlarmView.swift; sourceTree = "<group>"; };
 		ACE1FA6421AE13D5003A0030 /* AlarmTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableView.swift; sourceTree = "<group>"; };
 		ACE1FA6621AE1429003A0030 /* AlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
+		ACE1FA6C21AF091B003A0030 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
+		ACE1FA6F21AF1A53003A0030 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		ACE1FA7221AF56C4003A0030 /* SkyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyView.swift; sourceTree = "<group>"; };
+		ACE1FA7421B0582F003A0030 /* LocalNotificationsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +248,7 @@
 		3D56A9D021934FAA00A91EF4 /* Labs8-MealHelper */ = {
 			isa = PBXGroup;
 			children = (
+				ACE1FA6E21AF1A45003A0030 /* Settings */,
 				ACE1FA5A21ADA8A1003A0030 /* Alarm */,
 				AC85F3C9219E3510007765CA /* MealEntry */,
 				AC85F3C4219E3501007765CA /* Model */,
@@ -282,6 +291,7 @@
 				AC1DE866219473DD0066172C /* HomeViewController.swift */,
 				AC1DE8682194748F0066172C /* MealCell.swift */,
 				AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */,
+				ACE1FA7221AF56C4003A0030 /* SkyView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -345,9 +355,10 @@
 		AC85F3C4219E3501007765CA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3D77DD16219EF4A8009B21ED /* WeatherForecast.swift */,
 				AC85F3C6219E350C007765CA /* Food.swift */,
 				AC8F0B50219E36AE00E623FB /* User.swift */,
-				3D77DD16219EF4A8009B21ED /* WeatherForecast.swift */,
+				ACE1FA6C21AF091B003A0030 /* Alarm.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -383,8 +394,17 @@
 				ACE1FA6221ADE796003A0030 /* CreateAlarmView.swift */,
 				ACE1FA6421AE13D5003A0030 /* AlarmTableView.swift */,
 				ACE1FA6621AE1429003A0030 /* AlarmCell.swift */,
+				ACE1FA7421B0582F003A0030 /* LocalNotificationsHelper.swift */,
 			);
 			path = Alarm;
+			sourceTree = "<group>";
+		};
+		ACE1FA6E21AF1A45003A0030 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				ACE1FA6F21AF1A53003A0030 /* SettingsViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -540,6 +560,7 @@
 			files = (
 				AC85F3E5219E3526007765CA /* FoodTableViewCell.swift in Sources */,
 				3D77DD14219EDA6E009B21ED /* Constants.swift in Sources */,
+				ACE1FA6D21AF091B003A0030 /* Alarm.swift in Sources */,
 				AC1DE8692194748F0066172C /* MealCell.swift in Sources */,
 				AC62FACF219B408B00D8C35C /* StretchyHeaderLayout.swift in Sources */,
 				AC85F38B219E0B2F007765CA /* LeftIconTextField.swift in Sources */,
@@ -555,12 +576,14 @@
 				ACE1FA6721AE1429003A0030 /* AlarmCell.swift in Sources */,
 				ACE1FA6521AE13D5003A0030 /* AlarmTableView.swift in Sources */,
 				3D131CD521A198B3009681D0 /* UserDefault+Helper.swift in Sources */,
+				ACE1FA7021AF1A53003A0030 /* SettingsViewController.swift in Sources */,
 				AC85F3C8219E350C007765CA /* Food.swift in Sources */,
 				AC85F3DF219E3526007765CA /* CameraViewController.swift in Sources */,
 				3D56A9F8219350EA00A91EF4 /* OnboardingCollectionViewController.swift in Sources */,
 				3D7AD09421AF1B0800A68323 /* Notification+Name.swift in Sources */,
 				3D56A9FE21939D3A00A91EF4 /* AutoLayout.swift in Sources */,
 				AC85F38D219E0C1D007765CA /* LoginViewController.swift in Sources */,
+				ACE1FA7521B0582F003A0030 /* LocalNotificationsHelper.swift in Sources */,
 				3DB65F282196200D007AA68A /* APIClient.swift in Sources */,
 				3DDB4A1C21A774E4007A1B5E /* SwipeableViewController.swift in Sources */,
 				3D154CB421AF34F600D88D5D /* SearchIngredientsTableViewController.swift in Sources */,
@@ -581,6 +604,7 @@
 				AC4D10782194A7BC00317F4C /* OnboardingCollectionViewCell.swift in Sources */,
 				AC85F3D9219E3525007765CA /* FoodSummaryViewController.swift in Sources */,
 				3D77DD18219EF4A8009B21ED /* WeatherForecast.swift in Sources */,
+				ACE1FA7321AF56C4003A0030 /* SkyView.swift in Sources */,
 				AC85F393219E1071007765CA /* Extensions.swift in Sources */,
 				AC85F3E4219E3526007765CA /* FoodsTableViewController.swift in Sources */,
 				3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */,

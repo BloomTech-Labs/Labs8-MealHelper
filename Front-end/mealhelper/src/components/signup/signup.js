@@ -17,10 +17,16 @@ class SignUp extends Component {
       password: "",
       zip: null,
       healthCondition: "",
-      visable: false
+      visable: false,
+      visableError: false
     };
+    this.confirmSignup = this.confirmSignup.bind(this);
   }
-
+  componentDidMount = () => {
+    if (localStorage.getItem("token")) {
+      this.props.history.push("/homepage");
+    }
+  };
   handleChange = event => {
     event.preventDefault();
     this.setState({
@@ -28,43 +34,46 @@ class SignUp extends Component {
     });
   };
 
-  signupp = event => {
-    if (localStorage.getItem("token") !== undefined) {
-      this.props.history.push("/homepage");
-    } else {
-      setTimeout(() => {
-        this.signupp();
-      }, 6000);
-    }
+  toggleVisability = () => {
+    this.setState({ visableError: false, visable: false });
   };
-
   loggin = event => {
-    if (localStorage.getItem("token") !== undefined) {
-      this.props.history.push("/homepage");
+    console.log(localStorage.getItem("token"));
+    if (!localStorage.getItem("token")) {
+      this.setState({ visableError: true });
+      setTimeout(this.toggleVisability, 3000);
     } else {
-      setTimeout(() => {
-        this.loggin();
-      }, 6000);
+      this.props.history.push("/homepage");
     }
   };
-
+  async confirmSignup() {
+    const confirmed = await this.createUser();
+    setTimeout(this.loggin, 4000);
+  }
   createUser = event => {
-    event.preventDefault();
     if (!this.state.email || !this.state.password) {
       this.setState({ visable: true });
+      setTimeout(this.toggleVisability, 3000);
     } else {
       const { email, password, zip, healthCondition } = this.state;
       const user = { email, password, zip, healthCondition };
       this.props.addUser(user);
-      setTimeout(() => {
-        this.signupp();
-      }, 6000);
     }
   };
 
   render() {
     return (
       <div className="main-container">
+        <div className="alert-box3">
+          <Alert isOpen={this.state.visableError} color="danger">
+            Error Creating User, please try again
+          </Alert>
+        </div>
+        <div className="alert-box3">
+          <Alert isOpen={this.state.visable} color="danger">
+            Please enter an email
+          </Alert>
+        </div>
         <div className="formcenter">
           <div className="user-form-container">
             <h1 className="signup-title">Sign Up</h1>
@@ -117,29 +126,25 @@ class SignUp extends Component {
                 />
                 <label htmlFor="dynamic-label-input">Health Condition</label>
               </div>
-              <div className="signup signup-two" onClick={this.createUser}>
+              <div className="signup signup-two" onClick={this.confirmSignup}>
                 <span>Sign Up</span>
               </div>
               <div className="auth">
                 <p className="signuptext">Already have an account?</p>
               </div>
-              <div className="existinguser">
-                <Link to="/login">
-                  <button className="login-button">
+              <Link to="/login">
+                <div className="signup signup-two">
+                  <button className="buttons">
                     <span>Login</span>
                   </button>
-                </Link>
-                <p className="signuptext">Or</p>
-              </div>
-              <div className="alert-box">
-                <Alert isOpen={this.state.visable} color="danger">
-                  Please enter an email
-                </Alert>
-              </div>
+                </div>
+              </Link>
+              <p className="signuptext">- Or -</p>
             </form>
-
-            <Sign />
-            <Route exact path="/callback" component={Callback} />
+            <div>
+              <Sign />
+              <Route exact path="/callback" component={Callback} />
+            </div>
           </div>
         </div>
       </div>

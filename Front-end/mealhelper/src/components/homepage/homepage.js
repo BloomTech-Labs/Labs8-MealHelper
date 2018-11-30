@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
 import "./homepage.css";
+import MealDisplay from "./MealDisplay.js";
+import RecipeDisplay from "./RecipeDisplay.js";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
@@ -36,8 +39,42 @@ class HomePage extends Component {
       zip: null,
       healthCondition: "",
       visable: false,
-      modal: false
+      modal: false,
+      meals: [],
+      recipes: []
     };
+  }
+
+  componentDidMount = () => {
+    if (localStorage.getItem("token")) {
+      const id = this.props.user.userID;
+      axios
+        .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
+        .then(recipess => {
+          this.setState({ recipes: recipess.data });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      this.componentGetMeals();
+    } else {
+      this.props.history.push("/");
+    }
+  };
+
+  componentGetMeals() {
+    console.log(this.state.recipes);
+    const id = this.props.user.userID;
+    axios
+      .get(`https://labs8-meal-helper.herokuapp.com/users/${id}/meals`)
+      .then(meals => {
+        console.log(meals);
+        this.setState({ meals: meals.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    console.log(this.state.meals);
   }
 
   handleChange = event => {
@@ -72,7 +109,7 @@ class HomePage extends Component {
 
   render() {
     return (
-      <div className="home-container">
+      <div className="home-container-home">
         <div className="sidebar">
           <Link to="/homepage" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Home</h2>
@@ -89,7 +126,7 @@ class HomePage extends Component {
           <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Billing</h2>
           </Link>
-          <Link to="/homepage/settings/:id" style={{ textDecoration: "none" }}>
+          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Settings</h2>
           </Link>
           <Button color="danger" onClick={this.toggle}>
@@ -109,7 +146,58 @@ class HomePage extends Component {
             </div>
           </StripeProvider> */}
         </div>
-        <div className="dynamic-display">
+        <div className="flex-me">
+          <div className="dynamic-display-home-meals">
+            <p className="recentMeals">4 Most Recently Made Meals: </p>
+          </div>
+          <div className="dynamic-display-home">
+            <div className="mealsRecipe-Container">
+              <div>
+                <div className="mealDisplay-Flex">
+                  {this.state.meals
+                    .reverse()
+                    .slice(0, 4)
+
+                    .map(meal => (
+                      <MealDisplay
+                        key={meal.id}
+                        meal={meal}
+                        mealTime={meal.mealTime}
+                        temp={meal.temp}
+                        experience={meal.experience}
+                        date={meal.date}
+                        city={meal.name}
+                      />
+                    ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="dynamic-display-home-meals">
+            <p className="recentMeals">4 Most Recently Made Recipes: </p>
+          </div>
+          <div className="dynamic-display-home">
+            <div className="mealsRecipe-Container">
+              <div>
+                <div className="mealDisplay-Flex">
+                  {this.state.recipes
+                    .reverse()
+                    .slice(0, 4)
+
+                    .map(recipe => (
+                      <RecipeDisplay
+                        key={recipe.id}
+                        recipe={recipe}
+                        servings={recipe.servings}
+                        calories={recipe.calories}
+                        name={recipe.name}
+                      />
+                    ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
           <Switch>
             <Route path="/homepage/weather" render={() => <Weather />} />
             <Route exact path="/homepage/recipes" render={() => <Recipes />} />
@@ -153,7 +241,8 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.userReducer.user,
+  meals: state.mealsReducer.meals
 });
 
 export default connect(

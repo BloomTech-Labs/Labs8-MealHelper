@@ -13,28 +13,30 @@ function Sign(props) {
   };
 
   return (
-    <nav className="navbar">
+    <nav className="nah">
       {!auth0Client.isAuthenticated() && (
         <button className="authlogos" onClick={auth0Client.signIn}>
-          <img src={Facelogo} className="authlogo1" alt="Facebook" />
+          <p className="login-with">Login</p>
+          <p className="login-with-2">With</p>
           <img src={Googlogo} className="authlogo2" alt="Google" />
         </button>
       )}
-      {auth0Client.isAuthenticated() && (
-        <div>
-          <label className="mr-2 text-black">
-            {auth0Client.getProfile().name}
-          </label>
-          <button
-            className="btn btn-dark"
-            onClick={() => {
-              signOut();
-            }}
-          >
-            Sign Out
-          </button>
-        </div>
-      )}
+      {auth0Client.isAuthenticated() &&
+        localStorage.getItem("token")(
+          <div>
+            <label className="mr-2 text-black">
+              {auth0Client.getProfile().name}
+            </label>
+            <button
+              className="btn btn-dark"
+              onClick={() => {
+                signOut();
+              }}
+            >
+              Sign Out
+            </button>
+          </div>
+        )}
     </nav>
   );
 }

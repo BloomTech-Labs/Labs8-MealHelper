@@ -26,7 +26,7 @@ export const nutrientsReducer = (state = initialState, action) => {
       return {
         ...state,
         addingNutrients: false,
-        nutrients: [...this.state.nutrients, action.payload]
+        nutrients: action.payload
       };
     case ADDING_NUTRIENT_ERROR:
       //Shoots off if there is an error creating a new recipe
