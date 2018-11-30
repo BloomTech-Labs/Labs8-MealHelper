@@ -43,6 +43,20 @@ class FoodClient {
         
     }
     
+    func fetchIngredients(with recipeId: Int, completion: @escaping (Response<[Ingredient]>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["ingredients", userId])
+        
+        fetch(from: url, completion: completion)
+        
+    }
+    
+    func fetchNutrients(with ingredientId: Int, completion: @escaping (Response<[Nutrient]>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["nutrients", String(ingredientId)])
+        
+        fetch(from: url, completion: completion)
+        
+    }
+    
     func postMeal(name: String, mealTime: String, date: String, temp: Double, completion: @escaping (Response<Int>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["users", userId, "meals"])
         let reqBody = [
@@ -314,6 +328,7 @@ class FoodClient {
             if response == "1" {
                 completion(Response.success(response))
             } else {
+                NSLog("Error deleting food item")
                 completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
             }
             

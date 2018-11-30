@@ -258,6 +258,14 @@ class EditRecipeViewController: SaveRecipeViewController {
         title = "Edit Recipe"
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let ingredients = ingredients else { return }
+        
+        ingredients.forEach { addNutrients(to: $0) }
+    }
+    
     override func saveRecipe(with name: String, calories: Int, servings: Int, completion: @escaping (Recipe?) -> ()) {
         FoodClient.shared.postRecipe(name: name, calories: calories, servings: servings) { (response) in
             switch response {
@@ -277,4 +285,24 @@ class EditRecipeViewController: SaveRecipeViewController {
         }
     }
     
+    func addNutrients(to ingredient: Ingredient) -> Ingredient? {
+        var updatedIngredient = ingredient
+        
+        guard let ingredientId = ingredient.identifier else { return nil }
+        
+        FoodClient.shared.fetchNutrients(with: ingredientId) { (response) in
+            switch response {
+            case .success(let nutrients):
+                DispatchQueue.main.async {
+                    updatedIngredient.nutrients = nutrients
+                }
+            case .error(let error):
+                print(error)
+                // Handle error in UI
+                break
+            }
+        }
+        
+        return updatedIngredient
+    }
 }
