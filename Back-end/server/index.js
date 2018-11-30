@@ -1103,8 +1103,16 @@ server.delete("/alarms/:id", (req, res) => {
     .where({ id: id })
     .del()
     .then(deleted => {
-      //Returns a 1 for deleted or a 0 for not.
-      res.status(200).json(deleted);
+      db("alarms")
+        //Finds the alarms associated to that user
+        .where({ user_id: user_ID })
+        .then(alarms => {
+          //Returns the alarms for that user
+          res.status(200).json(alarms);
+        })
+        .catch(err => {
+          res.status(400).json({ error: "could not find the alarms" });
+        });
     })
     .catch(err => {
       res.status(400).json({ error: "Error deleting alarm" });
