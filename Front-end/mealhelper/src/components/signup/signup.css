@@ -21,7 +21,7 @@ a {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.8));
+  background: linear-gradient(rgba(20, 20, 20, 0.93), rgba(20, 20, 20, 0.93));
   width: 675px;
   height: 840px;
   margin-left: 34px;
@@ -32,7 +32,7 @@ a {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.8));
+  background: linear-gradient(rgba(20, 20, 20, 0.93), rgba(20, 20, 20, 0.93));
   width: 675px;
   height: 680px;
 

@@ -14,7 +14,7 @@
   padding-bottom: 50px;
 }
 .landpage-content {
-  background: linear-gradient(rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.8));
+  background: linear-gradient(rgba(20, 20, 20, 0.93), rgba(20, 20, 20, 0.93));
   color: rgb(226, 213, 35);
   border: 1px solid;
   padding: 10px;
@@ -54,7 +54,7 @@
   margin: 6px;
   color: rgb(192, 181, 31);
   border: 1px solid rgb(192, 181, 31);
-  background: linear-gradient(rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.8));
+  background: linear-gradient(rgba(20, 20, 20, 0.93), rgba(20, 20, 20, 0.93));
 }
 
 .signup-button:focus {
