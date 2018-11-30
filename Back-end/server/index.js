@@ -228,7 +228,7 @@ server.put("/users/password/:id", (req, res) => {
     .first()
     .then(user => {
       //Checking old password to verify it is correct
-      if (user && bcrypt.compareSync(credentials.password, user.password)) {
+      if (user && bcrypt.compareSync(credentials.oldpassword, user.password)) {
         //Hashing the new password to be stored in DB (NOTE: its named newpassword not password)
         const hash = bcrypt.hashSync(credentials.newpassword, 15);
         //Sets the newpassword method to the hash to be stored

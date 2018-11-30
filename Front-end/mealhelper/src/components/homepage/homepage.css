@@ -35,6 +35,17 @@
   padding-top: 25px;
   width: 100%;
 }
+.editSettingsPassword {
+  padding-top: 25px;
+  width: 100%;
+  display: flex;
+  width: 75%;
+  padding-left: 1%;
+}
+.editsettingstext {
+  color: white;
+  font-weight: bolder;
+}
 .email-input {
   margin-right: 5%;
 }

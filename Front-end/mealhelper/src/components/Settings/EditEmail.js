@@ -41,6 +41,7 @@ class EditEmail extends Component {
       visable: false,
       modal: false
     };
+    this.confirmChange = this.confirmChange.bind(this);
   }
 
   componentDidMount = () => {
@@ -54,7 +55,15 @@ class EditEmail extends Component {
         console.log(err);
       });
   };
-
+  goHome = () => {
+    if (this.state.updated === true) {
+      this.props.history.push("/homepage");
+    }
+  };
+  async confirmChange() {
+    const confirmed = await this.changeEmail();
+    setTimeout(this.goHome, 8000);
+  }
   handleChange = event => {
     event.preventDefault();
     this.setState({
@@ -65,7 +74,6 @@ class EditEmail extends Component {
     this.setState({ visable: false });
   };
   changeEmail = event => {
-    event.preventDefault();
     if (!this.state.email || !this.state.password) {
       this.setState({ visable: true });
       setTimeout(this.toggleVisability, 3000);
@@ -165,7 +173,7 @@ class EditEmail extends Component {
               <label htmlFor="dynamic-label-input">Password</label>
             </form>
 
-            <div className="buttons-settings" onClick={this.changeEmail}>
+            <div className="buttons-settings" onClick={this.confirmChange}>
               <span>Submit</span>
             </div>
           </div>

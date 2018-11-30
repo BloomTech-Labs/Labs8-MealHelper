@@ -33,6 +33,7 @@ import Sign from "./components/Sign";
 import "./App.css";
 import LandingPage from "./components/landingpage/landingpage";
 import EditEmail from "./components/Settings/EditEmail";
+import EditPassword from "./components/Settings/EditPassword";
 
 class App extends Component {
   render() {
@@ -91,6 +92,10 @@ class App extends Component {
             render={() => <SettingsMain />}
           />
           <Route path="/homepage/settings/email" render={() => <EditEmail />} />
+          <Route
+            path="/homepage/settings/password"
+            render={() => <EditPassword />}
+          />
         </Switch>
       </div>
     );
