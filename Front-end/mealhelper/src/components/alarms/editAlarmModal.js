@@ -7,7 +7,6 @@ export default class Modal extends React.Component {
         }
         return (
             <div className="edit-modal">
-            <h1>in updateAlarm</h1>
                 {this.props.children}
             </div>
         )
