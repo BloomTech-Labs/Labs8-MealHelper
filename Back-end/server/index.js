@@ -308,8 +308,13 @@ server.post("/users/:userid/meals", (req, res) => {
   db("mealList")
     .insert(meal)
     .then(mealID => {
-      //Returns the meal ID
-      res.status(200).json(mealID);
+      db("mealList")
+        //Finds the corrosponding meals based on user ID
+        .where({ user_id: user_id })
+        .then(meal => {
+          //Returns all the meals from that user
+          res.status(200).json(meal);
+        });
     })
     .catch(err => {
       res.status(400).json({ msg: err, error: "Error creating a new meal." });
@@ -411,7 +416,7 @@ server.get("/recipe", (req, res) => {
     });
 });
 //GET request to grab all recipes made by a specific user
-server.get("/recipe/:userid", (req, res) => {
+server.get("/recipe/user/:userid", (req, res) => {
   const userId = req.params.userid;
   db("recipe")
     //Finds the corrosponding recipes based on user ID
@@ -428,17 +433,25 @@ server.get("/recipe/:userid", (req, res) => {
 server.post("/recipe/:userid", (req, res) => {
   //grabs the user id from the req.params
   const user_id = req.params.userid;
-  const { meal_id, name, calories, servings, ingredients_id } = req.body;
+  const { name, calories, servings } = req.body;
   //Grabs the associated data from req.body and sets it as a JSON to recipe
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-  const recipe = { meal_id, name, user_id, calories, servings, ingredients_id };
+  const recipe = { name, user_id, calories, servings };
   console.log(recipe);
 
   db("recipe")
     .insert(recipe)
     .then(recipeID => {
-      //Returns the meal ID
-      res.status(200).json(recipeID);
+      db("recipe")
+        //Finds the corrosponding recipes based on user ID
+        .where({ user_id: user_id })
+        .then(meal => {
+          //Returns all the recipes from that user
+          res.status(200).json(meal);
+        })
+        .catch(err => {
+          res.status(400).json({ err, error: "could not find meal" });
+        });
     })
     .catch(err => {
       res.status(400).json({ err, error: "Error creating a new meal." });
@@ -522,10 +535,10 @@ server.post("/ingredients/:userid", (req, res) => {
   //grabs the user id from the req.params
   const user_id = req.params.userid;
   const ndb_id = req.body.ndbno;
-  const { name } = req.body;
+  const { name, recipe_id } = req.body;
   //Grabs the associated data from req.body and sets it as a JSON to recipe
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-  const ingredient = { name, ndb_id, user_id };
+  const ingredient = { name, ndb_id, user_id, recipe_id };
   console.log(ingredient);
   db("ingredients")
     .insert(ingredient)

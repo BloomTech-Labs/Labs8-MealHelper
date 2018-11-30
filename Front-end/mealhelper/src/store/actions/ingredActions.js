@@ -13,11 +13,14 @@ export const GETTING_INGREDIENT_ERROR = "GETTING_INGREDIENT_ERROR";
 export const addMultipleIngredients = (
   ingredient,
   userId,
-  countIngredients
+  countIngredients,
+  recipe_id
 ) => dispatch => {
   for (let i = 0; i < countIngredients; i++) {
     dispatch({ type: ADDING_INGREDIENT });
     const id = userId;
+
+    ingredient[i]["recipe_id"] = recipe_id;
     console.log(ingredient[i]);
     const promise = axios.post(
       `https://labs8-meal-helper.herokuapp.com/ingredients/${id}`,

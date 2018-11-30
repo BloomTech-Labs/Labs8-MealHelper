@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 //change the route for this
 import { addMultipleIngredients } from "../../store/actions/ingredActions.js";
 import { addMultipleNutrients } from "../../store/actions/nutrientsActions";
+import { addRecipe } from "../../store/actions/recipeActions";
 import { withRouter, Link, Route } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import { Button } from "reactstrap";
@@ -18,6 +19,8 @@ class Nutrients extends Component {
       selectedFoods: [],
       nutrients: []
     };
+    this.saveRecipe = this.saveRecipe.bind(this);
+    this.saveRecipeIngredients = this.saveRecipeIngredients.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     this.setState({ selectedFoods: nextProps.selectedFoods });
@@ -47,22 +50,42 @@ class Nutrients extends Component {
         });
     });
   };
-  saveRecipe = event => {
+  async saveRecipe(event, props) {
     event.preventDefault();
+    const { name, calories, servings } = this.props;
+    const recipe = { name, calories, servings };
+    const data = await this.props.addRecipe(recipe, this.props.user.userID);
+    console.log(data);
+    // console.log("this is the count of ingredients array", countIngredients);
+    this.saveRecipeIngredients();
+  }
+
+  async saveRecipeIngredients(props) {
+    let countIngredients = this.state.selectedFoods.length;
+    let recipe_ids = this.props.recipes.pop();
+    console.log(recipe_ids);
+    const data = await this.props.addMultipleIngredients(
+      this.state.selectedFoods,
+      this.props.user.userID,
+      countIngredients,
+      recipe_ids.id
+    );
+    console.log(data);
+
+    this.saveRecipeNutrition();
+  }
+
+  saveRecipeNutrition = () => {
     const nutrients = this.state.nutrients.map(nutrient => {
       return nutrient.nutrients;
     });
-    console.log(nutrients.length);
     let countNutrients = nutrients.length;
-    let countIngredients = this.state.selectedFoods.length;
-    console.log("this is the count of ingredients array", countIngredients);
-    this.props.addMultipleIngredients(
-      this.state.selectedFoods,
+    this.props.addMultipleNutrients(
+      nutrients,
       this.props.user.userID,
-      countIngredients
+      countNutrients,
+      this.props.ingredients
     );
-    console.log(this.props.ingredients);
-    // this.props.addMultipleNutrients(nutrients, this.props.user.userID, count, this.props.ingredients);
   };
   removeFoodItem = itemIndex => {
     const filteredFoods = this.state.nutrients.filter(
@@ -185,6 +208,7 @@ const mapStateToProps = state => {
   return {
     user: state.userReducer.user,
     meals: state.mealsReducer.meals,
+    recipes: state.recipesReducer.recipes,
     ingredients: state.ingredsReducer.ingredient,
     nutrients: state.nutrientsReducer.nutrients
   };
@@ -192,5 +216,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { addMultipleNutrients, addMultipleIngredients }
+  { addRecipe, addMultipleNutrients, addMultipleIngredients }
 )(withRouter(Nutrients));
