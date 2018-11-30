@@ -16,7 +16,7 @@ import {
   CHANGED_USER,
   CHANGING_USER_ERROR
 } from "../actions/userActions";
-import axios from "axios";
+// import axios from "axios";
 
 let initialState = {
   user: [],

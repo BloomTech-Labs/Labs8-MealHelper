@@ -13,10 +13,11 @@ import {
 } from "reactstrap";
 //change the route for this
 import { addMeal } from "../../store/actions/mealActions";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 // import { Alert } from "reactstrap";
-import Recipes from "../recipes/recipes";
+// import Recipes from "../recipes/recipes";
 import axios from "axios";
+import SideBar from "../sidebar/sidebar";
 
 class Meals extends Component {
   constructor(props) {
@@ -176,29 +177,7 @@ class Meals extends Component {
   render() {
     return (
       <div className="home-container">
-        <div className="sidebar">
-          <Link to="/homepage" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Home</h2>
-          </Link>
-          <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Recipes</h2>
-          </Link>
-          <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Alarms</h2>
-          </Link>
-          <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Meals</h2>
-          </Link>
-          <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Billing</h2>
-          </Link>
-          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Settings</h2>
-          </Link>
-          <Button color="danger" onClick={this.toggleLogout}>
-            Log Out
-          </Button>
-        </div>
+        <SideBar />
         <div>
           <Button color="success" onClick={this.toggle}>
             + New Meal
@@ -322,15 +301,18 @@ class Meals extends Component {
             </ModalFooter>
           </Modal>
         </div>
+        //{" "}
         <div className="mealList-Display">
+          //{" "}
           {/* {this.state.meals.map(meal => (
-						<OneMeal
-							meal={meal}
-							mealTime={meal.mealTime}
-							experience={meal.experience}
-							date={meal.date}
-						/>
-					))} */}
+				// 		<OneMeal
+				// 			meal={meal}
+				// 			mealTime={meal.mealTime}
+				// 			experience={meal.experience}
+				// 			date={meal.date}
+				// 		/>
+				// 	))} */}
+          //{" "}
         </div>
         <Modal
           isOpen={this.state.modalLogout}

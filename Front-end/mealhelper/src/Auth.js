@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import auth0 from "auth0-js";
 import { connect } from "react-redux";
 //change the route for this

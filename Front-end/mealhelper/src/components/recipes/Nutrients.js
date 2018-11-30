@@ -4,11 +4,10 @@ import { connect } from "react-redux";
 import { addMultipleIngredients } from "../../store/actions/ingredActions.js";
 import { addMultipleNutrients } from "../../store/actions/nutrientsActions";
 import { addRecipe } from "../../store/actions/recipeActions";
-import { withRouter, Link, Route } from "react-router-dom";
-// import { Alert } from "reactstrap";
+import { withRouter } from "react-router-dom";
 import { Button } from "reactstrap";
 import axios from "axios";
-import Recipe from "./recipe";
+// import Recipe from "./recipe";
 import "./recipes.css";
 
 class Nutrients extends Component {
