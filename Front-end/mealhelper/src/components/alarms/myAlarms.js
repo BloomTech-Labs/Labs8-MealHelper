@@ -104,6 +104,11 @@ class MyAlarms extends Component {
     console.log(this.state.label);
  };
 
+  componentWillReceiveProps(nextProps) {
+    console.log("CWRP THIS.PROPS.ALARMS", this.props.alarms)
+    console.log("CWRP NEXT PROPS", nextProps)
+  }
+
  handleChange = event => {
   event.preventDefault();
   this.setState({
@@ -111,19 +116,20 @@ class MyAlarms extends Component {
   });
 };
 
- sendToEdit(label) {
+ sendToEdit(labelChange) {
   
   this.setState(prevState => ({
     ...this.state,
     alarmToUpdate: {
       ...prevState.alarmToUpdate,
-      label: label
+      label: labelChange
     }
-   }), 
-   () => this.props.updateAlarm(this.state.alarmToUpdate),
-   () => console.log("send to Edit, alarmToUpdate", this.state.alarmToUpdate) )
+   }))
+  const { label, alarm } = this.state.alarmToUpdate;
+  const alarmBody = { label, alarm };
+  console.log(alarmBody);
+this.props.updateAlarm(alarmBody);
 }
-
 
  showModal = (alarmID) => {
   // if (this.state.show) {
@@ -187,7 +193,7 @@ class MyAlarms extends Component {
               <h2>{alarm.alarm}</h2>
               <h2>{alarm.label}</h2>
               <button onClick={() => this.showModal(alarm.id)}> Edit </button>
-              <button onClick={() => this.props.deleteAlarm(alarm.id)}>Delete</button>
+              <button onClick={() => this.props.deleteAlarm(alarm.id, this.props.user.userID)}>Delete</button>
               </div>
               ))}
             

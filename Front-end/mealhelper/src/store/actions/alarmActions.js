@@ -61,11 +61,12 @@ export const addAlarms = alarms => dispatch => {
     });
 }
 
-export const deleteAlarm = id => dispatch => {
+export const deleteAlarm = (alarmID, userID) => dispatch => {
   dispatch({ type: DELETING_ALARM });
   axios
-    .delete(`https://labs8-meal-helper.herokuapp.com/alarms/${id}`)
+    .delete(`https://labs8-meal-helper.herokuapp.com/alarms/${alarmID}/user/${userID}`)
     .then(response => {
+      console.log("RESPONSE.DATA", response.data)
       dispatch({ type: DELETED_ALARM, payload: response.data });
     })
     .catch(err => {

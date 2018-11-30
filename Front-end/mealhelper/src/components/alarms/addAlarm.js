@@ -53,11 +53,6 @@ class AddAlarms extends Component {
 
   addAlarm = event => {
     event.preventDefault();
-    console.log("hello!");
-    console.log("start time", this.state.beginTime);
-    console.log("end time", this.state.endTime);
-    console.log("hours between", this.state.repeats);
-
     console.log("THIS.PROPS", this.props);
     console.log("THIS.PROPS.USER", this.props.user)
    const user_id = this.props.user.userID;
