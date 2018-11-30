@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 // import "./homepage.css";
-import MealDisplay from "../homepage/MealDisplay";
-import RecipeDisplay from "../homepage/RecipeDisplay";
+import MealDisplay from "../display/MealDisplay";
+import RecipeDisplay from "../display/RecipeDisplay";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";

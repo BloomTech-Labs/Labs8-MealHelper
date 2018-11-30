@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import "./homepage.css";
-// import MealDisplay from "../display/MealDisplay.js";
-// import RecipeDisplay from "../display/RecipeDisplay.js";
+import "../homepage/homepage.css";
+import MealDisplay from "./MealDisplay";
+import RecipeDisplay from "./RecipeDisplay";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
@@ -29,9 +29,8 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../checkout/CheckoutForm";
 import Billing from "../billing/billing";
 import SideBar from "../sidebar/sidebar";
-import Display from "../display/display";
 
-class HomePage extends Component {
+class Display extends Component {
   constructor(props) {
     super(props);
 
@@ -111,9 +110,56 @@ class HomePage extends Component {
 
   render() {
     return (
-      <div className="home-container-home">
-        <SideBar />
-        <Display />
+      <div className="flex-me">
+        <div className="dynamic-display-home-meals">
+          <p className="recentMeals">4 Most Recently Made Meals: </p>
+        </div>
+        <div className="dynamic-display-home">
+          <div className="mealsRecipe-Container">
+            <div>
+              <div className="mealDisplay-Flex">
+                {this.state.meals
+                  .reverse()
+                  .slice(0, 4)
+
+                  .map(meal => (
+                    <MealDisplay
+                      key={meal.id}
+                      meal={meal}
+                      mealTime={meal.mealTime}
+                      temp={meal.temp}
+                      experience={meal.experience}
+                      date={meal.date}
+                      city={meal.name}
+                    />
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="dynamic-display-home-meals">
+          <p className="recentMeals">4 Most Recently Made Recipes: </p>
+        </div>
+        <div className="dynamic-display-home">
+          <div className="mealsRecipe-Container">
+            <div>
+              <div className="mealDisplay-Flex">
+                {this.state.recipes
+                  .reverse()
+                  .slice(0, 4)
+                  .map(recipe => (
+                    <RecipeDisplay
+                      key={recipe.id}
+                      recipe={recipe}
+                      servings={recipe.servings}
+                      calories={recipe.calories}
+                      name={recipe.name}
+                    />
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -127,4 +173,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { addUser }
-)(withRouter(HomePage));
+)(withRouter(Display));
