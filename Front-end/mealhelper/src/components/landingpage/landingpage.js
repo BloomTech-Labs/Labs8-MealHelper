@@ -21,7 +21,11 @@ class Landingpage extends Component {
       visable: false
     };
   }
-
+  componentDidMount = () => {
+    if (localStorage.getItem("token")) {
+      this.props.history.push("/homepage");
+    }
+  };
   handleChange = event => {
     event.preventDefault();
     this.setState({

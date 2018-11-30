@@ -19,6 +19,11 @@ class Login extends Component {
     };
     this.confirmLogin = this.confirmLogin.bind(this);
   }
+  componentDidMount = () => {
+    if (localStorage.getItem("token")) {
+      this.props.history.push("/homepage");
+    }
+  };
 
   handleChange = event => {
     event.preventDefault();

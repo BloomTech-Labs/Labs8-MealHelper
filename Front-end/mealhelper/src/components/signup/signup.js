@@ -22,7 +22,11 @@ class SignUp extends Component {
     };
     this.confirmSignup = this.confirmSignup.bind(this);
   }
-
+  componentDidMount = () => {
+    if (localStorage.getItem("token")) {
+      this.props.history.push("/homepage");
+    }
+  };
   handleChange = event => {
     event.preventDefault();
     this.setState({
