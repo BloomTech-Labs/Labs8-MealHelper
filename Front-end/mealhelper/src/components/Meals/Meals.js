@@ -301,10 +301,9 @@ class Meals extends Component {
             </ModalFooter>
           </Modal>
         </div>
-        //{" "}
-        <div className="mealList-Display">
-          //{" "}
-          {/* {this.state.meals.map(meal => (
+
+        {/* <div className="mealList-Display"> */}
+        {/* {this.state.meals.map(meal => (
 				// 		<OneMeal
 				// 			meal={meal}
 				// 			mealTime={meal.mealTime}
@@ -312,8 +311,7 @@ class Meals extends Component {
 				// 			date={meal.date}
 				// 		/>
 				// 	))} */}
-          //{" "}
-        </div>
+        {/* </div> */}
         <Modal
           isOpen={this.state.modalLogout}
           toggle={this.toggleLogout}
