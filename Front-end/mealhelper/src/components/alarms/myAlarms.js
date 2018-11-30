@@ -13,8 +13,12 @@ class MyAlarms extends Component {
   }
 
   componentDidMount() {
-    //establish user id
-    //get alarms
+    if (localStorage.getItem("token")) {
+      //establish user id
+      //get alarms
+    } else {
+      this.props.history.push("/");
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -25,9 +29,7 @@ class MyAlarms extends Component {
     return (
       <div className="alarms-container">
         <div className="home-container">
-          <div className="sidebar">
-    {/* sidebar stuff */}
-          </div>
+          <div className="sidebar">{/* sidebar stuff */}</div>
 
           <div className="dynamic-display">
             {/* map out list of alarms */}
@@ -35,17 +37,15 @@ class MyAlarms extends Component {
           </div>
         </div>
       </div>
-      
-    )
+    );
   }
-  
 }
 
 const mapStateToProps = state => ({
   // state to be mapped
-})
+});
 
 export default connect(
-  mapStateToProps,
+  mapStateToProps
   // alarm action
 )(withRouter(MyAlarms));

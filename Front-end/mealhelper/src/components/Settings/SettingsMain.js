@@ -43,15 +43,19 @@ class SettingsMain extends Component {
   }
 
   componentDidMount = () => {
-    const id = this.props.user.userID;
-    axios
-      .get(`https://labs8-meal-helper.herokuapp.com/users/${id}`)
-      .then(user => {
-        this.setState({ user: user.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (localStorage.getItem("token")) {
+      const id = this.props.user.userID;
+      axios
+        .get(`https://labs8-meal-helper.herokuapp.com/users/${id}`)
+        .then(user => {
+          this.setState({ user: user.data });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      this.props.history.push("/");
+    }
   };
 
   handleChange = event => {

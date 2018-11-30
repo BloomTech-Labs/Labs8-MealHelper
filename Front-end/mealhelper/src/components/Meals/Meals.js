@@ -44,19 +44,22 @@ class Meals extends Component {
   }
   ///converted to Imperial measurement
   componentDidMount(props) {
-    console.log(this.props.user.zip);
-    const id = this.props.user.userID;
-    axios
-      .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
-      .then(recipess => {
-        this.setState({ recipes: recipess.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (localStorage.getItem("token")) {
+      const id = this.props.user.userID;
+      axios
+        .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
+        .then(recipess => {
+          this.setState({ recipes: recipess.data });
+        })
+        .catch(err => {
+          console.log(err);
+        });
 
-    this.setState({ zip: this.props.user.zip });
-    this.componentGetMeals();
+      this.setState({ zip: this.props.user.zip });
+      this.componentGetMeals();
+    } else {
+      this.props.history.push("/");
+    }
   }
 
   componentGetMeals() {

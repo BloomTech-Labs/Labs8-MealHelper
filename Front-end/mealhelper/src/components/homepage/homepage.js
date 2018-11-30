@@ -46,16 +46,20 @@ class HomePage extends Component {
   }
 
   componentDidMount = () => {
-    const id = this.props.user.userID;
-    axios
-      .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
-      .then(recipess => {
-        this.setState({ recipes: recipess.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    this.componentGetMeals();
+    if (localStorage.getItem("token")) {
+      const id = this.props.user.userID;
+      axios
+        .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
+        .then(recipess => {
+          this.setState({ recipes: recipess.data });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      this.componentGetMeals();
+    } else {
+      this.props.history.push("/");
+    }
   };
 
   componentGetMeals() {
