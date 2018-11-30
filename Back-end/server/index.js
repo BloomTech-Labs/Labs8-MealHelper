@@ -1046,6 +1046,20 @@ server.get("/alarms/:userid", (req, res) => {
       res.status(400).json({ error: "could not find the alarms" });
     });
 });
+
+server.get("/alarms/:userid/:alarmid", (req, res) => {
+  const user_ID = req.params.userid;
+  const alarm_ID = req.params.alarmid;
+  db("alarms")
+    .where({ id: alarm_ID, user_id: user_ID })
+    .then(alarm => {
+      res.status(200).json(alarm);
+    })
+    .catch(err => {
+      res.status(400).json({ error: "could not find the alarm with that id" });
+    })
+})
+
 //POST req to create a alarm for the user
 server.post("/alarms/:userid", (req, res) => {
   //Grabs the user id from req.params
@@ -1080,7 +1094,7 @@ server.put("/alarms/:id", (req, res) => {
   // Sets the req.body to an alarm object that gets passed into the update
   const alarmBody = { label, alarm };
   db("alarms")
-    .where({ id: id })
+		.where({ id: id })
     .update({
       label: alarmBody.label,
       alarm: alarmBody.alarm
