@@ -301,7 +301,6 @@ class Meals extends Component {
             </ModalFooter>
           </Modal>
         </div>
-
         {/* <div className="mealList-Display"> */}
         {/* {this.state.meals.map(meal => (
 				// 		<OneMeal
