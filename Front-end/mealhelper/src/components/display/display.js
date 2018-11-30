@@ -6,29 +6,29 @@ import MealDisplay from "./MealDisplay";
 import RecipeDisplay from "./RecipeDisplay";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route, Switch } from "react-router-dom";
-import { Alert } from "reactstrap";
-import Weather from "../weather/weather";
-import Recipes from "../recipes/recipes";
-import Meals from "../Meals/Meals";
-import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
-import AddAlarms from "../alarms/addAlarm";
-import MyAlarms from "../alarms/myAlarms";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
-import { Elements, StripeProvider } from "react-stripe-elements";
-import CheckoutForm from "../checkout/CheckoutForm";
-import Billing from "../billing/billing";
-import SideBar from "../sidebar/sidebar";
+import { withRouter } from "react-router-dom";
+// import { Alert } from "reactstrap";
+// import Weather from "../weather/weather";
+// import Recipes from "../recipes/recipes";
+// import Meals from "../Meals/Meals";
+// import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
+// import AddAlarms from "../alarms/addAlarm";
+// import MyAlarms from "../alarms/myAlarms";
+// import {
+//   Button,
+//   Modal,
+//   ModalHeader,
+//   ModalBody,
+//   ModalFooter,
+//   UncontrolledDropdown,
+//   DropdownToggle,
+//   DropdownMenu,
+//   DropdownItem
+// } from "reactstrap";
+// import { Elements, StripeProvider } from "react-stripe-elements";
+// import CheckoutForm from "../checkout/CheckoutForm";
+// import Billing from "../billing/billing";
+// import SideBar from "../sidebar/sidebar";
 
 class Display extends Component {
   constructor(props) {
