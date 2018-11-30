@@ -79,6 +79,7 @@ class MyAlarms extends Component {
     this.state = {
       show: false,
       alarmToUpdate: {
+        id: null,
         label: '',
         alarm: ''
       },
@@ -125,10 +126,11 @@ class MyAlarms extends Component {
       label: labelChange
     }
    }))
-  const { label, alarm } = this.state.alarmToUpdate;
-  const alarmBody = { label, alarm };
+  const { id, label, alarm } = this.state.alarmToUpdate;
+  const alarmBody = { id, label, alarm };
+  userID = this.props.user.userID;
   console.log(alarmBody);
-this.props.updateAlarm(alarmBody);
+this.props.updateAlarm(alarmBody, userID);
 }
 
  showModal = (alarmID) => {

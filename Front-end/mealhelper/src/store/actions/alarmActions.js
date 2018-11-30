@@ -74,14 +74,14 @@ export const deleteAlarm = (alarmID, userID) => dispatch => {
     });
 }
 
-export const updateAlarm = alarmToUpdate => dispatch => {
-  const id = alarmToUpdate.id;
-  const label = alarmToUpdate.label;
-  const alarm = alarmToUpdate.alarm;
+export const updateAlarm = (alarmBody, userID) => dispatch => {
+  const alarmID = alarmBody.id;
+  const label = alarmBody.label;
+  const alarm = alarmBody.alarm;
   const updatedAlarm = { label, alarm };
   dispatch({ type: UPDATING_ALARM });
   axios
-    .put( `https://labs8-meal-helper.herokuapp.com/alarms/${id}`, updatedAlarm)
+    .put(`https://labs8-meal-helper.herokuapp.com/alarms/${alarmID}/user/${userID}`, updatedAlarm)
     .then(response => {
       dispatch({ type: UPDATED_ALARM, payload: response.data });
     })
