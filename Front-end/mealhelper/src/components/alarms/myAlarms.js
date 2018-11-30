@@ -190,7 +190,7 @@ class MyAlarms extends Component {
                 type="text"
                 value={this.state.alarmToUpdate.label}
                 name="label"
-                onChange={this.handleChange}></input>
+                onChange={() => this.handleChange}></input>
                  <Select
               options={options}
               className="time"
@@ -202,8 +202,8 @@ class MyAlarms extends Component {
                 }
               }))}
             />
-                <button onClick={this.props.updateAlarm(this.state.alarmToUpdate)}>Submit</button>
-                <button onClick={this.showModal}>Nevermind</button>
+                <button onClick={() => this.props.updateAlarm(this.state.alarmToUpdate)}>Submit</button>
+                <button onClick={() => this.showModal}>Nevermind</button>
                 </div>
             
             </editAlarmModal>
