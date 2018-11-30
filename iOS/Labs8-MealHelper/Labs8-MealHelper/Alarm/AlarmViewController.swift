@@ -40,8 +40,9 @@ class AlarmViewController: UIViewController {
         return view
     }()
     
-    let tableView: AlarmTableView = {
+    lazy var tableView: AlarmTableView = {
         let tv = AlarmTableView(frame: .zero, style: .plain)
+        tv.localNotificationHelper = self.localNotificationsHelper
         
         return tv
     }()

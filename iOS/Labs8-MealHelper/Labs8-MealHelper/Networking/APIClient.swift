@@ -12,6 +12,42 @@ class APIClient {
     
     static let shared = APIClient()
     
+    func deleteAlarm(with id: Int, completion: @escaping (Response<Int>) -> ()) {
+        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(id)")!
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = HTTPMethod.delete.rawValue
+        
+        URLSession.shared.dataTask(with: urlRequest) { (_, _, error) in
+            
+            if let error = error {
+                NSLog("Error deleting alarm: \(error)")
+                completion(Response.error(error))
+                return
+            }
+            
+            completion(Response.success(1))
+        }
+    }
+    
+    func editAlarm(with id: Int, completion: @escaping (Response<Int>) -> ()) {
+        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(id)")!
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = HTTPMethod.put.rawValue
+        
+        URLSession.shared.dataTask(with: urlRequest) { (_, _, error) in
+            
+            if let error = error {
+                NSLog("Error editing alarm: \(error)")
+                completion(Response.error(error))
+                return
+            }
+            
+            completion(Response.success(1))
+        }
+    }
+    
     func fetchAlarms(userId: Int, completion: @escaping (Response<[Alarm]>) -> ()) {
         let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(userId)")!
         

@@ -49,4 +49,14 @@ class LocalNotificationHelper
             }
         }
     }
+    
+    func deleteNotification(with id: Int) {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: ["\(id)"])
+    }
+    
+    func editNotification(with alarm: Alarm) {
+        
+        
+    }
 }

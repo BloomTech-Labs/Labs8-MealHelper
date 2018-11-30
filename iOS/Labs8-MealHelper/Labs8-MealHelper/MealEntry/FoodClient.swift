@@ -37,6 +37,10 @@ class FoodClient {
         
     }
     
+//    func fetchRecipe(for id: Int, completion: @escaping (Response<Recipe>) -> ()) {
+//        let url
+//    }
+    
     func fetchRecipes(completion: @escaping (Response<[Recipe]>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["recipe", userId])
         
