@@ -57,7 +57,7 @@ class FoodClient {
         
     }
     
-    func postRecipe(name: String, calories: Int, servings: Int, completion: @escaping (Response<Int>) -> ()) {
+    func postRecipe(name: String, calories: Int, servings: Int, completion: @escaping (Response<[Recipe]>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["recipe", userId])
         let reqBody = ["name": name, "calories": calories, "servings": servings] as [String : Any]
         
@@ -65,25 +65,17 @@ class FoodClient {
         
     }
     
-    func postIngredient(_ ingredient: Ingredient, completion: @escaping (Response<Int>) -> ()) {
+    func postIngredient(name: String, ndbno: String?, recipeId: Int?, completion: @escaping (Response<[Ingredient]>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["ingredients", userId])
-        let reqBody = ["name": ingredient.name, "ndbno": ingredient.nbdId]
+        let reqBody = ["name": name as Any, "ndbno": ndbno as Any, "recipe_id": recipeId as Any] as [String : Any]
         
         post(with: url, requestBody: reqBody, completion: completion)
         
     }
     
-    func putIngredient(withId ingredientId: Int, nutrientIds: [Int], completion: @escaping (Response<Int>) -> ()) {
-        let url = self.url(with: baseUrl, pathComponents: ["nutrients", "ingredients", String(ingredientId)])
-        let reqBody = ["ids": nutrientIds]
-        
-        post(with: url, requestBody: reqBody, completion: completion)
-        
-    }
-    
-    func postNutrient(_ nutrient: Nutrient, completion: @escaping (Response<Int>) -> ()) {
+    func postNutrient(_ nutrient: Nutrient, ingredientId: Int, completion: @escaping (Response<TempType>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["nutrients", userId])
-        let reqBody = ["name": nutrient.name, "unit": nutrient.unit, "value": nutrient.value] as [String : Any]
+        let reqBody = ["nutrient": nutrient.name, "nutrient_id": Int(nutrient.identifier)!, "unit": nutrient.unit, "value": Int(Double(nutrient.value)!), "ingredients_id": ingredientId] as [String : Any]
         
         post(with: url, requestBody: reqBody, completion: completion)
         
@@ -92,6 +84,14 @@ class FoodClient {
     func postNutrient(nutrientId: String, ingredientId: String, completion: @escaping (Response<Int>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["nutrients", ingredientId])
         let reqBody = ["id": nutrientId]
+        
+        post(with: url, requestBody: reqBody, completion: completion)
+        
+    }
+    
+    func putIngredient(withId ingredientId: Int, nutrientIds: [Int], completion: @escaping (Response<Int>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["nutrients", "ingredients", String(ingredientId)])
+        let reqBody = ["ids": nutrientIds]
         
         post(with: url, requestBody: reqBody, completion: completion)
         
@@ -316,7 +316,7 @@ class FoodClient {
             } else {
                 completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
             }
-                
+            
         }.resume()
     }
     
