@@ -111,11 +111,16 @@ class MyAlarms extends Component {
   });
 };
 
-//  sendToEdit(event, alarmID) {
-//   let userID = this.props.user.userID;
-//   let ids = { user_id: userID, alarmID };
-
-//  }
+ sendToEdit(label) {
+  
+  this.setState(prevState => ({
+    ...this.state,
+    alarmToUpdate: {
+      ...prevState.alarmToUpdate,
+      label: label
+    }
+   }, () => this.props.updateAlarm(this.state.alarmToUpdate)))
+}
 
  showModal = (alarmID) => {
   // if (this.state.show) {
@@ -188,10 +193,10 @@ class MyAlarms extends Component {
                 <div className="edit-modal">
                 <h2>Edit Alarm</h2>
                 <input
-                type="text"
-                value={this.state.label}
+                type="label"
                 name="label"
-                onChange={() => this.handleChange}></input>
+                value={this.state.label}
+                onChange={this.handleChange}></input>
                  <Select
               options={options}
               className="time"
@@ -203,7 +208,7 @@ class MyAlarms extends Component {
                 }
               }))}
             />
-                <button onClick={() => this.props.updateAlarm(this.state.alarmToUpdate)}>Submit</button>
+                <button onClick={() => this.sendToEdit(this.state.label)}>Submit</button>
                 <button onClick={() => this.showModal}>Nevermind</button>
                 </div>
             
