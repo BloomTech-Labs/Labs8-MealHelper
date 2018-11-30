@@ -36,6 +36,12 @@ class Billing extends Component {
       modal: false
     };
   }
+  componentDidMount = () => {
+    if (localStorage.getItem("token")) {
+    } else {
+      this.props.history.push("/");
+    }
+  };
 
   handleChange = event => {
     event.preventDefault();

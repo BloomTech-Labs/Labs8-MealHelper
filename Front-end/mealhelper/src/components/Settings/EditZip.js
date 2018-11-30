@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import "./homepage.css";
-import MealDisplay from "./MealDisplay.js";
-import RecipeDisplay from "./RecipeDisplay.js";
+import "../homepage/homepage";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
@@ -29,53 +27,33 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../checkout/CheckoutForm";
 import Billing from "../billing/billing";
 
-class HomePage extends Component {
+class EditZip extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: "",
-      password: "",
+      user: [],
+      updated: false,
+      visablePassword: false,
       zip: null,
-      healthCondition: "",
+      password: "",
       visable: false,
-      modal: false,
-      meals: [],
-      recipes: []
+      modal: false
     };
+    this.confirmChange = this.confirmChange.bind(this);
   }
 
   componentDidMount = () => {
-    if (localStorage.getItem("token")) {
-      const id = this.props.user.userID;
-      axios
-        .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
-        .then(recipess => {
-          this.setState({ recipes: recipess.data });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      this.componentGetMeals();
-    } else {
-      this.props.history.push("/");
-    }
-  };
-
-  componentGetMeals() {
-    console.log(this.state.recipes);
     const id = this.props.user.userID;
     axios
-      .get(`https://labs8-meal-helper.herokuapp.com/users/${id}/meals`)
-      .then(meals => {
-        console.log(meals);
-        this.setState({ meals: meals.data });
+      .get(`https://labs8-meal-helper.herokuapp.com/users/${id}`)
+      .then(user => {
+        this.setState({ user: user.data });
       })
       .catch(err => {
         console.log(err);
       });
-    console.log(this.state.meals);
-  }
+  };
 
   handleChange = event => {
     event.preventDefault();
@@ -83,18 +61,41 @@ class HomePage extends Component {
       [event.target.name]: event.target.value
     });
   };
-
-  createUser = event => {
-    event.preventDefault();
-    if (!this.state.email || !this.state.password) {
-      this.setState({ visable: true });
+  toggleVisability = () => {
+    this.setState({ visable: false, visablePassword: false });
+  };
+  goHome = () => {
+    if (this.state.updated === true) {
+      this.props.history.push("/homepage");
     } else {
-      const { email, password, zip, healthCondition } = this.state;
-      const user = { email, password, zip, healthCondition };
-      this.props.addUser(user);
+      alert("Error updating settins. Our server may be down.");
+    }
+  };
+  async confirmChange() {
+    const confirmed = await this.changeZip();
+    setTimeout(this.goHome, 8000);
+  }
+  changeZip = event => {
+    if (!this.state.zip || !this.state.password) {
+      this.setState({ visable: true });
+      setTimeout(this.toggleVisability, 3000);
+    } else {
+      const id = this.props.user.userID;
+      const { zip, password } = this.state;
+      const user = { zip, password };
+      axios
+        .put(
+          `https://labs8-meal-helper.herokuapp.com/users/password/${id}`,
+          user
+        )
+        .then(response => {
+          console.log(response);
+          this.setState({ updated: true });
+        });
       // this.props.history.push("/");
     }
   };
+
   toggle = () => {
     this.setState({
       modal: !this.state.modal
@@ -146,56 +147,52 @@ class HomePage extends Component {
             </div>
           </StripeProvider> */}
         </div>
-        <div className="flex-me">
-          <div className="dynamic-display-home-meals">
-            <p className="recentMeals">4 Most Recently Made Meals: </p>
-          </div>
-          <div className="dynamic-display-home">
-            <div className="mealsRecipe-Container">
-              <div>
-                <div className="mealDisplay-Flex">
-                  {this.state.meals
-                    .reverse()
-                    .slice(0, 4)
 
-                    .map(meal => (
-                      <MealDisplay
-                        key={meal.id}
-                        meal={meal}
-                        mealTime={meal.mealTime}
-                        temp={meal.temp}
-                        experience={meal.experience}
-                        date={meal.date}
-                        city={meal.name}
-                      />
-                    ))}
-                </div>
-              </div>
+        <div className="flex-me-settings">
+          <div className="dynamic-display-home-meals">
+            <p className="recentMeals">Change Password </p>
+          </div>
+
+          <div className="dynamic-display-home-settings">
+            <p className="recentMeals">Password </p>
+            <form className="editSettingsPassword">
+              <p className="editsettingstextZip">Zip </p>
+              <input
+                id="dynamic-label-input"
+                className="email-input"
+                type="number"
+                name="zip"
+                value={this.state.zip}
+                onChange={this.handleChange}
+                placeholder="New Zip"
+              />
+              <p className="editsettingstextZip"> Password </p>
+              <input
+                id="dynamic-label-input"
+                className="email-input"
+                type="password"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                placeholder="Password"
+              />
+              <label htmlFor="dynamic-label-input">Email</label>
+            </form>
+
+            <div className="buttons-settings" onClick={this.confirmChange}>
+              <span>Submit</span>
             </div>
           </div>
-          <div className="dynamic-display-home-meals">
-            <p className="recentMeals">4 Most Recently Made Recipes: </p>
+          <div className="alert-box2">
+            <Alert isOpen={this.state.visable} color="danger">
+              Please enter a zip and your password.
+            </Alert>
           </div>
-          <div className="dynamic-display-home">
-            <div className="mealsRecipe-Container">
-              <div>
-                <div className="mealDisplay-Flex">
-                  {this.state.recipes
-                    .reverse()
-                    .slice(0, 4)
-
-                    .map(recipe => (
-                      <RecipeDisplay
-                        key={recipe.id}
-                        recipe={recipe}
-                        servings={recipe.servings}
-                        calories={recipe.calories}
-                        name={recipe.name}
-                      />
-                    ))}
-                </div>
-              </div>
-            </div>
+          <div className="alert-box2">
+            <Alert isOpen={this.state.updated} color="success">
+              Settings have been updated! Please wait while you are
+              redirected...
+            </Alert>
           </div>
 
           <Switch>
@@ -237,11 +234,10 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.userReducer.user,
-  meals: state.mealsReducer.meals
+  user: state.userReducer.user
 });
 
 export default connect(
   mapStateToProps,
   { addUser }
-)(withRouter(HomePage));
+)(withRouter(EditZip));

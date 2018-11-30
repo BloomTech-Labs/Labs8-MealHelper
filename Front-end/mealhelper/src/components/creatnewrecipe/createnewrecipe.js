@@ -45,8 +45,12 @@ class CreateNewRecipe extends Component {
     });
   };
   componentDidMount() {
-    const id = this.props.user.userID;
-    this.props.getRecipe(id);
+    if (localStorage.getItem("token")) {
+      const id = this.props.user.userID;
+      this.props.getRecipe(id);
+    } else {
+      this.props.history.push("/");
+    }
   }
   componentWillReceiveProps(nextProps) {
     this.setState({ list: nextProps.recipes });

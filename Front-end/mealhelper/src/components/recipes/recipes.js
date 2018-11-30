@@ -15,6 +15,12 @@ class Recipes extends Component {
   state = {
     selectedFoods: []
   };
+  componentDidMount() {
+    if (localStorage.getItem("token")) {
+    } else {
+      this.props.history.push("/");
+    }
+  }
 
   render() {
     return <CreateNewRecipe />;
