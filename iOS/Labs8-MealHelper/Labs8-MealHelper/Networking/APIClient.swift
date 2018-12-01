@@ -166,7 +166,7 @@ class APIClient {
             }
             
             do {
-            
+                // TODO: Handle failed login (currently succeeds)
                 let user = try JSONDecoder().decode(UserId.self, from: data)
                 completion(Response.success(user))
     

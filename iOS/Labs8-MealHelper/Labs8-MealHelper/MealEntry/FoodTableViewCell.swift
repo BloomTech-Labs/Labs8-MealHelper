@@ -110,11 +110,10 @@ class FoodTableViewCell<Resource>: UITableViewCell {
         if let recipe = food as? Recipe {
             nameLabel.text = recipe.name
             
-            guard let serving = recipe.servings else { return }
-            if serving > 1 {
-                servingQtyLabel.text = "\(serving) servings"
+            if recipe.servings > 1 {
+                servingQtyLabel.text = "\(recipe.servings) servings"
             } else {
-                servingQtyLabel.text = "\(serving) serving"
+                servingQtyLabel.text = "\(recipe.servings) serving"
             }
             
         } else if let ingredient = food as? Ingredient {
