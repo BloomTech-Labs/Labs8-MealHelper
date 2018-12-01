@@ -6,7 +6,7 @@ import Googlogo from "../img/google.png";
 
 import "./Sign.css";
 
-function Sign(props) {
+function Sign2(props) {
   const signOut = () => {
     auth0Client.signOut();
     props.history.replace("/");
@@ -15,30 +15,29 @@ function Sign(props) {
   return (
     <nav className="nah">
       {!auth0Client.isAuthenticated() && (
-        <button className="authlogos" onClick={auth0Client.signIn}>
+        <button className="authlogos2" onClick={auth0Client.signIn}>
           <p className="login-with">Login</p>
           <p className="login-with-2">With</p>
           <img src={Googlogo} className="authlogo2" alt="Google" />
         </button>
       )}
-      {auth0Client.isAuthenticated() &&
-        localStorage.getItem("token")(
-          <div>
-            <label className="mr-2 text-black">
-              {auth0Client.getProfile().name}
-            </label>
-            <button
-              className="btn btn-dark"
-              onClick={() => {
-                signOut();
-              }}
-            >
-              Sign Out
-            </button>
-          </div>
-        )}
+      {auth0Client.isAuthenticated() && (
+        <div>
+          <label className="mr-2 text-black">
+            {auth0Client.getProfile().name}
+          </label>
+          <button
+            className="btn btn-dark"
+            onClick={() => {
+              signOut();
+            }}
+          >
+            Sign Out
+          </button>
+        </div>
+      )}
     </nav>
   );
 }
 
-export default withRouter(Sign);
+export default withRouter(Sign2);

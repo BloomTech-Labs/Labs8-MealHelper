@@ -45,17 +45,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = navController
         
         // TODO: Handle initial views (login or home view)
-//        let userDefaults = UserDefaults()
-//        let userId = userDefaults.loggedInUserId()
-//
-//        if userDefaults.isLoggedIn() && userId != 0 {
-//            userDefaults.setIsLoggedIn(value: true, userId: userId)
-//            let homeViewController = HomeViewController()
-//            window?.rootViewController = homeViewController
-//        } else {
-//            let loginController = LoginViewController()
-//            window?.rootViewController = loginController
-//        }
+        let userDefaults = UserDefaults()
+        let userId = userDefaults.loggedInUserId()
+
+        if userDefaults.isLoggedIn() && userId != 0 {
+            userDefaults.setIsLoggedIn(value: true, userId: userId)
+            let homeViewController = HomeViewController()
+            window?.rootViewController = homeViewController
+        } else {
+            let loginController = LoginViewController()
+            window?.rootViewController = loginController
+        }
         
         return true
     }

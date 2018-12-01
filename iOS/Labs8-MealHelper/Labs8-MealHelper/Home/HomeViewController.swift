@@ -106,12 +106,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         
         emptyLabel.isEnabled = collectionView.meals.isEmpty ? true : false
         
-        let loginController = LoginViewController()
-        loginController.modalPresentationStyle = .overCurrentContext
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.present(loginController, animated: true, completion: nil)
-        }
+//        let loginController = LoginViewController()
+//        loginController.modalPresentationStyle = .overCurrentContext
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            self.present(loginController, animated: true, completion: nil)
+//        }
     }
     
     override func viewDidLayoutSubviews() {

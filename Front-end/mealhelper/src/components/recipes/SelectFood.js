@@ -67,6 +67,9 @@ class SelectFood extends Component {
         </table>
         <div>
           <Nutrients
+            name={this.props.name}
+            calories={this.props.calories}
+            servings={this.props.servings}
             logoutModal={this.props.logoutModal}
             logoutMethod={this.props.logoutMethod}
             setCalories={this.props.setCalories}

@@ -177,18 +177,58 @@ server.post("/login", (req, res) => {
     });
 });
 
-//PUT request to change the email or password
-server.put("/users/:id", (req, res) => {
-  const id = req.body.id;
+//PUT request to change the email
+server.put("/users/email/:id", (req, res) => {
+  const id = req.params.id;
   const credentials = req.body;
   console.log(credentials.password);
   db("users")
     //Finds the user by email
-    .where({ email: credentials.email })
+    .where({ id: id })
     .first()
     .then(user => {
       //Checking old password to verify it is correct
       if (user && bcrypt.compareSync(credentials.password, user.password)) {
+        //Hashing the new password to be stored in DB (NOTE: its named newpassword not password)
+        // const hash = bcrypt.hashSync(credentials.newpassword, 15);
+        //Sets the newpassword method to the hash to be stored
+        // credentials.newpassword = hash;
+        db("users")
+          .where({ id: id })
+          .update({
+            //Changing of the credentials
+            email: credentials.email
+            //Sets the password of user to the hashed new password
+          })
+          .then(ids => {
+            //Creates a token upon successfullying updating user
+            const token = generateToken(credentials);
+            res.status(200).json({ token: token, id: id });
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: "Could not update User" });
+          });
+      } else {
+        //Else statement goes off if the comparison if old password check does not match
+        res
+          .status(500)
+          .json({ error: "Wrong Email and/or Password, please try again" });
+      }
+    });
+});
+//PUT to change the users password
+server.put("/users/password/:id", (req, res) => {
+  const id = req.params.id;
+  const credentials = req.body;
+  console.log(credentials.password);
+  db("users")
+    //Finds the user by email
+    .where({ id: id })
+    .first()
+    .then(user => {
+      //Checking old password to verify it is correct
+      if (user && bcrypt.compareSync(credentials.oldpassword, user.password)) {
         //Hashing the new password to be stored in DB (NOTE: its named newpassword not password)
         const hash = bcrypt.hashSync(credentials.newpassword, 15);
         //Sets the newpassword method to the hash to be stored
@@ -196,12 +236,49 @@ server.put("/users/:id", (req, res) => {
         db("users")
           .where({ id: id })
           .update({
-            //Changing of the credentials
-            email: credentials.email,
             //Sets the password of user to the hashed new password
-            password: credentials.newpassword,
-            zip: credentials.zip,
-            healthCondition: credentials.healthCondition
+            password: credentials.newpassword
+          })
+          .then(ids => {
+            //Creates a token upon successfullying updating user
+            const token = generateToken(credentials);
+            res.status(200).json({ token: token, id: id });
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: "Could not update User" });
+          });
+      } else {
+        //Else statement goes off if the comparison if old password check does not match
+        res
+          .status(500)
+          .json({ error: "Wrong Email and/or Password, please try again" });
+      }
+    });
+});
+
+//PUT to change the users ZIP
+server.put("/users/zip/:id", (req, res) => {
+  const id = req.params.id;
+  const credentials = req.body;
+  console.log(credentials.password);
+  db("users")
+    //Finds the user by email
+    .where({ id: id })
+    .first()
+    .then(user => {
+      //Checking old password to verify it is correct
+      if (user && bcrypt.compareSync(credentials.password, user.password)) {
+        //Hashing the new password to be stored in DB (NOTE: its named newpassword not password)
+
+        //Sets the newpassword method to the hash to be stored
+
+        db("users")
+          .where({ id: id })
+          .update({
+            //Changing of the credentials
+            zip: credentials.zip
+            //Sets the password of user to the hashed new password
           })
           .then(ids => {
             //Creates a token upon successfullying updating user
@@ -308,8 +385,13 @@ server.post("/users/:userid/meals", (req, res) => {
   db("mealList")
     .insert(meal)
     .then(mealID => {
-      //Returns the meal ID
-      res.status(200).json(mealID);
+      db("mealList")
+        //Finds the corrosponding meals based on user ID
+        .where({ user_id: user_id })
+        .then(meal => {
+          //Returns all the meals from that user
+          res.status(200).json(meal);
+        });
     })
     .catch(err => {
       res.status(400).json({ msg: err, error: "Error creating a new meal." });
@@ -411,7 +493,7 @@ server.get("/recipe", (req, res) => {
     });
 });
 //GET request to grab all recipes made by a specific user
-server.get("/recipe/:userid", (req, res) => {
+server.get("/recipe/user/:userid", (req, res) => {
   const userId = req.params.userid;
   db("recipe")
     //Finds the corrosponding recipes based on user ID
@@ -428,17 +510,25 @@ server.get("/recipe/:userid", (req, res) => {
 server.post("/recipe/:userid", (req, res) => {
   //grabs the user id from the req.params
   const user_id = req.params.userid;
-  const { meal_id, name, calories, servings, ingredients_id } = req.body;
+  const { name, calories, servings } = req.body;
   //Grabs the associated data from req.body and sets it as a JSON to recipe
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-  const recipe = { meal_id, name, user_id, calories, servings, ingredients_id };
+  const recipe = { name, user_id, calories, servings };
   console.log(recipe);
 
   db("recipe")
     .insert(recipe)
     .then(recipeID => {
-      //Returns the meal ID
-      res.status(200).json(recipeID);
+      db("recipe")
+        //Finds the corrosponding recipes based on user ID
+        .where({ user_id: user_id })
+        .then(meal => {
+          //Returns all the recipes from that user
+          res.status(200).json(meal);
+        })
+        .catch(err => {
+          res.status(400).json({ err, error: "could not find meal" });
+        });
     })
     .catch(err => {
       res.status(400).json({ err, error: "Error creating a new meal." });
@@ -522,10 +612,10 @@ server.post("/ingredients/:userid", (req, res) => {
   //grabs the user id from the req.params
   const user_id = req.params.userid;
   const ndb_id = req.body.ndbno;
-  const { name } = req.body;
+  const { name, recipe_id } = req.body;
   //Grabs the associated data from req.body and sets it as a JSON to recipe
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-  const ingredient = { name, ndb_id, user_id };
+  const ingredient = { name, ndb_id, user_id, recipe_id };
   console.log(ingredient);
   db("ingredients")
     .insert(ingredient)
@@ -610,7 +700,7 @@ server.get("/nutrients/:ingredientID", (req, res) => {
     .first()
     .then(ingredients => {
       db("nutrients")
-        .where({ ingredient_id: ingredientId })
+        .where({ ingredients_id: ingredientId })
         .then(nutrients => {
           //Returns all the nutrients
           res.status(200).json(nutrients);
@@ -956,6 +1046,20 @@ server.get("/alarms/:userid", (req, res) => {
       res.status(400).json({ error: "could not find the alarms" });
     });
 });
+
+server.get("/alarms/:userid/:alarmid", (req, res) => {
+  const user_ID = req.params.userid;
+  const alarm_ID = req.params.alarmid;
+  db("alarms")
+    .where({ id: alarm_ID, user_id: user_ID })
+    .then(alarm => {
+      res.status(200).json(alarm);
+    })
+    .catch(err => {
+      res.status(400).json({ error: "could not find the alarm with that id" });
+    })
+})
+
 //POST req to create a alarm for the user
 server.post("/alarms/:userid", (req, res) => {
   //Grabs the user id from req.params
@@ -990,7 +1094,7 @@ server.put("/alarms/:id", (req, res) => {
   // Sets the req.body to an alarm object that gets passed into the update
   const alarmBody = { label, alarm };
   db("alarms")
-    .where({ id: id })
+		.where({ id: id })
     .update({
       label: alarmBody.label,
       alarm: alarmBody.alarm
@@ -1005,16 +1109,25 @@ server.put("/alarms/:id", (req, res) => {
 });
 
 //Deletes the alarm for the user
-server.delete("/alarms/:id", (req, res) => {
+server.delete("/alarms/:id/user/:userid", (req, res) => {
   //Grabs alarm id from req.params
   const id = req.params.id;
+  const user_ID = req.params.userid;
   db("alarms")
     //FInds the meal thats associated with that weather report
     .where({ id: id })
     .del()
     .then(deleted => {
-      //Returns a 1 for deleted or a 0 for not.
-      res.status(200).json(deleted);
+      db("alarms")
+        //Finds the alarms associated to that user
+        .where({ user_id: user_ID })
+        .then(alarms => {
+          //Returns the alarms for that user
+          res.status(200).json(alarms);
+        })
+        .catch(err => {
+          res.status(400).json({ error: "could not find the alarms" });
+        });
     })
     .catch(err => {
       res.status(400).json({ error: "Error deleting alarm" });

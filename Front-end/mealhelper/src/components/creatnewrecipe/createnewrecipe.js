@@ -32,7 +32,7 @@ class CreateNewRecipe extends Component {
       search: "",
       name: "",
       calories: 0,
-      serving: "",
+      serving: 1,
       ndbno: null,
       modal: false,
       modalLogout: false
@@ -45,8 +45,12 @@ class CreateNewRecipe extends Component {
     });
   };
   componentDidMount() {
-    const id = this.props.user.userID;
-    this.props.getRecipe(id);
+    if (localStorage.getItem("token")) {
+      const id = localStorage.getItem("user_id");
+      this.props.getRecipe(id);
+    } else {
+      this.props.history.push("/");
+    }
   }
   componentWillReceiveProps(nextProps) {
     this.setState({ list: nextProps.recipes });
@@ -111,6 +115,7 @@ class CreateNewRecipe extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
   render() {
@@ -141,7 +146,8 @@ class CreateNewRecipe extends Component {
               Log Out
             </Button>
           </div>
-          <div>
+
+          <div className="create-recipe-background">
             <Button color="success" onClick={this.toggle}>
               + New Recipe
             </Button>
@@ -165,6 +171,18 @@ class CreateNewRecipe extends Component {
                     value={this.state.name}
                     placeholder="Recipe Name"
                   />
+                  <br />
+                  <br />
+                  <p>Servings:</p>
+                  <input
+                    id="name"
+                    className="name-recipe"
+                    type="number"
+                    name="name"
+                    onChange={this.handleChange}
+                    value={this.state.serving}
+                    placeholder="Servings"
+                  />
 
                   <br />
                   <p>Total Calories: {this.state.calories}</p>
@@ -174,6 +192,9 @@ class CreateNewRecipe extends Component {
                     <SelectedFoods
                       logoutModal={this.state.modal}
                       logoutMethod={this.toggle}
+                      name={this.state.name}
+                      calories={this.state.calories}
+                      servings={this.state.serving}
                       setCalories={this.saveCalories}
                       foods={selectedFoods}
                       onFoodClick={this.removeFoodItem}

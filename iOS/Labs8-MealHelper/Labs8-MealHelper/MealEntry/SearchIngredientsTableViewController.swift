@@ -175,6 +175,7 @@ class SearchIngredientsTableViewController: FoodsTableViewController<Ingredient,
                 case .success(let ingredients):
                     self.foods = ingredients
                     self.searchController.isActive = false
+                    self.tableView.reloadData()
                 case .error(let error):
                     NSLog("Error fetching ingredients: \(error)")
                     self.searchController.isActive = false
