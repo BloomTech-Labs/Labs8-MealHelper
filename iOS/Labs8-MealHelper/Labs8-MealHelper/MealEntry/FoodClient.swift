@@ -12,14 +12,6 @@ class FoodClient {
     
     static let shared = FoodClient()
     
-    // TODO: to be deleted. just a hack for saving data
-    var recipes = [
-        Recipe(name: "Smørrebrød", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1),
-        Recipe(name: "Leverpostej", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1),
-        Recipe(name: "Fiskefrikadeller", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1),
-        Recipe(name: "Mørbradbøffer", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1),
-        Recipe(name: "Æbleflæsk", calories: 123, servings: 1, ingredients: [], userId: 1, mealId: 1)
-    ]
     var nutrients = ["208", "269", "204", "205"]
     
     let usdaBaseUrl: URL = URL(string: "https://api.nal.usda.gov/ndb/")!
@@ -37,8 +29,12 @@ class FoodClient {
         
     }
     
+//    func fetchRecipe(for id: Int, completion: @escaping (Response<Recipe>) -> ()) {
+//        let url
+//    }
+    
     func fetchRecipes(completion: @escaping (Response<[Recipe]>) -> ()) {
-        let url = self.url(with: baseUrl, pathComponents: ["recipe", userId])
+        let url = self.url(with: baseUrl, pathComponents: ["recipe", "user", userId])
         
         fetch(from: url, completion: completion)
         
@@ -46,6 +42,20 @@ class FoodClient {
     
     func fetchIngredients(completion: @escaping (Response<[Ingredient]>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["ingredients", userId])
+        
+        fetch(from: url, completion: completion)
+        
+    }
+    
+    func fetchIngredients(with recipeId: Int, completion: @escaping (Response<[Ingredient]>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["ingredients", userId])
+        
+        fetch(from: url, completion: completion)
+        
+    }
+    
+    func fetchNutrients(with ingredientId: Int, completion: @escaping (Response<[Nutrient]>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["nutrients", String(ingredientId)])
         
         fetch(from: url, completion: completion)
         
@@ -65,7 +75,7 @@ class FoodClient {
         
     }
     
-    func postRecipe(name: String, calories: Int, servings: Int, completion: @escaping (Response<Int>) -> ()) {
+    func postRecipe(name: String, calories: Int, servings: Int, completion: @escaping (Response<[Recipe]>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["recipe", userId])
         let reqBody = ["name": name, "calories": calories, "servings": servings] as [String : Any]
         
@@ -73,25 +83,17 @@ class FoodClient {
         
     }
     
-    func postIngredient(_ ingredient: Ingredient, completion: @escaping (Response<Int>) -> ()) {
+    func postIngredient(name: String, ndbno: String?, recipeId: Int?, completion: @escaping (Response<[Ingredient]>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["ingredients", userId])
-        let reqBody = ["name": ingredient.name, "ndbno": ingredient.nbdId]
+        let reqBody = ["name": name as Any, "ndbno": ndbno as Any, "recipe_id": recipeId as Any] as [String : Any]
         
         post(with: url, requestBody: reqBody, completion: completion)
         
     }
     
-    func putIngredient(withId ingredientId: Int, nutrientIds: [Int], completion: @escaping (Response<Int>) -> ()) {
-        let url = self.url(with: baseUrl, pathComponents: ["nutrients", "ingredients", String(ingredientId)])
-        let reqBody = ["ids": nutrientIds]
-        
-        post(with: url, requestBody: reqBody, completion: completion)
-        
-    }
-    
-    func postNutrient(_ nutrient: Nutrient, completion: @escaping (Response<Int>) -> ()) {
+    func postNutrient(_ nutrient: Nutrient, ingredientId: Int, completion: @escaping (Response<TempType>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["nutrients", userId])
-        let reqBody = ["name": nutrient.name, "unit": nutrient.unit, "value": nutrient.value] as [String : Any]
+        let reqBody = ["nutrient": nutrient.name, "nutrient_id": Int(nutrient.identifier)!, "unit": nutrient.unit, "value": Int(Double(nutrient.value)!), "ingredients_id": ingredientId] as [String : Any]
         
         post(with: url, requestBody: reqBody, completion: completion)
         
@@ -105,28 +107,36 @@ class FoodClient {
         
     }
     
-    func deleteMeal(withId id: String, completion: @escaping (Response<Int>) -> ()) {
+    func putIngredient(withId ingredientId: Int, nutrientIds: [Int], completion: @escaping (Response<Int>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["nutrients", "ingredients", String(ingredientId)])
+        let reqBody = ["ids": nutrientIds]
+        
+        post(with: url, requestBody: reqBody, completion: completion)
+        
+    }
+    
+    func deleteMeal(withId id: String, completion: @escaping (Response<String>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["users", id, "meals"])
         
         delete(with: url, completion: completion)
         
     }
     
-    func deleteRecipe(withId id: String, completion: @escaping (Response<Int>) -> ()) {
+    func deleteRecipe(withId id: String, completion: @escaping (Response<String>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["recipe", id])
         
         delete(with: url, completion: completion)
         
     }
     
-    func deleteIngredient(withId id: String, completion: @escaping (Response<Int>) -> ()) {
+    func deleteIngredient(withId id: String, completion: @escaping (Response<String>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["ingredients", id])
         
         delete(with: url, completion: completion)
         
     }
     
-    func deleteNutrient(withId id: String, completion: @escaping (Response<Int>) -> ()) {
+    func deleteNutrient(withId id: String, completion: @escaping (Response<String>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["nutrients", id])
         
         delete(with: url, completion: completion)
@@ -297,7 +307,7 @@ class FoodClient {
         }.resume()
     }
     
-    private func delete<Resource: Codable>(with url: URL, using session: URLSession = URLSession.shared, completion: @escaping ((Response<Resource>) -> ())) {
+    private func delete(with url: URL, using session: URLSession = URLSession.shared, completion: @escaping ((Response<String>) -> ())) {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = HTTPMethod.delete.rawValue
@@ -316,14 +326,16 @@ class FoodClient {
                 return
             }
             
-            do {
-                let response = try JSONDecoder().decode(Resource.self, from: data)
+            // API return "1" if deletion successful, else return "0"
+            let response = String(data: data, encoding: .utf8) ?? "0"
+            
+            if response == "1" {
                 completion(Response.success(response))
-            } catch {
-                NSLog("Error decoding data: \(error)")
-                completion(Response.error(error))
-                return
+            } else {
+                NSLog("Error deleting food item")
+                completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
             }
+            
         }.resume()
     }
     

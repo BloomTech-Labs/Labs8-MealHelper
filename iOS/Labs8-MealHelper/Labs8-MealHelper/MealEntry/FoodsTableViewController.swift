@@ -13,11 +13,7 @@ class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewCont
     
     // MARK: - Public properties
     
-    var foods: [Resource]? {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var foods: [Resource]?
     var navTitle: String!
     var cellReuseId: String!
     var selectedFoodAtIndex = [Int]() {

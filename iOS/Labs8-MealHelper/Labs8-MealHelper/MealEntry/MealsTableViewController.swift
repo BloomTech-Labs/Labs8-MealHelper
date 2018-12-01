@@ -15,30 +15,23 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
         return UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissMealView))
     }()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        foods = FoodClient.shared.recipes
-        tableView.reloadData()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = cancelBarButton
         
-        //foods = FoodClient.shared.recipes
-//        FoodClient.shared.fetchRecipes { (response) in
-//            DispatchQueue.main.async {
-//                switch response {
-//                case .success(let recipes):
-//                    self.foods = recipes
-//                    self.tableView.reloadData()
-//                case .error(let error):
-//                    print(error)
-//                    // Handle error in UI
-//                    break
-//                }
-//            }
-//        }
+        FoodClient.shared.fetchRecipes { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let recipes):
+                    self.foods = recipes
+                    self.tableView.reloadData()
+                case .error(let error):
+                    print(error)
+                    // Handle error in UI
+                    break
+                }
+            }
+        }
     }
     
     @objc private func dismissMealView() {
@@ -67,26 +60,21 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
         edit.backgroundColor = .green
         
         let remove = UITableViewRowAction(style: .destructive, title: "Delete") { (remove, indexPath) in
-            let foodClient = FoodClient.shared
-            
-            if let id = recipe.identifier {
-                
-                foodClient.deleteRecipe(withId: String(id), completion: { (response) in
+            FoodClient.shared.deleteRecipe(withId: String(recipe.identifier), completion: { (response) in
+                DispatchQueue.main.async {
                     switch response {
                     case .success(let response):
-                        if response == 1 {
+                        if response == "1" {
                             guard let index = self.foods?.index(of: recipe) else { return }
                             self.foods?.remove(at: index)
-                            self.tableView.reloadData()
-                    }
-                    
+                            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                        }
                     case .error(let error):
                         print(error)
                         //Handle error
                     }
+                }
                 })
-                    
-            }
         }
         
         return [remove, edit]

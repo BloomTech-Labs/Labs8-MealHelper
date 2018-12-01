@@ -45,6 +45,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         let cv = HomeCollectionView(frame: .zero, collectionViewLayout: layout)
         cv.layer.cornerRadius = 16
         cv.layer.masksToBounds = true
+        cv.actionDelegate = self
         
         return cv
     }()
@@ -71,10 +72,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         
         return ebv
     }()
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -109,12 +106,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         
         emptyLabel.isEnabled = collectionView.meals.isEmpty ? true : false
         
-        let loginController = LoginViewController()
-        loginController.modalPresentationStyle = .overCurrentContext
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.present(loginController, animated: true, completion: nil)
-        }
+//        let loginController = LoginViewController()
+//        loginController.modalPresentationStyle = .overCurrentContext
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            self.present(loginController, animated: true, completion: nil)
+//        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -146,6 +143,15 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     }
 }
 
+extension HomeViewController: HomeCollectionViewDelegate {
+    func didSelect(meal: Meal) {
+        let mealDetailViewController = MealDetailViewController()
+        mealDetailViewController.meal = meal
+        print("here")
+        navigationController?.pushViewController(mealDetailViewController, animated: true)
+    }
+}
+
 extension HomeViewController: ExpandableButtonViewDelegate {
     
     func didTapButton(at position: ExpandableButtonPosition) {
@@ -155,7 +161,7 @@ extension HomeViewController: ExpandableButtonViewDelegate {
             present(alarmViewController, animated: true, completion: nil)
         case .left:
             let mealsTableViewController = MealsTableViewController(navTitle: "Meals")
-            let navController = UINavigationController(rootViewController: mealsTableViewController)
+            let navController = WhiteStatusNavController(rootViewController: mealsTableViewController)
             navController.navigationBar.prefersLargeTitles = true
             present(navController, animated: true, completion: nil)
             print("Left")
