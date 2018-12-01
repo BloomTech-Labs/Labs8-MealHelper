@@ -102,7 +102,7 @@ class MyAlarms extends Component {
         this.props.fetchAlarms(userID);
         console.log("this.props.alarms", this.props.alarms)
     } 
-    console.log(this.state.label);
+    //console.log(this.state.label);
  };
 
   componentWillReceiveProps(nextProps) {
@@ -118,19 +118,19 @@ class MyAlarms extends Component {
 };
 
  sendToEdit(labelChange) {
-  
-  this.setState(prevState => ({
-    ...this.state,
-    alarmToUpdate: {
-      ...prevState.alarmToUpdate,
-      label: labelChange
-    }
-   }))
-  const { id, label, alarm } = this.state.alarmToUpdate;
+  // this.setState(prevState => ({
+  //   ...this.state,
+  //   alarmToUpdate: {
+  //     ...prevState.alarmToUpdate,
+  //     label: labelChange
+  //   }
+  //  }), () => console.log("alarm body in setState", alarmBody))
+  const { id, alarm } = this.state.alarmToUpdate;
+  const label = labelChange;
   const alarmBody = { id, label, alarm };
-  userID = this.props.user.userID;
-  console.log(alarmBody);
-this.props.updateAlarm(alarmBody, userID);
+  let userID = this.props.user.userID;
+  console.log("ALARM BODY", alarmBody);
+  this.props.updateAlarm(alarmBody, userID);
 }
 
  showModal = (alarmID) => {
