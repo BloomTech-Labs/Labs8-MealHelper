@@ -31,7 +31,7 @@ class APIClient {
     }
     
     func editAlarm(with id: Int, completion: @escaping (Response<Int>) -> ()) {
-        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(id)")!
+        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(id)/user/\(String(UserDefaults.standard.loggedInUserId()))")!
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = HTTPMethod.put.rawValue

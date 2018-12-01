@@ -39,7 +39,7 @@ class LocalNotificationHelper
         content.sound = UNNotificationSound.default
         
         var dateComponent = DateComponents()
-        dateComponent.hour = 20
+        dateComponent.hour = hour
         dateComponent.minute = minute
         
         let notificationRequest = UNNotificationRequest(identifier: "\(id)", content: content, trigger: UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: true))
