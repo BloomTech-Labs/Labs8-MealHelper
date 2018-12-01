@@ -44,7 +44,7 @@ class EditZip extends Component {
   }
 
   componentDidMount = () => {
-    const id = this.props.user.userID;
+    const id = localStorage.getItem("user_id");
     axios
       .get(`https://labs8-meal-helper.herokuapp.com/users/${id}`)
       .then(user => {
@@ -80,7 +80,7 @@ class EditZip extends Component {
       this.setState({ visable: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      const id = this.props.user.userID;
+      const id = localStorage.getItem("user_id");
       const { zip, password } = this.state;
       const user = { zip, password };
       axios
@@ -105,6 +105,7 @@ class EditZip extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
 

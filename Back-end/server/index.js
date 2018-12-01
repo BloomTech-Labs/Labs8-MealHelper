@@ -700,7 +700,7 @@ server.get("/nutrients/:ingredientID", (req, res) => {
     .first()
     .then(ingredients => {
       db("nutrients")
-        .where({ ingredient_id: ingredientId })
+        .where({ ingredients_id: ingredientId })
         .then(nutrients => {
           //Returns all the nutrients
           res.status(200).json(nutrients);
@@ -1046,6 +1046,20 @@ server.get("/alarms/:userid", (req, res) => {
       res.status(400).json({ error: "could not find the alarms" });
     });
 });
+
+server.get("/alarms/:userid/:alarmid", (req, res) => {
+  const user_ID = req.params.userid;
+  const alarm_ID = req.params.alarmid;
+  db("alarms")
+    .where({ id: alarm_ID, user_id: user_ID })
+    .then(alarm => {
+      res.status(200).json(alarm);
+    })
+    .catch(err => {
+      res.status(400).json({ error: "could not find the alarm with that id" });
+    })
+})
+
 //POST req to create a alarm for the user
 server.post("/alarms/:userid", (req, res) => {
   //Grabs the user id from req.params
@@ -1080,7 +1094,7 @@ server.put("/alarms/:id", (req, res) => {
   // Sets the req.body to an alarm object that gets passed into the update
   const alarmBody = { label, alarm };
   db("alarms")
-    .where({ id: id })
+		.where({ id: id })
     .update({
       label: alarmBody.label,
       alarm: alarmBody.alarm
@@ -1095,16 +1109,25 @@ server.put("/alarms/:id", (req, res) => {
 });
 
 //Deletes the alarm for the user
-server.delete("/alarms/:id", (req, res) => {
+server.delete("/alarms/:id/user/:userid", (req, res) => {
   //Grabs alarm id from req.params
   const id = req.params.id;
+  const user_ID = req.params.userid;
   db("alarms")
     //FInds the meal thats associated with that weather report
     .where({ id: id })
     .del()
     .then(deleted => {
-      //Returns a 1 for deleted or a 0 for not.
-      res.status(200).json(deleted);
+      db("alarms")
+        //Finds the alarms associated to that user
+        .where({ user_id: user_ID })
+        .then(alarms => {
+          //Returns the alarms for that user
+          res.status(200).json(alarms);
+        })
+        .catch(err => {
+          res.status(400).json({ error: "could not find the alarms" });
+        });
     })
     .catch(err => {
       res.status(400).json({ error: "Error deleting alarm" });

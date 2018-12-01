@@ -70,6 +70,7 @@ class Billing extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
 
@@ -92,7 +93,7 @@ class Billing extends Component {
           <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Billing</h2>
           </Link>
-          <Link to="/homepage/settings/:id" style={{ textDecoration: "none" }}>
+          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Settings</h2>
           </Link>
           <Button color="danger" onClick={this.toggle}>

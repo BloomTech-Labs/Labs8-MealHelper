@@ -36,18 +36,6 @@ class MealDisplay extends Component {
     });
   };
 
-  createUser = event => {
-    event.preventDefault();
-    if (!this.state.email || !this.state.password) {
-      this.setState({ visable: true });
-    } else {
-      const { email, password, zip, healthCondition } = this.state;
-      const user = { email, password, zip, healthCondition };
-      this.props.addUser(user);
-      // this.props.history.push("/");
-    }
-  };
-
   render() {
     return (
       <div className="MealDisplay">

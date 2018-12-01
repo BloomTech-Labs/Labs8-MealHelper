@@ -17,7 +17,11 @@ import { withRouter } from "react-router-dom";
 // import { Alert } from "reactstrap";
 // import Recipes from "../recipes/recipes";
 import axios from "axios";
+<<<<<<< HEAD
 import SideBar from "../sidebar/sidebar";
+=======
+import "./meals.css";
+>>>>>>> 65ada5e8016f64779ba333d3597e50a5f81b76e6
 
 class Meals extends Component {
   constructor(props) {
@@ -46,7 +50,7 @@ class Meals extends Component {
   ///converted to Imperial measurement
   componentDidMount(props) {
     if (localStorage.getItem("token")) {
-      const id = this.props.user.userID;
+      const id = localStorage.getItem("user_id");
       axios
         .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
         .then(recipess => {
@@ -64,7 +68,7 @@ class Meals extends Component {
   }
 
   componentGetMeals() {
-    const id = this.props.user.userID;
+    const id = localStorage.getItem("user_id");
     axios
       .get(`https://labs8-meal-helper.herokuapp.com/users/${id}/meals`)
       .then(meals => {
@@ -103,7 +107,8 @@ class Meals extends Component {
   }
   saveMeal = event => {
     event.preventDefault();
-    const user_id = this.props.user.userID;
+
+    const user_id = localStorage.getItem("user_id");
     const recipe_id = this.state.recipe.id;
     const {
       mealTime,
@@ -150,6 +155,7 @@ class Meals extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
   getWeatherZip = event => {
@@ -177,8 +183,35 @@ class Meals extends Component {
   render() {
     return (
       <div className="home-container">
+<<<<<<< HEAD
         <SideBar />
         <div>
+=======
+        <div className="sidebar">
+          <Link to="/homepage" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Home</h2>
+          </Link>
+          <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Recipes</h2>
+          </Link>
+          <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Alarms</h2>
+          </Link>
+          <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Meals</h2>
+          </Link>
+          <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Billing</h2>
+          </Link>
+          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Settings</h2>
+          </Link>
+          <Button color="danger" onClick={this.toggleLogout}>
+            Log Out
+          </Button>
+        </div>
+        <div className="create-recipe-background">
+>>>>>>> 65ada5e8016f64779ba333d3597e50a5f81b76e6
           <Button color="success" onClick={this.toggle}>
             + New Meal
           </Button>

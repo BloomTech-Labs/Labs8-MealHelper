@@ -274,7 +274,16 @@ input:focus {
   padding-top: 25px;
   font-weight: bold;
 }
-
+.loader {
+  display: block;
+}
+.loading {
+  margin: 20px;
+}
+.isLoading {
+  margin: 10% auto;
+  background: linear-gradient(rgba(20, 20, 20, 0.5), rgba(20, 20, 20, 0.5));
+}
 .alert-box {
   margin-top: 11%;
 }

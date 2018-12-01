@@ -44,7 +44,7 @@ class SettingsMain extends Component {
 
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
-      const id = this.props.user.userID;
+      const id = localStorage.getItem("user_id");
       axios
         .get(`https://labs8-meal-helper.herokuapp.com/users/${id}`)
         .then(user => {
@@ -85,6 +85,7 @@ class SettingsMain extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
 

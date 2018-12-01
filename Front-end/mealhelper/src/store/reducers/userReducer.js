@@ -35,7 +35,9 @@ export const userReducer = (state = initialState, action) => {
       return { ...state, addingUser: true };
     case ADDED_USER:
       //Returns the user ID and the JWT token and sets it as JSON to user
+      console.log(action.payload);
       localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("user_id", action.payload.userID);
       return { ...state, addingUser: false, user: action.payload };
     case ADDING_USER_ERROR:
       //Shoots off if there is an error creating a new user
@@ -52,6 +54,7 @@ export const userReducer = (state = initialState, action) => {
     case GOT_USER:
       //Returns the user ID and the JWT token and sets it as JSON to user
       localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("user_id", action.payload.userID);
       return { ...state, gettingUser: false, user: action.payload };
     case GETTING_USERS_ERROR:
       //Shoots off if there is an error logging in a user

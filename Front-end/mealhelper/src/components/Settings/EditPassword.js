@@ -45,7 +45,7 @@ class EditPassword extends Component {
   }
 
   componentDidMount = () => {
-    const id = this.props.user.userID;
+    const id = localStorage.getItem("user_id");
     axios
       .get(`https://labs8-meal-helper.herokuapp.com/users/${id}`)
       .then(user => {
@@ -90,7 +90,7 @@ class EditPassword extends Component {
       this.setState({ visablePassword: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      const id = this.props.user.userID;
+      const id = localStorage.getItem("user_id");
       const { oldpassword, newpassword } = this.state;
       const user = { oldpassword, newpassword };
       axios
@@ -115,6 +115,7 @@ class EditPassword extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
 
