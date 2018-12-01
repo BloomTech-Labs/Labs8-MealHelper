@@ -1,14 +1,17 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
-import "./billing.css";
+import "../homepage/homepage";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
-// import { Alert } from "reactstrap";
-// import Weather from "../weather/weather";
-// import Recipes from "../recipes/recipes";
-// import Meals from "../Meals/Meals";
-// import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
+import { Alert } from "reactstrap";
+import Weather from "../weather/weather";
+import Recipes from "../recipes/recipes";
+import Meals from "../Meals/Meals";
+import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
+import AddAlarms from "../alarms/addAlarm";
+import MyAlarms from "../alarms/myAlarms";
 import {
   Button,
   Modal,
@@ -22,12 +25,14 @@ import {
 } from "reactstrap";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../checkout/CheckoutForm";
+import Billing from "../billing/billing";
 
-class Billing extends Component {
+class SettingsMain extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      user: [],
       email: "",
       password: "",
       zip: null,
@@ -36,8 +41,18 @@ class Billing extends Component {
       modal: false
     };
   }
+
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
+      const id = localStorage.getItem("user_id");
+      axios
+        .get(`https://labs8-meal-helper.herokuapp.com/users/${id}`)
+        .then(user => {
+          this.setState({ user: user.data });
+        })
+        .catch(err => {
+          console.log(err);
+        });
     } else {
       this.props.history.push("/");
     }
@@ -76,7 +91,7 @@ class Billing extends Component {
 
   render() {
     return (
-      <div className="home-container">
+      <div className="home-container-home">
         <div className="sidebar">
           <Link to="/homepage" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Home</h2>
@@ -93,7 +108,7 @@ class Billing extends Component {
           <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Billing</h2>
           </Link>
-          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
+          <Link to="/homepage/settings/:id" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Settings</h2>
           </Link>
           <Button color="danger" onClick={this.toggle}>
@@ -113,15 +128,45 @@ class Billing extends Component {
             </div>
           </StripeProvider> */}
         </div>
-        <div className="dynamic-display">
-          <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
-            <div className="example">
-              <h1>Pay Up Health Nut</h1>
-              <Elements>
-                <CheckoutForm />
-              </Elements>
-            </div>
-          </StripeProvider>
+        <div className="flex-me-settings">
+          <div className="dynamic-display-home-meals">
+            <p className="recentMeals">Settings Page </p>
+          </div>
+          <div className="dynamic-display-home-settings">
+            <p className="recentMeals">Email </p>
+            <Link className="buttons" to="/homepage/settings/email">
+              <button className="buttons-settings">Edit</button>
+            </Link>
+          </div>
+          <div className="dynamic-display-home-settings">
+            <p className="recentMeals">Password </p>
+            <Link className="buttons" to="/homepage/settings/password">
+              <button className="buttons-settings">Edit</button>
+            </Link>
+          </div>
+          <div className="dynamic-display-home-settings">
+            <p className="recentMeals">Zip </p>
+            <Link className="buttons" to="/homepage/settings/zip">
+              <button className="buttons-settings">Edit</button>
+            </Link>
+          </div>
+
+          <Switch>
+            <Route path="/homepage/weather" render={() => <Weather />} />
+            <Route exact path="/homepage/recipes" render={() => <Recipes />} />
+            <Route exact path="/homepage/meals" render={() => <Meals />} />
+            <Route
+              path="/homepage/recipes/createnewrecipe"
+              render={() => <CreateNewRecipe />}
+            />
+            <Route exact path="/homepage/alarms" render={() => <MyAlarms />} />
+            <Route
+              path="/homepage/alarms/add-alarms"
+              render={() => <AddAlarms />}
+            />
+            <Route path="/homepage/billing" render={() => <Billing />} />
+            {/* <Route path="/homepage/settings" render={() => <Settings />} /> */}
+          </Switch>
         </div>
 
         <Modal
@@ -145,10 +190,11 @@ class Billing extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.userReducer.user,
+  meals: state.mealsReducer.meals
 });
 
 export default connect(
   mapStateToProps,
   { addUser }
-)(withRouter(Billing));
+)(withRouter(SettingsMain));

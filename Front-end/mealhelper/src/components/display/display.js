@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import "./homepage.css";
-// import MealDisplay from "../display/MealDisplay.js";
-// import RecipeDisplay from "../display/RecipeDisplay.js";
+import "../homepage/homepage.css";
+import MealDisplay from "./MealDisplay";
+import RecipeDisplay from "./RecipeDisplay";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
@@ -29,9 +29,8 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../checkout/CheckoutForm";
 import Billing from "../billing/billing";
 import SideBar from "../sidebar/sidebar";
-import Display from "../display/display";
 
-class HomePage extends Component {
+class Display extends Component {
   constructor(props) {
     super(props);
 
@@ -43,22 +42,25 @@ class HomePage extends Component {
       visable: false,
       modal: false,
       meals: [],
-      recipes: []
+      recipes: [],
+      recipe_SIZE: null,
+      meal_SIZE: null
     };
   }
 
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
       const id = localStorage.getItem("user_id");
-      console.log(id);
       axios
         .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
         .then(recipess => {
-          this.setState({ recipes: recipess.data });
+          const recipe_SIZE = recipess.data.length;
+          this.setState({ recipes: recipess.data, recipe_SIZE: recipe_SIZE });
         })
         .catch(err => {
           console.log(err);
         });
+
       this.componentGetMeals();
     } else {
       this.props.history.push("/");
@@ -66,17 +68,19 @@ class HomePage extends Component {
   };
 
   componentGetMeals() {
+    console.log(this.state.recipes);
     const id = localStorage.getItem("user_id");
-    console.log(id);
     axios
       .get(`https://labs8-meal-helper.herokuapp.com/users/${id}/meals`)
       .then(meals => {
         console.log(meals);
-        this.setState({ meals: meals.data });
+        const meal_SIZE = meals.data.length;
+        this.setState({ meals: meals.data, meal_SIZE: meal_SIZE });
       })
       .catch(err => {
         console.log(err);
       });
+
     console.log(this.state.meals);
   }
 
@@ -107,15 +111,63 @@ class HomePage extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
-    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
 
   render() {
     return (
-      <div className="home-container-home">
-        <SideBar />
-        <Display />
+      <div className="flex-me">
+        <div className="dynamic-display-home-meals">
+          <p className="recentMeals">4 Most Recently Made Meals: </p>
+        </div>
+        <div className="dynamic-display-home">
+          <div className="mealsRecipe-Container">
+            <div>
+              <div className="mealDisplay-Flex">
+                {console.log("meal array size", this.state.meal_SIZE)}
+                {this.state.meals
+                  .reverse()
+                  .slice(this.state.meal_SIZE - 4, this.state.meal_SIZE)
+
+                  .map(meal => (
+                    <MealDisplay
+                      key={meal.id}
+                      meal={meal}
+                      mealTime={meal.mealTime}
+                      temp={meal.temp}
+                      experience={meal.experience}
+                      date={meal.date}
+                      city={meal.name}
+                    />
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="dynamic-display-home-meals">
+          <p className="recentMeals">4 Most Recently Made Recipes: </p>
+        </div>
+        <div className="dynamic-display-home">
+          <div className="mealsRecipe-Container">
+            <div>
+              <div className="mealDisplay-Flex">
+                {console.log("recipe array size", this.state.recipe_SIZE)}
+                {this.state.recipes
+                  .reverse()
+                  .slice(this.state.recipe_SIZE - 4, this.state.recipe_SIZE)
+                  .map(recipe => (
+                    <RecipeDisplay
+                      key={recipe.id}
+                      recipe={recipe}
+                      servings={recipe.servings}
+                      calories={recipe.calories}
+                      name={recipe.name}
+                    />
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -129,4 +181,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { addUser }
-)(withRouter(HomePage));
+)(withRouter(Display));

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import "./homepage.css";
+import "../homepage/homepage.css";
 
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
@@ -34,18 +34,6 @@ class RecipeDisplay extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-  };
-
-  createUser = event => {
-    event.preventDefault();
-    if (!this.state.email || !this.state.password) {
-      this.setState({ visable: true });
-    } else {
-      const { email, password, zip, healthCondition } = this.state;
-      const user = { email, password, zip, healthCondition };
-      this.props.addUser(user);
-      // this.props.history.push("/");
-    }
   };
 
   render() {

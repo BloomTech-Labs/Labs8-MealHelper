@@ -17,6 +17,58 @@
   background-size: cover;
   display: flex;
 }
+.buttons-settings {
+  background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
+  color: white;
+  border: 1px solid;
+  padding: 40px;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  margin-right: 5%;
+  margin-bottom: 30px;
+  cursor: pointer;
+  transition: padding 0.2s ease-in-out;
+}
+.buttons {
+  margin-right: 5%;
+}
+.editSettings {
+  padding-top: 25px;
+  width: 100%;
+}
+.editSettingsPassword {
+  padding-top: 25px;
+  width: 100%;
+  display: flex;
+  width: 75%;
+  padding-left: 1%;
+}
+.editsettingstext {
+  color: white;
+  font-weight: bolder;
+}
+.editsettingstextZip {
+  color: white;
+  font-weight: bolder;
+  padding-top: 15px;
+  padding-right: 2%;
+}
+.email-input {
+  margin-right: 5%;
+}
+.buttons-settings:hover {
+  background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
+  color: white;
+  border: 1px solid;
+  padding: 41px;
+  font-size: 15px;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.5), 0 15px 12px rgba(0, 0, 0, 0.5);
+  margin-right: 5%;
+  margin-bottom: 30px;
+  cursor: pointer;
+
+  transition: box-shadow 0.2s ease-in-out;
+  transition: padding 0.2s ease-in-out;
+}
 
 .sidebar {
   width: 300px;
@@ -34,12 +86,34 @@
   display: flex;
   flex-direction: column;
 }
+.alert-box2 {
+  margin-top: 1%;
+  width: 95%;
+}
+.alert-box3 {
+  margin-top: 1% auto;
+  width: 100%;
+}
 .flex-me {
   display: flex;
   flex-flow: column;
   margin-top: 2%;
 }
+.flex-me-settings {
+  display: flex;
+  flex-flow: column;
+  margin-top: 2%;
+  width: 100%;
+}
 .recentMeals {
+  font-size: 36px;
+  background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
+  color: white;
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+.recentMealsZip {
   font-size: 36px;
   background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
   color: white;
@@ -66,6 +140,7 @@
 .MealDisplay:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.4), 0 10px 10px rgba(0, 0, 0, 0.4);
   cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out;
 }
 .titlelinks {
   display: flex;
@@ -122,9 +197,17 @@
   padding-right: 30%;
 }
 .dynamic-display-home-meals {
-  width: 100%;
+  width: 95%;
 }
-
+.dynamic-display-home-settings {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
+  padding-top: 20px;
+  margin-top: 50px;
+  padding-left: 2%;
+}
 .example {
   background: lightblue;
 }

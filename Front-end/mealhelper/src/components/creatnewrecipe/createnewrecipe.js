@@ -45,8 +45,12 @@ class CreateNewRecipe extends Component {
     });
   };
   componentDidMount() {
-    const id = this.props.user.userID;
-    this.props.getRecipe(id);
+    if (localStorage.getItem("token")) {
+      const id = localStorage.getItem("user_id");
+      this.props.getRecipe(id);
+    } else {
+      this.props.history.push("/");
+    }
   }
   componentWillReceiveProps(nextProps) {
     this.setState({ list: nextProps.recipes });
@@ -111,6 +115,7 @@ class CreateNewRecipe extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
   render() {
@@ -141,7 +146,8 @@ class CreateNewRecipe extends Component {
               Log Out
             </Button>
           </div>
-          <div>
+
+          <div className="create-recipe-background">
             <Button color="success" onClick={this.toggle}>
               + New Recipe
             </Button>
