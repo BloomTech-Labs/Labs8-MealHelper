@@ -10,8 +10,6 @@ import Foundation
 
 struct WeatherForecast: Decodable {
     
-//    var description: String
-//    var id: Int
     var weather: [Weather]
     var main: Main
 
@@ -43,73 +41,3 @@ struct WeatherForecast: Decodable {
         }
     }
 }
-//
-//    enum StatsCodingKeys: String, CodingKey
-//    {
-//        case temp
-//        case humidity
-//        case pressure
-//    }
-//
-//    enum WeatherCodingKeys: String, CodingKey
-//    {
-//        case weather
-//    }
-    
-//    public init(from decoder: Decoder) throws
-//    {
-//        let mainContainer = try decoder.container(keyedBy: MainCodingKeys.self)
-//        let statsContainer = try mainContainer.nestedContainer(keyedBy: StatsCodingKeys.self, forKey: .main)
-//        let temp = try statsContainer.decode(Int.self, forKey: .temp)
-//        let humidity = try statsContainer.decode(Int.self, forKey: .humidity)
-//        let pressure = try statsContainer.decode(Int.self, forKey: .pressure)
-//
-//        self.temp = temp
-//        self.humidity = humidity
-//        self.pressure = pressure
-////        self.description = description
-////        self.id = id
-//    }
-
-//
-//{
-//    "coord": {
-//        "lon": 12.02,
-//        "lat": 55.97
-//    },
-//    "weather": [
-//    {
-//    "id": 800,
-//    "main": "Clear",
-////    "description": "clear sky",
-////    "icon": "01d"
-//    }
-//    ],
-//    "base": "stations",
-//    "main": {
-////        "temp": 9,
-////        "pressure": 1035,
-////        "humidity": 70,
-//        "temp_min": 9,
-//        "temp_max": 9
-//    },
-//    "wind": {
-//        "speed": 6.7,
-//        "deg": 160
-//    },
-//    "clouds": {
-//        "all": 0
-//    },
-//    "dt": 1542367200,
-//    "sys": {
-//        "type": 1,
-//        "id": 5256,
-//        "message": 0.0041,
-//        "country": "DK",
-//        "sunrise": 1542351060,
-//        "sunset": 1542380510
-//    },
-//    "id": 490001092,
-//    "name": "Copenhagen",
-//    "cod": 200
-//}

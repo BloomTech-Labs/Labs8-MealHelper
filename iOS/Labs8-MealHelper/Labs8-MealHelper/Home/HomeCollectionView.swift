@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol HomeCollectionViewDelegate: class {
+    func didSelect(meal: Meal)
+}
+
 class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+    
+    weak var actionDelegate: HomeCollectionViewDelegate?
     
     private let cellId = "mealCell"
     
@@ -51,6 +57,11 @@ class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.bounds.width - 16, height: 50)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let meal = meals[indexPath.item]
+        actionDelegate?.didSelect(meal: meal)
     }
     
     required init?(coder aDecoder: NSCoder) {
