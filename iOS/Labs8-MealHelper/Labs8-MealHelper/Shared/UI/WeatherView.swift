@@ -16,10 +16,10 @@ class WeatherView: UIView
         {
             guard let forecast = forecast else { return }
             
-            let forecastAttributedText = NSMutableAttributedString(string: "Todays forecast is ", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)])
+            let forecastAttributedText = NSMutableAttributedString(string: "The forecast on that day was ", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)])
             forecastAttributedText.append(NSAttributedString(string: forecast.weather.first?.description ?? "Shiny", attributes: [NSAttributedString.Key.foregroundColor: UIColor.correctGreen, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]))
             forecastAttributedText.append(NSAttributedString(string: " with a temperature of ", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]))
-            forecastAttributedText.append(NSAttributedString(string: String(forecast.main.temp), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightBlue, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]))
+            forecastAttributedText.append(NSAttributedString(string: "\(String(forecast.main.temp))°C", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightBlue, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]))
             
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
@@ -83,7 +83,7 @@ class WeatherView: UIView
     
     func fetch()
     {
-        WeatherAPIClient.shared.fetchWeather(for: 8038) { (forecast) in
+        WeatherAPIClient.shared.fetchWeather(for: 3300) { (forecast) in
             
             guard let forecast = forecast else { return }
             print("Success: \(forecast)")
