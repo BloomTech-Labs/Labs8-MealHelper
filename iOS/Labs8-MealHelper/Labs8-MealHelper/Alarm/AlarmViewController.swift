@@ -99,15 +99,21 @@ class AlarmViewController: UIViewController {
                 case .success(let alarms):
                     self.tableView.alarms = alarms
                     self.tableView.reloadData()
-                    if let alarmsToCreate = self.localNotificationsHelper.alarmsNotSetup(alarms: alarms) {
-                        for alarm in alarmsToCreate {
-                            self.setupAlarm(alarm: alarm)
-                        }
-                    }
+                    self.checkFetchedAlarms(alarms: alarms)
                 case .error:
                     self.showAlert(with: "We couldn't find your alarms, please check your internet connection and try again.")
                     return
                 }
+            }
+        }
+    }
+    
+    private func checkFetchedAlarms(alarms: [Alarm]) {
+        
+        localNotificationsHelper.alarmsNotSetup(alarms: alarms) { (result) in
+            guard let result = result else { return }
+            for alarm in result {
+                self.setupAlarm(alarm: alarm)
             }
         }
     }
