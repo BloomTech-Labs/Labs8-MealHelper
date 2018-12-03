@@ -105,6 +105,7 @@ class AddAlarms extends Component {
         <div className="home-container">
           <h1>Add Alarms</h1>
           <form className="forms">
+          <h3>What should the time be for your first alarm?</h3>
             <Select
               options={options}
               className="time"
@@ -112,7 +113,7 @@ class AddAlarms extends Component {
               placeholder="Start Time"
               onChange={opt => this.setState({ startTime: opt.value })}
             />
-
+            <h3>What should the time be for your last alarm?</h3>
             <Select
               options={options}
               className="time"
@@ -120,6 +121,7 @@ class AddAlarms extends Component {
               placeholder="End Time"
               onChange={opt => this.setState({ endTime: opt.value })}
             />
+            <h3>How many hours should pass between each alarm?</h3>
             <input
               className="repeats"
               name="repeats"
@@ -127,6 +129,14 @@ class AddAlarms extends Component {
               onChange={this.handleChange}
               placeholder="Hours between each alarm"
             />
+            <h3>Which days should these alarms apply to?</h3>
+            <input type="checkbox" name="monday" value="monday"/> Monday<br />
+            <input type="checkbox" name="tuesday" value="tuesday"/> Tuesday<br />
+            <input type="checkbox" name="wednesday" value="wednesday"/> Wednesday<br />
+            <input type="checkbox" name="thursday" value="thursday"/> Thursday<br />
+            <input type="checkbox" name="friday" value="friday"/> Friday<br />
+            <input type="checkbox" name="saturday" value="saturday"/> Saturday<br />
+            <input type="checkbox" name="sunday" value="sunday"/> Sunday<br />
           </form>
           <button onClick={this.addAlarm} className="add-alarms btn">
             Add Alarms
