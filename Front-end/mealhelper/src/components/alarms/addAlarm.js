@@ -40,7 +40,14 @@ class AddAlarms extends Component {
     this.state = {
       beginTime: null,
       endTime: null,
-      repeats: null
+      repeats: null,
+      monday: false,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
+      sunday: false
     };
   }
 
