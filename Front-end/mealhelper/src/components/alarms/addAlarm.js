@@ -63,10 +63,10 @@ class AddAlarms extends Component {
   };
 
   handleCheck = day => {
-    console.log("DAY", this.state[day])
+    console.log(day, this.state[day])
     this.setState({
      [day]: !this.state[day]
-    }, () => console.log("this.state.day", this.state[day]))
+    })
   }
 
   addAlarm = event => {
@@ -90,7 +90,14 @@ class AddAlarms extends Component {
             user_id: user_id,
             label: "",
             alarm: alarm,
-            timestamp: timestamp
+            timestamp: timestamp,
+            monday: this.state.monday,
+            tuesday: this.state.tuesday,
+            wednesday: this.state.wednesday,
+            thursday: this.state.thursday,
+            friday: this.state.friday,
+            saturday: this.state.saturday,
+            sunday: this.state.sunday
           });
         } else {
           let alarm = i.toString();
@@ -98,13 +105,20 @@ class AddAlarms extends Component {
             user_id: user_id,
             label: "",
             alarm: alarm,
-            timestamp: timestamp
+            timestamp: timestamp,
+            monday: this.state.monday,
+            tuesday: this.state.tuesday,
+            wednesday: this.state.wednesday,
+            thursday: this.state.thursday,
+            friday: this.state.friday,
+            saturday: this.state.saturday,
+            sunday: this.state.sunday
           });
         }
       }
       alarmTimes.map(alarm => console.log("alarm map", alarm));
-      alarmTimes.map(alarm => this.props.addAlarms(alarm));
-      this.props.history.push("/homepage/alarms");
+      //alarmTimes.map(alarm => this.props.addAlarms(alarm));
+      //this.props.history.push("/homepage/alarms");
     }
   };
 
@@ -178,12 +192,37 @@ class AddAlarms extends Component {
               name="tuesday" 
               value="tuesday"
               defaultChecked={this.state.tuesday} 
-              onChange={() => console.log("tuesday:", this.state.tuesday)}/> Tuesday
-            <input type="checkbox" name="wednesday" value="wednesday"/> Wednesday
-            <input type="checkbox" name="thursday" value="thursday"/> Thursday
-            <input type="checkbox" name="friday" value="friday"/> Friday
-            <input type="checkbox" name="saturday" value="saturday"/> Saturday
-            <input type="checkbox" name="sunday" value="sunday"/> Sundays
+              onChange={() => this.handleCheck('tuesday')}/> Tuesday
+            <input 
+              type="checkbox" 
+              name="wednesday" 
+              value="wednesday"
+              defaultChecked={this.state.wednesday} 
+              onChange={() => this.handleCheck('wednesday')}/> Wednesday
+            <input 
+              type="checkbox" 
+              name="thursday" 
+              value="thursday"
+              defaultChecked={this.state.thursday} 
+              onChange={() => this.handleCheck('thursday')}/> Thursday
+            <input 
+              type="checkbox" 
+              name="friday" 
+              value="friday"
+              defaultChecked={this.state.friday} 
+              onChange={() => this.handleCheck('friday')}/> Friday
+            <input 
+              type="checkbox" 
+              name="saturday" 
+              value="saturday"
+              defaultChecked={this.state.saturday} 
+              onChange={() => this.handleCheck('saturday')}/> Saturday
+            <input 
+              type="checkbox" 
+              name="sunday" 
+              value="sunday"
+              defaultChecked={this.state.sunday} 
+              onChange={() => this.handleCheck('sunday')}/> Sundays
         
           </form>
           <button onClick={this.addAlarm} className="add-alarms btn">
