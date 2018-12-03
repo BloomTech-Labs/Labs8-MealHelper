@@ -62,8 +62,8 @@ class AddAlarms extends Component {
 
   addAlarm = event => {
     event.preventDefault();
-    console.log("THIS.PROPS", this.props);
-    console.log("THIS.PROPS.USER", this.props.user);
+    // console.log("THIS.PROPS", this.props);
+    // console.log("THIS.PROPS.USER", this.props.user);
     const user_id = this.props.user.userID;
     if (!this.state.startTime || !this.state.endTime || !this.state.repeats) {
       //alert that all fields are required
