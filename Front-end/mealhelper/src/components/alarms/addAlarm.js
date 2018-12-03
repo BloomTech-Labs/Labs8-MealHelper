@@ -41,6 +41,7 @@ class AddAlarms extends Component {
       beginTime: null,
       endTime: null,
       repeats: null,
+      timestamp: null,
       monday: false,
       tuesday: false,
       wednesday: false,
