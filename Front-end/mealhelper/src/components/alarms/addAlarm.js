@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 //import moment from "moment";
 import Select from "react-select";
 import { addAlarms } from "../../store/actions/alarmActions";
+import moment from "moment";
 
 //this is embarrassingly not DRY; auto-populate ASAP
 const options = [
@@ -38,7 +39,7 @@ class AddAlarms extends Component {
     super(props);
 
     this.state = {
-      beginTime: null,
+      startTime: null,
       endTime: null,
       repeats: null,
       timestamp: null,
@@ -62,29 +63,39 @@ class AddAlarms extends Component {
   addAlarm = event => {
     event.preventDefault();
     console.log("THIS.PROPS", this.props);
-    console.log("THIS.PROPS.USER", this.props.user)
-   const user_id = this.props.user.userID;
-    if (!this.state.beginTime || !this.state.endTime || !this.state.repeats) {
+    console.log("THIS.PROPS.USER", this.props.user);
+    const user_id = this.props.user.userID;
+    if (!this.state.startTime || !this.state.endTime || !this.state.repeats) {
       //alert that all fields are required
     } else {
-      let start = Number(this.state.beginTime); 
-      let end = Number(this.state.endTime); 
+      let start = Number(this.state.startTime);
+      let end = Number(this.state.endTime);
       let repeats = +this.state.repeats * 100;
-      console.log("repeats", repeats);
+      let timestamp = Math.round(new Date().getTime() / 1000.0);
+      console.log("TIMESTAMP", timestamp);
       let alarmTimes = [];
       for (let i = start; i <= end; i += repeats) {
         if (i.toString().length === 3) {
           let alarm = 0 + i.toString();
-          alarmTimes.push({ user_id: user_id, label: "", alarm: alarm });
+          alarmTimes.push({
+            user_id: user_id,
+            label: "",
+            alarm: alarm,
+            timestamp: timestamp
+          });
         } else {
           let alarm = i.toString();
-          alarmTimes.push({ user_id: user_id, label: "", alarm: alarm });
+          alarmTimes.push({
+            user_id: user_id,
+            label: "",
+            alarm: alarm,
+            timestamp: timestamp
+          });
         }
       }
-      console.log("alarmTimes", alarmTimes)
-        alarmTimes.map(alarm => console.log("alarm map", alarm));
-        alarmTimes.map(alarm => this.props.addAlarms(alarm));
-       this.props.history.push('/homepage/alarms')
+      alarmTimes.map(alarm => console.log("alarm map", alarm));
+      alarmTimes.map(alarm => this.props.addAlarms(alarm));
+      this.props.history.push("/homepage/alarms");
     }
   };
 
@@ -97,9 +108,9 @@ class AddAlarms extends Component {
             <Select
               options={options}
               className="time"
-              name="beginTime"
+              name="startTime"
               placeholder="Start Time"
-              onChange={opt => this.setState({ beginTime: opt.value })}
+              onChange={opt => this.setState({ startTime: opt.value })}
             />
 
             <Select
