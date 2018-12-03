@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-//import moment from "moment";
 import Select from "react-select";
 import { addAlarms } from "../../store/actions/alarmActions";
-import moment from "moment";
 import { Button } from "reactstrap";
 import "./addAlarm.css";
 
@@ -295,7 +293,7 @@ class AddAlarms extends Component {
                 placeholder="Alarm label"
               />
             </form>
-            <button onClick={this.addAlarm} className="add-alarms btn">
+            <button onClick={this.addSingleAlarm} className="add-alarms btn">
               Add Alarm
             </button>
           </div>
