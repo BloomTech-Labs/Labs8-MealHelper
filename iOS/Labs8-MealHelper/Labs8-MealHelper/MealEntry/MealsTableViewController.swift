@@ -80,12 +80,12 @@ class MealsTableViewController: FoodsTableViewController<Recipe, FoodTableViewCe
         return [remove, edit]
     }
     
-    override func actionWhenNoItemsSelected() {
+    override func didNotSelectItems() {
         let ingredientsVC = SearchIngredientsTableViewController(navTitle: "Ingredients")
         navigationController?.pushViewController(ingredientsVC, animated: true)
     }
     
-    override func actionWhenItemsSelected() {
+    override func didSelectItems() {
         let foods = getSelectedFoods()
         let date = Utils().dateString(for: Date())
         var temp = 0.0 // TODO: Change

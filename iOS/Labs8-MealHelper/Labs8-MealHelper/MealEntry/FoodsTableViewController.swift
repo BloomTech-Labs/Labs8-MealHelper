@@ -29,11 +29,11 @@ class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewCont
     // MARK: - Private properties
     
     lazy var noItemSelectedbarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(actionWhenNoItemsSelected))
+        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didNotSelectItems))
     }()
     
     lazy var itemsSelectedBarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(actionWhenItemsSelected))
+        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didSelectItems))
     }()
     
     // MARK: - Init
@@ -111,9 +111,9 @@ class FoodsTableViewController<Resource, Cell: UITableViewCell>: UITableViewCont
     
     // MARK: - User Actions
     
-    @objc func actionWhenNoItemsSelected() { }
+    @objc func didNotSelectItems() { }
     
-    @objc func actionWhenItemsSelected() { }
+    @objc func didSelectItems() { }
     
     // MARK: - Configuration
     

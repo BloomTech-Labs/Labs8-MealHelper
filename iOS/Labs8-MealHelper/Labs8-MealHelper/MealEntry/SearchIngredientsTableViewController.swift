@@ -35,11 +35,11 @@ class SearchIngredientsTableViewController: FoodsTableViewController<Ingredient,
     }()
     
     override lazy var noItemSelectedbarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(actionWhenNoItemsSelected))
+        return UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didNotSelectItems))
     }()
     
     override lazy var itemsSelectedBarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(actionWhenItemsSelected))
+        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didSelectItems))
     }()
     
     // MARK: - Life Cycle
@@ -123,11 +123,11 @@ class SearchIngredientsTableViewController: FoodsTableViewController<Ingredient,
         present(ingredientDetailVC, animated: true, completion: nil)
     }
     
-    override func actionWhenNoItemsSelected() {
+    override func didNotSelectItems() {
         navigationController?.popViewController(animated: true)
     }
     
-    override func actionWhenItemsSelected() {
+    override func didSelectItems() {
         let saveRecipeVC = SaveRecipeViewController()
         saveRecipeVC.ingredients = getSelectedFoods()
         navigationController?.pushViewController(saveRecipeVC, animated: true)

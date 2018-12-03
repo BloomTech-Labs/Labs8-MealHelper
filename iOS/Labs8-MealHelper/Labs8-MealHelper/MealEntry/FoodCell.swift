@@ -8,9 +8,9 @@
 
 import UIKit
 
-class FoodCell: UICollectionViewCell {
+class FoodCell<T>: UICollectionViewCell {
     
-    var food: Recipe? {
+    var food: T? {
         didSet {
             setupViews()
         }
@@ -79,6 +79,15 @@ class FoodCell: UICollectionViewCell {
 //
 //        experienceLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 //        experienceLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+        
+        if let recipe = food as? Recipe {
+            mealNameLabel.text = recipe.name
+            
+        } else if let ingredient = food as? Ingredient {
+            mealNameLabel.text = ingredient.name
+        }
+        
     }
     
     func toggleSelected() {
