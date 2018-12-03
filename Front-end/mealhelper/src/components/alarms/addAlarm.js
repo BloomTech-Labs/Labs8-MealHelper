@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 //import moment from "moment";
 import Select from "react-select";
-
 import { addAlarms } from "../../store/actions/alarmActions";
 import moment from "moment";
 import { Button } from "reactstrap";
+import "./addAlarm.css";
 
 //this is embarrassingly not DRY; auto-populate ASAP
 const options = [
@@ -51,7 +51,9 @@ class AddAlarms extends Component {
       thursday: false,
       friday: false,
       saturday: false,
-      sunday: false
+      sunday: false,
+      alarmTime: null,
+      label: ""
     };
   }
 
@@ -63,11 +65,11 @@ class AddAlarms extends Component {
   };
 
   handleCheck = day => {
-    console.log(day, this.state[day])
+    console.log(day, this.state[day]);
     this.setState({
-     [day]: !this.state[day]
-    })
-  }
+      [day]: !this.state[day]
+    });
+  };
 
   addAlarm = event => {
     event.preventDefault();
@@ -122,112 +124,179 @@ class AddAlarms extends Component {
     }
   };
 
+  addSingleAlarm = event => {
+    event.preventDefault();
+    const user_id = this.props.user.userID;
+    let alarm = this.state.alarmTime;
+    let label = this.state.label;
+    let timestamp = Math.round(new Date().getTime() / 1000.0);
+
+    let alarmBody = {
+      user_id: user_id,
+      label: label,
+      alarm: alarm,
+      timestamp: timestamp,
+      monday: this.state.monday,
+      tuesday: this.state.tuesday,
+      wednesday: this.state.wednesday,
+      thursday: this.state.thursday,
+      friday: this.state.friday,
+      saturday: this.state.saturday,
+      sunday: this.state.sunday
+    }
+
+    this.props.addAlarms(alarmBody);
+    console.log("alarm body: ", "alarm", alarm, "label", label);
+  };
+
   render() {
     return (
       <div className="alarms-container">
         <div className="home-container">
-        <div className="sidebar"><Link to="/homepage" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Home</h2>
-          </Link>
-          <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Recipes</h2>
-          </Link>
-          <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Alarms</h2>
-          </Link>
-          <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Meals</h2>
-          </Link>
-          <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Billing</h2>
-          </Link>
-          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Settings</h2>
-          </Link>
-          <Button color="danger" onClick={this.toggle}>
-            Log Out
-          </Button>
-          <Link to="homepage/billing">
-            <Button className="danger" color="danger">
-              Upgrade to Premium
+          <div className="sidebar">
+            <Link to="/homepage" style={{ textDecoration: "none" }}>
+              <h2 className="titlelinks">Home</h2>
+            </Link>
+            <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
+              <h2 className="titlelinks">Recipes</h2>
+            </Link>
+            <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
+              <h2 className="titlelinks">Alarms</h2>
+            </Link>
+            <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
+              <h2 className="titlelinks">Meals</h2>
+            </Link>
+            <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
+              <h2 className="titlelinks">Billing</h2>
+            </Link>
+            <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
+              <h2 className="titlelinks">Settings</h2>
+            </Link>
+            <Button color="danger" onClick={this.toggle}>
+              Log Out
             </Button>
-          </Link></div>
-          
+            <Link to="homepage/billing">
+              <Button className="danger" color="danger">
+                Upgrade to Premium
+              </Button>
+            </Link>
+          </div>
+
           <div className="dynamic-display">
-          <h1>Add Alarms</h1>
-          <form className="forms">
-          <h3>What should the time be for your first alarm?</h3>
-            <Select
-              options={options}
-              className="time"
-              name="startTime"
-              placeholder="Start Time"
-              onChange={opt => this.setState({ startTime: opt.value })}
-            />
-            <h3>What should the time be for your last alarm?</h3>
-            <Select
-              options={options}
-              className="time"
-              name="endTime"
-              placeholder="End Time"
-              onChange={opt => this.setState({ endTime: opt.value })}
-            />
-            <h3>How many hours should pass between each alarm?</h3>
-            <input
-              className="repeats"
-              name="repeats"
-              value={this.state.repeats}
-              onChange={this.handleChange}
-              placeholder="Hours between each alarm"
-            />
-            <h3>Which days should these alarms apply to?</h3>
-            <input 
-              type="checkbox" 
-              name="monday" 
-              value="monday" 
-              defaultChecked={this.state.monday} 
-              onChange={() => this.handleCheck('monday')}/> Monday
-            <input 
-              type="checkbox" 
-              name="tuesday" 
-              value="tuesday"
-              defaultChecked={this.state.tuesday} 
-              onChange={() => this.handleCheck('tuesday')}/> Tuesday
-            <input 
-              type="checkbox" 
-              name="wednesday" 
-              value="wednesday"
-              defaultChecked={this.state.wednesday} 
-              onChange={() => this.handleCheck('wednesday')}/> Wednesday
-            <input 
-              type="checkbox" 
-              name="thursday" 
-              value="thursday"
-              defaultChecked={this.state.thursday} 
-              onChange={() => this.handleCheck('thursday')}/> Thursday
-            <input 
-              type="checkbox" 
-              name="friday" 
-              value="friday"
-              defaultChecked={this.state.friday} 
-              onChange={() => this.handleCheck('friday')}/> Friday
-            <input 
-              type="checkbox" 
-              name="saturday" 
-              value="saturday"
-              defaultChecked={this.state.saturday} 
-              onChange={() => this.handleCheck('saturday')}/> Saturday
-            <input 
-              type="checkbox" 
-              name="sunday" 
-              value="sunday"
-              defaultChecked={this.state.sunday} 
-              onChange={() => this.handleCheck('sunday')}/> Sundays
-        
-          </form>
-          <button onClick={this.addAlarm} className="add-alarms btn">
-            Add Alarms
-          </button>
+            <div className="alarm-days">
+              <h3>Which days should the alarm(s) apply to?</h3>
+              <input
+                type="checkbox"
+                name="monday"
+                value="monday"
+                defaultChecked={this.state.monday}
+                onChange={() => this.handleCheck("monday")}
+              />{" "}
+              Monday
+              <input
+                type="checkbox"
+                name="tuesday"
+                value="tuesday"
+                defaultChecked={this.state.tuesday}
+                onChange={() => this.handleCheck("tuesday")}
+              />{" "}
+              Tuesday
+              <input
+                type="checkbox"
+                name="wednesday"
+                value="wednesday"
+                defaultChecked={this.state.wednesday}
+                onChange={() => this.handleCheck("wednesday")}
+              />{" "}
+              Wednesday
+              <input
+                type="checkbox"
+                name="thursday"
+                value="thursday"
+                defaultChecked={this.state.thursday}
+                onChange={() => this.handleCheck("thursday")}
+              />{" "}
+              Thursday
+              <input
+                type="checkbox"
+                name="friday"
+                value="friday"
+                defaultChecked={this.state.friday}
+                onChange={() => this.handleCheck("friday")}
+              />{" "}
+              Friday
+              <input
+                type="checkbox"
+                name="saturday"
+                value="saturday"
+                defaultChecked={this.state.saturday}
+                onChange={() => this.handleCheck("saturday")}
+              />{" "}
+              Saturday
+              <input
+                type="checkbox"
+                name="sunday"
+                value="sunday"
+                defaultChecked={this.state.sunday}
+                onChange={() => this.handleCheck("sunday")}
+              />{" "}
+              Sundays
+            </div>
+            <div className="add-container">
+              <h1>Add Alarms in a Batch</h1>
+              <form className="forms">
+                <h3>What should the time be for your first alarm?</h3>
+                <Select
+                  options={options}
+                  className="time"
+                  name="startTime"
+                  placeholder="Start Time"
+                  onChange={opt => this.setState({ startTime: opt.value })}
+                />
+                <h3>What should the time be for your last alarm?</h3>
+                <Select
+                  options={options}
+                  className="time"
+                  name="endTime"
+                  placeholder="End Time"
+                  onChange={opt => this.setState({ endTime: opt.value })}
+                />
+                <h3>How many hours should pass between each alarm?</h3>
+                <input
+                  className="repeats"
+                  name="repeats"
+                  value={this.state.repeats}
+                  onChange={this.handleChange}
+                  placeholder="Hours between each alarm"
+                />
+              </form>
+              <button onClick={this.addAlarm} className="add-alarms btn">
+                Add Alarm Batch
+              </button>
+            </div>
+
+            <div className="add-container">
+              <h1>Add a Single Alarm</h1>
+            </div>
+            <form>
+              <Select
+                options={options}
+                className="time"
+                name="alarmTime"
+                placeholder="Alarm Time"
+                onChange={opt => this.setState({ alarmTime: opt.value })}
+              />
+              <input
+                className="label"
+                name="label"
+                value={this.state.label}
+                onChange={this.handleChange}
+                placeholder="Alarm label"
+              />
+            </form>
+            <button onClick={this.addSingleAlarm} className="add-alarms btn">
+              Add Alarm
+            </button>
           </div>
         </div>
       </div>
