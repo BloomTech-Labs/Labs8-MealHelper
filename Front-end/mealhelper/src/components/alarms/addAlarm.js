@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 //import moment from "moment";
 import Select from "react-select";
+
 import { addAlarms } from "../../store/actions/alarmActions";
 import moment from "moment";
+import { Button } from "reactstrap";
 
 //this is embarrassingly not DRY; auto-populate ASAP
 const options = [
@@ -60,6 +62,13 @@ class AddAlarms extends Component {
     });
   };
 
+  handleCheck = day => {
+    console.log("DAY", this.state[day])
+    this.setState({
+     [day]: !this.state[day]
+    }, () => console.log("this.state.day", this.state[day]))
+  }
+
   addAlarm = event => {
     event.preventDefault();
     // console.log("THIS.PROPS", this.props);
@@ -103,6 +112,34 @@ class AddAlarms extends Component {
     return (
       <div className="alarms-container">
         <div className="home-container">
+        <div className="sidebar"><Link to="/homepage" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Home</h2>
+          </Link>
+          <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Recipes</h2>
+          </Link>
+          <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Alarms</h2>
+          </Link>
+          <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Meals</h2>
+          </Link>
+          <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Billing</h2>
+          </Link>
+          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Settings</h2>
+          </Link>
+          <Button color="danger" onClick={this.toggle}>
+            Log Out
+          </Button>
+          <Link to="homepage/billing">
+            <Button className="danger" color="danger">
+              Upgrade to Premium
+            </Button>
+          </Link></div>
+          
+          <div className="dynamic-display">
           <h1>Add Alarms</h1>
           <form className="forms">
           <h3>What should the time be for your first alarm?</h3>
@@ -130,17 +167,29 @@ class AddAlarms extends Component {
               placeholder="Hours between each alarm"
             />
             <h3>Which days should these alarms apply to?</h3>
-            <input type="checkbox" name="monday" value="monday"/> Monday<br />
-            <input type="checkbox" name="tuesday" value="tuesday"/> Tuesday<br />
-            <input type="checkbox" name="wednesday" value="wednesday"/> Wednesday<br />
-            <input type="checkbox" name="thursday" value="thursday"/> Thursday<br />
-            <input type="checkbox" name="friday" value="friday"/> Friday<br />
-            <input type="checkbox" name="saturday" value="saturday"/> Saturday<br />
-            <input type="checkbox" name="sunday" value="sunday"/> Sunday<br />
+            <input 
+              type="checkbox" 
+              name="monday" 
+              value="monday" 
+              defaultChecked={this.state.monday} 
+              onChange={() => this.handleCheck('monday')}/> Monday
+            <input 
+              type="checkbox" 
+              name="tuesday" 
+              value="tuesday"
+              defaultChecked={this.state.tuesday} 
+              onChange={() => console.log("tuesday:", this.state.tuesday)}/> Tuesday
+            <input type="checkbox" name="wednesday" value="wednesday"/> Wednesday
+            <input type="checkbox" name="thursday" value="thursday"/> Thursday
+            <input type="checkbox" name="friday" value="friday"/> Friday
+            <input type="checkbox" name="saturday" value="saturday"/> Saturday
+            <input type="checkbox" name="sunday" value="sunday"/> Sundays
+        
           </form>
           <button onClick={this.addAlarm} className="add-alarms btn">
             Add Alarms
           </button>
+          </div>
         </div>
       </div>
     );

@@ -5,18 +5,7 @@ import axios from "axios";
 import { fetchAlarms, deleteAlarm, updateAlarm } from "../../store/actions/alarmActions";
 //import { Alarm } from "./alarm";
 import Select from "react-select";
-import editAlarmModal from './editAlarmModal';
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
+import { Button } from "reactstrap";
 
 const alarms = [
   {
@@ -118,13 +107,6 @@ class MyAlarms extends Component {
 };
 
  sendToEdit(labelChange) {
-  // this.setState(prevState => ({
-  //   ...this.state,
-  //   alarmToUpdate: {
-  //     ...prevState.alarmToUpdate,
-  //     label: labelChange
-  //   }
-  //  }), () => console.log("alarm body in setState", alarmBody))
   const { id, alarm } = this.state.alarmToUpdate;
   const label = labelChange;
   const alarmBody = { id, label, alarm };
@@ -134,18 +116,13 @@ class MyAlarms extends Component {
 }
 
  showModal = (alarmID) => {
-  // if (this.state.show) {
-  //   this.setState ({
-  //     show: !this.state.show,
-  //   })
-  // } else {
   const alarmToUpdate = this.props.alarms.find(alarm => alarm.id === alarmID);
+  const show = this.state.show;
   this.setState ({
     ...this.state,
-    show: !this.state.show,
+    show: !show,
     alarmToUpdate: alarmToUpdate
   }, () => console.log("ALARM TO UPDATE", this.state.alarmToUpdate))
-//}
 }
 
   render() {
