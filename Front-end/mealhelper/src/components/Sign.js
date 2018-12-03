@@ -21,6 +21,19 @@ function Sign(props) {
           <img src={Googlogo} className="authlogo2" alt="Google" />
         </button>
       )}
+      {auth0Client.isAuthenticated() &&
+        localStorage.getItem("token")(
+          <div>
+            <button
+              className="btn btn-dark"
+              onClick={() => {
+                signOut();
+              }}
+            >
+              Sign Out
+            </button>
+          </div>
+        )}
     </nav>
   );
 }
