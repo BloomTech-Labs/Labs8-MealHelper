@@ -84,10 +84,7 @@ class EditZip extends Component {
       const { zip, password } = this.state;
       const user = { zip, password };
       axios
-        .put(
-          `https://labs8-meal-helper.herokuapp.com/users/password/${id}`,
-          user
-        )
+        .put(`https://labs8-meal-helper.herokuapp.com/users/zip/${id}`, user)
         .then(response => {
           console.log(response);
           this.setState({ updated: true });
