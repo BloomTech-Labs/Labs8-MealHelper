@@ -74,6 +74,9 @@ class SettingsCell: UICollectionViewCell {
         tv.delegate = self
         tv.dataSource = self
         tv.backgroundColor = .clear
+        tv.layer.cornerRadius = 10
+        tv.layer.masksToBounds = true
+        
         
         return tv
     }()
@@ -83,7 +86,7 @@ class SettingsCell: UICollectionViewCell {
         backgroundColor = .clear
         
         addSubview(tableView)
-        tableView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 40, left: 30, bottom: 40, right: 30))
+        tableView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 0, left: 30, bottom: 40, right: 30))
     }
     
     @objc private func logout() {
@@ -137,8 +140,43 @@ extension SettingsCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0: return "User credentials"
-        case 1: return nil
+        case 1: return "v0.0.1"
         default: fatalError()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as? UITableViewHeaderFooterView
+        header?.textLabel?.font = Appearance.appFont(with: 12)
+        header?.textLabel?.textColor = UIColor.init(white: 0.9, alpha: 1)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        // Top corners
+        let maskPathTop = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 10, height: 10))
+        let shapeLayerTop = CAShapeLayer()
+        shapeLayerTop.frame = cell.bounds
+        shapeLayerTop.path = maskPathTop.cgPath
+        
+        //Bottom corners
+        let maskPathBottom = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 10, height: 10))
+        let shapeLayerBottom = CAShapeLayer()
+        shapeLayerBottom.frame = cell.bounds
+        shapeLayerBottom.path = maskPathBottom.cgPath
+        
+        // All corners
+        let maskPathAll = UIBezierPath(roundedRect: cell.contentView.bounds, byRoundingCorners: [.topLeft, .topRight, .bottomRight, .bottomLeft], cornerRadii: CGSize(width: 5.0, height: 5.0))
+        let shapeLayerAll = CAShapeLayer()
+        shapeLayerAll.frame = cell.contentView.bounds
+        shapeLayerAll.path = maskPathAll.cgPath
+        
+        if indexPath.row == 0 && indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+            cell.layer.mask = shapeLayerAll
+        } else if indexPath.row == 0 {
+            cell.layer.mask = shapeLayerTop
+        } else if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+            cell.layer.mask = shapeLayerBottom
         }
     }
 }

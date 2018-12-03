@@ -22,6 +22,15 @@ class SettingsViewController: UIViewController {
         return frost
     }()
     
+    let closeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "close").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
+        
+        return button
+    }()
+    
     lazy var menuBar: MenuBar = {
         let mb = MenuBar()
         mb.delegate = self
@@ -57,9 +66,8 @@ class SettingsViewController: UIViewController {
         collectionView.register(AboutCell.self, forCellWithReuseIdentifier: aboutId)
     }
     
-    private func setTitle(for index: Int) {
-        let titles = ["Settings", "About"]
-        navigationItem.title = titles[index]
+    @objc private func handleDismiss() {
+        dismiss(animated: true, completion: nil)
     }
     
     private func setupViews() {
@@ -67,14 +75,17 @@ class SettingsViewController: UIViewController {
         view.addSubview(blurEffect)
         blurEffect.fillSuperview()
         
+        view.addSubview(closeButton)
+        closeButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 16), size: CGSize(width: 24, height: 24))
+        
         let menuBarWidth = (self.view.frame.width / 4) * 2
         
         view.addSubview(menuBar)
-        menuBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0), size: CGSize(width: menuBarWidth, height: 40))
+        menuBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 60, left: 0, bottom: 0, right: 0), size: CGSize(width: menuBarWidth, height: 40))
         menuBar.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(collectionView)
-        collectionView.anchor(top: menuBar.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 30, left: 0, bottom: 80, right: 0))
+        collectionView.anchor(top: menuBar.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 10, left: 0, bottom: 80, right: 0))
     }
     
     func showErrorAlert(with text: String) {
@@ -89,11 +100,8 @@ class SettingsViewController: UIViewController {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let index = targetContentOffset.pointee.x / view.frame.width
-        print(index)
         let indexPath = IndexPath(item: Int(index), section: 0)
         menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-        
-//        setTitle(for: Int(index))
     }
 }
 
@@ -101,6 +109,5 @@ extension SettingsViewController: MenuBarDelegate {
     func selectedMenuItemDidChange(to index: Int) {
         let indexPath = IndexPath(item: index, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        setTitle(for: index)
     }
 }
