@@ -15,19 +15,19 @@ class CheckoutForm extends Component {
   }
 
   async submit(ev) {
-    // let { token } = await this.props.stripe.createToken({ name: "Name" });
-    // let response = await fetch("/charge", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "text/plain" },
-    //   body: token.id
-    if (this.state.inputValue.split("").length > 4) {
-      this.setState({ complete: true });
-    } else {
-      alert("Please enter valid information");
-    }
-    // });
+    let { token } = await this.props.stripe.createToken({ name: "Name" });
+    let response = await fetch("/charge", {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: token.id
+      // if (this.state.inputValue.split("").length > 4) {
+      //   this.setState({ complete: true });
+      // } else {
+      //   alert("Please enter valid information");
+      // }
+    });
 
-    // if (response.ok) this.setState({ complete: true });
+    if (response.ok) this.setState({ complete: true });
   }
 
   render() {
