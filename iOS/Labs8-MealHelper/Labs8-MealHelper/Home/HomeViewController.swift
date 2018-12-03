@@ -168,7 +168,9 @@ extension HomeViewController: ExpandableButtonViewDelegate {
         case .right:
             print("Right")
         case .mostRight:
-            print("Most Right")
+            let settingsViewController = SettingsViewController()
+            settingsViewController.modalPresentationStyle = .overCurrentContext
+            present(settingsViewController, animated: true, completion: nil)
         }
     }
 }
