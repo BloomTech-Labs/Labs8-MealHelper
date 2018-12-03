@@ -138,6 +138,7 @@ server.post("/registerAuth0", (req, res) => {
     .insert(user)
     .then(userMsg => {
       const token = generateToken(user);
+      console.log(userMsg);
       res.status(201).json({ userID: userMsg, token: token });
     })
     .catch(err => {

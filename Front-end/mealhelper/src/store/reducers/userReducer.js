@@ -45,6 +45,9 @@ export const userReducer = (state = initialState, action) => {
     case ADDING_AUTH_USER:
       return { ...state, addingAuthUser: true };
     case GOT_AUTH_USER:
+      console.log(action.payload);
+      localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("user_id", action.payload.userID);
       return { ...state, addingAuthUser: false, user: action.payload };
     case GETTING_AUTH_USER_ERROR:
       return { ...state, addingAuthUser: false, error: action.payload };
