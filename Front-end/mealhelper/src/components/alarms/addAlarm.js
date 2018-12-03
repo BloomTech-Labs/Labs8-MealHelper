@@ -119,8 +119,8 @@ class AddAlarms extends Component {
         }
       }
       alarmTimes.map(alarm => console.log("alarm map", alarm));
-      //alarmTimes.map(alarm => this.props.addAlarms(alarm));
-      //this.props.history.push("/homepage/alarms");
+      alarmTimes.map(alarm => this.props.addAlarms(alarm));
+      this.props.history.push("/homepage/alarms");
     }
   };
 
@@ -144,9 +144,10 @@ class AddAlarms extends Component {
       saturday: this.state.saturday,
       sunday: this.state.sunday
     }
+    console.log("alarm body: ", "alarm", alarm, "label", label);
 
     this.props.addAlarms(alarmBody);
-    console.log("alarm body: ", "alarm", alarm, "label", label);
+    this.props.history.push("/homepage/alarms");
   };
 
   render() {
@@ -294,7 +295,7 @@ class AddAlarms extends Component {
                 placeholder="Alarm label"
               />
             </form>
-            <button onClick={this.addSingleAlarm} className="add-alarms btn">
+            <button onClick={this.addAlarm} className="add-alarms btn">
               Add Alarm
             </button>
           </div>
