@@ -89,14 +89,6 @@ class Billing extends Component {
               Upgrade to Premium
             </Button>
           </Link>
-          {/* <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
-            <div className="example">
-              <h1>Pay Up Health Nut</h1>
-              <Elements>
-                <CheckoutForm />
-              </Elements>
-            </div>
-          </StripeProvider> */}
         </div>
         <div className="dynamic-display">
           <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
@@ -107,6 +99,18 @@ class Billing extends Component {
               </Elements>
             </div>
           </StripeProvider>
+          {/* <form action="your-server-side-code" method="POST">
+            <script
+              src="https://checkout.stripe.com/checkout.js"
+              class="stripe-button"
+              data-key="pk_test_rMbD3kGkxVoOsMd0meVqUlmG"
+              data-amount="999"
+              data-name="Meal Helper"
+              data-description="Example charge"
+              data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+              data-locale="auto"
+            />
+          </form> */}
         </div>
 
         <Modal

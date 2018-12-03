@@ -20,11 +20,6 @@ class CheckoutForm extends Component {
       method: "POST",
       headers: { "Content-Type": "text/plain" },
       body: token.id
-      // if (this.state.inputValue.split("").length > 4) {
-      //   this.setState({ complete: true });
-      // } else {
-      //   alert("Please enter valid information");
-      // }
     });
 
     if (response.ok) this.setState({ complete: true });

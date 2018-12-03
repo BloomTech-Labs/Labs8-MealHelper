@@ -42,15 +42,15 @@ class App extends Component {
       <div className="App">
         <Switch>
           <Route exact path="/" render={() => <LandingPage />} />
-          <Route exact path="/signup" render={() => <Signup />} />
-          <Route exact path="/callback" render={() => <Callback />} />
+          <Route path="/signup" render={() => <Signup />} />
+          <Route path="/callback" render={() => <Callback />} />
           <Route path="/login" render={() => <Login />} />
           <Route exact path="/homepage" render={() => <HomePage />} />
-          <Route exact path="/homepage/meals" render={() => <Meals />} />
-          <Route exact path="/homepage/weather" render={() => <Weather />} />
-          <Route path="/ingredients" render={() => <GetIngredient />} />
-          <Route exact path="/homepage/recipes" render={() => <Recipes />} />
-          <Route exact path="/homepage/billing" render={() => <Billing />} />
+          <Route path="/homepage/meals" render={() => <Meals />} />
+          <Route path="/homepage/weather" render={() => <Weather />} />
+          <Route exact path="/ingredients" render={() => <GetIngredient />} />
+          <Route path="/homepage/recipes" render={() => <Recipes />} />
+          <Route path="/homepage/billing" render={() => <Billing />} />
           <Route
             path="/homepage/recipes/createnewrecipe"
             render={() => <CreateNewRecipe />}
@@ -76,7 +76,7 @@ class App extends Component {
             path="/homepage/ingredients/myingredients"
             render={() => <MyIngredients />}
           />
-          <Route exact path="/homepage/alarms" render={() => <MyAlarms />} />
+          <Route path="/homepage/alarms" render={() => <MyAlarms />} />
           <Route
             path="/homepage/alarms/add-alarms"
             render={() => <AddAlarms />}
@@ -85,11 +85,7 @@ class App extends Component {
             path="/homepage/alarms/add-alarms"
             render={() => <AddAlarms />}
           />
-          <Route
-            exact
-            path="/homepage/settings"
-            render={() => <SettingsMain />}
-          />
+          <Route path="/homepage/settings" render={() => <SettingsMain />} />
           <Route path="/homepage/settings/email" render={() => <EditEmail />} />
           <Route
             path="/homepage/settings/password"
