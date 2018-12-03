@@ -14,7 +14,7 @@ struct Alarm: Codable {
     var userId: Int
     var note: String
     var time: String
-    var timestamp: Int
+    var timestamp: String
     
     enum CodingKeys: String, CodingKey {
         case id
