@@ -21,21 +21,6 @@ function Sign2(props) {
           <img src={Googlogo} className="authlogo2" alt="Google" />
         </button>
       )}
-      {auth0Client.isAuthenticated() && (
-        <div>
-          <label className="mr-2 text-black">
-            {auth0Client.getProfile().name}
-          </label>
-          <button
-            className="btn btn-dark"
-            onClick={() => {
-              signOut();
-            }}
-          >
-            Sign Out
-          </button>
-        </div>
-      )}
     </nav>
   );
 }
