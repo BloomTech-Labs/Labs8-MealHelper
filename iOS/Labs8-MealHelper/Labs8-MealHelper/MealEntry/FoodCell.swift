@@ -10,9 +10,15 @@ import UIKit
 
 class FoodCell: UICollectionViewCell {
     
-    var meal: Meal? {
+    var food: Recipe? {
         didSet {
             setupViews()
+        }
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            backgroundColor = isSelected ? .green : .white
         }
     }
     
@@ -67,11 +73,17 @@ class FoodCell: UICollectionViewCell {
         mealNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
         mealNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
+        
 //        dateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive = true
 //        dateLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 //
 //        experienceLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 //        experienceLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
+    
+    func toggleSelected() {
+        backgroundColor = isSelected ? .green : .white
+    }
+    
 }
 

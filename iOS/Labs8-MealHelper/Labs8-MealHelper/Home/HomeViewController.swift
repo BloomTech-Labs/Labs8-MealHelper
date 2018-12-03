@@ -160,7 +160,9 @@ extension HomeViewController: ExpandableButtonViewDelegate {
             let alarmViewController = AlarmViewController()
             present(alarmViewController, animated: true, completion: nil)
         case .left:
-            let mealsTableViewController = MealsTableViewController(navTitle: "Meals")
+            //let mealsTableViewController = MealsTableViewController(navTitle: "Meals")
+            let layout = UICollectionViewFlowLayout()
+            let mealsTableViewController = FoodsCollectionViewController(collectionViewLayout: layout)
             let navController = WhiteStatusNavController(rootViewController: mealsTableViewController)
             navController.navigationBar.prefersLargeTitles = true
             present(navController, animated: true, completion: nil)
