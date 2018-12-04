@@ -23,7 +23,7 @@ body {
 }
 .login-signup-container {
   width: 80%;
-  margin: -150px auto;
+  margin: -250px auto;
   position: relative;
   height: 250px;
   background: #ffffff;
@@ -64,7 +64,7 @@ body {
   width: 100%;
   height: auto;
   background: #ffffff;
-  margin: 28% auto 0;
+  margin: 35% auto 0;
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.57);
   transition: box-shadow 0.2s ease-in-out;
   display: flex;
@@ -73,7 +73,7 @@ body {
   width: 100%;
   height: auto;
   background: #ffffff;
-  margin: 28% auto 0;
+  margin: 35% auto 0;
   box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.7);
   transition: box-shadow 0.2s ease-in-out;
   display: flex;

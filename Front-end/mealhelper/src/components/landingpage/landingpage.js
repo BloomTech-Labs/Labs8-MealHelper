@@ -30,10 +30,11 @@ class Landingpage extends Component {
     return (
       <div className="main-container">
         <Navbar />
-        <div className="image-jars-container">
-          <img className="image-jars" src={Jars} alt="No image" />
-        </div>
+
         <div className="container">
+          <div className="image-jars-container">
+            <img className="image-jars" src={Jars} alt="No image" />
+          </div>
           <div className="login-signup-container">
             <div className="button-container">
               <button className="button">
