@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Sign from "../Sign";
-import Callback from "../../Callback";
+// import Callback from "../../Callback";
 import { connect } from "react-redux";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
 import Loading from "./Double Ring-2s-200px.svg";
+import Applelogo from "../../img/appstorebadge.png";
 
 import "./signup.css";
 
@@ -87,7 +88,7 @@ class SignUp extends Component {
             </div>
             <div className="formcenter">
               <div className="user-form-container">
-                <h1 className="signup-title">Sign Up</h1>
+                <h1 className="signup-title">EatWell</h1>
                 <form className="signup-form">
                   <div className="form-group">
                     <label>Email</label>
@@ -109,24 +110,25 @@ class SignUp extends Component {
                       value={this.state.password}
                     />
                   </div>
-                  <div className="form-group">
-                    <label>Zip</label>
-                    <input
-                      className="zip-input"
-                      type="number"
-                      name="zip"
-                      onChange={this.handleChange}
-                      value={this.state.zip}
-                    />
-                  </div>
                   <div className="signup" onClick={this.confirmSignup}>
                     <span>Sign Up</span>
                   </div>
+                  <Link to="/login" style={{ textDecoration: "none" }}>
+                    <div className="login">
+                      <span>Login with Email</span>
+                    </div>
+                  </Link>
                 </form>
                 <div>
                   <Sign />
-                  <Route exact path="/callback" component={Callback} />
                 </div>
+                <a href="https://www.apple.com/ios/app-store/">
+                  <img
+                    className="applebadge"
+                    src={Applelogo}
+                    alt="Apple App Store"
+                  />
+                </a>
               </div>
             </div>
           </div>

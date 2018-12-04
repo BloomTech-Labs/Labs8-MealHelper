@@ -19,20 +19,19 @@
 }
 .authlogos {
   display: flex;
-  width: 250px;
-  height: 50px;
+  width: 247px;
+  height: 48px;
   font-size: 20px;
   margin-bottom: 40px;
-  /* color: rgb(192, 181, 31);
-  border: 1px solid rgb(192, 181, 31); */
+  background: #ffffff;
+  border: 1px solid #919191;
+  box-sizing: border-box;
+  border-radius: 6px;
 }
-/* .authlogos2 {
-  display: flex;
-  width: 200px;
-  height: 50px;
-  font-size: 1em;
-  margin: 6px;
-} */
+
+.authlogos:hover {
+  border: 1px solid #8c8c8c;
+}
 
 .authlogo2 {
   width: 30px;
