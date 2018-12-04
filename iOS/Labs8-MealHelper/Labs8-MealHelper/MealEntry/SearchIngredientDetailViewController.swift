@@ -62,6 +62,8 @@ class SearchIngredientDetailViewController: UIViewController {
         return button
     }()
     
+    private let foodHelper = FoodHelper()
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -71,8 +73,7 @@ class SearchIngredientDetailViewController: UIViewController {
         setupNutrientTable()
         
         // Listen for user changing serving types or qty
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingType), name: .MHFoodSummaryTypePickerDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingQty), name: .MHFoodSummaryQuantityPickerDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingType), name: .MHFoodSummaryPickerDidChange, object: nil)
     }
     
     // MARK: - User actions
@@ -83,7 +84,6 @@ class SearchIngredientDetailViewController: UIViewController {
         // When user taps on addToBasket then we tell the delegate VC to select and highlight the appropriate row
         dismiss(animated: true) {
             if let indexPath = self.delegateIndexPath, let ingredient = self.ingredient {
-                //self.delegate?.didSelect(ingredient)
                 self.delegate?.updateIngredient(ingredient, indexPath: indexPath)
             }
         }
@@ -96,30 +96,7 @@ class SearchIngredientDetailViewController: UIViewController {
             let servingQty = Double(servingQtyString),
             let nutrients = ingredient?.nutrients {
             
-            ingredient?.nutrients = udpateNutrients(nutrients, to: servingType, amount: servingQty)
-        }
-    }
-    
-    @objc private func didChangeServingQty(note: Notification) {
-        if let userInfo = note.userInfo, let servingQtyString = userInfo["quantity"] as? String, let nutrients = ingredient?.nutrients {
-            let updatedNutrients = nutrients.map { (nutrient: Nutrient) -> Nutrient in
-                var updatedNutrient = nutrient
-                let servingQty = Double(servingQtyString) ?? 0
-                let convertedValue =  (Double(updatedNutrient.value) ?? 0.0) * servingQty
-                updatedNutrient.value = String(format: "%.02f", convertedValue)
-                return updatedNutrient
-            }
-            
-            ingredient?.nutrients = updatedNutrients
-        }
-    }
-    
-    private func udpateNutrients(_ nutrients: [Nutrient], to type: String, amount: Double = 1.0) -> [Nutrient] {
-        return nutrients.map { (nutrient: Nutrient) -> Nutrient in
-            var updatedNutrient = nutrient
-            let convertedValue = FoodHelper().convertHundertGrams(nutrient.gm, to: type) * amount
-            updatedNutrient.value = String(format: "%.02f", convertedValue)
-            return updatedNutrient
+            ingredient?.nutrients = foodHelper.udpateNutrients(nutrients, to: servingType, amount: servingQty)
         }
     }
     
@@ -186,7 +163,7 @@ class SearchIngredientDetailViewController: UIViewController {
             DispatchQueue.main.async {
                 switch response {
                 case .success(let nutrients):
-                    let updatedNutrients = self.udpateNutrients(nutrients, to: "cup")
+                    let updatedNutrients = self.foodHelper.udpateNutrients(nutrients, to: "cup")
                     self.ingredient?.nutrients = updatedNutrients
                 case .error(let error):
                     NSLog("Error fetching ingredients: \(error)")
