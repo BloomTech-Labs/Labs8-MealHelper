@@ -1,12 +1,9 @@
-.formcenterlogin {
-  margin-left: 43%;
-}
 .user-form-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background: white;
+  background: #ffffff;
   margin-top: 5%;
   width: 318px;
   height: 415px;
@@ -14,18 +11,7 @@
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.57);
   border-radius: 12px;
 }
-/* .entry-button-group {
-  content: "" !important;
-  position: absolute !important;
-  width: 100% !important;
-  height: 100% !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  z-index: 1 !important;
-  -webkit-transition: all 0.3s !important;
-  transition: all 0.3s !important;
-  border: 1px solid rgb(192, 181, 31) !important;
-} */
+
 .login-title {
   color: black;
   font-weight: bold;
@@ -122,7 +108,7 @@ a {
   margin-top: -50px;
 }
 
-/* .existinguser {
+.existinguser {
   padding-top: 25px;
   font-weight: bold;
 }
@@ -138,4 +124,4 @@ a {
 }
 .alert-box {
   margin-top: 11%;
-} */
+}

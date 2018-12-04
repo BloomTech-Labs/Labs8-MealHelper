@@ -76,49 +76,37 @@ class Login extends Component {
               </Alert>
             </div>
             <div className="formcenter">
-              <div className="user-form-container-login">
+              <div className="user-form-container">
                 <h1 className="signup-title">EatWell</h1>
-
-                <form className="login-form">
+                <form className="signup-form">
                   <div className="form-group">
+                    <label>Email</label>
                     <input
-                      id="dynamic-label-input"
                       className="email-input"
                       type="email"
                       name="email"
                       value={this.state.email}
                       onChange={this.handleChange}
-                      placeholder="Email"
                       required
                     />
-                    <label htmlFor="dynamic-label-input">Email</label>
                   </div>
-                  <div className="form-group2">
+                  <div className="form-group">
+                    <label>Password</label>
                     <input
-                      id="dynamic-label-input"
                       className="password-input"
                       type="password"
                       name="password"
                       onChange={this.handleChange}
                       value={this.state.password}
-                      placeholder="Password"
+                      required
                     />
-                    <label htmlFor="dynamic-label-input">Password</label>
                   </div>
-                  <div
-                    className="signup signup-two"
-                    onClick={this.confirmLogin}
-                  >
+                  <div className="signup" onClick={this.confirmLogin}>
                     <span>Log In</span>
                   </div>
-                  <div className="auth">
-                    <p className="signuptext">Don't have an account?</p>
-                  </div>
                   <Link to="/signup">
-                    <div className="signup signup-two">
-                      <button className="buttons">
-                        <span>Signup</span>
-                      </button>
+                    <div className="signup">
+                      <span>Signup</span>
                     </div>
                   </Link>
                 </form>
