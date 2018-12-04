@@ -52,9 +52,9 @@
   padding-top: 15px;
   padding-right: 2%;
 }
-.email-input {
+/* .email-input {
   margin-right: 5%;
-}
+} */
 .buttons-settings:hover {
   background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
   color: white;

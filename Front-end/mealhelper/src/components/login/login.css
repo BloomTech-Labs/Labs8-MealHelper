@@ -37,7 +37,7 @@
   align-items: center;
   position: relative;
   padding-top: 1.2em;
-  padding-bottom: 1em;
+  /* padding-bottom: 1em; */
 }
 
 label {
