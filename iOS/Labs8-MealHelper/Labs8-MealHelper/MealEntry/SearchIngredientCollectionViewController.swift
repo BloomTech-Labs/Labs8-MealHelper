@@ -135,7 +135,7 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         // On row click, show a ingredient detail modal
-        let ingredientDetailVC = SearchIngredientDetailViewController()
+        let ingredientDetailVC = IngredientDetailViewController()
         ingredientDetailVC.modalPresentationStyle = .overFullScreen
         ingredientDetailVC.delegate = self // We use a delegation pattern so the dismissing detailVC can handle selection of an ingredient
         ingredientDetailVC.delegateIndexPath = indexPath // Needed to determine the section in which it was selected (searched vs. previously saved ingredients)

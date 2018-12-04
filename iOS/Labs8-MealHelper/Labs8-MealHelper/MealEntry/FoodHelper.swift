@@ -33,4 +33,13 @@ struct FoodHelper {
         }
     }
     
+    func udpateNutrients(_ nutrients: [Nutrient], to type: String, amount: Double = 1.0) -> [Nutrient] {
+        return nutrients.map { (nutrient: Nutrient) -> Nutrient in
+            var updatedNutrient = nutrient
+            let convertedValue = FoodHelper().convertHundertGrams(nutrient.gm, to: type) * amount
+            updatedNutrient.value = String(format: "%.02f", convertedValue)
+            return updatedNutrient
+        }
+    }
+    
 }

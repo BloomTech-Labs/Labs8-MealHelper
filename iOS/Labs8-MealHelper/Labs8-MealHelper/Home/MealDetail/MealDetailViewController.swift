@@ -102,4 +102,5 @@ class MealDetailViewController: UIViewController {
         view.addSubview(noteView)
         noteView.anchor(top: weatherView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 100))
     }
+
 }
