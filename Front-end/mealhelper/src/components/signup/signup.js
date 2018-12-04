@@ -125,20 +125,6 @@ class SignUp extends Component {
                     />
                     <label htmlFor="dynamic-label-input">Zip Code</label>
                   </div>
-                  {/* <div className="form-group">
-                    <input
-                      id="dynamic-label-input"
-                      className="condition-input"
-                      type="text"
-                      name="healthCondition"
-                      onChange={this.handleChange}
-                      value={this.state.healthCondition}
-                      placeholder="Health Condition"
-                    />
-                    <label htmlFor="dynamic-label-input">
-                      Health Condition
-                    </label>
-                  </div> */}
                   <div
                     className="signup signup-two"
                     onClick={this.confirmSignup}
