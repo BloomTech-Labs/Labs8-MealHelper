@@ -131,9 +131,9 @@ class SignUp extends Component {
                   >
                     <span>Sign Up</span>
                   </div>
-                  <div className="auth">
+                  {/* <div className="auth">
                     <p className="signuptext">Already have an account?</p>
-                  </div>
+                  </div> */}
                   {/* <Link to="/login">
                     <div className="signup signup-two">
                       <button className="buttons">
@@ -141,7 +141,7 @@ class SignUp extends Component {
                       </button>
                     </div>
                   </Link> */}
-                  <p className="signuptext">- Or -</p>
+                  {/* <p className="signuptext">- Or -</p> */}
                 </form>
                 <div>
                   <Sign />
