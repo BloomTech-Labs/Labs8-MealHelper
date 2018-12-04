@@ -16,7 +16,7 @@
   background: white;
   margin-top: 5%;
   width: 318px;
-  height: 538px;
+  height: 560px;
   border: #9c9c9c;
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.57);
   border-radius: 12px;
@@ -27,6 +27,7 @@
   font-weight: bold;
   font-size: 3.8em;
   padding-top: 10px;
+  padding-bottom: 55px;
   font-family: "Allan", cursive;
 }
 
@@ -111,6 +112,9 @@ label {
 .applebadge {
   width: 211px;
   height: auto;
+}
+a {
+  margin-top: -50px;
 }
 
 .existinguser {
