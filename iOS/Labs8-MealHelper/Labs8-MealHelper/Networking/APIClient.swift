@@ -114,7 +114,7 @@ class APIClient {
                 completion(Response.error(NSError()))
                 return
             }
-
+            
             do {
                 let alarms = try JSONDecoder().decode([Alarm].self, from: data)
                 let sortedAlarms = alarms.sorted(by: { $0.timestamp > $1.timestamp })
