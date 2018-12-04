@@ -125,7 +125,7 @@ class SignUp extends Component {
                     />
                     <label htmlFor="dynamic-label-input">Zip Code</label>
                   </div>
-                  <div className="form-group">
+                  {/* <div className="form-group">
                     <input
                       id="dynamic-label-input"
                       className="condition-input"
@@ -138,7 +138,7 @@ class SignUp extends Component {
                     <label htmlFor="dynamic-label-input">
                       Health Condition
                     </label>
-                  </div>
+                  </div> */}
                   <div
                     className="signup signup-two"
                     onClick={this.confirmSignup}
@@ -148,13 +148,13 @@ class SignUp extends Component {
                   <div className="auth">
                     <p className="signuptext">Already have an account?</p>
                   </div>
-                  <Link to="/login">
+                  {/* <Link to="/login">
                     <div className="signup signup-two">
                       <button className="buttons">
                         <span>Login</span>
                       </button>
                     </div>
-                  </Link>
+                  </Link> */}
                   <p className="signuptext">- Or -</p>
                 </form>
                 <div>
