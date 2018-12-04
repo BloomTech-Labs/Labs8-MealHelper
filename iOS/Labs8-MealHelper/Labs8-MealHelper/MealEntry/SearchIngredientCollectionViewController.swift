@@ -14,8 +14,17 @@ class SearchIngredientCollectionViewController: FoodsCollectionViewController<In
         
     }
     
+    var selectedIngredientAtIndex = [Int]() {
+        didSet {
+            if selectedIngredientAtIndex.isEmpty {
+                navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
+            } else {
+                navigationItem.setRightBarButton(itemsSelectedBarButton, animated: true)
+            }
+        }
+    }
     
-    var previousIngredients = [Ingredient]()
+    var savedIngredients = [Ingredient]()
     var sectionHeaderReuseId = "SectionHeaderCell"
     
     private lazy var searchController: UISearchController = {
@@ -30,17 +39,27 @@ class SearchIngredientCollectionViewController: FoodsCollectionViewController<In
         return sc
     }()
     
+    override lazy var noItemSelectedbarButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didNotSelectItems))
+    }()
+    
+    override lazy var itemsSelectedBarButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didSelectItems))
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Search Ingredients"
         collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderReuseId)
+        collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderReuseId)
+        
         
         // Fetch previously saved ingredients
         FoodClient.shared.fetchIngredients { (response) in
             DispatchQueue.main.async {
                 switch response {
                 case .success(let ingredients):
-                    self.previousIngredients = ingredients
+                    self.savedIngredients = ingredients
                     self.collectionView.reloadData()
                 case .error:
                     self.showAlert(with: "We couldn't find your ingredients, please check your internet connection and try again.")
@@ -65,7 +84,7 @@ class SearchIngredientCollectionViewController: FoodsCollectionViewController<In
         case 0:
             return foods.count
         case 1:
-            return previousIngredients.count
+            return savedIngredients.count
         default:
             return 0
         }
@@ -79,13 +98,52 @@ class SearchIngredientCollectionViewController: FoodsCollectionViewController<In
             let ingredient = foods[indexPath.row]
             cell.food = ingredient
         case 1:
-            let ingredient = previousIngredients[indexPath.row]
+            let ingredient = savedIngredients[indexPath.row]
             cell.food = ingredient
         default:
             break
         }
         
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        // On row click, show a ingredient detail modal
+//        let ingredientDetailVC = SearchIngredientDetailViewController()
+//        ingredientDetailVC.modalPresentationStyle = .overFullScreen
+//        ingredientDetailVC.delegate = self // We use a delegation pattern so the dismissing detailVC can handle selection of an ingredient
+//        ingredientDetailVC.delegateIndexPath = indexPath // Select ingredient at indexPath
+//
+//        let ingredient = indexPath.section == 0 ? foods[indexPath.row] : previousIngredients[indexPath.row]
+//        ingredientDetailVC.ingredient = ingredient
+//
+//        present(ingredientDetailVC, animated: true, completion: nil)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            let food = foods[indexPath.item]
+            didSelect(food)
+        case 1:
+            let savedIngredient = savedIngredients[indexPath.item]
+            didSelect(ingredient: savedIngredient)
+        default:
+            break
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {// On row click, show a ingredient detail modal
+        let ingredientDetailVC = SearchIngredientDetailViewController()
+        ingredientDetailVC.modalPresentationStyle = .overFullScreen
+        ingredientDetailVC.delegate = self // We use a delegation pattern so the dismissing detailVC can handle selection of an ingredient
+        ingredientDetailVC.delegateIndexPath = indexPath // Needed to determine the section in which it was selected (searched vs. previously saved ingredients)
+        
+        let ingredient = indexPath.section == 0 ? foods[indexPath.row] : savedIngredients[indexPath.row]
+        ingredientDetailVC.ingredient = ingredient
+        
+        present(ingredientDetailVC, animated: true, completion: nil)
+        return false
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -102,11 +160,35 @@ class SearchIngredientCollectionViewController: FoodsCollectionViewController<In
         
         return sectionHeader
     }
-    
-    override func didSelectItems() {
+
+    override func didNotSelectItems() {
+        navigationController?.popViewController(animated: true)
     }
     
-    override func didNotSelectItems() {
+    override func didSelectItems() {
+        let saveRecipeVC = SaveRecipeViewController()
+        saveRecipeVC.ingredients = getSelectedFoods() + getSelectedIngredient()
+        navigationController?.pushViewController(saveRecipeVC, animated: true)
+    }
+    
+    func didSelect(ingredient: Ingredient) {
+        guard let index = savedIngredients.index(of: ingredient) else { return }
+        
+        if selectedIngredientAtIndex.contains(index) {
+            guard let index = selectedIngredientAtIndex.index(of: index) else { return }
+            selectedIngredientAtIndex.remove(at: index)
+        } else {
+            selectedIngredientAtIndex.append(index)
+        }
+    }
+    
+    func getSelectedIngredient() -> [Ingredient] {
+        var selectedIngredients = [Ingredient]()
+        for index in selectedIngredientAtIndex {
+            let food = savedIngredients[index]
+            selectedIngredients.append(food)
+        }
+        return selectedIngredients
     }
     
 }
@@ -137,8 +219,33 @@ class SectionHeader: UICollectionViewCell  {
         headerLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+}
+
+extension SearchIngredientCollectionViewController: SearchIngredientDetailDelegate {
+    
+    func updateIngredient(_ ingredient: Ingredient, indexPath: IndexPath) {
+        
+        switch indexPath.section {
+        case 0:
+            guard let index = foods.index(of: ingredient) else { return }
+            foods.remove(at: index)
+            foods.insert(ingredient, at: index)
+            didSelect(ingredient)
+        case 1:
+            guard let index = savedIngredients.index(of: ingredient) else { return }
+            savedIngredients.remove(at: index)
+            savedIngredients.insert(ingredient, at: index)
+            didSelect(ingredient: ingredient)
+        default:
+            break
+        }
+        
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        
+    }
+    
 }

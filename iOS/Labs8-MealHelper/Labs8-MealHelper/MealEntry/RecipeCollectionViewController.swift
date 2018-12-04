@@ -10,9 +10,14 @@ import UIKit
 
 class RecipeCollectionViewController: FoodsCollectionViewController<Recipe> {
 
+    lazy var cancelBarButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissView))
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Recipes"
+        navigationItem.leftBarButtonItem = cancelBarButton
         
         FoodClient.shared.fetchRecipes { (response) in
             DispatchQueue.main.async {

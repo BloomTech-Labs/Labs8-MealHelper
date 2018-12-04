@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 protocol SearchIngredientDetailDelegate: class {
-    func updateIngredient(_ ingredient: Ingredient)
-    func selectFood(at indexPath: IndexPath)
+    func updateIngredient(_ ingredient: Ingredient, indexPath: IndexPath)
+    //func didSelect(_ ingredient: Ingredient)
 }
 
 class SearchIngredientDetailViewController: UIViewController {
@@ -83,8 +83,8 @@ class SearchIngredientDetailViewController: UIViewController {
         // When user taps on addToBasket then we tell the delegate VC to select and highlight the appropriate row
         dismiss(animated: true) {
             if let indexPath = self.delegateIndexPath, let ingredient = self.ingredient {
-                self.delegate?.selectFood(at: indexPath)
-                self.delegate?.updateIngredient(ingredient)
+                //self.delegate?.didSelect(ingredient)
+                self.delegate?.updateIngredient(ingredient, indexPath: indexPath)
             }
         }
     }
@@ -187,7 +187,7 @@ class SearchIngredientDetailViewController: UIViewController {
                 switch response {
                 case .success(let nutrients):
                     let updatedNutrients = self.udpateNutrients(nutrients, to: "cup")
-                    self.ingredient?.nutrients = nutrients
+                    self.ingredient?.nutrients = updatedNutrients
                 case .error(let error):
                     NSLog("Error fetching ingredients: \(error)")
                 }

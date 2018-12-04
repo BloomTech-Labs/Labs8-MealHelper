@@ -188,7 +188,7 @@ class SearchIngredientsTableViewController: FoodsTableViewController<Ingredient,
 
 extension SearchIngredientsTableViewController: SearchIngredientDetailDelegate {
     
-    func updateIngredient(_ ingredient: Ingredient) {
+    func updateIngredient(_ ingredient: Ingredient, indexPath: IndexPath) {
         guard let index = foods?.index(of: ingredient) else { return }
         foods?.remove(at: index)
         foods?.insert(ingredient, at: index)

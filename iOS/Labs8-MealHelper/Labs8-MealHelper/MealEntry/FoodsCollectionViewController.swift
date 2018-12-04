@@ -37,9 +37,6 @@ class FoodsCollectionViewController<T>: UICollectionViewController, UICollection
         return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didSelectItems))
     }()
     
-    lazy var cancelBarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissView))
-    }()
     
     // MARK: - Life Cycle
     
@@ -79,7 +76,7 @@ class FoodsCollectionViewController<T>: UICollectionViewController, UICollection
         didSelect(food)
     }
     
-    private func didSelect(_ food: T) {
+    func didSelect(_ food: T) {
         guard let index = foods.index(of: food) else { return }
         
         if selectedFoodAtIndex.contains(index) {
@@ -105,7 +102,7 @@ class FoodsCollectionViewController<T>: UICollectionViewController, UICollection
 
     @objc func didSelectItems() { }
     
-    @objc private func dismissView() {
+    @objc func dismissView() {
         dismiss(animated: true, completion: nil)
     }
     
@@ -122,7 +119,6 @@ class FoodsCollectionViewController<T>: UICollectionViewController, UICollection
         
         view.backgroundColor = .mountainDark
         navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
-        navigationItem.leftBarButtonItem = cancelBarButton
     
         if let navTitle = navTitle {
             title = navTitle
