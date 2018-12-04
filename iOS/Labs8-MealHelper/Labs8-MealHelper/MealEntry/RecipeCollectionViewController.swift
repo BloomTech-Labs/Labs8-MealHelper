@@ -20,8 +20,7 @@ class RecipeCollectionViewController: FoodsCollectionViewController<Recipe> {
                 case .success(let recipes):
                     self.foods = recipes
                     self.collectionView.reloadData()
-                case .error(let error):
-                    print(error)
+                case .error:
                     self.showAlert(with: "We couldn't get your recipes, please check your internet connection and try again.")
                     return
                 }
@@ -62,8 +61,10 @@ class RecipeCollectionViewController: FoodsCollectionViewController<Recipe> {
     }
     
     override func didNotSelectItems() {
-        let ingredientsVC = SearchIngredientsTableViewController(navTitle: "Ingredients")
-        navigationController?.pushViewController(ingredientsVC, animated: true)
+        //let ingredientsVC = SearchIngredientsTableViewController(navTitle: "Ingredients")
+        let layout = UICollectionViewFlowLayout()
+        let searchIngredientVC = SearchIngredientCollectionViewController(collectionViewLayout: layout)
+        navigationController?.pushViewController(searchIngredientVC, animated: true)
     }
     
 }

@@ -66,7 +66,7 @@ class FoodsCollectionViewController<T>: UICollectionViewController, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width - 16, height: 80)
+        return CGSize(width: collectionView.bounds.width - 16, height: 65)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
