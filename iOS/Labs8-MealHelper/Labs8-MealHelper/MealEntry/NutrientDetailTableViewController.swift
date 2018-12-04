@@ -9,7 +9,7 @@
 import UIKit
 
 class NutrientDetailTableViewController: UITableViewController {
-    
+        
     var nutrients: [Nutrient]? {
         didSet {
             tableView.reloadData()
@@ -18,11 +18,13 @@ class NutrientDetailTableViewController: UITableViewController {
     
     var servingType = FoodHelper.ServingTypes.cup
     
-    private let cellReuseId = "nutrientCell"
+    private let cellReuseId = "NutrientCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseId)
+        
+        
     }
     
     // MARK: - Table view data source
