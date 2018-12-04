@@ -12,11 +12,12 @@ struct WeatherForecast: Decodable {
     
     var weather: [Weather]
     var main: Main
+    var sys: Sys
 
-    enum CodingKeys: String, CodingKey
-    {
+    enum CodingKeys: String, CodingKey {
         case weather
         case main
+        case sys
     }
     
     struct Main: Decodable {
@@ -38,6 +39,16 @@ struct WeatherForecast: Decodable {
         enum CodingKeys: String, CodingKey {
             case id
             case description
+        }
+    }
+    
+    struct Sys: Decodable {
+        var sunrise: Int
+        var sunset: Int
+        
+        enum CodingKeys: String, CodingKey {
+            case sunrise
+            case sunset
         }
     }
 }

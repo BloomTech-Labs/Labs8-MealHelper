@@ -8,14 +8,10 @@
 
 import UIKit
 
-extension NSMutableAttributedString {
-    
-    public func setAsLink(textToFind: String, linkURL: String) {
-        
-        let foundRange = self.mutableString.range(of: textToFind)
-        if foundRange.location != NSNotFound {
-            self.addAttribute(.link, value: linkURL, range: foundRange)
-        }
+extension Double {
+    func rounded(toPlaces places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
     }
 }
 

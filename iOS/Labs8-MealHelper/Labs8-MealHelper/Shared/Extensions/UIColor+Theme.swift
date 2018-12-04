@@ -17,13 +17,8 @@ extension UIColor
     
     static let darkColor = UIColor.rgb(red: 0, green: 52, blue: 89)
     static let darkBlue = UIColor.rgb(red: 0, green: 52, blue: 89)
-    static let lightBlue = UIColor.rgb(red: 0, green: 168, blue: 232)
     static let lightPurple = UIColor.rgb(red: 59, green: 206, blue: 172)
     static let correctGreen = UIColor.rgb(red: 76, green: 185, blue: 68)
-    static let incorrectRed = UIColor.rgb(red: 254, green: 95, blue: 85)
-    static let goldColor = UIColor.rgb(red: 255, green: 218, blue: 33)
-    static let silver = UIColor.rgb(red: 220, green: 220, blue: 221)
-    static let bronze = UIColor.rgb(red: 161, green: 105, blue: 40)
     static let sunOrange = UIColor.rgb(red: 255, green: 111, blue: 56)
     static let sunRed = UIColor.rgb(red: 226, green: 17, blue: 58)
     static let mountainBlue = UIColor.rgb(red: 47, green: 157, blue: 254)

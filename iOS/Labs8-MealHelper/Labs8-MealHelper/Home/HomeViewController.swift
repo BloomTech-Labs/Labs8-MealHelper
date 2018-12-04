@@ -50,18 +50,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         return cv
     }()
     
-    let emptyLabel: UILabel = {
-        let label = UILabel()
-        label.text = "No meals have been entered yet"
-        label.font = Appearance.appFont(with: 14)
-        label.textColor = UIColor.init(white: 0.9, alpha: 1)
-        label.sizeToFit()
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
-    }()
-    
     lazy var expandableButtonView: ExpandableButtonView = {
         let ebv = ExpandableButtonView(buttonSizes: CGSize(width: 50, height: 50))
         ebv.buttonImages(mainCollapsed: UIImage(named: "plus-icon")!, mainExpanded: UIImage(named: "minus-icon")!, mostLeft: UIImage(named: "alarm_clock")!, left: UIImage(named: "create_new")!, right: UIImage(named: "export")!, mostRight: UIImage(named: "settings")!)
@@ -81,7 +69,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
             DispatchQueue.main.async {
                 switch response {
                 case .success(let meals):
-                    self.emptyLabel.isEnabled = meals.isEmpty ? true : false
                     self.collectionView.meals = meals
                 case .error:
                     self.showAlert(with: "Unable to load your meals, please check your internet connection and try again.")
@@ -104,8 +91,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         view.backgroundColor = .black
         setupFooterView()
         
-        emptyLabel.isEnabled = collectionView.meals.isEmpty ? true : false
-        
 //        let loginController = LoginViewController()
 //        loginController.modalPresentationStyle = .overCurrentContext
 //
@@ -115,7 +100,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     }
     
     override func viewDidLayoutSubviews() {
-        skyView.setGradientBackground(colorOne: UIColor.nightSkyDark.cgColor, colorTwo: UIColor.nightSkyBlue.cgColor, startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0.8, y: 0.3))
+//        skyView.setGradientBackground(colorOne: UIColor.nightSkyDark.cgColor, colorTwo: UIColor.nightSkyBlue.cgColor, startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0.8, y: 0.3))
     }
     
     private func setupFooterView() {
@@ -132,10 +117,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         
         view.addSubview(collectionView)
         collectionView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12), size: CGSize(width: 0, height: 300))
-        
-//        view.addSubview(emptyLabel)
-//        emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 180).isActive = true
         
         view.addSubview(expandableButtonView)
         expandableButtonView.anchor(top: nil, leading: nil, bottom: collectionView.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0), size: CGSize(width: 300, height: 50))
