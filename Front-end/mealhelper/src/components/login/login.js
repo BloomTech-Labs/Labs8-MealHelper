@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
 import Sign from "../Sign";
-import Callback from "../../Callback";
 import "../homepage/homepage";
 import Loading from "../signup/Double Ring-2s-200px.svg";
 import "../signup/signup";
+import Applelogo from "../../img/appstorebadge.png";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -77,7 +77,7 @@ class Login extends Component {
             </div>
             <div className="formcenter">
               <div className="user-form-container-login">
-                <h1 className="signup-title">Login</h1>
+                <h1 className="signup-title">EatWell</h1>
 
                 <form className="login-form">
                   <div className="form-group">
@@ -121,14 +121,17 @@ class Login extends Component {
                       </button>
                     </div>
                   </Link>
-
-                  <p className="signuptext2">- Or -</p>
                 </form>
-
                 <div>
                   <Sign />
-                  <Route exact path="/callback" component={Callback} />
                 </div>
+                <a href="https://www.apple.com/ios/app-store/">
+                  <img
+                    className="applebadge"
+                    src={Applelogo}
+                    alt="Apple App Store"
+                  />
+                </a>
               </div>
             </div>
           </div>
