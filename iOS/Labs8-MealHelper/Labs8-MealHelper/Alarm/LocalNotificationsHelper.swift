@@ -51,10 +51,9 @@ class LocalNotificationHelper
         }
     }
     
-    func alarmsNotSetup(alarms: [Alarm]) -> [Alarm]? {
+    func alarmsNotSetup(alarms: [Alarm], completion: @escaping ([Alarm]?) -> ()) {
         
         var result = alarms
-        
         center.getPendingNotificationRequests { (notifications) in
             for notification in notifications {
                 for (index, alarm) in result.enumerated() {
@@ -63,9 +62,9 @@ class LocalNotificationHelper
                     }
                 }
             }
+            
+            completion(result)
         }
-        
-        return result
     }
     
     func deleteNotification(with id: Int) {

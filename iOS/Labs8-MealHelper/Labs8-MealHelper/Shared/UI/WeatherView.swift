@@ -19,7 +19,7 @@ class WeatherView: UIView
             let forecastAttributedText = NSMutableAttributedString(string: "The forecast on that day was ", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)])
             forecastAttributedText.append(NSAttributedString(string: forecast.weather.first?.description ?? "Shiny", attributes: [NSAttributedString.Key.foregroundColor: UIColor.correctGreen, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]))
             forecastAttributedText.append(NSAttributedString(string: " with a temperature of ", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]))
-            forecastAttributedText.append(NSAttributedString(string: "\(String(forecast.main.temp))°C", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightBlue, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]))
+            forecastAttributedText.append(NSAttributedString(string: "\(String(forecast.main.temp))°C", attributes: [NSAttributedString.Key.foregroundColor: UIColor.mountainBlue, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]))
             
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center

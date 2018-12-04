@@ -43,6 +43,11 @@
 		AC62FAC8219B24BA00D8C35C /* GenericTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FAC7219B24BA00D8C35C /* GenericTableViewController.swift */; };
 		AC62FACF219B408B00D8C35C /* StretchyHeaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FACE219B408B00D8C35C /* StretchyHeaderLayout.swift */; };
 		AC62FAD1219B499600D8C35C /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */; };
+		AC81A66521B5741300BBD47E /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC81A66421B5741300BBD47E /* MenuBar.swift */; };
+		AC81A66721B5741900BBD47E /* MenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC81A66621B5741900BBD47E /* MenuBarCell.swift */; };
+		AC81A66921B5789200BBD47E /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC81A66821B5789200BBD47E /* SettingsCell.swift */; };
+		AC81A66B21B578C800BBD47E /* AboutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC81A66A21B578C800BBD47E /* AboutCell.swift */; };
+		AC81A66D21B5796F00BBD47E /* SettingsViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC81A66C21B5796F00BBD47E /* SettingsViewController+CollectionView.swift */; };
 		AC85F38A219E0B2F007765CA /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85F388219E0B2E007765CA /* LoadingButton.swift */; };
 		AC85F38B219E0B2F007765CA /* LeftIconTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85F389219E0B2F007765CA /* LeftIconTextField.swift */; };
 		AC85F38D219E0C1D007765CA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85F38C219E0C1D007765CA /* LoginViewController.swift */; };
@@ -144,6 +149,11 @@
 		AC62FAC7219B24BA00D8C35C /* GenericTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTableViewController.swift; sourceTree = "<group>"; };
 		AC62FACE219B408B00D8C35C /* StretchyHeaderLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyHeaderLayout.swift; sourceTree = "<group>"; };
 		AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionView.swift; sourceTree = "<group>"; };
+		AC81A66421B5741300BBD47E /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		AC81A66621B5741900BBD47E /* MenuBarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarCell.swift; sourceTree = "<group>"; };
+		AC81A66821B5789200BBD47E /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		AC81A66A21B578C800BBD47E /* AboutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutCell.swift; sourceTree = "<group>"; };
+		AC81A66C21B5796F00BBD47E /* SettingsViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+CollectionView.swift"; sourceTree = "<group>"; };
 		AC85F388219E0B2E007765CA /* LoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 		AC85F389219E0B2F007765CA /* LeftIconTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftIconTextField.swift; sourceTree = "<group>"; };
 		AC85F38C219E0C1D007765CA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -417,6 +427,11 @@
 			isa = PBXGroup;
 			children = (
 				ACE1FA6F21AF1A53003A0030 /* SettingsViewController.swift */,
+				AC81A66421B5741300BBD47E /* MenuBar.swift */,
+				AC81A66621B5741900BBD47E /* MenuBarCell.swift */,
+				AC81A66821B5789200BBD47E /* SettingsCell.swift */,
+				AC81A66A21B578C800BBD47E /* AboutCell.swift */,
+				AC81A66C21B5796F00BBD47E /* SettingsViewController+CollectionView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -587,6 +602,7 @@
 				3D7AD09721AF22E200A68323 /* SaveRecipeViewController.swift in Sources */,
 				AC85F38A219E0B2F007765CA /* LoadingButton.swift in Sources */,
 				3DFEEDB021A2FBA300465FCB /* BarcodeScanner.swift in Sources */,
+				AC81A66521B5741300BBD47E /* MenuBar.swift in Sources */,
 				ACE1FA6721AE1429003A0030 /* AlarmCell.swift in Sources */,
 				ACE1FA6521AE13D5003A0030 /* AlarmTableView.swift in Sources */,
 				3D131CD521A198B3009681D0 /* UserDefault+Helper.swift in Sources */,
@@ -602,6 +618,7 @@
 				3DB65F282196200D007AA68A /* APIClient.swift in Sources */,
 				3DDB4A1C21A774E4007A1B5E /* SwipeableViewController.swift in Sources */,
 				3D154CB421AF34F600D88D5D /* SearchIngredientsTableViewController.swift in Sources */,
+				AC81A66721B5741900BBD47E /* MenuBarCell.swift in Sources */,
 				3D77DD1A219F111B009B21ED /* ProgressIndicator.swift in Sources */,
 				AC85F3DE219E3526007765CA /* FoodClient.swift in Sources */,
 				AC8F0B57219E375300E623FB /* Utils.swift in Sources */,
@@ -614,8 +631,10 @@
 				AC8F0B51219E36AE00E623FB /* User.swift in Sources */,
 				AC8F0B55219E372E00E623FB /* PickerInputField.swift in Sources */,
 				AC8F0B53219E36C200E623FB /* MealsTableViewController.swift in Sources */,
+				AC81A66D21B5796F00BBD47E /* SettingsViewController+CollectionView.swift in Sources */,
 				3D7AD09021AF19D500A68323 /* FoodHelper.swift in Sources */,
 				AC85F38F219E0E1E007765CA /* UIColor+Theme.swift in Sources */,
+				AC81A66921B5789200BBD47E /* SettingsCell.swift in Sources */,
 				AC62FAC8219B24BA00D8C35C /* GenericTableViewController.swift in Sources */,
 				AC4D10782194A7BC00317F4C /* OnboardingCollectionViewCell.swift in Sources */,
 				AC85F3D9219E3525007765CA /* FoodSummaryViewController.swift in Sources */,
@@ -627,6 +646,7 @@
 				AC1DE867219473DD0066172C /* HomeViewController.swift in Sources */,
 				3D154CB621AF368E00D88D5D /* IngredientTableViewController.swift in Sources */,
 				AC62FAD1219B499600D8C35C /* HomeCollectionView.swift in Sources */,
+				AC81A66B21B578C800BBD47E /* AboutCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
