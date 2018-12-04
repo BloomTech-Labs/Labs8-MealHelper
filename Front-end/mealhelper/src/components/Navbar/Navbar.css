@@ -1,0 +1,13 @@
+.Navbar-Container {
+  background: #ffffff;
+  height: 51px;
+  width: 100%;
+  border-bottom: 1px solid #9c9c9c;
+  position: fixed;
+  z-index: 2;
+}
+
+.logo {
+  font-size: 40px;
+  font-family: "Allan", cursive;
+}
