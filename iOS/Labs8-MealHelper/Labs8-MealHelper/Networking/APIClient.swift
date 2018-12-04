@@ -259,7 +259,6 @@ class APIClient {
     }
 }
 
-
 struct UserId: Decodable {
     var id: Int?
     var token: String?

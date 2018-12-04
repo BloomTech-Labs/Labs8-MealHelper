@@ -67,6 +67,8 @@
 		ACDCF06721B6E76A0078D5A8 /* RecipeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDCF06621B6E76A0078D5A8 /* RecipeCollectionViewController.swift */; };
 		ACDCF06921B6E7790078D5A8 /* SearchIngredientCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDCF06821B6E7790078D5A8 /* SearchIngredientCollectionViewController.swift */; };
 		ACDCF06B21B6E7BD0078D5A8 /* FoodClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDCF06A21B6E7BD0078D5A8 /* FoodClient.swift */; };
+		ACDCF07021B734130078D5A8 /* star_success.json in Resources */ = {isa = PBXBuildFile; fileRef = ACDCF06F21B734120078D5A8 /* star_success.json */; };
+		ACDCF07221B734250078D5A8 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = ACDCF07121B734250078D5A8 /* loading.json */; };
 		ACE1FA5C21ADA8C2003A0030 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA5B21ADA8C2003A0030 /* AlarmViewController.swift */; };
 		ACE1FA6321ADE796003A0030 /* CreateAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6221ADE796003A0030 /* CreateAlarmView.swift */; };
 		ACE1FA6521AE13D5003A0030 /* AlarmTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6421AE13D5003A0030 /* AlarmTableView.swift */; };
@@ -172,6 +174,8 @@
 		ACDCF06621B6E76A0078D5A8 /* RecipeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCollectionViewController.swift; sourceTree = "<group>"; };
 		ACDCF06821B6E7790078D5A8 /* SearchIngredientCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchIngredientCollectionViewController.swift; sourceTree = "<group>"; };
 		ACDCF06A21B6E7BD0078D5A8 /* FoodClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodClient.swift; sourceTree = "<group>"; };
+		ACDCF06F21B734120078D5A8 /* star_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = star_success.json; sourceTree = "<group>"; };
+		ACDCF07121B734250078D5A8 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		ACE1FA5B21ADA8C2003A0030 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		ACE1FA6221ADE796003A0030 /* CreateAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlarmView.swift; sourceTree = "<group>"; };
 		ACE1FA6421AE13D5003A0030 /* AlarmTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableView.swift; sourceTree = "<group>"; };
@@ -340,6 +344,7 @@
 		AC1DE86521946ED50066172C /* Ressources */ = {
 			isa = PBXGroup;
 			children = (
+				ACDCF06E21B734020078D5A8 /* LottieFiles */,
 				AC85F390219E0E91007765CA /* Montserrat-SemiBold.ttf */,
 				3D56A9D821934FAC00A91EF4 /* Assets.xcassets */,
 				3D56A9DA21934FAC00A91EF4 /* LaunchScreen.storyboard */,
@@ -406,6 +411,15 @@
 				AC9BE30521B1A07700B6DEBB /* NutrientsView.swift */,
 			);
 			path = MealDetail;
+			sourceTree = "<group>";
+		};
+		ACDCF06E21B734020078D5A8 /* LottieFiles */ = {
+			isa = PBXGroup;
+			children = (
+				ACDCF07121B734250078D5A8 /* loading.json */,
+				ACDCF06F21B734120078D5A8 /* star_success.json */,
+			);
+			path = LottieFiles;
 			sourceTree = "<group>";
 		};
 		ACE1FA5A21ADA8A1003A0030 /* Alarm */ = {
@@ -513,9 +527,11 @@
 			files = (
 				3D56A9DC21934FAC00A91EF4 /* LaunchScreen.storyboard in Resources */,
 				3D56A9D921934FAC00A91EF4 /* Assets.xcassets in Resources */,
+				ACDCF07221B734250078D5A8 /* loading.json in Resources */,
 				3DFEEDAE21A2E85100465FCB /* GoogleService-Info.plist in Resources */,
 				3D90DE712194D46D006C116B /* Login.xcassets in Resources */,
 				AC85F391219E0E91007765CA /* Montserrat-SemiBold.ttf in Resources */,
+				ACDCF07021B734130078D5A8 /* star_success.json in Resources */,
 				AC8F0B59219E3AE300E623FB /* MealEntry.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -559,6 +575,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -570,6 +587,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

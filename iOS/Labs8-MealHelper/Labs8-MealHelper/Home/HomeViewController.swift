@@ -8,6 +8,7 @@
 
 import UIKit
 import ExpandableButton
+import Lottie
 
 class HomeViewController: UIViewController, UICollectionViewDelegate {
 
@@ -87,13 +88,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = .black
         setupFooterView()
-        
-//        let loginController = LoginViewController()
-//        loginController.modalPresentationStyle = .overCurrentContext
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//            self.present(loginController, animated: true, completion: nil)
-//        }
+
+        let loginController = LoginViewController()
+        loginController.modalPresentationStyle = .overCurrentContext
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.present(loginController, animated: true, completion: nil)
+        }
     }
     
     private func fetchAlarms() {
@@ -180,6 +181,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     @objc private func handleCountdown() {
         
         if countdownTime < 1 {
+            displayCelebrationAnimation()
             timer?.invalidate()
             fetchAlarms()
             return
@@ -189,12 +191,43 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         countDownLabel.text = timeString(time: TimeInterval(countdownTime))
     }
     
-    func timeString(time: TimeInterval) -> String {
+    private func timeString(time: TimeInterval) -> String {
         let hours = Int(time) / 3600
         let minutes = Int(time) / 60 % 60
         let seconds = Int(time) % 60
         
         return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
+    }
+    
+    private func displayCelebrationAnimation() {
+        if let keyWindow = UIApplication.shared.keyWindow {
+            let blackBackgroundView = UIView()
+            blackBackgroundView.backgroundColor = UIColor.init(white: 0, alpha: 0.7)
+            blackBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+            keyWindow.addSubview(blackBackgroundView)
+            blackBackgroundView.fillSuperview()
+            
+            let animationView = LOTAnimationView()
+            animationView.backgroundColor = .clear
+            animationView.setAnimation(named: "star_success")
+            animationView.layer.cornerRadius = 16
+            animationView.layer.masksToBounds = true
+            animationView.translatesAutoresizingMaskIntoConstraints = false
+            blackBackgroundView.addSubview(animationView)
+            animationView.centerInSuperview(size: CGSize(width: 200, height: 200))
+            animationView.play { (completed) in
+                
+                UIView.animate(withDuration: 0.3, animations: {
+                    
+                    animationView.alpha = 0
+                    blackBackgroundView.alpha = 0
+                    
+                }, completion: { (completed) in
+                    animationView.removeFromSuperview()
+                    blackBackgroundView.removeFromSuperview()
+                })
+            }
+        }
     }
     
     private func fetchMeals() {

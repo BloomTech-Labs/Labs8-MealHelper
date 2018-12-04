@@ -7,18 +7,19 @@
 //
 
 import UIKit
+import Lottie
 
 class LoadingButton: UIButton {
     
     private var originalTitle = ""
     
-    let loadingIndicator: UIActivityIndicatorView =
-    {
-        let aiv = UIActivityIndicatorView(style: .whiteLarge)
-        aiv.hidesWhenStopped = true
-        aiv.translatesAutoresizingMaskIntoConstraints = false
+    let loadingView: LOTAnimationView = {
+        let lv = LOTAnimationView()
+        lv.setAnimation(named: "loading")
+        lv.loopAnimation = true
+        lv.isHidden = true
         
-        return aiv
+        return lv
     }()
     
     override init(frame: CGRect)
@@ -32,21 +33,22 @@ class LoadingButton: UIButton {
         self.isUserInteractionEnabled = false
         originalTitle = self.titleLabel?.text ?? "Login"
         self.setTitle("", for: .normal)
-        loadingIndicator.startAnimating()
+        loadingView.isHidden = false
+        loadingView.play()
     }
     
     func stopLoading()
     {
-        loadingIndicator.stopAnimating()
+        loadingView.stop()
+        loadingView.isHidden = true
         self.setTitle(originalTitle, for: .normal)
         self.isUserInteractionEnabled = true
     }
     
     private func setupLoadingIndicator()
     {
-        addSubview(loadingIndicator)
-        loadingIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        loadingIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        addSubview(loadingView)
+        loadingView.centerInSuperview(size: CGSize(width: 100, height: 80))
     }
     
     required init?(coder aDecoder: NSCoder) {
