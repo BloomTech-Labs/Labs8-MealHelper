@@ -49,12 +49,7 @@ input {
   background: #ffffff;
   border-width: 1px;
   border-color: #9c9c9c;
-  /* color: #9c9c9c; */
 }
-
-/* input:hover {
-  border: #8c8c8c;
-} */
 
 label {
   font-weight: bold;
@@ -111,6 +106,11 @@ label {
   border-width: 1px;
   border-color: black;
   color: black;
+}
+
+.applebadge {
+  width: 211px;
+  height: auto;
 }
 
 .existinguser {

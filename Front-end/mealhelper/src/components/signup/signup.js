@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Sign from "../Sign";
-import Callback from "../../Callback";
+// import Callback from "../../Callback";
 import { connect } from "react-redux";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
 import Loading from "./Double Ring-2s-200px.svg";
+import Applelogo from "../../img/appstorebadge.png";
 
 import "./signup.css";
 
@@ -113,7 +114,7 @@ class SignUp extends Component {
                     <span>Sign Up</span>
                   </div>
                   <Link to="/login" style={{ textDecoration: "none" }}>
-                    <div className="login" onClick={this.confirmSignup}>
+                    <div className="login">
                       <span>Login with Email</span>
                     </div>
                   </Link>
@@ -121,6 +122,13 @@ class SignUp extends Component {
                 <div>
                   <Sign />
                 </div>
+                <a href="https://www.apple.com/ios/app-store/">
+                  <img
+                    className="applebadge"
+                    src={Applelogo}
+                    alt="Apple App Store"
+                  />
+                </a>
               </div>
             </div>
           </div>

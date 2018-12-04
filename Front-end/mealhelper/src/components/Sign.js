@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import auth0Client from "../Auth";
-import Facelogo from "../img/facebook.png";
 import Googlogo from "../img/google.png";
 
 import "./Sign.css";
