@@ -7,12 +7,9 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SearchIngredientCollectionViewController: FoodsCollectionViewController<Ingredient>, UISearchBarDelegate, UISearchResultsUpdating {
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        
-    }
     
     var selectedIngredientAtIndex = [Int]() {
         didSet {
@@ -26,6 +23,7 @@ class SearchIngredientCollectionViewController: FoodsCollectionViewController<In
     
     var savedIngredients = [Ingredient]()
     var sectionHeaderReuseId = "SectionHeaderCell"
+    var searchBarReuseId = "SearchBarCell"
     
     private lazy var searchController: UISearchController = {
         var sc = UISearchController(searchResultsController: nil)
@@ -35,7 +33,9 @@ class SearchIngredientCollectionViewController: FoodsCollectionViewController<In
         sc.searchBar.delegate = self
         sc.searchBar.showsBookmarkButton = true
         sc.searchBar.setImage(UIImage(named: "camera")!.withRenderingMode(.alwaysTemplate), for: .bookmark, state: .normal) // Set the bookmarkButton to a camera button
-        sc.searchBar.tintColor = view.tintColor
+        sc.searchBar.tintColor = .mountainBlue
+        sc.searchBar.barTintColor = .clear
+        sc.searchBar.isTranslucent = false
         return sc
     }()
     
@@ -51,8 +51,9 @@ class SearchIngredientCollectionViewController: FoodsCollectionViewController<In
         super.viewDidLoad()
         title = "Search Ingredients"
         collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderReuseId)
-        collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderReuseId)
+        collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: searchBarReuseId)
         
+        view.addSubview(searchController.searchBar)
         
         // Fetch previously saved ingredients
         FoodClient.shared.fetchIngredients { (response) in
@@ -76,14 +77,14 @@ class SearchIngredientCollectionViewController: FoodsCollectionViewController<In
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 3
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0:
-            return foods.count
         case 1:
+            return foods.count
+        case 2:
             return savedIngredients.count
         default:
             return 0
@@ -94,10 +95,10 @@ class SearchIngredientCollectionViewController: FoodsCollectionViewController<In
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FoodCell<Ingredient>
         
         switch indexPath.section {
-        case 0:
+        case 1:
             let ingredient = foods[indexPath.row]
             cell.food = ingredient
-        case 1:
+        case 2:
             let ingredient = savedIngredients[indexPath.row]
             cell.food = ingredient
         default:
@@ -107,25 +108,14 @@ class SearchIngredientCollectionViewController: FoodsCollectionViewController<In
         return cell
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        // On row click, show a ingredient detail modal
-//        let ingredientDetailVC = SearchIngredientDetailViewController()
-//        ingredientDetailVC.modalPresentationStyle = .overFullScreen
-//        ingredientDetailVC.delegate = self // We use a delegation pattern so the dismissing detailVC can handle selection of an ingredient
-//        ingredientDetailVC.delegateIndexPath = indexPath // Select ingredient at indexPath
-//
-//        let ingredient = indexPath.section == 0 ? foods[indexPath.row] : previousIngredients[indexPath.row]
-//        ingredientDetailVC.ingredient = ingredient
-//
-//        present(ingredientDetailVC, animated: true, completion: nil)
-    }
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         switch indexPath.section {
-        case 0:
+        case 1:
             let food = foods[indexPath.item]
             didSelect(food)
-        case 1:
+        case 2:
             let savedIngredient = savedIngredients[indexPath.item]
             didSelect(ingredient: savedIngredient)
         default:
@@ -147,20 +137,32 @@ class SearchIngredientCollectionViewController: FoodsCollectionViewController<In
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderReuseId, for: indexPath) as! SectionHeader
+        var searchBarHeader: UICollectionReusableView?
+        var sectionHeader: SectionHeader?
         
         switch indexPath.section {
         case 0:
-            sectionHeader.headerLabel.text = "Searched ingredients"
+            searchBarHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: searchBarReuseId, for: indexPath)
+            searchBarHeader?.addSubview(searchController.searchBar)
         case 1:
-            sectionHeader.headerLabel.text = "Previously searched ingredients"
+            sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderReuseId, for: indexPath) as? SectionHeader
+            sectionHeader?.headerLabel.text = "Searched ingredients"
+        case 2:
+            sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderReuseId, for: indexPath) as? SectionHeader
+            sectionHeader?.headerLabel.text = "Previously searched ingredients"
         default:
             break
         }
         
-        return sectionHeader
+        if let searchBarHeader = searchBarHeader {
+            return searchBarHeader
+        } else if let sectionHeader = sectionHeader  {
+            return sectionHeader
+        } else {
+            return UICollectionReusableView()
+        }
     }
-
+    
     override func didNotSelectItems() {
         navigationController?.popViewController(animated: true)
     }
@@ -189,6 +191,60 @@ class SearchIngredientCollectionViewController: FoodsCollectionViewController<In
             selectedIngredients.append(food)
         }
         return selectedIngredients
+    }
+    
+    // MARK: - UISearchBarDelegate, UISearchResultsUpdating
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        // Real-time search as the user types
+    }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        // On clicking the bookmark button present a camera view
+        let cameraVC = CameraViewController()
+        
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            present(cameraVC, animated: true, completion: nil)
+            break
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { (granted) in
+                if !granted { self.showAlert(with: "Barcode scanner needs access to your camera") }
+                
+                self.present(cameraVC, animated: true, completion: nil)
+            }
+            break
+        case .denied:
+            showAlert(with: "Please go to your phone's settings and provide this app access to your camera")
+            break
+        case .restricted:
+            showAlert(with: "No camera detected")
+            break
+        }
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        // Make call to usda food database
+        guard let searchTerm = searchBar.text, searchTerm.count > 0 else { return }
+        
+        FoodClient.shared.fetchUsdaIngredients(with: searchTerm) { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let ingredients):
+                    self.foods = ingredients
+                    self.searchController.isActive = false
+                    self.collectionView.reloadSections(IndexSet(integer: 1))
+                case .error(let error):
+                    NSLog("Error fetching ingredients: \(error)")
+                    self.searchController.isActive = false
+                }
+            }
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchController.searchBar.text = nil
+        searchController.searchBar.resignFirstResponder()
     }
     
 }
@@ -230,12 +286,12 @@ extension SearchIngredientCollectionViewController: SearchIngredientDetailDelega
     func updateIngredient(_ ingredient: Ingredient, indexPath: IndexPath) {
         
         switch indexPath.section {
-        case 0:
+        case 1:
             guard let index = foods.index(of: ingredient) else { return }
             foods.remove(at: index)
             foods.insert(ingredient, at: index)
             didSelect(ingredient)
-        case 1:
+        case 2:
             guard let index = savedIngredients.index(of: ingredient) else { return }
             savedIngredients.remove(at: index)
             savedIngredients.insert(ingredient, at: index)
