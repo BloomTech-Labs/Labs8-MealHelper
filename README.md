@@ -1,3 +1,26 @@
+# Style Rules and Color Scheme
+
+## Color Scheme
+
+- Border color: #9C9C9C
+- Button Color(Save, Login, Signup etc): Button: #267CFC , Text: #FFFFFF
+- Button 2 Color(Cancel) & Radius: Outline: #E53F3F , Text: #5B5B5B
+- Background Color for main page: #F0F0F0
+
+- Box Shadow CSS: box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.57);
+                  border-radius: 12px;
+                  
+                  
+- All Main Buttons should animate to a slightly darker color -> #0166FE
+- All Secondary Buttons should animate with a red background: #EE1313 and darker radius: #A60000 , text should switch to #FFFFFF
+
+
+## Icons 
+
+- Google Drive with all Icons needed for UI: https://drive.google.com/drive/folders/1m2y3tqVBlJW4k8kliNr54mkwNZVIW3rE?usp=sharing
+
+
+
 # Users Endpoints
 
 ## POST /register
