@@ -8,6 +8,8 @@ import Plate from "./Plate.png";
 import Navbar from "../Navbar/Navbar";
 import Recipe from "./Recipes.jpg";
 import Book from "./Book.png";
+import DoctorPic from "./DoctorPic.jpg";
+import Doctor from "./Doctor.png";
 import "./landingpage.css";
 
 class Landingpage extends Component {
@@ -93,6 +95,29 @@ class Landingpage extends Component {
             </div>
             <div className="image-info-container">
               <img className="image-info" src={Recipe} />
+            </div>
+          </div>
+          <div className="info-container-three">
+            <div className="image-info-container">
+              <img className="image-info" src={DoctorPic} />
+            </div>
+            <div className="card-body">
+              <div className="header-card">
+                <div>
+                  <p className="info-text">Show Your Doctor</p>
+                </div>
+                <div className="image-holder">
+                  <div>
+                    <img className="image-info-image" src={Doctor} />
+                  </div>
+                </div>
+              </div>
+              <div className="card-body-text-container">
+                <p className="card-body-text">
+                  Export your meals so that you can consult with your doctor and
+                  find what might affect you.
+                </p>
+              </div>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 .main-container {
   height: 100vh;
   width: 100vw;
-  background: grey;
+  background: #f0f0f0;
 }
 
 .formcenter {
@@ -15,16 +15,20 @@
   align-items: center;
   background: white;
   margin-top: 5%;
-  width: 300px;
-  height: 600px;
-  outline: 1px solid black;
+  width: 318px;
+  height: 560px;
+  border: #9c9c9c;
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.57);
+  border-radius: 12px;
 }
 
 .signup-title {
   color: black;
-  font-weight: 1000;
-  font-size: 3em;
+  font-weight: bold;
+  font-size: 3.8em;
   padding-top: 10px;
+  padding-bottom: 55px;
+  font-family: "Allan", cursive;
 }
 
 .form-group {
@@ -35,14 +39,17 @@
   padding-top: 20px;
 }
 
+.form-group:hover {
+  border: #8c8c8c;
+}
+
 input {
   width: 250px;
   height: 50px;
   font-size: 12px;
-  background: white;
+  background: #ffffff;
   border-width: 1px;
-  border-color: black;
-  color: black;
+  border-color: #9c9c9c;
 }
 
 label {
@@ -51,6 +58,21 @@ label {
 }
 
 .signup {
+  color: #ffffff;
+  width: 250px;
+  font-size: 25px;
+  height: 50px;
+  padding-top: 14px;
+  font-weight: 900;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  background-color: #267cfc;
+}
+.signup:hover {
+  background-color: #0166fe;
+}
+.login {
   color: white;
   width: 250px;
   font-size: 25px;
@@ -60,14 +82,16 @@ label {
   margin-top: 40px;
   margin-bottom: 30px;
   cursor: pointer;
-  background-color: #3366ff;
-  outline: 1px solid #3366ff;
+  background-color: #267cfc;
+}
+
+.login:hover {
+  background-color: #0166fe;
 }
 
 .buttons {
-  border: none;
   background-color: rgba(0, 0, 0, 0);
-  color: #3366ff;
+  color: #267cfc;
 }
 
 .signuptext {
@@ -83,6 +107,14 @@ label {
   border-width: 1px;
   border-color: black;
   color: black;
+}
+
+.applebadge {
+  width: 211px;
+  height: auto;
+}
+a {
+  margin-top: -50px;
 }
 
 .existinguser {
