@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FoodsCollectionViewController<T>: UICollectionViewController, UICollectionViewDelegateFlowLayout where T: Equatable {
+class RecipeCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Public properties
     
@@ -22,7 +22,7 @@ class FoodsCollectionViewController<T>: UICollectionViewController, UICollection
         }
     }
     
-    var foods = [T]()
+    var foods = [Recipe]()
     var navTitle: String?
     var cellId = "FoodCell"
     
@@ -37,6 +37,9 @@ class FoodsCollectionViewController<T>: UICollectionViewController, UICollection
         return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didSelectItems))
     }()
     
+    lazy var cancelBarButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissView))
+    }()
     
     // MARK: - Life Cycle
     
@@ -44,6 +47,20 @@ class FoodsCollectionViewController<T>: UICollectionViewController, UICollection
         super.viewDidLoad()
         
         setupCollectionView()
+        
+        
+        FoodClient.shared.fetchRecipes { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let recipes):
+                    self.foods = recipes
+                    self.collectionView.reloadData()
+                case .error:
+                    self.showAlert(with: "We couldn't get your recipes, please check your internet connection and try again.")
+                    return
+                }
+            }
+        }
         
     }
     
@@ -54,7 +71,7 @@ class FoodsCollectionViewController<T>: UICollectionViewController, UICollection
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FoodCell<T>
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FoodCell<Recipe>
         
         let food = foods[indexPath.item]
         cell.food = food
@@ -76,7 +93,7 @@ class FoodsCollectionViewController<T>: UICollectionViewController, UICollection
         didSelect(food)
     }
     
-    func didSelect(_ food: T) {
+    func didSelect(_ food: Recipe) {
         guard let index = foods.index(of: food) else { return }
         
         if selectedFoodAtIndex.contains(index) {
@@ -87,8 +104,8 @@ class FoodsCollectionViewController<T>: UICollectionViewController, UICollection
         }
     }
     
-    func getSelectedFoods() -> [T] {
-        var selectedFoods = [T]()
+    func getSelectedFoods() -> [Recipe] {
+        var selectedFoods = [Recipe]()
         for index in selectedFoodAtIndex {
             let food = foods[index]
             selectedFoods.append(food)
@@ -98,9 +115,43 @@ class FoodsCollectionViewController<T>: UICollectionViewController, UICollection
     
     // MARK: - User Actions
     
-    @objc func didNotSelectItems() { }
+    @objc func didNotSelectItems() {
+        let layout = UICollectionViewFlowLayout()
+        let searchIngredientVC = SearchIngredientCollectionViewController(collectionViewLayout: layout)
+        navigationController?.pushViewController(searchIngredientVC, animated: true)
+    }
 
-    @objc func didSelectItems() { }
+    @objc func didSelectItems() {
+        let foods = getSelectedFoods()
+        let date = Utils().dateString(for: Date())
+        var temp = 0.0 // TODO: Change
+        
+        let weatherDispatchGroup = DispatchGroup()
+        
+        weatherDispatchGroup.enter()
+        WeatherAPIClient().fetchWeather(for: 8038) { (weatherForecast) in // TODO: Change
+            
+            temp = weatherForecast?.main.temp ?? 0
+            weatherDispatchGroup.leave()
+        }
+        
+        weatherDispatchGroup.notify(queue: .main) {
+            let foodDispatchGroup = DispatchGroup()
+            
+            for food in foods {
+                foodDispatchGroup.enter()
+                let name = food.name
+                
+                FoodClient.shared.postMeal(name: name, mealTime: name, date: date, temp: temp) { (response) in
+                    foodDispatchGroup.leave()
+                }
+            }
+            
+            foodDispatchGroup.notify(queue: .main) {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
     
     @objc func dismissView() {
         dismiss(animated: true, completion: nil)
@@ -109,7 +160,7 @@ class FoodsCollectionViewController<T>: UICollectionViewController, UICollection
     // MARK: - Configuration
     
     private func setupCollectionView() {
-        collectionView.register(FoodCell<T>.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(FoodCell<Recipe>.self, forCellWithReuseIdentifier: cellId)
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = UIColor.init(white: 0, alpha: 0.35)
         collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
@@ -119,10 +170,9 @@ class FoodsCollectionViewController<T>: UICollectionViewController, UICollection
         
         view.backgroundColor = .mountainDark
         navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
+        navigationItem.leftBarButtonItem = cancelBarButton
     
-        if let navTitle = navTitle {
-            title = navTitle
-        }
+        title = "Recipes"
     }
     
 }

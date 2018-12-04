@@ -162,8 +162,8 @@ extension HomeViewController: ExpandableButtonViewDelegate {
         case .left:
             //let mealsTableViewController = MealsTableViewController(navTitle: "Meals")
             let layout = UICollectionViewFlowLayout()
-            let mealsTableViewController = RecipeCollectionViewController(collectionViewLayout: layout)
-            let navController = WhiteStatusNavController(rootViewController: mealsTableViewController)
+            let recipeTableViewController = RecipeCollectionViewController(collectionViewLayout: layout)
+            let navController = WhiteStatusNavController(rootViewController: recipeTableViewController)
             navController.navigationBar.prefersLargeTitles = true
             present(navController, animated: true, completion: nil)
             print("Left")
