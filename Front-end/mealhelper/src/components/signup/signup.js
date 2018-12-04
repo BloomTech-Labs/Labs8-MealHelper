@@ -109,18 +109,11 @@ class SignUp extends Component {
                       value={this.state.password}
                     />
                   </div>
-                  <div className="form-group">
-                    <label>Zip</label>
-                    <input
-                      className="zip-input"
-                      type="number"
-                      name="zip"
-                      onChange={this.handleChange}
-                      value={this.state.zip}
-                    />
-                  </div>
                   <div className="signup" onClick={this.confirmSignup}>
                     <span>Sign Up</span>
+                  </div>
+                  <div className="login" onClick={this.confirmSignup}>
+                    <span>Login with Email</span>
                   </div>
                 </form>
                 <div>

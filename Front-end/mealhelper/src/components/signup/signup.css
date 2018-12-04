@@ -1,7 +1,7 @@
 .main-container {
   height: 100vh;
   width: 100vw;
-  background: grey;
+  background: #f0f0f0;
 }
 
 .formcenter {
@@ -60,14 +60,12 @@ label {
   margin-top: 40px;
   margin-bottom: 30px;
   cursor: pointer;
-  background-color: #3366ff;
-  outline: 1px solid #3366ff;
+  background-color: #267cfc;
 }
 
 .buttons {
-  border: none;
   background-color: rgba(0, 0, 0, 0);
-  color: #3366ff;
+  color: #267cfc;
 }
 
 .signuptext {
