@@ -113,6 +113,9 @@ class SignUp extends Component {
                   <div className="signup" onClick={this.confirmSignup}>
                     <span>Sign Up</span>
                   </div>
+                  <p className="cta-existing-account">
+                    Already Have An Account?
+                  </p>
                   <Link to="/login" style={{ textDecoration: "none" }}>
                     <div className="login">
                       <span>Login with Email</span>

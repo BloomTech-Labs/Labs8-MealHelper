@@ -101,14 +101,10 @@ class Login extends Component {
                       required
                     />
                   </div>
+                  <p>Return to SignUp</p>
                   <div className="signup" onClick={this.confirmLogin}>
                     <span>Log In</span>
                   </div>
-                  <Link to="/signup">
-                    <div className="signup">
-                      <span>Signup</span>
-                    </div>
-                  </Link>
                 </form>
                 <div>
                   <Sign />
