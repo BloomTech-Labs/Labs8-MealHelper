@@ -78,7 +78,8 @@ export const updateAlarm = (alarmBody, userID) => dispatch => {
   const alarmID = alarmBody.id;
   const label = alarmBody.label;
   const alarm = alarmBody.alarm;
-  const updatedAlarm = { label, alarm };
+  const timestamp = alarmBody.timestamp;
+  const updatedAlarm = { label, alarm, timestamp };
   dispatch({ type: UPDATING_ALARM });
   axios
     .put(`https://labs8-meal-helper.herokuapp.com/editalarms/${alarmID}/user/${userID}`, updatedAlarm)
