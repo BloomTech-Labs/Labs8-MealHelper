@@ -16,8 +16,8 @@ function Sign(props) {
     <nav className="nah">
       {!auth0Client.isAuthenticated() && (
         <button className="authlogos" onClick={auth0Client.signIn}>
-          <p className="login-with">Login</p>
-          <p className="login-with-2">With</p>
+          <p className="login-with">Login with Google</p>
+          {/* <p className="login-with-2">With</p> */}
           <img src={Googlogo} className="authlogo2" alt="Google" />
         </button>
       )}

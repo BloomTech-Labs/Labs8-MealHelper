@@ -37,7 +37,7 @@
   align-items: center;
   position: relative;
   padding-top: 1.2em;
-  padding-bottom: 1em;
+  /* padding-bottom: 1em; */
 }
 
 label {
@@ -47,7 +47,7 @@ label {
   opacity: 1;
   transform: translateY(0);
   transition: all 0.2s ease-out;
-  color: rgb(192, 181, 31);
+  color: black;
 }
 
 input:placeholder-shown + label {
@@ -63,26 +63,26 @@ input {
 
 .login {
   position: relative;
-  color: rgb(192, 181, 31);
+  color: black;
   width: 256px;
   height: 64px;
   line-height: 64px;
-  transition: all 0.3s;
+  /* transition: all 0.3s; */
   margin-top: 3%;
   cursor: pointer;
 }
 
-.login:hover {
+/* .login:hover {
   font-size: 17px;
   font-weight: bold;
-}
+} */
 
-.login span {
+/* .login span {
   transition: all 0.3s;
   transform: scale(1, 1);
-}
+} */
 
-.login::before,
+/* .login::before,
 .login::after {
   content: "";
   position: absolute;
@@ -92,9 +92,9 @@ input {
   width: 100%;
   height: 100%;
   z-index: 1;
-}
+} */
 
-.login-two::before,
+/* .login-two::before,
 .login-two::after {
   content: "";
   position: absolute;
@@ -105,9 +105,9 @@ input {
   z-index: 1;
   transition: all 0.3s;
   border: 1px solid rgb(192, 181, 31);
-}
+} */
 
-.login-two:hover::after {
+/* .login-two:hover::after {
   animation-name: rotatecw;
   animation-duration: 2s;
 }
@@ -140,4 +140,4 @@ input {
   to {
     transform: rotate(-360deg);
   }
-}
+} */
