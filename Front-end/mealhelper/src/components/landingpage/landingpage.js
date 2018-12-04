@@ -6,6 +6,8 @@ import Jars from "./Jars.jpg";
 import Computer from "./Computer.jpg";
 import Plate from "./Plate.png";
 import Navbar from "../Navbar/Navbar";
+import Recipe from "./Recipes.jpg";
+import Book from "./Book.png";
 import "./landingpage.css";
 
 class Landingpage extends Component {
@@ -67,6 +69,30 @@ class Landingpage extends Component {
                   experience, all in one.
                 </p>
               </div>
+            </div>
+          </div>
+
+          <div className="info-container-two">
+            <div className="card-body">
+              <div className="header-card">
+                <div className="image-holder">
+                  <div>
+                    <img className="image-info-image" src={Book} />
+                  </div>
+                </div>
+                <div>
+                  <p className="info-text-two">Manage Your Recipes</p>
+                </div>
+              </div>
+              <div className="card-body-text-container-two">
+                <p className="card-body-text">
+                  Create recipes, edit them, use them. EatWell’s built in recipe
+                  book does it all.
+                </p>
+              </div>
+            </div>
+            <div className="image-info-container">
+              <img className="image-info" src={Recipe} />
             </div>
           </div>
         </div>
