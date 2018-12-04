@@ -10,13 +10,6 @@ import UIKit
 
 class SkyView: UIView {
     
-    var path: UIBezierPath?
-    var startAngle = 180 {
-        didSet {
-            setNeedsLayout()
-        }
-    }
-    
     let moonSunImageView: UIImageView = {
         let iv = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
         iv.contentMode = .scaleAspectFit
@@ -26,7 +19,6 @@ class SkyView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         fetchWeather()
     }
     
@@ -53,10 +45,10 @@ class SkyView: UIView {
             let timeSinceSunrise = now - forecast.sys.sunrise
             let percentage = Double(timeSinceSunrise) / Double(sunDuration)
             let roundedPercentage = percentage.rounded(toPlaces: 3)
-            self.startAngle = Int((179 * (roundedPercentage / 100)) + 180)
             let minusDuration = (Double(sunDuration) / 100) * roundedPercentage
             let duration = sunDuration - Int(minusDuration)
-            startAnimation(with: #imageLiteral(resourceName: "sun"), duration: duration)
+            let startAngle = Int((179 * (roundedPercentage / 100)) + 180)
+            startAnimation(with: #imageLiteral(resourceName: "sun"), duration: duration, startAngle: startAngle)
             
         } else if now > forecast.sys.sunset && now < nextDaySunrise {
             
@@ -64,18 +56,20 @@ class SkyView: UIView {
             let timeSinceSunset = now - forecast.sys.sunset
             let percentage = (Double(timeSinceSunset) / Double(moonDuration)) * 100
             let roundedPercentage = percentage.rounded(toPlaces: 2)
-            self.startAngle = Int((179 * (roundedPercentage / 100)) + 180)
             let minusDuration = (Double(moonDuration) / 100) * roundedPercentage
             let duration = moonDuration - Int(minusDuration)
-            startAnimation(with: #imageLiteral(resourceName: "moon"), duration: duration)
+            let startAngle = Int((179 * (roundedPercentage / 100)) + 180)
+            startAnimation(with: #imageLiteral(resourceName: "moon"), duration: duration, startAngle: startAngle)
         }
     }
     
-    private func startAnimation(with image: UIImage, duration: Int) {
+    private func startAnimation(with image: UIImage, duration: Int, startAngle: Int) {
         moonSunImageView.image = image
         
+        let path = UIBezierPath(arcCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY + 50), radius: self.bounds.width / 2, startAngle: CGFloat(startAngle).toRadians(), endAngle: CGFloat(0).toRadians(), clockwise: true)
+        
         let animation = CAKeyframeAnimation(keyPath: "position")
-        animation.path = self.path?.cgPath
+        animation.path = path.cgPath
         animation.duration = CFTimeInterval(duration)
         animation.fillMode = .forwards
         animation.delegate = self
@@ -83,11 +77,6 @@ class SkyView: UIView {
         
         moonSunImageView.layer.add(animation, forKey: nil)
         addSubview(moonSunImageView)
-    }
-    
-    override func draw(_ rect: CGRect) {
-        path = UIBezierPath(arcCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY + 50), radius: self.bounds.width / 2, startAngle: CGFloat(startAngle).toRadians(), endAngle: CGFloat(0).toRadians(), clockwise: true)
-        path?.stroke()
     }
     
     required init?(coder aDecoder: NSCoder) {
