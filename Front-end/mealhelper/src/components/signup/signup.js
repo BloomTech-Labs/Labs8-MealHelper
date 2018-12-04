@@ -87,7 +87,7 @@ class SignUp extends Component {
             </div>
             <div className="formcenter">
               <div className="user-form-container">
-                <h1 className="signup-title">Sign Up</h1>
+                <h1 className="signup-title">EatWell</h1>
                 <form className="signup-form">
                   <div className="form-group">
                     <label>Email</label>
@@ -112,13 +112,14 @@ class SignUp extends Component {
                   <div className="signup" onClick={this.confirmSignup}>
                     <span>Sign Up</span>
                   </div>
-                  <div className="login" onClick={this.confirmSignup}>
-                    <span>Login with Email</span>
-                  </div>
+                  <Link to="/login" style={{ textDecoration: "none" }}>
+                    <div className="login" onClick={this.confirmSignup}>
+                      <span>Login with Email</span>
+                    </div>
+                  </Link>
                 </form>
                 <div>
                   <Sign />
-                  <Route exact path="/callback" component={Callback} />
                 </div>
               </div>
             </div>

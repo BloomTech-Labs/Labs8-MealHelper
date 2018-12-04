@@ -24,9 +24,10 @@
 
 .signup-title {
   color: black;
-  font-weight: 1000;
-  font-size: 3em;
+  font-weight: bold;
+  font-size: 3.8em;
   padding-top: 10px;
+  font-family: "Allan", cursive;
 }
 
 .form-group {

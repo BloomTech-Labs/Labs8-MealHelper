@@ -45,6 +45,7 @@ class App extends Component {
           <Route path="/signup" render={() => <Signup />} />
           <Route path="/callback" render={() => <Callback />} />
           <Route path="/login" render={() => <Login />} />
+          {/* <Route exact path="/callback" component={Callback} /> */}
           <Route exact path="/homepage" render={() => <HomePage />} />
           <Route path="/homepage/meals" render={() => <Meals />} />
           <Route path="/homepage/weather" render={() => <Weather />} />
