@@ -12,7 +12,7 @@ import ExpandableButton
 class HomeViewController: UIViewController, UICollectionViewDelegate {
 
     var timer: Timer?
-    var countdownTime = 0
+    var countdownTime = 10
     
     let skyView: SkyView = {
         let view = SkyView()
@@ -44,7 +44,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .white
-        label.font = Appearance.appFont(with: 28)
+        label.font = Appearance.appFont(with: 32)
         label.sizeToFit()
         
         return label
@@ -71,6 +71,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         return ebv
     }()
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        timer?.invalidate()
+        timer = nil
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         fetchMeals()
@@ -92,6 +98,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     
     private func fetchAlarms() {
         let userId = UserDefaults.standard.loggedInUserId()
+        countdownTime = 10
         APIClient.shared.fetchAlarms(userId: userId) { (response) in
             
             DispatchQueue.main.async {
@@ -138,8 +145,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
             let nowHourInt = Int(nowHour)!
             let nowMinuteInt = Int(nowMinute)!
             
-            let hoursRemainingInSeconds = (nowHourInt * 3600) - (alarmHourInt * 3600)
-            let minutesRemainingInSeconds = (nowMinuteInt * 60) - (alarmMinuteInt * 60)
+            let hoursRemainingInSeconds = (alarmHourInt * 3600) - (nowHourInt * 3600)
+            let minutesRemainingInSeconds = (alarmMinuteInt * 60) - (nowMinuteInt * 60)
             let timeRemaining = hoursRemainingInSeconds + minutesRemainingInSeconds
             setupAlarmCountdown(timeRemaining: timeRemaining)
             

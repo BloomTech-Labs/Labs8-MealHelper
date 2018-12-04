@@ -14,7 +14,7 @@ class AlarmViewController: UIViewController {
     
     let alarmLabel: UILabel = {
         let label = UILabel()
-        label.text = "Your Alarms"
+        label.text = "Scheduled Meals"
         label.textColor = .white
         label.textAlignment = .center
         label.font = Appearance.appFont(with: 20)
