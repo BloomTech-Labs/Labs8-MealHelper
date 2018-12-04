@@ -1,88 +1,124 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Typing from "react-typing-animation";
-//change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route } from "react-router-dom";
-// import { Alert } from "reactstrap";
-import Sign2 from "../../components/Sign2";
-import Callback from "../../Callback";
+import Jars from "./Jars.jpg";
+import Computer from "./Computer.jpg";
+import Plate from "./Plate.png";
+import Navbar from "../Navbar/Navbar";
+import Recipe from "./Recipes.jpg";
+import Book from "./Book.png";
+import DoctorPic from "./DoctorPic.jpg";
+import Doctor from "./Doctor.png";
 import "./landingpage.css";
 
 class Landingpage extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      email: "",
-      password: "",
-      zip: null,
-      healthCondition: "",
-      visable: false
-    };
-  }
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
       this.props.history.push("/homepage");
     }
   };
-  handleChange = event => {
-    event.preventDefault();
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  };
 
-  createUser = event => {
-    event.preventDefault();
-    if (!this.state.email || !this.state.password) {
-      this.setState({ visable: true });
-    } else {
-      const { email, password, zip, healthCondition } = this.state;
-      const user = { email, password, zip, healthCondition };
-      this.props.addUser(user);
-      // this.props.history.push("/");
-    }
+  goToSignup = () => {
+    this.props.history.push("/signup");
+  };
+  goToLogin = () => {
+    this.props.history.push("/login");
   };
 
   render() {
     return (
       <div className="main-container">
-        <div className="entry-button-group">
-          <Link to="/signup">
-            <button className="signup-button">
-              <span>Signup</span>
-            </button>
-          </Link>
-          <Link to="/login">
-            <button className="signup-button">
-              <span>Login</span>
-            </button>
-          </Link>
-          <div>
-            <Sign2 />
-            <Route exact path="/callback" component={Callback} />
+        <Navbar />
+        <div className="container">
+          <div className="image-jars-container">
+            <img className="image-jars" src={Jars} alt="No image" />
           </div>
-        </div>
-        <div className="landpage-content">
-          <Typing className="typing " speed={90}>
-            <span>Welcome to Meal4U "(not the actual name)"</span>
-          </Typing>
-          <br />
-          <br />
-          <br />
-          <h2>
-            Meal4U is a meal tracking app that is meant to help those with
-            health needs track and manage their meals.
-          </h2>
-          <h2>This app can: </h2>
-          <div className="checklist">
-            <h3>* Remind them to eat</h3>
-            <h3>* Track what they eat</h3>
-            <h3>* Save recipes and/or ingredients</h3>
-            <h3>* Track what happens after a meal</h3>
-            <h3>* Record the weather during a meal</h3>
-            <h3>* Export the above into a single PDF</h3>
+          <div className="login-signup-container">
+            <div className="button-container">
+              <button className="button">
+                <p className="button-text" onClick={this.goToSignup}>
+                  Sign Up
+                </p>
+              </button>
+            </div>
+            <div className="button-container">
+              <button className="button">
+                <p className="button-text" onClick={this.goToLogin}>
+                  Log In
+                </p>
+              </button>
+            </div>
+          </div>
+          <div className="info-container-one">
+            <div className="image-info-container">
+              <img className="image-info" src={Computer} />
+            </div>
+            <div className="card-body">
+              <div className="header-card">
+                <div>
+                  <p className="info-text">Record Your Meals</p>
+                </div>
+                <div className="image-holder">
+                  <div>
+                    <img className="image-info-image" src={Plate} />
+                  </div>
+                </div>
+              </div>
+              <div className="card-body-text-container">
+                <p className="card-body-text">
+                  EatWell makes it easy to make a meal, and write down your
+                  experience, all in one.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="info-container-two">
+            <div className="card-body">
+              <div className="header-card">
+                <div className="image-holder">
+                  <div>
+                    <img className="image-info-image" src={Book} />
+                  </div>
+                </div>
+                <div>
+                  <p className="info-text-two">Manage Your Recipes</p>
+                </div>
+              </div>
+              <div className="card-body-text-container-two">
+                <p className="card-body-text">
+                  Create recipes, edit them, use them. EatWell’s built in recipe
+                  book does it all.
+                </p>
+              </div>
+            </div>
+            <div className="image-info-container">
+              <img className="image-info" src={Recipe} />
+            </div>
+          </div>
+          <div className="info-container-three">
+            <div className="image-info-container">
+              <img className="image-info" src={DoctorPic} />
+            </div>
+            <div className="card-body">
+              <div className="header-card">
+                <div>
+                  <p className="info-text">Show Your Doctor</p>
+                </div>
+                <div className="image-holder">
+                  <div>
+                    <img className="image-info-image" src={Doctor} />
+                  </div>
+                </div>
+              </div>
+              <div className="card-body-text-container">
+                <p className="card-body-text">
+                  Export your meals so that you can consult with your doctor and
+                  find what might affect you.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
