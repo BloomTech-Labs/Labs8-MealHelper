@@ -17,7 +17,9 @@
   margin-top: 5%;
   width: 300px;
   height: 600px;
-  outline: 1px solid black;
+  border: #9c9c9c;
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.57);
+  border-radius: 12px;
 }
 
 .signup-title {
@@ -61,6 +63,25 @@ label {
   margin-bottom: 30px;
   cursor: pointer;
   background-color: #267cfc;
+}
+.signup:hover {
+  background-color: #0166fe;
+}
+.login {
+  color: white;
+  width: 250px;
+  font-size: 25px;
+  height: 50px;
+  padding-top: 14px;
+  font-weight: 900;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  background-color: #267cfc;
+}
+
+.login:hover {
+  background-color: #0166fe;
 }
 
 .buttons {
