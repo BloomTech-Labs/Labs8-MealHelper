@@ -23,9 +23,6 @@ function Sign2(props) {
       )}
       {auth0Client.isAuthenticated() && (
         <div>
-          <label className="mr-2 text-black">
-            {auth0Client.getProfile().name}
-          </label>
           <button
             className="btn btn-dark"
             onClick={() => {

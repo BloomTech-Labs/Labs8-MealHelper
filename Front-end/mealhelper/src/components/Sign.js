@@ -24,9 +24,6 @@ function Sign(props) {
       {auth0Client.isAuthenticated() &&
         localStorage.getItem("token")(
           <div>
-            <label className="mr-2 text-black">
-              {auth0Client.getProfile().name}
-            </label>
             <button
               className="btn btn-dark"
               onClick={() => {

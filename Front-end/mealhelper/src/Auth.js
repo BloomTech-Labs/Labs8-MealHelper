@@ -53,7 +53,7 @@ class Auth0Client extends Component {
         }
         this.idToken = authResult.idToken;
         this.profile = authResult.idTokenPayload;
-        console.log(this.profile);
+        console.log(authResult);
         localStorage.setItem("email", this.profile.email);
         localStorage.setItem("token", this.idToken);
 

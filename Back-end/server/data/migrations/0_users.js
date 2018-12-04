@@ -75,6 +75,7 @@ exports.up = function(knex) {
       alarms.increments("id").primary();
       alarms.string("label");
       alarms.string("alarm").notNullable;
+      alarms.string("timestamp");
       alarms.integer("user_id");
       alarms
         .foreign("user_id")
