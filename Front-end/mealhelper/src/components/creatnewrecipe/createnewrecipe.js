@@ -3,22 +3,9 @@ import { connect } from "react-redux";
 //change the route for this
 import { addRecipe, getRecipe } from "../../store/actions/recipeActions.js";
 import { withRouter, Link, Route } from "react-router-dom";
-// import { Alert } from "reactstrap";
-import axios from "axios";
-import Recipe from "../recipes/recipe";
 import SelectedFoods from "../recipes/SelectFood";
 import FoodSearch from "../recipes/FoodSearch";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import "../recipes/recipes.css";
 
 class CreateNewRecipe extends Component {
