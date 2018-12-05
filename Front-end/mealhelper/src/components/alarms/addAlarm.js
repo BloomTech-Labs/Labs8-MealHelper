@@ -1,9 +1,11 @@
+// == Dependencies == //
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Select from "react-select";
+// == Actions == //
 import { addAlarms } from "../../store/actions/alarmActions";
-import { Button } from "reactstrap";
+// == Styles == //
 import "./addAlarm.css";
 
 //this is embarrassingly not DRY; auto-populate ASAP
@@ -63,7 +65,6 @@ class AddAlarms extends Component {
   };
 
   handleCheck = day => {
-    console.log(day, this.state[day]);
     this.setState({
       [day]: !this.state[day]
     });
@@ -71,8 +72,7 @@ class AddAlarms extends Component {
 
   addAlarm = event => {
     event.preventDefault();
-    // console.log("THIS.PROPS", this.props);
-    // console.log("THIS.PROPS.USER", this.props.user);
+    //grabs user id from state
     const user_id = this.props.user.userID;
     if (!this.state.startTime || !this.state.endTime || !this.state.repeats) {
       //alert that all fields are required
@@ -80,8 +80,9 @@ class AddAlarms extends Component {
       let start = Number(this.state.startTime);
       let end = Number(this.state.endTime);
       let repeats = +this.state.repeats * 100;
+
       let timestamp = Math.round(new Date().getTime() / 1000.0);
-      console.log("TIMESTAMP", timestamp);
+
       let alarmTimes = [];
       for (let i = start; i <= end; i += repeats) {
         if (i.toString().length === 3) {
@@ -116,7 +117,6 @@ class AddAlarms extends Component {
           });
         }
       }
-      alarmTimes.map(alarm => console.log("alarm map", alarm));
       alarmTimes.map(alarm => this.props.addAlarms(alarm));
       this.props.history.push("/homepage/alarms");
     }
@@ -142,8 +142,6 @@ class AddAlarms extends Component {
       saturday: this.state.saturday,
       sunday: this.state.sunday
     }
-    console.log("alarm body: ", "alarm", alarm, "label", label);
-
     this.props.addAlarms(alarmBody);
     this.props.history.push("/homepage/alarms");
   };
