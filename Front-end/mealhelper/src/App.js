@@ -47,52 +47,6 @@ class App extends Component {
           <Route path="/login" render={() => <Login />} />
           <Route path="/zip" render={() => <Zip />} />
           <Route exact path="/homepage" render={() => <HomePage />} />
-          <Route path="/homepage/meals" render={() => <Meals />} />
-          <Route path="/homepage/weather" render={() => <Weather />} />
-          <Route exact path="/ingredients" render={() => <GetIngredient />} />
-          <Route path="/homepage/recipes" render={() => <Recipes />} />
-          <Route path="/homepage/billing" render={() => <Billing />} />
-          <Route
-            path="/homepage/recipes/createnewrecipe"
-            render={() => <CreateNewRecipe />}
-          />
-          <Route
-            path="/homepage/ingredients/myingredients"
-            render={() => <MyIngredients />}
-          />
-          <Route
-            path="/homepage/weather/myweather"
-            render={() => <MyWeather />}
-          />
-          <Route
-            path="/homepage/recipes/myrecipes"
-            render={() => <MyRecipes />}
-          />
-          <Route
-            path="/homepage/recipes/recipebook"
-            render={() => <RecipeBook />}
-          />
-
-          <Route
-            path="/homepage/ingredients/myingredients"
-            render={() => <MyIngredients />}
-          />
-          <Route path="/homepage/alarms" render={() => <MyAlarms />} />
-          <Route
-            path="/homepage/alarms/add-alarms"
-            render={() => <AddAlarms />}
-          />
-          <Route
-            path="/homepage/alarms/add-alarms"
-            render={() => <AddAlarms />}
-          />
-          <Route path="/homepage/settings" render={() => <SettingsMain />} />
-          <Route path="/homepage/settings/email" render={() => <EditEmail />} />
-          <Route
-            path="/homepage/settings/password"
-            render={() => <EditPassword />}
-          />
-          <Route path="/homepage/settings/zip" render={() => <EditZip />} />
         </Switch>
       </div>
     );

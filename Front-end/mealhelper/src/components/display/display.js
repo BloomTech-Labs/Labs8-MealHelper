@@ -94,59 +94,107 @@ class Display extends Component {
 
   render() {
     return (
-      <div className="flex-me">
-        <div className="dynamic-display-home-meals">
-          <p className="recentMeals">4 Most Recently Made Meals: </p>
-        </div>
-        <div className="dynamic-display-home">
-          <div className="mealsRecipe-Container">
-            <div>
-              <div className="mealDisplay-Flex">
-                {console.log("meal array size", this.state.meal_SIZE)}
-                {this.state.meals
-                  .reverse()
-                  .slice(this.state.meal_SIZE - 4, this.state.meal_SIZE)
+      <Switch>
+      <Route path="/homepage/meals" render={() => <Meals />} />
+      <Route path="/homepage/weather" render={() => <Weather />} />
+      <Route exact path="/ingredients" render={() => <GetIngredient />} />
+      <Route path="/homepage/recipes" render={() => <Recipes />} />
+      <Route path="/homepage/billing" render={() => <Billing />} />
+      <Route
+        path="/homepage/recipes/createnewrecipe"
+        render={() => <CreateNewRecipe />}
+      />
+      <Route
+        path="/homepage/ingredients/myingredients"
+        render={() => <MyIngredients />}
+      />
+      <Route
+        path="/homepage/weather/myweather"
+        render={() => <MyWeather />}
+      />
+      <Route
+        path="/homepage/recipes/myrecipes"
+        render={() => <MyRecipes />}
+      />
+      <Route
+        path="/homepage/recipes/recipebook"
+        render={() => <RecipeBook />}
+      />
 
-                  .map(meal => (
-                    <MealDisplay
-                      key={meal.id}
-                      meal={meal}
-                      mealTime={meal.mealTime}
-                      temp={meal.temp}
-                      experience={meal.experience}
-                      date={meal.date}
-                      city={meal.name}
-                    />
-                  ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="dynamic-display-home-meals">
-          <p className="recentMeals">4 Most Recently Made Recipes: </p>
-        </div>
-        <div className="dynamic-display-home">
-          <div className="mealsRecipe-Container">
-            <div>
-              <div className="mealDisplay-Flex">
-                {console.log("recipe array size", this.state.recipe_SIZE)}
-                {this.state.recipes
-                  .reverse()
-                  .slice(this.state.recipe_SIZE - 4, this.state.recipe_SIZE)
-                  .map(recipe => (
-                    <RecipeDisplay
-                      key={recipe.id}
-                      recipe={recipe}
-                      servings={recipe.servings}
-                      calories={recipe.calories}
-                      name={recipe.name}
-                    />
-                  ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Route
+        path="/homepage/ingredients/myingredients"
+        render={() => <MyIngredients />}
+      />
+      <Route path="/homepage/alarms" render={() => <MyAlarms />} />
+      <Route
+        path="/homepage/alarms/add-alarms"
+        render={() => <AddAlarms />}
+      />
+      <Route
+        path="/homepage/alarms/add-alarms"
+        render={() => <AddAlarms />}
+      />
+      <Route path="/homepage/settings" render={() => <SettingsMain />} />
+      <Route path="/homepage/settings/email" render={() => <EditEmail />} />
+      <Route
+        path="/homepage/settings/password"
+        render={() => <EditPassword />}
+      />
+      <Route path="/homepage/settings/zip" render={() => <EditZip />} />
+    </Switch>
+      // <div className="flex-me">
+      //   <div className="dynamic-display-home-meals">
+      //     <p className="recentMeals">4 Most Recently Made Meals: </p>
+      //   </div>
+      //   <div className="dynamic-display-home">
+      //     <div className="mealsRecipe-Container">
+      //       <div>
+      //         <div className="mealDisplay-Flex">
+      //           {console.log("meal array size", this.state.meal_SIZE)}
+      //           {this.state.meals
+      //             .reverse()
+      //             .slice(this.state.meal_SIZE - 4, this.state.meal_SIZE)
+
+      //             .map(meal => (
+      //               <MealDisplay
+      //                 key={meal.id}
+      //                 meal={meal}
+      //                 mealTime={meal.mealTime}
+      //                 temp={meal.temp}
+      //                 experience={meal.experience}
+      //                 date={meal.date}
+      //                 city={meal.name}
+      //               />
+      //             ))}
+      //         </div>
+      //       </div>
+      //     </div>
+      //   </div>
+      //   <div className="dynamic-display-home-meals">
+      //     <p className="recentMeals">4 Most Recently Made Recipes: </p>
+      //   </div>
+      //   <div className="dynamic-display-home">
+      //     <div className="mealsRecipe-Container">
+      //       <div>
+      //         <div className="mealDisplay-Flex">
+      //           {console.log("recipe array size", this.state.recipe_SIZE)}
+      //           {this.state.recipes
+      //             .reverse()
+      //             .slice(this.state.recipe_SIZE - 4, this.state.recipe_SIZE)
+      //             .map(recipe => (
+      //               <RecipeDisplay
+      //                 key={recipe.id}
+      //                 recipe={recipe}
+      //                 servings={recipe.servings}
+      //                 calories={recipe.calories}
+      //                 name={recipe.name}
+      //               />
+      //             ))}
+      //         </div>
+      //       </div>
+      //     </div>
+      //   </div>
+      // </div>
     );
   }
 }
