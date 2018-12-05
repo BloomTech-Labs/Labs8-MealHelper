@@ -58,9 +58,9 @@ class Zip extends Component {
       this.setState({ visable: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      const { email, password } = this.state;
-      const user = { email, password };
-      this.props.loginUser(user);
+      const { zip } = this.state;
+      const user = { zip };
+      this.props.updateUser(user);
     }
   };
 
@@ -87,7 +87,6 @@ class Zip extends Component {
                   <label>
                     Zip Code
                     <span
-                      className="zipexplain"
                       title="Adding your zip code allows an accurate weather data point to be added to your fact set. 
                     This can be very important as you understand how your food affects well being."
                     >
