@@ -6,7 +6,7 @@ import { Alert } from "reactstrap";
 import Sign from "../Sign";
 import "../homepage/homepage";
 import Loading from "../signup/Double Ring-2s-200px.svg";
-import "../signup/signup";
+import "../signup/signup.css";
 import Applelogo from "../../img/appstorebadge.png";
 class Login extends Component {
   constructor(props) {
@@ -101,7 +101,9 @@ class Login extends Component {
                       required
                     />
                   </div>
-                  <p>Return to SignUp</p>
+                  <Link className="return" to="/signup">
+                    <p> ⬅ Return to Sign Up</p>
+                  </Link>
                   <div className="signup" onClick={this.confirmLogin}>
                     <span>Log In</span>
                   </div>
@@ -111,7 +113,7 @@ class Login extends Component {
                 </div>
                 <a href="https://www.apple.com/ios/app-store/">
                   <img
-                    className="applebadge"
+                    className="applebadgelogin"
                     src={Applelogo}
                     alt="Apple App Store"
                   />

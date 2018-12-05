@@ -47,7 +47,11 @@ label {
   text-align: left;
 }
 
-.signup {
+.return {
+  padding-top: 20px;
+}
+
+/* .signup {
   color: #ffffff;
   width: 250px;
   font-size: 25px;
@@ -62,7 +66,7 @@ label {
 
 .signup:hover {
   background-color: #0166fe;
-}
+} */
 .login {
   color: white;
   width: 250px;
@@ -80,10 +84,10 @@ label {
   background-color: #0166fe;
 }
 
-.buttons {
+/* .buttons {
   background-color: rgba(0, 0, 0, 0);
   color: #267cfc;
-}
+} */
 
 .signuptext {
   padding-top: 20px;
@@ -103,9 +107,7 @@ label {
 .applebadge {
   width: 211px;
   height: auto;
-}
-a {
-  margin-top: -50px;
+  margin-top: 20px;
 }
 
 .existinguser {
