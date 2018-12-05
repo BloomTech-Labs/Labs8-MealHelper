@@ -24,6 +24,7 @@ import AddAlarms from "./components/alarms/addAlarm";
 import Billing from "./components/billing/billing";
 import SettingsMain from "./components/Settings/SettingsMain";
 import Zip from "./components/zip/zip";
+import NewMeal from "./components/Meals/NewMeal";
 
 ////////////////////////
 
@@ -47,7 +48,8 @@ class App extends Component {
           <Route path="/login" render={() => <Login />} />
           <Route path="/zip" render={() => <Zip />} />
           <Route exact path="/homepage" render={() => <HomePage />} />
-          <Route path="/homepage/meals" render={() => <Meals />} />
+          <Route exact path="/homepage/meals" render={() => <Meals />} />
+          <Route path="/homepage/meals/new" render={() => <NewMeal />} />
           <Route path="/homepage/weather" render={() => <Weather />} />
           <Route exact path="/ingredients" render={() => <GetIngredient />} />
           <Route path="/homepage/recipes" render={() => <Recipes />} />

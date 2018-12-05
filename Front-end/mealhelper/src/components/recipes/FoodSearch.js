@@ -1,7 +1,7 @@
 import React from "react";
 import Client from "./Client";
 
-const MATCHING_ITEM_LIMIT = 25;
+const MATCHING_ITEM_LIMIT = 100;
 
 class FoodSearch extends React.Component {
   state = {

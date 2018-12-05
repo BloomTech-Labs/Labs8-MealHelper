@@ -35,7 +35,9 @@ class NavbarLanding extends Component {
     return (
       <div className="Navbar-Container-Main">
         <div className="logo-main-container">
-          <p className="logo-main">EatWell</p>
+          <Link className="link-logo" to="/homepage">
+            <p className="logo-main">EatWell</p>
+          </Link>
         </div>
         <div className="searchbar-nav-container">
           <form>
