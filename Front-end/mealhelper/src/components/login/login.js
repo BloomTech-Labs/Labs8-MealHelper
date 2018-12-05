@@ -4,7 +4,6 @@ import { loginUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
 import Sign from "../Sign";
-import "../homepage/homepage";
 import Loading from "../signup/Double Ring-2s-200px.svg";
 import "../signup/signup.css";
 import Applelogo from "../../img/appstorebadge.png";
@@ -42,7 +41,7 @@ class Login extends Component {
       this.setState({ isLoading: false, visableError: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      this.props.history.push("/homepage");
+      this.props.history.push("/zip");
     }
   };
   async confirmLogin() {
@@ -101,19 +100,19 @@ class Login extends Component {
                       required
                     />
                   </div>
-                  <Link className="return" to="/signup">
-                    <p> ⬅ Return to Sign Up</p>
+                  <Link to="/signup">
+                    <p> ⬅ Return to Sign Up </p>
                   </Link>
                   <div className="signup" onClick={this.confirmLogin}>
                     <span>Log In</span>
                   </div>
                 </form>
-                <div>
+                <div className="authbuttonlogin">
                   <Sign />
                 </div>
                 <a href="https://www.apple.com/ios/app-store/">
                   <img
-                    className="applebadgelogin"
+                    className="applebadge"
                     src={Applelogo}
                     alt="Apple App Store"
                   />

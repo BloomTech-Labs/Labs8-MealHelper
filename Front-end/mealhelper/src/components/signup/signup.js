@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import Sign from "../Sign";
-// import Callback from "../../Callback";
 import { connect } from "react-redux";
-//change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
 import Loading from "./Double Ring-2s-200px.svg";
 import Applelogo from "../../img/appstorebadge.png";
-
 import "./signup.css";
 
 class SignUp extends Component {
@@ -28,7 +25,7 @@ class SignUp extends Component {
   }
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
-      this.props.history.push("/homepage");
+      this.props.history.push("/zip");
     }
   };
   handleChange = event => {
@@ -122,7 +119,7 @@ class SignUp extends Component {
                     </div>
                   </Link>
                 </form>
-                <div>
+                <div className="authbuttonlogin">
                   <Sign />
                 </div>
                 <a href="https://www.apple.com/ios/app-store/">
