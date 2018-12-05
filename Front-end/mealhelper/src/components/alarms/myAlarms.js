@@ -1,15 +1,16 @@
+// == Dependencies == //
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import axios from "axios";
+import Select from "react-select";
+// == Actions == //
 import {
   fetchAlarms,
   deleteAlarm,
   updateAlarm
 } from "../../store/actions/alarmActions";
-//import { Alarm } from "./alarm";
-import Select from "react-select";
-import { Button } from "reactstrap";
+// == Styles == //
+
 
 const alarms = [
   {
@@ -81,28 +82,18 @@ class MyAlarms extends Component {
   }
 
   componentDidMount() {
-    console.log("this.props", this.props);
     let userID = this.props.user.userID;
     console.log("this.props.user.userID", this.props.user.userID);
     this.props.fetchAlarms(userID);
-    console.log("this.props.alarms", this.props.alarms);
   }
 
   componentDidUpdate(prevProps) {
-    console.log("in componentDidUpdate");
     let userID = this.props.user.userID;
     if (
       JSON.stringify(this.props.alarms) !== JSON.stringify(prevProps.alarms)
     ) {
       this.props.fetchAlarms(userID);
-      console.log("this.props.alarms", this.props.alarms);
     }
-    //console.log(this.state.label);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log("CWRP THIS.PROPS.ALARMS", this.props.alarms);
-    console.log("CWRP NEXT PROPS", nextProps);
   }
 
   handleChange = event => {
@@ -117,7 +108,6 @@ class MyAlarms extends Component {
     const label = labelChange;
     const alarmBody = { id, label, alarm };
     let userID = this.props.user.userID;
-    console.log("ALARM BODY", alarmBody);
     this.props.updateAlarm(alarmBody, userID);
   }
 
@@ -129,9 +119,7 @@ class MyAlarms extends Component {
         ...this.state,
         show: !show,
         alarmToUpdate: alarmToUpdate
-      },
-      () => console.log("ALARM TO UPDATE", this.state.alarmToUpdate)
-    );
+      });
   };
 
   fromMilitary = alarm => {
@@ -149,7 +137,6 @@ class MyAlarms extends Component {
                 id={alarm.id}
                 label={alarm.label}
                 alarm={alarm.alarm}
-                // onClick={() => this.props.history.push(`alarm/${alarm.id}`)}
               >
                 {" "}
                 <br />
