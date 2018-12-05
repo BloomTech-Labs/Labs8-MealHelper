@@ -42,7 +42,7 @@ class SettingsCell: UICollectionViewCell {
         return cell
     }()
     
-    let logoutCell: UITableViewCell = {
+    lazy var logoutCell: UITableViewCell = {
         let cell = UITableViewCell()
         
         let logoutButton = UIButton(type: .system)
@@ -50,12 +50,12 @@ class SettingsCell: UICollectionViewCell {
         logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         
         cell.addSubview(logoutButton)
-        logoutButton.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: cell.bottomAnchor, trailing: cell.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 0))
+        logoutButton.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: cell.bottomAnchor, trailing: cell.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 40))
         
         return cell
     }()
     
-    let deleteCell: UITableViewCell = {
+    lazy var deleteCell: UITableViewCell = {
         let cell = UITableViewCell()
         
         let deleteButton = UIButton(type: .system)
@@ -153,20 +153,22 @@ extension SettingsCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
+        let cornerRadius: CGFloat = 10
+        
         // Top corners
-        let maskPathTop = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 10, height: 10))
+        let maskPathTop = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
         let shapeLayerTop = CAShapeLayer()
         shapeLayerTop.frame = cell.bounds
         shapeLayerTop.path = maskPathTop.cgPath
         
         //Bottom corners
-        let maskPathBottom = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 10, height: 10))
+        let maskPathBottom = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
         let shapeLayerBottom = CAShapeLayer()
         shapeLayerBottom.frame = cell.bounds
         shapeLayerBottom.path = maskPathBottom.cgPath
         
         // All corners
-        let maskPathAll = UIBezierPath(roundedRect: cell.contentView.bounds, byRoundingCorners: [.topLeft, .topRight, .bottomRight, .bottomLeft], cornerRadii: CGSize(width: 5.0, height: 5.0))
+        let maskPathAll = UIBezierPath(roundedRect: cell.contentView.bounds, byRoundingCorners: [.topLeft, .topRight, .bottomRight, .bottomLeft], cornerRadii: CGSize(width: cornerRadius / 2, height: cornerRadius / 2))
         let shapeLayerAll = CAShapeLayer()
         shapeLayerAll.frame = cell.contentView.bounds
         shapeLayerAll.path = maskPathAll.cgPath

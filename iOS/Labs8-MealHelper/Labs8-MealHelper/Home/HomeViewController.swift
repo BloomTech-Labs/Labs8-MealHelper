@@ -231,8 +231,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     }
     
     private func fetchMeals() {
-        APIClient.shared.fetchMeals { (response) in
-            
+        let userId = UserDefaults.standard.loggedInUserId()
+        APIClient.shared.fetchMeals(with: userId) { (response) in
             DispatchQueue.main.async {
                 switch response {
                 case .success(let meals):

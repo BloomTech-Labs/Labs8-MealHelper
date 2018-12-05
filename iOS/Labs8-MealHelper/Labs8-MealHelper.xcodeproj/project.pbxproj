@@ -34,6 +34,7 @@
 		3DFEEDAE21A2E85100465FCB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DFEEDAD21A2E85100465FCB /* GoogleService-Info.plist */; };
 		3DFEEDB021A2FBA300465FCB /* BarcodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFEEDAF21A2FBA300465FCB /* BarcodeScanner.swift */; };
 		3E366CC5BED1B159C22D871B /* Pods_Labs8_MealHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C929C04E5DFBF4768E6A363 /* Pods_Labs8_MealHelper.framework */; };
+		AC1B847221B856CD006CB006 /* GenericAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1B847121B856CD006CB006 /* GenericAPIClient.swift */; };
 		AC1DE867219473DD0066172C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DE866219473DD0066172C /* HomeViewController.swift */; };
 		AC1DE8692194748F0066172C /* MealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1DE8682194748F0066172C /* MealCell.swift */; };
 		AC4D10732194A7A000317F4C /* ExpandableButton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC4D10722194A79600317F4C /* ExpandableButton.framework */; };
@@ -142,6 +143,7 @@
 		41CE98120756C3041BA30512 /* Pods-Labs8-MealHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Labs8-MealHelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Labs8-MealHelper/Pods-Labs8-MealHelper.debug.xcconfig"; sourceTree = "<group>"; };
 		5C929C04E5DFBF4768E6A363 /* Pods_Labs8_MealHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Labs8_MealHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A8876A4E2C1D0A7FAE307FB /* Pods-Labs8-MealHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Labs8-MealHelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Labs8-MealHelper/Pods-Labs8-MealHelper.release.xcconfig"; sourceTree = "<group>"; };
+		AC1B847121B856CD006CB006 /* GenericAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericAPIClient.swift; sourceTree = "<group>"; };
 		AC1DE866219473DD0066172C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AC1DE8682194748F0066172C /* MealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCell.swift; sourceTree = "<group>"; };
 		AC4D106D2194A79600317F4C /* ExpandableButton.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExpandableButton.xcodeproj; path = ExpandableButton/ExpandableButton.xcodeproj; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 				ACDCF06A21B6E7BD0078D5A8 /* FoodClient.swift */,
 				3DB65F242196200D007AA68A /* HTTPMethod.swift */,
 				3DB65F262196200D007AA68A /* Response.swift */,
+				AC1B847121B856CD006CB006 /* GenericAPIClient.swift */,
 			);
 			name = Networking;
 			path = "New Group";
@@ -645,6 +648,7 @@
 				AC8F0B51219E36AE00E623FB /* User.swift in Sources */,
 				AC8F0B55219E372E00E623FB /* PickerInputField.swift in Sources */,
 				AC81A66D21B5796F00BBD47E /* SettingsViewController+CollectionView.swift in Sources */,
+				AC1B847221B856CD006CB006 /* GenericAPIClient.swift in Sources */,
 				3D7AD09021AF19D500A68323 /* FoodHelper.swift in Sources */,
 				AC85F38F219E0E1E007765CA /* UIColor+Theme.swift in Sources */,
 				AC81A66921B5789200BBD47E /* SettingsCell.swift in Sources */,
