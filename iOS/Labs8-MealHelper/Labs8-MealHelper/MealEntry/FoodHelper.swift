@@ -18,6 +18,8 @@ struct FoodHelper {
         case cup, tablespoon, hundertGrams = "100g", ounce
     }
     
+    let macroNutrientIds = ["208", "205", "204", "203"] // Energy, carbs, fat, protein
+    
     func convertHundertGrams(_ gm: Double, to unit: ServingTypes.RawValue) -> Double {
         switch unit {
         case ServingTypes.cup.rawValue:
@@ -37,9 +39,30 @@ struct FoodHelper {
         return nutrients.map { (nutrient: Nutrient) -> Nutrient in
             var updatedNutrient = nutrient
             let convertedValue = FoodHelper().convertHundertGrams(nutrient.gm, to: type) * amount
-            updatedNutrient.value = String(format: "%.02f", convertedValue)
+            updatedNutrient.value = String(format: "%.01f", convertedValue)
             return updatedNutrient
         }
+    }
+    
+    func getMacroNutrients(from nutrients: [Nutrient]) -> MacroNutrient {
+        var macroNutrients = MacroNutrient()
+        
+        for nutrient in nutrients {
+            switch nutrient.identifier {
+            case "208":
+                macroNutrients.energy = nutrient.value
+            case "205":
+                macroNutrients.carbs = nutrient.value
+            case "204":
+                macroNutrients.fat = nutrient.value
+            case "203":
+                macroNutrients.protein = nutrient.value
+            default:
+                continue
+            }
+        }
+        
+        return macroNutrients
     }
     
 }

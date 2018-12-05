@@ -97,12 +97,6 @@ class FoodSummaryViewController: UIViewController {
         return tf
     }()
     
-//    private lazy var subtitleLabel: UILabel = {
-//        let label = UILabel()
-//        label.font = UIFont.systemFont(ofSize: 17.0)
-//        return label
-//    }()
-    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -118,7 +112,6 @@ class FoodSummaryViewController: UIViewController {
         editableTitle == true
             ? mainStackView.addArrangedSubview(titleTextField)
             : mainStackView.addArrangedSubview(titleLabel)
-        //mainStackView.addArrangedSubview(subtitleLabel)
         mainStackView.addArrangedSubview(inputStackView)
         inputStackView.addArrangedSubview(typeInputField)
         inputStackView.addArrangedSubview(quantityInputField)

@@ -48,12 +48,12 @@ class SearchIngredientDetailViewController: UIViewController {
     }()
     let buttonSize: CGFloat = 55
     
-    private let nutrientsView: NutrientsView = {
-        let view = NutrientsView()
-        view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
-        view.layer.cornerRadius = 12
-        return view
-    }()
+//    private let nutrientsView: NutrientsView = {
+//        let view = NutrientsView()
+//        view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
+//        view.layer.cornerRadius = 12
+//        return view
+//    }()
     
     let headerView: FoodSummaryViewController = {
         let vc = FoodSummaryViewController()
@@ -184,7 +184,7 @@ class SearchIngredientDetailViewController: UIViewController {
         foodLabelView.anchor(top: labelView.safeAreaLayoutGuide.topAnchor, leading: labelView.safeAreaLayoutGuide.leadingAnchor, bottom: labelView.safeAreaLayoutGuide.bottomAnchor, trailing: labelView.safeAreaLayoutGuide.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 10.0, bottom: 0.0, right: 0.0))
         
         view.addSubview(macroNutrientsView)
-        macroNutrientsView.anchor(top: labelView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: 0, height: 70))
+        macroNutrientsView.anchor(top: labelView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: 0, height: 80))
         
         view.addSubview(nutrientTableView.tableView)
         nutrientTableView.tableView.anchor(top: macroNutrientsView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: 0, height: 200))
@@ -203,6 +203,7 @@ class SearchIngredientDetailViewController: UIViewController {
         
         if let nutrients = ingredient?.nutrients {
             nutrientTableView.nutrients = nutrients
+            macroNutrientsView.nutrients = nutrients
         }
     }
     

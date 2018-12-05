@@ -62,9 +62,10 @@ class SearchIngredientAnimator: NSObject, UIViewControllerAnimatedTransitioning 
         
         toView.layoutIfNeeded()
         
-        toVC.nutrientTableView.tableView.center.x = -300
-        toVC.labelView.center.x = -300
-        toVC.macroNutrientsView.center.x = -300
+        let screenWidth = UIScreen.main.bounds.width
+        toVC.nutrientTableView.tableView.center.x = screenWidth * -0.5
+        toVC.labelView.center.x = screenWidth * -0.5
+        toVC.macroNutrientsView.center.x = screenWidth * -0.5
         toVC.addButton.anchor(top: toVC.nutrientTableView.tableView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 16, left: toVC.sidePadding, bottom: 0, right: toVC.sidePadding), size: CGSize(width: toVC.buttonSize, height: toVC.buttonSize))
         toVC.addButton.centerXAnchor.constraint(equalTo: toVC.view.centerXAnchor).isActive = true
         
@@ -86,13 +87,15 @@ class SearchIngredientAnimator: NSObject, UIViewControllerAnimatedTransitioning 
             UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.4, animations: {
                 toVC.view.layoutIfNeeded()
             })
+            UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.4, animations: {
+                animatedView.alpha = 0.0
+                animatedLabel.alpha = 0.0
+                destinationView.alpha = 1.0
+                destinationLabel.alpha = 1.0
+            })
         }) { (success) in
             sourceView.alpha = 1.0
-            destinationView.alpha = 1.0
-            destinationLabel.alpha = 1.0
             
-            animatedView.removeFromSuperview()
-            animatedLabel.removeFromSuperview()
             
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
