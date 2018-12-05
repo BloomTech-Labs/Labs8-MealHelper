@@ -26,6 +26,7 @@ extension UIColor
     static let nightSkyBlue = UIColor.rgb(red: 5, green: 102, blue: 141)
     static let nightSkyDark = UIColor.rgb(red: 11, green: 19, blue: 43)
     static let morningSkyBlue = UIColor.rgb(red: 105, green: 221, blue: 255)
+    static let brightSky = UIColor.rgb(red: 157, green: 228, blue: 242)
 }
 
 enum Appearance

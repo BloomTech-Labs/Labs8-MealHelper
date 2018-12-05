@@ -50,7 +50,7 @@ class SettingsCell: UICollectionViewCell {
         logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         
         cell.addSubview(logoutButton)
-        logoutButton.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: cell.bottomAnchor, trailing: cell.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 40))
+        logoutButton.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: cell.bottomAnchor, trailing: cell.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 0))
         
         return cell
     }()

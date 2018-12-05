@@ -41,12 +41,20 @@ class SkyView: UIView {
             
             self.setGradientBackground(colorOne: UIColor.morningSkyBlue.cgColor, colorTwo: UIColor.mountainBlue.cgColor, startPoint: .zero, endPoint: CGPoint(x: 0.8, y: 0.3))
             let timeSinceSunrise = now - forecast.sys.sunrise
-            let percentage = Double(timeSinceSunrise) / Double(sunDuration)
+            let percentage = (Double(timeSinceSunrise) / Double(sunDuration)) * 100
             let roundedPercentage = percentage.rounded(toPlaces: 3)
             let minusDuration = (Double(sunDuration) / 100) * roundedPercentage
             let duration = sunDuration - Int(minusDuration)
             let startAngle = Int((179 * (roundedPercentage / 100)) + 180)
             startAnimation(with: #imageLiteral(resourceName: "sun"), duration: duration, startAngle: startAngle)
+            
+            let rotateAnim = CABasicAnimation(keyPath: "transform.rotation")
+            rotateAnim.fromValue = 0
+            rotateAnim.toValue = CGFloat.pi * 2
+            rotateAnim.duration = 20
+            rotateAnim.repeatCount = .infinity
+            
+            moonSunImageView.layer.add(rotateAnim, forKey: "rotate")
             
         } else if now > forecast.sys.sunset {
             
@@ -102,6 +110,7 @@ extension SkyView: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         moonSunImageView.removeFromSuperview()
         fetchWeather()
+        layoutIfNeeded()
     }
 }
 

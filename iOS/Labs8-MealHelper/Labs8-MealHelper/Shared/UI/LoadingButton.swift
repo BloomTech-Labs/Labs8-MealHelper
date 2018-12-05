@@ -48,7 +48,7 @@ class LoadingButton: UIButton {
     private func setupLoadingIndicator()
     {
         addSubview(loadingView)
-        loadingView.centerInSuperview(size: CGSize(width: 100, height: 80))
+        loadingView.centerInSuperview(size: CGSize(width: 140, height: 80))
     }
     
     required init?(coder aDecoder: NSCoder) {
