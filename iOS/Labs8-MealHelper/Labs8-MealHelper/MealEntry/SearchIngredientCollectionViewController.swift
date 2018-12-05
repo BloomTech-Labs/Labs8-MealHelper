@@ -33,9 +33,11 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     
     var searchedIngredients = [Ingredient]()
     var savedIngredients = [Ingredient]()
-    var sectionHeaderReuseId = "SectionHeaderCell"
-    var searchBarReuseId = "SearchBarCell"
-    var cellId = "FoodCell"
+    private var sectionHeaderReuseId = "SectionHeaderCell"
+    private var searchBarReuseId = "SearchBarCell"
+    private var cellId = "FoodCell"
+    private var transition = SearchIngredientAnimator()
+    var selectedCell: FoodCell<Ingredient>?
     
     private lazy var searchController: UISearchController = {
         var sc = UISearchController(searchResultsController: nil)
@@ -143,7 +145,11 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         let ingredient = indexPath.section == 1 ? searchedIngredients[indexPath.row] : savedIngredients[indexPath.row]
         ingredientDetailVC.ingredient = ingredient
         
+        selectedCell = collectionView.cellForItem(at: indexPath) as? FoodCell<Ingredient> // We need to store the cell for the transition animation
+        ingredientDetailVC.transitioningDelegate = self
+        
         present(ingredientDetailVC, animated: true, completion: nil)
+        
         return false
     }
     
@@ -297,15 +303,20 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         view.backgroundColor = .mountainDark
         navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
         
-//        if let navTitle = navTitle {
-//            title = navTitle
-//        }
-        
         title = "Search Ingredients"
         collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderReuseId)
         collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: searchBarReuseId)
         
         view.addSubview(searchController.searchBar)
+    }
+    
+}
+
+extension SearchIngredientCollectionViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.presenting = true
+        return transition
     }
     
 }

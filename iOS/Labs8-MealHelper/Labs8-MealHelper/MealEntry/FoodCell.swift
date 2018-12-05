@@ -24,11 +24,11 @@ class FoodCell<T>: UICollectionViewCell {
     
     let mealNameLabel: UILabel = {
         let label = UILabel()
-        label.sizeToFit()
+        //label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Appearance.appFont(with: 14)
+        label.font = Appearance.appFont(with: 15)
         label.text = "Meal name"
-        
+        label.numberOfLines = 2
         return label
     }()
     
@@ -71,6 +71,7 @@ class FoodCell<T>: UICollectionViewCell {
 //        addSubview(experienceLabel)
         
         mealNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
+        mealNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive = true
         mealNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
         

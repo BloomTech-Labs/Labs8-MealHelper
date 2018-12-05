@@ -26,6 +26,7 @@ class IngredientDetailViewController: UIViewController {
     var sidePadding: CGFloat = 20.0
     
     private let foodHelper = FoodHelper()
+    private var transition = SearchIngredientAnimator()
     
     private let closeButton: UIButton = {
         let button = UIButton(type: .system)
@@ -36,7 +37,7 @@ class IngredientDetailViewController: UIViewController {
         return button
     }()
     
-    private lazy var addButton: UIButton = {
+    lazy var addButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "plus-icon")!, for: .normal)
         button.addTarget(self, action: #selector(addToRecipe), for: .touchUpInside)
@@ -45,17 +46,16 @@ class IngredientDetailViewController: UIViewController {
         button.layer.cornerRadius = buttonSize / 2
         return button
     }()
-    private let buttonSize: CGFloat = 55
+    let buttonSize: CGFloat = 55
     
     private let nutrientsView: NutrientsView = {
         let view = NutrientsView()
         view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         view.layer.cornerRadius = 12
-        
         return view
     }()
     
-    private let headerView: FoodSummaryViewController = {
+    let headerView: FoodSummaryViewController = {
         let vc = FoodSummaryViewController()
         vc.view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         vc.view.layer.cornerRadius = 12
@@ -64,7 +64,15 @@ class IngredientDetailViewController: UIViewController {
     }()
     
     
-    private let nutrientTableView: NutrientDetailTableViewController = {
+    let macroNutrientsView: NutrientsView = {
+        let view = NutrientsView()
+        view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
+        view.layer.cornerRadius = 12
+        
+        return view
+    }()
+    
+    let nutrientTableView: NutrientDetailTableViewController = {
         let tv = NutrientDetailTableViewController()
         tv.tableView.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         tv.tableView.layer.cornerRadius = 12
@@ -76,14 +84,14 @@ class IngredientDetailViewController: UIViewController {
         return lv
     }()
     
-    private let ingredientsTableView: UITableView = {
+    let ingredientsTableView: UITableView = {
         let tv = UITableView(frame: .zero, style: .plain)
         tv.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         tv.layer.cornerRadius = 12
         return tv
     }()
     
-    private let labelView: UIView = {
+    let labelView: UIView = {
         let lv = UIView()
         lv.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         lv.layer.cornerRadius = 12
@@ -91,7 +99,7 @@ class IngredientDetailViewController: UIViewController {
         return lv
     }()
     
-    private let noteView: UIView = {
+    let noteView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         view.layer.cornerRadius = 12
@@ -150,6 +158,7 @@ class IngredientDetailViewController: UIViewController {
     
     
     @objc private func handleDismiss() {
+//        transitioningDelegate = self
         dismiss(animated: true, completion: nil)
     }
     
@@ -169,20 +178,21 @@ class IngredientDetailViewController: UIViewController {
         headerView.view.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 50, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: 0, height: 150))
         
         view.addSubview(labelView)
-        labelView.anchor(top: headerView.view.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 20, left: sidePadding, bottom: 0, right: sidePadding))
+        labelView.anchor(top: headerView.view.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 0, right: sidePadding))
         
         labelView.addSubview(foodLabelView)
-        foodLabelView.anchor(top: labelView.safeAreaLayoutGuide.topAnchor, leading: labelView.safeAreaLayoutGuide.leadingAnchor, bottom: labelView.safeAreaLayoutGuide.bottomAnchor, trailing: labelView.safeAreaLayoutGuide.trailingAnchor, padding: UIEdgeInsets(top: 10.0, left: 10.0, bottom: 0.0, right: 0.0))
+        foodLabelView.anchor(top: labelView.safeAreaLayoutGuide.topAnchor, leading: labelView.safeAreaLayoutGuide.leadingAnchor, bottom: labelView.safeAreaLayoutGuide.bottomAnchor, trailing: labelView.safeAreaLayoutGuide.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 10.0, bottom: 0.0, right: 0.0))
+        
+        view.addSubview(macroNutrientsView)
+        macroNutrientsView.anchor(top: labelView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: 0, height: 70))
         
         view.addSubview(nutrientTableView.tableView)
-        nutrientTableView.tableView.anchor(top: labelView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 20, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: 0, height: 200))
-        
-        view.addSubview(noteView)
-        noteView.anchor(top: nutrientTableView.tableView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: 0, height: 100))
+        nutrientTableView.tableView.anchor(top: macroNutrientsView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: 0, height: 200))
         
         view.addSubview(addButton)
-        addButton.anchor(top: noteView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: buttonSize, height: buttonSize))
-        addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        addButton.anchor(top: noteView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: buttonSize, height: buttonSize))
+        addButton.frame = CGRect(x: view.center.x - (buttonSize / 2), y: view.center.y, width: buttonSize, height: buttonSize)
+        addButton.center.y = UIScreen.main.bounds.height + buttonSize
         
         view.layoutIfNeeded()
         foodLabelView.setupFoodLabels()
@@ -216,5 +226,14 @@ class IngredientDetailViewController: UIViewController {
             }
         }
     }
+    
+    
+//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        return transition
+//    }
+    
+//    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+//        return interactionController
+//    }
     
 }

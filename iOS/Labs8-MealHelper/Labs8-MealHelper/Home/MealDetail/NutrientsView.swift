@@ -104,7 +104,7 @@ class NutrientsView: UIView {
         valueStackView.spacing = 12
         
         addSubview(valueStackView)
-        valueStackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 14, left: 12, bottom: 0, right: 12), size: CGSize(width: 0, height: 40))
+        valueStackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12), size: CGSize(width: 0, height: 40))
         
         let typeStackView = UIStackView(arrangedSubviews: [kcalLabel, carbsLabel, fatLabel, proteinLabel])
         typeStackView.axis = .horizontal

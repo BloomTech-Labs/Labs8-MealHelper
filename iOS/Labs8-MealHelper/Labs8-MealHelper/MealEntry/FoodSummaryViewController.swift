@@ -79,9 +79,9 @@ class FoodSummaryViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 17.0)
+        label.font = Appearance.appFont(with: 15)
         label.numberOfLines = 2
         label.textAlignment = .center
         return label
