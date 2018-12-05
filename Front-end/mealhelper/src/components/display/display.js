@@ -134,44 +134,27 @@ class Display extends Component {
     return (
       <div className="this-badboy-can-hold-so-many-components">
       <Switch>
-        <Route path="/homepage/meals" render={() => <Meals />} />
-        <Route path="/homepage/recipes" render={() => <Recipes />} />
+        <Route exact path="/homepage/meals" render={() => <Meals />} />
+        
+        <Route exact path="/homepage/recipes" render={() => <Recipes />} />
+        <Route path="/homepage/recipes/recipebook" render={() => <RecipeBook />} />
+        <Route path="/homepage/recipes/myrecipes" render={() => <MyRecipes />} />
+        <Route path="/homepage/recipes/createnewrecipe" render={() => <CreateNewRecipe />} />
+        <Route path="/homepage/ingredients/myingredients" render={() => <MyIngredients />} />
+        
+        <Route exact path="/homepage/weather" render={() => <Weather />} />
+        
         <Route exact path="/homepage/alarms" render={() => <MyAlarms/>} />
-        <Route path="/homepage/weather" render={() => <Weather />} />
+        <Route path="/homepage/alarms/add-alarms" render={() => <AddAlarms />}/>
+        
         <Route path="/homepage/billing" render={() => <Billing />} />
-        <Route 
-            path="/homepage/recipes/createnewrecipe"
-            render={() => <CreateNewRecipe />}
-          />
-          <Route
-            path="/homepage/ingredients/myingredients"
-            render={() => <MyIngredients />}
-          />
-          <Route
-            path="/homepage/weather/myweather"
-            render={() => <MyWeather />}
-          />
-          <Route
-            path="/homepage/recipes/myrecipes"
-            render={() => <MyRecipes />}
-          />
-          <Route
-            path="/homepage/recipes/recipebook"
-            render={() => <RecipeBook />}
-          />
-
-          <Route
-            path="/homepage/ingredients/myingredients"
-            render={() => <MyIngredients />} />
-         
-          <Route path="/homepage/alarms/add-alarms" render={() => <AddAlarms />}/>
-          <Route exact path="/homepage/settings" render={() => <SettingsMain />} />
-          <Route path="/homepage/settings/email" render={() => <EditEmail />} />
-          <Route
-            path="/homepage/settings/password"
-            render={() => <EditPassword />}
-          />
-          <Route path="/homepage/settings/zip" render={() => <EditZip />} />
+        
+        <Route path="/homepage/weather/myweather" render={() => <MyWeather />} />
+        
+        <Route exact path="/homepage/settings" render={() => <SettingsMain />} />
+        <Route path="/homepage/settings/email" render={() => <EditEmail />} />
+        <Route path="/homepage/settings/password" render={() => <EditPassword />} />
+        <Route path="/homepage/settings/zip" render={() => <EditZip />} />
       </Switch>
       </div>
       // <div className="flex-me">
