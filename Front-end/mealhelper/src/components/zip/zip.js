@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { loginUser } from "../../store/actions/userActions";
+import { loginUser, updateUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
 import Sign from "../Sign";
@@ -16,7 +16,6 @@ class Zip extends Component {
 
     this.state = {
       zip: "",
-      //   password: "",
       isLoading: false,
       visable: false,
       visableError: false
@@ -32,40 +31,41 @@ class Zip extends Component {
   handleChange = event => {
     event.preventDefault();
     this.setState({
-      [event.target.name]: event.target.value
+      zip: event.target.value
     });
   };
 
   toggleVisability = () => {
     this.setState({ visableError: false, visable: false });
   };
-  //   loggin = event => {
-  //     if (!localStorage.getItem("token")) {
-  //       this.setState({ isLoading: false, visableError: true });
-  //       setTimeout(this.toggleVisability, 3000);
-  //     } else {
-  //       this.props.history.push("/zip");
-  //     }
-  //   };
+  loggin = event => {
+    if (!localStorage.getItem("token")) {
+      this.setState({ isLoading: false, visableError: true });
+      setTimeout(this.toggleVisability, 3000);
+    } else {
+      this.props.history.push("/zip");
+    }
+  };
   //   async confirmLogin() {
   //     this.setState({ isLoading: true });
-  //     const confirmed = await this.createUser();
+  //     const confirmed = await this.updateUser();
   //     setTimeout(this.loggin, 7000);
   //   }
   //////Needs to add zip code into user table//////
-  createZip = event => {
-    if (!this.state.email || !this.state.password) {
-      this.setState({ visable: true });
-      setTimeout(this.toggleVisability, 3000);
-    } else {
-      const { zip } = this.state;
-      const user = { zip };
-      this.props.updateUser(user);
-    }
+  updateUser = event => {
+    // if (!this.state.email || !this.state.password) {
+    //   this.setState({ visable: true });
+    //   setTimeout(this.toggleVisability, 3000);
+    // } else {
+    const { zip } = this.state;
+    const user = { zip };
+    this.state.updateUser(user);
+    // }
   };
 
   render() {
     console.log(localStorage.getItem("user_id"));
+    console.log(this.state.zip);
     return (
       <div className="main-container">
         {/* {this.state.isLoading ? (
@@ -93,14 +93,14 @@ class Zip extends Component {
                       <img
                         className="qmark"
                         src={QMark}
-                        alt="Why my zip code?"
+                        alt="Why should I add my zip code?"
                       />
                     </span>
                   </label>
                   <input
-                    className="email-input"
-                    type="email"
-                    name="email"
+                    className="zip-input"
+                    type="number"
+                    name="zip"
                     value={this.state.zip}
                     onChange={this.handleChange}
                     required
@@ -112,7 +112,7 @@ class Zip extends Component {
                 <Link to="/login">
                   <p> ⬅ Return to Login </p>
                 </Link>
-                <div className="signupzip" onClick={this.confirmLogin}>
+                <div className="signupzip" onClick={this.updateUser}>
                   <span> Continue Log In</span>
                 </div>
               </form>
