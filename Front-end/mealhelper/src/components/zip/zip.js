@@ -15,8 +15,8 @@ class Zip extends Component {
     super(props);
 
     this.state = {
-      email: "",
-      password: "",
+      zip: "",
+      //   password: "",
       isLoading: false,
       visable: false,
       visableError: false
@@ -53,7 +53,7 @@ class Zip extends Component {
   //     setTimeout(this.loggin, 7000);
   //   }
   //////Needs to add zip code into user table//////
-  createUser = event => {
+  createZip = event => {
     if (!this.state.email || !this.state.password) {
       this.setState({ visable: true });
       setTimeout(this.toggleVisability, 3000);
@@ -65,7 +65,7 @@ class Zip extends Component {
   };
 
   render() {
-    console.log(localStorage.getItem("token"));
+    console.log(localStorage.getItem("user_id"));
     return (
       <div className="main-container">
         {/* {this.state.isLoading ? (
@@ -86,20 +86,17 @@ class Zip extends Component {
                 <div className="form-group">
                   <label>
                     Zip Code
-                    <div id="wrapper">
+                    <span
+                      className="zipexplain"
+                      title="Adding your zip code allows an accurate weather data point to be added to your fact set. 
+                    This can be very important as you understand how your food affects well being."
+                    >
                       <img
                         className="qmark"
                         src={QMark}
                         alt="Why my zip code?"
                       />
-                      <p class="text">
-                        We use your zip code to add weather data to your fact
-                        set.
-                        <hr />
-                        This can be an important data point as you understand
-                        how your meal intake affects your health!
-                      </p>
-                    </div>
+                    </span>
                   </label>
                   <input
                     className="email-input"
