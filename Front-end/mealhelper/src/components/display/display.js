@@ -7,141 +7,181 @@ import RecipeDisplay from "./RecipeDisplay";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
+import { Alert } from "reactstrap";
+import Weather from "../weather/weather";
+import Recipes from "../recipes/recipes";
+import Meals from "../Meals/Meals";
+import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
+import AddAlarms from "../alarms/addAlarm";
+import MyAlarms from "../alarms/myAlarms";
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
+import { Elements, StripeProvider } from "react-stripe-elements";
+import CheckoutForm from "../checkout/CheckoutForm";
+import Billing from "../billing/billing";
+import EditEmail from "../Settings/EditEmail";
+import EditPassword from "../Settings/EditPassword";
+import EditZip from "../Settings/EditZip";
+
+import GetIngredient from "../ingredients/getIngredient";
+import Signup from "../signup/signup";
+import Login from "../login/login";
+import HomePage from "../homepage/homepage";
+
+import MyRecipes from "../recipes/myrecipes";
+import RecipeBook from "../recipebook/recipebook";
+
+import MyIngredients from "../recipes/myrecipe";
+import MyWeather from "../weather/myweather";
+
+import SettingsMain from "../Settings/SettingsMain";
+import Zip from "..//zip/zip";
 
 class Display extends Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      email: "",
-      password: "",
-      zip: null,
-      healthCondition: "",
-      visable: false,
-      modal: false,
-      meals: [],
-      recipes: [],
-      recipe_SIZE: null,
-      meal_SIZE: null
-    };
-  }
+  //   this.state = {
+  //     email: "",
+  //     password: "",
+  //     zip: null,
+  //     healthCondition: "",
+  //     visable: false,
+  //     modal: false,
+  //     meals: [],
+  //     recipes: [],
+  //     recipe_SIZE: null,
+  //     meal_SIZE: null
+  //   };
+  // }
 
-  componentDidMount = () => {
-    if (localStorage.getItem("token")) {
-      const id = localStorage.getItem("user_id");
-      axios
-        .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
-        .then(recipess => {
-          const recipe_SIZE = recipess.data.length;
-          this.setState({ recipes: recipess.data, recipe_SIZE: recipe_SIZE });
-        })
-        .catch(err => {
-          console.log(err);
-        });
+  // componentDidMount = () => {
+  //   if (localStorage.getItem("token")) {
+  //     const id = localStorage.getItem("user_id");
+  //     axios
+  //       .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
+  //       .then(recipess => {
+  //         const recipe_SIZE = recipess.data.length;
+  //         this.setState({ recipes: recipess.data, recipe_SIZE: recipe_SIZE });
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
 
-      this.componentGetMeals();
-    } else {
-      this.props.history.push("/");
-    }
-  };
+  //     this.componentGetMeals();
+  //   } else {
+  //     this.props.history.push("/");
+  //   }
+  // };
 
-  componentGetMeals() {
-    console.log(this.state.recipes);
-    const id = localStorage.getItem("user_id");
-    axios
-      .get(`https://labs8-meal-helper.herokuapp.com/users/${id}/meals`)
-      .then(meals => {
-        console.log(meals);
-        const meal_SIZE = meals.data.length;
-        this.setState({ meals: meals.data, meal_SIZE: meal_SIZE });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  // componentGetMeals() {
+  //   console.log(this.state.recipes);
+  //   const id = localStorage.getItem("user_id");
+  //   axios
+  //     .get(`https://labs8-meal-helper.herokuapp.com/users/${id}/meals`)
+  //     .then(meals => {
+  //       console.log(meals);
+  //       const meal_SIZE = meals.data.length;
+  //       this.setState({ meals: meals.data, meal_SIZE: meal_SIZE });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
 
-    console.log(this.state.meals);
-  }
+  //   console.log(this.state.meals);
+  // }
 
-  handleChange = event => {
-    event.preventDefault();
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  };
+  // handleChange = event => {
+  //   event.preventDefault();
+  //   this.setState({
+  //     [event.target.name]: event.target.value
+  //   });
+  // };
 
-  createUser = event => {
-    event.preventDefault();
-    if (!this.state.email || !this.state.password) {
-      this.setState({ visable: true });
-    } else {
-      const { email, password, zip, healthCondition } = this.state;
-      const user = { email, password, zip, healthCondition };
-      this.props.addUser(user);
-      // this.props.history.push("/");
-    }
-  };
-  toggle = () => {
-    this.setState({
-      modal: !this.state.modal
-    });
-  };
+  // createUser = event => {
+  //   event.preventDefault();
+  //   if (!this.state.email || !this.state.password) {
+  //     this.setState({ visable: true });
+  //   } else {
+  //     const { email, password, zip, healthCondition } = this.state;
+  //     const user = { email, password, zip, healthCondition };
+  //     this.props.addUser(user);
+  //     // this.props.history.push("/");
+  //   }
+  // };
+  // toggle = () => {
+  //   this.setState({
+  //     modal: !this.state.modal
+  //   });
+  // };
 
-  logout = event => {
-    event.preventDefault();
-    localStorage.removeItem("token");
-    this.props.history.push("/");
-  };
+  // logout = event => {
+  //   event.preventDefault();
+  //   localStorage.removeItem("token");
+  //   this.props.history.push("/");
+  // };
 
   render() {
     return (
+      <div className="this-badboy-can-hold-so-many-components">
       <Switch>
-      <Route path="/homepage/meals" render={() => <Meals />} />
-      <Route path="/homepage/weather" render={() => <Weather />} />
-      <Route exact path="/ingredients" render={() => <GetIngredient />} />
-      <Route path="/homepage/recipes" render={() => <Recipes />} />
-      <Route path="/homepage/billing" render={() => <Billing />} />
-      <Route
-        path="/homepage/recipes/createnewrecipe"
-        render={() => <CreateNewRecipe />}
-      />
-      <Route
-        path="/homepage/ingredients/myingredients"
-        render={() => <MyIngredients />}
-      />
-      <Route
-        path="/homepage/weather/myweather"
-        render={() => <MyWeather />}
-      />
-      <Route
-        path="/homepage/recipes/myrecipes"
-        render={() => <MyRecipes />}
-      />
-      <Route
-        path="/homepage/recipes/recipebook"
-        render={() => <RecipeBook />}
-      />
+        <Route path="/homepage/meals" render={() => <Meals />} />
+        <Route path="/homepage/recipes" render={() => <Recipes />} />
+        <Route path="/homepage/alarms" render={() => <MyAlarms/>} />
+        <Route path="/homepage/weather" render={() => <Weather />} />
+        <Route path="/homepage/billing" render={() => <Billing />} />
+          <Route 
+            path="/homepage/recipes/createnewrecipe"
+            render={() => <CreateNewRecipe />}
+          />
+          <Route
+            path="/homepage/ingredients/myingredients"
+            render={() => <MyIngredients />}
+          />
+          <Route
+            path="/homepage/weather/myweather"
+            render={() => <MyWeather />}
+          />
+          <Route
+            path="/homepage/recipes/myrecipes"
+            render={() => <MyRecipes />}
+          />
+          <Route
+            path="/homepage/recipes/recipebook"
+            render={() => <RecipeBook />}
+          />
 
-      <Route
-        path="/homepage/ingredients/myingredients"
-        render={() => <MyIngredients />}
-      />
-      <Route path="/homepage/alarms" render={() => <MyAlarms />} />
-      <Route
-        path="/homepage/alarms/add-alarms"
-        render={() => <AddAlarms />}
-      />
-      <Route
-        path="/homepage/alarms/add-alarms"
-        render={() => <AddAlarms />}
-      />
-      <Route path="/homepage/settings" render={() => <SettingsMain />} />
-      <Route path="/homepage/settings/email" render={() => <EditEmail />} />
-      <Route
-        path="/homepage/settings/password"
-        render={() => <EditPassword />}
-      />
-      <Route path="/homepage/settings/zip" render={() => <EditZip />} />
-    </Switch>
+          <Route
+            path="/homepage/ingredients/myingredients"
+            render={() => <MyIngredients />}
+          />
+          <Route path="/homepage/alarms" render={() => <MyAlarms />} />
+          <Route
+            path="/homepage/alarms/add-alarms"
+            render={() => <AddAlarms />}
+          />
+          <Route
+            path="/homepage/alarms/add-alarms"
+            render={() => <AddAlarms />}
+          />
+          <Route path="/homepage/settings" render={() => <SettingsMain />} />
+          <Route path="/homepage/settings/email" render={() => <EditEmail />} />
+          <Route
+            path="/homepage/settings/password"
+            render={() => <EditPassword />}
+          />
+          <Route path="/homepage/settings/zip" render={() => <EditZip />} />
+      </Switch>
+      </div>
       // <div className="flex-me">
       //   <div className="dynamic-display-home-meals">
       //     <p className="recentMeals">4 Most Recently Made Meals: </p>

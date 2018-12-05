@@ -193,7 +193,7 @@ class EditEmail extends Component {
             </Alert>
           </div>
 
-          <Switch>
+          {/* <Switch>
             <Route path="/homepage/weather" render={() => <Weather />} />
             <Route exact path="/homepage/recipes" render={() => <Recipes />} />
             <Route exact path="/homepage/meals" render={() => <Meals />} />
@@ -208,7 +208,7 @@ class EditEmail extends Component {
             />
             <Route path="/homepage/billing" render={() => <Billing />} />
             {/* <Route path="/homepage/settings" render={() => <Settings />} /> */}
-          </Switch>
+          {/* </Switch> */} */}
         </div>
 
         <Modal

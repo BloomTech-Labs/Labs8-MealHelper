@@ -7,7 +7,6 @@ import { Route, Switch, Link } from "react-router-dom";
 
 // import LandingPage from "./components/landingpage/landingpage";
 import GetIngredient from "./components/ingredients/getIngredient";
-
 import Signup from "./components/signup/signup";
 import Login from "./components/login/login";
 import Meals from "./components/Meals/Meals";
@@ -32,22 +31,69 @@ import Sign from "./components/Sign";
 
 import "./App.css";
 import LandingPage from "./components/landingpage/landingpage";
-import EditEmail from "./components/Settings/EditEmail";
-import EditPassword from "./components/Settings/EditPassword";
-import EditZip from "./components/Settings/EditZip";
+import EditEmail from "../Settings/EditEmail";
+import EditPassword from "../Settings/EditPassword";
+import EditZip from "../Settings/EditZip";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Switch>
+      <h1>INSIDE APP.JS</h1>
+        {/* <Switch>
           <Route exact path="/" render={() => <LandingPage />} />
           <Route path="/signup" render={() => <Signup />} />
           <Route path="/callback" render={() => <Callback />} />
           <Route path="/login" render={() => <Login />} />
           <Route path="/zip" render={() => <Zip />} />
           <Route exact path="/homepage" render={() => <HomePage />} />
-        </Switch>
+          
+          <Route path="/homepage/weather" render={() => <Weather />} />
+          <Route exact path="/ingredients" render={() => <GetIngredient />} />
+          
+          <Route path="/homepage/billing" render={() => <Billing />} />
+          <Route 
+            path="/homepage/recipes/createnewrecipe"
+            render={() => <CreateNewRecipe />}
+          />
+          <Route
+            path="/homepage/ingredients/myingredients"
+            render={() => <MyIngredients />}
+          />
+          <Route
+            path="/homepage/weather/myweather"
+            render={() => <MyWeather />}
+          />
+          <Route
+            path="/homepage/recipes/myrecipes"
+            render={() => <MyRecipes />}
+          />
+          <Route
+            path="/homepage/recipes/recipebook"
+            render={() => <RecipeBook />}
+          />
+
+          <Route
+            path="/homepage/ingredients/myingredients"
+            render={() => <MyIngredients />}
+          />
+          <Route path="/homepage/alarms" render={() => <MyAlarms />} />
+          <Route
+            path="/homepage/alarms/add-alarms"
+            render={() => <AddAlarms />}
+          />
+          <Route
+            path="/homepage/alarms/add-alarms"
+            render={() => <AddAlarms />}
+          />
+          <Route path="/homepage/settings" render={() => <SettingsMain />} />
+          <Route path="/homepage/settings/email" render={() => <EditEmail />} />
+          <Route
+            path="/homepage/settings/password"
+            render={() => <EditPassword />}
+          />
+          <Route path="/homepage/settings/zip" render={() => <EditZip />} />
+        </Switch> */}
       </div>
     );
   }
