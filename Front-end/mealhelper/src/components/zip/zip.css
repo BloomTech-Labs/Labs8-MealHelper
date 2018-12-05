@@ -1,0 +1,31 @@
+.user-form-container-zip {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  margin-top: 5%;
+  width: 318px;
+  height: 410px;
+  border: #9c9c9c;
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.57);
+  border-radius: 12px;
+}
+
+.signupzip {
+  color: #ffffff;
+  width: 250px;
+  font-size: 25px;
+  font-weight: 900;
+  height: 50px;
+  padding-top: 14px;
+  padding-left: 38px;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  background-color: #267cfc;
+}
+
+.signupzip:hover {
+  background-color: #0166fe;
+}

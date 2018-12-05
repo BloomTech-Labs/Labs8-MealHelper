@@ -1,38 +1,25 @@
-.authlogo1 {
-  width: 40px;
-  height: auto;
-  margin-right: 30px;
-  margin-bottom: 10px;
-}
 .login-with {
   padding-top: 9px;
   padding-left: 5px;
   padding-right: 15px;
   font-weight: 700;
 }
-/* .nah {
-  padding-bottom: 25px;
-} */
-.login-with-2 {
-  padding-top: 13px;
-  padding-right: 10%;
-}
+
 .authlogos {
   display: flex;
-  width: 250px;
-  height: 50px;
+  width: 247px;
+  height: 48px;
   font-size: 20px;
   margin-bottom: 40px;
-  /* color: rgb(192, 181, 31);
-  border: 1px solid rgb(192, 181, 31); */
+  background: #ffffff;
+  border: 1px solid #919191;
+  box-sizing: border-box;
+  border-radius: 6px;
 }
-/* .authlogos2 {
-  display: flex;
-  width: 200px;
-  height: 50px;
-  font-size: 1em;
-  margin: 6px;
-} */
+
+.authlogos:hover {
+  border: 1px solid #8c8c8c;
+}
 
 .authlogo2 {
   width: 30px;

@@ -7,9 +7,9 @@ import "./homepage.css";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter } from "react-router-dom";
-
-import SideBar from "../sidebar/sidebar";
 import Display from "../display/display";
+import Navbar from "../Navbar/Navbar";
+import NavbarMain from "../Navbar/NavbarMain";
 
 class HomePage extends Component {
   constructor(props) {
@@ -94,8 +94,10 @@ class HomePage extends Component {
   render() {
     return (
       <div className="home-container-home">
-        <SideBar />
-        <Display />
+        <NavbarMain />
+        <div>
+          <Display />
+        </div>
       </div>
     );
   }
