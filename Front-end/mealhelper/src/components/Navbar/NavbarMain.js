@@ -3,6 +3,11 @@ import { connect } from "react-redux";
 import { withRouter, Link, Route } from "react-router-dom";
 import Hamburger from "./Hamburger.png";
 import Search from "./Search.svg";
+import AddMeal from "./Add-Meal.png";
+import Recipes from "./Recipes.png";
+import Alarms from "./Alarms.png";
+import Options from "./Options.png";
+import Logout from "./Logout.png";
 import "../../hamburgers.css";
 import "./Navbar.css";
 
@@ -17,6 +22,13 @@ class NavbarLanding extends Component {
     this.setState({
       open: !this.state.open
     });
+  };
+
+  logout = event => {
+    event.preventDefault();
+    localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
+    this.props.history.push("/");
   };
 
   render() {
@@ -48,23 +60,38 @@ class NavbarLanding extends Component {
           </button>
           <div className={this.state.open ? "popper" : "none"} />
           <ul className={this.state.open ? "menu-list-open" : "menu-list"}>
-            <li className="menu-list-item">1</li>
-            <li className="menu-list-item">2</li>
-            <li className="menu-list-item">3</li>
-            <li className="menu-list-item">4</li>
-            <li className="menu-list-item">5</li>
+            <Link
+              to="/homepage/meals"
+              className={this.state.open ? "menu-list-item" : "none"}
+            >
+              <img className="menu-list-item item" src={AddMeal} />
+            </Link>
+            <Link
+              to="/homepage/recipes"
+              className={this.state.open ? "menu-list-item" : "none"}
+            >
+              <img className="menu-list-item item" src={Recipes} />
+            </Link>
+            <Link
+              to="/homepage/alarms"
+              className={this.state.open ? "menu-list-item" : "none"}
+            >
+              <img className="menu-list-item item" src={Alarms} />
+            </Link>
+            <Link
+              to="/homepage/settings"
+              className={this.state.open ? "menu-list-item" : "none"}
+            >
+              <img className="menu-list-item item" src={Options} />
+            </Link>
+            <button
+              onClick={this.logout}
+              className={this.state.open ? "menu-list-item-logout" : "none"}
+            >
+              <img className="menu-list-item item" src={Logout} />
+            </button>
           </ul>
         </div>
-        {/* <div className="dd-wrapper">
-          <div className="dd-header">
-            <div className="dd-header-title" />
-          </div>
-          <ul className="dd-list">
-            <li className="dd-list-item" />
-            <li className="dd-list-item" />
-            <li className="dd-list-item" />
-          </ul>
-        </div> */}
       </div>
     );
   }
