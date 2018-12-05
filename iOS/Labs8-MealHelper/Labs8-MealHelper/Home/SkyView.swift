@@ -35,8 +35,6 @@ class SkyView: UIView {
     private func calculateWeatherAnimation(forecast: WeatherForecast) {
         
         let sunDuration = forecast.sys.sunset - forecast.sys.sunrise
-        let nextDaySunrise = forecast.sys.sunrise + 86400 //86400 seconds = 24 hours
-        let moonDuration = nextDaySunrise - forecast.sys.sunset
         let now = Int(Date().timeIntervalSince1970)
         
         if now < forecast.sys.sunset && now > forecast.sys.sunrise {
@@ -50,10 +48,26 @@ class SkyView: UIView {
             let startAngle = Int((179 * (roundedPercentage / 100)) + 180)
             startAnimation(with: #imageLiteral(resourceName: "sun"), duration: duration, startAngle: startAngle)
             
-        } else if now > forecast.sys.sunset && now < nextDaySunrise {
+        } else if now > forecast.sys.sunset {
+            
+            let nextDaySunrise = forecast.sys.sunrise + 86400 //86400 seconds = 24 hours
+            let moonDuration = nextDaySunrise - forecast.sys.sunset
             
             self.setGradientBackground(colorOne: UIColor.nightSkyDark.cgColor, colorTwo: UIColor.nightSkyBlue.cgColor, startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0.8, y: 0.3))
             let timeSinceSunset = now - forecast.sys.sunset
+            let percentage = (Double(timeSinceSunset) / Double(moonDuration)) * 100
+            let roundedPercentage = percentage.rounded(toPlaces: 2)
+            let minusDuration = (Double(moonDuration) / 100) * roundedPercentage
+            let duration = moonDuration - Int(minusDuration)
+            let startAngle = Int((179 * (roundedPercentage / 100)) + 180)
+            startAnimation(with: #imageLiteral(resourceName: "moon"), duration: duration, startAngle: startAngle)
+        } else if now < forecast.sys.sunrise {
+            let lastDaySunset = forecast.sys.sunset - 86400
+            let moonDuration = forecast.sys.sunrise - lastDaySunset
+            
+            self.setGradientBackground(colorOne: UIColor.nightSkyDark.cgColor, colorTwo: UIColor.nightSkyBlue.cgColor, startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0.8, y: 0.3))
+            
+            let timeSinceSunset = now - lastDaySunset
             let percentage = (Double(timeSinceSunset) / Double(moonDuration)) * 100
             let roundedPercentage = percentage.rounded(toPlaces: 2)
             let minusDuration = (Double(moonDuration) / 100) * roundedPercentage

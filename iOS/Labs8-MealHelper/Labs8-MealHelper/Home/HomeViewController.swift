@@ -89,12 +89,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         view.backgroundColor = .black
         setupFooterView()
 
-        let loginController = LoginViewController()
-        loginController.modalPresentationStyle = .overCurrentContext
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.present(loginController, animated: true, completion: nil)
-        }
+//        let loginController = LoginViewController()
+//        loginController.modalPresentationStyle = .overCurrentContext
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            self.present(loginController, animated: true, completion: nil)
+//        }
     }
     
     private func fetchAlarms() {
