@@ -100,6 +100,7 @@
   background: #ffffff;
   margin: 15% auto 35%;
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.57);
+  transition: box-shadow 0.2s ease-in-out;
   display: flex;
 }
 .info-container-three:hover {
