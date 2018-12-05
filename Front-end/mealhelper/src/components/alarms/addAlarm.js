@@ -150,37 +150,9 @@ class AddAlarms extends Component {
 
   render() {
     return (
-      <div className="alarms-container">
+      <div className="add-alarms-container">
         <div className="home-container">
-          <div className="sidebar">
-            <Link to="/homepage" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Home</h2>
-            </Link>
-            <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Recipes</h2>
-            </Link>
-            <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Alarms</h2>
-            </Link>
-            <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Meals</h2>
-            </Link>
-            <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Billing</h2>
-            </Link>
-            <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Settings</h2>
-            </Link>
-            <Button color="danger" onClick={this.toggle}>
-              Log Out
-            </Button>
-            <Link to="homepage/billing">
-              <Button className="danger" color="danger">
-                Upgrade to Premium
-              </Button>
-            </Link>
-          </div>
-
+          
           <div className="dynamic-display">
             <div className="alarm-days">
               <h3>Which days should the alarm(s) apply to?</h3>

@@ -10,7 +10,7 @@ import Weather from "../weather/weather";
 import Recipes from "../recipes/recipes";
 import Meals from "../Meals/Meals";
 import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
-import AddAlarms from "../alarms/addAlarm";
+
 import MyAlarms from "../alarms/myAlarms";
 import {
   Button,

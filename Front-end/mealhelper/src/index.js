@@ -24,7 +24,7 @@ import CreateNewRecipe from "./components/creatnewrecipe/createnewrecipe";
 import MyIngredients from "./components/recipes/myrecipe";
 import MyWeather from "./components/weather/myweather";
 import MyAlarms from "./components/alarms/myAlarms";
-import AddAlarms from "./components/alarms/addAlarm";
+
 import Billing from "./components/billing/billing";
 import SettingsMain from "./components/Settings/SettingsMain";
 import Zip from "./components/zip/zip";

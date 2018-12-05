@@ -136,10 +136,10 @@ class Display extends Component {
       <Switch>
         <Route path="/homepage/meals" render={() => <Meals />} />
         <Route path="/homepage/recipes" render={() => <Recipes />} />
-        <Route path="/homepage/alarms" render={() => <MyAlarms/>} />
+        <Route exact path="/homepage/alarms" render={() => <MyAlarms/>} />
         <Route path="/homepage/weather" render={() => <Weather />} />
         <Route path="/homepage/billing" render={() => <Billing />} />
-          <Route 
+        <Route 
             path="/homepage/recipes/createnewrecipe"
             render={() => <CreateNewRecipe />}
           />
@@ -162,18 +162,10 @@ class Display extends Component {
 
           <Route
             path="/homepage/ingredients/myingredients"
-            render={() => <MyIngredients />}
-          />
-          <Route path="/homepage/alarms" render={() => <MyAlarms />} />
-          <Route
-            path="/homepage/alarms/add-alarms"
-            render={() => <AddAlarms />}
-          />
-          <Route
-            path="/homepage/alarms/add-alarms"
-            render={() => <AddAlarms />}
-          />
-          <Route path="/homepage/settings" render={() => <SettingsMain />} />
+            render={() => <MyIngredients />} />
+         
+          <Route path="/homepage/alarms/add-alarms" render={() => <AddAlarms />}/>
+          <Route exact path="/homepage/settings" render={() => <SettingsMain />} />
           <Route path="/homepage/settings/email" render={() => <EditEmail />} />
           <Route
             path="/homepage/settings/password"
