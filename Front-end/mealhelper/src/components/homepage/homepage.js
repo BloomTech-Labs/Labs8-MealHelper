@@ -2,12 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import "./homepage.css";
-// import MealDisplay from "../display/MealDisplay.js";
-// import RecipeDisplay from "../display/RecipeDisplay.js";
-//change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Route, Switch } from "react-router-dom";
-
+import { withRouter } from "react-router-dom";
+import UserHistory from "../display/UserHistory"
 
 class HomePage extends Component {
   // constructor(props) {
@@ -92,7 +89,6 @@ class HomePage extends Component {
   render() {
     return (
       <div className="home-container-home">
-          
         <div className="display">
         <UserHistory />
         </div>

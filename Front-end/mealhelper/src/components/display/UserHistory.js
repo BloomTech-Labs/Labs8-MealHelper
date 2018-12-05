@@ -44,9 +44,9 @@ import MyIngredients from "../recipes/myrecipe";
 import MyWeather from "../weather/myweather";
 
 import SettingsMain from "../Settings/SettingsMain";
-import Zip from "..//zip/zip";
+import Zip from "../zip/zip";
 
-class PatrickDisplay extends Component {
+class UserHistory extends Component {
   constructor(props) {
     super(props);
 
@@ -197,4 +197,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { addUser }
-)(withRouter(Display));
+)(withRouter(UserHistory));

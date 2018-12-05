@@ -11,7 +11,7 @@ import thunk from "redux-thunk";
 import logger from "redux-logger";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Display from "./components/display/display"
+import Display from "./components/display/UserHistory"
 import GetIngredient from "./components/ingredients/getIngredient";
 import Signup from "./components/signup/signup";
 import Login from "./components/login/login";
