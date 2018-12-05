@@ -4,6 +4,7 @@
 }
 .main-container {
   background: #f0f0f0;
+  height: auto;
 }
 
 .image-jars-container {
