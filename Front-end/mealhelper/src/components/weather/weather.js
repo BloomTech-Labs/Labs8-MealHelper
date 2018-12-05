@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
 import { addWeatherByUser } from "../../store/actions/weatherActions";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 // import { Alert } from "reactstrap";
-import Recipes from "../recipes/recipes";
 import axios from "axios";
 import "./weather.css";
 
@@ -22,7 +21,8 @@ class Weather extends Component {
       pressure: null
     };
   }
-  ///converted to Imperial measurement
+  ///converted to Imperial measurement ------Double check this !
+  //////////////+++++++++++++++///////////////////////
 
   getWeatherCity = event => {
     event.preventDefault();
