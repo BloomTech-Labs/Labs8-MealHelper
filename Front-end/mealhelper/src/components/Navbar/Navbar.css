@@ -6,8 +6,61 @@
   position: fixed;
   z-index: 2;
 }
+.Navbar-Container-Main {
+  background: #ffffff;
+  height: 51px;
+  width: 100%;
+  border-bottom: 1px solid #9c9c9c;
+  position: fixed;
+  z-index: 2;
+  display: flex;
+  justify-content: space-around;
+}
+.logo-main-container {
+  margin-right: 5%;
+}
+.logo-main {
+  font-size: 40px;
+  font-family: "Allan", cursive;
+}
+.hamburger {
+  width: 42px;
+  height: 42px;
+  padding-top: 5px;
+}
 
 .logo {
   font-size: 40px;
   font-family: "Allan", cursive;
+}
+.searchbar-nav-container {
+  padding-top: 4px;
+  display: flex;
+}
+.search-box {
+  width: 304px;
+  height: 43px;
+  border: 1px solid #9c9c9c;
+}
+.search-button {
+  width: 45px;
+  height: 43px;
+  background: #ffffff;
+  border: 1px solid #9c9c9c;
+  border-radius: 0px 3px 3px 0px;
+}
+.search-button:hover {
+  width: 45px;
+  height: 43px;
+  background: #ffffff;
+  border: 1px solid #9c9c9c;
+  border-radius: 0px 3px 3px 0px;
+  fill: aqua;
+}
+
+.search-button-img {
+  fill: #9c9c9c;
+  width: 33px;
+  height: 33px;
+  padding-right: 1%;
 }
