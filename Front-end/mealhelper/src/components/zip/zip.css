@@ -29,3 +29,27 @@
 .signupzip:hover {
   background-color: #0166fe;
 }
+
+.qmark {
+  height: 20px;
+  width: auto;
+  margin-left: 10px;
+}
+
+#wrapper .text {
+  position: relative;
+  bottom: 30px;
+  left: 0px;
+  margin-right: -100px;
+  /* margin-left: 250px; */
+  padding: 10px;
+  border: #9c9c9c;
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.57);
+  border-radius: 12px;
+  background: white;
+  visibility: hidden;
+}
+
+#wrapper:hover .text {
+  visibility: visible;
+}
