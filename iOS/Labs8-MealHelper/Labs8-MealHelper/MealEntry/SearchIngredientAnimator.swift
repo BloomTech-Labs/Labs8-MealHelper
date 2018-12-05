@@ -24,7 +24,7 @@ class SearchIngredientAnimator: NSObject, UIViewControllerAnimatedTransitioning 
         
         let fromNav = transitionContext.viewController(forKey: .from) as! WhiteStatusNavController
         let fromVC = fromNav.viewControllers[1] as! SearchIngredientCollectionViewController
-        let toVC = transitionContext.viewController(forKey: .to) as! IngredientDetailViewController
+        let toVC = transitionContext.viewController(forKey: .to) as! SearchIngredientDetailViewController
         let toView = transitionContext.view(forKey: .to)!
         
         let containerView = transitionContext.containerView

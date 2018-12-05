@@ -6,88 +6,135 @@
 //  Copyright © 2018 De MicheliStefano. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 protocol SearchIngredientDetailDelegate: class {
     func updateIngredient(_ ingredient: Ingredient, indexPath: IndexPath)
-    //func didSelect(_ ingredient: Ingredient)
 }
 
 class SearchIngredientDetailViewController: UIViewController {
     
-    // MARK: - Public properties
-    
     var ingredient: Ingredient? {
         didSet {
-            setupViews()
-            nutrientTableView.nutrients = ingredient?.nutrients
+            updateViews()
         }
     }
+    
     weak var delegate: SearchIngredientDetailDelegate?
-    var delegateIndexPath: IndexPath? // TODO: add protocol
-    var foodLabels = ["Gluten-free", "No sugar", "High-fiber", "Low Fat", "High Protein", "Low-Sodium"]
+    var delegateIndexPath: IndexPath?
     
-    // MARK: - Private properties
+    var sidePadding: CGFloat = 20.0
     
-    private let ingredientSummaryView: FoodSummaryViewController = {
+    private let foodHelper = FoodHelper()
+    private var transition = SearchIngredientAnimator()
+    
+    private let closeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "close").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    lazy var addButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: "plus-icon")!, for: .normal)
+        button.addTarget(self, action: #selector(addToRecipe), for: .touchUpInside)
+        button.backgroundColor = .sunRed
+        button.tintColor = .white
+        button.layer.cornerRadius = buttonSize / 2
+        return button
+    }()
+    let buttonSize: CGFloat = 55
+    
+    private let nutrientsView: NutrientsView = {
+        let view = NutrientsView()
+        view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
+        view.layer.cornerRadius = 12
+        return view
+    }()
+    
+    let headerView: FoodSummaryViewController = {
         let vc = FoodSummaryViewController()
-        vc.view.backgroundColor = UIColor.lightGray
+        vc.view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
+        vc.view.layer.cornerRadius = 12
         vc.setupViews()
         return vc
     }()
     
-    private let nutrientTableView = NutrientDetailTableViewController()
     
-    private lazy var containerView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 8.0
-        view.layer.masksToBounds = true
-        view.backgroundColor = .white
+    let macroNutrientsView: NutrientsView = {
+        let view = NutrientsView()
+        view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
+        view.layer.cornerRadius = 12
+        
         return view
     }()
     
-    private lazy var foodLabelView: UIView = {
+    let nutrientTableView: NutrientDetailTableViewController = {
+        let tv = NutrientDetailTableViewController()
+        tv.tableView.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
+        tv.tableView.layer.cornerRadius = 12
+        return tv
+    }()
+    
+    private let foodLabelView: FoodLabelView = {
+        let lv = FoodLabelView()
+        return lv
+    }()
+    
+    let ingredientsTableView: UITableView = {
+        let tv = UITableView(frame: .zero, style: .plain)
+        tv.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
+        tv.layer.cornerRadius = 12
+        return tv
+    }()
+    
+    let labelView: UIView = {
+        let lv = UIView()
+        lv.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
+        lv.layer.cornerRadius = 12
+        
+        return lv
+    }()
+    
+    let noteView: UIView = {
         let view = UIView()
+        view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
+        view.layer.cornerRadius = 12
+        
         return view
     }()
     
-    private lazy var addButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Add to recipe", for: .normal)
-        button.addTarget(self, action: #selector(addToBasket), for: .touchUpInside)
-        button.backgroundColor = .mountainBlue
-        button.tintColor = .white
-        button.titleLabel?.font = Appearance.appFont(with: 17)
-        return button
+    private let backgroundImageView: UIImageView = {
+        let iv = UIImageView(image: #imageLiteral(resourceName: "mountain"))
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        
+        return iv
     }()
     
-    private let foodHelper = FoodHelper()
+    private let blurEffect: UIVisualEffectView = {
+        let frost = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+        frost.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        return frost
+    }()
     
-    // MARK: - Life Cycle
+    override func viewDidLayoutSubviews() {
+        view.setGradientBackground(colorOne: UIColor.nightSkyBlue.cgColor, colorTwo: UIColor.mountainDark.cgColor, startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0.8, y: 0.3))
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
-        setupFoodLabels()
-        setupNutrientTable()
         
-        // Listen for user changing serving types or qty
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingType), name: .MHFoodSummaryPickerDidChange, object: nil)
+        setupViews()
+        setupNotifications()
+        fetchNutrients()
     }
     
     // MARK: - User actions
-    
-    @objc private func addToBasket() {
-        // Add to basket
-        
-        // When user taps on addToBasket then we tell the delegate VC to select and highlight the appropriate row
-        dismiss(animated: true) {
-            if let indexPath = self.delegateIndexPath, let ingredient = self.ingredient {
-                self.delegate?.updateIngredient(ingredient, indexPath: indexPath)
-            }
-        }
-    }
     
     @objc private func didChangeServingType(note: Notification) {
         if let userInfo = note.userInfo,
@@ -100,63 +147,71 @@ class SearchIngredientDetailViewController: UIViewController {
         }
     }
     
+    @objc private func addToRecipe() {
+        // When user taps on addToRecipe we notify the delegate VC that ingredient should be added to recipe
+        dismiss(animated: true) {
+            if let indexPath = self.delegateIndexPath, let ingredient = self.ingredient {
+                self.delegate?.updateIngredient(ingredient, indexPath: indexPath)
+            }
+        }
+    }
+    
+    
+    @objc private func handleDismiss() {
+        //        transitioningDelegate = self
+        dismiss(animated: true, completion: nil)
+    }
+    
     // MARK: - Configuration
     
     private func setupViews() {
-        view.addSubview(containerView)
-        containerView.addSubview(ingredientSummaryView.view)
-        containerView.addSubview(foodLabelView)
-        containerView.addSubview(nutrientTableView.tableView)
-        containerView.addSubview(addButton)
+        view.addSubview(backgroundImageView)
+        backgroundImageView.fillSuperview()
         
-        containerView.centerInSuperview(size: CGSize(width: view.bounds.width * 0.9, height: view.bounds.height * 0.8))
-        ingredientSummaryView.view.anchor(top: containerView.topAnchor, leading: containerView.leadingAnchor, bottom: nil, trailing: containerView.trailingAnchor)
-        foodLabelView.anchor(top: ingredientSummaryView.view.bottomAnchor, leading: containerView.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: containerView.layoutMarginsGuide.trailingAnchor, padding: UIEdgeInsets(top: 10.0, left: 0.0, bottom: 0.0, right: 0.0))
-        nutrientTableView.tableView.anchor(top: foodLabelView.bottomAnchor, leading: containerView.layoutMarginsGuide.leadingAnchor, bottom: addButton.topAnchor, trailing: containerView.layoutMarginsGuide.trailingAnchor)
-        addButton.anchor(top: nil, leading: containerView.leadingAnchor, bottom: containerView.bottomAnchor, trailing: containerView.trailingAnchor, size: CGSize(width: 0.0, height: 40.0))
+        view.addSubview(blurEffect)
+        blurEffect.fillSuperview()
         
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        ingredientSummaryView.titleName = ingredient?.name
+        view.addSubview(closeButton)
+        closeButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: sidePadding), size: CGSize(width: 20, height: 20))
+        
+        view.addSubview(headerView.view)
+        headerView.view.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 50, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: 0, height: 150))
+        
+        view.addSubview(labelView)
+        labelView.anchor(top: headerView.view.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 0, right: sidePadding))
+        
+        labelView.addSubview(foodLabelView)
+        foodLabelView.anchor(top: labelView.safeAreaLayoutGuide.topAnchor, leading: labelView.safeAreaLayoutGuide.leadingAnchor, bottom: labelView.safeAreaLayoutGuide.bottomAnchor, trailing: labelView.safeAreaLayoutGuide.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 10.0, bottom: 0.0, right: 0.0))
+        
+        view.addSubview(macroNutrientsView)
+        macroNutrientsView.anchor(top: labelView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: 0, height: 70))
+        
+        view.addSubview(nutrientTableView.tableView)
+        nutrientTableView.tableView.anchor(top: macroNutrientsView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: 0, height: 200))
+        
+        view.addSubview(addButton)
+        //        addButton.anchor(top: noteView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: buttonSize, height: buttonSize))
+        addButton.frame = CGRect(x: view.center.x - (buttonSize / 2), y: view.center.y, width: buttonSize, height: buttonSize)
+        addButton.center.y = UIScreen.main.bounds.height + buttonSize
         
         view.layoutIfNeeded()
+        foodLabelView.setupFoodLabels()
     }
     
-    private func setupFoodLabels() {
-        var previous: UILabel?
-        let labelHeight: CGFloat = 30.0
-        let padding: CGFloat = 8.0
-        var accumulatedWidth: CGFloat = 0.0
-        var accumulatedHeight: CGFloat = 0.0
+    private func updateViews() {
+        headerView.titleName = ingredient?.name
         
-        for (index, label) in foodLabels.enumerated() {
-            let isSelected = index % 2 == 0 ? true: false // TODO: Add logic
-            let foodLabel = createFoodLabel(with: label, isSelected: isSelected)
-            foodLabelView.addSubview(foodLabel)
-            
-            foodLabel.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
-            foodLabel.widthAnchor.constraint(equalToConstant: foodLabel.intrinsicContentSize.width + 20.0).isActive = true
-            accumulatedWidth += foodLabel.intrinsicContentSize.width + 20.0
-            
-            if let previous = previous {
-                if accumulatedWidth > foodLabelView.bounds.width {
-                    foodLabel.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: padding).isActive = true
-                    accumulatedWidth = 0.0
-                    accumulatedHeight += labelHeight + padding
-                } else {
-                    foodLabel.topAnchor.constraint(equalTo: foodLabelView.topAnchor, constant: accumulatedHeight).isActive = true
-                    foodLabel.leadingAnchor.constraint(equalTo: previous.trailingAnchor, constant: padding).isActive = true
-                }
-            }
-            
-            previous = foodLabel
+        if let nutrients = ingredient?.nutrients {
+            nutrientTableView.nutrients = nutrients
         }
-        
-        foodLabelView.heightAnchor.constraint(equalToConstant: accumulatedHeight + labelHeight + padding).isActive = true
-        
-        view.layoutIfNeeded()
     }
     
-    private func setupNutrientTable() {
+    private func setupNotifications() {
+        // Listen for user changing serving types or qty
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeServingType), name: .MHFoodSummaryPickerDidChange, object: nil)
+    }
+    
+    private func fetchNutrients() {
         guard let ingredient = ingredient, let ndbno = ingredient.nbdId else { return }
         
         FoodClient.shared.fetchUsdaNutrients(for: ndbno) { (response) in
@@ -171,25 +226,5 @@ class SearchIngredientDetailViewController: UIViewController {
             }
         }
     }
-    
-    private func createFoodLabel(with title: String, isSelected: Bool) -> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = title
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 14.0)
-        label.layer.cornerRadius = 30 / 2
-        label.layer.masksToBounds = true
-        label.backgroundColor = isSelected ? .green : UIColor.lightGray
-        return label
-    }
-    
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { // Dismisses the view when user taps outside of the detail view.
-//        guard let touch = touches.first, let tappedView = touch.view else { return }
-//
-//        if tappedView != containerView && !tappedView.isDescendant(of: containerView) {
-//            dismiss(animated: true, completion: nil)
-//        }
-//    }
     
 }

@@ -16,15 +16,26 @@ class FoodCell<T>: UICollectionViewCell {
         }
     }
     
+    var sidePadding: CGFloat = 12
+    var defaultBackgroundColor: UIColor = .morningSkyBlue
+    
     override var isSelected: Bool {
         didSet {
-            backgroundColor = isSelected ? .green : .white
+            backgroundColor = isSelected ? .correctGreen : defaultBackgroundColor
         }
     }
     
+    private lazy var mainStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 5
+        return stackView
+    }()
+    
     let mealNameLabel: UILabel = {
         let label = UILabel()
-        //label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Appearance.appFont(with: 15)
         label.text = "Meal name"
@@ -32,13 +43,12 @@ class FoodCell<T>: UICollectionViewCell {
         return label
     }()
     
-    let dateLabel: UILabel = {
+    let servingLabel: UILabel = {
         let label = UILabel()
         label.sizeToFit()
-        label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Appearance.appFont(with: 12)
-        label.text = "Date 11/11/2011"
+        label.textColor = .gray
+        label.font = Appearance.appFont(with: 14)
         
         return label
     }()
@@ -56,7 +66,7 @@ class FoodCell<T>: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = defaultBackgroundColor
         layer.cornerRadius = 8
         setupViews()
     }
@@ -66,33 +76,24 @@ class FoodCell<T>: UICollectionViewCell {
     }
     
     private func setupViews() {
-        addSubview(mealNameLabel)
-//        addSubview(dateLabel)
-//        addSubview(experienceLabel)
+        mainStackView.addArrangedSubview(mealNameLabel)
+        addSubview(mainStackView)
         
-        mealNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
-        mealNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive = true
-        mealNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
-        
-//        dateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive = true
-//        dateLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-//
-//        experienceLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-//        experienceLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        
+        mainStackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 8, left: sidePadding, bottom: 8, right: sidePadding))
         
         if let recipe = food as? Recipe {
+            mainStackView.addArrangedSubview(servingLabel)
+            
             mealNameLabel.text = recipe.name
+            
+            let servings = recipe.servings
+            servingLabel.text = servings > 1 ? "\(servings) servings" : "\(servings) serving"
             
         } else if let ingredient = food as? Ingredient {
             mealNameLabel.text = ingredient.name
+        
         }
         
-    }
-    
-    func toggleSelected() {
-        backgroundColor = isSelected ? .green : .white
     }
     
 }
