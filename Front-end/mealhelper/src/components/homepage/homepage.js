@@ -94,7 +94,7 @@ class HomePage extends Component {
       <div className="home-container-home">
           
         <div className="display">
-        <h1>HELLO????????</h1>
+        <UserHistory />
         </div>
       </div>
     );

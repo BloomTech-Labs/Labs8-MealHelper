@@ -1,18 +1,22 @@
-/////Static Imports/////////
+// == Dependencies == //
 import React, { Component } from "react";
 import { Route, Switch, Link } from "react-router-dom";
-//////////////////////////
-
-/////Dev. Created/////////
-import Display from "./components/display/display";
+// == Components == //
 import Navbar from "./components/Navbar/Navbar";
-import Meals from "./components/Meals/Meals";
+import LandingPage from "./components/landingpage/landingpage";
+import Login from "./components/login/login";
+import Signup from "./components/signup/signup";
+import Zip from "./components/zip/zip";
+import Callback from "./Callback";
 import NavbarMain from "./components/Navbar/NavbarMain";
+import HomePage from "./components/homepage/homepage";
+import Meals from "./components/Meals/Meals";
 import Recipes from "./components/recipes/recipes";
 import RecipeBook from "./components/recipebook/recipebook";
 import MyRecipes from "./components/recipes/myrecipes";
 import CreateNewRecipe from "./components/creatnewrecipe/createnewrecipe";
 import MyIngredients from "./components/recipes/myrecipe";
+import GetIngredient from "./components/ingredients/getIngredient";
 import Weather from "./components/weather/weather";
 import MyWeather from "./components/weather/myweather";
 import MyAlarms from "./components/alarms/myAlarms";
@@ -22,27 +26,8 @@ import EditEmail from "./components/Settings/EditEmail";
 import EditPassword from "./components/Settings/EditPassword";
 import EditZip from "./components/Settings/EditZip";
 import Billing from "./components/billing/billing";
-
-// import LandingPage from "./components/landingpage/landingpage";
-import GetIngredient from "./components/ingredients/getIngredient";
-import Signup from "./components/signup/signup";
-import Login from "./components/login/login";
-
-import HomePage from "./components/homepage/homepage";
-
-import Zip from "./components/zip/zip";
-
-
-
-////////////////////////
-
-import Callback from "./Callback";
-import Sign from "./components/Sign";
-
+// == Styles == //
 import "./App.css";
-import LandingPage from "./components/landingpage/landingpage";
-
-
 
 class App extends Component {
   render() {
