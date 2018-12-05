@@ -31,12 +31,30 @@ class Display extends Component {
   render() {
     return (
       <div className="this-badboy-can-hold-so-many-components">
-     <h1>HELLO I'M DISPLAY</h1>
+      
       <Switch>
-        {/* <Route exact path="/homepage" render={() => <HomePage />} /> */}
-     
-        
+              
         <Route exact path="/homepage/recipes" render={() => <Recipes />} />
+          <Route path="/homepage/recipes/recipebook" render={() => <RecipeBook />} />
+          <Route path="/homepage/recipes/myrecipes" render={() => <MyRecipes />} />
+          <Route path="/homepage/recipes/createnewrecipe" render={() => <CreateNewRecipe />} />
+          <Route path="/homepage/ingredients/myingredients" render={() => <MyIngredients />} />
+
+          <Route exact path="/homepage/weather" render={() => <Weather />} />
+          <Route path="/homepage/weather/myweather" render={() => <MyWeather />} />
+          
+          <Route exact path="/homepage/alarms" render={() => <MyAlarms/>} />
+          <Route path="/homepage/alarms/add-alarms" render={() => <AddAlarms />}/>
+          
+          <Route path="/homepage/billing" render={() => <Billing />} />
+          
+          <Route exact path="/homepage/settings" render={() => <SettingsMain />} />
+          <Route path="/homepage/settings/email" render={() => <EditEmail />} />
+          <Route path="/homepage/settings/password" render={() => <EditPassword />} />
+          <Route path="/homepage/settings/zip" render={() => <EditZip />} />
+
+        
+        {/* <Route exact path="/homepage/recipes" render={() => <Recipes />} />
         <Route path="/homepage/recipes/recipebook" render={() => <RecipeBook />} />
         <Route path="/homepage/recipes/myrecipes" render={() => <MyRecipes />} />
         <Route path="/homepage/recipes/createnewrecipe" render={() => <CreateNewRecipe />} />
@@ -54,7 +72,7 @@ class Display extends Component {
         <Route exact path="/homepage/settings" render={() => <SettingsMain />} />
         <Route path="/homepage/settings/email" render={() => <EditEmail />} />
         <Route path="/homepage/settings/password" render={() => <EditPassword />} />
-        <Route path="/homepage/settings/zip" render={() => <EditZip />} />
+        <Route path="/homepage/settings/zip" render={() => <EditZip />} /> */}
       </Switch>
       </div>
     );

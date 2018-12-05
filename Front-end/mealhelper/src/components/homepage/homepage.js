@@ -6,10 +6,8 @@ import "./homepage.css";
 // import RecipeDisplay from "../display/RecipeDisplay.js";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter } from "react-router-dom";
-import Display from "../display/display";
-import Navbar from "../Navbar/Navbar";
-import NavbarMain from "../Navbar/NavbarMain";
+import { withRouter, Route, Switch } from "react-router-dom";
+
 
 class HomePage extends Component {
   // constructor(props) {
@@ -94,9 +92,9 @@ class HomePage extends Component {
   render() {
     return (
       <div className="home-container-home">
-        <NavbarMain />
-        <div>
-          <Display />
+          
+        <div className="display">
+        <h1>HELLO????????</h1>
         </div>
       </div>
     );
