@@ -1,22 +1,10 @@
-.authlogo1 {
-  width: 40px;
-  height: auto;
-  margin-right: 30px;
-  margin-bottom: 10px;
-}
 .login-with {
   padding-top: 9px;
   padding-left: 5px;
   padding-right: 15px;
   font-weight: 700;
 }
-/* .nah {
-  padding-bottom: 25px;
-} */
-.login-with-2 {
-  padding-top: 13px;
-  padding-right: 10%;
-}
+
 .authlogos {
   display: flex;
   width: 247px;

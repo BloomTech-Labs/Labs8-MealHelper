@@ -6,8 +6,10 @@ import { Alert } from "reactstrap";
 import Sign from "../Sign";
 import Loading from "../signup/Double Ring-2s-200px.svg";
 import "../signup/signup.css";
+import "./zip.css";
 import Applelogo from "../../img/appstorebadge.png";
-class Login extends Component {
+
+class Zip extends Component {
   constructor(props) {
     super(props);
 
@@ -49,6 +51,7 @@ class Login extends Component {
     const confirmed = await this.createUser();
     setTimeout(this.loggin, 7000);
   }
+  //////Needs to add zip code into user table//////
   createUser = event => {
     if (!this.state.email || !this.state.password) {
       this.setState({ visable: true });
@@ -71,15 +74,15 @@ class Login extends Component {
           <div>
             <div className="alert-box3">
               <Alert isOpen={this.state.visableError} color="danger">
-                Invalid Email and/or Password. Please Try Again.
+                Invalid Zip Code. Please Try Again.
               </Alert>
             </div>
             <div className="formcenter">
-              <div className="user-form-container">
+              <div className="user-form-container-zip">
                 <h1 className="signup-title">EatWell</h1>
                 <form className="signup-form">
                   <div className="form-group">
-                    <label>Email</label>
+                    <label>Zip Code</label>
                     <input
                       className="email-input"
                       type="email"
@@ -89,22 +92,14 @@ class Login extends Component {
                       required
                     />
                   </div>
-                  <div className="form-group">
-                    <label>Password</label>
-                    <input
-                      className="password-input"
-                      type="password"
-                      name="password"
-                      onChange={this.handleChange}
-                      value={this.state.password}
-                      required
-                    />
-                  </div>
                   <Link to="/signup">
                     <p> ⬅ Return to Sign Up </p>
                   </Link>
-                  <div className="signup" onClick={this.confirmLogin}>
-                    <span>Log In</span>
+                  <Link to="/login">
+                    <p> ⬅ Return to Login </p>
+                  </Link>
+                  <div className="signupzip" onClick={this.confirmLogin}>
+                    <span> Continue Log In</span>
                   </div>
                 </form>
                 <div className="authbuttonlogin">
@@ -133,4 +128,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { loginUser }
-)(withRouter(Login));
+)(withRouter(Zip));

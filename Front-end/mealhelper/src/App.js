@@ -17,13 +17,13 @@ import Recipes from "./components/recipes/recipes";
 import MyRecipes from "./components/recipes/myrecipes";
 import RecipeBook from "./components/recipebook/recipebook";
 import CreateNewRecipe from "./components/creatnewrecipe/createnewrecipe";
-// import LandingPage from "./components/landingpage/landingpage";
 import MyIngredients from "./components/recipes/myrecipe";
 import MyWeather from "./components/weather/myweather";
 import MyAlarms from "./components/alarms/myAlarms";
 import AddAlarms from "./components/alarms/addAlarm";
 import Billing from "./components/billing/billing";
 import SettingsMain from "./components/Settings/SettingsMain";
+import Zip from "./components/zip/zip";
 
 ////////////////////////
 
@@ -45,7 +45,7 @@ class App extends Component {
           <Route path="/signup" render={() => <Signup />} />
           <Route path="/callback" render={() => <Callback />} />
           <Route path="/login" render={() => <Login />} />
-          {/* <Route exact path="/callback" component={Callback} /> */}
+          <Route path="/zip" render={() => <Zip />} />
           <Route exact path="/homepage" render={() => <HomePage />} />
           <Route path="/homepage/meals" render={() => <Meals />} />
           <Route path="/homepage/weather" render={() => <Weather />} />
