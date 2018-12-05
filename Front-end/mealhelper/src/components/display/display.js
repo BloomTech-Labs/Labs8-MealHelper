@@ -31,9 +31,10 @@ class Display extends Component {
   render() {
     return (
       <div className="this-badboy-can-hold-so-many-components">
+     <h1>HELLO I'M DISPLAY</h1>
       <Switch>
         {/* <Route exact path="/homepage" render={() => <HomePage />} /> */}
-        <Route exact path="/homepage/meals" render={() => <Meals />} />
+     
         
         <Route exact path="/homepage/recipes" render={() => <Recipes />} />
         <Route path="/homepage/recipes/recipebook" render={() => <RecipeBook />} />

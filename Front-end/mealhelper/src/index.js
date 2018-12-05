@@ -43,17 +43,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 ReactDOM.render(
 	<Provider store={store}>
 		<Router>
-			<div>
-			<Switch>
-          <Route exact path="/" render={() => <LandingPage />} />
-          <Route path="/signup" render={() => <Signup />} />
-          <Route path="/callback" render={() => <Callback />} />
-          <Route path="/login" render={() => <Login />} />
-          <Route path="/zip" render={() => <Zip />} />
-          <Route exact path="/homepage" render={() => <HomePage />} />
-          <Route exact path="/ingredients" render={() => <GetIngredient />} />
-        </Switch>
-				</div>
+			<App />
 		</Router>
 	</Provider>,
 	document.getElementById("root")
