@@ -54,8 +54,8 @@ class NavbarLanding extends Component {
                 : "hamburger hamburger--spin"
             }
           >
-            <span class="hamburger-box">
-              <span class="hamburger-inner" />
+            <span className="hamburger-box">
+              <span className="hamburger-inner" />
             </span>
           </button>
           <div className={this.state.open ? "popper" : "none"} />

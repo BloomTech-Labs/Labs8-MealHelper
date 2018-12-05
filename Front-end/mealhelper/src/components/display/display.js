@@ -5,13 +5,13 @@ import { withRouter, Route, Switch } from "react-router-dom";
 // == Actions == //
 import { addUser } from "../../store/actions/userActions";
 // == Components == //
+import HomePage from "../homepage/homepage";
 import Meals from "../Meals/Meals";
 import Recipes from "../recipes/recipes";
 import RecipeBook from "../recipebook/recipebook";
 import MyRecipes from "../recipes/myrecipes";
 import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
 import MyIngredients from "../recipes/myrecipe";
-import GetIngredient from "../ingredients/getIngredient";
 import Weather from "../weather/weather";
 import MyWeather from "../weather/myweather";
 import MyAlarms from "../alarms/myAlarms";
@@ -23,6 +23,7 @@ import EditZip from "../Settings/EditZip";
 import Billing from "../billing/billing";
 import MealDisplay from "./MealDisplay";
 import RecipeDisplay from "./RecipeDisplay";
+import NavbarMain from "../Navbar/NavbarMain";
 // == Styles == //
 import "../homepage/homepage.css";
 
@@ -31,6 +32,7 @@ class Display extends Component {
     return (
       <div className="this-badboy-can-hold-so-many-components">
       <Switch>
+        {/* <Route exact path="/homepage" render={() => <HomePage />} /> */}
         <Route exact path="/homepage/meals" render={() => <Meals />} />
         
         <Route exact path="/homepage/recipes" render={() => <Recipes />} />
@@ -38,7 +40,6 @@ class Display extends Component {
         <Route path="/homepage/recipes/myrecipes" render={() => <MyRecipes />} />
         <Route path="/homepage/recipes/createnewrecipe" render={() => <CreateNewRecipe />} />
         <Route path="/homepage/ingredients/myingredients" render={() => <MyIngredients />} />
-        <Route path="/homepage/ingredients/ingredientsearch" render={)() => <GetIngredient />} />
 
         <Route exact path="/homepage/weather" render={() => <Weather />} />
         
