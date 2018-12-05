@@ -30,7 +30,7 @@ class Weather extends Component {
 		console.log(city);
 		axios
 			.get(
-				`https://api.openweathermap.org/data/2.5/find?q=${city}&units=imperial&appid=46454cdfa908cad35b14a05756470e5c`
+				`https://api.openweathermap.org/data/2.5/find?q=${city}&units=imperial&appid=418e2edbbd08e52ca4eb31f0e5b1e300`
 			)
 			.then(response => {
 				this.setState({
