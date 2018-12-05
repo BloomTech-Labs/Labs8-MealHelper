@@ -160,7 +160,7 @@ class Meals extends Component {
     console.log(zip);
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=418e2edbbd08e52ca4eb31f0e5b1e300`
+        `https://api.openweathermap.org/data/2.5/weather?zip=${zip}&units=imperial&appid=418e2edbbd08e52ca4eb31f0e5b1e300`
       )
       .then(response => {
         console.log(response);
