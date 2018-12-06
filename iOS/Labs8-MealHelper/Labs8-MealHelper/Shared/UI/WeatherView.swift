@@ -133,7 +133,7 @@ class WeatherAPIClient
         let url = URL(string: baseURL)!
         let zipQuery = URLQueryItem(name: "zip", value: "\(String(zipCode)),\(countryCode)")
         let apiKeyQuery = URLQueryItem(name: "appid", value: apiKey)
-         let metricQuery = URLQueryItem(name: "units", value: "metric")
+        let metricQuery = URLQueryItem(name: "units", value: "metric")
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
         urlComponents?.queryItems = [metricQuery ,zipQuery, apiKeyQuery]
         
