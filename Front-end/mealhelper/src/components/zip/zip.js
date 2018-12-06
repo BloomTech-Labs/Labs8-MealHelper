@@ -21,7 +21,6 @@ class Zip extends Component {
       visable: false,
       visableError: false
     };
-    // this.confirmLogin = this.confirmLogin.bind(this);
   }
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
@@ -117,9 +116,9 @@ class Zip extends Component {
                   <span>Enter Later</span>
                 </div>
               </form>
-              <div className="authbuttonlogin">
+              {/* <div className="authbuttonlogin">
                 <Sign />
-              </div>
+              </div> */}
               <a href="https://www.apple.com/ios/app-store/">
                 <img
                   className="applebadge"
@@ -130,7 +129,6 @@ class Zip extends Component {
             </div>
           </div>
         </div>
-        // )}
       </div>
     );
   }
