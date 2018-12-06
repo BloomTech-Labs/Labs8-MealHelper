@@ -31,7 +31,7 @@ class Zip extends Component {
   handleChange = event => {
     event.preventDefault();
     this.setState({
-      : event.target.value
+      [event.target.name]: event.target.value
     });
   };
 
