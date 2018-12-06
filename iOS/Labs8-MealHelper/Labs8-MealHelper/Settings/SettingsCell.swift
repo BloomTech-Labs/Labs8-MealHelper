@@ -26,6 +26,22 @@ class SettingsCell: UICollectionViewCell {
         return cell
     }()
     
+    let zipCell: UITableViewCell = {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = "Change zip"
+        
+        let zipLabel = UILabel()
+        zipLabel.text = "3300"
+        zipLabel.textAlignment = .right
+        zipLabel.textColor = .lightGray
+        
+        cell.addSubview(zipLabel)
+        zipLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: cell.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8), size: CGSize(width: 100, height: 20))
+        zipLabel.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+        
+        return cell
+    }()
+    
     let passwordCell: UITableViewCell = {
         let cell = UITableViewCell()
         cell.textLabel?.text = "Change password"
@@ -50,7 +66,7 @@ class SettingsCell: UICollectionViewCell {
         logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         
         cell.addSubview(logoutButton)
-        logoutButton.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: cell.bottomAnchor, trailing: cell.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 40))
+        logoutButton.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: cell.bottomAnchor, trailing: cell.trailingAnchor, size: CGSize(width: 0, height: 40))
         
         return cell
     }()
@@ -64,7 +80,7 @@ class SettingsCell: UICollectionViewCell {
         deleteButton.addTarget(self, action: #selector(deleteAccount), for: .touchUpInside)
         
         cell.addSubview(deleteButton)
-        deleteButton.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: cell.bottomAnchor, trailing: cell.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 40))
+        deleteButton.anchor(top: cell.topAnchor, leading: cell.leadingAnchor, bottom: cell.bottomAnchor, trailing: cell.trailingAnchor, size: CGSize(width: 0, height: 40))
         
         return cell
     }()
@@ -94,8 +110,31 @@ class SettingsCell: UICollectionViewCell {
     }
     
     @objc private func deleteAccount() {
-        print("Delete account")
+        
+
+        
     }
+    
+    private func sheetAlert(title: String, buttonTitle: String, alertCompletion: ((UIAlertAction) -> Void)?) {
+        
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: buttonTitle, style: .destructive, handler: alertCompletion))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+    }
+    
+    private func changeEmail() {
+        
+    }
+    
+    private func changeZip() {
+        
+    }
+    
+    private func changePassword() {
+        
+    }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -104,6 +143,19 @@ class SettingsCell: UICollectionViewCell {
 
 extension SettingsCell: UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == 0 {
+            switch indexPath.row {
+            case 0: changeEmail()
+            case 1: changeZip()
+            case 2: changePassword()
+            default: fatalError("Wrong number of rows")
+            }
+        }
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -111,7 +163,7 @@ extension SettingsCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(section) {
         case 0:
-            return 2
+            return 3
         case 1:
             return 2
         default:
@@ -124,7 +176,8 @@ extension SettingsCell: UITableViewDelegate, UITableViewDataSource {
         case 0:
             switch indexPath.row {
             case 0: return emailCell
-            case 1: return passwordCell
+            case 1: return zipCell
+            case 2: return passwordCell
             default: fatalError("Wrong number of cells in \(indexPath.section)")
             }
         case 1:
