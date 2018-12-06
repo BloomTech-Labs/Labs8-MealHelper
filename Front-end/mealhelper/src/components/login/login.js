@@ -9,7 +9,7 @@ import { loginUser } from "../../store/actions/userActions";
 // == Styles == //
 import Loading from "../signup/Double Ring-2s-200px.svg";
 import { Alert } from "reactstrap";
-import "../signup/signup.css";
+//import "../signup/signup.css";
 import "./login.css"
 import Applelogo from "../../img/appstorebadge.png";
 
@@ -82,9 +82,9 @@ class Login extends Component {
             </div>
             <div className="formcenter">
               <div className="user-form-container">
-                <h1 className="signup-title">EatWell</h1>
-                <form className="signup-form">
-                  <div className="form-group">
+                <h1 className="login-title">EatWell</h1>
+                <form className="login-form">
+                  <div className="login-form-group">
                     <label>Email</label>
                     <input
                       className="email-input"
@@ -95,7 +95,7 @@ class Login extends Component {
                       required
                     />
                   </div>
-                  <div className="form-group">
+                  <div className="login-form-group">
                     <label>Password</label>
                     <input
                       className="password-input"
