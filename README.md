@@ -47,6 +47,10 @@
 - Takes in the new password and hashes it, if old password matches what is stored in db, it will set password to the new hash pass.
 - Returns: the user and a token from JWTToken
 
+1.) /users/email/:id which needs {email, password} only and the :id is the user_id from req.params
+2.) /users/password/:id which needs {oldpassword, newpassword} in the req.body and the :id is the user_id from req.params
+3.) /users/zip/:id which needs {zip, password} and the :id is the user_id from req.params
+
 ## DELETE /users/:id
 - {id} from req.params
 - Deletes the user.
