@@ -58,6 +58,7 @@ input {
   background: #ffffff;
   border-width: 1px;
   border-color: #9c9c9c;
+  z-index: 5;
 }
 
 label {

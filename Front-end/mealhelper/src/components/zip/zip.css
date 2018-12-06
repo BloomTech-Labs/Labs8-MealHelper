@@ -29,3 +29,9 @@
 .signupzip:hover {
   background-color: #0166fe;
 }
+
+.qmark {
+  height: 20px;
+  width: auto;
+  margin-left: 10px;
+}

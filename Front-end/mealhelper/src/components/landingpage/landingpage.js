@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Jars from "./Jars.jpg";
 import Computer from "./Computer.jpg";
 import Plate from "./Plate.png";
