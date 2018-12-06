@@ -51,7 +51,6 @@ class SearchIngredientAnimator: NSObject, UIViewControllerAnimatedTransitioning 
 //        animatedView.food = sourceView.food
         
         let animatedLabel = UILabel(frame: sourceView.mealNameLabel.frame)
-        //animatedLabel.translatesAutoresizingMaskIntoConstraints = false
         animatedLabel.font = Appearance.appFont(with: 15)
         animatedLabel.numberOfLines = 2
         animatedLabel.textAlignment = .center
@@ -95,7 +94,6 @@ class SearchIngredientAnimator: NSObject, UIViewControllerAnimatedTransitioning 
             })
         }) { (success) in
             sourceView.alpha = 1.0
-            
             
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }

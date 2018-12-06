@@ -13,11 +13,34 @@ import Firebase
 class CameraViewController: UIViewController {
     
     // MARK: - Properties
+    
+    weak var delegate: SearchIngredientDetailDelegate?
+    var searchedIngredients = [Ingredient]()
+    
     private var captureSession: AVCaptureSession!
     private var previewView = CameraPreview()
     private var barcodeScanner = BarcodeScanner()
+    private var ingredientDetailViews = [SwipableViewController]()
     private var scanLayer = CAShapeLayer()
     private var blurView = UIVisualEffectView (effect: UIBlurEffect (style: UIBlurEffect.Style.dark))
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = Appearance.appFont(with: 20)
+        label.textColor = .white
+        label.textAlignment = .center
+        label.text = "Scan a barcode"
+        return label
+    }()
+    
+    private let closeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "close").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
+        return button
+    }()
     
     // MARK: - Life Cycle
     
@@ -26,6 +49,7 @@ class CameraViewController: UIViewController {
         barcodeScanner.delegate = self
         
         setupCapture()
+        setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,6 +64,9 @@ class CameraViewController: UIViewController {
     
     // MARK: - User actions
     
+    @objc private func handleDismiss() {
+        dismiss(animated: true, completion: nil)
+    }
     
     // MARK: - Configuration
     
@@ -50,48 +77,6 @@ class CameraViewController: UIViewController {
     
     private func setupCapture() {
         // Setup: AVCaptureDeviceInput --> AVCaptureSession --> AVCaptureOutput (i.e. AVCaptureVideoPreviewLayer & AVCaptureVideoDataOutput)
-        
-        // VideoPreviewLayer - Sets up a blur view with a see-through rectangle in the middle in which the barcode should be scanned
-        view.addSubview(previewView)
-        previewView.frame = view.frame
-        
-        //let blurView = UIVisualEffectView (effect: UIBlurEffect (style: UIBlurEffect.Style.extraLight))
-        blurView.frame = previewView.frame
-        blurView.isUserInteractionEnabled = false
-        self.previewView.addSubview(blurView)
-        
-        let blurViewPath = UIBezierPath (
-            roundedRect: blurView.frame,
-            cornerRadius: 0)
-        
-        let scanPathWidth: CGFloat = 300.0
-        let scanPath = UIBezierPath(roundedRect: CGRect(x: (view.bounds.width - scanPathWidth) / 2, y: 175.0, width: scanPathWidth, height: 250.0), cornerRadius: 10.0)
-        
-        blurViewPath.append(scanPath)
-        blurViewPath.usesEvenOddFillRule = true
-        
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = blurViewPath.cgPath
-        maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
-        
-        
-        // var scanLayer = CAShapeLayer()
-        scanLayer.path = scanPath.cgPath
-        scanLayer.strokeColor = UIColor.white.cgColor
-        scanLayer.fillColor = UIColor.clear.cgColor
-        scanLayer.lineWidth = 6.5
-        
-        blurView.layer.addSublayer(scanLayer)
-        
-        if #available(iOS 11.0, *) {
-            blurView.alpha = 0.65
-            blurView.layer.mask = maskLayer
-        } else {
-            let maskView = UIView(frame: self.view.frame)
-            maskView.backgroundColor = UIColor.black
-            maskView.layer.mask = scanLayer
-            blurView.mask = maskView
-        }
         
         // Session
         let captureSession = AVCaptureSession()
@@ -129,6 +114,53 @@ class CameraViewController: UIViewController {
         previewView.videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill // Fills entire screen
         
         previewView.videoPreviewLayer.session = captureSession
+    }
+    
+    private func setupViews() {
+        // VideoPreviewLayer - Sets up a blur view with a see-through rectangle in the middle in which the barcode should be scanned
+        view.addSubview(previewView)
+        previewView.frame = view.frame
+        blurView.frame = previewView.frame
+        blurView.isUserInteractionEnabled = false
+        self.previewView.addSubview(blurView)
+        
+        let blurViewPath = UIBezierPath (
+            roundedRect: blurView.frame,
+            cornerRadius: 0)
+        
+        let scanPathWidth: CGFloat = 300.0
+        let scanPath = UIBezierPath(roundedRect: CGRect(x: (view.bounds.width - scanPathWidth) / 2, y: 175.0, width: scanPathWidth, height: 250.0), cornerRadius: 10.0)
+        
+        blurViewPath.append(scanPath)
+        blurViewPath.usesEvenOddFillRule = true
+        
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = blurViewPath.cgPath
+        maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
+        
+        scanLayer.path = scanPath.cgPath
+        scanLayer.strokeColor = UIColor.white.cgColor
+        scanLayer.fillColor = UIColor.clear.cgColor
+        scanLayer.lineWidth = 6.5
+        
+        blurView.layer.addSublayer(scanLayer)
+        
+        if #available(iOS 11.0, *) {
+            blurView.alpha = 0.65
+            blurView.layer.mask = maskLayer
+        } else {
+            let maskView = UIView(frame: self.view.frame)
+            maskView.backgroundColor = UIColor.black
+            maskView.layer.mask = scanLayer
+            blurView.mask = maskView
+        }
+        
+        // Other views
+        view.addSubview(titleLabel)
+        titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0))
+        
+        view.addSubview(closeButton)
+        closeButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: blurView.trailingAnchor, padding: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 20), size: CGSize(width: 20, height: 20))
     }
     
     // Choose the best camera on the device
@@ -213,30 +245,38 @@ extension CameraViewController: BarcodeScannerDelegate {
             switch response {
             case .success(let ingredients):
                 DispatchQueue.main.async {
+                    self.searchedIngredients.append(ingredients.first!)
                     self.scanLayer.strokeColor = UIColor.green.cgColor
                     self.barcodeScanner.startScanning()
                     let swipeVC = SwipableViewController()
-                    swipeVC.view.translatesAutoresizingMaskIntoConstraints = false
-                    let titleLabel = UILabel()
-                    if let name = ingredients.first?.name {
-                        titleLabel.text = name
-                        titleLabel.textAlignment = .center
-                        titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
-                    }
-                    self.addChild(swipeVC)
-                    swipeVC.didMove(toParent: self)
-                    self.view.addSubview(swipeVC.view)
-                    swipeVC.popupView.addSubview(titleLabel)
+                    //self.ingredientDetailViews.append(swipeVC)
+                    swipeVC.openHeight = UIScreen.main.bounds.height - 150
+                    swipeVC.closedHeight = 300
                     
-                    swipeVC.view.fillSuperview()
-                    titleLabel.anchor(top: swipeVC.popupView.topAnchor, leading: swipeVC.popupView.leadingAnchor, bottom: nil, trailing: swipeVC.popupView.trailingAnchor)
+                    self.add(swipeVC)
+
+                    swipeVC.view.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor, padding: UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0))
+//                    swipeVC.view.fillSuperview()
+//                    swipeVC.view.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
+                    
+                    let button = UIButton(type: .system)
+                    button.setImage(UIImage(named: "plus-icon")!, for: .normal)
+                    button.addTarget(self, action: #selector(self.addToRecipe), for: .touchUpInside)
+                    button.backgroundColor = .sunRed
+                    button.tintColor = .white
+                    button.layer.cornerRadius = 35 / 2
+                    swipeVC.view.addSubview(button)
+                    button.anchor(top: swipeVC.popupView.topAnchor, leading: nil, bottom: nil, trailing: swipeVC.popupView.trailingAnchor, padding: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 20), size: CGSize(width: 35, height: 35))
                     
                     let ingredientDetailVC = SearchIngredientDetailViewController()
+                    ingredientDetailVC.closeButton.isHidden = true
+                    ingredientDetailVC.backgroundIsTransparent = true
                     ingredientDetailVC.ingredient = ingredients.first
                     swipeVC.addChild(ingredientDetailVC)
                     ingredientDetailVC.view.frame = swipeVC.popupView.frame
                     swipeVC.popupView.addSubview(ingredientDetailVC.view)
-                    ingredientDetailVC.didMove(toParent: self)
+                    ingredientDetailVC.view.anchor(top: button.bottomAnchor, leading: swipeVC.popupView.leadingAnchor, bottom: nil, trailing: swipeVC.popupView.trailingAnchor, padding: UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0))
+                    ingredientDetailVC.didMove(toParent: swipeVC)
                 }
                 
             case .error(let error):
@@ -251,6 +291,17 @@ extension CameraViewController: BarcodeScannerDelegate {
     
     func barcodeScanner(_ controller: BarcodeScanner, didReceiveError error: Error) {
         // Handle error
+    }
+    
+    @objc private func addToRecipe(_ sender: UIButton) {
+        print("button tapped")
+        // According to LIFO we take the last ingredient that was appended to searchedIngredients, and pass it to SearchIngredientsVC
+        if let ingredient = searchedIngredients.last, let ingredientDetailView = ingredientDetailViews.last {
+            delegate?.updateIngredient(ingredient, indexPath: nil)
+            ingredientDetailView.dismissView()
+            searchedIngredients.removeLast()
+            ingredientDetailViews.removeLast()
+        }
     }
     
     private func display(_ ingredientDetails: UIViewController) {
