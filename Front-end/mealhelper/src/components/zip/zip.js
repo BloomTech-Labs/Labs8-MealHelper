@@ -5,6 +5,7 @@ import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
 import Sign from "../Sign";
 // import Loading from "../signup/Double Ring-2s-200px.svg";
+import axios from "axios";
 import "../signup/signup.css";
 import "./zip.css";
 import Applelogo from "../../img/appstorebadge.png";
@@ -53,19 +54,30 @@ class Zip extends Component {
   //   }
   //////Needs to add zip code into user table//////
   updateUser = event => {
+    console.log("firing");
     // if (!this.state.email || !this.state.password) {
     //   this.setState({ visable: true });
     //   setTimeout(this.toggleVisability, 3000);
     // } else {
+    // const { zip } = this.state;
+    // const user = { zip };
+    // this.props.updateUser(user);
+    // // }
+    const id = localStorage.getItem("user_id");
     const { zip } = this.state;
     const user = { zip };
-    this.state.updateUser(user);
-    // }
+    axios
+      .put(`https://labs8-meal-helper.herokuapp.com/users/zip/${id}`, user)
+      .then(response => {
+        console.log(response);
+        //   this.setState({ updated: true });
+      });
+    this.props.history.push("/homepage");
   };
 
   render() {
     console.log(localStorage.getItem("user_id"));
-    console.log(this.state.zip);
+    console.log(this.props.user.userID);
     return (
       <div className="main-container">
         {/* {this.state.isLoading ? (
@@ -87,8 +99,8 @@ class Zip extends Component {
                   <label>
                     Zip Code
                     <span
-                      title="Adding your zip code allows an accurate weather data point to be added to your fact set. 
-                    This can be very important as you understand how your food affects well being."
+                      title="Adding your zip code allows an accurate weather data point to be added to your profile. 
+                    This can be very important as you understand how different factors affect your well being."
                     >
                       <img
                         className="qmark"
@@ -113,7 +125,7 @@ class Zip extends Component {
                   <p> ⬅ Return to Login </p>
                 </Link>
                 <div className="signupzip" onClick={this.updateUser}>
-                  <span> Continue Log In</span>
+                  <span>Continue Log In</span>
                 </div>
               </form>
               <div className="authbuttonlogin">
