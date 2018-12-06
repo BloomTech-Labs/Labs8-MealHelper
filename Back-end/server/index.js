@@ -59,7 +59,6 @@ server.post("/charge", async (req, res) => {
       source: req.body
     });
 
-
     res.json({ status });
   } catch (err) {
     res.status(500).end();
@@ -78,6 +77,7 @@ server.get("/users", (req, res) => {
       res.status(400).json({ error: "Could not grab users" });
     });
 });
+
 server.get("/users/:id", (req, res) => {
   const { id } = req.params;
   db("users")
@@ -90,13 +90,14 @@ server.get("/users/:id", (req, res) => {
       res.status(400).json({ error: "Could not grab users" });
     });
 });
+
 // Register a new user
 server.post("/register", (req, res) => {
   //Abstraction of req.body
-  const { email, password, zip, healthCondition } = req.body;
+  const { email, password, zip } = req.body;
   console.log(req.body);
   //Sets the user to a JSON object of what we pulled from req.body
-  const user = { email, password, zip, healthCondition };
+  const user = { email, password, zip };
   //Hashing the password
 
   const hash = bcrypt.hashSync(user.password, 15);
@@ -125,6 +126,43 @@ server.post("/register", (req, res) => {
       res.status(400).json({ msg: err, error: "Could not create a user" });
     });
 });
+
+// Register a new user/ IOS
+server.post("/register/ios", (req, res) => {
+  //Abstraction of req.body
+  const { email, password, zip } = req.body;
+  console.log(req.body);
+  //Sets the user to a JSON object of what we pulled from req.body
+  const user = { email, password, zip };
+  //Hashing the password
+
+  const hash = bcrypt.hashSync(user.password, 15);
+  //Setting the password to our hash
+  user.password = hash;
+  console.log(user);
+  db("users")
+    .insert(user)
+    .then(userReturn => {
+      const token = generateToken(user);
+      console.log(user);
+      db("users")
+        .where({ email: user.email })
+        .first()
+        .then(user => {
+          console.log(user);
+          res
+            .status(200)
+            .json({ userID: user.id, token: token, zip: user.zip });
+        })
+        .catch(err => {
+          res.status(400).json({ error: "Could not grab user" });
+        });
+    })
+    .catch(err => {
+      res.status(400).json({ msg: err, error: "Could not create a user" });
+    });
+});
+
 //Registers and checks auth0
 server.post("/registerAuth0", (req, res) => {
   //Abstraction of req.body
