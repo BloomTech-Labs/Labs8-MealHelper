@@ -61,6 +61,8 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didSelectItems))
     }()
     
+    //MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,6 +89,8 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         super.viewWillLayoutSubviews()
         (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: view.bounds.width, height: 50)
     }
+    
+    //MARK: - CollectionViewControllerDelegate
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 3
@@ -185,6 +189,8 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         return CGSize(width: collectionView.bounds.width - 16, height: 65)
     }
     
+    //MARK: - User Actions
+    
     @objc func didNotSelectItems() {
         navigationController?.popViewController(animated: true)
     }
@@ -244,6 +250,7 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         // On clicking the bookmark button present a camera view
         let cameraVC = CameraViewController()
+        cameraVC.delegate = self
         
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
@@ -355,24 +362,31 @@ class SectionHeader: UICollectionViewCell  {
 
 extension SearchIngredientCollectionViewController: SearchIngredientDetailDelegate {
     
-    func updateIngredient(_ ingredient: Ingredient, indexPath: IndexPath) {
+    func updateIngredient(_ ingredient: Ingredient, indexPath: IndexPath?) {
+        if let indexPath = indexPath {
         
-        switch indexPath.section {
-        case 1:
-            guard let index = searchedIngredients.index(of: ingredient) else { return }
-            searchedIngredients.remove(at: index)
-            searchedIngredients.insert(ingredient, at: index)
+            switch indexPath.section {
+            case 1:
+                guard let index = searchedIngredients.index(of: ingredient) else { return }
+                searchedIngredients.remove(at: index)
+                searchedIngredients.insert(ingredient, at: index)
+                didSelect(ingredient)
+            case 2:
+                guard let index = savedIngredients.index(of: ingredient) else { return }
+                savedIngredients.remove(at: index)
+                savedIngredients.insert(ingredient, at: index)
+                didSelect(ingredient: ingredient)
+            default:
+                break
+            }
+            
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        } else {
+            searchedIngredients.insert(ingredient, at: 0)
+            collectionView.reloadData()
             didSelect(ingredient)
-        case 2:
-            guard let index = savedIngredients.index(of: ingredient) else { return }
-            savedIngredients.remove(at: index)
-            savedIngredients.insert(ingredient, at: index)
-            didSelect(ingredient: ingredient)
-        default:
-            break
         }
         
-        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         
     }
     

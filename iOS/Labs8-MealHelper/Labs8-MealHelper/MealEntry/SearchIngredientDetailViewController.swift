@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SearchIngredientDetailDelegate: class {
-    func updateIngredient(_ ingredient: Ingredient, indexPath: IndexPath)
+    func updateIngredient(_ ingredient: Ingredient, indexPath: IndexPath?)
 }
 
 class SearchIngredientDetailViewController: UIViewController {
@@ -22,18 +22,17 @@ class SearchIngredientDetailViewController: UIViewController {
     
     weak var delegate: SearchIngredientDetailDelegate?
     var delegateIndexPath: IndexPath?
+    var backgroundIsTransparent = false
     
-    var sidePadding: CGFloat = 20.0
-    
+    let sidePadding: CGFloat = 20.0
     private let foodHelper = FoodHelper()
     private var transition = SearchIngredientAnimator()
     
-    private let closeButton: UIButton = {
+    let closeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "close").withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
-        
         return button
     }()
     
@@ -46,14 +45,8 @@ class SearchIngredientDetailViewController: UIViewController {
         button.layer.cornerRadius = buttonSize / 2
         return button
     }()
-    let buttonSize: CGFloat = 55
     
-//    private let nutrientsView: NutrientsView = {
-//        let view = NutrientsView()
-//        view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
-//        view.layer.cornerRadius = 12
-//        return view
-//    }()
+    let buttonSize: CGFloat = 55
     
     let headerView: FoodSummaryViewController = {
         let vc = FoodSummaryViewController()
@@ -63,12 +56,10 @@ class SearchIngredientDetailViewController: UIViewController {
         return vc
     }()
     
-    
     let macroNutrientsView: NutrientsView = {
         let view = NutrientsView()
         view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         view.layer.cornerRadius = 12
-        
         return view
     }()
     
@@ -95,15 +86,13 @@ class SearchIngredientDetailViewController: UIViewController {
         let lv = UIView()
         lv.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         lv.layer.cornerRadius = 12
-        
         return lv
     }()
     
-    let noteView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
-        view.layer.cornerRadius = 12
-        
+    private let transparentBackgroundView: UIView = {
+       let view = UIView()
+        view.backgroundColor = .clear
+        //view.alpha = 0.1
         return view
     }()
     
@@ -111,20 +100,16 @@ class SearchIngredientDetailViewController: UIViewController {
         let iv = UIImageView(image: #imageLiteral(resourceName: "mountain"))
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
-        
         return iv
     }()
     
     private let blurEffect: UIVisualEffectView = {
         let frost = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         frost.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
         return frost
     }()
     
-    override func viewDidLayoutSubviews() {
-        view.setGradientBackground(colorOne: UIColor.nightSkyBlue.cgColor, colorTwo: UIColor.mountainDark.cgColor, startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0.8, y: 0.3))
-    }
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,6 +117,10 @@ class SearchIngredientDetailViewController: UIViewController {
         setupViews()
         setupNotifications()
         fetchNutrients()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        //view.setGradientBackground(colorOne: UIColor.nightSkyBlue.cgColor, colorTwo: UIColor.mountainDark.cgColor, startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0.8, y: 0.3))
     }
     
     // MARK: - User actions
@@ -156,7 +145,6 @@ class SearchIngredientDetailViewController: UIViewController {
         }
     }
     
-    
     @objc private func handleDismiss() {
         //        transitioningDelegate = self
         dismiss(animated: true, completion: nil)
@@ -165,11 +153,16 @@ class SearchIngredientDetailViewController: UIViewController {
     // MARK: - Configuration
     
     private func setupViews() {
-        view.addSubview(backgroundImageView)
-        backgroundImageView.fillSuperview()
-        
-        view.addSubview(blurEffect)
-        blurEffect.fillSuperview()
+        if backgroundIsTransparent {
+            view.addSubview(transparentBackgroundView)
+            transparentBackgroundView.fillSuperview()
+        } else {
+            view.addSubview(backgroundImageView)
+            backgroundImageView.fillSuperview()
+            
+            view.addSubview(blurEffect)
+            blurEffect.fillSuperview()
+        }
         
         view.addSubview(closeButton)
         closeButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: sidePadding), size: CGSize(width: 20, height: 20))
