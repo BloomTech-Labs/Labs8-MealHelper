@@ -1,14 +1,4 @@
-<<<<<<< HEAD
- .main-container-login {
-  height: 100vh;
-  width: 100vw;
-  background: #f0f0f0;
-}
-
-.formcenter {
-=======
 .user-form-container-login {
->>>>>>> 05bb25a5ce16dda66c49bfaf6e9493b18a6dedb0
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -23,24 +13,12 @@ input {
   height: 50px;
   font-size: 12px;
   background: #ffffff;
-<<<<<<< HEAD
-  border-width: 1px;
-  border-color: #9c9c9c;
-  z-index: 5;
-}
-
-
-label {
-  font-weight: bold;
-  text-align: left;
-=======
   margin-top: 5%;
   width: 318px;
   height: 515px;
   border: #9c9c9c;
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.57);
   border-radius: 12px;
->>>>>>> 05bb25a5ce16dda66c49bfaf6e9493b18a6dedb0
 }
 
 
@@ -55,11 +33,7 @@ label {
   font-family: "Allan", cursive;
 }
 
-<<<<<<< HEAD
-.login-form-group {
-=======
 .form-group-login {
->>>>>>> 05bb25a5ce16dda66c49bfaf6e9493b18a6dedb0
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -67,11 +41,7 @@ label {
   padding-top: 20px;
 }
 
-<<<<<<< HEAD
-.login-form-group:hover {
-=======
 .form-group-login:hover {
->>>>>>> 05bb25a5ce16dda66c49bfaf6e9493b18a6dedb0
   border: #8c8c8c;
 }
 
@@ -93,11 +63,7 @@ label {
   padding-top: 20px;
 }
 
-<<<<<<< HEAD
-.login {
-=======
 .login-login {
->>>>>>> 05bb25a5ce16dda66c49bfaf6e9493b18a6dedb0
   color: #ffffff;
   width: 250px;
   font-size: 25px;
@@ -108,21 +74,12 @@ label {
   margin-bottom: 30px;
   cursor: pointer;
   background-color: #267cfc;
-<<<<<<< HEAD
-}
-
-.login:hover {
-  background-color: #0166fe;
-}
-
-=======
 }
 
 .login-login:hover {
   background-color: #0166fe;
 }
 
->>>>>>> 05bb25a5ce16dda66c49bfaf6e9493b18a6dedb0
 .signuptext {
   padding-top: 20px;
   color: black;
