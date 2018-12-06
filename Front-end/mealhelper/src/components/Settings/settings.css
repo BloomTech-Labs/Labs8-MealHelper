@@ -24,6 +24,14 @@
   background: #ffffff;
   cursor: pointer;
 }
+.settings-password-save {
+  margin: 35px auto 0;
+  width: 100px;
+  height: 51px;
+  border: 1px solid #b6b5b5;
+  background: #ffffff;
+  cursor: pointer;
+}
 .settings-zip-save:hover {
   border: 1px solid #86b2dd !important;
 }
@@ -37,6 +45,12 @@
 .settings-zip-form {
   margin-top: 30px;
 }
+.settings-password-form {
+  margin-top: 30px;
+}
 .alert-box-settings {
   width: 100%;
+}
+.settings-text-anchor {
+  margin-top: 20px !important;
 }

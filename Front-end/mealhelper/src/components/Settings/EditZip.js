@@ -112,7 +112,7 @@ class EditZip extends Component {
         <div className="settings-zip-form">
           <form>
             <div>
-              <h5>Zip</h5>
+              <h5 className="settings-text-anchor">Zip</h5>
               <input
                 type="number"
                 name="zip"
@@ -122,7 +122,7 @@ class EditZip extends Component {
               />
             </div>
             <div>
-              <h5>Password</h5>
+              <h5 className="settings-text-anchor">Password</h5>
               <input
                 type="password"
                 name="password"
