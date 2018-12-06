@@ -178,7 +178,12 @@ class MyAlarms extends Component {
               </div>
             </div>
           ))}
-          <Link to="/homepage/alarms/add-alarms">Add New Alarms</Link>
+          <div className="add-new-alarms">
+          <Button color="info" onClick={() => this.props.history.push("/alarms/add-alarms")}>
+          Add New Alarms
+          </Button>
+          </div>
+          
 </div>
           
          <Modal
