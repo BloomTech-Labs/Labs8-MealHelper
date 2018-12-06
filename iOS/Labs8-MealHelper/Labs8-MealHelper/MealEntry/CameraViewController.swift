@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import Firebase
+import Lottie
 
 class CameraViewController: UIViewController {
     
@@ -43,6 +44,16 @@ class CameraViewController: UIViewController {
         return button
     }()
     
+    private let barcodeImageView: UIImageView = {
+        let iv = UIImageView(image: UIImage(named: "barcode")!.withRenderingMode(.alwaysTemplate))
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        iv.tintColor = .white
+        return iv
+    }()
+    
+    let doneAnimationView = LOTAnimationView(name: "done")
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -56,6 +67,12 @@ class CameraViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         captureSession.startRunning()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        animateBarcodeIntoView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -84,6 +101,42 @@ class CameraViewController: UIViewController {
         
         // When ingredient swipe view is dismissed we start the barcode scanner again
         self.barcodeScanner.startScanning()
+    }
+    
+    private func animateBarcodeIntoView() {
+        //self.barcodeImageView.isHidden = false
+        
+        UIView.animate(withDuration: 1.0, animations: {
+            self.barcodeImageView.center.x = self.view.center.x
+        }) { _ in
+            self.barcodeImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 400).isActive = true
+        }
+        
+        UIView.animate(withDuration: 1.0, delay: 0, options: [.repeat, .autoreverse], animations: {
+            self.barcodeImageView.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
+        }) { _ in
+            self.barcodeImageView.transform = .identity
+        }
+        
+    }
+    
+    private func animateBarcodeOutOfView() {
+        
+        UIView.animate(withDuration: 1.0, animations: {
+            self.barcodeImageView.center.x = -200
+        }) { _ in
+            self.barcodeImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 400).isActive = true
+            self.view.layoutIfNeeded()
+            //self.barcodeImageView.isHidden = true
+        }
+    }
+    
+    private func animateCheckmarkIntoView() {
+        doneAnimationView.play { _ in
+            UIView.animate(withDuration: 1.0, animations: {
+                self.doneAnimationView.center.x = -200
+            })
+        }
     }
     
     // MARK: - Configuration
@@ -174,6 +227,16 @@ class CameraViewController: UIViewController {
         
         view.addSubview(closeButton)
         closeButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: blurView.trailingAnchor, padding: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 20), size: CGSize(width: 20, height: 20))
+        
+        view.addSubview(barcodeImageView)
+        barcodeImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 400).isActive = true
+        barcodeImageView.anchor(top: closeButton.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 35, left: 0, bottom: 0, right: 0), size: CGSize(width: 80, height: 80))
+        
+        
+        view.addSubview(doneAnimationView)
+        doneAnimationView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        doneAnimationView.anchor(top: closeButton.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 35, left: 0, bottom: 0, right: 0), size: CGSize(width: 120, height: 120))
+        
     }
     
     private func display(_ ingredient: Ingredient) {
@@ -292,6 +355,8 @@ extension CameraViewController: BarcodeScannerDelegate {
     func barcodeScanner(_ controller: BarcodeScanner, didFinishScanningWithCode barcode: String) {
         // Make call to usda api
         print("Barcode: \(barcode)")
+        animateBarcodeOutOfView()
+        
         FoodClient.shared.fetchUsdaIngredients(with: barcode) { (response) in
             switch response {
             case .success(let ingredients):
@@ -300,6 +365,7 @@ extension CameraViewController: BarcodeScannerDelegate {
                     self.searchedIngredient = ingredient
                     self.barcode = barcode
                     self.display(ingredient)
+                    self.animateCheckmarkIntoView()
                 }
                 
             case .error(let error):
@@ -326,6 +392,7 @@ extension CameraViewController: BarcodeScannerDelegate {
             self.barcode = nil
             
             self.barcodeScanner.startScanning()
+            self.animateBarcodeIntoView()
         }
     }
     
