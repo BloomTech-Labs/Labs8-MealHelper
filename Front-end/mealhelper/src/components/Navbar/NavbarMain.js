@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter, Link, Route } from "react-router-dom";
-import Hamburger from "./Hamburger.png";
+import { withRouter, Link } from "react-router-dom";
 import Search from "./Search.svg";
 import AddMeal from "./Add-Meal.png";
 import Recipes from "./Recipes.png";
@@ -54,8 +53,8 @@ class NavbarLanding extends Component {
                 : "hamburger hamburger--spin"
             }
           >
-            <span class="hamburger-box">
-              <span class="hamburger-inner" />
+            <span className="hamburger-box">
+              <span className="hamburger-inner" />
             </span>
           </button>
           <div className={this.state.open ? "popper" : "none"} />

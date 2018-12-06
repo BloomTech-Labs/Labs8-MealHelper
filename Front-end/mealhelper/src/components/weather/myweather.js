@@ -5,7 +5,6 @@ import { getWeatherByUserID } from "../../store/actions/weatherActions";
 import { withRouter, Link, Route } from "react-router-dom";
 import OneWeather from "./OneWeather";
 // import { Alert } from "reactstrap";
-import axios from "axios";
 import "./weather.css";
 
 class MyWeather extends Component {
