@@ -47,22 +47,10 @@ class Zip extends Component {
       this.props.history.push("/zip");
     }
   };
-  //   async confirmLogin() {
-  //     this.setState({ isLoading: true });
-  //     const confirmed = await this.updateUser();
-  //     setTimeout(this.loggin, 7000);
-  //   }
+
   //////Needs to add zip code into user table//////
   updateUser = event => {
     console.log("firing");
-    // if (!this.state.email || !this.state.password) {
-    //   this.setState({ visable: true });
-    //   setTimeout(this.toggleVisability, 3000);
-    // } else {
-    // const { zip } = this.state;
-    // const user = { zip };
-    // this.props.updateUser(user);
-    // // }
     const id = localStorage.getItem("user_id");
     const { zip } = this.state;
     const user = { zip };
@@ -70,7 +58,6 @@ class Zip extends Component {
       .put(`https://labs8-meal-helper.herokuapp.com/users/zip/${id}`, user)
       .then(response => {
         console.log(response);
-        //   this.setState({ updated: true });
       });
     this.props.history.push("/homepage");
   };
@@ -84,11 +71,6 @@ class Zip extends Component {
     console.log(this.props.user.userID);
     return (
       <div className="main-container">
-        {/* {this.state.isLoading ? (
-          <div className="isLoading">
-            <img className="loading" src={Loading} alt="Loading icon" />
-          </div>
-        ) : ( */}
         <div>
           <div className="alert-box3">
             <Alert isOpen={this.state.visableError} color="danger">

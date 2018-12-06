@@ -92,7 +92,6 @@ class Billing extends Component {
         <div className="dynamic-display">
           <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
             <div className="example">
-              <h1>Pay Up Health Nut</h1>
               <Elements>
                 <CheckoutForm />
               </Elements>
