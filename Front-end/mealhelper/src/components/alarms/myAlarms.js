@@ -10,49 +10,29 @@ import {
   updateAlarm
 } from "../../store/actions/alarmActions";
 // == Styles == //
-import "./myAlarms.css";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 
 const alarms = [
   {
     id: 1,
-    label: "Breakfast",
+    label: "breakfast",
     alarm: "0600",
-    monday: true,
-    tuesday: false,
-    wednesday: true,
-    thursday: false,
-    friday: false,
-    saturday: false,
     user_id: 1
   },
   {
     id: 2,
-    label: "Lunch",
+    label: "lunch",
     alarm: "1200",
-    monday: false,
-    tuesday: false,
-    wednesday: false,
-    thursday: false,
-    friday: false,
-    saturday: false,
     user_id: 1
   },
   {
     id: 3,
-    label: "Snack",
+    label: "snack",
     alarm: "1300",
-    monday: false,
-    tuesday: false,
-    wednesday: false,
-    thursday: false,
-    friday: false,
-    saturday: false,
     user_id: 1
   },
   {
     id: 4,
-    label: "Dinner",
+    label: "dinner",
     alarm: "1600",
     user_id: 1
   }
@@ -96,16 +76,9 @@ class MyAlarms extends Component {
         label: "",
         alarm: ""
       },
-      label: "",
-      modal: false
+      label: ""
     };
   }
-
-  toggle = () => {
-    this.setState({
-      modal: !this.state.modal
-    });
-  };
 
   componentDidMount() {
     let userID = this.props.user.userID;
@@ -138,17 +111,13 @@ class MyAlarms extends Component {
   }
 
   showModal = alarmID => {
-    this.toggle();
-    const alarmToUpdate = alarms.find(alarm => alarm.id === alarmID);
+    const alarmToUpdate = this.props.alarms.find(alarm => alarm.id === alarmID);
+    const show = this.state.show;
     this.setState({
+      ...this.state,
+      show: !show,
       alarmToUpdate: alarmToUpdate
-    })
-    // const show = this.state.show;
-    // this.setState({
-    //   ...this.state,
-    //   show: !show,
-    //   alarmToUpdate: alarmToUpdate
-    // });
+    });
   };
 
   militaryToStandard = time => {
@@ -176,12 +145,13 @@ class MyAlarms extends Component {
 
   render() {
     return (
-      <div className="main-container">
       <div className="alarms-container">
+        <div className="dynamic-display">
           <h1>Alarms</h1>
-          <div className="alarms-list">
-          {alarms.map(alarm => (
-            <div className="alarm-card"
+          <Link to="/homepage/alarms/add-alarms">Add New Alarms</Link>
+         
+          {this.props.alarms.map(alarm => (
+            <div
               key={alarm.id}
               id={alarm.id}
               label={alarm.label}
@@ -189,45 +159,29 @@ class MyAlarms extends Component {
             >
               {" "}
               <br />
-              <div className="alarm-text">
-              <p className="time">{this.militaryToStandard(alarm.alarm)}</p>
-              <p className="label">{alarm.label}</p>
-              </div>
-              <div className="buttons">
-              <Button color="info" onClick={() => this.showModal(alarm.id)}> Edit </Button>
-              <Button color="danger"
+              <h2>{this.militaryToStandard(alarm.alarm)}</h2>
+              <h2>{alarm.label}</h2>
+              <button onClick={() => this.showModal(alarm.id)}> Edit </button>
+              <button
                 onClick={() =>
                   this.props.deleteAlarm(alarm.id, this.props.user.userID)
-                }> Delete </Button>
-              </div>
+                }
+              >
+                Delete
+              </button>
             </div>
           ))}
-            <Link to="/homepage/alarms/add-alarms">
-            <Button color="info">Add New Alarms</Button>
-            </Link>
-          </div>
-        
 
-          
-         <Modal
-          isOpen={this.state.modal}
-          toggle={this.toggle}
-          >
-            <ModalHeader
-              toggle={this.toggle}>Edit Alarm</ModalHeader>
-           <ModalBody>
-             <p>Alarm Label:</p>
-             <input 
-              id="label"
-              name="label"
-              type="label"
-              value={this.state.label}
-              placeholder={this.state.alarmToUpdate.label}
-              onChange={this.handleChange}
-             />
-             <br />
-             <p>Alarm Time:</p>
-             <Select
+          <editAlarmModal show={this.state.show}>
+            <div className="edit-modal">
+              <h2>Edit Alarm</h2>
+              <input
+                type="label"
+                name="label"
+                value={this.state.label}
+                onChange={this.handleChange}
+              />
+              <Select
                 options={options}
                 className="time"
                 name="alarmTime"
@@ -244,22 +198,10 @@ class MyAlarms extends Component {
                 Submit
               </button>
               <button onClick={() => this.showModal}>Nevermind</button>
-           </ModalBody>
-         </Modal>
-          {/* <editAlarmModal className={this.state.show ? "show-modal" : "hide-modal"}show={this.state.show}>
-            <div className="edit-modal">
-              <h2>Edit Alarm</h2>
-              <input
-                type="label"
-                name="label"
-                value={this.state.label}
-                onChange={this.handleChange}
-              />
-              
             </div>
-          </editAlarmModal> */}
+          </editAlarmModal>
         </div>
-        </div>
+      </div>
     );
   }
 }
