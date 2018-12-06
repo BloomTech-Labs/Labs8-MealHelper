@@ -3,13 +3,11 @@
 }
 
 .alarms-container { 
+  margin: 100px auto 0;
   width: 495px;
   height: 516px;
-  /* left: 463px;
-  top: 300px; */
   background: #FFFFFF;
   border: 1px solid #B6B5B5;
-  border: 2px solid green;
   justify-self: center;
 }
 
@@ -26,32 +24,50 @@
   border-radius: 2px;
 }
 
+.alarms-heading {
+  border-bottom: 1px solid #B6B5B5; 
+}
+
+.alarms-heading h1 {
+  padding: 10px 0;
+
+}
+
 .alarm-card {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  height: 45px;
   width: 100%;
-  border: 2px solid blue;
+  border-bottom: 1px solid #B6B5B5;
+  margin-top: 5px;
 }
 
 .alarm-text {
-  width: 40%;
+  width: 220px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 3px solid purple;
+  /* border: 3px solid purple; */
+  margin-right: 100px;
 }
 
-.alarm-text .label {
-  border: 1px solid black;
+.alarm-label {
+  /* width: 60%; */
+  /* border: 1px solid black; */
 }
 
-.alarm-text .time {
-  border: 1px solid black;
+.alarm-time {
+  /* border: 1px solid black; */
 }
 
-
+.alarm-buttons {
+  width: 130px;
+  display: flex;
+  justify-content: space-around;
+  margin-right: 10px;
+}
 
 .hide-modal {
   display: null;

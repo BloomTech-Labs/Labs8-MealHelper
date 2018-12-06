@@ -139,14 +139,14 @@ class MyAlarms extends Component {
         format = twelveWithZero.toString().split("");
         lastNum = format[format.length - 1];
         format[2] = ":";
-        format.push(lastNum);
+        format.push(lastNum, " PM");
         return format.join("");
       }
     }
     format = time.split("");
     lastNum = format[format.length - 1];
     format[2] = ":";
-    format.push(lastNum);
+    format.push(lastNum, " AM");
     return format.join("");
   };
 
@@ -154,7 +154,7 @@ class MyAlarms extends Component {
     return (
       <div className="alarms-full-width">
       <div className="alarms-container">
-          <h1>Alarms</h1>
+      <div className="alarms-heading"><h1>Alarms</h1></div>
           
           {alarms.map(alarm => (
             <div className="alarm-card"
