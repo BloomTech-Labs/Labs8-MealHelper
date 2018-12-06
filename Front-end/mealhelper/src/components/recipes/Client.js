@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 async function search(query, cb) {
   return fetch(
-    `https://api.nal.usda.gov/ndb/search/?format=json&q=${query}&sort=n&max=10&offset=0&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6`,
+    `https://api.nal.usda.gov/ndb/search/?format=json&It=f&q=${query}&sort=n&max=100&offset=0&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6`,
     {
       accept: "application/json"
     }
