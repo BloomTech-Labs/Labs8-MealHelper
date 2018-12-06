@@ -64,13 +64,13 @@ class Login extends Component {
   render() {
     return (
       <div className="main-container">
-        <Navbar />
         {this.state.isLoading ? (
           <div className="isLoading">
             <img className="loading" src={Loading} alt="Loading icon" />
           </div>
         ) : (
           <div>
+            <Navbar />
             <div className="alert-box3">
               <Alert isOpen={this.state.visableError} color="danger">
                 Invalid Email and/or Password. Please Try Again.
