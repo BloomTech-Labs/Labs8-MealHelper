@@ -126,14 +126,9 @@ class SaveRecipeViewController: UIViewController {
         
     }
     
-    @objc private func handleMealTimeSetting(notification: NSNotification) {
-        if let userInfo = notification.userInfo, let pickedMealTime = userInfo["type"] as? String {
+    @objc private func handleMealSetting(notification: NSNotification) {
+        if let userInfo = notification.userInfo, let pickedMealTime = userInfo["type"] as? String, let pickedServingString = userInfo["quantity"] as? String, let pickedServingInt = Int(pickedServingString) {
             self.mealTime = pickedMealTime
-        }
-    }
-    
-    @objc private func handleServingSetting(notification: NSNotification) {
-        if let userInfo = notification.userInfo, let pickedServingString = userInfo["quantity"] as? String, let pickedServingInt = Int(pickedServingString) {
             self.serving = pickedServingInt
         }
     }
@@ -244,8 +239,7 @@ class SaveRecipeViewController: UIViewController {
     }
     
     private func setupRecipeSettingsNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleMealTimeSetting), name: .MHFoodSummaryTypePickerDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleServingSetting), name: .MHFoodSummaryQuantityPickerDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleMealSetting), name: .MHFoodSummaryPickerDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleRecipeNameSetting), name: .MHFoodSummaryTextFieldDidChange, object: nil)
     }
     

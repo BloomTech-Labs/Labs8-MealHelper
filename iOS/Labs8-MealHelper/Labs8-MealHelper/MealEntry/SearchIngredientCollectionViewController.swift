@@ -33,9 +33,11 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     
     var searchedIngredients = [Ingredient]()
     var savedIngredients = [Ingredient]()
-    var sectionHeaderReuseId = "SectionHeaderCell"
-    var searchBarReuseId = "SearchBarCell"
-    var cellId = "FoodCell"
+    private var sectionHeaderReuseId = "SectionHeaderCell"
+    private var searchBarReuseId = "SearchBarCell"
+    private var cellId = "FoodCell"
+    private var transition = SearchIngredientAnimator()
+    var selectedCell: FoodCell<Ingredient>?
     
     private lazy var searchController: UISearchController = {
         var sc = UISearchController(searchResultsController: nil)
@@ -58,6 +60,8 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     lazy var itemsSelectedBarButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didSelectItems))
     }()
+    
+    //MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,6 +89,8 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         super.viewWillLayoutSubviews()
         (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: view.bounds.width, height: 50)
     }
+    
+    //MARK: - CollectionViewControllerDelegate
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 3
@@ -143,7 +149,11 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         let ingredient = indexPath.section == 1 ? searchedIngredients[indexPath.row] : savedIngredients[indexPath.row]
         ingredientDetailVC.ingredient = ingredient
         
+        selectedCell = collectionView.cellForItem(at: indexPath) as? FoodCell<Ingredient> // We need to store the cell for the transition animation
+        ingredientDetailVC.transitioningDelegate = self
+        
         present(ingredientDetailVC, animated: true, completion: nil)
+        
         return false
     }
     
@@ -178,6 +188,8 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width - 16, height: 65)
     }
+    
+    //MARK: - User Actions
     
     @objc func didNotSelectItems() {
         navigationController?.popViewController(animated: true)
@@ -238,6 +250,7 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         // On clicking the bookmark button present a camera view
         let cameraVC = CameraViewController()
+        cameraVC.delegate = self
         
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
@@ -297,15 +310,20 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         view.backgroundColor = .mountainDark
         navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
         
-//        if let navTitle = navTitle {
-//            title = navTitle
-//        }
-        
         title = "Search Ingredients"
         collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderReuseId)
         collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: searchBarReuseId)
         
         view.addSubview(searchController.searchBar)
+    }
+    
+}
+
+extension SearchIngredientCollectionViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.presenting = true
+        return transition
     }
     
 }
@@ -344,24 +362,31 @@ class SectionHeader: UICollectionViewCell  {
 
 extension SearchIngredientCollectionViewController: SearchIngredientDetailDelegate {
     
-    func updateIngredient(_ ingredient: Ingredient, indexPath: IndexPath) {
+    func updateIngredient(_ ingredient: Ingredient, indexPath: IndexPath?) {
+        if let indexPath = indexPath {
         
-        switch indexPath.section {
-        case 1:
-            guard let index = searchedIngredients.index(of: ingredient) else { return }
-            searchedIngredients.remove(at: index)
-            searchedIngredients.insert(ingredient, at: index)
+            switch indexPath.section {
+            case 1:
+                guard let index = searchedIngredients.index(of: ingredient) else { return }
+                searchedIngredients.remove(at: index)
+                searchedIngredients.insert(ingredient, at: index)
+                didSelect(ingredient)
+            case 2:
+                guard let index = savedIngredients.index(of: ingredient) else { return }
+                savedIngredients.remove(at: index)
+                savedIngredients.insert(ingredient, at: index)
+                didSelect(ingredient: ingredient)
+            default:
+                break
+            }
+            
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        } else {
+            searchedIngredients.insert(ingredient, at: 0)
+            collectionView.reloadData()
             didSelect(ingredient)
-        case 2:
-            guard let index = savedIngredients.index(of: ingredient) else { return }
-            savedIngredients.remove(at: index)
-            savedIngredients.insert(ingredient, at: index)
-            didSelect(ingredient: ingredient)
-        default:
-            break
         }
         
-        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         
     }
     

@@ -172,7 +172,7 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
         navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
         navigationItem.leftBarButtonItem = cancelBarButton
         
-        title = "Recipes"
+        title = "Add Recipes"
     }
     
 }
