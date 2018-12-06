@@ -32,8 +32,8 @@ class GenericAPIClient {
             }
             
             do {
-                let foods = try JSONDecoder().decode(Resource.self, from: data)
-                completion(Response.success(foods))
+                let ressource = try JSONDecoder().decode(Resource.self, from: data)
+                completion(Response.success(ressource))
             } catch {
                 NSLog("Error decoding data: \(error)")
                 completion(Response.error(error))

@@ -43,7 +43,7 @@ class APIClient: GenericAPIClient {
     }
     
     func fetchAlarms(userId: Int, completion: @escaping (Response<[Alarm]>) -> ()) {
-        let url = self.url(with: baseUrl, pathComponents: ["alarm", "\(userId)"])
+        let url = self.url(with: baseUrl, pathComponents: ["alarms", "\(userId)"])
         fetch(from: url, completion: completion)
     }
     

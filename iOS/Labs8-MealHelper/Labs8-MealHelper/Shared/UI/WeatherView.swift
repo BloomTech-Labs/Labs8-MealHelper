@@ -123,7 +123,7 @@ class WeatherAPIClient
 {
     static let shared = WeatherAPIClient()
     
-    let apiKey = "46454cdfa908cad35b14a05756470e5c"
+    let apiKey = "418e2edbbd08e52ca4eb31f0e5b1e300"
     let baseURL = "https://api.openweathermap.org/data/2.5/weather"
     
     func fetchWeather(for zipCode: Int, completion: @escaping (WeatherForecast?) -> ())
@@ -133,7 +133,7 @@ class WeatherAPIClient
         let url = URL(string: baseURL)!
         let zipQuery = URLQueryItem(name: "zip", value: "\(String(zipCode)),\(countryCode)")
         let apiKeyQuery = URLQueryItem(name: "appid", value: apiKey)
-        let metricQuery = URLQueryItem(name: "units", value: "metric")
+         let metricQuery = URLQueryItem(name: "units", value: "metric")
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
         urlComponents?.queryItems = [metricQuery ,zipQuery, apiKeyQuery]
         
