@@ -125,12 +125,6 @@ class MyAlarms extends Component {
     this.setState({
       alarmToUpdate: alarmToUpdate
     })
-    // const show = this.state.show;
-    // this.setState({
-    //   ...this.state,
-    //   show: !show,
-    //   alarmToUpdate: alarmToUpdate
-    // });
   };
 
   militaryToStandard = time => {
@@ -158,6 +152,7 @@ class MyAlarms extends Component {
 
   render() {
     return (
+      <div className="alarms-full-width">
       <div className="alarms-container">
           <h1>Alarms</h1>
           
@@ -171,8 +166,8 @@ class MyAlarms extends Component {
               {" "}
               <br />
               <div className="alarm-text">
-              <p className="label">{alarm.label}</p>
-              <p className="time">{this.militaryToStandard(alarm.alarm)}</p>
+              <div className="alarm-label"><p>{alarm.label}</p></div>
+              <div className="alarm-time"><p>{this.militaryToStandard(alarm.alarm)}</p></div>
               </div>
               <div className="alarm-buttons">
               <Button color="info" onClick={() => this.showModal(alarm.id)}> Edit </Button>
@@ -184,7 +179,7 @@ class MyAlarms extends Component {
             </div>
           ))}
           <Link to="/homepage/alarms/add-alarms">Add New Alarms</Link>
-
+</div>
           
          <Modal
           isOpen={this.state.modal}
@@ -206,7 +201,7 @@ class MyAlarms extends Component {
              <p>Alarm Time:</p>
              <Select
                 options={options}
-                className="time"
+                className="alarm-form-time"
                 name="alarmTime"
                 onChange={opt =>
                   this.setState(prevState => ({

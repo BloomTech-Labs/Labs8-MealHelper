@@ -5,8 +5,8 @@
 .alarms-container { 
   width: 495px;
   height: 516px;
-  left: 463px;
-  top: 113px;
+  /* left: 463px;
+  top: 300px; */
   background: #FFFFFF;
   border: 1px solid #B6B5B5;
   border: 2px solid green;
@@ -29,17 +29,18 @@
 .alarm-card {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   border: 2px solid blue;
 }
 
 .alarm-text {
-  width: 50%;
+  width: 40%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  border: 3px solid green;
+  border: 3px solid purple;
 }
 
 .alarm-text .label {
@@ -49,6 +50,7 @@
 .alarm-text .time {
   border: 1px solid black;
 }
+
 
 
 .hide-modal {

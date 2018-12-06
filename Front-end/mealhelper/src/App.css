@@ -4,5 +4,8 @@
   display: flex;
   text-align: center;
   background: #f0f0f0;
-  justify-content: center;
+}
+
+.display {
+  width: 100%;
 }
