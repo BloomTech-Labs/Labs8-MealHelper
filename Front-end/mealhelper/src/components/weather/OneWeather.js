@@ -1,12 +1,10 @@
-// == Dependencies == //
 import React, { Component } from "react";
-// == Components == //
-// == Actions == //
-// == Styles == //
 import { connect } from "react-redux";
 //change the route for this
 import { addMeal } from "../../store/actions/mealActions.js";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link, Route } from "react-router-dom";
+// import { Alert } from "reactstrap";
+import axios from "axios";
 
 class OneWeather extends Component {
 	constructor(props) {
