@@ -1,12 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
 .alarms-container { 
-  position: absolute;
+
   width: 495px;
   height: 516px;
   left: 463px;
   top: 113px;
   background: #FFFFFF;
   border: 1px solid #B6B5B5;
-  box-sizing: border-box;
+  border: 2px solid green;
+  justify-self: center;
 }
 
 .alarms-list {

@@ -1,7 +1,8 @@
 .App {
   width: 100%;
-  height: auto;
+  height: 100vh;
   display: flex;
   text-align: center;
   background: #f0f0f0;
+  justify-content: center;
 }
