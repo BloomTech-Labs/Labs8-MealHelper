@@ -176,30 +176,7 @@ class Meals extends Component {
   render() {
     return (
       <div className="home-container">
-        {/* <div className="sidebar">
-          <Link to="/homepage" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Home</h2>
-          </Link>
-          <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Recipes</h2>
-          </Link>
-          <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Alarms</h2>
-          </Link>
-          <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Meals</h2>
-          </Link>
-          <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Billing</h2>
-          </Link>
-          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Settings</h2>
-          </Link>
-          <Button color="danger" onClick={this.toggleLogout}>
-            Log Out
-          </Button>
-        </div> */}
-        <div className="create-recipe-background">
+        <div className="meals-background">
           <Button color="success" onClick={this.toggle}>
             + New Meal
           </Button>
