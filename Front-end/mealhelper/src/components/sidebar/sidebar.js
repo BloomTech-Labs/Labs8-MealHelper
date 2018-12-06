@@ -7,7 +7,6 @@ import RecipeDisplay from "../display/RecipeDisplay";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
-import { Alert } from "reactstrap";
 import Weather from "../weather/weather";
 import Recipes from "../recipes/recipes";
 import Meals from "../Meals/Meals";
@@ -18,15 +17,7 @@ import {
   Button,
   Modal,
   ModalHeader,
-  ModalBody,
-  ModalFooter,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
 } from "reactstrap";
-import { Elements, StripeProvider } from "react-stripe-elements";
-import CheckoutForm from "../checkout/CheckoutForm";
 import Billing from "../billing/billing";
 
 class SideBar extends Component {

@@ -6,45 +6,7 @@ import MealDisplay from "./MealDisplay";
 import RecipeDisplay from "./RecipeDisplay";
 
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route, Switch } from "react-router-dom";
-import { Alert } from "reactstrap";
-import Weather from "../weather/weather";
-import Recipes from "../recipes/recipes";
-import Meals from "../Meals/Meals";
-import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
-import AddAlarms from "../alarms/addAlarm";
-import MyAlarms from "../alarms/myAlarms";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
-import { Elements, StripeProvider } from "react-stripe-elements";
-import CheckoutForm from "../checkout/CheckoutForm";
-import Billing from "../billing/billing";
-import EditEmail from "../Settings/EditEmail";
-import EditPassword from "../Settings/EditPassword";
-import EditZip from "../Settings/EditZip";
-
-import GetIngredient from "../ingredients/getIngredient";
-import Signup from "../signup/signup";
-import Login from "../login/login";
-import HomePage from "../homepage/homepage";
-
-import MyRecipes from "../recipes/myrecipes";
-import RecipeBook from "../recipebook/recipebook";
-
-import MyIngredients from "../recipes/myrecipe";
-import MyWeather from "../weather/myweather";
-
-import SettingsMain from "../Settings/SettingsMain";
-import Zip from "../zip/zip";
+import { withRouter } from "react-router-dom";
 
 class UserHistory extends Component {
   constructor(props) {

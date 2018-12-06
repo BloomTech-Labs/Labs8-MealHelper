@@ -11,11 +11,8 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-//change the route for this
 import { addMeal } from "../../store/actions/mealActions";
-import { withRouter, Link, Route } from "react-router-dom";
-// import { Alert } from "reactstrap";
-import Recipes from "../recipes/recipes";
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 import "./meals.css";
 

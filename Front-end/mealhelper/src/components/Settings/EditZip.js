@@ -6,26 +6,11 @@ import "../homepage/homepage";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
 import { Alert } from "reactstrap";
-import Weather from "../weather/weather";
-import Recipes from "../recipes/recipes";
-import Meals from "../Meals/Meals";
-import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
-
-import MyAlarms from "../alarms/myAlarms";
 import {
   Button,
   Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  ModalHeader
 } from "reactstrap";
-import { Elements, StripeProvider } from "react-stripe-elements";
-import CheckoutForm from "../checkout/CheckoutForm";
-import Billing from "../billing/billing";
 
 class EditZip extends Component {
   constructor(props) {
