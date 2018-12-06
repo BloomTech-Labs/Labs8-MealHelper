@@ -75,6 +75,10 @@ class Zip extends Component {
     this.props.history.push("/homepage");
   };
 
+  zipSkip = event => {
+    this.props.history.push("/homepage");
+  };
+
   render() {
     console.log(localStorage.getItem("user_id"));
     console.log(this.props.user.userID);
@@ -126,6 +130,9 @@ class Zip extends Component {
                 </Link>
                 <div className="signupzip" onClick={this.updateUser}>
                   <span>Continue Log In</span>
+                </div>
+                <div className="signupzip" onClick={this.zipSkip}>
+                  <span>Enter Later</span>
                 </div>
               </form>
               <div className="authbuttonlogin">
