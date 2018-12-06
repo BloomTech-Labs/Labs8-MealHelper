@@ -1,0 +1,42 @@
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin-right: 25%;
+  margin-top: 5%;
+  width: 900px;
+  height: 500px;
+  outline: 3px solid #f1e7e8;
+  background: linear-gradient(
+    rgb(163, 206, 160, 0.75),
+    rgb(163, 206, 160, 0.75)
+  );
+}
+.btn-success {
+  margin-top: 150px !important;
+}
+.create-recipe-background {
+  margin-top: 400px;
+  margin-right: 15%;
+  width: 50%;
+  height: 30%;
+  background: linear-gradient(rgba(20, 20, 20, 0.93), rgba(20, 20, 20, 0.93));
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+.titlelinksrecipe {
+  display: flex;
+  justify-content: flex-end;
+  line-height: 1.2em;
+  color: #f1e7e8;
+  padding: 5%;
+}
+
+.in-app-links {
+  text-decoration: none;
+}
+
+.titlelinksrecipe:hover {
+  font-weight: 600;
+  color: orange;
+}
