@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol SettingsCellDelegate: class {
+    func deleteUser()
+    func logout()
+}
+
 class SettingsCell: UICollectionViewCell {
+    
+    weak var delegate: SettingsCellDelegate?
     
     let emailCell: UITableViewCell = {
         let cell = UITableViewCell()
@@ -106,21 +113,11 @@ class SettingsCell: UICollectionViewCell {
     }
     
     @objc private func logout() {
-        print("Logout")
+        delegate?.logout()
     }
     
     @objc private func deleteAccount() {
-        
-
-        
-    }
-    
-    private func sheetAlert(title: String, buttonTitle: String, alertCompletion: ((UIAlertAction) -> Void)?) {
-        
-        let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: buttonTitle, style: .destructive, handler: alertCompletion))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
+        delegate?.deleteUser()
     }
     
     private func changeEmail() {

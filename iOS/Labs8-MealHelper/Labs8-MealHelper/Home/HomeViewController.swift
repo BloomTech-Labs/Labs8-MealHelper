@@ -88,13 +88,16 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = .black
         setupFooterView()
-
-//        let loginController = LoginViewController()
-//        loginController.modalPresentationStyle = .overCurrentContext
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//            self.present(loginController, animated: true, completion: nil)
-//        }
+        presentLogin()
+    }
+    
+    private func presentLogin() {
+        let loginController = LoginViewController()
+        loginController.modalPresentationStyle = .overCurrentContext
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.present(loginController, animated: true, completion: nil)
+        }
     }
     
     private func fetchAlarms() {
@@ -296,8 +299,16 @@ extension HomeViewController: ExpandableButtonViewDelegate {
             print("Right")
         case .mostRight:
             let settingsViewController = SettingsViewController()
+            settingsViewController.delegate = self
             settingsViewController.modalPresentationStyle = .overCurrentContext
             present(settingsViewController, animated: true, completion: nil)
         }
+    }
+}
+
+extension HomeViewController: SettingsViewControllerDelegate {
+    func showLogin() {
+        UserDefaults.standard.setIsLoggedIn(value: false, userId: 0)
+        presentLogin()
     }
 }

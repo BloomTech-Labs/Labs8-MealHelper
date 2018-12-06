@@ -8,9 +8,15 @@
 
 import UIKit
 
+protocol SettingsViewControllerDelegate: class {
+    func showLogin()
+}
+
 class SettingsViewController: UIViewController {
     
     //MARK: - Properties
+    
+    weak var delegate: SettingsViewControllerDelegate?
     
     let settingsId = "settingsId"
     let aboutId = "aboutId"
@@ -102,6 +108,43 @@ class SettingsViewController: UIViewController {
         let index = targetContentOffset.pointee.x / view.frame.width
         let indexPath = IndexPath(item: Int(index), section: 0)
         menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+    }
+}
+
+extension SettingsViewController: SettingsCellDelegate {
+    func deleteUser() {
+        let alert = UIAlertController(title: "Are you sure you want to delete your account? This action cannot be undone.", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
+            
+            let userId = UserDefaults.standard.loggedInUserId()
+            APIClient.shared.deleteUser(with: userId, completion: { (response) in
+                
+                DispatchQueue.main.async {
+                    switch response {
+                    case .success:
+                        self.dismiss(animated: true, completion: {
+                        self.delegate?.showLogin()
+                    })
+                    case .error:
+                        self.showAlert(with: "Error deleting your account, please check your internet connection and try again.")
+                    }
+                }
+            })
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func logout() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Logout", style: .destructive, handler: { (_) in
+            
+            self.dismiss(animated: true, completion: {
+                self.delegate?.showLogin()
+            })
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
