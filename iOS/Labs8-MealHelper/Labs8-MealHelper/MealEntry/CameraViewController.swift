@@ -68,6 +68,15 @@ class CameraViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @objc private func handleDismissSwipeView() {
+        
+        ingredientDetailView?.dismissView()
+        searchedIngredient = nil
+        ingredientDetailView = nil
+        
+        barcodeScanner.startScanning()
+    }
+    
     // MARK: - Configuration
     
     private func updateViews() {
@@ -182,18 +191,23 @@ class CameraViewController: UIViewController {
         addButton.tintColor = .white
         addButton.layer.cornerRadius = 35 / 2
         
+        let cancelButton = UIButton(type: .system)
+        cancelButton.setImage(#imageLiteral(resourceName: "close").withRenderingMode(.alwaysTemplate), for: .normal)
+        cancelButton.tintColor = .white
+        cancelButton.addTarget(self, action: #selector(handleDismissSwipeView), for: .touchUpInside)
         
         self.add(swipeVC)
         
-        //swipeVC.addChild(ingredientDetailVC)
-        
+        swipeVC.addChild(ingredientDetailVC)
         swipeVC.popupView.addSubview(ingredientDetailVC.view)
-        //ingredientDetailVC.didMove(toParent: swipeVC)
+        ingredientDetailVC.didMove(toParent: swipeVC)
+        
         swipeVC.view.addSubview(addButton)
-        //ingredientDetailVC.view.frame = swipeVC.popupView.frame
+        swipeVC.view.addSubview(cancelButton)
         
         swipeVC.view.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor, padding: UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0))
         addButton.anchor(top: swipeVC.popupView.topAnchor, leading: nil, bottom: nil, trailing: swipeVC.popupView.trailingAnchor, padding: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 20), size: CGSize(width: 35, height: 35))
+        cancelButton.anchor(top: swipeVC.popupView.topAnchor, leading: swipeVC.popupView.leadingAnchor, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 15, left: 20, bottom: 0, right: 0), size: CGSize(width: 22, height: 22))
         ingredientDetailVC.view.anchor(top: addButton.bottomAnchor, leading: swipeVC.popupView.leadingAnchor, bottom: nil, trailing: swipeVC.popupView.trailingAnchor, padding: UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0))
     }
     
