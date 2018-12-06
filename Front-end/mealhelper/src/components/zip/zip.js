@@ -1,11 +1,14 @@
+// == Dependencies == //
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { loginUser, updateUser } from "../../store/actions/userActions";
+import { loginUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
-import Sign from "../Sign";
-// import Loading from "../signup/Double Ring-2s-200px.svg";
 import axios from "axios";
+// == Components == //
+import Sign from "../Sign";
+// == Actions == //
+// == Styles == //
 import "../signup/signup.css";
 import "./zip.css";
 import Applelogo from "../../img/appstorebadge.png";

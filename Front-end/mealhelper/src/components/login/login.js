@@ -1,12 +1,17 @@
+// == Dependencies == //
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { loginUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
-import { Alert } from "reactstrap";
+// == Components == //
 import Sign from "../Sign";
+// == Actions == //
+import { loginUser } from "../../store/actions/userActions";
+// == Styles == //
 import Loading from "../signup/Double Ring-2s-200px.svg";
 import "./login.css";
 import Applelogo from "../../img/appstorebadge.png";
+import { Alert } from "reactstrap";
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -62,7 +67,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="main-container">
+      <div className="main-container-login">
         {this.state.isLoading ? (
           <div className="isLoading">
             <img className="loading" src={Loading} alt="Loading icon" />

@@ -1,24 +1,26 @@
+// == Dependencies == //
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-// import "./homepage.css";
+import { withRouter, Link, Route, Switch } from "react-router-dom";
+// == Components == //
 import MealDisplay from "../display/MealDisplay";
 import RecipeDisplay from "../display/RecipeDisplay";
-//change the route for this
-import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route, Switch } from "react-router-dom";
 import Weather from "../weather/weather";
 import Recipes from "../recipes/recipes";
 import Meals from "../Meals/Meals";
 import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
 import AddAlarms from "../alarms/addAlarm";
 import MyAlarms from "../alarms/myAlarms";
+import Billing from "../billing/billing";
+// == Actions == //
+import { addUser } from "../../store/actions/userActions";
+// == Styles == //
 import {
   Button,
   Modal,
   ModalHeader,
 } from "reactstrap";
-import Billing from "../billing/billing";
 
 class SideBar extends Component {
   constructor(props) {

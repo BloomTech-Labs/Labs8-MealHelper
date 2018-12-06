@@ -1,11 +1,14 @@
+// == Dependencies == //
 import React, { Component } from "react";
 import { connect } from "react-redux";
-//change the route for this
 import { addWeatherByUser } from "../../store/actions/weatherActions";
 import { withRouter, Link } from "react-router-dom";
-// import { Alert } from "reactstrap";
 import axios from "axios";
+// == Components == //
+// == Actions == //
+// == Styles == //
 import "./weather.css";
+
 
 class Weather extends Component {
   constructor(props) {

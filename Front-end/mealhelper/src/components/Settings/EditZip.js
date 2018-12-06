@@ -1,10 +1,14 @@
+// == Dependencies == //
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { withRouter, Link } from "react-router-dom";
+// == Components == //
 import "../homepage/homepage";
-//change the route for this
+// == Actions == //
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route, Switch } from "react-router-dom";
+// == Styles == //
+//change the route for this
 import { Alert } from "reactstrap";
 import {
   Button,
