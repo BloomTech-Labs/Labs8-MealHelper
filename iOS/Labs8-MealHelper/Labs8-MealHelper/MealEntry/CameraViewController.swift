@@ -405,4 +405,8 @@ extension CameraViewController: SwipeableViewControllerDelegate {
         //handleDismissSwipeView()
     }
     
+    private func display(_ ingredientDetails: UIViewController) {
+        
+    }
+    
 }

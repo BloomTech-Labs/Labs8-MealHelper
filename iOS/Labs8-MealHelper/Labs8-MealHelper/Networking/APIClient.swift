@@ -19,6 +19,24 @@ class APIClient: GenericAPIClient {
         delete(with: url, completion: completion)
     }
     
+    func changeZip(with userId: Int, newZip: Int, password: String, completion: @escaping (Response<String>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["zip", "\(userId)"])
+        let newUserDetails = ["zip": newZip, "password": password] as [String: Any]
+        put(with: url, requestBody: newUserDetails, completion: completion)
+    }
+    
+    func changeZip(with userId: Int, newEmail: String, password: String, completion: @escaping (Response<String>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["email", "\(userId)"])
+        let newUserDetails = ["email": newEmail, "password": password] as [String: Any]
+        put(with: url, requestBody: newUserDetails, completion: completion)
+    }
+    
+    func changePassword(with userId: Int, newPassword: String, oldPassword: String, completion: @escaping (Response<String>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["password", "\(userId)"])
+        let newUserDetails = ["newpassword": newPassword, "oldpassword": oldPassword] as [String: Any]
+        put(with: url, requestBody: newUserDetails, completion: completion)
+    }
+    
     func deleteAlarm(with id: Int, userId: Int, completion: @escaping (Response<String>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["alarms", "\(id)", "user", "\(userId)"])
         delete(with: url, completion: completion)
