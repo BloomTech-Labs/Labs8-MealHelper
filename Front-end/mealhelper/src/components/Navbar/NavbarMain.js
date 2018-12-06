@@ -24,6 +24,9 @@ class NavbarLanding extends Component {
   };
 
   logout = event => {
+    this.setState({
+      open: !this.state.open
+    });
     event.preventDefault();
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
@@ -63,24 +66,28 @@ class NavbarLanding extends Component {
           <ul className={this.state.open ? "menu-list-open" : "menu-list"}>
             <Link
               to="/homepage/meals"
+              onClick={this.openHamburger}
               className={this.state.open ? "menu-list-item" : "none"}
             >
               <img className="menu-list-item item" src={AddMeal} />
             </Link>
             <Link
               to="/homepage/recipes"
+              onClick={this.openHamburger}
               className={this.state.open ? "menu-list-item" : "none"}
             >
               <img className="menu-list-item item" src={Recipes} />
             </Link>
             <Link
               to="/homepage/alarms"
+              onClick={this.openHamburger}
               className={this.state.open ? "menu-list-item" : "none"}
             >
               <img className="menu-list-item item" src={Alarms} />
             </Link>
             <Link
               to="/homepage/settings"
+              onClick={this.openHamburger}
               className={this.state.open ? "menu-list-item" : "none"}
             >
               <img className="menu-list-item item" src={Options} />

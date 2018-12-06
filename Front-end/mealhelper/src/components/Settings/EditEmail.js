@@ -1,10 +1,13 @@
+// == Dependencies == //
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import "../homepage/homepage";
-//change the route for this
+import { withRouter, Link } from "react-router-dom";
+// == Components == //
+//import "../homepage/homepage";
+// == Actions == //
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route, Switch } from "react-router-dom";
+// == Styles == //
 import { Alert } from "reactstrap";
 import {
   Button,
@@ -95,33 +98,6 @@ class EditEmail extends Component {
   render() {
     return (
       <div className="home-container-home">
-        <div className="sidebar">
-          <Link to="/homepage" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Home</h2>
-          </Link>
-          <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Recipes</h2>
-          </Link>
-          <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Alarms</h2>
-          </Link>
-          <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Meals</h2>
-          </Link>
-          <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Billing</h2>
-          </Link>
-          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Settings</h2>
-          </Link>
-          <Button color="danger" onClick={this.toggle}>
-            Log Out
-          </Button>
-          <Link to="homepage/billing">
-            <Button className="danger" color="danger">
-              Upgrade to Premium
-            </Button>
-          </Link>
           {/* <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
             <div className="example">
               <h1>Pay Up Health Nut</h1>
@@ -130,8 +106,6 @@ class EditEmail extends Component {
               </Elements>
             </div>
           </StripeProvider> */}
-        </div>
-
         <div className="flex-me-settings">
           <div className="dynamic-display-home-meals">
             <p className="recentMeals">Change Email </p>

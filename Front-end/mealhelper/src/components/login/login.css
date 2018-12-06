@@ -1,8 +1,17 @@
 .user-form-container-login {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+
+
+
+input {
+  width: 250px;
+  height: 50px;
+  font-size: 12px;
   background: #ffffff;
   margin-top: 5%;
   width: 318px;
@@ -11,6 +20,9 @@
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.57);
   border-radius: 12px;
 }
+
+
+/* LOGIN */
 
 .login-title {
   color: black;
@@ -105,4 +117,9 @@ label {
 }
 .alert-box {
   margin-top: 11%;
+}
+
+.alert-box3 {
+  margin-top: 1% auto;
+  width: 100%;
 }
