@@ -1,0 +1,14 @@
+.add-alarms-container {
+  display: flex;
+  border: 2px solid blue;
+}
+
+.add-alarms-forms {
+  width: 344px;
+  height: 244px;
+  border: 2px solid red;
+}
+
+.alarms-select__control {
+  height: 20px;
+}

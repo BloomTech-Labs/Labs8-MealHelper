@@ -3,13 +3,28 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Select from "react-select";
-import { Button } from "reactstrap";
+import { 
+  Button,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem 
+} from "reactstrap";
 // == Actions == //
 import { addAlarms } from "../../store/actions/alarmActions";
 // == Styles == //
 import "./addAlarm.css";
 
 //this is embarrassingly not DRY; auto-populate ASAP
+const customStyles = {
+  control: (provided,) => ({
+    // none of react-select's styles are passed to <Control />
+    ...provided,
+    width: 200,
+  })
+}
+
+
 const options = [
   { value: "0100", label: "1:00 AM" },
   { value: "0200", label: "2:00 AM" },
@@ -129,16 +144,18 @@ class AddAlarms extends Component {
           <form className="add-alarm-form">
             <h3>What should the time be for your first alarm?</h3>
             <Select
+              styles={customStyles}
               options={options}
-              className="time"
+              className="alarms-select"
               name="startTime"
               placeholder="Start Time"
               onChange={opt => this.setState({ startTime: opt.value })}
             />
             <h3>What should the time be for your last alarm?</h3>
             <Select
+              styles={customStyles}
               options={options}
-              className="time"
+              className="alarms-select"
               name="endTime"
               placeholder="End Time"
               onChange={opt => this.setState({ endTime: opt.value })}
@@ -152,9 +169,9 @@ class AddAlarms extends Component {
               placeholder="Hours between each alarm"
             />
           </form>
-          <button onClick={this.addAlarm} className="add-alarms btn">
+          <Button onClick={this.addAlarm} className="add-alarms btn">
             Add Alarm Batch
-          </button>
+          </Button>
         </div>
 
         <div className="add-alarms-forms">
@@ -164,8 +181,9 @@ class AddAlarms extends Component {
 
           <form className="add-alarm-form">
             <Select
+              styles={customStyles}
               options={options}
-              className="time"
+              className="alarms-select"
               name="alarmTime"
               placeholder="Alarm Time"
               onChange={opt => this.setState({ alarmTime: opt.value })}
@@ -178,9 +196,9 @@ class AddAlarms extends Component {
               placeholder="Alarm label"
             />
           </form>
-          <button onClick={this.addSingleAlarm} className="add-alarms btn">
+          <Button onClick={this.addSingleAlarm} className="add-alarms btn">
             Add Alarm
-          </button>
+          </Button>
         </div>
       </div>
     );
