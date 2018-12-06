@@ -149,7 +149,7 @@ class MyAlarms extends Component {
         <div className="dynamic-display">
           <h1>Alarms</h1>
           <Link to="/homepage/alarms/add-alarms">Add New Alarms</Link>
-          {console.log("THE ALARMS", theAlarms)}
+         
           {this.props.alarms.map(alarm => (
             <div
               key={alarm.id}
