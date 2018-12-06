@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "./billing.css";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route, Switch } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Button, Modal, ModalHeader } from "reactstrap";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../checkout/CheckoutForm";

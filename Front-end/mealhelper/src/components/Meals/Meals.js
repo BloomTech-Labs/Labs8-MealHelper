@@ -11,11 +11,8 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-//change the route for this
 import { addMeal } from "../../store/actions/mealActions";
-import { withRouter, Link, Route } from "react-router-dom";
-// import { Alert } from "reactstrap";
-import Recipes from "../recipes/recipes";
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 import "./meals.css";
 
@@ -179,7 +176,7 @@ class Meals extends Component {
   render() {
     return (
       <div className="home-container">
-        <div className="sidebar">
+        {/* <div className="sidebar">
           <Link to="/homepage" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Home</h2>
           </Link>
@@ -201,7 +198,7 @@ class Meals extends Component {
           <Button color="danger" onClick={this.toggleLogout}>
             Log Out
           </Button>
-        </div>
+        </div> */}
         <div className="create-recipe-background">
           <Button color="success" onClick={this.toggle}>
             + New Meal
