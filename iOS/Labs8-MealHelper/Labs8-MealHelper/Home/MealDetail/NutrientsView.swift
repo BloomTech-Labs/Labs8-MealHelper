@@ -10,21 +10,28 @@ import UIKit
 
 class NutrientsView: UIView {
     
+    var nutrients: [Nutrient]? {
+        didSet {
+            updateViews()
+        }
+    }
+    
     let kcalValueLabel: UILabel = {
         let label = UILabel()
-        label.text = "18.4"
+        label.text = "0.0"
         label.textColor = .mountainDark
-        label.font = Appearance.appFont(with: 24)
+        label.font = Appearance.appFont(with: 17)
         label.textAlignment = .center
+        label.numberOfLines = 0
         
         return label
     }()
     
     let carbsValueLabel: UILabel = {
         let label = UILabel()
-        label.text = "12.1"
+        label.text = "0.0"
         label.textColor = .mountainDark
-        label.font = Appearance.appFont(with: 24)
+        label.font = Appearance.appFont(with: 17)
         label.textAlignment = .center
         
         return label
@@ -32,9 +39,9 @@ class NutrientsView: UIView {
     
     let fatValueLabel: UILabel = {
         let label = UILabel()
-        label.text = "7.2"
+        label.text = "0.0"
         label.textColor = .mountainDark
-        label.font = Appearance.appFont(with: 24)
+        label.font = Appearance.appFont(with: 17)
         label.textAlignment = .center
         
         return label
@@ -42,9 +49,9 @@ class NutrientsView: UIView {
     
     let proteinValueLabel: UILabel = {
         let label = UILabel()
-        label.text = "17.9"
+        label.text = "0.0"
         label.textColor = .mountainDark
-        label.font = Appearance.appFont(with: 24)
+        label.font = Appearance.appFont(with: 17)
         label.textAlignment = .center
         
         return label
@@ -104,7 +111,7 @@ class NutrientsView: UIView {
         valueStackView.spacing = 12
         
         addSubview(valueStackView)
-        valueStackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 14, left: 12, bottom: 0, right: 12), size: CGSize(width: 0, height: 40))
+        valueStackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12), size: CGSize(width: 0, height: 40))
         
         let typeStackView = UIStackView(arrangedSubviews: [kcalLabel, carbsLabel, fatLabel, proteinLabel])
         typeStackView.axis = .horizontal
@@ -113,6 +120,15 @@ class NutrientsView: UIView {
         
         addSubview(typeStackView)
         typeStackView.anchor(top: valueStackView.bottomAnchor, leading: valueStackView.leadingAnchor, bottom: nil, trailing: valueStackView.trailingAnchor, padding: UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0), size: CGSize(width: 0, height: 20))
+    }
+    
+    private func updateViews() {
+        guard let nutrients = nutrients else { return }
+        let macroNutrients = FoodHelper().getMacroNutrients(from: nutrients)
+        kcalValueLabel.text = macroNutrients.energy ?? "0.0"
+        carbsValueLabel.text = macroNutrients.carbs ?? "0.0"
+        fatValueLabel.text = macroNutrients.fat ?? "0.0"
+        proteinValueLabel.text = macroNutrients.protein ?? "0.0"
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import Sign from "../Sign";
-import Callback from "../../Callback";
 import { connect } from "react-redux";
-//change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
 import Loading from "./Double Ring-2s-200px.svg";
-
+import Applelogo from "../../img/appstorebadge.png";
 import "./signup.css";
 
 class SignUp extends Component {
@@ -27,7 +25,7 @@ class SignUp extends Component {
   }
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
-      this.props.history.push("/homepage");
+      this.props.history.push("/zip");
     }
   };
   handleChange = event => {
@@ -47,7 +45,7 @@ class SignUp extends Component {
       this.setState({ visableError: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      this.props.history.push("/homepage");
+      this.props.history.push("/zip");
     }
   };
   async confirmSignup() {
@@ -60,8 +58,8 @@ class SignUp extends Component {
       this.setState({ visable: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      const { email, password, zip, healthCondition } = this.state;
-      const user = { email, password, zip, healthCondition };
+      const { email, password, zip } = this.state;
+      const user = { email, password, zip };
       this.props.addUser(user);
     }
   };
@@ -87,7 +85,7 @@ class SignUp extends Component {
             </div>
             <div className="formcenter">
               <div className="user-form-container">
-                <h1 className="signup-title">Sign Up</h1>
+                <h1 className="signup-title">EatWell</h1>
                 <form className="signup-form">
                   <div className="form-group">
                     <label>Email</label>
@@ -109,24 +107,28 @@ class SignUp extends Component {
                       value={this.state.password}
                     />
                   </div>
-                  <div className="form-group">
-                    <label>Zip</label>
-                    <input
-                      className="zip-input"
-                      type="number"
-                      name="zip"
-                      onChange={this.handleChange}
-                      value={this.state.zip}
-                    />
-                  </div>
                   <div className="signup" onClick={this.confirmSignup}>
                     <span>Sign Up</span>
                   </div>
+                  <p className="cta-existing-account">
+                    Already Have An Account?
+                  </p>
+                  <Link to="/login" style={{ textDecoration: "none" }}>
+                    <div className="login">
+                      <span>Login with Email</span>
+                    </div>
+                  </Link>
                 </form>
-                <div>
+                <div className="authbuttonlogin">
                   <Sign />
-                  <Route exact path="/callback" component={Callback} />
                 </div>
+                <a href="https://www.apple.com/ios/app-store/">
+                  <img
+                    className="applebadge"
+                    src={Applelogo}
+                    alt="Apple App Store"
+                  />
+                </a>
               </div>
             </div>
           </div>

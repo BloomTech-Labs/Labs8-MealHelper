@@ -9,7 +9,7 @@
 import UIKit
 
 class NutrientDetailTableViewController: UITableViewController {
-    
+        
     var nutrients: [Nutrient]? {
         didSet {
             tableView.reloadData()
@@ -18,11 +18,12 @@ class NutrientDetailTableViewController: UITableViewController {
     
     var servingType = FoodHelper.ServingTypes.cup
     
-    private let cellReuseId = "nutrientCell"
+    private let cellReuseId = "NutrientCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseId)
+        
     }
     
     // MARK: - Table view data source
@@ -42,8 +43,11 @@ class NutrientDetailTableViewController: UITableViewController {
         
         cell.textLabel?.text = nutrient?.name
         cell.detailTextLabel?.text = nutrient?.unit
+        cell.textLabel?.font = Appearance.appFont(with: 14)
+        cell.detailTextLabel?.font = Appearance.appFont(with: 14)
         
         let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: 60, height: 20))
+        label.font = Appearance.appFont(with: 14)
         label.textAlignment = .right
         label.text = nutrient?.value
         cell.accessoryView = label

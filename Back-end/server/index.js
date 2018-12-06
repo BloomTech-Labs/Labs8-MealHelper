@@ -55,9 +55,10 @@ server.post("/charge", async (req, res) => {
     let { status } = await stripe.charges.create({
       amount: 2000,
       currency: "usd",
-      description: "An example charge",
+      description: "EatWell Subscription PAID",
       source: req.body
     });
+
 
     res.json({ status });
   } catch (err) {
@@ -74,7 +75,7 @@ server.get("/users", (req, res) => {
       res.status(200).json(users);
     })
     .catch(err => {
-      res.status(400).json({ error: "could not grab users" });
+      res.status(400).json({ error: "Could not grab users" });
     });
 });
 server.get("/users/:id", (req, res) => {
@@ -86,7 +87,7 @@ server.get("/users/:id", (req, res) => {
       res.status(200).json(users);
     })
     .catch(err => {
-      res.status(400).json({ error: "could not grab users" });
+      res.status(400).json({ error: "Could not grab users" });
     });
 });
 // Register a new user
@@ -117,7 +118,7 @@ server.post("/register", (req, res) => {
             .json({ userID: user.id, token: token, zip: user.zip });
         })
         .catch(err => {
-          res.status(400).json({ error: "could not grab user" });
+          res.status(400).json({ error: "Could not grab user" });
         });
     })
     .catch(err => {
@@ -138,7 +139,6 @@ server.post("/registerAuth0", (req, res) => {
     .insert(user)
     .then(userMsg => {
       const token = generateToken(user);
-      console.log(userMsg);
       res.status(201).json({ userID: userMsg, token: token });
     })
     .catch(err => {
@@ -701,17 +701,17 @@ server.get("/nutrients/:ingredientID", (req, res) => {
     .first()
     .then(ingredients => {
       db("nutrients")
-        .where({ ingredients_id: ingredientId })
+        .where({ ingredient_id: ingredientId })
         .then(nutrients => {
           //Returns all the nutrients
           res.status(200).json(nutrients);
         })
         .catch(err => {
-          res.status(400).json({ err, error: "could not find nutrients" });
+          res.status(400).json({ err, error: "Could not find nutrients" });
         });
     })
     .catch(err => {
-      res.status(400).json({ err, error: "could not find meal" });
+      res.status(400).json({ err, error: "Could not find meal" });
     });
 });
 //POST request to create an ingredients
@@ -840,11 +840,11 @@ server.put("/nutrients/ingredients/:ingredientID", (req, res) => {
               res.status(200).json(ingredient);
             })
             .catch(err => {
-              res.status(400).json({ error: "error returning ingredient" });
+              res.status(400).json({ error: "Error returning ingredient" });
             });
         })
         .catch(err => {
-          res.status(400).json({ err, error: "could not add nutrients" });
+          res.status(400).json({ err, error: "Could not add nutrients" });
         });
     });
 });
@@ -862,7 +862,7 @@ server.delete("/nutrients/:id", (req, res) => {
       res.status(200).json(deleted);
     })
     .catch(err => {
-      res.status(400).json({ error: "could not delete meals" });
+      res.status(400).json({ error: "Could not delete meals" });
     });
 });
 
@@ -881,7 +881,7 @@ server.get("notes/:mealid", (req, res) => {
       res.status(200).json(note);
     })
     .catch(err => {
-      res.status(400).json({ error: "could not find associated note" });
+      res.status(400).json({ error: "Could not find associated note" });
     });
 });
 //POST req to create a note and associate it to a meal
@@ -952,7 +952,7 @@ server.get("/weather/:mealid", (req, res) => {
       res.status(200).json(weather);
     })
     .catch(err => {
-      res.status(400).json({ error: "could not find the weather data" });
+      res.status(400).json({ error: "Could not find the weather data" });
     });
 });
 server.get("/weather/user/:userid", (req, res) => {
@@ -965,7 +965,7 @@ server.get("/weather/user/:userid", (req, res) => {
       res.status(200).json(weather);
     })
     .catch(err => {
-      res.status(400).json({ error: "could not find the weather data" });
+      res.status(400).json({ error: "Could not find the weather data" });
     });
 });
 //POST req to create a weather report for that meal
@@ -1044,32 +1044,18 @@ server.get("/alarms/:userid", (req, res) => {
       res.status(200).json(alarms);
     })
     .catch(err => {
-      res.status(400).json({ error: "could not find the alarms" });
+      res.status(400).json({ error: "Could not find the alarms" });
     });
 });
-
-server.get("/alarms/:userid/:alarmid", (req, res) => {
-  const user_ID = req.params.userid;
-  const alarm_ID = req.params.alarmid;
-  db("alarms")
-    .where({ id: alarm_ID, user_id: user_ID })
-    .then(alarm => {
-      res.status(200).json(alarm);
-    })
-    .catch(err => {
-      res.status(400).json({ error: "could not find the alarm with that id" });
-    });
-});
-
 //POST req to create a alarm for the user
 server.post("/alarms/:userid", (req, res) => {
   //Grabs the user id from req.params
   const user_id = req.params.userid;
   console.log("req.params.userid", req.params.userid, "user_ID", user_id);
-  const { label, alarm, timestamp } = req.body;
+  const { label, alarm } = req.body;
   console.log("req.body", req.body, "label, alarm", label, alarm);
   //Adds the user id to the alarm object
-  const alarmBody = { label, alarm, user_id, timestamp };
+  const alarmBody = { label, alarm, user_id };
   console.log("alarmBody", alarmBody);
   db("alarms")
     //Inserts the alarm and sets it to the user
@@ -1088,13 +1074,12 @@ server.post("/alarms/:userid", (req, res) => {
 });
 
 //PUT request to change the alarm settings
-server.put("/editalarms/:id/user/:userid", (req, res) => {
+server.put("/alarms/:id", (req, res) => {
   //Grabs the alarm id from req.params
   const id = req.params.id;
-  const user_id = req.params.userid;
-  const { label, alarm, timestamp } = req.body;
+  const { label, alarm } = req.body;
   // Sets the req.body to an alarm object that gets passed into the update
-  const alarmBody = { label, alarm, timestamp };
+  const alarmBody = { label, alarm };
   db("alarms")
     .where({ id: id })
     .update({
@@ -1102,11 +1087,8 @@ server.put("/editalarms/:id/user/:userid", (req, res) => {
       alarm: alarmBody.alarm
     })
     .then(alarmID => {
-      db("alarms")
-        .where({ user_id: user_id })
-        .then(alarms => {
-          res.status(200).json(alarms);
-        });
+      //Returns the alarm ID
+      res.status(200).json(alarmID);
     })
     .catch(err => {
       res.status(400).json({ error: "Could not update alarm" });
@@ -1114,25 +1096,16 @@ server.put("/editalarms/:id/user/:userid", (req, res) => {
 });
 
 //Deletes the alarm for the user
-server.delete("/alarms/:id/user/:userid", (req, res) => {
+server.delete("/alarms/:id", (req, res) => {
   //Grabs alarm id from req.params
   const id = req.params.id;
-  const user_ID = req.params.userid;
   db("alarms")
     //FInds the meal thats associated with that weather report
     .where({ id: id })
     .del()
     .then(deleted => {
-      db("alarms")
-        //Finds the alarms associated to that user
-        .where({ user_id: user_ID })
-        .then(alarms => {
-          //Returns the alarms for that user
-          res.status(200).json(alarms);
-        })
-        .catch(err => {
-          res.status(400).json({ error: "could not find the alarms" });
-        });
+      //Returns a 1 for deleted or a 0 for not.
+      res.status(200).json(deleted);
     })
     .catch(err => {
       res.status(400).json({ error: "Error deleting alarm" });

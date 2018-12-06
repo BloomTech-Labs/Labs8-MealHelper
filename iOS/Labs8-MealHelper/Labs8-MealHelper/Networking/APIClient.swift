@@ -47,10 +47,61 @@ class APIClient: GenericAPIClient {
         fetch(from: url, completion: completion)
     }
     
+<<<<<<< HEAD
     func uploadAlarm(time: String, note: String, userId: Int, timestamp: String, completion: @escaping (Response<[Alarm]>) -> ()) {
         let alarm = ["alarm": time, "label": note, "timestamp": timestamp] as [String: Any]
         let url = self.url(with: baseUrl, pathComponents: ["alarms", "\(userId)"])
         post(with: url, requestBody: alarm, completion: completion)
+=======
+    func uploadAlarm(time: String, note: String, userId: Int, timestamp: String, completion: @escaping (Response<Alarm>) -> ()) {
+        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(userId)")!
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = HTTPMethod.post.rawValue
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            
+            let alarm = ["alarm": time, "label": note, "timestamp": timestamp]
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            let alarmJson = try encoder.encode(alarm)
+            urlRequest.httpBody = alarmJson
+            
+        } catch {
+            NSLog("Error encoding alarm: \(error)")
+            completion(Response.error(error))
+            return
+        }
+    
+        URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
+            
+            if let error = error {
+                NSLog("Error with urlReqeust: \(error)")
+                completion(Response.error(error))
+                return
+            }
+            
+            guard let data = data else {
+                NSLog("No data returned")
+                completion(Response.error(NSError()))
+                return
+            }
+            
+            do {
+                let alarms = try JSONDecoder().decode([Alarm].self, from: data)
+                let sortedAlarms = alarms.sorted(by: { $0.timestamp > $1.timestamp })
+                let createdAlarm = sortedAlarms.first
+                completion(Response.success(createdAlarm!))
+                
+            } catch {
+                NSLog("Error decoding data: \(error)")
+                completion(Response.error(error))
+                return
+            }
+        }.resume()
+        
+>>>>>>> 202cf1be0298090106fe744feb8fdd9470c377c5
     }
     
     func fetchMeals(with userId: Int, completion: @escaping (Response<[Meal]>) -> ()) {

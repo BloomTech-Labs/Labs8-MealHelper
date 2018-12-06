@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
+import "./CheckoutForm.css";
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -29,9 +30,11 @@ class CheckoutForm extends Component {
     if (this.state.complete) return <h1>Success! Welcome to HealHelper</h1>;
     return (
       <div className="checkout">
-        <p>Would you like to complete the purchase?</p>
-        <span>Name</span>
+        <p>Complete Your Purchase</p>
+        <label>Name</label>
+        <br />
         <input
+          className="stripe-name-input"
           value={this.state.inputValue}
           onChange={evt => this.updateInputValue(evt)}
         />

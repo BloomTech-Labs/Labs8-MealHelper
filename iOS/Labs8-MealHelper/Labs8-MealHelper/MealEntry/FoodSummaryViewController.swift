@@ -48,6 +48,7 @@ class FoodSummaryViewController: UIViewController {
     private lazy var typeInputField: PickerInputField = {
         let inputField = PickerInputField(defaultValue: typePickerFieldDefaultValue)
         inputField.picker.accessibilityIdentifier = "servingSize"
+        inputField.imageTintColor = .mountainBlue
         inputField.leftImage = typePickerFieldImage
         return inputField
     }()
@@ -55,6 +56,7 @@ class FoodSummaryViewController: UIViewController {
     private lazy var quantityInputField: PickerInputField = {
         let inputField = PickerInputField(defaultValue: quantityPickerFieldDefaultValue)
         inputField.picker.accessibilityIdentifier = "servingQty"
+        inputField.imageTintColor = .mountainBlue
         inputField.leftImage = quantityPickerFieldImage
         return inputField
     }()
@@ -77,9 +79,11 @@ class FoodSummaryViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20.0)
+        label.font = Appearance.appFont(with: 15)
+        label.numberOfLines = 2
+        label.textAlignment = .center
         return label
     }()
     
@@ -92,12 +96,6 @@ class FoodSummaryViewController: UIViewController {
         tf.placeholder = "Add a recipe name"
         return tf
     }()
-    
-//    private lazy var subtitleLabel: UILabel = {
-//        let label = UILabel()
-//        label.font = UIFont.systemFont(ofSize: 17.0)
-//        return label
-//    }()
     
     // MARK: - Life Cycle
     
@@ -114,12 +112,11 @@ class FoodSummaryViewController: UIViewController {
         editableTitle == true
             ? mainStackView.addArrangedSubview(titleTextField)
             : mainStackView.addArrangedSubview(titleLabel)
-        //mainStackView.addArrangedSubview(subtitleLabel)
         mainStackView.addArrangedSubview(inputStackView)
         inputStackView.addArrangedSubview(typeInputField)
         inputStackView.addArrangedSubview(quantityInputField)
         
-        mainStackView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 20.0, left: 10.0, bottom: 20.0, right: 10.0))
+        mainStackView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 10.0, left: 10.0, bottom: 20.0, right: 10.0))
         inputStackView.anchor(top: nil, leading: mainStackView.leadingAnchor, bottom: nil, trailing: mainStackView.trailingAnchor)
         
         titleLabel.text = titleName
@@ -168,13 +165,13 @@ extension FoodSummaryViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             typeInputField.text = type
             servingType = type
             //setServingType(with: type, for: food)
-            NotificationCenter.default.post(name: .MHFoodSummaryTypePickerDidChange, object: nil, userInfo: ["quantity": servingQty, "type": servingType])
+            NotificationCenter.default.post(name: .MHFoodSummaryPickerDidChange, object: nil, userInfo: ["quantity": servingQty, "type": servingType])
         case "servingQty":
             let qty = typePickerFieldValues[row]
             quantityInputField.text = qty
             servingQty = qty
             //setServingQty(with: qty, for: food)
-            NotificationCenter.default.post(name: .MHFoodSummaryTypePickerDidChange, object: nil, userInfo: ["quantity": servingQty, "type": servingType])
+            NotificationCenter.default.post(name: .MHFoodSummaryPickerDidChange, object: nil, userInfo: ["quantity": servingQty, "type": servingType])
         default:
             break
         }

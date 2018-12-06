@@ -27,6 +27,10 @@
 		3D7AD09921AF247600A68323 /* UIViewController+Containment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7AD09821AF247600A68323 /* UIViewController+Containment.swift */; };
 		3D90DE712194D46D006C116B /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D90DE702194D46D006C116B /* Login.xcassets */; };
 		3DB18BE82196FAB800C0E728 /* InputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB18BE72196FAB800C0E728 /* InputField.swift */; };
+		3DB43E1D21B6E536008111C0 /* SearchIngredientCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB43E1C21B6E536008111C0 /* SearchIngredientCollectionViewController.swift */; };
+		3DB43E1F21B6E541008111C0 /* RecipeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB43E1E21B6E541008111C0 /* RecipeCollectionViewController.swift */; };
+		3DB43E2121B6E552008111C0 /* FoodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB43E2021B6E552008111C0 /* FoodCell.swift */; };
+		3DB43E2521B6E6DC008111C0 /* FoodClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB43E2421B6E6DB008111C0 /* FoodClient.swift */; };
 		3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F242196200D007AA68A /* HTTPMethod.swift */; };
 		3DB65F282196200D007AA68A /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F252196200D007AA68A /* APIClient.swift */; };
 		3DB65F292196200D007AA68A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F262196200D007AA68A /* Response.swift */; };
@@ -134,6 +138,10 @@
 		3D7AD09821AF247600A68323 /* UIViewController+Containment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Containment.swift"; sourceTree = "<group>"; };
 		3D90DE702194D46D006C116B /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
 		3DB18BE72196FAB800C0E728 /* InputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputField.swift; sourceTree = "<group>"; };
+		3DB43E1C21B6E536008111C0 /* SearchIngredientCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchIngredientCollectionViewController.swift; sourceTree = "<group>"; };
+		3DB43E1E21B6E541008111C0 /* RecipeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCollectionViewController.swift; sourceTree = "<group>"; };
+		3DB43E2021B6E552008111C0 /* FoodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCell.swift; sourceTree = "<group>"; };
+		3DB43E2421B6E6DB008111C0 /* FoodClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodClient.swift; path = "Labs8-MealHelper/Networking/FoodClient.swift"; sourceTree = SOURCE_ROOT; };
 		3DB65F242196200D007AA68A /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPMethod.swift; path = "Labs8-MealHelper/Networking/HTTPMethod.swift"; sourceTree = SOURCE_ROOT; };
 		3DB65F252196200D007AA68A /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIClient.swift; path = "Labs8-MealHelper/Networking/APIClient.swift"; sourceTree = SOURCE_ROOT; };
 		3DB65F262196200D007AA68A /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Response.swift; path = "Labs8-MealHelper/Networking/Response.swift"; sourceTree = SOURCE_ROOT; };
@@ -325,6 +333,7 @@
 		3DB65F2321961FEB007AA68A /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				3DB43E2421B6E6DB008111C0 /* FoodClient.swift */,
 				3DB65F252196200D007AA68A /* APIClient.swift */,
 				ACDCF06A21B6E7BD0078D5A8 /* FoodClient.swift */,
 				3DB65F242196200D007AA68A /* HTTPMethod.swift */,
@@ -389,8 +398,15 @@
 			isa = PBXGroup;
 			children = (
 				3D7AD08F21AF19D500A68323 /* FoodHelper.swift */,
+<<<<<<< HEAD
 				ACDCF06421B6E75E0078D5A8 /* FoodCell.swift */,
 				AC85F3CA219E3523007765CA /* FoodSummaryViewController.swift */,
+=======
+				3DB43E2021B6E552008111C0 /* FoodCell.swift */,
+				AC85F3CA219E3523007765CA /* FoodSummaryViewController.swift */,
+				3DB43E1E21B6E541008111C0 /* RecipeCollectionViewController.swift */,
+				3DB43E1C21B6E536008111C0 /* SearchIngredientCollectionViewController.swift */,
+>>>>>>> 202cf1be0298090106fe744feb8fdd9470c377c5
 				3D154CB121AF34D700D88D5D /* SearchIngredientDetailViewController.swift */,
 				AC85F3D0219E3524007765CA /* CameraViewController.swift */,
 				ACDCF06821B6E7790078D5A8 /* SearchIngredientCollectionViewController.swift */,
@@ -607,7 +623,11 @@
 			files = (
 				3D77DD14219EDA6E009B21ED /* Constants.swift in Sources */,
 				ACE1FA6D21AF091B003A0030 /* Alarm.swift in Sources */,
+<<<<<<< HEAD
 				ACDCF06B21B6E7BD0078D5A8 /* FoodClient.swift in Sources */,
+=======
+				3DB43E1F21B6E541008111C0 /* RecipeCollectionViewController.swift in Sources */,
+>>>>>>> 202cf1be0298090106fe744feb8fdd9470c377c5
 				AC1DE8692194748F0066172C /* MealCell.swift in Sources */,
 				AC62FACF219B408B00D8C35C /* StretchyHeaderLayout.swift in Sources */,
 				AC85F38B219E0B2F007765CA /* LeftIconTextField.swift in Sources */,
@@ -633,7 +653,9 @@
 				3D7AD09421AF1B0800A68323 /* Notification+Name.swift in Sources */,
 				3D56A9FE21939D3A00A91EF4 /* AutoLayout.swift in Sources */,
 				AC85F38D219E0C1D007765CA /* LoginViewController.swift in Sources */,
+				3DB43E2121B6E552008111C0 /* FoodCell.swift in Sources */,
 				ACE1FA7521B0582F003A0030 /* LocalNotificationsHelper.swift in Sources */,
+				3DB43E1D21B6E536008111C0 /* SearchIngredientCollectionViewController.swift in Sources */,
 				3DB65F282196200D007AA68A /* APIClient.swift in Sources */,
 				3DDB4A1C21A774E4007A1B5E /* SwipeableViewController.swift in Sources */,
 				AC81A66721B5741900BBD47E /* MenuBarCell.swift in Sources */,
@@ -665,6 +687,7 @@
 				3D154CB621AF368E00D88D5D /* IngredientTableViewController.swift in Sources */,
 				AC62FAD1219B499600D8C35C /* HomeCollectionView.swift in Sources */,
 				AC81A66B21B578C800BBD47E /* AboutCell.swift in Sources */,
+				3DB43E2521B6E6DC008111C0 /* FoodClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
