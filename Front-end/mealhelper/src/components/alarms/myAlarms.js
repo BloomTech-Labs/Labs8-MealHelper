@@ -11,7 +11,6 @@ import {
 } from "../../store/actions/alarmActions";
 // == Styles == //
 
-
 const alarms = [
   {
     id: 1,
@@ -114,75 +113,96 @@ class MyAlarms extends Component {
   showModal = alarmID => {
     const alarmToUpdate = this.props.alarms.find(alarm => alarm.id === alarmID);
     const show = this.state.show;
-    this.setState(
-      {
-        ...this.state,
-        show: !show,
-        alarmToUpdate: alarmToUpdate
-      });
+    this.setState({
+      ...this.state,
+      show: !show,
+      alarmToUpdate: alarmToUpdate
+    });
   };
 
-  fromMilitary = alarm => {
-    
-  }
+  militaryToStandard = time => {
+    let twelve = 0;
+    let format = 0;
+    let twelveWithZero = 0;
+    let lastNum = 0;
+    if (time > 1259) {
+      twelve = time - 1200;
+      if (twelve > 3) {
+        twelveWithZero = 0 + twelve.toString();
+        format = twelveWithZero.toString().split("");
+        lastNum = format[format.length - 1];
+        format[2] = ":";
+        format.push(lastNum);
+        return format.join("");
+      }
+    }
+    format = time.split("");
+    lastNum = format[format.length - 1];
+    format[2] = ":";
+    format.push(lastNum);
+    return format.join("");
+  };
+
   render() {
+    let theAlarms = this.props.alarms.sort((a, b) => a - b);
     return (
       <div className="alarms-container">
-          <div className="dynamic-display">
-            <h1>Alarms</h1>
-            <Link to="/homepage/alarms/add-alarms">Add New Alarms</Link>
-            {this.props.alarms.map(alarm => (
-              <div
-                key={alarm.id}
-                id={alarm.id}
-                label={alarm.label}
-                alarm={alarm.alarm}
+        <div className="dynamic-display">
+          <h1>Alarms</h1>
+          <Link to="/homepage/alarms/add-alarms">Add New Alarms</Link>
+          {console.log("THE ALARMS", theAlarms)}
+          {theAlarms.map(alarm => (
+            <div
+              key={alarm.id}
+              id={alarm.id}
+              label={alarm.label}
+              alarm={alarm.alarm}
+            >
+              {" "}
+              <br />
+              <h2>{this.militaryToStandard(alarm.alarm)}</h2>
+              <h2>{alarm.label}</h2>
+              <button onClick={() => this.showModal(alarm.id)}> Edit </button>
+              <button
+                onClick={() =>
+                  this.props.deleteAlarm(alarm.id, this.props.user.userID)
+                }
               >
-                {" "}
-                <br />
-                <h2>{alarm.alarm}</h2>
-                <h2>{alarm.label}</h2>
-                <button onClick={() => this.showModal(alarm.id)}> Edit </button>
-                <button
-                  onClick={() =>
-                    this.props.deleteAlarm(alarm.id, this.props.user.userID)
-                  }
-                >
-                  Delete
-                </button>
-              </div>
-            ))}
+                Delete
+              </button>
+            </div>
+          ))}
 
-            <editAlarmModal show={this.state.show}>
-              <div className="edit-modal">
-                <h2>Edit Alarm</h2>
-                <input
-                  type="label"
-                  name="label"
-                  value={this.state.label}
-                  onChange={this.handleChange}
-                />
-                <Select
-                  options={options}
-                  className="time"
-                  name="alarmTime"
-                  onChange={opt =>
-                    this.setState(prevState => ({
-                      alarmToUpdate: {
-                        ...prevState.alarmToUpdate,
-                        alarm: opt.value
-                      }
-                    }))
-                  }
-                />
-                <button onClick={() => this.sendToEdit(this.state.label)}>
-                  Submit
-                </button>
-                <button onClick={() => this.showModal}>Nevermind</button>
-              </div>
-            </editAlarmModal>
-          </div>
+          <editAlarmModal show={this.state.show}>
+            <div className="edit-modal">
+              <h2>Edit Alarm</h2>
+              <input
+                type="label"
+                name="label"
+                value={this.state.label}
+                onChange={this.handleChange}
+              />
+              <Select
+                options={options}
+                className="time"
+                name="alarmTime"
+                onChange={opt =>
+                  this.setState(prevState => ({
+                    alarmToUpdate: {
+                      ...prevState.alarmToUpdate,
+                      alarm: opt.value
+                    }
+                  }))
+                }
+              />
+              <button onClick={() => this.sendToEdit(this.state.label)}>
+                Submit
+              </button>
+              <button onClick={() => this.showModal}>Nevermind</button>
+            </div>
+          </editAlarmModal>
         </div>
+      </div>
     );
   }
 }
