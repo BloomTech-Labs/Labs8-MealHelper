@@ -15,12 +15,12 @@ class CameraViewController: UIViewController {
     // MARK: - Properties
     
     weak var delegate: SearchIngredientDetailDelegate?
-    var searchedIngredients = [Ingredient]()
+    var searchedIngredient: Ingredient?
     
     private var captureSession: AVCaptureSession!
     private var previewView = CameraPreview()
     private var barcodeScanner = BarcodeScanner()
-    private var ingredientDetailViews = [SwipableViewController]()
+    private var ingredientDetailView: SwipableViewController?
     private var scanLayer = CAShapeLayer()
     private var blurView = UIVisualEffectView (effect: UIBlurEffect (style: UIBlurEffect.Style.dark))
     
@@ -163,6 +163,40 @@ class CameraViewController: UIViewController {
         closeButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: blurView.trailingAnchor, padding: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 20), size: CGSize(width: 20, height: 20))
     }
     
+    private func setupIngredientDetailSwipeView(with ingredient: Ingredient) {
+        
+        let swipeVC = SwipableViewController()
+        ingredientDetailView = swipeVC
+        swipeVC.openHeight = UIScreen.main.bounds.height - 150
+        swipeVC.closedHeight = 300
+        
+        let ingredientDetailVC = SearchIngredientDetailViewController()
+        ingredientDetailVC.closeButton.isHidden = true
+        ingredientDetailVC.backgroundIsTransparent = true
+        ingredientDetailVC.ingredient = ingredient
+        
+        let addButton = UIButton(type: .system)
+        addButton.setImage(UIImage(named: "plus-icon")!, for: .normal)
+        addButton.addTarget(self, action: #selector(self.addToRecipe), for: .touchUpInside)
+        addButton.backgroundColor = .sunRed
+        addButton.tintColor = .white
+        addButton.layer.cornerRadius = 35 / 2
+        
+        
+        self.add(swipeVC)
+        
+        //swipeVC.addChild(ingredientDetailVC)
+        
+        swipeVC.popupView.addSubview(ingredientDetailVC.view)
+        //ingredientDetailVC.didMove(toParent: swipeVC)
+        swipeVC.view.addSubview(addButton)
+        //ingredientDetailVC.view.frame = swipeVC.popupView.frame
+        
+        swipeVC.view.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor, padding: UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0))
+        addButton.anchor(top: swipeVC.popupView.topAnchor, leading: nil, bottom: nil, trailing: swipeVC.popupView.trailingAnchor, padding: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 20), size: CGSize(width: 35, height: 35))
+        ingredientDetailVC.view.anchor(top: addButton.bottomAnchor, leading: swipeVC.popupView.leadingAnchor, bottom: nil, trailing: swipeVC.popupView.trailingAnchor, padding: UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0))
+    }
+    
     // Choose the best camera on the device
     private func bestCamera() -> AVCaptureDevice {
         if let device = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) {
@@ -245,38 +279,9 @@ extension CameraViewController: BarcodeScannerDelegate {
             switch response {
             case .success(let ingredients):
                 DispatchQueue.main.async {
-                    self.searchedIngredients.append(ingredients.first!)
-                    self.scanLayer.strokeColor = UIColor.green.cgColor
-                    self.barcodeScanner.startScanning()
-                    let swipeVC = SwipableViewController()
-                    //self.ingredientDetailViews.append(swipeVC)
-                    swipeVC.openHeight = UIScreen.main.bounds.height - 150
-                    swipeVC.closedHeight = 300
-                    
-                    self.add(swipeVC)
-
-                    swipeVC.view.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor, padding: UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0))
-//                    swipeVC.view.fillSuperview()
-//                    swipeVC.view.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
-                    
-                    let button = UIButton(type: .system)
-                    button.setImage(UIImage(named: "plus-icon")!, for: .normal)
-                    button.addTarget(self, action: #selector(self.addToRecipe), for: .touchUpInside)
-                    button.backgroundColor = .sunRed
-                    button.tintColor = .white
-                    button.layer.cornerRadius = 35 / 2
-                    swipeVC.view.addSubview(button)
-                    button.anchor(top: swipeVC.popupView.topAnchor, leading: nil, bottom: nil, trailing: swipeVC.popupView.trailingAnchor, padding: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 20), size: CGSize(width: 35, height: 35))
-                    
-                    let ingredientDetailVC = SearchIngredientDetailViewController()
-                    ingredientDetailVC.closeButton.isHidden = true
-                    ingredientDetailVC.backgroundIsTransparent = true
-                    ingredientDetailVC.ingredient = ingredients.first
-                    swipeVC.addChild(ingredientDetailVC)
-                    ingredientDetailVC.view.frame = swipeVC.popupView.frame
-                    swipeVC.popupView.addSubview(ingredientDetailVC.view)
-                    ingredientDetailVC.view.anchor(top: button.bottomAnchor, leading: swipeVC.popupView.leadingAnchor, bottom: nil, trailing: swipeVC.popupView.trailingAnchor, padding: UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0))
-                    ingredientDetailVC.didMove(toParent: swipeVC)
+                    guard let ingredient = ingredients.first else { return }
+                    self.searchedIngredient = ingredient
+                    self.setupIngredientDetailSwipeView(with: ingredient)
                 }
                 
             case .error(let error):
@@ -294,13 +299,13 @@ extension CameraViewController: BarcodeScannerDelegate {
     }
     
     @objc private func addToRecipe(_ sender: UIButton) {
-        print("button tapped")
-        // According to LIFO we take the last ingredient that was appended to searchedIngredients, and pass it to SearchIngredientsVC
-        if let ingredient = searchedIngredients.last, let ingredientDetailView = ingredientDetailViews.last {
+        if let ingredient = searchedIngredient, let ingredientDetailView = ingredientDetailView {
             delegate?.updateIngredient(ingredient, indexPath: nil)
             ingredientDetailView.dismissView()
-            searchedIngredients.removeLast()
-            ingredientDetailViews.removeLast()
+            searchedIngredient = nil
+            self.ingredientDetailView = nil
+            
+            self.barcodeScanner.startScanning()
         }
     }
     

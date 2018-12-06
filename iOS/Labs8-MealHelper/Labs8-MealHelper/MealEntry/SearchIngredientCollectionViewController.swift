@@ -363,7 +363,7 @@ class SectionHeader: UICollectionViewCell  {
 extension SearchIngredientCollectionViewController: SearchIngredientDetailDelegate {
     
     func updateIngredient(_ ingredient: Ingredient, indexPath: IndexPath?) {
-        if let indexPath = indexPath { // Manually searched ingredients
+        if let indexPath = indexPath {
         
             switch indexPath.section {
             case 1:
@@ -381,12 +381,10 @@ extension SearchIngredientCollectionViewController: SearchIngredientDetailDelega
             }
             
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-        } else { // Barcode-scanned ingredients
+        } else {
             searchedIngredients.insert(ingredient, at: 0)
-            didSelect(ingredient)
             collectionView.reloadData()
-            
-            //collectionView.selectItem(at: IndexPath(item: 0, section: 1), animated: true, scrollPosition: .centeredHorizontally)
+            didSelect(ingredient)
         }
         
         
