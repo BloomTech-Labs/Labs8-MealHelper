@@ -103,6 +103,10 @@ class Meals extends Component {
         // this.setState({ weather: response.data });
       });
   };
+  chooseRecipe = recipe => {
+    console.log(recipe);
+    this.setState({ recipe: recipe });
+  };
   selectMealType = mealType => {
     this.setState({ mealType: mealType });
   };
