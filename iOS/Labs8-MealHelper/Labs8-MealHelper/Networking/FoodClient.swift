@@ -17,7 +17,6 @@ class FoodClient: GenericAPIClient {
     let usdaBaseUrl: URL = URL(string: "https://api.nal.usda.gov/ndb/")!
     let usdaAPIKey = "c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6"
     let baseUrl: URL = URL(string: "https://labs8-meal-helper.herokuapp.com/")!
-//    var userId = Constants.User().id // TODO: to be deleted.
     var userId = String(UserDefaults().loggedInUserId())
     
     // MARK: - Meal Helper
