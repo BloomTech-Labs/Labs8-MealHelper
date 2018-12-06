@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Select from "react-select";
+import { Button } from "reactstrap";
 // == Actions == //
 import { addAlarms } from "../../store/actions/alarmActions";
 // == Styles == //
@@ -45,13 +46,6 @@ class AddAlarms extends Component {
       endTime: null,
       repeats: null,
       timestamp: null,
-      monday: false,
-      tuesday: false,
-      wednesday: false,
-      thursday: false,
-      friday: false,
-      saturday: false,
-      sunday: false,
       alarmTime: null,
       label: ""
     };
@@ -91,14 +85,7 @@ class AddAlarms extends Component {
             user_id: user_id,
             label: "",
             alarm: alarm,
-            timestamp: timestamp,
-            monday: this.state.monday,
-            tuesday: this.state.tuesday,
-            wednesday: this.state.wednesday,
-            thursday: this.state.thursday,
-            friday: this.state.friday,
-            saturday: this.state.saturday,
-            sunday: this.state.sunday
+            timestamp: timestamp
           });
         } else {
           let alarm = i.toString();
@@ -106,14 +93,7 @@ class AddAlarms extends Component {
             user_id: user_id,
             label: "",
             alarm: alarm,
-            timestamp: timestamp,
-            monday: this.state.monday,
-            tuesday: this.state.tuesday,
-            wednesday: this.state.wednesday,
-            thursday: this.state.thursday,
-            friday: this.state.friday,
-            saturday: this.state.saturday,
-            sunday: this.state.sunday
+            timestamp: timestamp
           });
         }
       }
@@ -133,15 +113,8 @@ class AddAlarms extends Component {
       user_id: user_id,
       label: label,
       alarm: alarm,
-      timestamp: timestamp,
-      monday: this.state.monday,
-      tuesday: this.state.tuesday,
-      wednesday: this.state.wednesday,
-      thursday: this.state.thursday,
-      friday: this.state.friday,
-      saturday: this.state.saturday,
-      sunday: this.state.sunday
-    }
+      timestamp: timestamp
+    };
     this.props.addAlarms(alarmBody);
     this.props.history.push("/homepage/alarms");
   };
@@ -149,124 +122,65 @@ class AddAlarms extends Component {
   render() {
     return (
       <div className="add-alarms-container">
-        <div className="home-container">
-          
-          <div className="dynamic-display">
-            <div className="alarm-days">
-              <h3>Which days should the alarm(s) apply to?</h3>
-              <input
-                type="checkbox"
-                name="monday"
-                value="monday"
-                defaultChecked={this.state.monday}
-                onChange={() => this.handleCheck("monday")}
-              />{" "}
-              Monday
-              <input
-                type="checkbox"
-                name="tuesday"
-                value="tuesday"
-                defaultChecked={this.state.tuesday}
-                onChange={() => this.handleCheck("tuesday")}
-              />{" "}
-              Tuesday
-              <input
-                type="checkbox"
-                name="wednesday"
-                value="wednesday"
-                defaultChecked={this.state.wednesday}
-                onChange={() => this.handleCheck("wednesday")}
-              />{" "}
-              Wednesday
-              <input
-                type="checkbox"
-                name="thursday"
-                value="thursday"
-                defaultChecked={this.state.thursday}
-                onChange={() => this.handleCheck("thursday")}
-              />{" "}
-              Thursday
-              <input
-                type="checkbox"
-                name="friday"
-                value="friday"
-                defaultChecked={this.state.friday}
-                onChange={() => this.handleCheck("friday")}
-              />{" "}
-              Friday
-              <input
-                type="checkbox"
-                name="saturday"
-                value="saturday"
-                defaultChecked={this.state.saturday}
-                onChange={() => this.handleCheck("saturday")}
-              />{" "}
-              Saturday
-              <input
-                type="checkbox"
-                name="sunday"
-                value="sunday"
-                defaultChecked={this.state.sunday}
-                onChange={() => this.handleCheck("sunday")}
-              />{" "}
-              Sundays
-            </div>
-            <div className="add-container">
-              <h1>Add Alarms in a Batch</h1>
-              <form className="forms">
-                <h3>What should the time be for your first alarm?</h3>
-                <Select
-                  options={options}
-                  className="time"
-                  name="startTime"
-                  placeholder="Start Time"
-                  onChange={opt => this.setState({ startTime: opt.value })}
-                />
-                <h3>What should the time be for your last alarm?</h3>
-                <Select
-                  options={options}
-                  className="time"
-                  name="endTime"
-                  placeholder="End Time"
-                  onChange={opt => this.setState({ endTime: opt.value })}
-                />
-                <h3>How many hours should pass between each alarm?</h3>
-                <input
-                  className="repeats"
-                  name="repeats"
-                  value={this.state.repeats}
-                  onChange={this.handleChange}
-                  placeholder="Hours between each alarm"
-                />
-              </form>
-              <button onClick={this.addAlarm} className="add-alarms btn">
-                Add Alarm Batch
-              </button>
-            </div>
-
-            <div className="add-container">
-              <h1>Add a Single Alarm</h1>
-            </div>
-            <form>
-              <Select
-                options={options}
-                className="time"
-                name="alarmTime"
-                placeholder="Alarm Time"
-                onChange={opt => this.setState({ alarmTime: opt.value })}
-              />
-              <input
-                className="label"
-                name="label"
-                value={this.state.label}
-                onChange={this.handleChange}
-                placeholder="Alarm label"
-              />
-            </form>
-            <button onClick={this.addSingleAlarm} className="add-alarms btn">
-              Add Alarm
-            </button>
+        <div className="add-alarms-forms">
+          <div className="add-alarms-heading">
+            <h1>Add Alarms in a Batch</h1>
           </div>
+          <form className="add-alarm-form">
+            <h3>What should the time be for your first alarm?</h3>
+            <Select
+              options={options}
+              className="time"
+              name="startTime"
+              placeholder="Start Time"
+              onChange={opt => this.setState({ startTime: opt.value })}
+            />
+            <h3>What should the time be for your last alarm?</h3>
+            <Select
+              options={options}
+              className="time"
+              name="endTime"
+              placeholder="End Time"
+              onChange={opt => this.setState({ endTime: opt.value })}
+            />
+            <h3>How many hours should pass between each alarm?</h3>
+            <input
+              className="repeats"
+              name="repeats"
+              value={this.state.repeats}
+              onChange={this.handleChange}
+              placeholder="Hours between each alarm"
+            />
+          </form>
+          <button onClick={this.addAlarm} className="add-alarms btn">
+            Add Alarm Batch
+          </button>
+        </div>
+
+        <div className="add-alarms-forms">
+          <div className="add-alarms-heading">
+            <h1>Add a Single Alarm</h1>
+          </div>
+
+          <form className="add-alarm-form">
+            <Select
+              options={options}
+              className="time"
+              name="alarmTime"
+              placeholder="Alarm Time"
+              onChange={opt => this.setState({ alarmTime: opt.value })}
+            />
+            <input
+              className="label"
+              name="label"
+              value={this.state.label}
+              onChange={this.handleChange}
+              placeholder="Alarm label"
+            />
+          </form>
+          <button onClick={this.addSingleAlarm} className="add-alarms btn">
+            Add Alarm
+          </button>
         </div>
       </div>
     );

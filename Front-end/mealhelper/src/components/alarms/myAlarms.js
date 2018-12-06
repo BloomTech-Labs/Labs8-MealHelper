@@ -152,7 +152,6 @@ class MyAlarms extends Component {
 
   render() {
     return (
-      <div className="alarms-full-width">
       <div className="alarms-container">
       <div className="alarms-heading"><h1>Alarms</h1></div>
           
@@ -179,12 +178,12 @@ class MyAlarms extends Component {
             </div>
           ))}
           <div className="add-new-alarms">
-          <Button color="info" onClick={() => this.props.history.push("/alarms/add-alarms")}>
+          <Button color="info" onClick={() => this.props.history.push("/homepage/alarms/add-alarms")}>
           Add New Alarms
           </Button>
           </div>
           
-</div>
+
           
          <Modal
           isOpen={this.state.modal}
