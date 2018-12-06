@@ -43,7 +43,6 @@ class Billing extends Component {
       const { email, password, zip, healthCondition } = this.state;
       const user = { email, password, zip, healthCondition };
       this.props.addUser(user);
-      // this.props.history.push("/");
     }
   };
   toggle = () => {

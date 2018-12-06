@@ -1,7 +1,8 @@
 .main-container {
   height: 100vh;
   width: 100vw;
-  background: #f0f0f0;
+  background-image: url("../../img/laptop-fruit-tea.jpg");
+  background-size: 1750px;
 }
 
 .formcenter {
