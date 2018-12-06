@@ -19,7 +19,7 @@
 }
 .buttons-settings {
   background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
-  color: white;
+  color: #ffffff;
   border: 1px solid;
   padding: 40px;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
@@ -43,21 +43,21 @@
   padding-left: 1%;
 }
 .editsettingstext {
-  color: white;
+  color: #ffffff;
   font-weight: bolder;
 }
 .editsettingstextZip {
-  color: white;
+  color: #ffffff;
   font-weight: bolder;
   padding-top: 15px;
   padding-right: 2%;
 }
-.email-input {
+/* .email-input {
   margin-right: 5%;
-}
+} */
 .buttons-settings:hover {
   background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
-  color: white;
+  color: #ffffff;
   border: 1px solid;
   padding: 41px;
   font-size: 15px;
@@ -108,7 +108,7 @@
 .recentMeals {
   font-size: 36px;
   background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
-  color: white;
+  color: #ffffff;
   border: 1px solid;
   padding: 10px;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
@@ -116,7 +116,7 @@
 .recentMealsZip {
   font-size: 36px;
   background: linear-gradient(rgb(249, 117, 34, 0.75), rgb(249, 117, 34, 0.75));
-  color: white;
+  color: #ffffff;
   border: 1px solid;
   padding: 10px;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);

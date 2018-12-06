@@ -6,26 +6,11 @@ import "../homepage/homepage";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
 import { Alert } from "reactstrap";
-import Weather from "../weather/weather";
-import Recipes from "../recipes/recipes";
-import Meals from "../Meals/Meals";
-import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
-import AddAlarms from "../alarms/addAlarm";
-import MyAlarms from "../alarms/myAlarms";
 import {
   Button,
   Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  ModalHeader
 } from "reactstrap";
-import { Elements, StripeProvider } from "react-stripe-elements";
-import CheckoutForm from "../checkout/CheckoutForm";
-import Billing from "../billing/billing";
 
 class EditZip extends Component {
   constructor(props) {
@@ -44,7 +29,7 @@ class EditZip extends Component {
   }
 
   componentDidMount = () => {
-    const id = this.props.user.userID;
+    const id = localStorage.getItem("user_id");
     axios
       .get(`https://labs8-meal-helper.herokuapp.com/users/${id}`)
       .then(user => {
@@ -80,14 +65,11 @@ class EditZip extends Component {
       this.setState({ visable: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      const id = this.props.user.userID;
+      const id = localStorage.getItem("user_id");
       const { zip, password } = this.state;
       const user = { zip, password };
       axios
-        .put(
-          `https://labs8-meal-helper.herokuapp.com/users/password/${id}`,
-          user
-        )
+        .put(`https://labs8-meal-helper.herokuapp.com/users/zip/${id}`, user)
         .then(response => {
           console.log(response);
           this.setState({ updated: true });
@@ -105,6 +87,7 @@ class EditZip extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
 
@@ -195,7 +178,7 @@ class EditZip extends Component {
             </Alert>
           </div>
 
-          <Switch>
+          {/* <Switch>
             <Route path="/homepage/weather" render={() => <Weather />} />
             <Route exact path="/homepage/recipes" render={() => <Recipes />} />
             <Route exact path="/homepage/meals" render={() => <Meals />} />
@@ -210,7 +193,7 @@ class EditZip extends Component {
             />
             <Route path="/homepage/billing" render={() => <Billing />} />
             {/* <Route path="/homepage/settings" render={() => <Settings />} /> */}
-          </Switch>
+          {/* </Switch> */} */}
         </div>
 
         <Modal

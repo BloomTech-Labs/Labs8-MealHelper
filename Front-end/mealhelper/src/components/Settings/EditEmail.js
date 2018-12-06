@@ -6,26 +6,11 @@ import "../homepage/homepage";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
 import { Alert } from "reactstrap";
-import Weather from "../weather/weather";
-import Recipes from "../recipes/recipes";
-import Meals from "../Meals/Meals";
-import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
-import AddAlarms from "../alarms/addAlarm";
-import MyAlarms from "../alarms/myAlarms";
 import {
   Button,
   Modal,
   ModalHeader,
-  ModalBody,
-  ModalFooter,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
 } from "reactstrap";
-import { Elements, StripeProvider } from "react-stripe-elements";
-import CheckoutForm from "../checkout/CheckoutForm";
-import Billing from "../billing/billing";
 
 class EditEmail extends Component {
   constructor(props) {
@@ -45,7 +30,7 @@ class EditEmail extends Component {
   }
 
   componentDidMount = () => {
-    const id = this.props.user.userID;
+    const id = localStorage.getItem("user_id");
     axios
       .get(`https://labs8-meal-helper.herokuapp.com/users/${id}`)
       .then(user => {
@@ -81,7 +66,7 @@ class EditEmail extends Component {
       this.setState({ visable: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      const id = this.props.user.userID;
+      const id = localStorage.getItem("user_id");
       const { email, password } = this.state;
       const user = { email, password };
       axios
@@ -103,6 +88,7 @@ class EditEmail extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
 
@@ -192,7 +178,7 @@ class EditEmail extends Component {
             </Alert>
           </div>
 
-          <Switch>
+          {/* <Switch>
             <Route path="/homepage/weather" render={() => <Weather />} />
             <Route exact path="/homepage/recipes" render={() => <Recipes />} />
             <Route exact path="/homepage/meals" render={() => <Meals />} />
@@ -207,7 +193,7 @@ class EditEmail extends Component {
             />
             <Route path="/homepage/billing" render={() => <Billing />} />
             {/* <Route path="/homepage/settings" render={() => <Settings />} /> */}
-          </Switch>
+          {/* </Switch> */} */}
         </div>
 
         <Modal

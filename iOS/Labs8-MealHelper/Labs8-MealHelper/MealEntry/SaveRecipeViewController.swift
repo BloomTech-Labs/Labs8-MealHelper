@@ -17,6 +17,7 @@ class SaveRecipeViewController: UIViewController {
             ingredientTableVC.ingredients = ingredients
         }
     }
+    var recipe: Recipe?
     
     var recipeName: String?
     var serving: Int = 1
@@ -74,62 +75,50 @@ class SaveRecipeViewController: UIViewController {
 //            return
 //        }
         
-        var ingredientIds = [Int]()
-        
-        ingredients?.forEach { ingredient in
-            // Save nutrients of ingredient
-            guard let nutrients = ingredient.nutrients else {
-                NSLog("Ingredient has no nutrients")
-                return
-            }
-            let dispatchGroup = DispatchGroup()
-            
-            var nutrientIds = [Int]()
-            nutrients.forEach { nutrient in
-                dispatchGroup.enter()
-                FoodClient.shared.postNutrient(nutrient, completion: { (response) in
-                    switch response {
-                    case .success(let nutrientId):
-                        nutrientIds.append(nutrientId)
-                    case .error(let error):
-                        print(error)
-                        // Handle error in UI
-                        break
-                    }
-                    
-                    dispatchGroup.leave()
-                })
-            }
-            
-            dispatchGroup.notify(queue: .main, execute: {
-                FoodClient.shared.postIngredient(ingredient, completion: { (response) in
-                    switch response {
-                    case .success(let ingredientId):
-                        FoodClient.shared.putIngredient(withId: ingredientId, nutrientIds: nutrientIds, completion: { (response) in
-                            switch response {
-                            case .success(let nutrientId):
-                                nutrientIds.append(nutrientId)
-                            case .error(let error):
-                                print(error)
-                                // Handle error in UI
-                                break
-                            }
-                        })
-                        
-                    case .error(let error):
-                        print(error)
-                        // Handle error in UI
-                        break
-                    }
-                })
-            })
-            
-        }
-        
         // Save ingredient, incl. nutrient values
         
-        saveRecipe(with: recipeName ?? "", calories: self.getTotalCalories(), servings: self.serving)
+        guard let recipeName = recipeName else {
+            NSLog("No recipe name provided")
+            return
+        }
         
+        saveRecipe(with: recipeName, calories: getTotalCalories(), servings: serving) { recipe in
+            
+            guard let recipe = recipe else { return }
+            
+            
+            self.ingredients?.forEach { ingredient in
+                // Save nutrients of ingredient
+                
+                self.saveIngredient(with: ingredient.name, ndbno: ingredient.nbdId, recipeId: recipe.identifier, completion: { savedIngredient in
+                    
+                    guard let nutrients = ingredient.nutrients, let ingredientId = savedIngredient?.identifier else {
+                        NSLog("Ingredient has no nutrients and/or identifier")
+                        return
+                    }
+                    
+                    
+                    let dispatchGroup = DispatchGroup()
+                    nutrients.forEach { nutrient in
+                        
+                        dispatchGroup.enter()
+                        self.saveNutrient(with: nutrient, ingredientId: ingredientId, completion: { (error) in
+                            dispatchGroup.leave()
+                        })
+                        
+                    }
+                    
+                    dispatchGroup.notify(queue: .main, execute: {
+                        print("Saved recipe succeeded")
+                        self.dismiss(animated: true, completion: nil)
+                    })
+                    
+                })
+                
+            }
+            
+        
+        }
     }
     
     
@@ -137,14 +126,9 @@ class SaveRecipeViewController: UIViewController {
         
     }
     
-    @objc private func handleMealTimeSetting(notification: NSNotification) {
-        if let userInfo = notification.userInfo, let pickedMealTime = userInfo["type"] as? String {
+    @objc private func handleMealSetting(notification: NSNotification) {
+        if let userInfo = notification.userInfo, let pickedMealTime = userInfo["type"] as? String, let pickedServingString = userInfo["quantity"] as? String, let pickedServingInt = Int(pickedServingString) {
             self.mealTime = pickedMealTime
-        }
-    }
-    
-    @objc private func handleServingSetting(notification: NSNotification) {
-        if let userInfo = notification.userInfo, let pickedServingString = userInfo["quantity"] as? String, let pickedServingInt = Int(pickedServingString) {
             self.serving = pickedServingInt
         }
     }
@@ -155,28 +139,64 @@ class SaveRecipeViewController: UIViewController {
         }
     }
     
-    // MARK: - Private methods
+    // MARK: - Persistence
     
-    func saveRecipe(with name: String, calories: Int, servings: Int) {
+    func saveRecipe(with name: String, calories: Int, servings: Int, completion: @escaping (Recipe?) -> ()) {
         FoodClient.shared.postRecipe(name: name, calories: calories, servings: servings) { (response) in
             switch response {
-            case .success(let recipeId):
-                print("saved recipe successfully for id: \(recipeId)")
+            case .success(let recipes):
                 DispatchQueue.main.async {
-                    self.dismiss(animated: true, completion: nil)
+                    if let newRecipe = recipes.last {
+                        print("Sucessfully saved recipes")
+                        completion(newRecipe)
+                        return
+                    }
+                    
+                    NSLog("Response did not contain any recipes")
+                    completion(nil)
                 }
             case .error(let error):
                 print(error)
                 // Handle error in UI
-                DispatchQueue.main.async {
-                    self.dismiss(animated: true, completion: nil)
-                }// TODO: to be deleted
-                break
+                completion(nil)
             }
             
         }
-        
     }
+    
+    func saveIngredient(with name: String, ndbno: String?, recipeId: Int, completion: @escaping (Ingredient?) -> ()) {
+        FoodClient.shared.postIngredient(name: name, ndbno: ndbno, recipeId: recipeId, completion: { (response) in
+            switch response {
+            case .success(let ingredients):
+                if let newIngred = ingredients.last {
+                    completion(newIngred)
+                    return
+                } else {
+                    NSLog("Response did not contain ingredients")
+                    completion(nil)
+                }
+            case .error(let error):
+                print(error)
+                // Handle error in UI
+                completion(nil)
+            }
+        })
+    }
+    
+    func saveNutrient(with nutrient: Nutrient, ingredientId: Int, completion: @escaping (Error?) -> ()) {
+        FoodClient.shared.postNutrient(nutrient, ingredientId: ingredientId, completion: { (response) in
+            switch response {
+            case .success( _):
+                completion(nil)
+            case .error(let error):
+                print(error)
+                // Handle error in UI
+                completion(error)
+            }
+        })
+    }
+    
+    // MARK: - Private methods
     
     private func getTotalCalories() -> Int {
         guard let ingredients = ingredients else { return 0 }
@@ -219,8 +239,7 @@ class SaveRecipeViewController: UIViewController {
     }
     
     private func setupRecipeSettingsNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleMealTimeSetting), name: .MHFoodSummaryTypePickerDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleServingSetting), name: .MHFoodSummaryQuantityPickerDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleMealSetting), name: .MHFoodSummaryPickerDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleRecipeNameSetting), name: .MHFoodSummaryTextFieldDidChange, object: nil)
     }
     
@@ -233,11 +252,19 @@ class EditRecipeViewController: SaveRecipeViewController {
         title = "Edit Recipe"
     }
     
-    override func saveRecipe(with name: String, calories: Int, servings: Int) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let ingredients = ingredients else { return }
+        
+        ingredients.forEach { addNutrients(to: $0) }
+    }
+    
+    override func saveRecipe(with name: String, calories: Int, servings: Int, completion: @escaping (Recipe?) -> ()) {
         FoodClient.shared.postRecipe(name: name, calories: calories, servings: servings) { (response) in
             switch response {
-            case .success(let recipeId):
-                print("saved recipe successfully for id: \(recipeId)")
+            case .success( _):
+                print("saved recipe successfully")
                 DispatchQueue.main.async {
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -252,4 +279,24 @@ class EditRecipeViewController: SaveRecipeViewController {
         }
     }
     
+    func addNutrients(to ingredient: Ingredient) -> Ingredient? {
+        var updatedIngredient = ingredient
+        
+        guard let ingredientId = ingredient.identifier else { return nil }
+        
+        FoodClient.shared.fetchNutrients(with: ingredientId) { (response) in
+            switch response {
+            case .success(let nutrients):
+                DispatchQueue.main.async {
+                    updatedIngredient.nutrients = nutrients
+                }
+            case .error(let error):
+                print(error)
+                // Handle error in UI
+                break
+            }
+        }
+        
+        return updatedIngredient
+    }
 }

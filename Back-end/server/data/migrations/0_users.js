@@ -9,6 +9,7 @@ exports.up = function(knex) {
       users.string("password", 255);
       users.integer("zip", 5);
       users.string("healthCondition", 20);
+      users.string("isPremium");
     }),
     knex.schema.createTable("mealList", function(mealList) {
       mealList.increments("id").primary();
@@ -75,6 +76,7 @@ exports.up = function(knex) {
       alarms.increments("id").primary();
       alarms.string("label");
       alarms.string("alarm").notNullable;
+      alarms.string("timestamp");
       alarms.integer("user_id");
       alarms
         .foreign("user_id")

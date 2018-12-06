@@ -1,9 +1,12 @@
+// == Dependencies == //
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-//import moment from "moment";
 import Select from "react-select";
+// == Actions == //
 import { addAlarms } from "../../store/actions/alarmActions";
+// == Styles == //
+import "./addAlarm.css";
 
 //this is embarrassingly not DRY; auto-populate ASAP
 const options = [
@@ -38,9 +41,19 @@ class AddAlarms extends Component {
     super(props);
 
     this.state = {
-      beginTime: null,
+      startTime: null,
       endTime: null,
-      repeats: null
+      repeats: null,
+      timestamp: null,
+      monday: false,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
+      sunday: false,
+      alarmTime: null,
+      label: ""
     };
   }
 
@@ -51,72 +64,209 @@ class AddAlarms extends Component {
     });
   };
 
+  handleCheck = day => {
+    this.setState({
+      [day]: !this.state[day]
+    });
+  };
+
   addAlarm = event => {
     event.preventDefault();
-    console.log("hello!");
-    console.log("start time", this.state.beginTime);
-    console.log("end time", this.state.endTime);
-    console.log("hours between", this.state.repeats);
-
-    console.log("THIS.PROPS", this.props);
-    console.log("THIS.PROPS.USER", this.props.user)
-   const user_id = 1; /*this.props.user.userID;*/
-    if (!this.state.beginTime || !this.state.endTime || !this.state.repeats) {
+    //grabs user id from state
+    const user_id = this.props.user.userID;
+    if (!this.state.startTime || !this.state.endTime || !this.state.repeats) {
       //alert that all fields are required
     } else {
-      let start = Number(this.state.beginTime); //200
-      let end = Number(this.state.endTime); //800
+      let start = Number(this.state.startTime);
+      let end = Number(this.state.endTime);
       let repeats = +this.state.repeats * 100;
-      console.log("repeats", repeats);
+
+      let timestamp = Math.round(new Date().getTime() / 1000.0);
+
       let alarmTimes = [];
       for (let i = start; i <= end; i += repeats) {
         if (i.toString().length === 3) {
           let alarm = 0 + i.toString();
-          alarmTimes.push({ user_id: user_id, label: "", alarm: alarm });
+          alarmTimes.push({
+            user_id: user_id,
+            label: "",
+            alarm: alarm,
+            timestamp: timestamp,
+            monday: this.state.monday,
+            tuesday: this.state.tuesday,
+            wednesday: this.state.wednesday,
+            thursday: this.state.thursday,
+            friday: this.state.friday,
+            saturday: this.state.saturday,
+            sunday: this.state.sunday
+          });
         } else {
           let alarm = i.toString();
-          alarmTimes.push({ user_id: user_id, label: "", alarm: alarm });
+          alarmTimes.push({
+            user_id: user_id,
+            label: "",
+            alarm: alarm,
+            timestamp: timestamp,
+            monday: this.state.monday,
+            tuesday: this.state.tuesday,
+            wednesday: this.state.wednesday,
+            thursday: this.state.thursday,
+            friday: this.state.friday,
+            saturday: this.state.saturday,
+            sunday: this.state.sunday
+          });
         }
       }
-      console.log("alarmTimes", alarmTimes)
-        alarmTimes.map(alarm => console.log("alarm map", alarm));
-        alarmTimes.map(alarm => this.props.addAlarms(alarm));
-      // this.props.history.push('/homepage/alarms')
+      alarmTimes.map(alarm => this.props.addAlarms(alarm));
+      this.props.history.push("/homepage/alarms");
     }
+  };
+
+  addSingleAlarm = event => {
+    event.preventDefault();
+    const user_id = this.props.user.userID;
+    let alarm = this.state.alarmTime;
+    let label = this.state.label;
+    let timestamp = Math.round(new Date().getTime() / 1000.0);
+
+    let alarmBody = {
+      user_id: user_id,
+      label: label,
+      alarm: alarm,
+      timestamp: timestamp,
+      monday: this.state.monday,
+      tuesday: this.state.tuesday,
+      wednesday: this.state.wednesday,
+      thursday: this.state.thursday,
+      friday: this.state.friday,
+      saturday: this.state.saturday,
+      sunday: this.state.sunday
+    }
+    this.props.addAlarms(alarmBody);
+    this.props.history.push("/homepage/alarms");
   };
 
   render() {
     return (
-      <div className="alarms-container">
+      <div className="add-alarms-container">
         <div className="home-container">
-          <h1>Add Alarms</h1>
-          <form className="forms">
-            <Select
-              options={options}
-              className="time"
-              name="beginTime"
-              placeholder="Start Time"
-              onChange={opt => this.setState({ beginTime: opt.value })}
-            />
+          
+          <div className="dynamic-display">
+            <div className="alarm-days">
+              <h3>Which days should the alarm(s) apply to?</h3>
+              <input
+                type="checkbox"
+                name="monday"
+                value="monday"
+                defaultChecked={this.state.monday}
+                onChange={() => this.handleCheck("monday")}
+              />{" "}
+              Monday
+              <input
+                type="checkbox"
+                name="tuesday"
+                value="tuesday"
+                defaultChecked={this.state.tuesday}
+                onChange={() => this.handleCheck("tuesday")}
+              />{" "}
+              Tuesday
+              <input
+                type="checkbox"
+                name="wednesday"
+                value="wednesday"
+                defaultChecked={this.state.wednesday}
+                onChange={() => this.handleCheck("wednesday")}
+              />{" "}
+              Wednesday
+              <input
+                type="checkbox"
+                name="thursday"
+                value="thursday"
+                defaultChecked={this.state.thursday}
+                onChange={() => this.handleCheck("thursday")}
+              />{" "}
+              Thursday
+              <input
+                type="checkbox"
+                name="friday"
+                value="friday"
+                defaultChecked={this.state.friday}
+                onChange={() => this.handleCheck("friday")}
+              />{" "}
+              Friday
+              <input
+                type="checkbox"
+                name="saturday"
+                value="saturday"
+                defaultChecked={this.state.saturday}
+                onChange={() => this.handleCheck("saturday")}
+              />{" "}
+              Saturday
+              <input
+                type="checkbox"
+                name="sunday"
+                value="sunday"
+                defaultChecked={this.state.sunday}
+                onChange={() => this.handleCheck("sunday")}
+              />{" "}
+              Sundays
+            </div>
+            <div className="add-container">
+              <h1>Add Alarms in a Batch</h1>
+              <form className="forms">
+                <h3>What should the time be for your first alarm?</h3>
+                <Select
+                  options={options}
+                  className="time"
+                  name="startTime"
+                  placeholder="Start Time"
+                  onChange={opt => this.setState({ startTime: opt.value })}
+                />
+                <h3>What should the time be for your last alarm?</h3>
+                <Select
+                  options={options}
+                  className="time"
+                  name="endTime"
+                  placeholder="End Time"
+                  onChange={opt => this.setState({ endTime: opt.value })}
+                />
+                <h3>How many hours should pass between each alarm?</h3>
+                <input
+                  className="repeats"
+                  name="repeats"
+                  value={this.state.repeats}
+                  onChange={this.handleChange}
+                  placeholder="Hours between each alarm"
+                />
+              </form>
+              <button onClick={this.addAlarm} className="add-alarms btn">
+                Add Alarm Batch
+              </button>
+            </div>
 
-            <Select
-              options={options}
-              className="time"
-              name="endTime"
-              placeholder="End Time"
-              onChange={opt => this.setState({ endTime: opt.value })}
-            />
-            <input
-              className="repeats"
-              name="repeats"
-              value={this.state.repeats}
-              onChange={this.handleChange}
-              placeholder="Hours between each alarm"
-            />
-          </form>
-          <button onClick={this.addAlarm} className="add-alarms btn">
-            Add Alarms
-          </button>
+            <div className="add-container">
+              <h1>Add a Single Alarm</h1>
+            </div>
+            <form>
+              <Select
+                options={options}
+                className="time"
+                name="alarmTime"
+                placeholder="Alarm Time"
+                onChange={opt => this.setState({ alarmTime: opt.value })}
+              />
+              <input
+                className="label"
+                name="label"
+                value={this.state.label}
+                onChange={this.handleChange}
+                placeholder="Alarm label"
+              />
+            </form>
+            <button onClick={this.addSingleAlarm} className="add-alarms btn">
+              Add Alarm
+            </button>
+          </div>
         </div>
       </div>
     );

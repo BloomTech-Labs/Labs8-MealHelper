@@ -55,9 +55,10 @@ server.post("/charge", async (req, res) => {
     let { status } = await stripe.charges.create({
       amount: 2000,
       currency: "usd",
-      description: "An example charge",
+      description: "EatWell Subscription PAID",
       source: req.body
     });
+
 
     res.json({ status });
   } catch (err) {
@@ -74,7 +75,7 @@ server.get("/users", (req, res) => {
       res.status(200).json(users);
     })
     .catch(err => {
-      res.status(400).json({ error: "could not grab users" });
+      res.status(400).json({ error: "Could not grab users" });
     });
 });
 server.get("/users/:id", (req, res) => {
@@ -86,7 +87,7 @@ server.get("/users/:id", (req, res) => {
       res.status(200).json(users);
     })
     .catch(err => {
-      res.status(400).json({ error: "could not grab users" });
+      res.status(400).json({ error: "Could not grab users" });
     });
 });
 // Register a new user
@@ -117,7 +118,7 @@ server.post("/register", (req, res) => {
             .json({ userID: user.id, token: token, zip: user.zip });
         })
         .catch(err => {
-          res.status(400).json({ error: "could not grab user" });
+          res.status(400).json({ error: "Could not grab user" });
         });
     })
     .catch(err => {
@@ -706,11 +707,11 @@ server.get("/nutrients/:ingredientID", (req, res) => {
           res.status(200).json(nutrients);
         })
         .catch(err => {
-          res.status(400).json({ err, error: "could not find nutrients" });
+          res.status(400).json({ err, error: "Could not find nutrients" });
         });
     })
     .catch(err => {
-      res.status(400).json({ err, error: "could not find meal" });
+      res.status(400).json({ err, error: "Could not find meal" });
     });
 });
 //POST request to create an ingredients
@@ -839,11 +840,11 @@ server.put("/nutrients/ingredients/:ingredientID", (req, res) => {
               res.status(200).json(ingredient);
             })
             .catch(err => {
-              res.status(400).json({ error: "error returning ingredient" });
+              res.status(400).json({ error: "Error returning ingredient" });
             });
         })
         .catch(err => {
-          res.status(400).json({ err, error: "could not add nutrients" });
+          res.status(400).json({ err, error: "Could not add nutrients" });
         });
     });
 });
@@ -861,7 +862,7 @@ server.delete("/nutrients/:id", (req, res) => {
       res.status(200).json(deleted);
     })
     .catch(err => {
-      res.status(400).json({ error: "could not delete meals" });
+      res.status(400).json({ error: "Could not delete meals" });
     });
 });
 
@@ -880,7 +881,7 @@ server.get("notes/:mealid", (req, res) => {
       res.status(200).json(note);
     })
     .catch(err => {
-      res.status(400).json({ error: "could not find associated note" });
+      res.status(400).json({ error: "Could not find associated note" });
     });
 });
 //POST req to create a note and associate it to a meal
@@ -951,7 +952,7 @@ server.get("/weather/:mealid", (req, res) => {
       res.status(200).json(weather);
     })
     .catch(err => {
-      res.status(400).json({ error: "could not find the weather data" });
+      res.status(400).json({ error: "Could not find the weather data" });
     });
 });
 server.get("/weather/user/:userid", (req, res) => {
@@ -964,7 +965,7 @@ server.get("/weather/user/:userid", (req, res) => {
       res.status(200).json(weather);
     })
     .catch(err => {
-      res.status(400).json({ error: "could not find the weather data" });
+      res.status(400).json({ error: "Could not find the weather data" });
     });
 });
 //POST req to create a weather report for that meal
@@ -1043,7 +1044,7 @@ server.get("/alarms/:userid", (req, res) => {
       res.status(200).json(alarms);
     })
     .catch(err => {
-      res.status(400).json({ error: "could not find the alarms" });
+      res.status(400).json({ error: "Could not find the alarms" });
     });
 });
 //POST req to create a alarm for the user

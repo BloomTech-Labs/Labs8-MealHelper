@@ -11,6 +11,8 @@ import UserNotifications
 
 class LocalNotificationHelper
 {
+    let center = UNUserNotificationCenter.current()
+    
     func getAuthorizationStatus(completion: @escaping (UNAuthorizationStatus) -> Void) {
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             DispatchQueue.main.async {
@@ -37,16 +39,40 @@ class LocalNotificationHelper
         content.sound = UNNotificationSound.default
         
         var dateComponent = DateComponents()
-        dateComponent.hour = 20
+        dateComponent.hour = hour
         dateComponent.minute = minute
         
-        let notificationRequest = UNNotificationRequest(identifier: "\(id)", content: content, trigger: UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false))
+        let notificationRequest = UNNotificationRequest(identifier: "\(id)", content: content, trigger: UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: true))
         
-        let center = UNUserNotificationCenter.current()
         center.add(notificationRequest) { (error) in
             if let error = error {
                 NSLog("There was an error scheduling a notification: \(error)")
             }
         }
+    }
+    
+    func alarmsNotSetup(alarms: [Alarm], completion: @escaping ([Alarm]?) -> ()) {
+        
+        var result = alarms
+        center.getPendingNotificationRequests { (notifications) in
+            for notification in notifications {
+                for (index, alarm) in result.enumerated() {
+                    if notification.identifier == String(alarm.id) {
+                        result.remove(at: index)
+                    }
+                }
+            }
+            
+            completion(result)
+        }
+    }
+    
+    func deleteNotification(with id: Int) {
+        center.removePendingNotificationRequests(withIdentifiers: ["\(id)"])
+    }
+    
+    func editNotification(with alarm: Alarm) {
+        
+        
     }
 }

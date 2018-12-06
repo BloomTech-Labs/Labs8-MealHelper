@@ -5216,6 +5216,11 @@ loader-utils@1.1.0, loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.
     emojis-list "^2.0.0"
     json5 "^0.5.0"
 
+loading-svg@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/loading-svg/-/loading-svg-1.0.0.tgz#cfe9a8cca37725398e3cbf1f66b2b80e6efe28a8"
+  integrity sha1-z+mozKN3JTmOPL8fZrK4Dm7+KKg=
+
 locate-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-2.0.0.tgz#2b568b265eec944c6d9c0de9c3dbbbca0354cd8e"
@@ -7248,6 +7253,13 @@ react-typing-animation@^1.4.0:
     raf "^3.4.0"
     shortid "^2.2.8"
     styled-components "^1.4.6"
+
+react-typist@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/react-typist/-/react-typist-2.0.4.tgz#e7ee4de53ead913d363d38f07b700c00ce271be0"
+  integrity sha512-2sCW7BcEQJILdPtG4tItCPv3RKVXWEDnfiIWhmbkAf4733kEkrvc9KkOCyZ/J8BeATNYF5wQSrSUY93ACA9Bjg==
+  dependencies:
+    prop-types "^15.5.10"
 
 react@^16.6.0:
   version "16.6.0"

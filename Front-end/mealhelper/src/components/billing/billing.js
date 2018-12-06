@@ -3,23 +3,8 @@ import { connect } from "react-redux";
 import "./billing.css";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route, Switch } from "react-router-dom";
-// import { Alert } from "reactstrap";
-// import Weather from "../weather/weather";
-// import Recipes from "../recipes/recipes";
-// import Meals from "../Meals/Meals";
-// import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
+import { withRouter, Link } from "react-router-dom";
+import { Button, Modal, ModalHeader } from "reactstrap";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../checkout/CheckoutForm";
 
@@ -58,7 +43,6 @@ class Billing extends Component {
       const { email, password, zip, healthCondition } = this.state;
       const user = { email, password, zip, healthCondition };
       this.props.addUser(user);
-      // this.props.history.push("/");
     }
   };
   toggle = () => {
@@ -70,6 +54,7 @@ class Billing extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
 
@@ -92,7 +77,7 @@ class Billing extends Component {
           <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Billing</h2>
           </Link>
-          <Link to="/homepage/settings/:id" style={{ textDecoration: "none" }}>
+          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Settings</h2>
           </Link>
           <Button color="danger" onClick={this.toggle}>
@@ -103,24 +88,27 @@ class Billing extends Component {
               Upgrade to Premium
             </Button>
           </Link>
-          {/* <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
-            <div className="example">
-              <h1>Pay Up Health Nut</h1>
-              <Elements>
-                <CheckoutForm />
-              </Elements>
-            </div>
-          </StripeProvider> */}
         </div>
         <div className="dynamic-display">
           <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
             <div className="example">
-              <h1>Pay Up Health Nut</h1>
               <Elements>
                 <CheckoutForm />
               </Elements>
             </div>
           </StripeProvider>
+          {/* <form action="your-server-side-code" method="POST">
+            <script
+              src="https://checkout.stripe.com/checkout.js"
+              class="stripe-button"
+              data-key="pk_test_rMbD3kGkxVoOsMd0meVqUlmG"
+              data-amount="999"
+              data-name="Meal Helper"
+              data-description="Example charge"
+              data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+              data-locale="auto"
+            />
+          </form> */}
         </div>
 
         <Modal

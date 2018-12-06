@@ -16,10 +16,10 @@ class WeatherView: UIView
         {
             guard let forecast = forecast else { return }
             
-            let forecastAttributedText = NSMutableAttributedString(string: "Todays forecast is ", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)])
+            let forecastAttributedText = NSMutableAttributedString(string: "The forecast on that day was ", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)])
             forecastAttributedText.append(NSAttributedString(string: forecast.weather.first?.description ?? "Shiny", attributes: [NSAttributedString.Key.foregroundColor: UIColor.correctGreen, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]))
             forecastAttributedText.append(NSAttributedString(string: " with a temperature of ", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]))
-            forecastAttributedText.append(NSAttributedString(string: String(forecast.main.temp), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightBlue, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]))
+            forecastAttributedText.append(NSAttributedString(string: "\(String(forecast.main.temp))°C", attributes: [NSAttributedString.Key.foregroundColor: UIColor.mountainBlue, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]))
             
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
@@ -83,7 +83,7 @@ class WeatherView: UIView
     
     func fetch()
     {
-        WeatherAPIClient.shared.fetchWeather(for: 8038) { (forecast) in
+        WeatherAPIClient.shared.fetchWeather(for: 3300) { (forecast) in
             
             guard let forecast = forecast else { return }
             print("Success: \(forecast)")
@@ -123,7 +123,7 @@ class WeatherAPIClient
 {
     static let shared = WeatherAPIClient()
     
-    let apiKey = "46454cdfa908cad35b14a05756470e5c"
+    let apiKey = "418e2edbbd08e52ca4eb31f0e5b1e300"
     let baseURL = "https://api.openweathermap.org/data/2.5/weather"
     
     func fetchWeather(for zipCode: Int, completion: @escaping (WeatherForecast?) -> ())

@@ -2,23 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
 import { addRecipe, getRecipe } from "../../store/actions/recipeActions.js";
-import { withRouter, Link, Route } from "react-router-dom";
-// import { Alert } from "reactstrap";
-import axios from "axios";
-import Recipe from "../recipes/recipe";
+import { withRouter, Link } from "react-router-dom";
 import SelectedFoods from "../recipes/SelectFood";
 import FoodSearch from "../recipes/FoodSearch";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import "../recipes/recipes.css";
 
 class CreateNewRecipe extends Component {
@@ -46,7 +33,7 @@ class CreateNewRecipe extends Component {
   };
   componentDidMount() {
     if (localStorage.getItem("token")) {
-      const id = this.props.user.userID;
+      const id = localStorage.getItem("user_id");
       this.props.getRecipe(id);
     } else {
       this.props.history.push("/");
@@ -115,6 +102,7 @@ class CreateNewRecipe extends Component {
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
   render() {
@@ -145,7 +133,8 @@ class CreateNewRecipe extends Component {
               Log Out
             </Button>
           </div>
-          <div>
+
+          <div className="create-recipe-background">
             <Button color="success" onClick={this.toggle}>
               + New Recipe
             </Button>

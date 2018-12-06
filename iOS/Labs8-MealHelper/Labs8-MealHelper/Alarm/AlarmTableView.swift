@@ -10,12 +10,10 @@ import UIKit
 
 class AlarmTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
+    var localNotificationHelper: LocalNotificationHelper?
+    
     let cellId = "AlarmCell"
-    var alarms = [Alarm]() {
-        didSet {
-            self.reloadData()
-        }
-    }
+    var alarms = [Alarm]()
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -60,6 +58,43 @@ class AlarmTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?
+    {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: deleteHandlerFunction)
+        deleteAction.backgroundColor = .sunRed
+        
+//        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: editHandlerFunction)
+//        editAction.backgroundColor = .mountainBlue
+        
+        return [deleteAction]
+    }
+    
+    private func deleteHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath)
+    {
+        let alarm = alarms[indexPath.row]
+        alarms.remove(at: indexPath.row)
+        deleteRows(at: [indexPath], with: .automatic)
+        
+        let userId = UserDefaults.standard.loggedInUserId()
+        
+        APIClient.shared.deleteAlarm(with: alarm.id, userId: userId) { (response) in
+            
+            DispatchQueue.main.async {
+                switch response {
+                case .success:
+                    self.localNotificationHelper?.deleteNotification(with: alarm.id)
+                case .error:
+                    print("Error deleting alarm")
+                }
+            }
+        }
+    }
+    
+//    private func editHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath)
+//    {
+//        let alarm = alarms[indexPath.row]
+//    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

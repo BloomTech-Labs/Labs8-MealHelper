@@ -1,0 +1,45 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import "../homepage/homepage.css";
+
+//change the route for this
+import { addUser } from "../../store/actions/userActions";
+import { withRouter } from "react-router-dom";
+
+class MealDisplay extends Component {
+  handleChange = event => {
+    event.preventDefault();
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  render() {
+    return (
+      <div className="MealDisplay">
+        <div className="meal-card-header">
+          <p className="meal-experience">{this.props.experience}</p>
+        </div>
+        <div className="meal-card-center">
+          <h1 className="meal-time">{this.props.mealTime}</h1>
+          <h4 className="meal-date">{this.props.date}</h4>
+        </div>
+
+        <div className="meal-card-footer">
+          <h5 className="meal-city">{this.props.city}</h5>
+          <h5 className="meal-temp">{this.props.temp} &#176;F</h5>
+        </div>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  user: state.userReducer.user,
+  meals: state.mealsReducer.meals
+});
+
+export default connect(
+  mapStateToProps,
+  { addUser }
+)(withRouter(MealDisplay));

@@ -18,6 +18,8 @@ class LeftIconTextField: UITextField
         }
     }
     
+    var imageTintColor: UIColor = .white
+    
     override func leftViewRect(forBounds bounds: CGRect) -> CGRect
     {
         var textRect = super.leftViewRect(forBounds: bounds)
@@ -51,7 +53,7 @@ class LeftIconTextField: UITextField
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             imageView.contentMode = .scaleAspectFit
             imageView.image = image.withRenderingMode(.alwaysTemplate)
-            imageView.tintColor = .white
+            imageView.tintColor = imageTintColor
             leftView = imageView
         } else {
             leftViewMode = UITextField.ViewMode.never

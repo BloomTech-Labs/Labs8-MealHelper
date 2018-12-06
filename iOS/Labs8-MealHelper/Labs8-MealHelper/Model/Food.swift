@@ -12,46 +12,43 @@ import Foundation
 
 struct Meal: Codable {
     
-    init(mealTime: String, experience: String, date: String, userId: Int) {
-        self.mealTime = mealTime
-        self.experience = experience
-        self.date = date
-        self.userId = userId
-    }
-    
-    var identifier: Int?
-    var mealTime: String?
+    var identifier: Int
+    var name: String
+    var mealTime: String
     var experience: String?
-    var date: String?
+    var temp: Double
+    var date: String
     var userId: Int?
+    var humidity: Double?
+    var pressure: Double?
+    var notes: String?
+    var servings: Int?
+    var recipeId: Int?
     var recipes: [Recipe]?
     
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
+        case name
         case mealTime
         case experience
+        case temp
         case date
         case userId = "user_id"
+        case humidity
+        case pressure
+        case notes
+        case servings
+        case recipeId = "recipe_id"
     }
 }
 
 struct Recipe: Codable, Equatable {
     
-    init(name: String, calories: Int, servings: Int, ingredients: [Ingredient] = [], userId: Int?, mealId: Int?) {
-        self.name = name
-        self.calories = calories
-        self.servings = servings
-        self.ingredients = ingredients
-        self.userId = userId
-    }
-    
-    var identifier: Int?
-    var name: String?
-    var calories: Int?
-    var servings: Int?
-    var mealId: Int?
+    var identifier: Int
+    var name: String
+    var calories: String
+    var servings: Int
     var userId: Int?
-    var ingredientId: Int?
     var ingredients: [Ingredient]?
     
     enum CodingKeys: String, CodingKey {
@@ -59,9 +56,7 @@ struct Recipe: Codable, Equatable {
         case name
         case calories
         case servings
-        case mealId = "meal_id"
         case userId = "user_id"
-        case ingredientId = "ingredients_id"
     }
 }
 
@@ -77,7 +72,7 @@ struct Ingredient: Codable, Equatable {
     }
     
     var identifier: Int?
-    var name: String?
+    var name: String
     var nbdId: String?
     var userId: Int?
     var nutrientIds: [Int]?
@@ -105,6 +100,7 @@ struct Nutrient: Codable {
     var unit: String
     var value: String
     var gm: Double // The 100 gram equivalent value for the nutrient
+    var ingredientId: Int?
     
     enum CodingKeys: String, CodingKey {
         case identifier = "nutrient_id"
@@ -112,7 +108,17 @@ struct Nutrient: Codable {
         case unit
         case value
         case gm
+        case ingredientId = "ingredients_id"
     }
+}
+
+struct MacroNutrient {
+    
+    var energy: String?
+    var carbs: String?
+    var fat: String?
+    var protein: String?
+    
 }
 
 // MARK: - USDA
@@ -175,5 +181,15 @@ struct UsdaNutrient: Codable {
                 case nutrients
             }
         }
+    }
+}
+
+// TODO: To be deleted. Used as temporary response type after posting nutrients
+struct TempType: Codable {
+    
+    var command: String
+    
+    enum CodingKeys: String, CodingKey {
+        case command
     }
 }

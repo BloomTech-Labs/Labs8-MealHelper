@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Sign from "../Sign";
-import Callback from "../../Callback";
 import { connect } from "react-redux";
-//change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
+import Loading from "./Double Ring-2s-200px.svg";
+import Applelogo from "../../img/appstorebadge.png";
 import "./signup.css";
 
 class SignUp extends Component {
@@ -17,6 +17,7 @@ class SignUp extends Component {
       password: "",
       zip: null,
       healthCondition: "",
+      isLoading: false,
       visable: false,
       visableError: false
     };
@@ -24,7 +25,7 @@ class SignUp extends Component {
   }
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
-      this.props.history.push("/homepage");
+      this.props.history.push("/zip");
     }
   };
   handleChange = event => {
@@ -40,23 +41,25 @@ class SignUp extends Component {
   loggin = event => {
     console.log(localStorage.getItem("token"));
     if (!localStorage.getItem("token")) {
+      this.setState({ isLoading: false });
       this.setState({ visableError: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      this.props.history.push("/homepage");
+      this.props.history.push("/zip");
     }
   };
   async confirmSignup() {
+    this.setState({ isLoading: true });
     const confirmed = await this.createUser();
-    setTimeout(this.loggin, 4000);
+    setTimeout(this.loggin, 7000);
   }
   createUser = event => {
     if (!this.state.email || !this.state.password) {
       this.setState({ visable: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      const { email, password, zip, healthCondition } = this.state;
-      const user = { email, password, zip, healthCondition };
+      const { email, password, zip } = this.state;
+      const user = { email, password, zip };
       this.props.addUser(user);
     }
   };
@@ -64,89 +67,72 @@ class SignUp extends Component {
   render() {
     return (
       <div className="main-container">
-        <div className="alert-box3">
-          <Alert isOpen={this.state.visableError} color="danger">
-            Error Creating User, please try again
-          </Alert>
-        </div>
-        <div className="alert-box3">
-          <Alert isOpen={this.state.visable} color="danger">
-            Please enter an email
-          </Alert>
-        </div>
-        <div className="formcenter">
-          <div className="user-form-container">
-            <h1 className="signup-title">Sign Up</h1>
-            <form className="signup-form">
-              <div className="form-group">
-                <input
-                  id="dynamic-label-input"
-                  className="email-input"
-                  type="email"
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                  placeholder="Email"
-                />
-                <label htmlFor="dynamic-label-input">Email</label>
-              </div>
-              <div className="form-group">
-                <input
-                  id="dynamic-label-input"
-                  className="password-input"
-                  type="password"
-                  name="password"
-                  onChange={this.handleChange}
-                  value={this.state.password}
-                  placeholder="Password"
-                />
-                <label htmlFor="dynamic-label-input">Password</label>
-              </div>
-              <div className="form-group">
-                <input
-                  id="dynamic-label-input"
-                  className="zip-input"
-                  type="number"
-                  name="zip"
-                  onChange={this.handleChange}
-                  value={this.state.zip}
-                  placeholder="Zip"
-                />
-                <label htmlFor="dynamic-label-input">Zip Code</label>
-              </div>
-              <div className="form-group">
-                <input
-                  id="dynamic-label-input"
-                  className="condition-input"
-                  type="text"
-                  name="healthCondition"
-                  onChange={this.handleChange}
-                  value={this.state.healthCondition}
-                  placeholder="Health Condition"
-                />
-                <label htmlFor="dynamic-label-input">Health Condition</label>
-              </div>
-              <div className="signup signup-two" onClick={this.confirmSignup}>
-                <span>Sign Up</span>
-              </div>
-              <div className="auth">
-                <p className="signuptext">Already have an account?</p>
-              </div>
-              <Link to="/login">
-                <div className="signup signup-two">
-                  <button className="buttons">
-                    <span>Login</span>
-                  </button>
+        {this.state.isLoading ? (
+          <div className="isLoading">
+            <img className="loading" src={Loading} alt="Loading icon" />
+          </div>
+        ) : (
+          <div>
+            <div className="alert-box3">
+              <Alert isOpen={this.state.visableError} color="danger">
+                Error Creating User, please try again
+              </Alert>
+            </div>
+            <div className="alert-box3">
+              <Alert isOpen={this.state.visable} color="danger">
+                Please enter an email
+              </Alert>
+            </div>
+            <div className="formcenter">
+              <div className="user-form-container">
+                <h1 className="signup-title">EatWell</h1>
+                <form className="signup-form">
+                  <div className="form-group">
+                    <label>Email</label>
+                    <input
+                      className="email-input"
+                      type="email"
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Password</label>
+                    <input
+                      className="password-input"
+                      type="password"
+                      name="password"
+                      onChange={this.handleChange}
+                      value={this.state.password}
+                    />
+                  </div>
+                  <div className="signup" onClick={this.confirmSignup}>
+                    <span>Sign Up</span>
+                  </div>
+                  <p className="cta-existing-account">
+                    Already Have An Account?
+                  </p>
+                  <Link to="/login" style={{ textDecoration: "none" }}>
+                    <div className="login">
+                      <span>Login with Email</span>
+                    </div>
+                  </Link>
+                </form>
+                <div className="authbuttonlogin">
+                  <Sign />
                 </div>
-              </Link>
-              <p className="signuptext">- Or -</p>
-            </form>
-            <div>
-              <Sign />
-              <Route exact path="/callback" component={Callback} />
+                <a href="https://www.apple.com/ios/app-store/">
+                  <img
+                    className="applebadge"
+                    src={Applelogo}
+                    alt="Apple App Store"
+                  />
+                </a>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }

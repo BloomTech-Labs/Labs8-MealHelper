@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<?xml-stylesheet type="text/css" href="Navbar.css" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="52px" height="52px" viewBox="0 0 26 26" enable-background="new 0 0 26 26" xml:space="preserve">
+
+<rect x="16.57" y="15.395" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -7.3368 17.7112)" fill="#8C8C8C" width="2.282" height="4.633"/>
+<path fill="#8C8C8C" d="M25.329,21.885c0.713,0.713,0.713,1.87,0,2.584l-0.861,0.86c-0.714,0.714-1.87,0.714-2.583,0l-4.614-4.615  c-0.714-0.714-0.714-1.87-0.001-2.583l0.861-0.861c0.713-0.713,1.871-0.713,2.584,0L25.329,21.885z"/>
+<path fill="#8C8C8C" d="M10,0.188C4.58,0.188,0.188,4.58,0.188,10S4.58,19.813,10,19.813S19.813,15.42,19.813,10  S15.42,0.188,10,0.188z M10,17.997c-4.418,0-7.998-3.579-7.998-7.997S5.582,2.003,10,2.003S17.998,5.582,17.998,10  S14.418,17.997,10,17.997z"/>
+<path fill="#8C8C8C" d="M12.012,14.857c-3.914,0-7.089-3.174-7.089-7.089c0-0.104,0.011-0.206,0.016-0.31  c-0.517,0.836-0.82,1.819-0.82,2.873c0,3.027,2.454,5.48,5.48,5.48c1.169,0,2.249-0.368,3.14-0.991  C12.5,14.846,12.257,14.857,12.012,14.857z"/>
+</svg>
