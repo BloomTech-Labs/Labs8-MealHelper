@@ -52,15 +52,6 @@
   margin-right: 100px;
 }
 
-.alarm-label {
-  /* width: 60%; */
-  /* border: 1px solid black; */
-}
-
-.alarm-time {
-  /* border: 1px solid black; */
-}
-
 .alarm-buttons {
   width: 130px;
   display: flex;

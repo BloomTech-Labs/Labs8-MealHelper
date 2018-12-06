@@ -81,15 +81,17 @@ class AddAlarms extends Component {
 
   chooseStartTime(value) {
     console.log("CHOOSE START TIME VALUE", value);
-    this.setState({ startTime: value })
+    this.setState({ startTime: value }, () => console.log("chooseStartTime setstate", this.state.startTime))
   }
 
   chooseEndTime(value) {
-    this.setState({ endTime: value })
+    console.log("CHOOSE END TIME VALUE", value);
+    this.setState({ endTime: value }, () => console.log("chooseEndTime setstate", this.state.endTime))
   }
 
   chooseAlarmTime(value) {
-    this.setState({ alarmTime: value })
+    console.log("CHOOSE ALARM TIME VALUE", value);
+    this.setState({ alarmTime: value }, () => console.log("chooseAlarmTime setstate", this.state.alarmTime))
   }
 
   addAlarm = event => {
@@ -125,8 +127,9 @@ class AddAlarms extends Component {
           });
         }
       }
-      alarmTimes.map(alarm => this.props.addAlarms(alarm));
-      this.props.history.push("/homepage/alarms");
+      alarmTimes.map(alarm => console.log("BATCH ALARMS", alarm))
+      // alarmTimes.map(alarm => this.props.addAlarms(alarm));
+      // this.props.history.push("/homepage/alarms");
     }
   };
 
@@ -143,19 +146,45 @@ class AddAlarms extends Component {
       alarm: alarm,
       timestamp: timestamp
     };
-    this.props.addAlarms(alarmBody);
-    this.props.history.push("/homepage/alarms");
+    console.log("SINGLE ALARM", alarmBody)
+    // this.props.addAlarms(alarmBody);
+    // this.props.history.push("/homepage/alarms");
+  };
+
+  militaryToStandard = input => {
+    let time = input;
+    let twelve = 0;
+    let format = 0;
+    let twelveWithZero = 0;
+    let lastNum = 0;
+    if (time > 1259) {
+      twelve = time - 1200;
+      if (twelve > 3) {
+        twelveWithZero = 0 + twelve.toString();
+        format = twelveWithZero.toString().split("");
+        lastNum = format[format.length - 1];
+        format[2] = ":";
+        format.push(lastNum, " PM");
+        return format.join("");
+      }
+    }
+    format = time.split("");
+    lastNum = format[format.length - 1];
+    format[2] = ":";
+    format.push(lastNum, " AM");
+    return format.join("");
   };
 
   render() {
     return (
       <div className="add-alarms-container">
-        <div className="add-alarms-forms">
+        <div className="add-alarms-forms-bg">
+        <div className="add-alarms-content">
           <div className="add-alarms-heading">
             <h1>Add Alarms in a Batch</h1>
           </div>
-          <form className="add-alarm-form">
-            <p>First Alarm</p>
+          <form className="add-alarm-inputs">
+           <div>First Alarm: {this.state.startTime ? this.militaryToStandard(this.state.startTime) : null}</div>
             <UncontrolledDropdown>
               <DropdownToggle className="choose-alarm" caret>
                 Choose first alarm time
@@ -165,7 +194,62 @@ class AddAlarms extends Component {
                     <DropdownItem
                       opt={opt.value}
                       name={opt.name}
-                      onClick={() => this.chooseStartTime(opt)}>
+                      onClick={() => this.chooseStartTime(opt.value)}>
+                    {opt.label}
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+
+            </UncontrolledDropdown>
+            <div>Last Alarm: {this.state.endTime ? this.militaryToStandard(this.state.endTime) : null}</div>
+            <UncontrolledDropdown>
+              <DropdownToggle className="choose-alarm" caret>
+                Choose last alarm time
+              </DropdownToggle>
+                <DropdownMenu className="choose-alarm-dropdown">
+                  {options.map(opt => (
+                    <DropdownItem
+                      opt={opt.value}
+                      name={opt.name}
+                      onClick={() => this.chooseEndTime(opt.value)}>
+                    {opt.label}
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+
+            </UncontrolledDropdown>
+            <div>Hours Between Each Alarm</div>
+            <input
+              className="repeats"
+              name="repeats"
+              value={this.state.repeats}
+              onChange={this.handleChange}
+            />
+          </form>
+          <div>Tip: You can add labels to your alarms by clicking 'Edit' next to each alarm on the Alarms page.</div>
+          <Button onClick={this.addAlarm} className="add-alarms-btn">
+            Add Alarm Batch
+          </Button>
+          </div>
+        </div>
+
+        <div className="add-alarms-forms-bg">
+        <div className="add-alarms-content">
+          <div className="add-alarms-heading">
+            <h1>Add a Single Alarm</h1>
+          </div>
+          <form className="add-alarm-inputs">
+          <div>Alarm Time: {this.state.alarmTime ? this.militaryToStandard(this.state.alarmTime) : null}</div>
+          <UncontrolledDropdown>
+              <DropdownToggle className="choose-alarm" caret>
+                Choose alarm time
+              </DropdownToggle>
+                <DropdownMenu className="choose-alarm-dropdown">
+                  {options.map(opt => (
+                    <DropdownItem
+                      opt={opt.value}
+                      name={opt.name}
+                      onClick={() => this.chooseAlarmTime(opt.value)}>
                     {opt.label}
                     </DropdownItem>
                   ))}
@@ -176,66 +260,22 @@ class AddAlarms extends Component {
               styles={customStyles}
               options={options}
               className="alarms-select"
-              name="startTime"
-              placeholder="Start Time"
-              onChange={opt => this.setState({ startTime: opt.value })}
-            /> */}
-            <p>Last Alarm</p>
-            <UncontrolledDropdown>
-              <DropdownToggle className="choose-alarm" caret>
-                Choose first alarm time
-              </DropdownToggle>
-                <DropdownMenu className="choose-alarm-dropdown">
-                  {options.map(opt => (
-                    <DropdownItem
-                      opt={opt.value}
-                      name={opt.name}
-                      onClick={() => this.chooseStartTime(opt)}>
-                    {opt.label}
-                    </DropdownItem>
-                  ))}
-                </DropdownMenu>
-
-            </UncontrolledDropdown>
-            <p>Hours Between Each Alarm</p>
-            <input
-              className="repeats"
-              name="repeats"
-              value={this.state.repeats}
-              onChange={this.handleChange}
-              placeholder="Hours between each alarm"
-            />
-          </form>
-          <Button onClick={this.addAlarm} className="add-alarms btn">
-            Add Alarm Batch
-          </Button>
-        </div>
-
-        <div className="add-alarms-forms">
-          <div className="add-alarms-heading">
-            <h1>Add a Single Alarm</h1>
-          </div>
-
-          <form className="add-alarm-form">
-            <Select
-              styles={customStyles}
-              options={options}
-              className="alarms-select"
               name="alarmTime"
               placeholder="Alarm Time"
               onChange={opt => this.setState({ alarmTime: opt.value })}
-            />
+            /> */}
+            <div>Label</div>
             <input
               className="label"
               name="label"
               value={this.state.label}
               onChange={this.handleChange}
-              placeholder="Alarm label"
             />
           </form>
-          <Button onClick={this.addSingleAlarm} className="add-alarms btn">
+          <Button onClick={this.addSingleAlarm} className="add-alarms-btn">
             Add Alarm
           </Button>
+        </div>
         </div>
       </div>
     );
