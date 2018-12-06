@@ -171,10 +171,10 @@ class MyAlarms extends Component {
               {" "}
               <br />
               <div className="alarm-text">
-              <p className="time">{this.militaryToStandard(alarm.alarm)}</p>
               <p className="label">{alarm.label}</p>
+              <p className="time">{this.militaryToStandard(alarm.alarm)}</p>
               </div>
-              <div className="buttons">
+              <div className="alarm-buttons">
               <Button color="info" onClick={() => this.showModal(alarm.id)}> Edit </Button>
               <Button color="danger"
                 onClick={() =>
@@ -223,18 +223,6 @@ class MyAlarms extends Component {
               <button onClick={() => this.showModal}>Nevermind</button>
            </ModalBody>
          </Modal>
-          {/* <editAlarmModal className={this.state.show ? "show-modal" : "hide-modal"}show={this.state.show}>
-            <div className="edit-modal">
-              <h2>Edit Alarm</h2>
-              <input
-                type="label"
-                name="label"
-                value={this.state.label}
-                onChange={this.handleChange}
-              />
-              
-            </div>
-          </editAlarmModal> */}
         </div>
     );
   }
