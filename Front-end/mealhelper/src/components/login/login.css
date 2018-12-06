@@ -1,10 +1,4 @@
-body {
-  width: 100%;
-  height: auto !important;
-  background: #f0f0f0 !important;
-}
-
-.user-form-container {
+.user-form-container-login {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -12,7 +6,7 @@ body {
   background: #ffffff;
   margin-top: 5%;
   width: 318px;
-  height: 415px;
+  height: 515px;
   border: #9c9c9c;
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.57);
   border-radius: 12px;
@@ -27,7 +21,7 @@ body {
   font-family: "Allan", cursive;
 }
 
-.form-group {
+.form-group-login {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -35,7 +29,7 @@ body {
   padding-top: 20px;
 }
 
-.form-group:hover {
+.form-group-login:hover {
   border: #8c8c8c;
 }
 
@@ -53,11 +47,11 @@ label {
   text-align: left;
 }
 
-.return {
+.return-login {
   padding-top: 20px;
 }
 
-/* .signup {
+.login-login {
   color: #ffffff;
   width: 250px;
   font-size: 25px;
@@ -70,30 +64,9 @@ label {
   background-color: #267cfc;
 }
 
-.signup:hover {
-  background-color: #0166fe;
-} */
-.login {
-  color: #ffffff;
-  width: 250px;
-  font-size: 25px;
-  height: 50px;
-  padding-top: 14px;
-  font-weight: 900;
-  margin-top: 40px;
-  margin-bottom: 30px;
-  cursor: pointer;
-  background-color: #267cfc;
-}
-
-.login:hover {
+.login-login:hover {
   background-color: #0166fe;
 }
-
-/* .buttons {
-  background-color: rgba(0, 0, 0, 0);
-  color: #267cfc;
-} */
 
 .signuptext {
   padding-top: 20px;

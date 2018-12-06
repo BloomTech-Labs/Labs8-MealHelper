@@ -5,7 +5,7 @@ import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
 import Sign from "../Sign";
 import Loading from "../signup/Double Ring-2s-200px.svg";
-import "../signup/signup.css";
+import "./login.css";
 import Applelogo from "../../img/appstorebadge.png";
 class Login extends Component {
   constructor(props) {
@@ -75,10 +75,10 @@ class Login extends Component {
               </Alert>
             </div>
             <div className="formcenter">
-              <div className="user-form-container">
-                <h1 className="signup-title">EatWell</h1>
-                <form className="signup-form">
-                  <div className="form-group">
+              <div className="user-form-container-login">
+                <h1 className="login-title">EatWell</h1>
+                <form className="login-form">
+                  <div className="form-group-login">
                     <label>Email</label>
                     <input
                       className="email-input"
@@ -89,7 +89,7 @@ class Login extends Component {
                       required
                     />
                   </div>
-                  <div className="form-group">
+                  <div className="form-group-login">
                     <label>Password</label>
                     <input
                       className="password-input"
@@ -101,9 +101,9 @@ class Login extends Component {
                     />
                   </div>
                   <Link to="/signup">
-                    <p> ⬅ Return to Sign Up </p>
+                    <p className="return-login"> ⬅ Return to Sign Up </p>
                   </Link>
-                  <div className="signup" onClick={this.confirmLogin}>
+                  <div className="login-login" onClick={this.confirmLogin}>
                     <span>Log In</span>
                   </div>
                 </form>
