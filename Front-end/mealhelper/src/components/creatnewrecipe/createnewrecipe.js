@@ -1,16 +1,12 @@
-// == Dependencies == //
 import React, { Component } from "react";
 import { connect } from "react-redux";
+//change the route for this
 import { addRecipe, getRecipe } from "../../store/actions/recipeActions.js";
 import { withRouter, Link } from "react-router-dom";
-// == Components == //
 import SelectedFoods from "../recipes/SelectFood";
 import FoodSearch from "../recipes/FoodSearch";
-// == Actions == //
-// == Styles == //
-import "./createnewrecipe.css";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-//change the route for this
+import "../recipes/recipes.css";
 
 class CreateNewRecipe extends Component {
   constructor(props) {
@@ -114,6 +110,29 @@ class CreateNewRecipe extends Component {
     return (
       <div>
         <div className="home-container">
+          <div className="sidebar">
+            <Link to="/homepage" style={{ textDecoration: "none" }}>
+              <h2 className="titlelinks">Home</h2>
+            </Link>
+            <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
+              <h2 className="titlelinks">Recipes</h2>
+            </Link>
+            <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
+              <h2 className="titlelinks">Alarms</h2>
+            </Link>
+            <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
+              <h2 className="titlelinks">Meals</h2>
+            </Link>
+            <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
+              <h2 className="titlelinks">Billing</h2>
+            </Link>
+            <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
+              <h2 className="titlelinks">Settings</h2>
+            </Link>
+            <Button color="danger" onClick={this.toggleLogout}>
+              Log Out
+            </Button>
+          </div>
 
           <div className="create-recipe-background">
             <Button color="success" onClick={this.toggle}>

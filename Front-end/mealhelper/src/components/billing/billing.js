@@ -1,15 +1,12 @@
-// == Dependencies == //
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter, Link } from "react-router-dom";
-import { Elements, StripeProvider } from "react-stripe-elements";
-// == Components == //
-import CheckoutForm from "../checkout/CheckoutForm";
-// == Actions == //
-import { addUser } from "../../store/actions/userActions";
-// == Styles == //
 import "./billing.css";
+//change the route for this
+import { addUser } from "../../store/actions/userActions";
+import { withRouter, Link } from "react-router-dom";
 import { Button, Modal, ModalHeader } from "reactstrap";
+import { Elements, StripeProvider } from "react-stripe-elements";
+import CheckoutForm from "../checkout/CheckoutForm";
 
 class Billing extends Component {
   constructor(props) {
@@ -64,7 +61,35 @@ class Billing extends Component {
   render() {
     return (
       <div className="home-container">
-               <div className="dynamic-display">
+        <div className="sidebar">
+          <Link to="/homepage" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Home</h2>
+          </Link>
+          <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Recipes</h2>
+          </Link>
+          <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Alarms</h2>
+          </Link>
+          <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Meals</h2>
+          </Link>
+          <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Billing</h2>
+          </Link>
+          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
+            <h2 className="titlelinks">Settings</h2>
+          </Link>
+          <Button color="danger" onClick={this.toggle}>
+            Log Out
+          </Button>
+          <Link to="homepage/billing">
+            <Button className="danger" color="danger">
+              Upgrade to Premium
+            </Button>
+          </Link>
+        </div>
+        <div className="dynamic-display">
           <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
             <div className="example">
               <Elements>
