@@ -1,6 +1,6 @@
 .Navbar-Container {
   background: #ffffff;
-  height: 51px;
+  height: 55px;
   width: 100%;
   border-bottom: 1px solid #9c9c9c;
   position: fixed;
@@ -8,7 +8,7 @@
 }
 .Navbar-Container-Main {
   background: #ffffff;
-  height: 51px;
+  height: 55px;
   width: 100%;
   border-bottom: 1px solid #9c9c9c;
   position: fixed;

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { loginUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
+import Navbar from "../Navbar/Navbar";
 import Sign from "../Sign";
 import Loading from "../signup/Double Ring-2s-200px.svg";
 import "./login.css";
@@ -63,6 +64,7 @@ class Login extends Component {
   render() {
     return (
       <div className="main-container">
+        <Navbar />
         {this.state.isLoading ? (
           <div className="isLoading">
             <img className="loading" src={Loading} alt="Loading icon" />

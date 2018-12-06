@@ -10,3 +10,6 @@ body {
   height: auto !important;
   background: #f0f0f0 !important;
 }
+.display {
+  width: 100%;
+}
