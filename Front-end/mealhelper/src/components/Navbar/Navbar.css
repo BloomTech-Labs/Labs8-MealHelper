@@ -19,6 +19,14 @@
 .logo-main-container {
   margin-right: 5%;
 }
+.link-logo {
+  text-decoration: none;
+  color: black;
+}
+.link-logo:hover {
+  text-decoration: none;
+  color: black;
+}
 .logo-main {
   font-size: 40px;
   font-family: "Allan", cursive;

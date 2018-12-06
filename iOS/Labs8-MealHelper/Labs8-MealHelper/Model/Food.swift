@@ -112,6 +112,15 @@ struct Nutrient: Codable {
     }
 }
 
+struct MacroNutrient {
+    
+    var energy: String?
+    var carbs: String?
+    var fat: String?
+    var protein: String?
+    
+}
+
 // MARK: - USDA
 
 struct UsdaIngredients: Codable {

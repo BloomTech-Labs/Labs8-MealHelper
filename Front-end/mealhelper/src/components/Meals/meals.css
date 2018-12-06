@@ -1,3 +1,25 @@
+input[type="date"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  display: none;
+}
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+body {
+  width: 100%;
+  height: auto !important;
+  background: #f0f0f0 !important;
+}
+.meals-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  text-align: center;
+  background: #f0f0f0;
+}
+
 .btn-success {
   margin-top: 150px !important;
 }
@@ -8,4 +30,100 @@
   height: 30%;
   background: linear-gradient(rgba(20, 20, 20, 0.93), rgba(20, 20, 20, 0.93));
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+.meal-box {
+  width: 344px;
+  height: 51px;
+  background: #ffffff;
+  border: 1px solid #b6b5b5;
+}
+.meal-box-new {
+  margin: 100px auto 0;
+  background: #ffffff;
+  border: 1px solid #b6b5b5;
+  width: 495px;
+  height: 654px;
+}
+.meal-link {
+  margin: 500px auto;
+}
+.new-meal-text {
+  margin-top: 5px !important;
+  color: black;
+}
+.new-meal-text-new {
+  margin-top: 15px !important;
+  color: black;
+}
+.new-meal-text:hover {
+  color: #86b2dd;
+}
+.new-meal-text-enter {
+  text-indent: 10px;
+  margin-top: 35px;
+  width: 350px;
+  height: 43px;
+  background: #ffffff;
+  border: 1px solid #9c9c9c;
+  border-radius: 3px 0px 0px 3px;
+}
+.new-meal-text-enter:focus {
+  outline: 2px solid #86b2dd;
+}
+.new-meal-text-servings {
+  text-indent: 10px;
+  margin-top: 35px;
+  width: 350px;
+  height: 43px;
+  background: #ffffff;
+  border: 1px solid #9c9c9c;
+  border-radius: 3px 3px 3px 3px;
+}
+.new-meal-text-date {
+  text-indent: 4px;
+  margin-top: 35px;
+  width: 350px;
+  height: 43px;
+  background: #ffffff;
+  border: 1px solid #9c9c9c;
+  border-radius: 3px 3px 3px 3px;
+}
+.new-meal-text-servings:focus {
+  outline: 2px solid #86b2dd;
+}
+.Drop {
+  display: flex;
+  justify-content: space-evenly;
+}
+.new-meal-experience {
+  margin: 35px auto 0;
+  width: 100px;
+  height: 51px;
+  border: 1px solid #b6b5b5;
+}
+.button-new-meal-experience {
+  background: #ffffff;
+  margin-top: 35px;
+  width: 100px;
+  height: 51px;
+  border: 1px solid #b6b5b5;
+}
+.new-meal-text-servings-notes {
+  padding-top: 5px;
+  padding-left: 5px;
+  margin-top: 35px;
+  width: 350px;
+  height: 43px;
+  background: #ffffff;
+  border: 1px solid #9c9c9c;
+  border-radius: 3px 3px 3px 3px;
+}
+.button-new-meal-experience:hover {
+  border: 1px solid #86b2dd !important;
+}
+.new-meal-experience:hover {
+  border: 1px solid #86b2dd !important;
+}
+.text-span {
+  padding: 15px 5px;
 }

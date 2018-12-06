@@ -24,3 +24,13 @@ struct User: Codable {
         case id
     }
 }
+
+struct UserId: Codable {
+    var id: Int?
+    var token: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "userID"
+        case token
+    }
+}

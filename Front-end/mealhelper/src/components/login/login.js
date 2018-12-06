@@ -8,9 +8,13 @@ import Sign from "../Sign";
 import { loginUser } from "../../store/actions/userActions";
 // == Styles == //
 import Loading from "../signup/Double Ring-2s-200px.svg";
+<<<<<<< HEAD
 import { Alert } from "reactstrap";
 //import "../signup/signup.css";
 import "./login.css"
+=======
+import "./login.css";
+>>>>>>> 05bb25a5ce16dda66c49bfaf6e9493b18a6dedb0
 import Applelogo from "../../img/appstorebadge.png";
 
 class Login extends Component {
@@ -81,10 +85,17 @@ class Login extends Component {
               </Alert>
             </div>
             <div className="formcenter">
+<<<<<<< HEAD
               <div className="user-form-container">
                 <h1 className="login-title">EatWell</h1>
                 <form className="login-form">
                   <div className="login-form-group">
+=======
+              <div className="user-form-container-login">
+                <h1 className="login-title">EatWell</h1>
+                <form className="login-form">
+                  <div className="form-group-login">
+>>>>>>> 05bb25a5ce16dda66c49bfaf6e9493b18a6dedb0
                     <label>Email</label>
                     <input
                       className="email-input"
@@ -95,7 +106,11 @@ class Login extends Component {
                       required
                     />
                   </div>
+<<<<<<< HEAD
                   <div className="login-form-group">
+=======
+                  <div className="form-group-login">
+>>>>>>> 05bb25a5ce16dda66c49bfaf6e9493b18a6dedb0
                     <label>Password</label>
                     <input
                       className="password-input"
@@ -107,9 +122,9 @@ class Login extends Component {
                     />
                   </div>
                   <Link to="/signup">
-                    <p> ⬅ Return to Sign Up </p>
+                    <p className="return-login"> ⬅ Return to Sign Up </p>
                   </Link>
-                  <div className="signup" onClick={this.confirmLogin}>
+                  <div className="login-login" onClick={this.confirmLogin}>
                     <span>Log In</span>
                   </div>
                 </form>

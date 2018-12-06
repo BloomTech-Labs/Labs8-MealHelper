@@ -46,7 +46,6 @@ class Billing extends Component {
       const { email, password, zip, healthCondition } = this.state;
       const user = { email, password, zip, healthCondition };
       this.props.addUser(user);
-      // this.props.history.push("/");
     }
   };
   toggle = () => {
@@ -68,7 +67,6 @@ class Billing extends Component {
                <div className="dynamic-display">
           <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
             <div className="example">
-              <h1>Pay Up Health Nut</h1>
               <Elements>
                 <CheckoutForm />
               </Elements>
