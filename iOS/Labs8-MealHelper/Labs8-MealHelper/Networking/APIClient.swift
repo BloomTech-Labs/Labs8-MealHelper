@@ -8,26 +8,20 @@
 
 import Foundation
 
-class APIClient {
+class APIClient: GenericAPIClient {
     
     static let shared = APIClient()
+    let baseUrl = URL(string: "https://labs8-meal-helper.herokuapp.com")!
     
-    func deleteAlarm(with id: Int, completion: @escaping (Response<Int>) -> ()) {
-        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(id)/user/\(String(UserDefaults.standard.loggedInUserId()))")!
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = HTTPMethod.delete.rawValue
-        
-        URLSession.shared.dataTask(with: urlRequest) { (_, _, error) in
-            
-            if let error = error {
-                NSLog("Error deleting alarm: \(error)")
-                completion(Response.error(error))
-                return
-            }
-            
-            completion(Response.success(1))
-        }.resume()
+    
+    func deleteUser(with userId: Int, completion: @escaping (Response<String>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["users", "\(userId)"])
+        delete(with: url, completion: completion)
+    }
+    
+    func deleteAlarm(with id: Int, userId: Int, completion: @escaping (Response<String>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["alarms", "\(id)", "user", "\(userId)"])
+        delete(with: url, completion: completion)
     }
     
     func editAlarm(with id: Int, completion: @escaping (Response<Int>) -> ()) {
@@ -49,37 +43,16 @@ class APIClient {
     }
     
     func fetchAlarms(userId: Int, completion: @escaping (Response<[Alarm]>) -> ()) {
-        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(userId)")!
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = HTTPMethod.get.rawValue
-        
-        URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
-            
-            if let error = error {
-                NSLog("Error with urlReqeust: \(error)")
-                completion(Response.error(error))
-                return
-            }
-            
-            guard let data = data else {
-                NSLog("Error unwrapping data")
-                completion(Response.error(NSError()))
-                return
-            }
-            
-            do {
-                let alarms = try JSONDecoder().decode([Alarm].self, from: data)
-                completion(Response.success(alarms))
-                
-            } catch {
-                NSLog("Error decoding data: \(error)")
-                completion(Response.error(error))
-                return
-            }
-        }.resume()
+        let url = self.url(with: baseUrl, pathComponents: ["alarms", "\(userId)"])
+        fetch(from: url, completion: completion)
     }
     
+<<<<<<< HEAD
+    func uploadAlarm(time: String, note: String, userId: Int, timestamp: String, completion: @escaping (Response<[Alarm]>) -> ()) {
+        let alarm = ["alarm": time, "label": note, "timestamp": timestamp] as [String: Any]
+        let url = self.url(with: baseUrl, pathComponents: ["alarms", "\(userId)"])
+        post(with: url, requestBody: alarm, completion: completion)
+=======
     func uploadAlarm(time: String, note: String, userId: Int, timestamp: String, completion: @escaping (Response<Alarm>) -> ()) {
         let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(userId)")!
         
@@ -128,144 +101,23 @@ class APIClient {
             }
         }.resume()
         
+>>>>>>> 202cf1be0298090106fe744feb8fdd9470c377c5
     }
     
-    func fetchMeals(completion: @escaping (Response<[Meal]>) -> ()) {
-        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/users/1/meals/")!
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = HTTPMethod.get.rawValue
-        
-        URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
-            
-            if let error = error {
-                NSLog("Error with urlReqeust: \(error)")
-                completion(Response.error(error))
-                return
-            }
-            
-            guard let data = data else {
-                NSLog("Error unwrapping data")
-                completion(Response.error(NSError()))
-                return
-            }
-            
-            do {
-                
-                let meal = try JSONDecoder().decode([Meal].self, from: data)
-                completion(Response.success(meal))
-                
-            } catch {
-                NSLog("Error decoding data: \(error)")
-                completion(Response.error(error))
-                return
-            }
-            
-        }.resume()
+    func fetchMeals(with userId: Int, completion: @escaping (Response<[Meal]>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["users", "\(userId)", "meals"])
+        fetch(from: url, completion: completion)
     }
-    
-    
-    //Gonna create a general fetch function we can use for all GET requests
-//    func fetch(items: <Resource: Codable>, httpMethod: HTTPMethod, endpoint: )
-    
+
     func login(with email: String, password: String, completion: @escaping (Response<UserId>) -> ()){
-        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/login/")!
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = HTTPMethod.post.rawValue
-        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        do {
-            let loginDetails = ["email": email, "password": password]
-            let encoder = JSONEncoder()
-            encoder.outputFormatting = .prettyPrinted
-            let loginJson = try encoder.encode(loginDetails)
-            urlRequest.httpBody = loginJson
-        } catch {
-            NSLog("Failed to encode user credentials: \(error)")
-            completion(Response.error(error))
-            return
-        }
-        
-        URLSession.shared.dataTask(with: urlRequest) { (data, res, error) in
-            
-            if let error = error {
-                NSLog("Error with urlReqeust: \(error)")
-                completion(Response.error(error))
-                return
-            }
-            
-            guard let data = data else {
-                NSLog("Error unwrapping data")
-                completion(Response.error(NSError()))
-                return
-            }
-            
-            do {
-                // TODO: Handle failed login (currently succeeds)
-                let user = try JSONDecoder().decode(UserId.self, from: data)
-                completion(Response.success(user))
-    
-            } catch {
-                NSLog("Error decoding data: \(error)")
-                completion(Response.error(error))
-                return
-            }
-        }.resume()
+        let url = self.url(with: baseUrl, pathComponents: ["login"])
+        let loginDetails = ["email": email, "password": password] as [String: Any]
+        post(with: url, requestBody: loginDetails, completion: completion)
     }
     
-    func register(with userCredentials: User, completion: @escaping (Response<UserId>) -> ()) {
-    
-        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/register/")
-        
-        var urlRequest = URLRequest(url: url!)
-        urlRequest.httpMethod = HTTPMethod.post.rawValue
-        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        do {
-            let encoder = JSONEncoder()
-            encoder.outputFormatting = .prettyPrinted
-            let userJson = try encoder.encode(userCredentials)
-            urlRequest.httpBody = userJson
-        } catch {
-            NSLog("Failed to encode user credentials: \(error)")
-            completion(Response.error(error))
-            return
-        }
-        
-        URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
-            
-            if let error = error {
-                NSLog("Error with urlReqeust: \(error)")
-                completion(Response.error(error))
-                return
-            }
-            
-            guard let data = data else {
-                NSLog("No data returned")
-                completion(Response.error(NSError()))
-                return
-            }
-        
-            do {
-                let user = try JSONDecoder().decode(UserId.self, from: data)
-                completion(Response.success(user))
-            } catch {
-                NSLog("Error decoding data: \(error)")
-                completion(Response.error(error))
-                return
-            }
-        }.resume()
-    }
-}
-
-
-struct UserId: Decodable {
-    var id: Int?
-    var token: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "userID"
-        case token
+    func register(email: String, password: String, zip: Int, completion: @escaping (Response<UserId>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["register"])
+        let userCredentials = ["email": email, "password": password, "zip": zip] as [String: Any]
+        post(with: url, requestBody: userCredentials, completion: completion)
     }
 }

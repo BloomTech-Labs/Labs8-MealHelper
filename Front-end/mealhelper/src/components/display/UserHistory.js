@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 import "../homepage/homepage.css";
 import MealDisplay from "./MealDisplay";
 import RecipeDisplay from "./RecipeDisplay";
-//change the route for this
-import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route, Switch } from "react-router-dom";
 
-class Display extends Component {
+import { addUser } from "../../store/actions/userActions";
+import { withRouter } from "react-router-dom";
+
+class UserHistory extends Component {
   constructor(props) {
     super(props);
 
@@ -94,7 +94,7 @@ class Display extends Component {
 
   render() {
     return (
-      <div className="flex-me">
+<div className="flex-me">
         <div className="dynamic-display-home-meals">
           <p className="recentMeals">4 Most Recently Made Meals: </p>
         </div>
@@ -159,4 +159,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { addUser }
-)(withRouter(Display));
+)(withRouter(UserHistory));

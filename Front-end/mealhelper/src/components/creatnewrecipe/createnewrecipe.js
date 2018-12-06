@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
 import { addRecipe, getRecipe } from "../../store/actions/recipeActions.js";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import SelectedFoods from "../recipes/SelectFood";
 import FoodSearch from "../recipes/FoodSearch";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";

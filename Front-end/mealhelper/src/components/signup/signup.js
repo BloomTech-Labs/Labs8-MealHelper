@@ -45,7 +45,7 @@ class SignUp extends Component {
       this.setState({ visableError: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      this.props.history.push("/homepage");
+      this.props.history.push("/zip");
     }
   };
   async confirmSignup() {
@@ -58,8 +58,8 @@ class SignUp extends Component {
       this.setState({ visable: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      const { email, password, zip, healthCondition } = this.state;
-      const user = { email, password, zip, healthCondition };
+      const { email, password, zip } = this.state;
+      const user = { email, password, zip };
       this.props.addUser(user);
     }
   };

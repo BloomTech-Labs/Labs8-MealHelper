@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import "./Navbar.css";
 

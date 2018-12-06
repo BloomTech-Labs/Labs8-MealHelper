@@ -1,7 +1,9 @@
 .main-container {
   height: 100vh;
   width: 100vw;
-  background: #f0f0f0;
+  /* background-image: url("../../img/laptop-fruit-tea.jpg");
+  background-size: 1750px; */
+  /* background: #8c8c8c; */
 }
 
 .formcenter {
@@ -52,6 +54,7 @@ input {
   background: #ffffff;
   border-width: 1px;
   border-color: #9c9c9c;
+  z-index: 5;
 }
 
 label {

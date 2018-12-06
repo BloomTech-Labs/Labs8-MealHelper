@@ -8,10 +8,12 @@
 
 import UIKit
 import ExpandableButton
+import Lottie
 
 class HomeViewController: UIViewController, UICollectionViewDelegate {
 
     var timer: Timer?
+    var countdownTime = 10
     
     let skyView: SkyView = {
         let view = SkyView()
@@ -28,17 +30,26 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         return iv
     }()
     
-    let countDownLabel: UILabel = {
+    let scheduledMealLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 2
         label.textAlignment = .center
         label.textColor = .white
-        label.font = Appearance.appFont(with: 50)
-        label.text = "60.00"
+        label.font = Appearance.appFont(with: 16)
         label.sizeToFit()
         
         return label
     }()
     
+    let countDownLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = Appearance.appFont(with: 32)
+        label.sizeToFit()
+        
+        return label
+    }()
     
     lazy var collectionView: HomeCollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -61,11 +72,167 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         return ebv
     }()
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        timer?.invalidate()
+        timer = nil
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        APIClient.shared.fetchMeals { (response) in
+        fetchMeals()
+        fetchAlarms()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .black
+        setupFooterView()
+
+//        let loginController = LoginViewController()
+//        loginController.modalPresentationStyle = .overCurrentContext
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            self.present(loginController, animated: true, completion: nil)
+//        }
+    }
+    
+    private func fetchAlarms() {
+        let userId = UserDefaults.standard.loggedInUserId()
+        countdownTime = 10
+        APIClient.shared.fetchAlarms(userId: userId) { (response) in
             
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let alarms):
+                    self.handleAlarms(alarms: alarms)
+                case .error:
+                    self.showAlert(with: "Unable to load your alarms, please check your internet connection and try again.")
+                }
+            }
+        }
+    }
+    
+    private func handleAlarms(alarms: [Alarm]) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .short
+        let now = Date()
+        let timeString = dateFormatter.string(from: now)
+        let timeValue = timeString.replacingOccurrences(of: ".", with: "")
+        var closestAlarm: Alarm?
+        var firstAlarmOfTheDay: Alarm?
+        
+        for alarm in alarms {
+            if timeValue < alarm.time {
+                if alarm.time < closestAlarm?.time ?? "2359" {
+                    closestAlarm = alarm
+                }
+            } else {
+                if alarm.time < firstAlarmOfTheDay?.time ?? "2359" {
+                    firstAlarmOfTheDay = alarm
+                }
+            }
+        }
+        
+        if let closestAlarm = closestAlarm {
+            
+            let alarmHour = String(closestAlarm.time.prefix(2))
+            let alarmMinute = String(closestAlarm.time.suffix(2))
+            let alarmHourInt = Int(alarmHour)!
+            let alarmMinuteInt = Int(alarmMinute)!
+            let nowHour = String(timeValue.prefix(2))
+            let nowMinute = String(timeValue.suffix(2))
+            let nowHourInt = Int(nowHour)!
+            let nowMinuteInt = Int(nowMinute)!
+            
+            let hoursRemainingInSeconds = (alarmHourInt * 3600) - (nowHourInt * 3600)
+            let minutesRemainingInSeconds = (alarmMinuteInt * 60) - (nowMinuteInt * 60)
+            let timeRemaining = hoursRemainingInSeconds + minutesRemainingInSeconds
+            setupAlarmCountdown(timeRemaining: timeRemaining)
+            
+        } else if let firstAlarm = firstAlarmOfTheDay {
+            
+            let alarmHour = String(firstAlarm.time.prefix(2))
+            let alarmMinute = String(firstAlarm.time.suffix(2))
+            let alarmHourInt = Int(alarmHour)!
+            let alarmMinuteInt = Int(alarmMinute)!
+            let nowHour = String(timeValue.prefix(2))
+            let nowMinute = String(timeValue.suffix(2))
+            let nowHourInt = Int(nowHour)!
+            let nowMinuteInt = Int(nowMinute)!
+            
+            let hoursAndMinutesInSeconds = (nowHourInt * 3600) + (nowMinuteInt * 60)
+            let timeRemainingOfTheDay = 86400 - hoursAndMinutesInSeconds
+            let alarmHoursAndMinutesInSeconds = (alarmHourInt * 3600) + (alarmMinuteInt * 60)
+            let timeRemaining = timeRemainingOfTheDay + alarmHoursAndMinutesInSeconds
+            setupAlarmCountdown(timeRemaining: timeRemaining)
+        } else {
+            scheduledMealLabel.text = "You haven't scheduled\nany meals yet"
+        }
+    }
+    
+    func setupAlarmCountdown(timeRemaining: Int) {
+        scheduledMealLabel.text = "Time until next\nscheduled meal"
+        countdownTime = timeRemaining
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(handleCountdown), userInfo: nil, repeats: true)
+    }
+    
+    @objc private func handleCountdown() {
+        
+        if countdownTime < 1 {
+            displayCelebrationAnimation()
+            timer?.invalidate()
+            fetchAlarms()
+            return
+        }
+        
+        countdownTime -= 1
+        countDownLabel.text = timeString(time: TimeInterval(countdownTime))
+    }
+    
+    private func timeString(time: TimeInterval) -> String {
+        let hours = Int(time) / 3600
+        let minutes = Int(time) / 60 % 60
+        let seconds = Int(time) % 60
+        
+        return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
+    }
+    
+    private func displayCelebrationAnimation() {
+        if let keyWindow = UIApplication.shared.keyWindow {
+            let blackBackgroundView = UIView()
+            blackBackgroundView.backgroundColor = UIColor.init(white: 0, alpha: 0.7)
+            blackBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+            keyWindow.addSubview(blackBackgroundView)
+            blackBackgroundView.fillSuperview()
+            
+            let animationView = LOTAnimationView()
+            animationView.backgroundColor = .clear
+            animationView.setAnimation(named: "star_success")
+            animationView.layer.cornerRadius = 16
+            animationView.layer.masksToBounds = true
+            animationView.translatesAutoresizingMaskIntoConstraints = false
+            blackBackgroundView.addSubview(animationView)
+            animationView.centerInSuperview(size: CGSize(width: 200, height: 200))
+            animationView.play { (completed) in
+                
+                UIView.animate(withDuration: 0.3, animations: {
+                    
+                    animationView.alpha = 0
+                    blackBackgroundView.alpha = 0
+                    
+                }, completion: { (completed) in
+                    animationView.removeFromSuperview()
+                    blackBackgroundView.removeFromSuperview()
+                })
+            }
+        }
+    }
+    
+    private func fetchMeals() {
+        let userId = UserDefaults.standard.loggedInUserId()
+        APIClient.shared.fetchMeals(with: userId) { (response) in
             DispatchQueue.main.async {
                 switch response {
                 case .success(let meals):
@@ -75,32 +242,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
                 }
             }
         }
-        
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(handleCountdown), userInfo: nil, repeats: true)
-    }
-    
-    @objc private func handleCountdown() {
-        var currentTime = Double(countDownLabel.text!)!
-        currentTime -= 1
-        countDownLabel.text = String(currentTime)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .black
-        setupFooterView()
-        
-//        let loginController = LoginViewController()
-//        loginController.modalPresentationStyle = .overCurrentContext
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//            self.present(loginController, animated: true, completion: nil)
-//        }
-    }
-    
-    override func viewDidLayoutSubviews() {
-//        skyView.setGradientBackground(colorOne: UIColor.nightSkyDark.cgColor, colorTwo: UIColor.nightSkyBlue.cgColor, startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0.8, y: 0.3))
     }
     
     private func setupFooterView() {
@@ -108,8 +249,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         view.addSubview(skyView)
         skyView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.centerYAnchor, trailing: view.trailingAnchor, size: CGSize(width: 0, height: 0))
         
+        view.addSubview(scheduledMealLabel)
+        scheduledMealLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0))
+        scheduledMealLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
         view.addSubview(countDownLabel)
-        countDownLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 53, left: 0, bottom: 0, right: 0), size: .zero)
+        countDownLabel.anchor(top: scheduledMealLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 6, left: 0, bottom: 0, right: 0), size: .zero)
         countDownLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(backgroundImageView)
@@ -128,7 +273,6 @@ extension HomeViewController: HomeCollectionViewDelegate {
     func didSelect(meal: Meal) {
         let mealDetailViewController = MealDetailViewController()
         mealDetailViewController.meal = meal
-        print("here")
         navigationController?.pushViewController(mealDetailViewController, animated: true)
     }
 }

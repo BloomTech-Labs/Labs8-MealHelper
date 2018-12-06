@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "./billing.css";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route, Switch } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Button, Modal, ModalHeader } from "reactstrap";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../checkout/CheckoutForm";
@@ -43,7 +43,6 @@ class Billing extends Component {
       const { email, password, zip, healthCondition } = this.state;
       const user = { email, password, zip, healthCondition };
       this.props.addUser(user);
-      // this.props.history.push("/");
     }
   };
   toggle = () => {
@@ -93,7 +92,6 @@ class Billing extends Component {
         <div className="dynamic-display">
           <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
             <div className="example">
-              <h1>Pay Up Health Nut</h1>
               <Elements>
                 <CheckoutForm />
               </Elements>
