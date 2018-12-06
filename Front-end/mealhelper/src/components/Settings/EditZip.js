@@ -6,11 +6,7 @@ import "../homepage/homepage";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
 import { Alert } from "reactstrap";
-import {
-  Button,
-  Modal,
-  ModalHeader
-} from "reactstrap";
+import { Button, Modal, ModalHeader } from "reactstrap";
 
 class EditZip extends Component {
   constructor(props) {
@@ -93,124 +89,37 @@ class EditZip extends Component {
 
   render() {
     return (
-      <div className="home-container-home">
-        <div className="sidebar">
-          <Link to="/homepage" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Home</h2>
-          </Link>
-          <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Recipes</h2>
-          </Link>
-          <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Alarms</h2>
-          </Link>
-          <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Meals</h2>
-          </Link>
-          <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Billing</h2>
-          </Link>
-          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Settings</h2>
-          </Link>
-          <Button color="danger" onClick={this.toggle}>
-            Log Out
-          </Button>
-          <Link to="homepage/billing">
-            <Button className="danger" color="danger">
-              Upgrade to Premium
-            </Button>
-          </Link>
-          {/* <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
-            <div className="example">
-              <h1>Pay Up Health Nut</h1>
-              <Elements>
-                <CheckoutForm />
-              </Elements>
-            </div>
-          </StripeProvider> */}
+      <div className="Settings-Zip-Container">
+        <div className="settings-text">
+          <h1>Change Zip</h1>
         </div>
-
-        <div className="flex-me-settings">
-          <div className="dynamic-display-home-meals">
-            <p className="recentMeals">Change Password </p>
-          </div>
-
-          <div className="dynamic-display-home-settings">
-            <p className="recentMeals">Password </p>
-            <form className="editSettingsPassword">
-              <p className="editsettingstextZip">Zip </p>
+        <div className="settings-zip-form">
+          <form>
+            <div>
+              <h5>Zip</h5>
               <input
-                id="dynamic-label-input"
-                className="email-input"
                 type="number"
                 name="zip"
-                value={this.state.zip}
                 onChange={this.handleChange}
-                placeholder="New Zip"
+                value={this.state.zip}
+                placeholder="Enter New Zip . . ."
               />
-              <p className="editsettingstextZip"> Password </p>
+            </div>
+            <div>
+              <h5>Password</h5>
               <input
-                id="dynamic-label-input"
-                className="email-input"
                 type="password"
                 name="password"
-                value={this.state.password}
                 onChange={this.handleChange}
-                placeholder="Password"
+                value={this.state.password}
+                placeholder="Enter Password . . ."
               />
-              <label htmlFor="dynamic-label-input">Email</label>
-            </form>
-
-            <div className="buttons-settings" onClick={this.confirmChange}>
-              <span>Submit</span>
             </div>
-          </div>
-          <div className="alert-box2">
-            <Alert isOpen={this.state.visable} color="danger">
-              Please enter a zip and your password.
-            </Alert>
-          </div>
-          <div className="alert-box2">
-            <Alert isOpen={this.state.updated} color="success">
-              Settings have been updated! Please wait while you are
-              redirected...
-            </Alert>
-          </div>
-
-          {/* <Switch>
-            <Route path="/homepage/weather" render={() => <Weather />} />
-            <Route exact path="/homepage/recipes" render={() => <Recipes />} />
-            <Route exact path="/homepage/meals" render={() => <Meals />} />
-            <Route
-              path="/homepage/recipes/createnewrecipe"
-              render={() => <CreateNewRecipe />}
-            />
-            <Route exact path="/homepage/alarms" render={() => <MyAlarms />} />
-            <Route
-              path="/homepage/alarms/add-alarms"
-              render={() => <AddAlarms />}
-            />
-            <Route path="/homepage/billing" render={() => <Billing />} />
-            {/* <Route path="/homepage/settings" render={() => <Settings />} /> */}
-          {/* </Switch> */} */}
+          </form>
         </div>
-
-        <Modal
-          isOpen={this.state.modal}
-          toggle={this.toggle}
-          className={this.props.className}
-        >
-          <ModalHeader toggle={this.toggle}>
-            Do you wish to log out?
-          </ModalHeader>
-          <Button onClick={this.logout} color="danger" className="danger">
-            Log out
-          </Button>
-          <Button onClick={this.toggle} color="primary">
-            Cancel
-          </Button>
-        </Modal>
+        <button onClick={this.confirmChange} className="settings-zip-save">
+          Save Zip
+        </button>
       </div>
     );
   }
