@@ -16,6 +16,7 @@ class CameraViewController: UIViewController {
     
     weak var delegate: SearchIngredientDetailDelegate?
     var searchedIngredient: Ingredient?
+    var barcode: String?
     
     private var captureSession: AVCaptureSession!
     private var previewView = CameraPreview()
@@ -69,20 +70,23 @@ class CameraViewController: UIViewController {
     }
     
     @objc private func handleDismissSwipeView() {
+        guard let barcode = barcode else { return }
+        
+        // Remove dismissed ingredient's barcode from cache so user can scan it again if need be
+        barcodeScanner.remove(barcode)
         
         ingredientDetailView?.dismissView()
-        searchedIngredient = nil
-        ingredientDetailView = nil
         
-        barcodeScanner.startScanning()
+        // Reset ingredient detail
+        self.searchedIngredient = nil
+        self.ingredientDetailView = nil
+        self.barcode = nil
+        
+        // When ingredient swipe view is dismissed we start the barcode scanner again
+        self.barcodeScanner.startScanning()
     }
     
     // MARK: - Configuration
-    
-    private func updateViews() {
-        guard isViewLoaded else { return }
-        
-    }
     
     private func setupCapture() {
         // Setup: AVCaptureDeviceInput --> AVCaptureSession --> AVCaptureOutput (i.e. AVCaptureVideoPreviewLayer & AVCaptureVideoDataOutput)
@@ -138,7 +142,7 @@ class CameraViewController: UIViewController {
             cornerRadius: 0)
         
         let scanPathWidth: CGFloat = 300.0
-        let scanPath = UIBezierPath(roundedRect: CGRect(x: (view.bounds.width - scanPathWidth) / 2, y: 175.0, width: scanPathWidth, height: 250.0), cornerRadius: 10.0)
+        let scanPath = UIBezierPath(roundedRect: CGRect(x: (view.bounds.width - scanPathWidth) / 2, y: 250.0, width: scanPathWidth, height: 250.0), cornerRadius: 7.0)
         
         blurViewPath.append(scanPath)
         blurViewPath.usesEvenOddFillRule = true
@@ -150,7 +154,7 @@ class CameraViewController: UIViewController {
         scanLayer.path = scanPath.cgPath
         scanLayer.strokeColor = UIColor.white.cgColor
         scanLayer.fillColor = UIColor.clear.cgColor
-        scanLayer.lineWidth = 6.5
+        scanLayer.lineWidth = 3
         
         blurView.layer.addSublayer(scanLayer)
         
@@ -172,9 +176,10 @@ class CameraViewController: UIViewController {
         closeButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: blurView.trailingAnchor, padding: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 20), size: CGSize(width: 20, height: 20))
     }
     
-    private func setupIngredientDetailSwipeView(with ingredient: Ingredient) {
+    private func display(_ ingredient: Ingredient) {
         
         let swipeVC = SwipableViewController()
+        swipeVC.delegate = self
         ingredientDetailView = swipeVC
         swipeVC.openHeight = UIScreen.main.bounds.height - 150
         swipeVC.closedHeight = 300
@@ -285,8 +290,6 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
 extension CameraViewController: BarcodeScannerDelegate {
     
     func barcodeScanner(_ controller: BarcodeScanner, didFinishScanningWithCode barcode: String) {
-        animateScanLayerAsProcessing()
-        
         // Make call to usda api
         print("Barcode: \(barcode)")
         FoodClient.shared.fetchUsdaIngredients(with: barcode) { (response) in
@@ -295,7 +298,8 @@ extension CameraViewController: BarcodeScannerDelegate {
                 DispatchQueue.main.async {
                     guard let ingredient = ingredients.first else { return }
                     self.searchedIngredient = ingredient
-                    self.setupIngredientDetailSwipeView(with: ingredient)
+                    self.barcode = barcode
+                    self.display(ingredient)
                 }
                 
             case .error(let error):
@@ -310,6 +314,7 @@ extension CameraViewController: BarcodeScannerDelegate {
     
     func barcodeScanner(_ controller: BarcodeScanner, didReceiveError error: Error) {
         // Handle error
+        self.showAlert(with: "An issue occured while scanning the barcode. Please try again")
     }
     
     @objc private func addToRecipe(_ sender: UIButton) {
@@ -318,13 +323,19 @@ extension CameraViewController: BarcodeScannerDelegate {
             ingredientDetailView.dismissView()
             searchedIngredient = nil
             self.ingredientDetailView = nil
+            self.barcode = nil
             
             self.barcodeScanner.startScanning()
         }
     }
     
-    private func display(_ ingredientDetails: UIViewController) {
-        
+}
+
+extension CameraViewController: SwipeableViewControllerDelegate {
+    
+    func willDismissSwipeableView(_ swipeableView: SwipableViewController) {
+        // TODO: when swipeVC is dismissed by sliding down then it won't show a ingred detail view anymore. it does scan though...
+        //handleDismissSwipeView()
     }
     
 }

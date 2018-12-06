@@ -166,6 +166,7 @@ class SwipableViewController: UIViewController {
                 self.currentState = targetState.opposite // state == .closed ? .intermediate : state.opposite
             case .end:
                 if targetState == .closed { // When target state is closed, then remove the view
+                    self.delegate?.willDismissSwipeableView?(self)
                     self.dismissView()
                 }
                 
