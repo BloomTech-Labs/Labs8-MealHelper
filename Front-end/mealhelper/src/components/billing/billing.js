@@ -1,12 +1,15 @@
+// == Dependencies == //
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./billing.css";
-//change the route for this
-import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
-import { Button, Modal, ModalHeader } from "reactstrap";
 import { Elements, StripeProvider } from "react-stripe-elements";
+// == Components == //
 import CheckoutForm from "../checkout/CheckoutForm";
+// == Actions == //
+import { addUser } from "../../store/actions/userActions";
+// == Styles == //
+import "./billing.css";
+import { Button, Modal, ModalHeader } from "reactstrap";
 
 class Billing extends Component {
   constructor(props) {

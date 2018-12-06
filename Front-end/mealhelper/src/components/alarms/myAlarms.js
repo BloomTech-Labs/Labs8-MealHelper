@@ -18,18 +18,36 @@ const alarms = [
     id: 1,
     label: "Breakfast",
     alarm: "0600",
+    monday: true,
+    tuesday: false,
+    wednesday: true,
+    thursday: false,
+    friday: false,
+    saturday: false,
     user_id: 1
   },
   {
     id: 2,
     label: "Lunch",
     alarm: "1200",
+    monday: false,
+    tuesday: false,
+    wednesday: false,
+    thursday: false,
+    friday: false,
+    saturday: false,
     user_id: 1
   },
   {
     id: 3,
     label: "Snack",
     alarm: "1300",
+    monday: false,
+    tuesday: false,
+    wednesday: false,
+    thursday: false,
+    friday: false,
+    saturday: false,
     user_id: 1
   },
   {
@@ -158,9 +176,10 @@ class MyAlarms extends Component {
 
   render() {
     return (
+      <div className="main-container">
       <div className="alarms-container">
           <h1>Alarms</h1>
-          
+          <div className="alarms-list">
           {alarms.map(alarm => (
             <div className="alarm-card"
               key={alarm.id}
@@ -183,7 +202,11 @@ class MyAlarms extends Component {
               </div>
             </div>
           ))}
-          <Link to="/homepage/alarms/add-alarms">Add New Alarms</Link>
+            <Link to="/homepage/alarms/add-alarms">
+            <Button color="info">Add New Alarms</Button>
+            </Link>
+          </div>
+        
 
           
          <Modal
@@ -235,6 +258,7 @@ class MyAlarms extends Component {
               
             </div>
           </editAlarmModal> */}
+        </div>
         </div>
     );
   }

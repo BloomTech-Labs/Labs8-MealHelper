@@ -1,31 +1,35 @@
-.alarms-container { 
-  position: absolute;
-  width: 495px;
+.alarms-container {
+  /* position: absolute; */
+  /* width: 495px;
   height: 516px;
   left: 463px;
   top: 113px;
-  background: #FFFFFF;
-  border: 1px solid #B6B5B5;
-  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #b6b5b5;
+  box-sizing: border-box; */
+  border: 2px solid purple;
+  display: flex;
+  justify-content: center;
 }
 
 .alarms-list {
-  position: absolute;
-  width: 344px;
-  height: 244px;
-  left: 539px;
-  top: 166px;
-  
-  background: #FFFFFF;
-  border: 1px solid #B6B5B5;
-  box-sizing: border-box;
+  width: 495px;
+  height: 516px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 2px;
+
+  /* left: 463px;
+  top: 113px; */
+  background: #ffffff;
+  /* /border: 1px solid #b6b5b5; */
+  border: 2px solid green;
+  box-sizing: border-box;
+ 
 }
 
 .alarm-card {
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
   border: 2px solid blue;
 }
