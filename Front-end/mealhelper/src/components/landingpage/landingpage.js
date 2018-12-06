@@ -36,19 +36,26 @@ class Landingpage extends Component {
             <img className="image-jars" src={Jars} alt="No image" />
           </div>
           <div className="login-signup-container">
-            <div className="button-container">
-              <button className="button">
-                <p className="button-text" onClick={this.goToSignup}>
-                  Sign Up
-                </p>
-              </button>
-            </div>
-            <div className="button-container">
-              <button className="button">
-                <p className="button-text" onClick={this.goToLogin}>
-                  Log In
-                </p>
-              </button>
+            <p className="call-to-action">
+              ' Your diet is a bank account. Good food choices are good
+              investments.'
+            </p>
+            <p className="call-to-action2">-Bethenny Frankel</p>
+            <div className="landingpage-buttons">
+              <div className="button-container">
+                <button className="button">
+                  <p className="button-text" onClick={this.goToSignup}>
+                    Sign Up
+                  </p>
+                </button>
+              </div>
+              <div className="button-container">
+                <button className="button">
+                  <p className="button-text" onClick={this.goToLogin}>
+                    Log In
+                  </p>
+                </button>
+              </div>
             </div>
           </div>
           <div className="info-container-one">

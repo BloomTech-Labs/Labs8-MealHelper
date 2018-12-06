@@ -21,9 +21,21 @@ class Nutrients extends Component {
     };
     this.saveRecipe = this.saveRecipe.bind(this);
     this.saveRecipeIngredients = this.saveRecipeIngredients.bind(this);
+    console.log(this.state.selectedFoods);
+  }
+  componentDidMount() {
+    this.setState({ selectedFoods: this.props.foods });
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.foods.length !== nextState.selectedFoods.length) {
+      return true;
+    } else {
+      return false;
+    }
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({ selectedFoods: nextProps.selectedFoods });
+    console.log(nextProps);
+    this.setState({ selectedFoods: nextProps.foods });
   }
   handleChange = event => {
     event.preventDefault();
@@ -34,21 +46,6 @@ class Nutrients extends Component {
 
   addNutrients = event => {
     event.preventDefault();
-    const selectedFood = this.state.selectedFoods;
-
-    selectedFood.map((nutrient_id, index) => {
-      axios
-        .get(
-          `https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6&nutrients=208&nutrients=203&nutrients=204&nutrients=205&ndbno=${
-            nutrient_id.ndbno
-          }`
-        )
-        .then(response => {
-          this.setState({
-            nutrients: [...this.state.nutrients, response.data.report.foods[0]]
-          });
-        });
-    });
   };
   async saveRecipe(event, props) {
     event.preventDefault();
@@ -123,7 +120,8 @@ class Nutrients extends Component {
       .toFixed(2);
   };
   render(props) {
-    const foodRows = this.state.nutrients.map((food, idx) => (
+    console.log(foodRows);
+    const foodRows = this.state.selectedFoods.map((food, idx) => (
       <tr
         food={food}
         key={food.offset}
@@ -186,7 +184,6 @@ class Nutrients extends Component {
           </table>
         </div>
         <br /> <br />
-        <button onClick={this.addNutrients}>Apply Selected Foods</button>
         <br /> <br />
         <br /> <br />
         <Button color="success" onClick={this.saveRecipe}>
