@@ -14,7 +14,7 @@ class AlarmViewController: UIViewController {
     
     let alarmLabel: UILabel = {
         let label = UILabel()
-        label.text = "Your Alarms"
+        label.text = "Scheduled Meals"
         label.textColor = .white
         label.textAlignment = .center
         label.font = Appearance.appFont(with: 20)
@@ -219,10 +219,13 @@ extension AlarmViewController: CreateAlarmViewDelegate {
             
             DispatchQueue.main.async {
                 switch response {
-                case .success(let alarm):
-                    self.tableView.alarms.insert(alarm, at: 0)
+                case .success(let alarms):
+                    let sortedAlarms = alarms.sorted(by: { $0.timestamp > $1.timestamp })
+                    let createdAlarm = sortedAlarms.first
+                    
+                    self.tableView.alarms.insert(createdAlarm!, at: 0)
                     self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-                    self.setupAlarm(alarm: alarm)
+                    self.setupAlarm(alarm: createdAlarm!)
                 case .error:
                     self.showAlert(with: "There was a problem when setting up your alarm, please try again.")
                 }

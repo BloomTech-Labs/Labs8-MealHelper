@@ -27,7 +27,7 @@ class CreateAlarmView: UIView {
     
     let addAlarmLabel: UILabel = {
         let label = UILabel()
-        label.text = "Add alarm"
+        label.text = "Schedule meal"
         label.textColor = .white
         label.font = Appearance.appFont(with: 16)
         label.sizeToFit()
