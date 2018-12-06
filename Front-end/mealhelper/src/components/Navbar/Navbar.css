@@ -1,6 +1,6 @@
 .Navbar-Container {
   background: #ffffff;
-  height: 51px;
+  height: 55px;
   width: 100%;
   border-bottom: 1px solid #9c9c9c;
   position: fixed;
@@ -8,7 +8,7 @@
 }
 .Navbar-Container-Main {
   background: #ffffff;
-  height: 51px;
+  height: 55px;
   width: 100%;
   border-bottom: 1px solid #9c9c9c;
   position: fixed;
@@ -17,7 +17,15 @@
   justify-content: space-around;
 }
 .logo-main-container {
-  margin-right: 5%;
+  margin-right: 0%;
+}
+.link-logo {
+  text-decoration: none;
+  color: black;
+}
+.link-logo:hover {
+  text-decoration: none;
+  color: black;
 }
 .logo-main {
   font-size: 40px;

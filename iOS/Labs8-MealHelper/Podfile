@@ -9,5 +9,6 @@ target 'Labs8-MealHelper' do
   pod 'Firebase/Core'
   pod 'Firebase/MLVision'
   pod 'Firebase/MLVisionBarcodeModel'
+  pod 'lottie-ios'
 
 end

@@ -6,11 +6,7 @@ import "../homepage/homepage";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route, Switch } from "react-router-dom";
 import { Alert } from "reactstrap";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-} from "reactstrap";
+import { Button, Modal, ModalHeader } from "reactstrap";
 
 class EditEmail extends Component {
   constructor(props) {
@@ -94,123 +90,47 @@ class EditEmail extends Component {
 
   render() {
     return (
-      <div className="home-container-home">
-        <div className="sidebar">
-          <Link to="/homepage" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Home</h2>
-          </Link>
-          <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Recipes</h2>
-          </Link>
-          <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Alarms</h2>
-          </Link>
-          <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Meals</h2>
-          </Link>
-          <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Billing</h2>
-          </Link>
-          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
-            <h2 className="titlelinks">Settings</h2>
-          </Link>
-          <Button color="danger" onClick={this.toggle}>
-            Log Out
-          </Button>
-          <Link to="homepage/billing">
-            <Button className="danger" color="danger">
-              Upgrade to Premium
-            </Button>
-          </Link>
-          {/* <StripeProvider apiKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG">
-            <div className="example">
-              <h1>Pay Up Health Nut</h1>
-              <Elements>
-                <CheckoutForm />
-              </Elements>
-            </div>
-          </StripeProvider> */}
+      <div className="Settings-Zip-Container">
+        <div className="alert-box2">
+          <Alert isOpen={this.state.visable} color="danger">
+            Please enter an email and password.
+          </Alert>
         </div>
-
-        <div className="flex-me-settings">
-          <div className="dynamic-display-home-meals">
-            <p className="recentMeals">Change Email </p>
-          </div>
-
-          <div className="dynamic-display-home-settings">
-            <p className="recentMeals">Email </p>
-            <form className="editSettings">
+        <div className="alert-box-settings">
+          <Alert isOpen={this.state.updated} color="primary">
+            Settings have been updated! Please wait while you are redirected...
+          </Alert>
+        </div>
+        <div className="settings-text">
+          <h1>Change Email</h1>
+        </div>
+        <div className="settings-zip-form">
+          <form>
+            <div>
+              <h5 className="settings-text-anchor">New Email</h5>
               <input
-                id="dynamic-label-input"
-                className="email-input"
-                type="email"
+                type="text"
                 name="email"
-                value={this.state.email}
                 onChange={this.handleChange}
-                placeholder="Email"
+                value={this.state.email}
+                placeholder="Enter New Email . . ."
               />
-              <label htmlFor="dynamic-label-input">Email</label>
+            </div>
+            <div>
+              <h5 className="settings-text-anchor">Password</h5>
               <input
-                id="dynamic-label-input"
-                className="password-input"
                 type="password"
                 name="password"
                 onChange={this.handleChange}
                 value={this.state.password}
-                placeholder="Password"
+                placeholder="Enter Password . . ."
               />
-              <label htmlFor="dynamic-label-input">Password</label>
-            </form>
-
-            <div className="buttons-settings" onClick={this.confirmChange}>
-              <span>Submit</span>
             </div>
-          </div>
-          <div className="alert-box2">
-            <Alert isOpen={this.state.visable} color="danger">
-              Please enter an email and/or Password.
-            </Alert>
-          </div>
-          <div className="alert-box2">
-            <Alert isOpen={this.state.updated} color="success">
-              Settings have been updated! Please wait while you are
-              redirected...
-            </Alert>
-          </div>
-
-          {/* <Switch>
-            <Route path="/homepage/weather" render={() => <Weather />} />
-            <Route exact path="/homepage/recipes" render={() => <Recipes />} />
-            <Route exact path="/homepage/meals" render={() => <Meals />} />
-            <Route
-              path="/homepage/recipes/createnewrecipe"
-              render={() => <CreateNewRecipe />}
-            />
-            <Route exact path="/homepage/alarms" render={() => <MyAlarms />} />
-            <Route
-              path="/homepage/alarms/add-alarms"
-              render={() => <AddAlarms />}
-            />
-            <Route path="/homepage/billing" render={() => <Billing />} />
-            {/* <Route path="/homepage/settings" render={() => <Settings />} /> */}
-          {/* </Switch> */} */}
+          </form>
         </div>
-
-        <Modal
-          isOpen={this.state.modal}
-          toggle={this.toggle}
-          className={this.props.className}
-        >
-          <ModalHeader toggle={this.toggle}>
-            Do you wish to log out?
-          </ModalHeader>
-          <Button onClick={this.logout} color="danger" className="danger">
-            Log out
-          </Button>
-          <Button onClick={this.toggle} color="primary">
-            Cancel
-          </Button>
-        </Modal>
+        <button onClick={this.confirmChange} className="settings-zip-save">
+          Save Zip
+        </button>
       </div>
     );
   }

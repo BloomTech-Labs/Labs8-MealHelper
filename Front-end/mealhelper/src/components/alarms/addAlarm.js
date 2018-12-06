@@ -79,6 +79,19 @@ class AddAlarms extends Component {
     });
   };
 
+  chooseStartTime(value) {
+    console.log("CHOOSE START TIME VALUE", value);
+    this.setState({ startTime: value })
+  }
+
+  chooseEndTime(value) {
+    this.setState({ endTime: value })
+  }
+
+  chooseAlarmTime(value) {
+    this.setState({ alarmTime: value })
+  }
+
   addAlarm = event => {
     event.preventDefault();
     //grabs user id from state
@@ -143,14 +156,28 @@ class AddAlarms extends Component {
           </div>
           <form className="add-alarm-form">
             <h3>What should the time be for your first alarm?</h3>
-            <Select
+            <UncontrolledDropdown>
+              <DropdownToggle>
+                <DropdownMenu>
+                  {options.map(opt => (
+                    <DropdownItem
+                      opt={opt.value}
+                      name={opt.name}>
+                      onClick{() => this.chooseStartTime(opt)}
+                    {opt.label}
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+              </DropdownToggle>
+            </UncontrolledDropdown>
+            {/* <Select
               styles={customStyles}
               options={options}
               className="alarms-select"
               name="startTime"
               placeholder="Start Time"
               onChange={opt => this.setState({ startTime: opt.value })}
-            />
+            /> */}
             <h3>What should the time be for your last alarm?</h3>
             <Select
               styles={customStyles}

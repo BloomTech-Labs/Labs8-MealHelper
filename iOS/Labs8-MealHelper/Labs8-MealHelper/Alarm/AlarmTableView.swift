@@ -76,7 +76,9 @@ class AlarmTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         alarms.remove(at: indexPath.row)
         deleteRows(at: [indexPath], with: .automatic)
         
-        APIClient.shared.deleteAlarm(with: alarm.id) { (response) in
+        let userId = UserDefaults.standard.loggedInUserId()
+        
+        APIClient.shared.deleteAlarm(with: alarm.id, userId: userId) { (response) in
             
             DispatchQueue.main.async {
                 switch response {

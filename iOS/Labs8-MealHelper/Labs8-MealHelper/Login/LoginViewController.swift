@@ -300,10 +300,10 @@ class LoginViewController: UIViewController
             showAlert(with: "Please make sure you have filled in all the fields.")
             return
         }
-        
-        let user = User(email: email, password: password, zip: zipCodeInt, healthCondition: healthCondition, id: nil)
+
         authButton.startLoading()
-        APIClient.shared.register(with: user) { (response) in
+        
+        APIClient.shared.register(email: email, password: password, zip: zipCodeInt) { (response) in
             
             DispatchQueue.main.async {
                 switch response {
