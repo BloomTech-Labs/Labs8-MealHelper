@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
+import Navbar from "../Navbar/Navbar";
 import Loading from "./Double Ring-2s-200px.svg";
 import Applelogo from "../../img/appstorebadge.png";
 import "./signup.css";
@@ -67,6 +68,7 @@ class SignUp extends Component {
   render() {
     return (
       <div className="main-container">
+        <Navbar />
         {this.state.isLoading ? (
           <div className="isLoading">
             <img className="loading" src={Loading} alt="Loading icon" />
