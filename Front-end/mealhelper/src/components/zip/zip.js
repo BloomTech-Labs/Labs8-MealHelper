@@ -16,7 +16,7 @@ class Zip extends Component {
     super(props);
 
     this.state = {
-      zip: "",
+      zip: null,
       isLoading: false,
       visable: false,
       visableError: false
@@ -31,7 +31,7 @@ class Zip extends Component {
   handleChange = event => {
     event.preventDefault();
     this.setState({
-      zip: event.target.value
+      : event.target.value
     });
   };
 
