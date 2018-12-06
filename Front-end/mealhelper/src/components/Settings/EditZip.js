@@ -90,6 +90,22 @@ class EditZip extends Component {
   render() {
     return (
       <div className="Settings-Zip-Container">
+        <div className="alert-box2">
+          <Alert isOpen={this.state.visable} color="danger">
+            Please enter your old password, a new password and confirm your new
+            password.
+          </Alert>
+        </div>
+        <div className="alert-box2">
+          <Alert isOpen={this.state.visablePassword} color="danger">
+            New passwords do not match, try again.
+          </Alert>
+        </div>
+        <div className="alert-box-settings">
+          <Alert isOpen={this.state.updated} color="primary">
+            Settings have been updated! Please wait while you are redirected...
+          </Alert>
+        </div>
         <div className="settings-text">
           <h1>Change Zip</h1>
         </div>
