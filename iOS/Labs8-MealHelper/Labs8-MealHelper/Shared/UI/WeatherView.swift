@@ -123,7 +123,7 @@ class WeatherAPIClient
 {
     static let shared = WeatherAPIClient()
     
-    let apiKey = "418e2edbbd08e52ca4eb31f0e5b1e300"
+    let apiKey = "46454cdfa908cad35b14a05756470e5c"
     let baseURL = "https://api.openweathermap.org/data/2.5/weather"
     
     func fetchWeather(for zipCode: Int, completion: @escaping (WeatherForecast?) -> ())

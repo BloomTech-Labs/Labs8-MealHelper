@@ -51,12 +51,13 @@ class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
         cell.mealNameLabel.text = meal.mealTime
         cell.dateLabel.text = meal.date
         cell.experienceLabel.text = meal.experience
+        cell.servingsLabel.text = "Servings: \(meal.servings ?? 1)"
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.bounds.width - 16, height: 50)
+        return CGSize(width: self.bounds.width - 16, height: 70)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
