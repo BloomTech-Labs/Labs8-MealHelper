@@ -155,20 +155,22 @@ class AddAlarms extends Component {
             <h1>Add Alarms in a Batch</h1>
           </div>
           <form className="add-alarm-form">
-            <h3>What should the time be for your first alarm?</h3>
+            <p>First Alarm</p>
             <UncontrolledDropdown>
-              <DropdownToggle>
-                <DropdownMenu>
+              <DropdownToggle className="choose-alarm" caret>
+                Choose first alarm time
+              </DropdownToggle>
+                <DropdownMenu className="choose-alarm-dropdown">
                   {options.map(opt => (
                     <DropdownItem
                       opt={opt.value}
-                      name={opt.name}>
-                      onClick{() => this.chooseStartTime(opt)}
+                      name={opt.name}
+                      onClick={() => this.chooseStartTime(opt)}>
                     {opt.label}
                     </DropdownItem>
                   ))}
                 </DropdownMenu>
-              </DropdownToggle>
+
             </UncontrolledDropdown>
             {/* <Select
               styles={customStyles}
@@ -178,16 +180,24 @@ class AddAlarms extends Component {
               placeholder="Start Time"
               onChange={opt => this.setState({ startTime: opt.value })}
             /> */}
-            <h3>What should the time be for your last alarm?</h3>
-            <Select
-              styles={customStyles}
-              options={options}
-              className="alarms-select"
-              name="endTime"
-              placeholder="End Time"
-              onChange={opt => this.setState({ endTime: opt.value })}
-            />
-            <h3>How many hours should pass between each alarm?</h3>
+            <p>Last Alarm</p>
+            <UncontrolledDropdown>
+              <DropdownToggle className="choose-alarm" caret>
+                Choose first alarm time
+              </DropdownToggle>
+                <DropdownMenu className="choose-alarm-dropdown">
+                  {options.map(opt => (
+                    <DropdownItem
+                      opt={opt.value}
+                      name={opt.name}
+                      onClick={() => this.chooseStartTime(opt)}>
+                    {opt.label}
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+
+            </UncontrolledDropdown>
+            <p>Hours Between Each Alarm</p>
             <input
               className="repeats"
               name="repeats"
