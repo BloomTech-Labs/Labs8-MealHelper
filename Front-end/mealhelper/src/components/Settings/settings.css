@@ -1,0 +1,18 @@
+.Settings-Options-Container {
+  width: 495px;
+  height: 398px;
+  background: #ffffff;
+  border: 1px solid #b6b5b5;
+  margin: 100px auto;
+}
+.settings-text {
+  margin-top: 10px;
+}
+.settings-option {
+  margin: 35px auto 0;
+  width: 100px;
+  height: 51px;
+  border: 1px solid #b6b5b5;
+  background: #ffffff;
+  cursor: pointer;
+}
