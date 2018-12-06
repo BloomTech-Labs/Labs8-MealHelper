@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { loginUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
+import Navbar from "../Navbar/Navbar";
 import Sign from "../Sign";
 import Loading from "../signup/Double Ring-2s-200px.svg";
 import "./login.css";
@@ -69,6 +70,7 @@ class Login extends Component {
           </div>
         ) : (
           <div>
+            <Navbar />
             <div className="alert-box3">
               <Alert isOpen={this.state.visableError} color="danger">
                 Invalid Email and/or Password. Please Try Again.

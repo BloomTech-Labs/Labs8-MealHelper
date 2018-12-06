@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
+import Navbar from "../Navbar/Navbar";
 import Loading from "./Double Ring-2s-200px.svg";
 import Applelogo from "../../img/appstorebadge.png";
 import "./signup.css";
@@ -73,6 +74,7 @@ class SignUp extends Component {
           </div>
         ) : (
           <div>
+            <Navbar />
             <div className="alert-box3">
               <Alert isOpen={this.state.visableError} color="danger">
                 Error Creating User, please try again
