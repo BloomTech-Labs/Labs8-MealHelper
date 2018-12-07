@@ -57,10 +57,6 @@ class SelectFood extends Component {
             </tr>
             <tr>
               <th className="eight wide">Selected Food</th>
-              {/* <th>Kcal</th>
-            <th>Protein (g)</th>
-            <th>Fat (g)</th>
-            <th>Carbs (g)</th> */}
             </tr>
           </thead>
           <tbody>{foodRows}</tbody>

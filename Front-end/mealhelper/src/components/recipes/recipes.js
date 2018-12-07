@@ -3,11 +3,6 @@ import { connect } from "react-redux";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route } from "react-router-dom";
-// import { Alert } from "reactstrap";
-import axios from "axios";
-import Recipe from "./recipe";
-import SelectedFoods from "./SelectedFoods";
-import FoodSearch from "./FoodSearch";
 import "./recipes.css";
 import CreateNewRecipe from "../creatnewrecipe/createnewrecipe";
 

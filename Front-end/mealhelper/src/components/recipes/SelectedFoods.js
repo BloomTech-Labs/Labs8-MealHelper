@@ -32,9 +32,6 @@ async function findNutrients(props) {
     await delay();
     return nutrientArray;
   }
-  //   let req_ndbno = props.list.item.map(item => {
-  //     return item.ndbno;
-  //   });
 }
 
 export default function SelectedFoods(props) {
