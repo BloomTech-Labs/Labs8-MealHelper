@@ -86,8 +86,7 @@ class SaveRecipeViewController: UIViewController {
         saveRecipe(with: recipeName, calories: getTotalCalories(), servings: serving) { recipe in
             
             guard let recipe = recipe else { return }
-            
-            
+                        
             self.ingredients?.forEach { ingredient in
                 // Save nutrients of ingredient
                 
@@ -157,8 +156,8 @@ class SaveRecipeViewController: UIViewController {
                     completion(nil)
                 }
             case .error(let error):
-                print(error)
-                // Handle error in UI
+                NSLog("Error saving recipe: \(error)")
+                self.showAlert(with: "Could not save recipe. Please try again.")
                 completion(nil)
             }
             
@@ -177,7 +176,7 @@ class SaveRecipeViewController: UIViewController {
                     completion(nil)
                 }
             case .error(let error):
-                print(error)
+                NSLog("Error saving ingredients: \(error)")
                 // Handle error in UI
                 completion(nil)
             }
@@ -275,11 +274,8 @@ class EditRecipeViewController: SaveRecipeViewController {
                     self.navigationController?.popViewController(animated: true)
                 }
             case .error(let error):
-                print(error)
-                // Handle error in UI
-                DispatchQueue.main.async {
-                    self.navigationController?.popViewController(animated: true)
-                } // TODO: to be deleted
+                NSLog("Error saving recipe: \(error)")
+                self.showAlert(with: "Could not save recipe. Please try again.")
                 break
             }
         }
