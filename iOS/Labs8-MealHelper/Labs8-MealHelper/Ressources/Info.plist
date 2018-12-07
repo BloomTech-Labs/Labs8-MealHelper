@@ -41,6 +41,8 @@
 	<array>
 		<string>Montserrat-SemiBold.ttf</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>EatWell uses your device&apos;s camera to allow you to scan barcodes.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
