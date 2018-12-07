@@ -34,7 +34,7 @@ class SwipableViewController: UIViewController {
     lazy var popupView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.3
@@ -63,6 +63,8 @@ class SwipableViewController: UIViewController {
     private var bottomConstraint = NSLayoutConstraint()
     private var transitionAnimator: UIViewPropertyAnimator?
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -75,23 +77,13 @@ class SwipableViewController: UIViewController {
         animateInitialPopup(to: bottomConstant)
     }
     
-    private func setupViews() {
-        view.addSubview(overlayView)
-        
-        overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        overlayView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
-        view.addSubview(popupView)
-        
-        popupView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        popupView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        popupView.heightAnchor.constraint(equalToConstant: openHeight).isActive = true
-        
-        bottomConstraint = popupView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: openHeight)
-        bottomConstraint.isActive = true
+    // MARK: - Public
+    
+    func dismissView() {
+        animateTransition(to: .closed, duration: animationDuration)
     }
+    
+    // MARK: - Swipe Gestures
     
     @objc private func popupViewPanned(recognizer: UIPanGestureRecognizer) {
         
@@ -158,7 +150,7 @@ class SwipableViewController: UIViewController {
             switch targetState {
             case .open:
                 self.bottomConstraint.constant = 0
-                self.overlayView.alpha = 0.3
+                self.overlayView.alpha = 0.5
             case .intermediate:
                 self.bottomConstraint.constant = self.popupOffset
                 self.overlayView.alpha = 0
@@ -174,9 +166,8 @@ class SwipableViewController: UIViewController {
                 self.currentState = targetState.opposite // state == .closed ? .intermediate : state.opposite
             case .end:
                 if targetState == .closed { // When target state is closed, then remove the view
-                    self.willMove(toParent: nil)
-                    self.view.removeFromSuperview()
-                    self.removeFromParent()
+                    self.delegate?.willDismissSwipeableView?(self)
+                    self.dismissView()
                 }
                 
                 self.currentState = targetState // Update state when animation ended
@@ -195,6 +186,26 @@ class SwipableViewController: UIViewController {
             self.bottomConstraint.constant = constant
             self.view.layoutIfNeeded()
         }
+    }
+    
+    // MARK: - Configuration
+    
+    private func setupViews() {
+        view.addSubview(overlayView)
+        
+        overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        overlayView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        view.addSubview(popupView)
+        
+        popupView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        popupView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        popupView.heightAnchor.constraint(equalToConstant: openHeight).isActive = true
+        
+        bottomConstraint = popupView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: openHeight)
+        bottomConstraint.isActive = true
     }
     
 }

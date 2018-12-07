@@ -67,7 +67,6 @@ open class BarcodeScanner {
             }
             
             guard let features = features, !features.isEmpty else {
-                print("No barcode detected")
                 return
             }
             

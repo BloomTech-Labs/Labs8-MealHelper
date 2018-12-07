@@ -12,13 +12,12 @@ class FoodClient: GenericAPIClient {
     
     static let shared = FoodClient()
     
-    var nutrients = ["208", "269", "204", "205"]
+    var nutrients = ["208", "205", "204", "203", "269"]
     
     let usdaBaseUrl: URL = URL(string: "https://api.nal.usda.gov/ndb/")!
     let usdaAPIKey = "c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6"
     let baseUrl: URL = URL(string: "https://labs8-meal-helper.herokuapp.com/")!
-    var userId = Constants.User().id // TODO: to be deleted.
-    //var userId = String(UserDefaults().loggedInUserId())
+    var userId = String(UserDefaults().loggedInUserId())
     
     // MARK: - Meal Helper
     

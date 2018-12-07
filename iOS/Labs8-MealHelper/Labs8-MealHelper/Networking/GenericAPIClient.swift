@@ -42,6 +42,35 @@ class GenericAPIClient {
         }.resume()
     }
     
+    func put(with url: URL, requestBody: Dictionary<String, Any>, completion: @escaping (Response<String>) -> ()) {
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = HTTPMethod.put.rawValue
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let requestBody = requestBody
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) //encoder.encode(requestBody)
+            urlRequest.httpBody = jsonData
+        } catch {
+            NSLog("Failed to encode foods: \(error)")
+            completion(Response.error(error))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
+            
+            if let error = error {
+                NSLog("Error with PUT urlRequest: \(error)")
+                completion(Response.error(error))
+                return
+            }
+            completion(Response.success("Success"))
+        }.resume()
+    }
+    
     func post<Resource: Codable>(with url: URL, requestBody: Dictionary<String, Any>, using session: URLSession = URLSession.shared, completion: @escaping ((Response<Resource>) -> ())) {
         
         var urlRequest = URLRequest(url: url)

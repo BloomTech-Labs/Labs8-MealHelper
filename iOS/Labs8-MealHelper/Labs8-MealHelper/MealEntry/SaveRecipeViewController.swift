@@ -27,7 +27,7 @@ class SaveRecipeViewController: UIViewController {
 
     private lazy var recipeSettingsVC: FoodSummaryViewController = {
         let vc = FoodSummaryViewController()
-        vc.view.backgroundColor = UIColor.lightGray
+        vc.view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         vc.quantityPickerFieldValues = ["Breakfast", "Lunch", "Dinner", "Snack"]
         vc.quantityPickerFieldDefaultValue = String(serving)
         vc.typePickerFieldValues = (1...20).map { String($0) }

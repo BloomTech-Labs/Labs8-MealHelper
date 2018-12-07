@@ -48,7 +48,7 @@ class LoginViewController: UIViewController
     {
         let label = UILabel()
         label.text = "EMAIL ADDRESS"
-        label.font = Appearance.appFont(with: 10)
+        label.font = Appearance.appFont(with: 12)
         label.textColor = .white
         label.sizeToFit()
         
@@ -69,7 +69,7 @@ class LoginViewController: UIViewController
     {
         let label = UILabel()
         label.text = "PASSWORD"
-        label.font = Appearance.appFont(with: 10)
+        label.font = Appearance.appFont(with: 12)
         label.textColor = .white
         label.sizeToFit()
         
@@ -86,34 +86,11 @@ class LoginViewController: UIViewController
         return tf
     }()
     
-    let healthConditionLabel: UILabel =
-    {
-        let label = UILabel()
-        label.text = "HEALTH CONDITION"
-        label.font = Appearance.appFont(with: 10)
-        label.textColor = .white
-        label.sizeToFit()
-        label.alpha = 0
-        
-        return label
-    }()
-    
-    let healthConditionTextField: LeftIconTextField =
-    {
-        let tf = LeftIconTextField()
-        tf.leftImage = #imageLiteral(resourceName: "user_male")
-        tf.alpha = 0
-        tf.isHidden = true
-        tf.tintColor = .lightPurple
-        
-        return tf
-    }()
-    
     let zipCodeLabel: UILabel =
     {
         let label = UILabel()
         label.text = "ZIP CODE"
-        label.font = Appearance.appFont(with: 10)
+        label.font = Appearance.appFont(with: 12)
         label.textColor = .white
         label.sizeToFit()
         label.alpha = 0
@@ -222,16 +199,12 @@ class LoginViewController: UIViewController
     
     private func registrationTransition()
     {
-        stackViewHeight?.constant = isInLoginState ? 230 : 120
-        healthConditionLabel.isHidden = isInLoginState ? false : true
-        healthConditionTextField.isHidden = isInLoginState ? false : true
+        stackViewHeight?.constant = isInLoginState ? 197.5 : 120
         zipCodeLabel.isHidden = isInLoginState ? false : true
         zipCodeTextField.isHidden = isInLoginState ? false : true
         welcomeLabel.text = isInLoginState ? "Welcome aboard!" : "Good to see you!"
         
         UIView.animate(withDuration: 0.3) {
-            self.healthConditionTextField.alpha = self.isInLoginState ? 1 : 0
-            self.healthConditionLabel.alpha = self.isInLoginState ? 1 : 0
             self.zipCodeTextField.alpha = self.isInLoginState ? 1 : 0
             self.zipCodeLabel.alpha = self.isInLoginState ? 1 : 0
             self.authButton.setTitle(self.isInLoginState ? "Register" : "Login", for: .normal)
@@ -296,7 +269,7 @@ class LoginViewController: UIViewController
     
     private func handleRegistration(_ email: String, _ password: String)
     {
-        guard let healthCondition = healthConditionTextField.text, let zipCode = zipCodeTextField.text, let zipCodeInt = Int(zipCode) else {
+        guard let zipCode = zipCodeTextField.text, let zipCodeInt = Int(zipCode) else {
             showAlert(with: "Please make sure you have filled in all the fields.")
             return
         }
@@ -328,9 +301,9 @@ class LoginViewController: UIViewController
         view.addSubview(blurEffect)
         blurEffect.fillSuperview()
         
-        let stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, healthConditionTextField, zipCodeTextField])
+        let stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, zipCodeTextField])
         stackView.axis = .vertical
-        stackView.spacing = 30
+        stackView.spacing = 35
         stackView.distribution = .fillEqually
         
         view.addSubview(stackView)
@@ -349,14 +322,11 @@ class LoginViewController: UIViewController
         
         view.addSubview(emailLabel)
         view.addSubview(passwordLabel)
-        view.addSubview(healthConditionLabel)
         view.addSubview(zipCodeLabel)
         
         emailLabel.anchor(top: nil, leading: emailTextField.leadingAnchor, bottom: emailTextField.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 4, bottom: 6, right: 0), size: .zero)
         
         passwordLabel.anchor(top: nil, leading: passwordTextField.leadingAnchor, bottom: passwordTextField.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 4, bottom: 6, right: 0), size: .zero)
-        
-        healthConditionLabel.anchor(top: nil, leading: healthConditionTextField.leadingAnchor, bottom: healthConditionTextField.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 4, bottom: 6, right: 0), size: .zero)
         
         zipCodeLabel.anchor(top: nil, leading: zipCodeTextField.leadingAnchor, bottom: zipCodeTextField.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 4, bottom: 6, right: 0), size: .zero)
         
