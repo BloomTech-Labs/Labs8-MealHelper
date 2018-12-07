@@ -16,11 +16,34 @@ class MealCell: UICollectionViewCell {
         }
     }
    
+    let blurEffect: UIVisualEffectView = {
+        let frost = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        frost.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        return frost
+    }()
+    
+    let mealTimeImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        iv.tintColor = .white
+        
+        return iv
+    }()
+    
+    let seperatorLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.init(white: 0.9, alpha: 1)
+        
+        return view
+    }()
+    
     let mealNameLabel: UILabel = {
         let label = UILabel()
         label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Appearance.appFont(with: 16)
+        label.font = Appearance.appFont(with: 18)
         label.text = "Meal name"
         label.textColor = .white
         
@@ -31,55 +54,30 @@ class MealCell: UICollectionViewCell {
         let label = UILabel()
         label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Appearance.appFont(with: 14)
+        label.font = Appearance.appFont(with: 12)
         label.text = "Servings: 2"
-        label.textColor = .white
+        label.textColor = UIColor.init(white: 0.8, alpha: 1)
         
         return label
     }()
     
-    let mealTimeLabel: UILabel = {
-        let label = UILabel()
-        label.sizeToFit()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Appearance.appFont(with: 14)
-        label.textColor = .white
-        label.text = "Dinner"
+    let experienceImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        iv.tintColor = .white
         
-        return label
-    }()
-    
-    let dateLabel: UILabel = {
-        let label = UILabel()
-        label.sizeToFit()
-        label.textAlignment = .right
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Appearance.appFont(with: 16)
-        label.text = "Date 11/11/2011"
-        label.textColor = .white
-        
-        return label
-    }()
-    
-    let experienceLabel: UILabel = {
-        let label = UILabel()
-        label.sizeToFit()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Appearance.appFont(with: 14)
-        label.text = "Experience"
-        label.textColor = .white
-        
-        return label
+        return iv
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = .clear
         layer.cornerRadius = 8
         layer.masksToBounds = true
         setupViews()
         
-        setGradientBackground(colorOne: UIColor.sunOrange.cgColor, colorTwo: UIColor.sunRed.cgColor, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
+//        setGradientBackground(colorOne: UIColor.sunOrange.cgColor, colorTwo: UIColor.sunRed.cgColor, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -87,21 +85,25 @@ class MealCell: UICollectionViewCell {
     }
     
     private func setupViews() {
+        addSubview(blurEffect)
+        addSubview(mealTimeImageView)
+        addSubview(seperatorLine)
+        addSubview(experienceImageView)
         addSubview(mealNameLabel)
-        addSubview(dateLabel)
-        addSubview(experienceLabel)
         addSubview(servingsLabel)
-        addSubview(mealTimeLabel)
         
-        mealNameLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 0))
-
-        dateLabel.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 12))
+        blurEffect.fillSuperview()
         
-        servingsLabel.anchor(top: mealNameLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 8, left: 12, bottom: 0, right: 0))
+        mealTimeImageView.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 12, bottom: 0, right: 0), size: CGSize(width: 30, height: 30))
+        mealTimeImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
-        mealTimeLabel.anchor(top: dateLabel.bottomAnchor, leading: nil, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 12))
+        seperatorLine.anchor(top: topAnchor, leading: mealTimeImageView.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 10, left: 12, bottom: 10, right: 0), size: CGSize(width: 0.5, height: 0))
         
-        experienceLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        experienceLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        experienceImageView.anchor(top: nil, leading: nil, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 12), size: CGSize(width: 30, height: 30))
+        experienceImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        mealNameLabel.anchor(top: topAnchor, leading: seperatorLine.trailingAnchor, bottom: nil, trailing: experienceImageView.leadingAnchor, padding: .init(top: 8, left: 12, bottom: 0, right: 8))
+        
+        servingsLabel.anchor(top: mealNameLabel.bottomAnchor, leading: seperatorLine.trailingAnchor, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 4, left: 12, bottom: 0, right: 0))
     }
 }

@@ -35,6 +35,7 @@ class GenericAPIClient {
                 if httpResponse.statusCode != 200 {
                     NSLog("An error code was returned from the http request: \(httpResponse.statusCode)")
                     completion(Response.error(NSError()))
+                    return
                 }
             }
             
@@ -79,6 +80,7 @@ class GenericAPIClient {
                 if httpResponse.statusCode != 200 {
                     NSLog("An error code was returned from the http request: \(httpResponse.statusCode)")
                     completion(Response.error(NSError()))
+                    return
                 }
             }
             completion(Response.success("Success"))
@@ -121,6 +123,7 @@ class GenericAPIClient {
                 if httpResponse.statusCode != 200 {
                     NSLog("An error code was returned from the http request: \(httpResponse.statusCode)")
                     completion(Response.error(NSError()))
+                    return
                 }
             }
             
@@ -152,6 +155,7 @@ class GenericAPIClient {
                 if httpResponse.statusCode != 200 {
                     NSLog("An error code was returned from the http request: \(httpResponse.statusCode)")
                     completion(Response.error(NSError()))
+                    return
                 }
             }
             completion(Response.success("Success"))

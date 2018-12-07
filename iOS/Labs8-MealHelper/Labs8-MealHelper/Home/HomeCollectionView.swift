@@ -56,9 +56,24 @@ class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
         
         let meal = meals[indexPath.section][indexPath.item]
         cell.mealNameLabel.text = meal.mealTime
-        cell.dateLabel.text = meal.date
-        cell.experienceLabel.text = meal.experience
         cell.servingsLabel.text = "Servings: \(meal.servings ?? 1)"
+        cell.experienceImageView.image = #imageLiteral(resourceName: "thumb-up").withRenderingMode(.alwaysTemplate)
+        
+        switch indexPath.item {
+        case 0: cell.mealTimeImageView.image = #imageLiteral(resourceName: "breakfast").withRenderingMode(.alwaysTemplate)
+        case 1: cell.mealTimeImageView.image = #imageLiteral(resourceName: "snacks").withRenderingMode(.alwaysTemplate)
+        case 2: cell.mealTimeImageView.image = #imageLiteral(resourceName: "dinner").withRenderingMode(.alwaysTemplate)
+        case 3: cell.mealTimeImageView.image = #imageLiteral(resourceName: "snacks").withRenderingMode(.alwaysTemplate)
+        default: cell.mealTimeImageView.image = #imageLiteral(resourceName: "dinner").withRenderingMode(.alwaysTemplate)
+        }
+        
+//        switch meal.mealTime.lowercased() {
+//        case "breakfast": cell.mealTimeImageView.image = #imageLiteral(resourceName: "breakfast").withRenderingMode(.alwaysTemplate)
+//        case "lunch": cell.mealTimeImageView.image = #imageLiteral(resourceName: "lunch").withRenderingMode(.alwaysTemplate)
+//        case "dinner": cell.mealTimeImageView.image = #imageLiteral(resourceName: "dinner").withRenderingMode(.alwaysTemplate)
+//        case "snack": cell.mealTimeImageView.image = #imageLiteral(resourceName: "snacks").withRenderingMode(.alwaysTemplate)
+//        default: cell.mealTimeImageView.image = #imageLiteral(resourceName: "breakfast").withRenderingMode(.alwaysTemplate)
+//        }
         
         return cell
     }
@@ -73,11 +88,11 @@ class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.bounds.width - 16, height: 70)
+        return CGSize(width: self.bounds.width - 16, height: 60)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: self.bounds.width - 16, height: 30)
+        return CGSize(width: self.bounds.width - 16, height: 40)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
