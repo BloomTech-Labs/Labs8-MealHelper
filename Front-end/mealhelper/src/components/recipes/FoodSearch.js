@@ -1,7 +1,7 @@
 import React from "react";
 import Client from "./Client";
 
-const MATCHING_ITEM_LIMIT = 100;
+const MATCHING_ITEM_LIMIT = 5;
 
 class FoodSearch extends React.Component {
   state = {
@@ -28,7 +28,6 @@ class FoodSearch extends React.Component {
       });
 
       Client.search(value, foods => {
-        console.log(foods);
         if (foods.errors) {
           this.setState({
             foods: [{ name: "No food was found with that name" }]
@@ -38,8 +37,6 @@ class FoodSearch extends React.Component {
             foods: foods.list.item.slice(0, MATCHING_ITEM_LIMIT)
           });
         }
-
-        console.log(this.state.foods);
       });
     }
   };
@@ -63,8 +60,6 @@ class FoodSearch extends React.Component {
         name={food.name}
         onClick={() => this.props.onFoodClick(food)}
       >
-        {console.log(food)}
-
         <td>{food.name}</td>
 
         {/* <td className="right aligned">{nutrientsValue[0].value}</td>
