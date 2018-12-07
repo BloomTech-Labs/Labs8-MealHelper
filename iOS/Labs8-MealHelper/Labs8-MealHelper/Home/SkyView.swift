@@ -13,6 +13,7 @@ class SkyView: UIView {
     let moonSunImageView: UIImageView = {
         let iv = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
         iv.contentMode = .scaleAspectFit
+        iv.alpha = 0
 
         return iv
     }()
@@ -108,6 +109,10 @@ class SkyView: UIView {
         
         moonSunImageView.layer.add(animation, forKey: nil)
         addSubview(moonSunImageView)
+        
+        UIView.animate(withDuration: 1) {
+            self.moonSunImageView.alpha = 1
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -118,9 +123,13 @@ class SkyView: UIView {
 extension SkyView: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if flag {
+            moonSunImageView.alpha = 0
             moonSunImageView.removeFromSuperview()
             fetchWeather()
             layoutIfNeeded()
+        } else {
+            moonSunImageView.alpha = 0
+            moonSunImageView.removeFromSuperview()
         }
     }
 }

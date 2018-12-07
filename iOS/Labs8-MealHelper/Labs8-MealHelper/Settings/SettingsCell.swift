@@ -128,13 +128,12 @@ class SettingsCell: UICollectionViewCell {
     }
     
     private func changeZip() {
-        
+        delegate?.changeZip()
     }
     
     private func changePassword() {
-        
+        delegate?.changePassword()
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
