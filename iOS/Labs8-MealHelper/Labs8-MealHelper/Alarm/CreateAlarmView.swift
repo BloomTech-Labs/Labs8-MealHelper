@@ -117,8 +117,9 @@ class CreateAlarmView: UIView {
         } else {
             let formatter = DateFormatter()
             formatter.timeStyle = .short
+            formatter.locale = Locale(identifier: "en_GB")
             let timeString = formatter.string(from: datePicker.date)
-            let timeValue = timeString.replacingOccurrences(of: ".", with: "")
+            let timeValue = timeString.replacingOccurrences(of: ".", with: "").replacingOccurrences(of: ":", with: "")
             delegate?.didSetAlarm(with: timeValue, note: noteTextField.text ?? "")
         }
     }
