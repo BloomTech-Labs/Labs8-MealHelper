@@ -22,7 +22,7 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
         }
     }
     
-    var foods = [Recipe]()
+    var recipes = [Recipe]()
     var navTitle: String?
     var cellId = "RecipeCell"
     
@@ -53,7 +53,7 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
             DispatchQueue.main.async {
                 switch response {
                 case .success(let recipes):
-                    self.foods = recipes
+                    self.recipes = recipes
                     self.collectionView.reloadData()
                 case .error:
                     self.showAlert(with: "We couldn't get your recipes, please check your internet connection and try again.")
@@ -67,13 +67,13 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
     // MARK: - CollectionViewDelegate
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return foods.count
+        return recipes.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FoodCell<Recipe>
         
-        let food = foods[indexPath.item]
+        let food = recipes[indexPath.item]
         cell.food = food
         
         return cell
@@ -84,17 +84,17 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let food = foods[indexPath.item]
+        let food = recipes[indexPath.item]
         didSelect(food)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let food = foods[indexPath.item]
+        let food = recipes[indexPath.item]
         didSelect(food)
     }
     
     func didSelect(_ food: Recipe) {
-        guard let index = foods.index(of: food) else { return }
+        guard let index = recipes.index(of: food) else { return }
         
         if selectedFoodAtIndex.contains(index) {
             guard let index = selectedFoodAtIndex.index(of: index) else { return }
@@ -104,13 +104,13 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
         }
     }
     
-    func getSelectedFoods() -> [Recipe] {
-        var selectedFoods = [Recipe]()
+    func getSelectedRecipes() -> [Recipe] {
+        var selectedRecipes = [Recipe]()
         for index in selectedFoodAtIndex {
-            let food = foods[index]
-            selectedFoods.append(food)
+            let food = recipes[index]
+            selectedRecipes.append(food)
         }
-        return selectedFoods
+        return selectedRecipes
     }
     
     // MARK: - User Actions
@@ -122,7 +122,7 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
     }
     
     @objc func didSelectItems() {
-        let foods = getSelectedFoods()
+        let recipes = getSelectedRecipes()
         let date = Utils().dateString(for: Date())
         var temp = 0.0 // TODO: Change
         
@@ -138,10 +138,10 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
         weatherDispatchGroup.notify(queue: .main) {
             let foodDispatchGroup = DispatchGroup()
             
-            for food in foods {
+            for recipe in recipes {
                 foodDispatchGroup.enter()
-                let name = food.name
-                
+                let name = recipe.name
+                // TODO: Change mealTime
                 FoodClient.shared.postMeal(name: name, mealTime: name, date: date, temp: temp) { (response) in
                     foodDispatchGroup.leave()
                 }
