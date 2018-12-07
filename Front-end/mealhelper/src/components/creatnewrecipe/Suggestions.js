@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import "../recipes/recipes.css";
-class Suggestions extends Component {
-  render() {
-    return (
-      <div className="results-item">
-        <p>{this.props.name}</p>
-      </div>
-    );
+function Suggestions(props) {
+  console.log(props);
+  if (props.message === "Could not find foods with that name") {
+    return <p>{props.message}</p>;
+  } else {
+    return <p>{props.name}</p>;
   }
 }
 

@@ -6,6 +6,8 @@ import "../recipes/recipes.css";
 class Search extends Component {
   state = {
     query: "",
+    typing: false,
+    message: "",
     results: []
   };
 
@@ -24,21 +26,24 @@ class Search extends Component {
           this.setState({ results: response.data.list.item });
         }
 
-        console.log(this.state.results);
+        console.log(this.state.message);
       });
   };
 
   handleInputChange = event => {
     event.preventDefault();
+
     this.setState(
       {
         [event.target.name]: event.target.value
       },
       () => {
-        if (this.state.query && this.state.query.length > 1) {
-          if (this.state.query.length % 2 === 0) {
-            this.getInfo();
-          }
+        if (this.state.query) {
+          this.setState({ typing: true });
+          this.getInfo();
+        }
+        if (this.state.query === "") {
+          this.setState({ typing: false });
         }
       }
     );
@@ -50,16 +55,24 @@ class Search extends Component {
         <input
           type="search"
           name="query"
+          id="Search"
           className="search-food"
-          placeholder="Search for..."
+          placeholder="Search for Ingredients. . ."
           // ref={input => (this.search = input)}
           onChange={this.handleInputChange}
           value={this.state.query}
         />
 
-        <div className="results-data">
+        <div
+          className={this.state.typing ? "results-data" : "results-data-hidden"}
+        >
           {this.state.results.map(food => (
-            <Suggestions id={food.ndbno} food={food} name={food.name} />
+            <Suggestions
+              id={food.ndbno}
+              message={food}
+              food={food}
+              name={food.name}
+            />
           ))}
         </div>
       </form>
