@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
+import axios from "axios";
 import { addRecipe, getRecipe } from "../../store/actions/recipeActions.js";
-import { withRouter, Link } from "react-router-dom";
-import SelectedFoods from "../recipes/SelectFood";
+import { withRouter } from "react-router-dom";
+import Nutrients from "../recipes/Nutrients";
 import FoodSearch from "../recipes/FoodSearch";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import "../recipes/recipes.css";
 
 class CreateNewRecipe extends Component {
@@ -22,8 +22,10 @@ class CreateNewRecipe extends Component {
       serving: 1,
       ndbno: null,
       modal: false,
-      modalLogout: false
+      modalLogout: false,
+      nutrients: []
     };
+    this.addFood = this.addFood.bind(this);
   }
 
   toggle = () => {
@@ -38,9 +40,6 @@ class CreateNewRecipe extends Component {
     } else {
       this.props.history.push("/");
     }
-  }
-  componentWillReceiveProps(nextProps) {
-    this.setState({ list: nextProps.recipes });
   }
 
   settingState() {
@@ -85,11 +84,29 @@ class CreateNewRecipe extends Component {
     );
     this.setState({ selectedFoods: filteredFoods });
   };
+  nutrientsGrabber = () => {
+    const foodArray = this.state.selectedFoods;
 
-  addFood = food => {
-    const newFoods = this.state.selectedFoods.concat(food);
-    this.setState({ selectedFoods: newFoods });
+    for (let i = 0; i < foodArray.length; i++) {
+      axios
+        .get(
+          `https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6&nutrients=208&nutrients=203&nutrients=204&nutrients=205&ndbno=${
+            foodArray[i].ndbno
+          }`
+        )
+        .then(response => {
+          this.setState({
+            nutrients: [...this.state.nutrients, response.data.report.foods[0]]
+          });
+        });
+    }
   };
+  async addFood(food) {
+    this.state.selectedFoods.push(food);
+    console.log(this.state.selectedFoods);
+
+    const data = await this.nutrientsGrabber();
+  }
 
   saveCalories = caloriesTotal => {
     this.setState({ calories: caloriesTotal });
@@ -108,115 +125,43 @@ class CreateNewRecipe extends Component {
   render() {
     const { selectedFoods } = this.state;
     return (
-      <div>
-        <div className="home-container">
-          {/* <div className="sidebar">
-            <Link to="/homepage" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Home</h2>
-            </Link>
-            <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Recipes</h2>
-            </Link>
-            <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Alarms</h2>
-            </Link>
-            <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Meals</h2>
-            </Link>
-            <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Billing</h2>
-            </Link>
-            <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Settings</h2>
-            </Link>
-            <Button color="danger" onClick={this.toggleLogout}>
-              Log Out
-            </Button>
-          </div> */}
+      <div className="recipe-container">
+        <div className="new-recipe-holder">
+          <form onSubmit={this.handleSubmit}>
+            <div className="recipe-input-1">
+              <h1 className="new-meal-text-new">Create A New Recipe</h1>
+              <input
+                id="name"
+                className="name-recipe"
+                type="text"
+                name="name"
+                onChange={this.handleChange}
+                value={this.state.name}
+                placeholder="Recipe Name"
+              />
+              <br />
+              <br />
 
-          <div className="create-recipe-background">
-            <Button color="success" onClick={this.toggle}>
-              + New Recipe
-            </Button>
-            <Modal
-              isOpen={this.state.modal}
-              toggle={this.toggle}
-              className={this.props.className}
-            >
-              <ModalHeader toggle={this.toggle}>New Recipe</ModalHeader>
-              <ModalBody>
-                <p>Details</p>
-                <hr />
-                <form onSubmit={this.handleSubmit}>
-                  <p>Recipe Name:</p>
-                  <input
-                    id="name"
-                    className="name-recipe"
-                    type="text"
-                    name="name"
-                    onChange={this.handleChange}
-                    value={this.state.name}
-                    placeholder="Recipe Name"
-                  />
-                  <br />
-                  <br />
-                  <p>Servings:</p>
-                  <input
-                    id="name"
-                    className="name-recipe"
-                    type="number"
-                    name="name"
-                    onChange={this.handleChange}
-                    value={this.state.serving}
-                    placeholder="Servings"
-                  />
+              <FoodSearch onFoodClick={this.addFood} />
+            </div>
 
-                  <br />
-                  <p>Total Calories: {this.state.calories}</p>
-                  <br />
-                  <div className="dynamic-display">
-                    <FoodSearch onFoodClick={this.addFood} />
-                    <SelectedFoods
-                      logoutModal={this.state.modal}
-                      logoutMethod={this.toggle}
-                      name={this.state.name}
-                      calories={this.state.calories}
-                      servings={this.state.serving}
-                      setCalories={this.saveCalories}
-                      foods={selectedFoods}
-                      onFoodClick={this.removeFoodItem}
-                    />
-                  </div>
-                </form>
-              </ModalBody>
-            </Modal>
-          </div>
-
-          <div className="mealList-Display">
-            {/* {this.state.meals.map(meal => (
-						<OneMeal
-							meal={meal}
-							mealTime={meal.mealTime}
-							experience={meal.experience}
-							date={meal.date}
-						/>
-					))} */}
-          </div>
-          <Modal
-            isOpen={this.state.modalLogout}
-            toggle={this.toggleLogout}
-            className={this.props.className}
-          >
-            <ModalHeader toggle={this.toggleLogout}>
-              Do you wish to log out?
-            </ModalHeader>
-            <Button onClick={this.logout} color="danger">
-              Log out
-            </Button>
-            <Button onClick={this.toggleLogout} color="primary">
-              Cancel
-            </Button>
-          </Modal>
+            <div className="recipe-nutrients-info">
+              <div>
+                {console.log(this.state.nutrients)}
+                <Nutrients
+                  logoutModal={this.state.modal}
+                  logoutMethod={this.toggle}
+                  name={this.state.name}
+                  calories={this.state.calories}
+                  servings={this.state.serving}
+                  setCalories={this.saveCalories}
+                  foods={this.state.nutrients}
+                  onFoodClick={this.removeFoodItem}
+                />
+              </div>
+            </div>
+            <br />
+          </form>
         </div>
       </div>
     );
