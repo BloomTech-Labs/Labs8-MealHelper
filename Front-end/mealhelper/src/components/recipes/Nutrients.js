@@ -56,7 +56,6 @@ class Nutrients extends Component {
     const recipe = { name, calories, servings };
     const data = await this.props.addRecipe(recipe, this.props.user.userID);
 
-    // console.log("this is the count of ingredients array", countIngredients);
     this.saveRecipeIngredients();
   }
 

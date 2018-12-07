@@ -110,7 +110,7 @@ class CreateNewRecipe extends Component {
     return (
       <div>
         <div className="home-container">
-          <div className="sidebar">
+          {/* <div className="sidebar">
             <Link to="/homepage" style={{ textDecoration: "none" }}>
               <h2 className="titlelinks">Home</h2>
             </Link>
@@ -132,7 +132,7 @@ class CreateNewRecipe extends Component {
             <Button color="danger" onClick={this.toggleLogout}>
               Log Out
             </Button>
-          </div>
+          </div> */}
 
           <div className="create-recipe-background">
             <Button color="success" onClick={this.toggle}>
