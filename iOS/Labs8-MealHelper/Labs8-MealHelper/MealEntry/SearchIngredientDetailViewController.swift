@@ -138,11 +138,10 @@ class SearchIngredientDetailViewController: UIViewController {
     
     @objc private func addToRecipe() {
         // When user taps on addToRecipe we notify the delegate VC that ingredient should be added to recipe
-        dismiss(animated: true) {
-            if let indexPath = self.delegateIndexPath, let ingredient = self.ingredient {
-                self.delegate?.updateIngredient(ingredient, indexPath: indexPath)
-            }
+        if let ingredient = self.ingredient {
+            self.delegate?.updateIngredient(ingredient, indexPath: self.delegateIndexPath)
         }
+        dismiss(animated: true, completion: nil)
     }
     
     @objc private func handleDismiss() {

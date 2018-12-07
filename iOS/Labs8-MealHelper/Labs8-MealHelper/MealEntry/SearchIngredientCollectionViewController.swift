@@ -72,7 +72,6 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         
         setupCollectionView()
         
-        
         // Fetch previously saved ingredients
         FoodClient.shared.fetchIngredients { (response) in
             DispatchQueue.main.async {
@@ -137,7 +136,7 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
             didSelect(food)
         case 2:
             let savedIngredient = savedIngredients[indexPath.item]
-            didSelect(ingredient: savedIngredient)
+            didSelectSaved(ingredient: savedIngredient)
         default:
             break
         }
@@ -201,12 +200,12 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     
     @objc func didSelectItems() {
         let saveRecipeVC = SaveRecipeViewController()
-        saveRecipeVC.ingredients = getSelectedFoods() + getSelectedIngredient()
+        saveRecipeVC.ingredients = getSelectedIngredients() + getSelectedSavedIngredients()
         navigationController?.pushViewController(saveRecipeVC, animated: true)
     }
     
-    func didSelect(_ food: Ingredient) {
-        guard let index = searchedIngredients.index(of: food) else { return }
+    func didSelect(_ ingredient: Ingredient) {
+        guard let index = searchedIngredients.index(of: ingredient) else { return }
         
         if selectedSearchedIngredientAtIndex.contains(index) {
             guard let index = selectedSearchedIngredientAtIndex.index(of: index) else { return }
@@ -216,16 +215,16 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         }
     }
     
-    func getSelectedFoods() -> [Ingredient] {
-        var selectedFoods = [Ingredient]()
+    func getSelectedIngredients() -> [Ingredient] {
+        var selectedIngredients = [Ingredient]()
         for index in selectedSearchedIngredientAtIndex {
-            let food = searchedIngredients[index]
-            selectedFoods.append(food)
+            let ingredient = searchedIngredients[index]
+            selectedIngredients.append(ingredient)
         }
-        return selectedFoods
+        return selectedIngredients
     }
     
-    func didSelect(ingredient: Ingredient) {
+    func didSelectSaved(ingredient: Ingredient) {
         guard let index = savedIngredients.index(of: ingredient) else { return }
         
         if selectedSavedIngredientAtIndex.contains(index) {
@@ -236,11 +235,11 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         }
     }
     
-    func getSelectedIngredient() -> [Ingredient] {
+    func getSelectedSavedIngredients() -> [Ingredient] {
         var selectedIngredients = [Ingredient]()
         for index in selectedSavedIngredientAtIndex {
-            let food = savedIngredients[index]
-            selectedIngredients.append(food)
+            let ingredient = savedIngredients[index]
+            selectedIngredients.append(ingredient)
         }
         return selectedIngredients
     }
@@ -334,7 +333,7 @@ extension SearchIngredientCollectionViewController: UIViewControllerTransitionin
 
 class SectionHeader: UICollectionViewCell  {
     
-    override init(frame: CGRect)    {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         setupHeaderViews()
     }
@@ -379,7 +378,7 @@ extension SearchIngredientCollectionViewController: SearchIngredientDetailDelega
                 guard let index = savedIngredients.index(of: ingredient) else { return }
                 savedIngredients.remove(at: index)
                 savedIngredients.insert(ingredient, at: index)
-                didSelect(ingredient: ingredient)
+                didSelectSaved(ingredient: ingredient)
             default:
                 break
             }
