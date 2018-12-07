@@ -26,7 +26,7 @@
   animation: placeholderShimmer @placeholderLoadingAnimationDuration linear;
   animation-iteration-count: infinite;
   background-color: @white;
-  background-image: @placeholderLoadingGradient;
+  : @placeholderLoadingGradient;
   background-size: @placeholderLoadingGradientWidth 100%;
   max-width: @placeholderMaxWidth;
 }
@@ -184,7 +184,7 @@
 
 /* Inverted Content Loader */
 .ui.inverted.placeholder {
-  background-image: @placeholderInvertedLoadingGradient;
+  : @placeholderInvertedLoadingGradient;
 }
 .ui.inverted.placeholder,
 .ui.inverted.placeholder > :before,

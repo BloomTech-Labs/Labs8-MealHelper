@@ -1,42 +1,96 @@
-.recipe-card {
+input[type="search"]::-webkit-search-cancel-button {
+  /*Bootstrap 3 override*/
+  -webkit-appearance: searchfield-cancel-button !important;
+}
+
+.recipe-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+  background: #f0f0f0;
+}
+.recipe-link {
+  margin: 500px auto 0;
+}
+.new-recipe-holder {
+  margin: 100px auto;
+}
+.recipe-link2 {
+  margin: 50px auto 0;
+}
+.recipe-input-1 {
+  width: 495px;
+  height: 534px;
+  background: #ffffff;
+  border: 1px solid #b6b5b5;
+}
+.recipe-nutrients-info {
+  margin-top: 20px;
+  width: 495px;
+  height: 241px;
+  background: #ffffff;
+  border: 1px solid #b6b5b5;
+}
+.name-recipe {
+  width: 343px;
+  height: 43px;
+  background: #ffffff;
+  border: 1px solid #9c9c9c;
+
+  border-radius: 3px 0px 0px 3px;
+}
+.search-food {
+  width: 343px;
+  height: 43px;
+  background: #ffffff;
+  border: 1px solid #9c9c9c;
+  margin-top: 20px;
+  border-radius: 3px 0px 0px 3px;
+}
+.results-data {
+  position: absolute;
+  z-index: 2;
+  width: 343px;
+  margin: -43px 0 0 425px;
+  height: 244px;
+  background: #ffffff;
+  border: 1px solid #b6b5b5;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  margin-right: 25%;
-  margin-top: 5%;
-  width: 900px;
-  height: 500px;
-  outline: 3px solid #f1e7e8;
-  background: linear-gradient(
-    rgb(163, 206, 160, 0.75),
-    rgb(163, 206, 160, 0.75)
-  );
+  max-height: inherit;
+  overflow: scroll;
 }
-.btn-success {
-  margin-top: 150px !important;
-}
-.create-recipe-background {
-  margin-top: 400px;
-  margin-right: 15%;
-  width: 50%;
-  height: 30%;
-  background: linear-gradient(rgba(20, 20, 20, 0.93), rgba(20, 20, 20, 0.93));
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
-}
-.titlelinksrecipe {
+
+.results-data-hidden {
+  display: none !important;
+  width: 343px;
+  margin: 5px auto;
+  height: 244px;
+  background: #ffffff;
+  border: 1px solid #b6b5b5;
   display: flex;
-  justify-content: flex-end;
-  line-height: 1.2em;
-  color: #f1e7e8;
-  padding: 5%;
+  flex-direction: column;
+  max-height: inherit;
+  overflow: scroll;
 }
-
-.in-app-links {
-  text-decoration: none;
+.results-item:hover {
+  background: #b6b5b5;
+  cursor: pointer;
 }
-
-.titlelinksrecipe:hover {
-  font-weight: 600;
-  color: orange;
+#Search::-webkit-search-cancel-button {
+  position: relative;
+  right: 10px;
+}
+.selected-ingredients {
+  width: 343px;
+  margin: 5px auto;
+  height: 244px;
+  background: #ffffff;
+  border: 1px solid #b6b5b5;
+  overflow: scroll;
+}
+.individual-ingredient {
+  border: 1px solid #b6b5b5;
 }

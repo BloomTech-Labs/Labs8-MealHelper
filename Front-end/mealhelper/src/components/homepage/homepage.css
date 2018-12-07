@@ -1,7 +1,8 @@
 .home-container {
   height: 100vh;
   width: 100vw;
-  background-image: url("../../img/homepagebackground.jpg");
+  /* : url("../../img/homepagebackground.jpg"); */
+  background-color: #ffffff;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -11,7 +12,8 @@
 .home-container-home {
   height: 100vh;
   width: 100vw;
-  background-image: url("../../img/homepagebackground.jpg");
+  /* : url("../../img/homepagebackground.jpg"); */
+  background-color: #ffffff;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

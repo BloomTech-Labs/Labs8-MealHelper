@@ -59,7 +59,6 @@ server.post("/charge", async (req, res) => {
       source: req.body
     });
 
-
     res.json({ status });
   } catch (err) {
     res.status(500).end();
@@ -607,6 +606,20 @@ server.get("/ingredients/:userid", (req, res) => {
       res.status(400).json({ err, error: "could not find meal" });
     });
 });
+//GET request to grab all ingredients in a recipe
+server.get("/ingredients/recipe/:id", (req, res) => {
+  const id = req.params.id;
+  db("ingredients")
+    //Finds the corrosponding ingredients based on user ID
+    .where({ recipe_id: id })
+    .then(ingredients => {
+      //Returns all the recipes from that user
+      res.status(200).json(ingredients);
+    })
+    .catch(err => {
+      res.status(400).json({ err, error: "could not find meal" });
+    });
+});
 
 //POST request to create an ingredients
 server.post("/ingredients/:userid", (req, res) => {
@@ -701,7 +714,7 @@ server.get("/nutrients/:ingredientID", (req, res) => {
     .first()
     .then(ingredients => {
       db("nutrients")
-        .where({ ingredient_id: ingredientId })
+        .where({ ingredients_id: ingredientId })
         .then(nutrients => {
           //Returns all the nutrients
           res.status(200).json(nutrients);
@@ -1052,10 +1065,10 @@ server.post("/alarms/:userid", (req, res) => {
   //Grabs the user id from req.params
   const user_id = req.params.userid;
   console.log("req.params.userid", req.params.userid, "user_ID", user_id);
-  const { label, alarm } = req.body;
+  const { label, alarm, timestamp } = req.body;
   console.log("req.body", req.body, "label, alarm", label, alarm);
   //Adds the user id to the alarm object
-  const alarmBody = { label, alarm, user_id };
+  const alarmBody = { label, alarm, user_id, timestamp };
   console.log("alarmBody", alarmBody);
   db("alarms")
     //Inserts the alarm and sets it to the user
@@ -1074,38 +1087,64 @@ server.post("/alarms/:userid", (req, res) => {
 });
 
 //PUT request to change the alarm settings
-server.put("/alarms/:id", (req, res) => {
+server.put("/alarms/:id/user/:userid", (req, res) => {
   //Grabs the alarm id from req.params
   const id = req.params.id;
+  const user_ID = req.params.userid;
   const { label, alarm } = req.body;
   // Sets the req.body to an alarm object that gets passed into the update
   const alarmBody = { label, alarm };
   db("alarms")
-    .where({ id: id })
-    .update({
-      label: alarmBody.label,
-      alarm: alarmBody.alarm
-    })
-    .then(alarmID => {
-      //Returns the alarm ID
-      res.status(200).json(alarmID);
+    //Finds the alarms associated to that user
+    .where({ user_id: user_ID })
+    .then(alarms => {
+      db("alarms")
+        .where({ id: id })
+        .update({
+          label: alarmBody.label,
+          alarm: alarmBody.alarm
+        })
+        .then(alarmID => {
+          db("alarms")
+            //Finds the alarms associated to that user
+            .where({ user_id: user_ID })
+            .then(alarms => {
+              //Returns the alarms for that user
+              res.status(200).json(alarms);
+            })
+            .catch(err => {
+              res.status(400).json({ error: "Could not find the alarms" });
+            });
+        })
+        .catch(err => {
+          res.status(400).json({ error: "Could not update alarm" });
+        });
     })
     .catch(err => {
-      res.status(400).json({ error: "Could not update alarm" });
+      res.status(400).json({ error: "Could not find the alarms" });
     });
 });
 
 //Deletes the alarm for the user
-server.delete("/alarms/:id", (req, res) => {
+server.delete("/alarms/:id/user/:userid", (req, res) => {
   //Grabs alarm id from req.params
   const id = req.params.id;
+  const user_ID = req.params.userid;
   db("alarms")
     //FInds the meal thats associated with that weather report
     .where({ id: id })
     .del()
     .then(deleted => {
-      //Returns a 1 for deleted or a 0 for not.
-      res.status(200).json(deleted);
+      db("alarms")
+        //Finds the alarms associated to that user
+        .where({ user_id: user_ID })
+        .then(alarms => {
+          //Returns the alarms for that user
+          res.status(200).json(alarms);
+        })
+        .catch(err => {
+          res.status(400).json({ error: "Could not find the alarms" });
+        });
     })
     .catch(err => {
       res.status(400).json({ error: "Error deleting alarm" });

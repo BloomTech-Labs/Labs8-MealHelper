@@ -233,7 +233,7 @@ class LoginViewController: UIViewController
         }
         
         guard password.count > 2, email.contains("@") else {
-            showAlert(with: "Please make sure you entered a valid email and your password is at least 6 characters long.")
+            showAlert(with: "Please make sure you entered a valid email and your password is at least 3 characters long.")
             return
         }
         

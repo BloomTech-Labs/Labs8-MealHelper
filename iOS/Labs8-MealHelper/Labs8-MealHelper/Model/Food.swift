@@ -66,14 +66,14 @@ func ==(lhs: Recipe, rhs: Recipe) -> Bool {
 
 struct Ingredient: Codable, Equatable {
     
-    init(name: String, nbdId: String) {
+    init(name: String, nbdId: Int) {
         self.name = name
         self.nbdId = nbdId
     }
     
     var identifier: Int?
     var name: String
-    var nbdId: String?
+    var nbdId: Int?
     var userId: Int?
     var nutrientIds: [Int]?
     var recipeId: Int?
@@ -82,7 +82,7 @@ struct Ingredient: Codable, Equatable {
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
         case name
-        case nbdId = "nbd_id"
+        case nbdId = "ndb_id"
         case userId = "user_id"
         case nutrientIds = "nutrients_id"
         case recipeId = "recipe_id"
