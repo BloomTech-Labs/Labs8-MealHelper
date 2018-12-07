@@ -54,11 +54,15 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     }()
     
     lazy var noItemSelectedbarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didNotSelectItems))
+        let bb = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didNotSelectItems))
+        bb.isEnabled = false
+        bb.tintColor = UIColor.lightGray
+        return bb
     }()
     
     lazy var itemsSelectedBarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didSelectItems))
+        let bb = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didSelectItems))
+        return bb
     }()
     
     //MARK: - Life Cycle

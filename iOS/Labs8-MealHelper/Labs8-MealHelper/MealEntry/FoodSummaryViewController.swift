@@ -39,8 +39,8 @@ class FoodSummaryViewController: UIViewController {
             quantityInputField.text = quantityPickerFieldDefaultValue
         }
     }
-    var typePickerFieldImage = #imageLiteral(resourceName: "message")
-    var quantityPickerFieldImage = #imageLiteral(resourceName: "message")
+    var typePickerFieldImage = #imageLiteral(resourceName: "meal")
+    var quantityPickerFieldImage = #imageLiteral(resourceName: "add")
     var editableTitle = false
     
     // MARK: - Private properties

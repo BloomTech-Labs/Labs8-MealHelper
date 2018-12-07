@@ -375,8 +375,7 @@ extension CameraViewController: BarcodeScannerDelegate {
     }
     
     func barcodeScanner(_ controller: BarcodeScanner, didReceiveError error: Error) {
-        // Handle error
-        self.showAlert(with: "An issue occured while scanning the barcode. Please try again")
+        showAlert(with: "An issue occured while scanning the barcode. Please try again")
     }
     
     @objc private func addToRecipe(_ sender: UIButton) {
