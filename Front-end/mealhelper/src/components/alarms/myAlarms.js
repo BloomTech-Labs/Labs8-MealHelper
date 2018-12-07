@@ -175,7 +175,7 @@ class MyAlarms extends Component {
               <Button color="info" onClick={() => this.showModal(alarm.id)}> Edit </Button>
               <Button color="danger"
                 onClick={() =>
-                  this.props.deleteAlarm(alarm.id)
+                  this.props.deleteAlarm(alarm.id, this.props.user.userID)
                 }> Delete </Button>
               </div>
             </div>
