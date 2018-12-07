@@ -1112,9 +1112,10 @@ server.put("/alarms/:id/user/:userid", (req, res) => {
 });
 
 //Deletes the alarm for the user
-server.delete("/alarms/:id", (req, res) => {
+server.delete("/alarms/:id/user/:userid", (req, res) => {
   //Grabs alarm id from req.params
   const id = req.params.id;
+  const user_ID = req.params.userid;
   db("alarms")
     //FInds the meal thats associated with that weather report
     .where({ id: id })
