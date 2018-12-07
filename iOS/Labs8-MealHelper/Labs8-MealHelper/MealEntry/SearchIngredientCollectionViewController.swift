@@ -187,7 +187,6 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         }
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width - 16, height: 65)
     }
@@ -283,7 +282,7 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
             DispatchQueue.main.async {
                 switch response {
                 case .success(let ingredients):
-                    self.searchedIngredients = ingredients
+                    self.searchedIngredients.append(contentsOf: ingredients)
                     self.searchController.isActive = false
                     self.collectionView.reloadSections(IndexSet(integer: 1))
                 case .error(let error):
@@ -385,11 +384,17 @@ extension SearchIngredientCollectionViewController: SearchIngredientDetailDelega
             
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         } else {
-            searchedIngredients.insert(ingredient, at: 0)
+            // Handle ingredients added from barcode scanner
+            // TODO:
+            let endIndex = searchedIngredients.endIndex
+            searchedIngredients.insert(ingredient, at: endIndex)
+            selectedSearchedIngredientAtIndex.append(endIndex)
             collectionView.reloadData()
-            didSelect(ingredient)
+            
+            for index in selectedSearchedIngredientAtIndex {
+                collectionView.selectItem(at: IndexPath(item: index, section: 1), animated: true, scrollPosition: .centeredHorizontally)
+            }
         }
-        
         
     }
     
