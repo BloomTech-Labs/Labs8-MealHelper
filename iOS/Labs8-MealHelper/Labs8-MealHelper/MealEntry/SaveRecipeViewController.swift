@@ -206,7 +206,7 @@ class SaveRecipeViewController: UIViewController {
         for ingredient in ingredients {
             guard let nutrients = ingredient.nutrients else { continue }
             for nutrient in nutrients {
-                if nutrient.identifier == "208" { // id for energy/kcal
+                if nutrient.nutrientId == 208 { // id for energy/kcal
                     calories += Int(nutrient.value) ?? 0
                 }
             }

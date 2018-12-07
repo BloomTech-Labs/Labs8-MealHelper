@@ -95,19 +95,28 @@ func ==(lhs: Ingredient, rhs: Ingredient) -> Bool {
 
 struct Nutrient: Codable {
     
-    var identifier: String // usda nutrient id
+    init(nutrientId: Int, name: String, unit: String, value: String, gm: Double?) {
+        self.nutrientId = nutrientId
+        self.name = name
+        self.unit = unit
+        self.value = value
+        self.gm = gm
+    }
+    
+    var identifier: Int?
+    var nutrientId: Int // usda nutrient id
     var name: String
     var unit: String
     var value: String
-    var gm: Double // The 100 gram equivalent value for the nutrient
+    var gm: Double? // The 100 gram equivalent value for the nutrient
     var ingredientId: Int?
     
     enum CodingKeys: String, CodingKey {
-        case identifier = "nutrient_id"
+        case identifier = "id"
+        case nutrientId = "nutrient_id"
         case name = "nutrient"
         case unit
         case value
-        case gm
         case ingredientId = "ingredients_id"
     }
 }
@@ -179,6 +188,25 @@ struct UsdaNutrient: Codable {
                 case name
                 case measure
                 case nutrients
+            }
+            
+            struct Nutrient: Codable {
+                
+                var identifier: String // usda nutrient id
+                var name: String
+                var unit: String
+                var value: String
+                var gm: Double // The 100 gram equivalent value for the nutrient
+                var ingredientId: Int?
+                
+                enum CodingKeys: String, CodingKey {
+                    case identifier = "nutrient_id"
+                    case name = "nutrient"
+                    case unit
+                    case value
+                    case gm
+                    case ingredientId = "ingredients_id"
+                }
             }
         }
     }
