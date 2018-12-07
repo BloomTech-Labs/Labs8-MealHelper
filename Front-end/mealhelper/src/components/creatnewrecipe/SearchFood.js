@@ -13,6 +13,7 @@ class Search extends Component {
     results: [],
     food: [],
     total: 0,
+    number: 50,
     limitIndex: 50
   };
 
@@ -21,7 +22,9 @@ class Search extends Component {
       .get(
         `https://api.nal.usda.gov/ndb/search/?format=json&It=f&q=${
           this.state.query
-        }&sort=n&max=1000&offset=0&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6`
+        }&sort=n&max=${
+          this.state.number
+        }&offset=0&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6`
       )
       .then(response => {
         console.log(response);
@@ -37,17 +40,50 @@ class Search extends Component {
       });
   };
   fetchMoreData = () => {
+    const oldCount = this.state.number;
+    this.setState({ number: this.state.number + 100 });
+    const newCount = this.state.number;
+    axios
+      .get(
+        `https://api.nal.usda.gov/ndb/search/?format=json&It=f&q=${
+          this.state.query
+        }&sort=n&max=${
+          this.state.number
+        }&offset=0&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6`
+      )
+      .then(response => {
+        console.log(response);
+        if (response.data.errors) {
+          this.setState({ results: ["Could not find foods with that name"] });
+        } else {
+          this.setState({
+            results: this.state.results.concat(
+              response.data.list.item.slice(oldCount, newCount)
+            )
+          });
+        }
+        console.log(this.state.results);
+      });
     console.log("im in fetchmoreData!");
-    this.setState({ limitIndex: this.state.limitIndex + 50 });
+
     console.log(this.state.limitIndex);
   };
   addFood = food => {
     this.setState({
       food: [...this.state.food, food],
-      typing: false,
+
       limitIndex: 50
     });
     console.log(this.state.food);
+  };
+
+  removeItem = itemIndex => {
+    console.log(this.state.food);
+    const filteredFoods = this.state.food.filter(
+      (item, idx) => itemIndex !== idx
+    );
+    this.setState({ food: filteredFoods });
+    console.log(filteredFoods);
   };
 
   handleInputChange = event => {
@@ -94,7 +130,7 @@ class Search extends Component {
             loader={<h4>Loading...</h4>}
             scrollableTarget="scrollableDiv"
           >
-            {this.state.results.slice(0, this.state.limitIndex).map(food => (
+            {this.state.results.map(food => (
               <Suggestions
                 total={this.state.total}
                 id={food.ndbno}
@@ -107,8 +143,14 @@ class Search extends Component {
           </InfiniteScroll>
         </div>
         <div className="selected-ingredients">
-          {this.state.food.slice(0, this.state.limitIndex).map(food => (
-            <GetNutrients id={food.ndbno} name={food.name} />
+          {this.state.food.map((food, index) => (
+            <GetNutrients
+              index={index}
+              offset={food.offset}
+              id={food.ndbno}
+              remove={this.removeItem}
+              name={food.name}
+            />
           ))}
         </div>
       </form>

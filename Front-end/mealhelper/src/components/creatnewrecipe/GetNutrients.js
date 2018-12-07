@@ -57,9 +57,12 @@ class Search extends Component {
   };
 
   render() {
+    console.log(this.props);
     return (
-      <div>
-        <div>{this.props.id}</div>
+      <div
+        className="individual-ingredient"
+        onClick={() => this.props.remove(this.props.index)}
+      >
         <div>{this.props.name}</div>
       </div>
     );

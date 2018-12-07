@@ -83,3 +83,14 @@ input[type="search"]::-webkit-search-cancel-button {
   position: relative;
   right: 10px;
 }
+.selected-ingredients {
+  width: 343px;
+  margin: 5px auto;
+  height: 244px;
+  background: #ffffff;
+  border: 1px solid #b6b5b5;
+  overflow: scroll;
+}
+.individual-ingredient {
+  border: 1px solid #b6b5b5;
+}
