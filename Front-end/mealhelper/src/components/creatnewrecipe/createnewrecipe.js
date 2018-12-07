@@ -3,14 +3,8 @@ import { connect } from "react-redux";
 //change the route for this
 import axios from "axios";
 import { addRecipe, getRecipe } from "../../store/actions/recipeActions.js";
-<<<<<<< HEAD
 import { withRouter, Link } from "react-router-dom";
 import SearchFood from "./SearchFood";
-=======
-import { withRouter } from "react-router-dom";
-import Nutrients from "../recipes/Nutrients";
-import FoodSearch from "../recipes/FoodSearch";
->>>>>>> 59f0eee0ddaded1d2cb51449611265731091aece
 import "../recipes/recipes.css";
 
 class CreateNewRecipe extends Component {
