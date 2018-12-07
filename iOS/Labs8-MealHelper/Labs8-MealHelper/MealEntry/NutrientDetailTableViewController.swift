@@ -16,8 +16,6 @@ class NutrientDetailTableViewController: UITableViewController {
         }
     }
     
-    var servingType = FoodHelper.ServingTypes.cup
-    
     private let cellReuseId = "NutrientCell"
     
     override func viewDidLoad() {
