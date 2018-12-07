@@ -128,8 +128,8 @@ class AddAlarms extends Component {
         }
       }
       alarmTimes.map(alarm => console.log("BATCH ALARMS", alarm))
-      // alarmTimes.map(alarm => this.props.addAlarms(alarm));
-      // this.props.history.push("/homepage/alarms");
+      alarmTimes.map(alarm => this.props.addAlarms(alarm));
+      this.props.history.push("/homepage/alarms");
     }
   };
 
@@ -147,8 +147,8 @@ class AddAlarms extends Component {
       timestamp: timestamp
     };
     console.log("SINGLE ALARM", alarmBody)
-    // this.props.addAlarms(alarmBody);
-    // this.props.history.push("/homepage/alarms");
+    this.props.addAlarms(alarmBody);
+    this.props.history.push("/homepage/alarms");
   };
 
   militaryToStandard = input => {
@@ -227,7 +227,7 @@ class AddAlarms extends Component {
             />
           </form>
           <div>Tip: You can add labels to your alarms by clicking 'Edit' next to each alarm on the Alarms page.</div>
-          <Button onClick={this.addAlarm} className="add-alarms-btn">
+          <Button color="info" onClick={this.addAlarm} className="add-alarms-btn">
             Add Alarm Batch
           </Button>
           </div>
@@ -272,7 +272,7 @@ class AddAlarms extends Component {
               onChange={this.handleChange}
             />
           </form>
-          <Button onClick={this.addSingleAlarm} className="add-alarms-btn">
+          <Button color="info" onClick={this.addSingleAlarm} className="add-alarms-btn">
             Add Alarm
           </Button>
         </div>
