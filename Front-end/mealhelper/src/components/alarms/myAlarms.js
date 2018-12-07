@@ -112,6 +112,7 @@ class MyAlarms extends Component {
   };
 
   sendToEdit(labelChange) {
+    this.toggle();
     const { id, alarm } = this.state.alarmToUpdate;
     const label = labelChange;
     const alarmBody = { id, label, alarm };
@@ -121,7 +122,7 @@ class MyAlarms extends Component {
 
   showModal = alarmID => {
     this.toggle();
-    const alarmToUpdate = alarms.find(alarm => alarm.id === alarmID);
+    const alarmToUpdate = this.props.alarms.find(alarm => alarm.id === alarmID);
     this.setState({
       alarmToUpdate: alarmToUpdate
     })
@@ -156,7 +157,8 @@ class MyAlarms extends Component {
       <div className="alarms-container">
       <div className="alarms-heading"><h1>Alarms</h1></div>
           
-          {alarms.map(alarm => (
+          {this.props.alarms ? 
+          this.props.alarms.map(alarm => (
             <div className="alarm-card"
               key={alarm.id}
               id={alarm.id}
@@ -173,11 +175,16 @@ class MyAlarms extends Component {
               <Button color="info" onClick={() => this.showModal(alarm.id)}> Edit </Button>
               <Button color="danger"
                 onClick={() =>
-                  this.props.deleteAlarm(alarm.id, this.props.user.userID)
+                  this.props.deleteAlarm(alarm.id)
                 }> Delete </Button>
               </div>
             </div>
-          ))}
+          )) 
+          :
+              <div className="alarm-card">
+                <div className="alarm-text">You don't have any Alarms.</div>
+              </div>
+          }
           <div className="add-new-alarms">
           <Button color="info" onClick={() => this.props.history.push("/homepage/alarms/add-alarms")}>Add New Alarms</Button>
           </div>
@@ -214,10 +221,9 @@ class MyAlarms extends Component {
                   }))
                 }
               />
-              <button onClick={() => this.sendToEdit(this.state.label)}>
+              <Button color="info" onClick={() => this.sendToEdit(this.state.label)}>
                 Submit
-              </button>
-              <button onClick={() => this.showModal}>Nevermind</button>
+              </Button>
            </ModalBody>
          </Modal>
         </div>
