@@ -25,7 +25,7 @@ class APIClient: GenericAPIClient {
         put(with: url, requestBody: newUserDetails, completion: completion)
     }
     
-    func changeZip(with userId: Int, newEmail: String, password: String, completion: @escaping (Response<String>) -> ()) {
+    func changeEmail(with userId: Int, newEmail: String, password: String, completion: @escaping (Response<String>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["email", "\(userId)"])
         let newUserDetails = ["email": newEmail, "password": password] as [String: Any]
         put(with: url, requestBody: newUserDetails, completion: completion)

@@ -112,6 +112,48 @@ class SettingsViewController: UIViewController {
 }
 
 extension SettingsViewController: SettingsCellDelegate {
+    func changeEmail() {
+        let alert = UIAlertController(title: "Change email", message: nil, preferredStyle: .alert)
+        alert.addTextField { (emailTextField) in
+            emailTextField.placeholder = "New email"
+        }
+        alert.addTextField { (passwordTextField) in
+            passwordTextField.placeholder = "Your password"
+            passwordTextField.isSecureTextEntry = true
+        }
+        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_) in
+            
+            guard let newEmail = alert.textFields?[0].text, newEmail.contains("@"), newEmail.contains("."), let password = alert.textFields?[1].text else {
+                self.showAlert(with: "Please make sure you entered a valid email and password.")
+                return
+            }
+            
+            let userId = UserDefaults.standard.loggedInUserId()
+            APIClient.shared.changeEmail(with: userId, newEmail: newEmail, password: password, completion: { (response) in
+                
+                DispatchQueue.main.async {
+                    switch response {
+                    case .success:
+                        self.showAlert(with: "You have successfully changed your email to \(newEmail)")
+                    case .error:
+                        self.showAlert(with: "An error occured when changing your email, please check your internet connection and try again.")
+                    }
+                }
+            })
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func changeZip() {
+        //
+    }
+    
+    func changePassword() {
+        //
+    }
+    
     func deleteUser() {
         let alert = UIAlertController(title: "Are you sure you want to delete your account? This action cannot be undone.", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in

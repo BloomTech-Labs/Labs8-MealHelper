@@ -11,6 +11,9 @@ import UIKit
 protocol SettingsCellDelegate: class {
     func deleteUser()
     func logout()
+    func changeEmail()
+    func changeZip()
+    func changePassword()
 }
 
 class SettingsCell: UICollectionViewCell {
@@ -121,7 +124,7 @@ class SettingsCell: UICollectionViewCell {
     }
     
     private func changeEmail() {
-        
+        delegate?.changeEmail()
     }
     
     private func changeZip() {
