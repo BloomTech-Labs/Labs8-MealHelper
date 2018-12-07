@@ -16,6 +16,12 @@ class MealDetailViewController: UIViewController {
         }
     }
     
+    var ingredients: [Ingredient]? {
+        didSet {
+            
+        }
+    }
+    
     let nutrientsView: NutrientsView = {
         let view = NutrientsView()
         view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
@@ -101,6 +107,39 @@ class MealDetailViewController: UIViewController {
         
         view.addSubview(noteView)
         noteView.anchor(top: weatherView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 100))
+    }
+    
+    private func fetchIngredients() {
+        guard let meal = meal, let recipeId = meal.recipeId else { return }
+        FoodClient.shared.fetchIngredients(withRecipeId: recipeId) { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let ingredients):
+                    self.ingredients = ingredients
+                case .error(let error):
+                    NSLog("Error fetching ingredients: \(error)")
+                    self.showAlert(with: "Could not fetch ingredients.")
+                }
+            }
+        }
+    }
+    
+    private func fetchNutrients(for ingredient: Ingredient) -> [Nutrient]? {
+        var fetchedNutrients: [Nutrient]? = nil
+        
+        guard let ingredientId = ingredient.identifier else { return nil }
+        FoodClient.shared.fetchNutrients(withIngredientId: ingredientId) { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let nutrients):
+                    fetchedNutrients = nutrients
+                case .error(let error):
+                    NSLog("Error fetching nutrients: \(error)")
+                }
+            }
+        }
+        
+        return fetchedNutrients
     }
 
 }

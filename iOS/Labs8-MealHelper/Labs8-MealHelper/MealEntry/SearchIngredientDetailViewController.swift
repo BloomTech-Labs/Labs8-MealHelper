@@ -211,7 +211,8 @@ class SearchIngredientDetailViewController: UIViewController {
                     self.ingredient?.nutrients = nutrients.0
                     self.headerView.subtitleName = nutrients.1
                 case .error(let error):
-                    NSLog("Error fetching ingredients: \(error)")
+                    NSLog("Error fetching nutrients: \(error)")
+                    self.showAlert(with: "Could not fetch nutrients.")
                 }
             }
         }

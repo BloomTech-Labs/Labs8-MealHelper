@@ -42,14 +42,14 @@ class FoodClient: GenericAPIClient {
         
     }
     
-    func fetchIngredients(with recipeId: Int, completion: @escaping (Response<[Ingredient]>) -> ()) {
-        let url = self.url(with: baseUrl, pathComponents: ["ingredients", userId])
+    func fetchIngredients(withRecipeId recipeId: Int, completion: @escaping (Response<[Ingredient]>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["ingredients", "recipe", String(recipeId)])
         
         fetch(from: url, completion: completion)
         
     }
     
-    func fetchNutrients(with ingredientId: Int, completion: @escaping (Response<[Nutrient]>) -> ()) {
+    func fetchNutrients(withIngredientId ingredientId: Int, completion: @escaping (Response<[Nutrient]>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["nutrients", String(ingredientId)])
         
         fetch(from: url, completion: completion)

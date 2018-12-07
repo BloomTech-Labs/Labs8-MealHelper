@@ -290,7 +290,7 @@ class EditRecipeViewController: SaveRecipeViewController {
         
         guard let ingredientId = ingredient.identifier else { return nil }
         
-        FoodClient.shared.fetchNutrients(with: ingredientId) { (response) in
+        FoodClient.shared.fetchNutrients(withIngredientId: ingredientId) { (response) in
             switch response {
             case .success(let nutrients):
                 DispatchQueue.main.async {
