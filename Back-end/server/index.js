@@ -608,7 +608,7 @@ server.get("/ingredients/:userid", (req, res) => {
 });
 //GET request to grab all ingredients in a recipe
 server.get("/ingredients/recipe/:id", (req, res) => {
-  const id = req.params.userid;
+  const id = req.params.id;
   db("ingredients")
     //Finds the corrosponding ingredients based on user ID
     .where({ recipe_id: id })
