@@ -20,8 +20,12 @@ class MyRecipes extends Component {
     };
   }
   componentDidMount() {
-    const id = this.props.user.userID;
-    this.props.getMeals(id);
+    if (localStorage.getItem("token")) {
+      const id = this.props.user.userID;
+      this.props.getMeals(id);
+    } else {
+      this.props.history.push("/");
+    }
   }
   componentWillReceiveProps(nextProps) {
     this.setState({ list: nextProps.meals });
@@ -42,35 +46,15 @@ class MyRecipes extends Component {
     return (
       <div className="weather-container">
         <div className="home-container">
-          <div className="sidebar">
-            <Link to="/homepage/recipes" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Recipes</h2>
-            </Link>
-            <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Alarms</h2>
-            </Link>
-            <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Meals</h2>
-            </Link>
-            <Link to="/homepage/billing" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Billing</h2>
-            </Link>
-            <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
-              <h2 className="titlelinks">Settings</h2>
-            </Link>
-          </div>
-          <div className="recipe-card">
-            <h2>My Recipes</h2>
-            <div className="dynamic-display">
-              {this.state.list.map(item => (
-                <Recipe
-                  item={item}
-                  key={item.ndbno}
-                  name={item.name}
-                  ndbno={item.ndbno}
-                />
-              ))}
-            </div>
+          <div className="dynamic-display">
+            {this.state.list.map(item => (
+              <Recipe
+                item={item}
+                key={item.ndbno}
+                name={item.name}
+                ndbno={item.ndbno}
+              />
+            ))}
           </div>
         </div>
       </div>
