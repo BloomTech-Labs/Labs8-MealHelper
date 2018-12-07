@@ -1,3 +1,8 @@
+input[type="search"]::-webkit-search-cancel-button {
+  /*Bootstrap 3 override*/
+  -webkit-appearance: searchfield-cancel-button !important;
+}
+
 .recipe-container {
   width: 100%;
   height: auto;
@@ -43,4 +48,19 @@
   border: 1px solid #9c9c9c;
   margin-top: 20px;
   border-radius: 3px 0px 0px 3px;
+}
+.results-data {
+  width: 343px;
+  margin: 5px auto;
+  height: 244px;
+  background: #ffffff;
+  border: 1px solid #b6b5b5;
+  display: flex;
+  flex-direction: column;
+  max-height: inherit;
+  overflow: scroll;
+}
+.results-item:hover {
+  background: #b6b5b5;
+  cursor: pointer;
 }

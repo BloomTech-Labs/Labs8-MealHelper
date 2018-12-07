@@ -606,6 +606,20 @@ server.get("/ingredients/:userid", (req, res) => {
       res.status(400).json({ err, error: "could not find meal" });
     });
 });
+//GET request to grab all ingredients in a recipe
+server.get("/ingredients/recipe/:id", (req, res) => {
+  const id = req.params.userid;
+  db("ingredients")
+    //Finds the corrosponding ingredients based on user ID
+    .where({ recipe_id: id })
+    .then(ingredients => {
+      //Returns all the recipes from that user
+      res.status(200).json(ingredients);
+    })
+    .catch(err => {
+      res.status(400).json({ err, error: "could not find meal" });
+    });
+});
 
 //POST request to create an ingredients
 server.post("/ingredients/:userid", (req, res) => {
