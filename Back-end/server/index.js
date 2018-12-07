@@ -1091,8 +1091,16 @@ server.put("/alarms/:id/user/:userid", (req, res) => {
           alarm: alarmBody.alarm
         })
         .then(alarmID => {
-          //Returns the alarm ID
-          res.status(200).json(alarmID);
+          db("alarms")
+            //Finds the alarms associated to that user
+            .where({ user_id: user_ID })
+            .then(alarms => {
+              //Returns the alarms for that user
+              res.status(200).json(alarms);
+            })
+            .catch(err => {
+              res.status(400).json({ error: "Could not find the alarms" });
+            });
         })
         .catch(err => {
           res.status(400).json({ error: "Could not update alarm" });
