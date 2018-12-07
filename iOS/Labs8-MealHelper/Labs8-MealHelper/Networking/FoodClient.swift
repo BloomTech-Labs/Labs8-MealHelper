@@ -56,14 +56,19 @@ class FoodClient: GenericAPIClient {
         
     }
     
-    func postMeal(name: String, mealTime: String, date: String, temp: Double, completion: @escaping (Response<Int>) -> ()) {
+    func postMeal(name: String, mealTime: String, date: String, temp: Double, recipeId: Int, completion: @escaping (Response<Int>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["users", userId, "meals"])
         let reqBody = [
             "name": name,
             "user_id": userId,
             "mealTime": mealTime,
             "date": date,
-            "temp": temp
+            "temp": temp,
+            //"notes": notes,
+            //"humidity": humidity,
+            //"pressure": pressure,
+            "recipe_id": String(recipeId),
+            //"servings": servings
             ] as [String : Any]
         
         post(with: url, requestBody: reqBody, completion: completion)
