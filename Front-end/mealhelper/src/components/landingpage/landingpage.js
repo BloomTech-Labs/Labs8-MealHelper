@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter } from "react-router-dom";
 import Jars from "./Jars.jpg";
-import Computer from "./Computer.jpg";
+import Computer from "./Computer.png";
 import Plate from "./Plate.png";
 import Navbar from "../Navbar/Navbar";
 import Recipe from "./Recipes.jpg";
 import Book from "./Book.png";
-import DoctorPic from "./DoctorPic.jpg";
+import DoctorPic from "./DoctorPic.png";
 import Doctor from "./Doctor.png";
 import "./landingpage.css";
 
@@ -37,10 +37,10 @@ class Landingpage extends Component {
           </div>
           <div className="login-signup-container">
             <p className="call-to-action">
-              ' Your diet is a bank account. Good food choices are good
-              investments.'
+              " Your diet is a bank account. Good food choices are good
+              investments. "
             </p>
-            <p className="call-to-action2">-Bethenny Frankel</p>
+            <p className="call-to-action2">- Bethenny Frankel</p>
             <div className="landingpage-buttons">
               <div className="button-container">
                 <button className="button">
