@@ -83,7 +83,7 @@ class FoodSummaryViewController: UIViewController {
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
-        stackView.spacing = 6.0
+        stackView.spacing = 4.0
         return stackView
     }()
     

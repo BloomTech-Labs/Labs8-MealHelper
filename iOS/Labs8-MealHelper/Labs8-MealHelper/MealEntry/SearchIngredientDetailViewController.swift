@@ -119,10 +119,6 @@ class SearchIngredientDetailViewController: UIViewController {
         fetchNutrients()
     }
     
-    override func viewDidLayoutSubviews() {
-        //view.setGradientBackground(colorOne: UIColor.nightSkyBlue.cgColor, colorTwo: UIColor.mountainDark.cgColor, startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0.8, y: 0.3))
-    }
-    
     // MARK: - User actions
     
     @objc private func didChangeServingType(note: Notification) {
@@ -212,7 +208,6 @@ class SearchIngredientDetailViewController: UIViewController {
             DispatchQueue.main.async {
                 switch response {
                 case .success(let nutrients):
-                    //let updatedNutrients = self.foodHelper.udpateNutrients(nutrients, to: "cup")
                     self.ingredient?.nutrients = nutrients.0
                     self.headerView.subtitleName = nutrients.1
                 case .error(let error):
