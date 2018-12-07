@@ -79,6 +79,7 @@ class SaveRecipeViewController: UIViewController {
         
         guard let recipeName = recipeName else {
             NSLog("No recipe name provided")
+            showAlert(with: "Please provide a recipe name.")
             return
         }
         
@@ -164,7 +165,7 @@ class SaveRecipeViewController: UIViewController {
         }
     }
     
-    func saveIngredient(with name: String, ndbno: String?, recipeId: Int, completion: @escaping (Ingredient?) -> ()) {
+    func saveIngredient(with name: String, ndbno: Int?, recipeId: Int, completion: @escaping (Ingredient?) -> ()) {
         FoodClient.shared.postIngredient(name: name, ndbno: ndbno, recipeId: recipeId, completion: { (response) in
             switch response {
             case .success(let ingredients):
@@ -257,7 +258,12 @@ class EditRecipeViewController: SaveRecipeViewController {
         
         guard let ingredients = ingredients else { return }
         
-        ingredients.forEach { addNutrients(to: $0) }
+        ingredients.forEach { ingredient in
+            if let index = ingredients.index(of: ingredient), let updatedIngredient = addNutrients(to: ingredient) {
+                self.ingredients?.remove(at: index)
+                self.ingredients?.insert(updatedIngredient, at: index)
+            }
+        }
     }
     
     override func saveRecipe(with name: String, calories: Int, servings: Int, completion: @escaping (Recipe?) -> ()) {
