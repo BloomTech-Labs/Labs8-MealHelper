@@ -25,8 +25,11 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+<<<<<<< HEAD
+=======
 	<key>NSCameraUsageDescription</key>
 	<string>EatWell uses your device's camera to allow you to scan barcodes.</string>
+>>>>>>> 034ea75c88a9bda4b02f839d03ac6670cb9703b5
 	<key>UIAppFonts</key>
 	<array>
 		<string>Montserrat-SemiBold.ttf</string>

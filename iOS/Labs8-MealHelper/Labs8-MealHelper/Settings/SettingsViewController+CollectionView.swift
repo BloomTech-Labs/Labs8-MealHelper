@@ -15,19 +15,17 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        var cell: UICollectionViewCell
-        
+    
         switch indexPath.item {
         case 0:
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: settingsId, for: indexPath) as! SettingsCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: settingsId, for: indexPath) as! SettingsCell
+            cell.delegate = self
+            return cell
         case 1:
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: aboutId, for: indexPath) as! AboutCell
+            return collectionView.dequeueReusableCell(withReuseIdentifier: aboutId, for: indexPath) as! AboutCell
         default:
-            cell = UICollectionViewCell()
+            return UICollectionViewCell()
         }
-        
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
