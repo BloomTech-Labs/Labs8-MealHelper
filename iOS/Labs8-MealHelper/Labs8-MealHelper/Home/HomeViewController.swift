@@ -240,7 +240,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
             DispatchQueue.main.async {
                 switch response {
                 case .success(let meals):
-                    self.collectionView.meals = meals
+                    self.groupAndSort(meals: meals)
                 case .error:
                     self.showAlert(with: "Unable to load your meals, please check your internet connection and try again.")
                 }
@@ -248,6 +248,23 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         }
     }
     
+    private func groupAndSort(meals: [Meal]) {
+        
+        var groupedAndSortedMeals = [[Meal]]()
+        
+        let groupedMeals = Dictionary(grouping: meals) { (meal) -> String in
+            return meal.date
+        }
+        
+        let sortedKeys = groupedMeals.keys.sorted(by: { $0 > $1 })
+        sortedKeys.forEach { (key) in
+            let values = groupedMeals[key]
+            groupedAndSortedMeals.append(values ?? [])
+        }
+        
+        self.collectionView.meals = groupedAndSortedMeals
+    }
+
     private func setupViews() {
         
         view.addSubview(skyView)
