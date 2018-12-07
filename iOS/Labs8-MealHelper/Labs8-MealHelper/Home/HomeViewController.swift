@@ -82,12 +82,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidAppear(animated)
         fetchMeals()
         fetchAlarms()
+        skyView.fetchWeather()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        setupFooterView()
+        setupViews()
         presentLogin()
     }
     
@@ -247,7 +248,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         }
     }
     
-    private func setupFooterView() {
+    private func setupViews() {
         
         view.addSubview(skyView)
         skyView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.centerYAnchor, trailing: view.trailingAnchor, size: CGSize(width: 0, height: 0))

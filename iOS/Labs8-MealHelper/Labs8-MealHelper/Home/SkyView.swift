@@ -17,17 +17,26 @@ class SkyView: UIView {
         return iv
     }()
     
+    private var weather: WeatherForecast?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        fetchWeather()
     }
     
-    private func fetchWeather() {
-        WeatherAPIClient.shared.fetchWeather(for: 3300) { (forecast) in
-            
-            guard let forecast = forecast else { return }
-            DispatchQueue.main.async {
-                self.calculateWeatherAnimation(forecast: forecast)
+    func fetchWeather() {
+        if let weather = weather {
+            calculateWeatherAnimation(forecast: weather)
+        } else {
+            WeatherAPIClient.shared.fetchWeather(for: 3300) { (forecast) in
+                
+                guard let forecast = forecast else {
+                    self.setGradientBackground(colorOne: UIColor.morningSkyBlue.cgColor, colorTwo: UIColor.mountainBlue.cgColor, startPoint: .zero, endPoint: CGPoint(x: 0.8, y: 0.3))
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.calculateWeatherAnimation(forecast: forecast)
+                    self.weather = forecast
+                }
             }
         }
     }
@@ -108,9 +117,11 @@ class SkyView: UIView {
 
 extension SkyView: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        moonSunImageView.removeFromSuperview()
-        fetchWeather()
-        layoutIfNeeded()
+        if flag {
+            moonSunImageView.removeFromSuperview()
+            fetchWeather()
+            layoutIfNeeded()
+        }
     }
 }
 
