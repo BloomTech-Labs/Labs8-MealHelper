@@ -23,7 +23,20 @@ class Recipes extends Component {
   }
 
   render() {
-    return <CreateNewRecipe />;
+    return (
+      <div className="recipe-container">
+        <Link className="recipe-link" to="/homepage/recipes/createnewrecipe">
+          <div className="meal-box">
+            <h1 className="new-meal-text">Create A New Recipe</h1>
+          </div>
+        </Link>
+        <Link className="recipe-link2" to="/homepage/recipes/myrecipes">
+          <div className="meal-box">
+            <h1 className="new-meal-text">Recipe Book</h1>
+          </div>
+        </Link>
+      </div>
+    );
   }
 }
 
