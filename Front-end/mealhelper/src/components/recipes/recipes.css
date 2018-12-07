@@ -94,3 +94,62 @@ input[type="search"]::-webkit-search-cancel-button {
 .individual-ingredient {
   border: 1px solid #b6b5b5;
 }
+.nutrients-container {
+  width: 495px;
+
+  margin-top: 150px;
+
+  height: 259px;
+  background: #ffffff;
+  border: 1px solid #b6b5b5;
+  overflow: scroll;
+}
+.first-nutrients-header {
+  display: flex;
+  width: 102px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  justify-content: space-evenly;
+}
+.first-nutrients-header-div {
+  display: flex;
+
+  justify-content: space-evenly;
+  border-bottom: 1px solid #b6b5b5;
+}
+.nutrient-header-name {
+  margin-left: 0%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 100px;
+  margin-right: 5%;
+}
+.nutrient-header {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 98px;
+}
+.nutrient-header-last {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 45px;
+  margin-right: 9%;
+}
+.nutrients-display-table {
+  display: flex;
+}
+.first-nutrients-header-nutrients {
+  display: flex;
+  width: 371px;
+  margin-left: 5%;
+}
+.nutrient-value {
+  width: 50px;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.display-food-name {
+  width: 100px;
+  font-size: 18px;
+}

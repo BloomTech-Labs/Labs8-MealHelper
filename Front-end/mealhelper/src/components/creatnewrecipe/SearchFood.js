@@ -3,6 +3,8 @@ import axios from "axios";
 import Suggestions from "./Suggestions";
 import GetNutrients from "./GetNutrients";
 import InfiniteScroll from "react-infinite-scroll-component";
+import DisplayNutrients from "./DisplayNutrients";
+import DisplayFoodName from "./DisplayFoodName";
 import "../recipes/recipes.css";
 
 class Search extends Component {
@@ -10,6 +12,7 @@ class Search extends Component {
     query: "",
     typing: false,
     message: "",
+    nutrients: [],
     results: [],
     food: [],
     total: 0,
@@ -74,6 +77,29 @@ class Search extends Component {
 
       limitIndex: 50
     });
+    console.log(food);
+    axios
+      .get(
+        `https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6&nutrients=208&nutrients=203&nutrients=204&nutrients=205&ndbno=${
+          food.ndbno
+        }`
+      )
+      .then(response => {
+        if (response.data.errors) {
+          this.setState({
+            nutrients: ["Could not find nutrients with that name"]
+          });
+        } else {
+          this.setState({
+            nutrients: [
+              ...this.state.nutrients,
+              response.data.report.foods[0].nutrients
+            ]
+          });
+          console.log(this.state.nutrients);
+        }
+      });
+
     console.log(this.state.food);
   };
 
@@ -82,8 +108,19 @@ class Search extends Component {
     const filteredFoods = this.state.food.filter(
       (item, idx) => itemIndex !== idx
     );
-    this.setState({ food: filteredFoods });
+    const filteredNutrients = this.state.nutrients.filter(
+      (item, idx) => itemIndex !== idx
+    );
+    this.setState({ food: filteredFoods, nutrients: filteredNutrients });
     console.log(filteredFoods);
+  };
+  // removeNutrients = nutrientIndex => {
+  //   const filteredFoods = this.state.food.filter(
+  //     (item, idx) => itemIndex !== idx
+  //   );
+  // }
+  addNutrients = nutrients => {
+    this.setState({ nutrients: nutrients });
   };
 
   handleInputChange = event => {
@@ -132,6 +169,7 @@ class Search extends Component {
           >
             {this.state.results.map(food => (
               <Suggestions
+                addNutrients={this.addNutrients}
                 total={this.state.total}
                 id={food.ndbno}
                 addFood={this.addFood}
@@ -153,6 +191,48 @@ class Search extends Component {
             />
           ))}
         </div>
+        <div className="recipe-save-button">
+          <button> Save me</button>
+        </div>
+        <table className="nutrients-container">
+          <tr className="first-nutrients-header-div">
+            <th className="nutrient-header-name">
+              <h3>Food Name</h3>
+            </th>
+            <th className="nutrient-header">
+              <h3>Calories</h3>
+            </th>
+            <th className="nutrient-header">
+              <h3>Proteins</h3>
+            </th>
+            <th className="nutrient-header">
+              <h3>Carbs</h3>
+            </th>
+            <th className="nutrient-header-last">
+              <h3>Fats</h3>
+            </th>
+          </tr>
+          <tr className="nutrients-display-table">
+            <th>
+              {this.state.food.map(food => (
+                <DisplayFoodName key={food.id} name={food.name} />
+              ))}
+            </th>
+            <tr>
+              {this.state.nutrients.map(index => (
+                <th className="first-nutrients-header-nutrients">
+                  {index.map(ingredient => (
+                    <DisplayNutrients
+                      key={ingredient.id}
+                      value={ingredient.value}
+                      unit={ingredient.unit}
+                    />
+                  ))}
+                </th>
+              ))}
+            </tr>
+          </tr>
+        </table>
       </form>
     );
   }
