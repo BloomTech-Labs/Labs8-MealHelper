@@ -21,20 +21,35 @@ class FoodSummaryViewController: UIViewController {
     
     var titleName: String? {
         didSet {
-            setupViews()
+            updateViews()
         }
     }
     
-    var servingQty: String = "1"
-    var servingType: String = "cup"
-    var typePickerFieldValues = (1...20).map { String($0) }
-    var quantityPickerFieldValues: [String] = FoodHelper.ServingTypes.allCases.map { $0.rawValue }
-    var typePickerFieldDefaultValue = "cup" {
+    var subtitleName: String? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    var servingQty: String = "Change quantity"
+    var servingType: String = "Change serving"
+    var typePickerFieldValues: [String] = {
+        var values = (1...20).map { String($0) }
+        values.insert("", at: 0)
+        return values
+    }()
+    var quantityPickerFieldValues: [String] = {
+        var values: [String] = FoodHelper.ServingTypes.allCases.map { $0.rawValue }
+        values.insert("", at: 0)
+        return values
+    }()
+    
+    var typePickerFieldDefaultValue = "Change qty" {
         didSet {
             typeInputField.text = typePickerFieldDefaultValue
         }
     }
-    var quantityPickerFieldDefaultValue = "1" {
+    var quantityPickerFieldDefaultValue = "Change serving" {
         didSet {
             quantityInputField.text = quantityPickerFieldDefaultValue
         }
@@ -50,6 +65,7 @@ class FoodSummaryViewController: UIViewController {
         inputField.picker.accessibilityIdentifier = "servingSize"
         inputField.imageTintColor = .mountainBlue
         inputField.leftImage = typePickerFieldImage
+        inputField.font = Appearance.appFont(with: 13)
         return inputField
     }()
     
@@ -58,6 +74,7 @@ class FoodSummaryViewController: UIViewController {
         inputField.picker.accessibilityIdentifier = "servingQty"
         inputField.imageTintColor = .mountainBlue
         inputField.leftImage = quantityPickerFieldImage
+        inputField.font = Appearance.appFont(with: 13)
         return inputField
     }()
     
@@ -66,7 +83,7 @@ class FoodSummaryViewController: UIViewController {
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
-        stackView.spacing = 10.0
+        stackView.spacing = 6.0
         return stackView
     }()
     
@@ -84,6 +101,15 @@ class FoodSummaryViewController: UIViewController {
         label.font = Appearance.appFont(with: 15)
         label.numberOfLines = 2
         label.textAlignment = .center
+        return label
+    }()
+    
+    private let subtitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = Appearance.appFont(with: 13)
+        label.numberOfLines = 2
+        label.textAlignment = .center
+        label.textColor = .gray
         return label
     }()
     
@@ -112,6 +138,12 @@ class FoodSummaryViewController: UIViewController {
         editableTitle == true
             ? mainStackView.addArrangedSubview(titleTextField)
             : mainStackView.addArrangedSubview(titleLabel)
+        if editableTitle == true {
+            mainStackView.addArrangedSubview(titleTextField)
+        } else {
+            mainStackView.addArrangedSubview(titleLabel)
+            mainStackView.addArrangedSubview(subtitleLabel)
+        }
         mainStackView.addArrangedSubview(inputStackView)
         inputStackView.addArrangedSubview(typeInputField)
         inputStackView.addArrangedSubview(quantityInputField)
@@ -120,12 +152,18 @@ class FoodSummaryViewController: UIViewController {
         inputStackView.anchor(top: nil, leading: mainStackView.leadingAnchor, bottom: nil, trailing: mainStackView.trailingAnchor)
         
         titleLabel.text = titleName
+        subtitleLabel.text = subtitleName
         
         typeInputField.picker.delegate = self
         typeInputField.picker.dataSource = self
         quantityInputField.picker.delegate = self
         quantityInputField.picker.dataSource = self
         titleTextField.delegate = self
+    }
+    
+    private func updateViews() {
+        titleLabel.text = titleName
+        subtitleLabel.text = subtitleName
     }
     
 }

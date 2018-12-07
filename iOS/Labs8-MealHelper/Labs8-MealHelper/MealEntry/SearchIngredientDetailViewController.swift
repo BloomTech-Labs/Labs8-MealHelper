@@ -192,6 +192,7 @@ class SearchIngredientDetailViewController: UIViewController {
     
     private func updateViews() {
         headerView.titleName = ingredient?.name
+        headerView.subtitleName = " "
         
         if let nutrients = ingredient?.nutrients {
             nutrientTableView.nutrients = nutrients
@@ -211,8 +212,9 @@ class SearchIngredientDetailViewController: UIViewController {
             DispatchQueue.main.async {
                 switch response {
                 case .success(let nutrients):
-                    let updatedNutrients = self.foodHelper.udpateNutrients(nutrients, to: "cup")
-                    self.ingredient?.nutrients = updatedNutrients
+                    //let updatedNutrients = self.foodHelper.udpateNutrients(nutrients, to: "cup")
+                    self.ingredient?.nutrients = nutrients.0
+                    self.headerView.subtitleName = nutrients.1
                 case .error(let error):
                     NSLog("Error fetching ingredients: \(error)")
                 }

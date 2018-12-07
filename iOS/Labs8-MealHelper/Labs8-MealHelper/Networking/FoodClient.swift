@@ -188,7 +188,7 @@ class FoodClient: GenericAPIClient {
             }.resume()
     }
     
-    func fetchUsdaNutrients(for ndbno: Int, completion: @escaping (Response<[Nutrient]>) -> ()) {
+    func fetchUsdaNutrients(for ndbno: Int, completion: @escaping (Response<([Nutrient], String)>) -> ()) {
         let url = self.url(with: usdaBaseUrl, pathComponents: ["nutrients"])
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)!
         urlComponents.queryItems = nutrients.map { URLQueryItem(name: "nutrients", value: $0) } + [URLQueryItem(name: "api_key", value: usdaAPIKey), URLQueryItem(name: "ndbno", value: String(ndbno))]
@@ -217,8 +217,8 @@ class FoodClient: GenericAPIClient {
             
             do {
                 let usdaNutrients = try JSONDecoder().decode(UsdaNutrient.self, from: data)
-                if let nutrients = usdaNutrients.report.foods.first?.nutrients {
-                    completion(Response.success(nutrients))
+                if let ingredient = usdaNutrients.report.foods.first, let ingredMeasure = ingredient.measure {
+                    completion(Response.success((ingredient.nutrients, ingredMeasure)))
                 } else {
                     completion(Response.error(NSError()))
                 }
