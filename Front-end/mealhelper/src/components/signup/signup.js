@@ -87,7 +87,9 @@ class SignUp extends Component {
             </div>
             <div className="formcenter">
               <div className="user-form-container">
-                <h1 className="signup-title">EatWell</h1>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <h1 className="signup-title">EatWell</h1>
+                </Link>
                 <form className="signup-form">
                   <div className="form-group">
                     <label>Email</label>
