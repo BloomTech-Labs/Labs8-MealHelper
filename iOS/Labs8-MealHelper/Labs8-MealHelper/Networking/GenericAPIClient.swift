@@ -31,6 +31,14 @@ class GenericAPIClient {
                 return
             }
             
+            if let httpResponse = res as? HTTPURLResponse {
+                if httpResponse.statusCode != 200 {
+                    NSLog("An error code was returned from the http request: \(httpResponse.statusCode)")
+                    completion(Response.error(NSError()))
+                    return
+                }
+            }
+            
             do {
                 let ressource = try JSONDecoder().decode(Resource.self, from: data)
                 completion(Response.success(ressource))
@@ -60,12 +68,20 @@ class GenericAPIClient {
             return
         }
         
-        URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
+        URLSession.shared.dataTask(with: urlRequest) { (data, res, error) in
             
             if let error = error {
                 NSLog("Error with PUT urlRequest: \(error)")
                 completion(Response.error(error))
                 return
+            }
+            
+            if let httpResponse = res as? HTTPURLResponse {
+                if httpResponse.statusCode != 200 {
+                    NSLog("An error code was returned from the http request: \(httpResponse.statusCode)")
+                    completion(Response.error(NSError()))
+                    return
+                }
             }
             completion(Response.success("Success"))
         }.resume()
@@ -89,7 +105,7 @@ class GenericAPIClient {
             return
         }
         
-        URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
+        URLSession.shared.dataTask(with: urlRequest) { (data, res, error) in
             
             if let error = error {
                 NSLog("Error with POST urlRequest: \(error)")
@@ -101,6 +117,14 @@ class GenericAPIClient {
                 NSLog("No data returned")
                 completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
                 return
+            }
+            
+            if let httpResponse = res as? HTTPURLResponse {
+                if httpResponse.statusCode != 200 {
+                    NSLog("An error code was returned from the http request: \(httpResponse.statusCode)")
+                    completion(Response.error(NSError()))
+                    return
+                }
             }
             
             do {
@@ -119,7 +143,7 @@ class GenericAPIClient {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = HTTPMethod.delete.rawValue
         
-        URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
+        URLSession.shared.dataTask(with: urlRequest) { (data, res, error) in
             
             if let error = error {
                 NSLog("Error with DELETE urlRequest: \(error)")
@@ -127,23 +151,14 @@ class GenericAPIClient {
                 return
             }
             
+            if let httpResponse = res as? HTTPURLResponse {
+                if httpResponse.statusCode != 200 {
+                    NSLog("An error code was returned from the http request: \(httpResponse.statusCode)")
+                    completion(Response.error(NSError()))
+                    return
+                }
+            }
             completion(Response.success("Success"))
-            
-//            guard let data = data else {
-//                NSLog("No data returned")
-//                completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
-//                return
-//            }
-//
-//            // API return "1" if deletion successful, else return "0"
-//            let response = String(data: data, encoding: .utf8) ?? "0"
-//
-//            if response == "1" {
-//                completion(Response.success(response))
-//            } else {
-//                NSLog("Error deleting food item")
-//                completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
-//            }
         }.resume()
     }
 }

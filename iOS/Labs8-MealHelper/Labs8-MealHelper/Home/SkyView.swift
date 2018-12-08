@@ -13,21 +13,31 @@ class SkyView: UIView {
     let moonSunImageView: UIImageView = {
         let iv = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
         iv.contentMode = .scaleAspectFit
+        iv.alpha = 0
 
         return iv
     }()
     
+    private var weather: WeatherForecast?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        fetchWeather()
     }
     
-    private func fetchWeather() {
-        WeatherAPIClient.shared.fetchWeather(for: 3300) { (forecast) in
-            
-            guard let forecast = forecast else { return }
-            DispatchQueue.main.async {
-                self.calculateWeatherAnimation(forecast: forecast)
+    func fetchWeather() {
+        if let weather = weather {
+            calculateWeatherAnimation(forecast: weather)
+        } else {
+            WeatherAPIClient.shared.fetchWeather(for: 3300) { (forecast) in
+                
+                guard let forecast = forecast else {
+                    self.setGradientBackground(colorOne: UIColor.morningSkyBlue.cgColor, colorTwo: UIColor.mountainBlue.cgColor, startPoint: .zero, endPoint: CGPoint(x: 0.8, y: 0.3))
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.calculateWeatherAnimation(forecast: forecast)
+                    self.weather = forecast
+                }
             }
         }
     }
@@ -99,6 +109,10 @@ class SkyView: UIView {
         
         moonSunImageView.layer.add(animation, forKey: nil)
         addSubview(moonSunImageView)
+        
+        UIView.animate(withDuration: 1) {
+            self.moonSunImageView.alpha = 1
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -108,9 +122,15 @@ class SkyView: UIView {
 
 extension SkyView: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        moonSunImageView.removeFromSuperview()
-        fetchWeather()
-        layoutIfNeeded()
+        if flag {
+            moonSunImageView.alpha = 0
+            moonSunImageView.removeFromSuperview()
+            fetchWeather()
+            layoutIfNeeded()
+        } else {
+            moonSunImageView.alpha = 0
+            moonSunImageView.removeFromSuperview()
+        }
     }
 }
 
