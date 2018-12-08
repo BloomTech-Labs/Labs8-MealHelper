@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { loginUser, updateUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
-import Sign from "../Sign";
 // import Loading from "../signup/Double Ring-2s-200px.svg";
 import axios from "axios";
 import "../signup/signup.css";
@@ -78,7 +77,9 @@ class Zip extends Component {
           </div>
           <div className="formcenter">
             <div className="user-form-container-zip">
-              <h1 className="signup-title">EatWell</h1>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <h1 className="signup-title">EatWell</h1>
+              </Link>
               <form className="signup-form">
                 <div className="form-group">
                   <label>
