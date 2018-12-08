@@ -116,7 +116,7 @@ class Login extends Component {
                 </div>
                 <a href="https://www.apple.com/ios/app-store/">
                   <img
-                    className="applebadge"
+                    className="applebadgelogin"
                     src={Applelogo}
                     alt="Apple App Store"
                   />

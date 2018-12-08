@@ -82,10 +82,10 @@ label {
   color: black;
 }
 
-.applebadge {
+.applebadgelogin {
   width: 211px;
   height: auto;
-  margin-top: 20px;
+  margin-top: -50px;
 }
 
 .existinguser {
