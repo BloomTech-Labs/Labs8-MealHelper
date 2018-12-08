@@ -79,14 +79,14 @@ class SaveRecipeViewController: UIViewController {
         
         guard let recipeName = recipeName else {
             NSLog("No recipe name provided")
-            showAlert(with: "Please provide a recipe name.")
             return
         }
         
         saveRecipe(with: recipeName, calories: getTotalCalories(), servings: serving) { recipe in
             
             guard let recipe = recipe else { return }
-                        
+            
+            
             self.ingredients?.forEach { ingredient in
                 // Save nutrients of ingredient
                 
@@ -156,15 +156,15 @@ class SaveRecipeViewController: UIViewController {
                     completion(nil)
                 }
             case .error(let error):
-                NSLog("Error saving recipe: \(error)")
-                self.showAlert(with: "Could not save recipe. Please try again.")
+                print(error)
+                // Handle error in UI
                 completion(nil)
             }
             
         }
     }
     
-    func saveIngredient(with name: String, ndbno: Int?, recipeId: Int, completion: @escaping (Ingredient?) -> ()) {
+    func saveIngredient(with name: String, ndbno: String?, recipeId: Int, completion: @escaping (Ingredient?) -> ()) {
         FoodClient.shared.postIngredient(name: name, ndbno: ndbno, recipeId: recipeId, completion: { (response) in
             switch response {
             case .success(let ingredients):
@@ -176,7 +176,7 @@ class SaveRecipeViewController: UIViewController {
                     completion(nil)
                 }
             case .error(let error):
-                NSLog("Error saving ingredients: \(error)")
+                print(error)
                 // Handle error in UI
                 completion(nil)
             }
@@ -257,12 +257,7 @@ class EditRecipeViewController: SaveRecipeViewController {
         
         guard let ingredients = ingredients else { return }
         
-        ingredients.forEach { ingredient in
-            if let index = ingredients.index(of: ingredient), let updatedIngredient = addNutrients(to: ingredient) {
-                self.ingredients?.remove(at: index)
-                self.ingredients?.insert(updatedIngredient, at: index)
-            }
-        }
+        ingredients.forEach { addNutrients(to: $0) }
     }
     
     override func saveRecipe(with name: String, calories: Int, servings: Int, completion: @escaping (Recipe?) -> ()) {
@@ -274,8 +269,11 @@ class EditRecipeViewController: SaveRecipeViewController {
                     self.navigationController?.popViewController(animated: true)
                 }
             case .error(let error):
-                NSLog("Error saving recipe: \(error)")
-                self.showAlert(with: "Could not save recipe. Please try again.")
+                print(error)
+                // Handle error in UI
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                } // TODO: to be deleted
                 break
             }
         }
@@ -286,7 +284,7 @@ class EditRecipeViewController: SaveRecipeViewController {
         
         guard let ingredientId = ingredient.identifier else { return nil }
         
-        FoodClient.shared.fetchNutrients(withIngredientId: ingredientId) { (response) in
+        FoodClient.shared.fetchNutrients(with: ingredientId) { (response) in
             switch response {
             case .success(let nutrients):
                 DispatchQueue.main.async {

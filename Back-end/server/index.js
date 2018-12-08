@@ -606,20 +606,6 @@ server.get("/ingredients/:userid", (req, res) => {
       res.status(400).json({ err, error: "could not find meal" });
     });
 });
-//GET request to grab all ingredients in a recipe
-server.get("/ingredients/recipe/:id", (req, res) => {
-  const id = req.params.id;
-  db("ingredients")
-    //Finds the corrosponding ingredients based on user ID
-    .where({ recipe_id: id })
-    .then(ingredients => {
-      //Returns all the recipes from that user
-      res.status(200).json(ingredients);
-    })
-    .catch(err => {
-      res.status(400).json({ err, error: "could not find meal" });
-    });
-});
 
 //POST request to create an ingredients
 server.post("/ingredients/:userid", (req, res) => {
@@ -714,7 +700,7 @@ server.get("/nutrients/:ingredientID", (req, res) => {
     .first()
     .then(ingredients => {
       db("nutrients")
-        .where({ ingredients_id: ingredientId })
+        .where({ ingredient_id: ingredientId })
         .then(nutrients => {
           //Returns all the nutrients
           res.status(200).json(nutrients);
@@ -1105,16 +1091,8 @@ server.put("/alarms/:id/user/:userid", (req, res) => {
           alarm: alarmBody.alarm
         })
         .then(alarmID => {
-          db("alarms")
-            //Finds the alarms associated to that user
-            .where({ user_id: user_ID })
-            .then(alarms => {
-              //Returns the alarms for that user
-              res.status(200).json(alarms);
-            })
-            .catch(err => {
-              res.status(400).json({ error: "Could not find the alarms" });
-            });
+          //Returns the alarm ID
+          res.status(200).json(alarmID);
         })
         .catch(err => {
           res.status(400).json({ error: "Could not update alarm" });
@@ -1126,25 +1104,16 @@ server.put("/alarms/:id/user/:userid", (req, res) => {
 });
 
 //Deletes the alarm for the user
-server.delete("/alarms/:id/user/:userid", (req, res) => {
+server.delete("/alarms/:id", (req, res) => {
   //Grabs alarm id from req.params
   const id = req.params.id;
-  const user_ID = req.params.userid;
   db("alarms")
     //FInds the meal thats associated with that weather report
     .where({ id: id })
     .del()
     .then(deleted => {
-      db("alarms")
-        //Finds the alarms associated to that user
-        .where({ user_id: user_ID })
-        .then(alarms => {
-          //Returns the alarms for that user
-          res.status(200).json(alarms);
-        })
-        .catch(err => {
-          res.status(400).json({ error: "Could not find the alarms" });
-        });
+      //Returns a 1 for deleted or a 0 for not.
+      res.status(200).json(deleted);
     })
     .catch(err => {
       res.status(400).json({ error: "Error deleting alarm" });

@@ -82,23 +82,19 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidAppear(animated)
         fetchMeals()
         fetchAlarms()
-        skyView.fetchWeather()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        setupViews()
-//        presentLogin()
-    }
-    
-    private func presentLogin() {
-        let loginController = LoginViewController()
-        loginController.modalPresentationStyle = .overCurrentContext
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.present(loginController, animated: true, completion: nil)
-        }
+        setupFooterView()
+
+//        let loginController = LoginViewController()
+//        loginController.modalPresentationStyle = .overCurrentContext
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            self.present(loginController, animated: true, completion: nil)
+//        }
     }
     
     private func fetchAlarms() {
@@ -240,7 +236,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
             DispatchQueue.main.async {
                 switch response {
                 case .success(let meals):
-                    self.groupAndSort(meals: meals)
+                    self.collectionView.meals = meals
                 case .error:
                     self.showAlert(with: "Unable to load your meals, please check your internet connection and try again.")
                 }
@@ -248,30 +244,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         }
     }
     
-    private func groupAndSort(meals: [Meal]) {
-        
-        var groupedAndSortedMeals = [[Meal]]()
-        
-        let groupedMeals = Dictionary(grouping: meals) { (meal) -> String in
-            return meal.date
-        }
-        
-        let sortedKeys = groupedMeals.keys.sorted(by: { $0 > $1 })
-        sortedKeys.forEach { (key) in
-            let values = groupedMeals[key]
-            groupedAndSortedMeals.append(values ?? [])
-        }
-        
-        self.collectionView.meals = groupedAndSortedMeals
-    }
-
-    private func setupViews() {
+    private func setupFooterView() {
         
         view.addSubview(skyView)
         skyView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.centerYAnchor, trailing: view.trailingAnchor, size: CGSize(width: 0, height: 0))
         
         view.addSubview(scheduledMealLabel)
-        scheduledMealLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 35, left: 0, bottom: 0, right: 0))
+        scheduledMealLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0))
         scheduledMealLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(countDownLabel)
@@ -279,10 +258,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         countDownLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(backgroundImageView)
-        backgroundImageView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0))
+        backgroundImageView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0))
         
         view.addSubview(collectionView)
-        collectionView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12), size: CGSize(width: 0, height: 320))
+        collectionView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 12, bottom: 12, right: 12), size: CGSize(width: 0, height: 300))
         
         view.addSubview(expandableButtonView)
         expandableButtonView.anchor(top: nil, leading: nil, bottom: collectionView.topAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0), size: CGSize(width: 300, height: 50))
@@ -317,16 +296,8 @@ extension HomeViewController: ExpandableButtonViewDelegate {
             print("Right")
         case .mostRight:
             let settingsViewController = SettingsViewController()
-            settingsViewController.delegate = self
             settingsViewController.modalPresentationStyle = .overCurrentContext
             present(settingsViewController, animated: true, completion: nil)
         }
-    }
-}
-
-extension HomeViewController: SettingsViewControllerDelegate {
-    func showLogin() {
-        UserDefaults.standard.setIsLoggedIn(value: false, userId: 0)
-        presentLogin()
     }
 }

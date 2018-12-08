@@ -19,8 +19,7 @@ class IngredientTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = Appearance.appFont(with: 15)
-        label.numberOfLines = 2
+        label.font = Appearance.appFont(with: 17)
         label.sizeToFit()
         return label
     }()
@@ -33,7 +32,7 @@ class IngredientTableViewCell: UITableViewCell {
     
     private func setupViews() {
         addSubview(titleLabel)
-        titleLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14), size: .zero)
+        titleLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0), size: .zero)
         
         titleLabel.text = title
     }

@@ -40,7 +40,7 @@ class SearchIngredientDetailViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "plus-icon")!, for: .normal)
         button.addTarget(self, action: #selector(addToRecipe), for: .touchUpInside)
-        button.backgroundColor = .correctGreen
+        button.backgroundColor = .sunRed
         button.tintColor = .white
         button.layer.cornerRadius = buttonSize / 2
         return button
@@ -119,6 +119,10 @@ class SearchIngredientDetailViewController: UIViewController {
         fetchNutrients()
     }
     
+    override func viewDidLayoutSubviews() {
+        //view.setGradientBackground(colorOne: UIColor.nightSkyBlue.cgColor, colorTwo: UIColor.mountainDark.cgColor, startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0.8, y: 0.3))
+    }
+    
     // MARK: - User actions
     
     @objc private func didChangeServingType(note: Notification) {
@@ -134,10 +138,11 @@ class SearchIngredientDetailViewController: UIViewController {
     
     @objc private func addToRecipe() {
         // When user taps on addToRecipe we notify the delegate VC that ingredient should be added to recipe
-        if let ingredient = self.ingredient {
-            self.delegate?.updateIngredient(ingredient, indexPath: self.delegateIndexPath)
+        dismiss(animated: true) {
+            if let indexPath = self.delegateIndexPath, let ingredient = self.ingredient {
+                self.delegate?.updateIngredient(ingredient, indexPath: indexPath)
+            }
         }
-        dismiss(animated: true, completion: nil)
     }
     
     @objc private func handleDismiss() {
@@ -188,7 +193,6 @@ class SearchIngredientDetailViewController: UIViewController {
     
     private func updateViews() {
         headerView.titleName = ingredient?.name
-        headerView.subtitleName = " "
         
         if let nutrients = ingredient?.nutrients {
             nutrientTableView.nutrients = nutrients
@@ -208,11 +212,10 @@ class SearchIngredientDetailViewController: UIViewController {
             DispatchQueue.main.async {
                 switch response {
                 case .success(let nutrients):
-                    self.ingredient?.nutrients = nutrients.0
-                    self.headerView.subtitleName = nutrients.1
+                    let updatedNutrients = self.foodHelper.udpateNutrients(nutrients, to: "cup")
+                    self.ingredient?.nutrients = updatedNutrients
                 case .error(let error):
-                    NSLog("Error fetching nutrients: \(error)")
-                    self.showAlert(with: "Could not fetch nutrients.")
+                    NSLog("Error fetching ingredients: \(error)")
                 }
             }
         }

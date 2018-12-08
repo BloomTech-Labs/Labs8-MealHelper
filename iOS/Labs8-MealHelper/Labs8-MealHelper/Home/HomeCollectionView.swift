@@ -17,9 +17,8 @@ class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
     weak var actionDelegate: HomeCollectionViewDelegate?
     
     private let cellId = "mealCell"
-    private let headerId = "headerView"
     
-    var meals = [[Meal]]() {
+    var meals = [Meal]() {
         didSet {
             self.reloadData()
         }
@@ -39,64 +38,30 @@ class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
         layer.borderWidth = 0.5
         layer.borderColor = UIColor.init(white: 0, alpha: 0.6).cgColor
         layer.masksToBounds = true
-        self.register(HomeSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
-    }
-    
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return meals.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return meals[section].count
+        return meals.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MealCell
         
-        let meal = meals[indexPath.section][indexPath.item]
+        let meal = meals[indexPath.item]
         cell.mealNameLabel.text = meal.mealTime
+        cell.dateLabel.text = meal.date
+        cell.experienceLabel.text = meal.experience
         cell.servingsLabel.text = "Servings: \(meal.servings ?? 1)"
-        cell.experienceImageView.image = #imageLiteral(resourceName: "thumb-up").withRenderingMode(.alwaysTemplate)
-        
-        switch indexPath.item {
-        case 0: cell.mealTimeImageView.image = #imageLiteral(resourceName: "breakfast").withRenderingMode(.alwaysTemplate)
-        case 1: cell.mealTimeImageView.image = #imageLiteral(resourceName: "snacks").withRenderingMode(.alwaysTemplate)
-        case 2: cell.mealTimeImageView.image = #imageLiteral(resourceName: "dinner").withRenderingMode(.alwaysTemplate)
-        case 3: cell.mealTimeImageView.image = #imageLiteral(resourceName: "snacks").withRenderingMode(.alwaysTemplate)
-        default: cell.mealTimeImageView.image = #imageLiteral(resourceName: "dinner").withRenderingMode(.alwaysTemplate)
-        }
-        
-//        switch meal.mealTime.lowercased() {
-//        case "breakfast": cell.mealTimeImageView.image = #imageLiteral(resourceName: "breakfast").withRenderingMode(.alwaysTemplate)
-//        case "lunch": cell.mealTimeImageView.image = #imageLiteral(resourceName: "lunch").withRenderingMode(.alwaysTemplate)
-//        case "dinner": cell.mealTimeImageView.image = #imageLiteral(resourceName: "dinner").withRenderingMode(.alwaysTemplate)
-//        case "snack": cell.mealTimeImageView.image = #imageLiteral(resourceName: "snacks").withRenderingMode(.alwaysTemplate)
-//        default: cell.mealTimeImageView.image = #imageLiteral(resourceName: "breakfast").withRenderingMode(.alwaysTemplate)
-//        }
         
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as! HomeSectionHeader
-        
-        let firstMealInSection = meals[indexPath.section].first
-        header.titleLabel.text = firstMealInSection?.date
-        
-        return header
-    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.bounds.width - 16, height: 60)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: self.bounds.width - 16, height: 40)
+        return CGSize(width: self.bounds.width - 16, height: 70)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let meal = meals[indexPath.section][indexPath.item]
+        let meal = meals[indexPath.item]
         actionDelegate?.didSelect(meal: meal)
     }
     

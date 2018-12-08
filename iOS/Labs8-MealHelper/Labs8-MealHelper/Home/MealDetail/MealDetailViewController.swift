@@ -13,13 +13,6 @@ class MealDetailViewController: UIViewController {
     var meal: Meal? {
         didSet {
             navigationItem.title = meal?.mealTime
-            fetchIngredients()
-        }
-    }
-    
-    var ingredients: [Ingredient]? {
-        didSet {
-            ingredientsTableView.ingredients = ingredients
         }
     }
     
@@ -31,12 +24,12 @@ class MealDetailViewController: UIViewController {
         return view
     }()
     
-    let ingredientsTableView: IngredientTableViewController = {
-        let tvc = IngredientTableViewController()
-        tvc.tableView.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
-        tvc.tableView.layer.cornerRadius = 12
+    let ingredientsTableView: UITableView = {
+        let tv = UITableView(frame: .zero, style: .plain)
+        tv.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
+        tv.layer.cornerRadius = 12
         
-        return tvc
+        return tv
     }()
     
     let weatherView: WeatherView = {
@@ -100,52 +93,14 @@ class MealDetailViewController: UIViewController {
         view.addSubview(nutrientsView)
         nutrientsView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 30, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 80))
         
-        view.addSubview(ingredientsTableView.tableView)
-        ingredientsTableView.tableView.anchor(top: nutrientsView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 200))
+        view.addSubview(ingredientsTableView)
+        ingredientsTableView.anchor(top: nutrientsView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 200))
         
         view.addSubview(weatherView)
-        weatherView.anchor(top: ingredientsTableView.tableView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 130))
+        weatherView.anchor(top: ingredientsTableView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 130))
         
         view.addSubview(noteView)
         noteView.anchor(top: weatherView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 100))
-    }
-    
-    private func fetchIngredients() {
-        guard let meal = meal, let recipeId = meal.recipeId else { return }
-        FoodClient.shared.fetchIngredients(withRecipeId: recipeId) { (response) in
-            DispatchQueue.main.async {
-                switch response {
-                case .success(let ingredients):
-                    self.ingredients = ingredients
-                    self.fetchNutrients()
-                case .error(let error):
-                    NSLog("Error fetching ingredients: \(error)")
-                    self.showAlert(with: "Could not fetch ingredients.")
-                }
-            }
-        }
-    }
-    
-    private func fetchNutrients() {
-        guard let ingredients = ingredients else { return }
-        
-        for ingredient in ingredients {
-            guard let ingredientId = ingredient.identifier else { return }
-            FoodClient.shared.fetchNutrients(withIngredientId: ingredientId) { (response) in
-                DispatchQueue.main.async {
-                    switch response {
-                    case .success(let nutrients):
-                        var updatedIngredient = ingredient
-                        updatedIngredient.nutrients = nutrients
-                        guard let index = self.ingredients?.index(of: updatedIngredient) else { return }
-                        self.ingredients?.remove(at: index)
-                        self.ingredients?.insert(updatedIngredient, at: index)
-                    case .error(let error):
-                        NSLog("Error fetching nutrients: \(error)")
-                    }
-                }
-            }
-        }
     }
 
 }

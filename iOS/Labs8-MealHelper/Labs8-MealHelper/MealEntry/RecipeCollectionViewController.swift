@@ -142,7 +142,7 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
                 foodDispatchGroup.enter()
                 let name = recipe.name
                 // TODO: Change mealTime
-                FoodClient.shared.postMeal(name: name, mealTime: name, date: date, temp: temp, recipeId: recipe.identifier) { (response) in
+                FoodClient.shared.postMeal(name: name, mealTime: name, date: date, temp: temp) { (response) in
                     foodDispatchGroup.leave()
                 }
             }
@@ -172,7 +172,7 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
         navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
         navigationItem.leftBarButtonItem = cancelBarButton
         
-        title = "Add Meals to Journal"
+        title = "Add Recipes"
     }
     
 }
