@@ -78,7 +78,9 @@ class Login extends Component {
             </div>
             <div className="formcenter">
               <div className="user-form-container-login">
-                <h1 className="login-title">EatWell</h1>
+                <Link to="/" style={{ textDecoration: "none " }}>
+                  <h1 className="login-title">EatWell</h1>
+                </Link>
                 <form className="login-form">
                   <div className="form-group-login">
                     <label>Email</label>
