@@ -9,6 +9,7 @@ class NavbarLanding extends Component {
     return (
       <div className="Navbar-Container">
         <p className="logo">EatWell</p>
+        <button className="login-navbar">Log In</button>
       </div>
     );
   }
