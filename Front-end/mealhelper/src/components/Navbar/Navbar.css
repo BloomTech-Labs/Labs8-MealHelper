@@ -1,4 +1,7 @@
 .Navbar-Container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   background: #ffffff;
   height: 55px;
   width: 100%;
@@ -32,12 +35,30 @@
   font-family: "Allan", cursive;
 }
 
+.buttons-navbar {
+  color: #ffffff;
+  width: 120px;
+  font-size: 20px;
+  font-weight: 900;
+  height: 40px;
+  margin-bottom: 30px;
+  margin-top: 8px;
+  margin-right: 45px;
+  cursor: pointer;
+  background-color: #267cfc;
+}
+
+.signup-login-buttons-navbar {
+  margin-right: 1px;
+}
+
 .hamburger-container {
   padding-top: 5px;
 }
 .logo {
   font-size: 40px;
   font-family: "Allan", cursive;
+  margin-left: 47px;
 }
 .searchbar-nav-container {
   padding-top: 4px;

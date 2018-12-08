@@ -78,7 +78,7 @@ class Login extends Component {
             </div>
             <div className="formcenter">
               <div className="user-form-container-login">
-                <Link to="/" style={{ textDecoration: "none " }}>
+                <Link to="/" style={{ textDecoration: "none" }}>
                   <h1 className="login-title">EatWell</h1>
                 </Link>
                 <form className="login-form">
@@ -116,7 +116,7 @@ class Login extends Component {
                 </div>
                 <a href="https://www.apple.com/ios/app-store/">
                   <img
-                    className="applebadge"
+                    className="applebadgelogin"
                     src={Applelogo}
                     alt="Apple App Store"
                   />

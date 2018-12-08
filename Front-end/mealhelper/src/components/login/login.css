@@ -6,7 +6,7 @@
   background: #ffffff;
   margin-top: 5%;
   width: 318px;
-  height: 515px;
+  height: 560px;
   border: #9c9c9c;
   border-radius: 12px;
 }
@@ -39,6 +39,7 @@ input {
   background: #ffffff;
   border-width: 1px;
   border-color: #9c9c9c;
+  z-index: 1;
 }
 
 label {
@@ -82,10 +83,10 @@ label {
   color: black;
 }
 
-.applebadge {
+.applebadgelogin {
   width: 211px;
   height: auto;
-  margin-top: 20px;
+  margin-top: -50px;
 }
 
 .existinguser {
