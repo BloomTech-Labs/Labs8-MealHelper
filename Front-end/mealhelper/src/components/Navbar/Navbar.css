@@ -48,30 +48,7 @@
   margin-right: 45px;
   cursor: pointer;
   background-color: #267cfc;
-  /* padding: 0.35em 1.2em;
-  border: 0.1em solid #ffffff;
-  margin: 0 0.3em 0.3em 0;
-  border-radius: 0.12em;
-  box-sizing: border-box;
-  text-decoration: none;
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
-  color: #ffffff;
-  text-align: center;
-  transition: all 0.2s;
-  z-index: 10; */
 }
-/* 
-.login-navbar:hover {
-  color: #000000;
-  background-color: #ffffff;
-}
-@media all and (max-width: 30em) {
-  .login-navbar {
-    display: block;
-    margin: 0.4em auto;
-  }
-} */
 
 .hamburger-container {
   padding-top: 5px;
