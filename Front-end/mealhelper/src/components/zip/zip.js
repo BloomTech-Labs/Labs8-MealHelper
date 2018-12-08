@@ -117,12 +117,9 @@ class Zip extends Component {
                   <span>Enter Later</span>
                 </div>
               </form>
-              {/* <div className="authbuttonlogin">
-                <Sign />
-              </div> */}
               <a href="https://www.apple.com/ios/app-store/">
                 <img
-                  className="applebadge"
+                  className="applebadgezip"
                   src={Applelogo}
                   alt="Apple App Store"
                 />
