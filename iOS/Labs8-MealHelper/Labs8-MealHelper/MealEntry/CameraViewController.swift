@@ -104,15 +104,12 @@ class CameraViewController: UIViewController {
     }
     
     private func animateBarcodeIntoView() {
-        //self.barcodeImageView.isHidden = false
         
-        UIView.animate(withDuration: 1.0, animations: {
+        UIView.animate(withDuration: 1.0) {
             self.barcodeImageView.center.x = self.view.center.x
-        }) { _ in
-            self.barcodeImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 400).isActive = true
         }
         
-        UIView.animate(withDuration: 1.0, delay: 0, options: [.repeat, .autoreverse], animations: {
+        UIView.animate(withDuration: 0.7, delay: 0, options: [.repeat, .autoreverse, .beginFromCurrentState], animations: {
             self.barcodeImageView.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
         }) { _ in
             self.barcodeImageView.transform = .identity
@@ -127,7 +124,6 @@ class CameraViewController: UIViewController {
         }) { _ in
             self.barcodeImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 400).isActive = true
             self.view.layoutIfNeeded()
-            //self.barcodeImageView.isHidden = true
         }
     }
     
@@ -255,7 +251,7 @@ class CameraViewController: UIViewController {
         let addButton = UIButton(type: .system)
         addButton.setImage(UIImage(named: "plus-icon")!, for: .normal)
         addButton.addTarget(self, action: #selector(self.addToRecipe), for: .touchUpInside)
-        addButton.backgroundColor = .sunRed
+        addButton.backgroundColor = .correctGreen
         addButton.tintColor = .white
         addButton.layer.cornerRadius = 35 / 2
         
@@ -379,8 +375,7 @@ extension CameraViewController: BarcodeScannerDelegate {
     }
     
     func barcodeScanner(_ controller: BarcodeScanner, didReceiveError error: Error) {
-        // Handle error
-        self.showAlert(with: "An issue occured while scanning the barcode. Please try again")
+        showAlert(with: "An issue occured while scanning the barcode. Please try again")
     }
     
     @objc private func addToRecipe(_ sender: UIButton) {

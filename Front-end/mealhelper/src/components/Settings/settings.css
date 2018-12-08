@@ -8,6 +8,7 @@
 .settings-text {
   margin-top: 10px;
 }
+
 .settings-option {
   margin: 35px auto 0;
   width: 100px;
@@ -15,6 +16,9 @@
   border: 1px solid #b6b5b5;
   background: #ffffff;
   cursor: pointer;
+}
+.settings-option:hover {
+  border: 1px solid #86b2dd;
 }
 .settings-zip-save {
   margin: 35px auto 0;

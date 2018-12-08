@@ -21,7 +21,7 @@ class SearchIngredientAnimator: NSObject, UIViewControllerAnimatedTransitioning 
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        
+        // TODO: Needs to be refactored
         let fromNav = transitionContext.viewController(forKey: .from) as! WhiteStatusNavController
         let fromVC = fromNav.viewControllers[1] as! SearchIngredientCollectionViewController
         let toVC = transitionContext.viewController(forKey: .to) as! SearchIngredientDetailViewController

@@ -129,7 +129,7 @@ class EditEmail extends Component {
           </form>
         </div>
         <button onClick={this.confirmChange} className="settings-zip-save">
-          Save Zip
+          Save Email
         </button>
       </div>
     );
