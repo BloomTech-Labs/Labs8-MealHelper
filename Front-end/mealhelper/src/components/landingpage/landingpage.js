@@ -220,7 +220,6 @@ class Landingpage extends Component {
                 </div>
               </div>
             </div>
-
             <div className="team-column">
               <div className="card">
                 <img src="img2.jpg" alt="Team Member" style={{ width: 100 }} />
@@ -235,7 +234,6 @@ class Landingpage extends Component {
                 </div>
               </div>
             </div>
-
             <div className="team-column">
               <div className="card">
                 <img src="img3.jpg" alt="Team Member" style={{ width: 100 }} />
