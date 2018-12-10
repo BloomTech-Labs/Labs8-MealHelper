@@ -6,7 +6,7 @@
   background: #ffffff;
   margin-top: 5%;
   width: 318px;
-  height: 560px;
+  height: 490px;
   border: #9c9c9c;
   border-radius: 12px;
 }
@@ -25,7 +25,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding-top: 20px;
+  /* margin-top: -10px; */
 }
 
 .form-group-login:hover {
@@ -49,6 +49,11 @@ label {
 
 .return-login {
   padding-top: 20px;
+  color: #242424;
+}
+
+.return-login:hover {
+  color: #2f9dfe;
 }
 
 .login-login {
