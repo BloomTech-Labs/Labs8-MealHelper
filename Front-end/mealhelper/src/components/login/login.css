@@ -53,19 +53,21 @@ label {
 
 .login-login {
   color: #ffffff;
-  width: 250px;
-  font-size: 25px;
+  width: 200px;
+  font-size: 15px;
+  font-weight: 900;
   height: 50px;
   padding-top: 14px;
-  font-weight: 900;
-  margin-top: 40px;
+  margin-top: 15px;
   margin-bottom: 30px;
+  margin-left: 30px;
   cursor: pointer;
-  background-color: #267cfc;
+  background-color: #242424;
+  border-radius: 5px;
 }
 
 .login-login:hover {
-  background-color: #0166fe;
+  background-color: #2f9dfe;
 }
 
 .signuptext {
@@ -74,19 +76,26 @@ label {
   font-size: 20px;
 }
 
-.login-button {
-  width: 250px;
-  height: 64px;
-  padding-bottom: 20px;
-  border-width: 1px;
-  border-color: black;
-  color: black;
-}
+/* .login-button {
+  color: #ffffff;
+  width: 200px;
+  font-size: 15px;
+  font-weight: 900;
+  height: 50px;
+  padding-top: 14px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  cursor: pointer;
+  background-color: #242424;
+  border-radius: 5px;
+} */
 
 .applebadgelogin {
-  width: 211px;
+  width: 150px;
   height: auto;
-  margin-top: -50px;
+  margin-top: -10px;
+  margin-left: 5px;
 }
 
 .existinguser {
