@@ -151,8 +151,7 @@ class AddAlarms extends Component {
     this.props.history.push("/homepage/alarms");
   };
 
-  militaryToStandard = input => {
-    let time = input;
+  militaryToStandard = time => {
     let twelve = 0;
     let format = 0;
     let twelveWithZero = 0;
@@ -160,6 +159,14 @@ class AddAlarms extends Component {
     if (time > 1259) {
       twelve = time - 1200;
       if (twelve > 3) {
+        if (twelve >= 1000) {
+          format = twelve.toString().split("")
+          lastNum = format[format.length - 1]
+          format[2] = ":";
+          format.push(lastNum, " PM")
+          return format.join("")
+        }
+        
         twelveWithZero = 0 + twelve.toString();
         format = twelveWithZero.toString().split("");
         lastNum = format[format.length - 1];
@@ -244,7 +251,23 @@ class AddAlarms extends Component {
               <DropdownToggle className="choose-alarm" caret>
                 Choose alarm time
               </DropdownToggle>
-                <DropdownMenu className="choose-alarm-dropdown">
+                <DropdownMenu className="choose-alarm-dropdown"
+                  modifiers={{
+                    setMaxHeight: {
+                      enabled: true,
+                      order: 890,
+                      fn: (data) => {
+                        return {
+                          ...data,
+                          styles: {
+                            ...data.styles,
+                            overflow: 'auto',
+                            maxHeight: 100,
+                          },
+                        };
+                      },
+                    },
+                  }}>
                   {options.map(opt => (
                     <DropdownItem
                       opt={opt.value}
