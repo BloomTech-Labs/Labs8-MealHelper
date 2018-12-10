@@ -184,6 +184,7 @@ class AddAlarms extends Component {
 
   render() {
     return (
+      <div className="add-alarms-full-width">
       <div className="add-alarms-container">
         <div className="add-alarms-forms-bg">
         <div className="add-alarms-content">
@@ -324,8 +325,11 @@ class AddAlarms extends Component {
           </Button>
         </div>
         </div>
+        
       </div>
-    );
+      <p>Note: alarm functionality is not available on desktop. <br />This page can be used to add alarms for your iOS app.</p>
+    </div>
+      );
   }
 }
 
