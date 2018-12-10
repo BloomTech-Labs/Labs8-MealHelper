@@ -268,6 +268,8 @@
   text-transform: uppercase;
   font-weight: 700;
   text-decoration: none;
+  border-radius: 30px;
+  margin-top: 15px;
 }
 
 .btn a:hover {
@@ -278,17 +280,19 @@
 
 .free-btn {
   /* padding: 1em 0; */
-  margin-top: 10px;
+  margin-top: 15px;
   text-align: center;
 }
 
 .free-btn a {
   background: #f80;
   padding: 10px 30px;
+  margin-top: 20px;
   color: #fff;
   text-transform: uppercase;
   font-weight: 700;
   text-decoration: none;
+  border-radius: 30px;
 }
 
 .free-btn a:hover {
@@ -301,7 +305,7 @@
   background: #f80;
   color: #fff;
   text-transform: uppercase;
-  z-index: 2;
+  z-index: 1;
   padding: 2px 5px;
   font-size: 9px;
   border-radius: 2px;
@@ -339,7 +343,7 @@
 
 /* Add some shadows to create a card effect */
 .card {
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.5px 0.5px 0 rgba(0, 0, 0, 0.1);
   height: 300px;
 }
 
@@ -365,14 +369,15 @@
   border: none;
   outline: 0;
   display: inline-block;
-  margin-top: 40px;
+  margin-top: 50px;
   padding: 8px;
   color: white;
   background-color: #000;
   text-align: center;
   cursor: pointer;
-  width: 100px;
+  width: 150px;
   height: 50px;
+  border-radius: 30px;
 }
 
 .contact-button:hover {
