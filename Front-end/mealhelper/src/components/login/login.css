@@ -46,12 +46,13 @@ label {
   text-align: left;
 }
 
-.return-login {
-  padding-top: 30px;
+.return-signup {
+  padding-top: 15px;
+  padding-bottom: 25px;
   color: #242424;
 }
 
-.return-login:hover {
+.return-signup:hover {
   color: #2f9dfe;
 }
 

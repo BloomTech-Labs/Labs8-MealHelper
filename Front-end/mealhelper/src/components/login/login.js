@@ -105,7 +105,7 @@ class Login extends Component {
                     />
                   </div>
                   <Link to="/signup">
-                    <p className="return-login"> ⬅ Return to Sign Up </p>
+                    <p className="return-signup"> ⬅ Return to Sign Up </p>
                   </Link>
                   <div className="login-login" onClick={this.confirmLogin}>
                     <span>Log In</span>

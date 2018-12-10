@@ -161,8 +161,9 @@
 }
 
 .jump {
-  margin-left: 15px;
-  border-left: 1px solid #242424;
+  margin-left: 10px;
   padding-left: 10px;
-  height: 30px;
+  border-right: 1px solid #242424;
+  padding-right: 30px;
+  height: 20px;
 }
