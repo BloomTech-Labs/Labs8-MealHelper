@@ -130,7 +130,6 @@ class Landingpage extends Component {
         </div>
         <a name="pricing" />
         <div className="pricing">
-          <hr />
           <h1>Pricing</h1>
           <div className="charts" id="price">
             <div className="plan">
@@ -203,7 +202,6 @@ class Landingpage extends Component {
 
         <a name="team" />
         <div className="Team">
-          <hr />
           <h1>Team</h1>
           <div className="team-cards">
             <div className="team-column">
