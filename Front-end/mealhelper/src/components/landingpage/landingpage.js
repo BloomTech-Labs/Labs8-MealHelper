@@ -112,6 +112,7 @@ class Landingpage extends Component {
             <div className="card-body">
               <div className="header-card">
                 <div>
+                  <a name="team" />
                   <p className="info-text">Show Your Doctor</p>
                 </div>
                 <div className="image-holder">
