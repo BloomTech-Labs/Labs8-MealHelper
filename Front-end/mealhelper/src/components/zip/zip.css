@@ -43,6 +43,14 @@
   margin-left: 10px;
 }
 
+.zip-explain {
+  color: #242424;
+}
+
+.zip-explain:hover {
+  color: #0166fe;
+}
+
 .applebadgezip {
   width: 150px;
   height: auto;
