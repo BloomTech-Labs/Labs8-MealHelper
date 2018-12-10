@@ -30,11 +30,11 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
     
     
     lazy var noItemSelectedbarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didNotSelectItems))
+        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapBarButtonWithoutSelectedItems))
     }()
     
     lazy var itemsSelectedBarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didSelectItems))
+        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didTapBarButtonWithSelectedItems))
     }()
     
     lazy var cancelBarButton: UIBarButtonItem = {
@@ -115,13 +115,13 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
     
     // MARK: - User Actions
     
-    @objc func didNotSelectItems() {
+    @objc func didTapBarButtonWithoutSelectedItems() {
         let layout = UICollectionViewFlowLayout()
         let searchIngredientVC = SearchIngredientCollectionViewController(collectionViewLayout: layout)
         navigationController?.pushViewController(searchIngredientVC, animated: true)
     }
     
-    @objc func didSelectItems() {
+    @objc func didTapBarButtonWithSelectedItems() {
         let recipes = getSelectedRecipes()
         let date = Utils().dateString(for: Date())
         var temp = 0.0 // TODO: Change

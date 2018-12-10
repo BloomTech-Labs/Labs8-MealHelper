@@ -22,7 +22,11 @@ class PopupView: UIView {
             titleLabel.text = title
         }
     }
-    var hasActionButton = true
+    var hasActionButton = true {
+        didSet {
+            setupActionButton()
+        }
+    }
     
     let headerView: UIView = {
         let view = UIView()
@@ -90,10 +94,17 @@ class PopupView: UIView {
         titleLabel.anchor(top: nil, leading: headerView.leadingAnchor, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0))
         titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
         
+        setupActionButton()
+    }
+    
+    private func setupActionButton() {
         if hasActionButton == true {
             headerView.addSubview(actionButton)
             actionButton.anchor(top: nil, leading: nil, bottom: nil, trailing: headerView.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16), size: CGSize(width: 30, height: 30))
             actionButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
+        } else {
+            actionButton.isHidden = true
+            actionButton.isEnabled = false
         }
     }
     
