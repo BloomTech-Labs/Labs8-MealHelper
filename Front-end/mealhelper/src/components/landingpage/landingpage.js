@@ -175,7 +175,7 @@ class Landingpage extends Component {
                     $4.99<span>/PER USER</span>
                   </div>
                 </div>
-                <div class="entry-content">
+                <div className="entry-content">
                   <ul>
                     <li>
                       <strong>1x</strong> option 1
@@ -194,7 +194,7 @@ class Landingpage extends Component {
                     </li>
                   </ul>
                 </div>
-                <div class="btn">
+                <div className="btn">
                   <a href="#">Buy Now</a>
                 </div>
               </div>
@@ -205,6 +205,52 @@ class Landingpage extends Component {
         <div className="Team">
           <hr />
           <h1>Team</h1>
+          <div className="team-cards">
+            <div className="column">
+              <div className="card">
+                <img src="img1.jpg" alt="Team Member" style="width:100%" />
+                <div className="container">
+                  <h2>Jane Doe</h2>
+                  <p className="title">CEO &amp; Founder</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>example@example.com</p>
+                  <p>
+                    <button className="button">Contact</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="column">
+              <div className="card">
+                <img src="img2.jpg" alt="Team Member" style="width:100%" />
+                <div className="container">
+                  <h2>Mike Ross</h2>
+                  <p className="title">Art Director</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>example@example.com</p>
+                  <p>
+                    <button className="button">Contact</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="column">
+              <div className="card">
+                <img src="img3.jpg" alt="Team Member" style="width:100%" />
+                <div className="container">
+                  <h2>John Doe</h2>
+                  <p className="title">Designer</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>example@example.com</p>
+                  <p>
+                    <button className="button">Contact</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
