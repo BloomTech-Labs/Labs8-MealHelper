@@ -125,11 +125,9 @@
   border-bottom: 1px solid #9c9c9c;
   position: fixed;
   z-index: 2;
-  border: 2px solid red;
 }
 
 .navbar-links-and-buttons {
-  border: 1px solid purple;
   width: 50%;
   margin-right: 20px;
   display: flex;
@@ -168,12 +166,14 @@
   display: flex;
   justify-content: space-around;
   margin-top: 15px;
-  color: #2f9dfe;
   padding-left: 35px;
 }
 
-.jump:hover {
+.page-jumps a {
   color: white;
+}
+.jump:hover {
+  color: #2f9dfe;
 }
 
 .jump {

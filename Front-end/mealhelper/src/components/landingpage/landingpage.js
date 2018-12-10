@@ -30,16 +30,15 @@ class Landingpage extends Component {
     return (
       <div className="main-container">
         <Navbar />
-        <div className="container">
-          <div className="image-jars-container">
-            <img className="image-jars" src={Jars} alt="No image" />
+        <div className="landing-page-container">
+          <div className="jumbotron-container">
+            <img className="jumbotron-img" src={Jars} alt="No image" />
           </div>
           <div className="login-signup-container">
-            <p className="call-to-action">
-              " Your diet is a bank account. Good food choices are good
-              investments. "
-            </p>
-            <p className="call-to-action2">- Bethenny Frankel</p>
+          <div className="cta-container">
+            <h2>EAT. <br/> TRACK. <br />  ANALYZE.</h2>
+            <p>Record what you eat and how you feel, and let EatWell help you take the guesswork out of eating well and feeling better.</p>
+          </div>
             <div className="landingpage-buttons">
               <div className="button-container">
                 <button className="button">
