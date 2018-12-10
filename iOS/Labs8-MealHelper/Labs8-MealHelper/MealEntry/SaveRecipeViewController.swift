@@ -94,9 +94,9 @@ class SaveRecipeViewController: UIViewController {
                     
                     guard let nutrients = ingredient.nutrients, let ingredientId = savedIngredient?.identifier else {
                         NSLog("Ingredient has no nutrients and/or identifier")
+                        self.dismiss(animated: true, completion: nil)
                         return
                     }
-                    
                     
                     let dispatchGroup = DispatchGroup()
                     nutrients.forEach { nutrient in
@@ -143,22 +143,22 @@ class SaveRecipeViewController: UIViewController {
     
     func saveRecipe(with name: String, calories: Int, servings: Int, completion: @escaping (Recipe?) -> ()) {
         FoodClient.shared.postRecipe(name: name, calories: calories, servings: servings) { (response) in
-            switch response {
-            case .success(let recipes):
-                DispatchQueue.main.async {
-                    if let newRecipe = recipes.last {
-                        print("Sucessfully saved recipes")
-                        completion(newRecipe)
-                        return
-                    }
-                    
-                    NSLog("Response did not contain any recipes")
-                    completion(nil)
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let recipes):
+                        if let newRecipe = recipes.last {
+                            print("Sucessfully saved recipes")
+                            completion(newRecipe)
+                            return
+                        }
+                        
+                        NSLog("Response did not contain any recipes")
+                        completion(nil)
+                case .error(let error):
+                        NSLog("Error saving recipe: \(error)")
+                        self.showAlert(with: "Could not save recipe. Please try again.")
+                        completion(nil)
                 }
-            case .error(let error):
-                NSLog("Error saving recipe: \(error)")
-                self.showAlert(with: "Could not save recipe. Please try again.")
-                completion(nil)
             }
             
         }
@@ -166,32 +166,36 @@ class SaveRecipeViewController: UIViewController {
     
     func saveIngredient(with name: String, ndbno: Int?, recipeId: Int, completion: @escaping (Ingredient?) -> ()) {
         FoodClient.shared.postIngredient(name: name, ndbno: ndbno, recipeId: recipeId, completion: { (response) in
-            switch response {
-            case .success(let ingredients):
-                if let newIngred = ingredients.last {
-                    completion(newIngred)
-                    return
-                } else {
-                    NSLog("Response did not contain ingredients")
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let ingredients):
+                    if let newIngred = ingredients.last {
+                        completion(newIngred)
+                        return
+                    } else {
+                        NSLog("Response did not contain ingredients")
+                        completion(nil)
+                    }
+                case .error(let error):
+                    NSLog("Error saving ingredients: \(error)")
+                    // Handle error in UI
                     completion(nil)
                 }
-            case .error(let error):
-                NSLog("Error saving ingredients: \(error)")
-                // Handle error in UI
-                completion(nil)
             }
         })
     }
     
     func saveNutrient(with nutrient: Nutrient, ingredientId: Int, completion: @escaping (Error?) -> ()) {
         FoodClient.shared.postNutrient(nutrient, ingredientId: ingredientId, completion: { (response) in
-            switch response {
-            case .success( _):
-                completion(nil)
-            case .error(let error):
-                print(error)
-                // Handle error in UI
-                completion(error)
+            DispatchQueue.main.async {
+                switch response {
+                case .success( _):
+                    completion(nil)
+                case .error(let error):
+                    print(error)
+                    // Handle error in UI
+                    completion(error)
+                }
             }
         })
     }
@@ -267,16 +271,16 @@ class EditRecipeViewController: SaveRecipeViewController {
     
     override func saveRecipe(with name: String, calories: Int, servings: Int, completion: @escaping (Recipe?) -> ()) {
         FoodClient.shared.postRecipe(name: name, calories: calories, servings: servings) { (response) in
-            switch response {
-            case .success( _):
-                print("saved recipe successfully")
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                switch response {
+                case .success( _):
+                    print("saved recipe successfully")
                     self.navigationController?.popViewController(animated: true)
+                case .error(let error):
+                    NSLog("Error saving recipe: \(error)")
+                    self.showAlert(with: "Could not save recipe. Please try again.")
+                    break
                 }
-            case .error(let error):
-                NSLog("Error saving recipe: \(error)")
-                self.showAlert(with: "Could not save recipe. Please try again.")
-                break
             }
         }
     }

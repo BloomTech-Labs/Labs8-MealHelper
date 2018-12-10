@@ -99,14 +99,6 @@ class FoodClient: GenericAPIClient {
         
     }
     
-    func postNutrient(nutrientId: String, ingredientId: String, completion: @escaping (Response<Int>) -> ()) {
-        let url = self.url(with: baseUrl, pathComponents: ["nutrients", ingredientId])
-        let reqBody = ["id": nutrientId]
-        
-        post(with: url, requestBody: reqBody, completion: completion)
-        
-    }
-    
     func putIngredient(withId ingredientId: Int, nutrientIds: [Int], completion: @escaping (Response<Int>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["nutrients", "ingredients", String(ingredientId)])
         let reqBody = ["ids": nutrientIds]
