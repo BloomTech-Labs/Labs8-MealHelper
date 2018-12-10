@@ -194,7 +194,7 @@
 }
 
 .entry-title {
-  background: #53cfe9;
+  background: #67b6fc;
   height: 140px;
   position: relative;
   text-align: center;
@@ -203,7 +203,7 @@
 }
 
 .entry-title > h3 {
-  background: #20bada;
+  background: #2f9dfe;
   font-size: 20px;
   padding: 5px 0;
   text-transform: uppercase;
@@ -214,7 +214,7 @@
 .entry-title .price {
   position: absolute;
   bottom: -25px;
-  background: #20bada;
+  background: #2f9dfe;
   height: 95px;
   width: 95px;
   margin: 0 auto;
@@ -299,15 +299,15 @@
   font-weight: 700;
 }
 .basic .entry-title {
-  background: #75ddd9;
+  background: #5ddb53;
 }
 
 .basic .entry-title > h3 {
-  background: #44cbc6;
+  background: #4cb944;
 }
 
 .basic .price {
-  background: #44cbc6;
+  background: #4cb944;
 }
 
 /* Three columns side by side */

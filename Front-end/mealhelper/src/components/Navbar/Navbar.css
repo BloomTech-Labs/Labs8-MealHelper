@@ -1,13 +1,14 @@
 .Navbar-Container {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   background: #ffffff;
   height: 55px;
   width: 100%;
   border-bottom: 1px solid #9c9c9c;
   position: fixed;
   z-index: 2;
+  margin-left: 70px;
 }
 .Navbar-Container-Main {
   background: #ffffff;
@@ -24,11 +25,10 @@
 }
 .link-logo {
   text-decoration: none;
-  color: black;
+  color: #242424;
 }
 .link-logo:hover {
-  text-decoration: none;
-  color: black;
+  color: #2f9dfe;
 }
 .logo-main {
   font-size: 40px;
@@ -148,17 +148,16 @@
   display: flex;
   justify-content: space-around;
   margin-top: 15px;
-
-  color: blue;
+  color: #2f9dfe;
 }
 
-.page-jumps:hover {
-  color: yellow;
+.jump:hover {
+  color: #242424;
 }
 
 .jump {
   margin-left: 15px;
-  border-left: 1px solid black;
+  border-left: 1px solid #242424;
   padding-left: 10px;
   height: 30px;
 }
