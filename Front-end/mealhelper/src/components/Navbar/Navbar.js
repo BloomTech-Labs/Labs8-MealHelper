@@ -18,13 +18,13 @@ class NavbarLanding extends Component {
           </Link>
         </div>
         <div className="page-jumps" style={{ textDecoration: "none" }}>
-          <a href="#Product" className="jump">
+          <a href="#product" className="jump">
             <h3>Product</h3>
           </a>
-          <a href="#Pricing" className="jump">
+          <a href="#pricing" className="jump">
             <h3>Pricing</h3>
           </a>
-          <a href="#Team" className="jump">
+          <a href="#team" className="jump">
             <h3>Team</h3>
           </a>
         </div>

@@ -62,9 +62,9 @@ class Landingpage extends Component {
             <div className="image-info-container">
               <img className="image-info" src={Computer} />
             </div>
+            <a name="product" />
             <div className="card-body">
               <div className="header-card">
-                <a name="product" />
                 <div>
                   <p className="info-text">Record Your Meals</p>
                 </div>
@@ -129,13 +129,13 @@ class Landingpage extends Component {
             </div>
           </div>
         </div>
+        <a name="pricing" />
         <div className="pricing">
-          <a name="pricing" />
           <hr />
           <h1>Pricing</h1>
         </div>
+        <a name="team" />
         <div className="Team">
-          <a name="team" />
           <hr />
           <h1>Team</h1>
         </div>
