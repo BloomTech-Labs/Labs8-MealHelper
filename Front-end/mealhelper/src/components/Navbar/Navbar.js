@@ -24,7 +24,7 @@ class NavbarLanding extends Component {
           <a href="#Pricing" className="jump">
             <h3>Pricing</h3>
           </a>
-          <a href="#Pricing" className="jump">
+          <a href="#Team" className="jump">
             <h3>Team</h3>
           </a>
         </div>

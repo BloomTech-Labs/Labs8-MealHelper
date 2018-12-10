@@ -64,6 +64,7 @@ class Landingpage extends Component {
             </div>
             <div className="card-body">
               <div className="header-card">
+                <a name="product" />
                 <div>
                   <p className="info-text">Record Your Meals</p>
                 </div>
@@ -81,7 +82,6 @@ class Landingpage extends Component {
               </div>
             </div>
           </div>
-
           <div className="info-container-two">
             <div className="card-body">
               <div className="header-card">
@@ -112,7 +112,6 @@ class Landingpage extends Component {
             <div className="card-body">
               <div className="header-card">
                 <div>
-                  <a name="team" />
                   <p className="info-text">Show Your Doctor</p>
                 </div>
                 <div className="image-holder">
@@ -129,6 +128,14 @@ class Landingpage extends Component {
               </div>
             </div>
           </div>
+        </div>
+        <div className="pricing">
+          <hr />
+          <h1>Pricing</h1>
+        </div>
+        <div className="Team">
+          <hr />
+          <h1>Team</h1>
         </div>
       </div>
     );
