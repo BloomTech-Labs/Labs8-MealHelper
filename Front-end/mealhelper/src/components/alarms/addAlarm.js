@@ -256,14 +256,6 @@ class AddAlarms extends Component {
                 </DropdownMenu>
 
             </UncontrolledDropdown>
-            {/* <Select
-              styles={customStyles}
-              options={options}
-              className="alarms-select"
-              name="alarmTime"
-              placeholder="Alarm Time"
-              onChange={opt => this.setState({ alarmTime: opt.value })}
-            /> */}
             <div>Label</div>
             <input
               className="label"
