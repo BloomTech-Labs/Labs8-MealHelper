@@ -52,16 +52,15 @@
   justify-content: space-around;
 }
 .button {
-  background: #267cfc;
-  border-radius: 6px;
+  background: #2f9dfe;
+  border-radius: 30px;
   width: 100%;
   height: auto;
   border: none;
   cursor: pointer;
 }
 .button:hover {
-  background: #0166fe;
-  border-radius: 6px;
+  background: #242424;
   width: 100%;
   height: auto;
   border: none;
