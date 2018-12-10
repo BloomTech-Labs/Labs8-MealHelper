@@ -45,11 +45,15 @@
   margin-top: 8px;
   margin-right: 45px;
   cursor: pointer;
-  background-color: #267cfc;
+  background-color: #2f9dfe;
 }
 
 .signup-login-buttons-navbar {
   margin-right: 1px;
+}
+
+.buttons-navbar:hover {
+  background-color: #242424;
 }
 
 .hamburger-container {
