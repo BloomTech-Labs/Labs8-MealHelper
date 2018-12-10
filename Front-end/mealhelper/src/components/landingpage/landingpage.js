@@ -55,13 +55,13 @@ class Landingpage extends Component {
                   </p>
                 </button>
               </div>
+              <a name="product" />
             </div>
           </div>
           <div className="info-container-one">
             <div className="image-info-container">
               <img className="image-info" src={Computer} />
             </div>
-            <a name="product" />
             <div className="card-body">
               <div className="header-card">
                 <div>
@@ -126,14 +126,13 @@ class Landingpage extends Component {
                 </p>
               </div>
             </div>
-            <a name="pricing" />
           </div>
         </div>
+        <a name="pricing" />
         <div className="pricing">
           <hr />
           <h1>Pricing</h1>
           <div className="charts" id="price">
-            {/* <!--price tab--> */}
             <div className="plan">
               <div className="plan-inner">
                 <div className="entry-title">
@@ -201,6 +200,7 @@ class Landingpage extends Component {
             </div>
           </div>
         </div>
+
         <a name="team" />
         <div className="Team">
           <hr />
