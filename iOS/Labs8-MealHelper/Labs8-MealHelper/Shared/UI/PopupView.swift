@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol PopupViewDelegate: class {
-    func shouldAnimateView()
+    @objc func popupView()
     @objc optional func didPressButton()
 }
 
@@ -66,7 +66,7 @@ class PopupView: UIView {
     
     @objc func tappedButton() {
         if isCollapsed {
-            delegate?.shouldAnimateView()
+            delegate?.popupView()
         } else {
             delegate?.didPressButton?()
         }
