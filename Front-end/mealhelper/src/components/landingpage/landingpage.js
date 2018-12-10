@@ -130,10 +130,12 @@ class Landingpage extends Component {
           </div>
         </div>
         <div className="pricing">
+          <a name="pricing" />
           <hr />
           <h1>Pricing</h1>
         </div>
         <div className="Team">
+          <a name="team" />
           <hr />
           <h1>Team</h1>
         </div>
