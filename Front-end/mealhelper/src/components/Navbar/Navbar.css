@@ -121,8 +121,8 @@
 .menu-list-item.item:hover {
   border: 2px solid #5a95ce;
 }
-.menu-list-item:hover {
-}
+/* .menu-list-item:hover {
+} */
 .menu-list-item-logout {
   border: none;
   background: none;
@@ -142,4 +142,13 @@
   border-width: 30px;
   margin-left: 10px;
   margin-top: -40px;
+}
+
+.page-jumps {
+  display: flex;
+  color: blue;
+}
+
+.page-jumps:hover {
+  color: yellow;
 }
