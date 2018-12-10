@@ -9,6 +9,7 @@ class NavbarLanding extends Component {
     return (
       <div className="Navbar-Container">
         <p className="logo">EatWell</p>
+        <div className="navbar-links-and-buttons">
         <div className="page-jumps" style={{ textDecoration: "none" }}>
           <a href="#product" className="jump">
             <h3>Product</h3>
@@ -27,6 +28,7 @@ class NavbarLanding extends Component {
           <Link to="/signup" style={{ textDecoration: "none" }}>
             <button className="buttons-navbar">Sign Up</button>
           </Link>
+        </div>
         </div>
       </div>
     );

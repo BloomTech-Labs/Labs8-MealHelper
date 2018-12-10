@@ -128,6 +128,13 @@
   border: 2px solid red;
 }
 
+.navbar-links-and-buttons {
+  border: 1px solid purple;
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+}
+
 .buttons-navbar {
   color: #ffffff;
   width: 120px;
@@ -153,7 +160,7 @@
 .logo {
   font-size: 40px;
   font-family: "Allan", cursive;
-  margin-left: 20px;
+  margin-left: 45px;
 }
 
 .page-jumps {
