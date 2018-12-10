@@ -196,7 +196,23 @@ class AddAlarms extends Component {
               <DropdownToggle className="choose-alarm" caret>
                 Choose first alarm time
               </DropdownToggle>
-                <DropdownMenu className="choose-alarm-dropdown">
+                <DropdownMenu className="choose-alarm-dropdown"
+                modifiers={{
+                  setMaxHeight: {
+                    enabled: true,
+                    order: 890,
+                    fn: (data) => {
+                      return {
+                        ...data,
+                        styles: {
+                          ...data.styles,
+                          overflow: 'auto',
+                          maxHeight: 200,
+                        },
+                      };
+                    },
+                  },
+                }}>
                   {options.map(opt => (
                     <DropdownItem
                       opt={opt.value}
@@ -213,7 +229,23 @@ class AddAlarms extends Component {
               <DropdownToggle className="choose-alarm" caret>
                 Choose last alarm time
               </DropdownToggle>
-                <DropdownMenu className="choose-alarm-dropdown">
+                <DropdownMenu className="choose-alarm-dropdown"
+                modifiers={{
+                  setMaxHeight: {
+                    enabled: true,
+                    order: 890,
+                    fn: (data) => {
+                      return {
+                        ...data,
+                        styles: {
+                          ...data.styles,
+                          overflow: 'auto',
+                          maxHeight: 200,
+                        },
+                      };
+                    },
+                  },
+                }}>
                   {options.map(opt => (
                     <DropdownItem
                       opt={opt.value}
@@ -262,7 +294,7 @@ class AddAlarms extends Component {
                           styles: {
                             ...data.styles,
                             overflow: 'auto',
-                            maxHeight: 100,
+                            maxHeight: 200,
                           },
                         };
                       },
