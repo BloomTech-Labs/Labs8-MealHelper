@@ -195,7 +195,7 @@ class Landingpage extends Component {
                   </ul>
                 </div>
                 <div class="btn">
-                  <a href="#">Order Now</a>
+                  <a href="#">Buy Now</a>
                 </div>
               </div>
             </div>
