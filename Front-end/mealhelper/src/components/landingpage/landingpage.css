@@ -160,7 +160,11 @@
   font-style: italic;
 }
 
-@import url(https://fonts.googleapis.com/css?family=Lato:400);
+.pricing {
+  padding-top: 150px;
+  margin-top: -250px;
+  margin-bottom: 150px;
+}
 
 .charts {
   display: flex;
@@ -306,26 +310,61 @@
   background: #44cbc6;
 }
 
-/* .standard .entry-title {
-  background: #4484c1;
+/* Three columns side by side */
+.team-column {
+  float: left;
+  width: 33.33%;
+  height: auto;
+  margin-bottom: 16px;
+  padding: 20px 60px 20px 60px;
 }
 
-.standard .entry-title > h3 {
-  background: #3772aa;
+/* Display the columns below each other instead of side by side on small screens */
+@media screen and (max-width: 650px) {
+  .team-column {
+    width: 100%;
+    display: block;
+  }
 }
 
-.standard .price {
-  background: #3772aa;
-} */
-/* 
-.ultimite .entry-title > h3 {
-  background: #dd4b5e;
+/* Add some shadows to create a card effect */
+.card {
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+  height: 300px;
 }
 
-.ultimite .entry-title {
-  background: #f75c70;
+/* Some left and right padding inside the container */
+.team-container {
+  padding: 0 16px;
 }
 
-.ultimite .price {
-  background: #dd4b5e;
-} */
+/* Clear floats */
+.team-container::after,
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+  margin-top: 50px;
+}
+
+.contact-button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  margin-top: 40px;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100px;
+  height: 50px;
+}
+
+.button:hover {
+  background-color: #555;
+}

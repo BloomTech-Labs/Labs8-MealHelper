@@ -55,13 +55,13 @@ class Landingpage extends Component {
                   </p>
                 </button>
               </div>
+              <a name="product" />
             </div>
           </div>
           <div className="info-container-one">
             <div className="image-info-container">
               <img className="image-info" src={Computer} />
             </div>
-            <a name="product" />
             <div className="card-body">
               <div className="header-card">
                 <div>
@@ -130,10 +130,8 @@ class Landingpage extends Component {
         </div>
         <a name="pricing" />
         <div className="pricing">
-          <hr />
           <h1>Pricing</h1>
           <div className="charts" id="price">
-            {/* <!--price tab--> */}
             <div className="plan">
               <div className="plan-inner">
                 <div className="entry-title">
@@ -175,7 +173,7 @@ class Landingpage extends Component {
                     $4.99<span>/PER USER</span>
                   </div>
                 </div>
-                <div class="entry-content">
+                <div className="entry-content">
                   <ul>
                     <li>
                       <strong>1x</strong> option 1
@@ -194,17 +192,103 @@ class Landingpage extends Component {
                     </li>
                   </ul>
                 </div>
-                <div class="btn">
+                <div className="btn">
                   <a href="#">Buy Now</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
         <a name="team" />
         <div className="Team">
-          <hr />
           <h1>Team</h1>
+          <div className="team-cards">
+            <div className="team-column">
+              <div className="card">
+                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <div className="team-container">
+                  <h2>Team Member</h2>
+                  <p className="title">Developer &amp; Founder</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>example@example.com</p>
+                  <p>
+                    <button className="contact-button">Contact</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="team-column">
+              <div className="card">
+                <img src="img2.jpg" alt="Team Member" style={{ width: 100 }} />
+                <div className="team-container">
+                  <h2>Team Member</h2>
+                  <p className="title">Developer</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>example@example.com</p>
+                  <p>
+                    <button className="contact-button">Contact</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="team-column">
+              <div className="card">
+                <img src="img3.jpg" alt="Team Member" style={{ width: 100 }} />
+                <div className="team-container">
+                  <h2>Team Member</h2>
+                  <p className="title">Developer</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>example@example.com</p>
+                  <p>
+                    <button className="contact-button">Contact</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="team-column">
+              <div className="card">
+                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <div className="team-container">
+                  <h2>Team Member</h2>
+                  <p className="title">Developer &amp; Founder</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>example@example.com</p>
+                  <p>
+                    <button className="contact-button">Contact</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="team-column">
+              <div className="card">
+                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <div className="team-container">
+                  <h2>Team Member</h2>
+                  <p className="title">Developer &amp; Founder</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>example@example.com</p>
+                  <p>
+                    <button className="contact-button">Contact</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="team-column">
+              <div className="card">
+                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <div className="team-container">
+                  <h2>Team Member</h2>
+                  <p className="title">Developer &amp; Founder</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>example@example.com</p>
+                  <p>
+                    <button className="contact-button">Contact</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

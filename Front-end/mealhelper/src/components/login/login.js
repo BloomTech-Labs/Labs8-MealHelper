@@ -42,7 +42,7 @@ class Login extends Component {
       this.setState({ isLoading: false, visableError: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      this.props.history.push("/zip");
+      this.props.history.push("/homepage");
     }
   };
   async confirmLogin() {
