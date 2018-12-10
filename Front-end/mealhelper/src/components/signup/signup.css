@@ -61,6 +61,7 @@ input {
   border-width: 1px;
   border-color: #9c9c9c;
   z-index: 1;
+  border-radius: 5px;
 }
 
 label {
@@ -89,6 +90,7 @@ label {
 .cta-existing-account {
   display: flex;
   justify-content: center;
+  margin-top: 30px;
 }
 .login {
   color: #ffffff;
@@ -97,7 +99,7 @@ label {
   font-weight: 900;
   height: 50px;
   padding-top: 14px;
-  margin-top: 8px;
+  margin-top: 15px;
   margin-bottom: 30px;
   margin-left: 30px;
   cursor: pointer;
