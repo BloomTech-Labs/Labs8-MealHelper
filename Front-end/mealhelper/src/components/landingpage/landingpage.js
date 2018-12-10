@@ -145,34 +145,34 @@ class Landingpage extends Component {
                 <div className="entry-content">
                   <ul>
                     <li>
-                      <strong>1x</strong> option 1
+                      <strong>Free</strong> option 1
                     </li>
                     <li>
-                      <strong>2x</strong> option 2
+                      <strong>Free</strong> option 2
                     </li>
                     <li>
-                      <strong>3x</strong> option 3
+                      <strong>Free</strong> option 3
                     </li>
                     <li>
                       <strong>Free</strong> option 4
                     </li>
                     <li>
-                      <strong>Unlimited</strong> option 5
+                      <strong>Free</strong> option 5
                     </li>
                   </ul>
                 </div>
-                <div className="btn">
-                  <a href="#">Order Now</a>
+                <div className="free-btn">
+                  <a href="#">Free</a>
                 </div>
               </div>
             </div>
             <div className="plan basic">
               <div className="plan-inner">
-                <div className="hot">hot</div>
+                <div className="hot">hot!</div>
                 <div className="entry-title">
                   <h3>Premium</h3>
                   <div className="price">
-                    $19.99<span>/PER USER</span>
+                    $4.99<span>/PER USER</span>
                   </div>
                 </div>
                 <div class="entry-content">

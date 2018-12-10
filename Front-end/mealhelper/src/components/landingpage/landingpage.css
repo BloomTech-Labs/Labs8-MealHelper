@@ -184,7 +184,7 @@
 .plan-inner {
   background: #fff;
   margin: 0 auto;
-  min-width: 300px;
+  min-width: 350px;
   max-width: 100%;
   position: relative;
 }
@@ -253,11 +253,26 @@
 }
 
 .btn {
-  padding: 3em 0;
+  margin-top: 10px;
   text-align: center;
 }
 
 .btn a {
+  background: #323232;
+  padding: 10px 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.free-btn {
+  /* padding: 1em 0; */
+  margin-top: 10px;
+  text-align: center;
+}
+
+.free-btn a {
   background: #323232;
   padding: 10px 30px;
   color: #fff;
@@ -290,7 +305,7 @@
   background: #44cbc6;
 }
 
-.standard .entry-title {
+/* .standard .entry-title {
   background: #4484c1;
 }
 
@@ -300,8 +315,8 @@
 
 .standard .price {
   background: #3772aa;
-}
-
+} */
+/* 
 .ultimite .entry-title > h3 {
   background: #dd4b5e;
 }
@@ -312,4 +327,4 @@
 
 .ultimite .price {
   background: #dd4b5e;
-}
+} */
