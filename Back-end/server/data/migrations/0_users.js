@@ -1,7 +1,10 @@
 exports.up = function(knex) {
   return Promise.all([
     knex.schema.createTable("users", function(users) {
-      users.increments("id").primary();
+      users
+        .increments("id")
+        .primary()
+        .onDelete("CASCADE");
       users
         .string("email", 40)
         .unique()
@@ -9,7 +12,6 @@ exports.up = function(knex) {
       users.string("password", 255);
       users.integer("zip", 5);
       users.string("healthCondition", 20);
-      users.string("isPremium");
     }),
     knex.schema.createTable("mealList", function(mealList) {
       mealList.increments("id").primary();
