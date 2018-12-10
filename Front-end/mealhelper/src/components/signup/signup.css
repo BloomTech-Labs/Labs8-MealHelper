@@ -26,18 +26,21 @@ body {
   background: white;
   margin-top: 5%;
   width: 318px;
-  height: 570px;
+  height: 600px;
   border: #9c9c9c;
   border-radius: 12px;
 }
 
 .signup-title {
-  color: black;
+  color: #242424;
   font-weight: bold;
   font-size: 3.8em;
   padding-top: 10px;
-  padding-bottom: 55px;
   font-family: "Allan", cursive;
+}
+
+.signup-title:hover {
+  color: #2f9dfe;
 }
 
 .form-group {
@@ -45,7 +48,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin-top: -10px;
+  margin-top: 10px;
 }
 
 .form-group:hover {

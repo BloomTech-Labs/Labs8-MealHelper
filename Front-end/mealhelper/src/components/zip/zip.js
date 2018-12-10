@@ -80,6 +80,7 @@ class Zip extends Component {
               <Link to="/" style={{ textDecoration: "none" }}>
                 <h1 className="signup-title">EatWell</h1>
               </Link>
+              <h2>Enter Zip</h2>
               <form className="signup-form">
                 <div className="form-group">
                   <span
