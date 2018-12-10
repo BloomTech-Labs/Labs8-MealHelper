@@ -136,6 +136,14 @@ class MyAlarms extends Component {
     if (time > 1259) {
       twelve = time - 1200;
       if (twelve > 3) {
+        if (twelve >= 1000) {
+          format = twelve.toString().split("")
+          lastNum = format[format.length - 1]
+          format[2] = ":";
+          format.push(lastNum, " PM")
+          return format.join("")
+        }
+        
         twelveWithZero = 0 + twelve.toString();
         format = twelveWithZero.toString().split("");
         lastNum = format[format.length - 1];
