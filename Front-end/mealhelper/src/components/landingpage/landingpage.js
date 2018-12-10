@@ -208,10 +208,10 @@ class Landingpage extends Component {
           <div className="team-cards">
             <div className="column">
               <div className="card">
-                <img src="img1.jpg" alt="Team Member" style="width:100%" />
+                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
                 <div className="container">
-                  <h2>Jane Doe</h2>
-                  <p className="title">CEO &amp; Founder</p>
+                  <h2>Team Member</h2>
+                  <p className="title">Developer &amp; Founder</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
@@ -223,10 +223,10 @@ class Landingpage extends Component {
 
             <div className="column">
               <div className="card">
-                <img src="img2.jpg" alt="Team Member" style="width:100%" />
+                <img src="img2.jpg" alt="Team Member" style={{ width: 100 }} />
                 <div className="container">
-                  <h2>Mike Ross</h2>
-                  <p className="title">Art Director</p>
+                  <h2>Team Member</h2>
+                  <p className="title">Developer</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
@@ -238,10 +238,10 @@ class Landingpage extends Component {
 
             <div className="column">
               <div className="card">
-                <img src="img3.jpg" alt="Team Member" style="width:100%" />
+                <img src="img3.jpg" alt="Team Member" style={{ width: 100 }} />
                 <div className="container">
-                  <h2>John Doe</h2>
-                  <p className="title">Designer</p>
+                  <h2>Team Member</h2>
+                  <p className="title">Developer</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
