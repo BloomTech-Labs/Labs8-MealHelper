@@ -30,7 +30,6 @@ class Landingpage extends Component {
     return (
       <div className="main-container">
         <Navbar />
-
         <div className="container">
           <div className="image-jars-container">
             <img className="image-jars" src={Jars} alt="No image" />
@@ -62,6 +61,7 @@ class Landingpage extends Component {
             <div className="image-info-container">
               <img className="image-info" src={Computer} />
             </div>
+            <a name="product" />
             <div className="card-body">
               <div className="header-card">
                 <div>
@@ -81,7 +81,6 @@ class Landingpage extends Component {
               </div>
             </div>
           </div>
-
           <div className="info-container-two">
             <div className="card-body">
               <div className="header-card">
@@ -128,6 +127,84 @@ class Landingpage extends Component {
               </div>
             </div>
           </div>
+        </div>
+        <a name="pricing" />
+        <div className="pricing">
+          <hr />
+          <h1>Pricing</h1>
+          <div className="charts" id="price">
+            {/* <!--price tab--> */}
+            <div className="plan">
+              <div className="plan-inner">
+                <div className="entry-title">
+                  <h3>Free</h3>
+                  <div className="price">
+                    $0<span>/PER USER</span>
+                  </div>
+                </div>
+                <div className="entry-content">
+                  <ul>
+                    <li>
+                      <strong>Free</strong> option 1
+                    </li>
+                    <li>
+                      <strong>Free</strong> option 2
+                    </li>
+                    <li>
+                      <strong>Free</strong> option 3
+                    </li>
+                    <li>
+                      <strong>Free</strong> option 4
+                    </li>
+                    <li>
+                      <strong>Free</strong> option 5
+                    </li>
+                  </ul>
+                </div>
+                <div className="free-btn">
+                  <a href="#">Free</a>
+                </div>
+              </div>
+            </div>
+            <div className="plan basic">
+              <div className="plan-inner">
+                <div className="hot">hot!</div>
+                <div className="entry-title">
+                  <h3>Premium</h3>
+                  <div className="price">
+                    $4.99<span>/PER USER</span>
+                  </div>
+                </div>
+                <div class="entry-content">
+                  <ul>
+                    <li>
+                      <strong>1x</strong> option 1
+                    </li>
+                    <li>
+                      <strong>2x</strong> option 2
+                    </li>
+                    <li>
+                      <strong>3x</strong> option 3
+                    </li>
+                    <li>
+                      <strong>Free</strong> option 4
+                    </li>
+                    <li>
+                      <strong>Unlimited</strong> option 5
+                    </li>
+                  </ul>
+                </div>
+                <div class="btn">
+                  <a href="#">Buy Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a name="team" />
+        <div className="Team">
+          <hr />
+          <h1>Team</h1>
         </div>
       </div>
     );

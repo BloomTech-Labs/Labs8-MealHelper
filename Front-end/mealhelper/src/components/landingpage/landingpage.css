@@ -159,3 +159,173 @@
   font-size: 24px;
   font-style: italic;
 }
+
+@import url(https://fonts.googleapis.com/css?family=Lato:400);
+
+.charts {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background: #f2f2f2;
+  padding: 0;
+  /* maring: 0; */
+}
+
+#price {
+  text-align: center;
+}
+
+.plan {
+  display: inline-block;
+  margin: 10px 1%;
+  font-family: "Lato", Arial, sans-serif;
+}
+
+.plan-inner {
+  background: #fff;
+  margin: 0 auto;
+  min-width: 350px;
+  max-width: 100%;
+  position: relative;
+}
+
+.entry-title {
+  background: #53cfe9;
+  height: 140px;
+  position: relative;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+.entry-title > h3 {
+  background: #20bada;
+  font-size: 20px;
+  padding: 5px 0;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0;
+}
+
+.entry-title .price {
+  position: absolute;
+  bottom: -25px;
+  background: #20bada;
+  height: 95px;
+  width: 95px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  border-radius: 50px;
+  border: 5px solid #fff;
+  line-height: 80px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.price span {
+  position: absolute;
+  font-size: 9px;
+  bottom: -15px;
+  left: 20px;
+  font-weight: 400;
+}
+
+.entry-content {
+  color: #323232;
+}
+
+.entry-content ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.entry-content li {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 10px 0;
+}
+
+.entry-content li:last-child {
+  border: none;
+}
+
+.btn {
+  margin-top: 8px;
+  margin-bottom: -5px;
+  text-align: center;
+}
+
+.btn a {
+  background: #323232;
+  padding: 10px 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.free-btn {
+  /* padding: 1em 0; */
+  margin-top: 10px;
+  text-align: center;
+}
+
+.free-btn a {
+  background: #f80;
+  padding: 10px 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+}
+.hot {
+  position: absolute;
+  top: -7px;
+  background: #f80;
+  color: #fff;
+  text-transform: uppercase;
+  z-index: 2;
+  padding: 2px 5px;
+  font-size: 9px;
+  border-radius: 2px;
+  right: 10px;
+  font-weight: 700;
+}
+.basic .entry-title {
+  background: #75ddd9;
+}
+
+.basic .entry-title > h3 {
+  background: #44cbc6;
+}
+
+.basic .price {
+  background: #44cbc6;
+}
+
+/* .standard .entry-title {
+  background: #4484c1;
+}
+
+.standard .entry-title > h3 {
+  background: #3772aa;
+}
+
+.standard .price {
+  background: #3772aa;
+} */
+/* 
+.ultimite .entry-title > h3 {
+  background: #dd4b5e;
+}
+
+.ultimite .entry-title {
+  background: #f75c70;
+}
+
+.ultimite .price {
+  background: #dd4b5e;
+} */
