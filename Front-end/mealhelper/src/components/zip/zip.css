@@ -6,7 +6,7 @@
   background: white;
   margin-top: 5%;
   width: 318px;
-  height: 490px;
+  height: 465px;
   border: #9c9c9c;
   border-radius: 12px;
 }
@@ -21,12 +21,20 @@
   padding-left: 5px;
   margin-top: 40px;
   margin-bottom: 30px;
+  border-radius: 5px;
   cursor: pointer;
-  background-color: #267cfc;
+  background-color: #242424;
 }
 
 .signupzip:hover {
   background-color: #0166fe;
+}
+
+.signup-return {
+  color: #242424;
+}
+.signup-return:hover {
+  color: #0166fe;
 }
 
 .qmark {
@@ -35,8 +43,17 @@
   margin-left: 10px;
 }
 
+.zip-explain {
+  color: #242424;
+}
+
+.zip-explain:hover {
+  color: #0166fe;
+}
+
 .applebadgezip {
-  width: 211px;
+  width: 150px;
   height: auto;
-  margin-top: -50px;
+  margin-top: -30px;
+  margin-left: 5px;
 }
