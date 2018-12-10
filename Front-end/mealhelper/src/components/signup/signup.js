@@ -99,6 +99,7 @@ class SignUp extends Component {
                       name="email"
                       value={this.state.email}
                       onChange={this.handleChange}
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -109,6 +110,7 @@ class SignUp extends Component {
                       name="password"
                       onChange={this.handleChange}
                       value={this.state.password}
+                      required
                     />
                   </div>
                   <div className="signup" onClick={this.confirmSignup}>
