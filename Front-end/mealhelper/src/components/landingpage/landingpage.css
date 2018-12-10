@@ -378,6 +378,7 @@
   width: 150px;
   height: 50px;
   border-radius: 30px;
+  font-family: "Roboto", sans-serif;
 }
 
 .contact-button:hover {
