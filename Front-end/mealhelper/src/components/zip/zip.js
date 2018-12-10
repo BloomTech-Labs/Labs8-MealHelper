@@ -82,19 +82,20 @@ class Zip extends Component {
               </Link>
               <form className="signup-form">
                 <div className="form-group">
-                  <label>
-                    Zip Code
-                    <span
-                      title="Adding your zip code allows an accurate weather data point to be added to your profile. 
+                  <span
+                    title="Adding your zip code allows an accurate weather data point to be added to your profile. 
                     This can be very important as you understand how different factors affect your well being."
-                    >
+                  >
+                    <label className="zip-explain">
+                      Zip Code
                       <img
                         className="qmark"
                         src={QMark}
                         alt="Why should I add my zip code?"
                       />
-                    </span>
-                  </label>
+                    </label>
+                  </span>
+
                   <input
                     className="zip-input"
                     type="number"

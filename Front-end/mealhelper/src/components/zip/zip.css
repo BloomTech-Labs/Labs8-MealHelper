@@ -30,6 +30,13 @@
   background-color: #0166fe;
 }
 
+.signup-return {
+  color: #242424;
+}
+.signup-return:hover {
+  color: #0166fe;
+}
+
 .qmark {
   height: 20px;
   width: auto;
@@ -39,6 +46,6 @@
 .applebadgezip {
   width: 150px;
   height: auto;
-  margin-top: -40px;
+  margin-top: -30px;
   margin-left: 5px;
 }
