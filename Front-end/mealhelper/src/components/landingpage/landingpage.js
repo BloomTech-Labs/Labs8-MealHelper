@@ -30,7 +30,6 @@ class Landingpage extends Component {
     return (
       <div className="main-container">
         <Navbar />
-
         <div className="container">
           <div className="image-jars-container">
             <img className="image-jars" src={Jars} alt="No image" />
@@ -167,13 +166,11 @@ class Landingpage extends Component {
                 </div>
               </div>
             </div>
-            {/* <!-- end of price tab-->
-  <!--price tab--> */}
             <div className="plan basic">
               <div className="plan-inner">
                 <div className="hot">hot</div>
                 <div className="entry-title">
-                  <h3>Express Wash</h3>
+                  <h3>Premium</h3>
                   <div className="price">
                     $19.99<span>/PER USER</span>
                   </div>
@@ -202,75 +199,6 @@ class Landingpage extends Component {
                 </div>
               </div>
             </div>
-            {/* <!-- end of price tab-->
-  <!--price tab--> */}
-            <div class="plan standard">
-              <div class="plan-inner">
-                <div class="entry-title">
-                  <h3>Super Wash</h3>
-                  <div class="price">
-                    $75<span>/PER CAR</span>
-                  </div>
-                </div>
-                <div class="entry-content">
-                  <ul>
-                    <li>
-                      <strong>2x</strong> Free Entrance
-                    </li>
-                    <li>
-                      <strong>Free</strong> Snacks
-                    </li>
-                    <li>
-                      <strong>Custom</strong> Swags
-                    </li>
-                    <li>
-                      <strong>2x</strong> Certificate
-                    </li>
-                    <li>
-                      <strong>Free</strong> Wifi
-                    </li>
-                  </ul>
-                </div>
-                <div class="btn">
-                  <a href="#">Order Now</a>
-                </div>
-              </div>
-            </div>
-            {/* <!-- end of price tab-->
-  <!--price tab--> */}
-            <div class="plan ultimite">
-              <div class="plan-inner">
-                <div class="entry-title">
-                  <h3>Unlimited Wash</h3>
-                  <div class="price">
-                    $100<span>/PER CAR</span>
-                  </div>
-                </div>
-                <div class="entry-content">
-                  <ul>
-                    <li>
-                      <strong>1x</strong> option 1
-                    </li>
-                    <li>
-                      <strong>2x</strong> option 2
-                    </li>
-                    <li>
-                      <strong>3x</strong> option 3
-                    </li>
-                    <li>
-                      <strong>Free</strong> option 4
-                    </li>
-                    <li>
-                      <strong>Unlimited</strong> option 5
-                    </li>
-                  </ul>
-                </div>
-                <div class="btn">
-                  <a href="#">Order Now</a>
-                </div>
-              </div>
-            </div>
-            {/* <!-- end of price tab--> */}
           </div>
         </div>
         <a name="team" />
