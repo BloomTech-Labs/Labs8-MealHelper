@@ -206,46 +206,88 @@ class Landingpage extends Component {
           <hr />
           <h1>Team</h1>
           <div className="team-cards">
-            <div className="column">
+            <div className="team-column">
               <div className="card">
                 <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
-                <div className="container">
+                <div className="team-container">
                   <h2>Team Member</h2>
                   <p className="title">Developer &amp; Founder</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
-                    <button className="button">Contact</button>
+                    <button className="contact-button">Contact</button>
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="column">
+            <div className="team-column">
               <div className="card">
                 <img src="img2.jpg" alt="Team Member" style={{ width: 100 }} />
-                <div className="container">
+                <div className="team-container">
                   <h2>Team Member</h2>
                   <p className="title">Developer</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
-                    <button className="button">Contact</button>
+                    <button className="contact-button">Contact</button>
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="column">
+            <div className="team-column">
               <div className="card">
                 <img src="img3.jpg" alt="Team Member" style={{ width: 100 }} />
-                <div className="container">
+                <div className="team-container">
                   <h2>Team Member</h2>
                   <p className="title">Developer</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
-                    <button className="button">Contact</button>
+                    <button className="contact-button">Contact</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="team-column">
+              <div className="card">
+                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <div className="team-container">
+                  <h2>Team Member</h2>
+                  <p className="title">Developer &amp; Founder</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>example@example.com</p>
+                  <p>
+                    <button className="contact-button">Contact</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="team-column">
+              <div className="card">
+                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <div className="team-container">
+                  <h2>Team Member</h2>
+                  <p className="title">Developer &amp; Founder</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>example@example.com</p>
+                  <p>
+                    <button className="contact-button">Contact</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="team-column">
+              <div className="card">
+                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <div className="team-container">
+                  <h2>Team Member</h2>
+                  <p className="title">Developer &amp; Founder</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p>example@example.com</p>
+                  <p>
+                    <button className="contact-button">Contact</button>
                   </p>
                 </div>
               </div>
