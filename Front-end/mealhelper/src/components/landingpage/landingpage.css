@@ -52,16 +52,15 @@
   justify-content: space-around;
 }
 .button {
-  background: #267cfc;
-  border-radius: 6px;
+  background: #2f9dfe;
+  border-radius: 30px;
   width: 100%;
   height: auto;
   border: none;
   cursor: pointer;
 }
 .button:hover {
-  background: #0166fe;
-  border-radius: 6px;
+  background: #242424;
   width: 100%;
   height: auto;
   border: none;
@@ -110,7 +109,7 @@
   justify-content: space-around;
 }
 .info-text {
-  color: #1e2e66;
+  color: #242424;
   font-family: "Oswald", sans-serif;
   font-size: 48px;
   margin-left: 1%;
@@ -119,7 +118,7 @@
   border-bottom: 1px solid lightgray;
 }
 .info-text-two {
-  color: #1e2e66;
+  color: #242424;
   font-family: "Oswald", sans-serif;
   font-size: 46px;
   margin-left: 3%;
@@ -153,7 +152,7 @@
   margin-left: 23%;
 }
 .card-body-text {
-  color: #1e2e66;
+  color: #242424;
   text-align: left;
   font-family: "Roboto", sans-serif;
   font-size: 24px;
@@ -194,7 +193,7 @@
 }
 
 .entry-title {
-  background: #53cfe9;
+  background: #67b6fc;
   height: 140px;
   position: relative;
   text-align: center;
@@ -203,7 +202,7 @@
 }
 
 .entry-title > h3 {
-  background: #20bada;
+  background: #2f9dfe;
   font-size: 20px;
   padding: 5px 0;
   text-transform: uppercase;
@@ -214,7 +213,7 @@
 .entry-title .price {
   position: absolute;
   bottom: -25px;
-  background: #20bada;
+  background: #2f9dfe;
   height: 95px;
   width: 95px;
   margin: 0 auto;
@@ -237,7 +236,7 @@
 }
 
 .entry-content {
-  color: #323232;
+  color: #242424;
 }
 
 .entry-content ul {
@@ -263,27 +262,42 @@
 }
 
 .btn a {
-  background: #323232;
+  background: #242424;
   padding: 10px 30px;
   color: #fff;
   text-transform: uppercase;
   font-weight: 700;
   text-decoration: none;
+  border-radius: 30px;
+  margin-top: 15px;
+}
+
+.btn a:hover {
+  background: #4cb944;
+  text-decoration: none;
+  color: #fff;
 }
 
 .free-btn {
   /* padding: 1em 0; */
-  margin-top: 10px;
+  margin-top: 15px;
   text-align: center;
 }
 
 .free-btn a {
   background: #f80;
   padding: 10px 30px;
+  margin-top: 20px;
   color: #fff;
   text-transform: uppercase;
   font-weight: 700;
   text-decoration: none;
+  border-radius: 30px;
+}
+
+.free-btn a:hover {
+  text-decoration: none;
+  color: #fff;
 }
 .hot {
   position: absolute;
@@ -291,7 +305,7 @@
   background: #f80;
   color: #fff;
   text-transform: uppercase;
-  z-index: 2;
+  z-index: 1;
   padding: 2px 5px;
   font-size: 9px;
   border-radius: 2px;
@@ -299,15 +313,15 @@
   font-weight: 700;
 }
 .basic .entry-title {
-  background: #75ddd9;
+  background: #5ddb53;
 }
 
 .basic .entry-title > h3 {
-  background: #44cbc6;
+  background: #4cb944;
 }
 
 .basic .price {
-  background: #44cbc6;
+  background: #4cb944;
 }
 
 /* Three columns side by side */
@@ -329,7 +343,7 @@
 
 /* Add some shadows to create a card effect */
 .card {
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.5px 0.5px 0 rgba(0, 0, 0, 0.1);
   height: 300px;
 }
 
@@ -355,16 +369,18 @@
   border: none;
   outline: 0;
   display: inline-block;
-  margin-top: 40px;
+  margin-top: 50px;
   padding: 8px;
   color: white;
   background-color: #000;
   text-align: center;
   cursor: pointer;
-  width: 100px;
+  width: 150px;
   height: 50px;
+  border-radius: 30px;
+  font-family: "Roboto", sans-serif;
 }
 
-.button:hover {
-  background-color: #555;
+.contact-button:hover {
+  background-color: #2f9dfe;
 }
