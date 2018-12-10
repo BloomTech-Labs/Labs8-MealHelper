@@ -46,6 +46,7 @@
 		AC62FACF219B408B00D8C35C /* StretchyHeaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FACE219B408B00D8C35C /* StretchyHeaderLayout.swift */; };
 		AC62FAD1219B499600D8C35C /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */; };
 		AC76D96E21BAA12B00D8A5EC /* HomeSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76D96D21BAA12B00D8A5EC /* HomeSectionHeader.swift */; };
+		AC76D97221BB307400D8A5EC /* done.json in Resources */ = {isa = PBXBuildFile; fileRef = AC76D97121BB307400D8A5EC /* done.json */; };
 		AC81A66521B5741300BBD47E /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC81A66421B5741300BBD47E /* MenuBar.swift */; };
 		AC81A66721B5741900BBD47E /* MenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC81A66621B5741900BBD47E /* MenuBarCell.swift */; };
 		AC81A66921B5789200BBD47E /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC81A66821B5789200BBD47E /* SettingsCell.swift */; };
@@ -67,6 +68,7 @@
 		AC8F0B59219E3AE300E623FB /* MealEntry.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC8F0B58219E3AE300E623FB /* MealEntry.xcassets */; };
 		AC9BE30321B16CE600B6DEBB /* MealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9BE30221B16CE600B6DEBB /* MealDetailViewController.swift */; };
 		AC9BE30621B1A07700B6DEBB /* NutrientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9BE30521B1A07700B6DEBB /* NutrientsView.swift */; };
+		AC9BE9E521BEDC5A008C6AB1 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9BE9E421BEDC5A008C6AB1 /* LoadingIndicator.swift */; };
 		ACBBDA0F21B9E24B00D81BBB /* RecipeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBBDA0E21B9E24B00D81BBB /* RecipeCollectionViewController.swift */; };
 		ACDCF06521B6E75E0078D5A8 /* FoodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDCF06421B6E75E0078D5A8 /* FoodCell.swift */; };
 		ACDCF07021B734130078D5A8 /* star_success.json in Resources */ = {isa = PBXBuildFile; fileRef = ACDCF06F21B734120078D5A8 /* star_success.json */; };
@@ -155,6 +157,7 @@
 		AC62FACE219B408B00D8C35C /* StretchyHeaderLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyHeaderLayout.swift; sourceTree = "<group>"; };
 		AC62FAD0219B499600D8C35C /* HomeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionView.swift; sourceTree = "<group>"; };
 		AC76D96D21BAA12B00D8A5EC /* HomeSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionHeader.swift; sourceTree = "<group>"; };
+		AC76D97121BB307400D8A5EC /* done.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = done.json; path = ../../../../../../../../Downloads/done.json; sourceTree = "<group>"; };
 		AC81A66421B5741300BBD47E /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		AC81A66621B5741900BBD47E /* MenuBarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarCell.swift; sourceTree = "<group>"; };
 		AC81A66821B5789200BBD47E /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -176,6 +179,7 @@
 		AC8F0B58219E3AE300E623FB /* MealEntry.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MealEntry.xcassets; sourceTree = "<group>"; };
 		AC9BE30221B16CE600B6DEBB /* MealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailViewController.swift; sourceTree = "<group>"; };
 		AC9BE30521B1A07700B6DEBB /* NutrientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutrientsView.swift; sourceTree = "<group>"; };
+		AC9BE9E421BEDC5A008C6AB1 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		ACBBDA0E21B9E24B00D81BBB /* RecipeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCollectionViewController.swift; sourceTree = "<group>"; };
 		ACDCF06421B6E75E0078D5A8 /* FoodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCell.swift; sourceTree = "<group>"; };
 		ACDCF06F21B734120078D5A8 /* star_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = star_success.json; sourceTree = "<group>"; };
@@ -422,6 +426,7 @@
 		ACDCF06E21B734020078D5A8 /* LottieFiles */ = {
 			isa = PBXGroup;
 			children = (
+				AC76D97121BB307400D8A5EC /* done.json */,
 				ACDCF07121B734250078D5A8 /* loading.json */,
 				ACDCF06F21B734120078D5A8 /* star_success.json */,
 			);
@@ -449,6 +454,7 @@
 				AC81A66821B5789200BBD47E /* SettingsCell.swift */,
 				AC81A66A21B578C800BBD47E /* AboutCell.swift */,
 				AC81A66C21B5796F00BBD47E /* SettingsViewController+CollectionView.swift */,
+				AC9BE9E421BEDC5A008C6AB1 /* LoadingIndicator.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -489,6 +495,11 @@
 				TargetAttributes = {
 					3D56A9CD21934FAA00A91EF4 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -538,6 +549,7 @@
 				3D90DE712194D46D006C116B /* Login.xcassets in Resources */,
 				AC85F391219E0E91007765CA /* Montserrat-SemiBold.ttf in Resources */,
 				ACDCF07021B734130078D5A8 /* star_success.json in Resources */,
+				AC76D97221BB307400D8A5EC /* done.json in Resources */,
 				AC8F0B59219E3AE300E623FB /* MealEntry.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -652,6 +664,7 @@
 				AC8F0B55219E372E00E623FB /* PickerInputField.swift in Sources */,
 				AC81A66D21B5796F00BBD47E /* SettingsViewController+CollectionView.swift in Sources */,
 				3D7AD09021AF19D500A68323 /* FoodHelper.swift in Sources */,
+				AC9BE9E521BEDC5A008C6AB1 /* LoadingIndicator.swift in Sources */,
 				AC85F38F219E0E1E007765CA /* UIColor+Theme.swift in Sources */,
 				AC81A66921B5789200BBD47E /* SettingsCell.swift in Sources */,
 				AC62FAC8219B24BA00D8C35C /* GenericTableViewController.swift in Sources */,

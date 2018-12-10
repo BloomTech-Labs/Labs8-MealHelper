@@ -89,7 +89,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = .black
         setupViews()
-//        presentLogin()
+        presentLogin()
     }
     
     private func presentLogin() {
@@ -327,6 +327,7 @@ extension HomeViewController: ExpandableButtonViewDelegate {
 extension HomeViewController: SettingsViewControllerDelegate {
     func showLogin() {
         UserDefaults.standard.setIsLoggedIn(value: false, userId: 0)
-        presentLogin()
+        let loginViewController = LoginViewController()
+        present(loginViewController, animated: false, completion: nil)
     }
 }

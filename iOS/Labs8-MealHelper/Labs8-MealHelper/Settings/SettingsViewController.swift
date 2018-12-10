@@ -21,6 +21,8 @@ class SettingsViewController: UIViewController {
     let settingsId = "settingsId"
     let aboutId = "aboutId"
     
+    let loadingIndicator = LoadingIndicator()
+    
     let blurEffect: UIVisualEffectView = {
         let frost = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         frost.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -130,14 +132,18 @@ extension SettingsViewController: SettingsCellDelegate {
                 return
             }
             
+            self.loadingIndicator.showLoadingAnimation()
+            
             let userId = UserDefaults.standard.loggedInUserId()
             APIClient.shared.changeEmail(with: userId, newEmail: newEmail, password: password, completion: { (response) in
                 
                 DispatchQueue.main.async {
                     switch response {
                     case .success:
+                        self.loadingIndicator.finishLoadingAnimation()
                         self.showAlert(with: "You have successfully changed your email to \(newEmail)")
                     case .error:
+                        self.loadingIndicator.finishLoadingAnimation()
                         self.showAlert(with: "An error occured when changing your email, please check your internet connection and try again.")
                     }
                 }
@@ -164,13 +170,17 @@ extension SettingsViewController: SettingsCellDelegate {
                 return
             }
             
+            self.loadingIndicator.showLoadingAnimation()
+            
             let userId = UserDefaults.standard.loggedInUserId()
             APIClient.shared.changeZip(with: userId, newZip: zipInt, password: password, completion: { (response) in
                 DispatchQueue.main.async {
                     switch response {
                     case .success:
+                        self.loadingIndicator.finishLoadingAnimation()
                         self.showAlert(with: "You have successfully changed your zip to \(newZip)")
                     case .error:
+                        self.loadingIndicator.finishLoadingAnimation()
                         self.showAlert(with: "An error occured when changing your zip code, please check your internet connection and try again.")
                     }
                 }
@@ -198,13 +208,17 @@ extension SettingsViewController: SettingsCellDelegate {
                 return
             }
             
+            self.loadingIndicator.showLoadingAnimation()
+            
             let userId = UserDefaults.standard.loggedInUserId()
             APIClient.shared.changePassword(with: userId, newPassword: newPassword, oldPassword: oldPassword, completion: { (response) in
                 DispatchQueue.main.async {
                     switch response {
                     case .success:
+                        self.loadingIndicator.finishLoadingAnimation()
                         self.showAlert(with: "You have successfully changed your password!")
                     case .error:
+                        self.loadingIndicator.finishLoadingAnimation()
                         self.showAlert(with: "An error occured when changing your password, please check your internet connection and try again.")
                     }
                 }
@@ -218,16 +232,19 @@ extension SettingsViewController: SettingsCellDelegate {
         let alert = UIAlertController(title: "Are you sure you want to delete your account? This action cannot be undone.", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
             
+            self.loadingIndicator.showLoadingAnimation()
             let userId = UserDefaults.standard.loggedInUserId()
             APIClient.shared.deleteUser(with: userId, completion: { (response) in
                 
                 DispatchQueue.main.async {
                     switch response {
                     case .success:
+                        self.loadingIndicator.finishLoadingAnimation()
                         self.dismiss(animated: true, completion: {
                         self.delegate?.showLogin()
                     })
                     case .error:
+                        self.loadingIndicator.finishLoadingAnimation()
                         self.showAlert(with: "Error deleting your account, please check your internet connection and try again.")
                     }
                 }

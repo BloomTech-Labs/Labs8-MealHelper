@@ -20,7 +20,6 @@ extension UserDefaults {
         set(value, forKey: UserDefaultsKeys.isLoggedIn.rawValue)
         set(userId, forKey: UserDefaultsKeys.userId.rawValue)
         //set(zipCode, forKey: UserDefaultsKeys.zipCode.rawValue)
-        synchronize()
     }
     
     func isLoggedIn() -> Bool {

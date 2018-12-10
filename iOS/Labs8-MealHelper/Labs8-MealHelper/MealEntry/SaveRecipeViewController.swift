@@ -94,9 +94,9 @@ class SaveRecipeViewController: UIViewController {
                     
                     guard let nutrients = ingredient.nutrients, let ingredientId = savedIngredient?.identifier else {
                         NSLog("Ingredient has no nutrients and/or identifier")
+                        self.dismiss(animated: true, completion: nil)
                         return
                     }
-                    
                     
                     let dispatchGroup = DispatchGroup()
                     nutrients.forEach { nutrient in
@@ -105,7 +105,6 @@ class SaveRecipeViewController: UIViewController {
                         self.saveNutrient(with: nutrient, ingredientId: ingredientId, completion: { (error) in
                             dispatchGroup.leave()
                         })
-                        
                     }
                     
                     dispatchGroup.notify(queue: .main, execute: {
