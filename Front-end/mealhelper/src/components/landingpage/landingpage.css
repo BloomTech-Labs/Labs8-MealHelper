@@ -163,9 +163,12 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400);
 
 .charts {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
   background: #f2f2f2;
   padding: 0;
-  maring: 0;
+  /* maring: 0; */
 }
 
 #price {
@@ -181,7 +184,7 @@
 .plan-inner {
   background: #fff;
   margin: 0 auto;
-  min-width: 280px;
+  min-width: 300px;
   max-width: 100%;
   position: relative;
 }
@@ -224,8 +227,8 @@
 .price span {
   position: absolute;
   font-size: 9px;
-  bottom: -10px;
-  left: 30px;
+  bottom: -15px;
+  left: 20px;
   font-weight: 400;
 }
 
