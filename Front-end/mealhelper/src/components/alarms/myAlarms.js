@@ -197,6 +197,7 @@ class MyAlarms extends Component {
           <Button color="info" onClick={() => this.props.history.push("/homepage/alarms/add-alarms")}>Add New Alarms</Button>
           </div>
 </div>
+<p>Note: alarm functionality is not available on desktop. <br />This page can be used to view, add, update, and delete alarms for your iOS app.</p>
           
          <Modal
           isOpen={this.state.modal}
