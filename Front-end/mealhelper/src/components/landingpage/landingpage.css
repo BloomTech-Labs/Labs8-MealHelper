@@ -160,7 +160,10 @@
   font-style: italic;
 }
 
-@import url(https://fonts.googleapis.com/css?family=Lato:400);
+.pricing {
+  margin-top: -250px;
+  margin-bottom: 150px;
+}
 
 .charts {
   display: flex;
@@ -309,14 +312,15 @@
 /* Three columns side by side */
 .team-column {
   float: left;
-  width: 33.3%;
+  width: 33.33%;
+  height: auto;
   margin-bottom: 16px;
-  padding: 0 8px;
+  padding: 20px 60px 20px 60px;
 }
 
 /* Display the columns below each other instead of side by side on small screens */
 @media screen and (max-width: 650px) {
-  .column {
+  .team-column {
     width: 100%;
     display: block;
   }
@@ -325,6 +329,7 @@
 /* Add some shadows to create a card effect */
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  height: 300px;
 }
 
 /* Some left and right padding inside the container */
@@ -342,12 +347,14 @@
 
 .title {
   color: grey;
+  margin-top: 50px;
 }
 
 .contact-button {
   border: none;
   outline: 0;
   display: inline-block;
+  margin-top: 50px;
   padding: 8px;
   color: white;
   background-color: #000;

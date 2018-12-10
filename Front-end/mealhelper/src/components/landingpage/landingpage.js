@@ -126,9 +126,9 @@ class Landingpage extends Component {
                 </p>
               </div>
             </div>
+            <a name="pricing" />
           </div>
         </div>
-        <a name="pricing" />
         <div className="pricing">
           <hr />
           <h1>Pricing</h1>
