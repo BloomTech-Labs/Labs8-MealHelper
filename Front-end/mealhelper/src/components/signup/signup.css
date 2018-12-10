@@ -70,18 +70,19 @@ label {
 
 .signup {
   color: #ffffff;
-  width: 250px;
-  font-size: 25px;
+  width: 200px;
+  font-size: 15px;
   font-weight: 900;
   height: 50px;
   padding-top: 14px;
-  margin-top: 40px;
+  margin-top: 10px;
   margin-bottom: 30px;
   cursor: pointer;
-  background-color: #267cfc;
+  background-color: #242424;
+  border-radius: 30px;
 }
 .signup:hover {
-  background-color: #0166fe;
+  background-color: #2f9dfe;
 }
 
 .cta-existing-account {
@@ -90,19 +91,20 @@ label {
 }
 .login {
   color: #ffffff;
-  width: 250px;
-  font-size: 25px;
+  width: 200px;
+  font-size: 15px;
   font-weight: 900;
   height: 50px;
   padding-top: 14px;
-  margin-top: 40px;
+  margin-top: 10px;
   margin-bottom: 30px;
   cursor: pointer;
-  background-color: #267cfc;
+  background-color: #242424;
+  border-radius: 30px;
 }
 
 .login:hover {
-  background-color: #0166fe;
+  background-color: #2f9dfe;
 }
 
 .login-button {
@@ -116,9 +118,9 @@ label {
 }
 
 .applebadgesignup {
-  width: 211px;
+  width: 150px;
   height: auto;
-  margin-top: -50px;
+  margin-top: -30px;
 }
 
 .existinguser {
