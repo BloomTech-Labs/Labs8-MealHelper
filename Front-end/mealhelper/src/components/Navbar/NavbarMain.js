@@ -8,8 +8,8 @@ import Alarms from "./Alarms.png";
 import Options from "./Options.png";
 import Logout from "./Logout.png";
 import "../../hamburgers.css";
-import "./Navbar.css";
-
+import "./NavbarMain.css";
+ 
 class NavbarLanding extends Component {
   constructor() {
     super();

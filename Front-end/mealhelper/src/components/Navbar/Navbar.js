@@ -9,14 +9,6 @@ class NavbarLanding extends Component {
     return (
       <div className="Navbar-Container">
         <p className="logo">EatWell</p>
-        <div className="signup-login-buttons-navbar">
-          <Link to="/login" style={{ textDecoration: "none" }}>
-            <button className="buttons-navbar">Log In</button>
-          </Link>
-          <Link to="/signup" style={{ textDecoration: "none" }}>
-            <button className="buttons-navbar">Sign Up</button>
-          </Link>
-        </div>
         <div className="page-jumps" style={{ textDecoration: "none" }}>
           <a href="#product" className="jump">
             <h3>Product</h3>
@@ -27,6 +19,14 @@ class NavbarLanding extends Component {
           <a href="#team" className="jump">
             <h3>Team</h3>
           </a>
+        </div>
+        <div className="signup-login-buttons-navbar">
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            <button className="buttons-navbar">Log In</button>
+          </Link>
+          <Link to="/signup" style={{ textDecoration: "none" }}>
+            <button className="buttons-navbar">Sign Up</button>
+          </Link>
         </div>
       </div>
     );
