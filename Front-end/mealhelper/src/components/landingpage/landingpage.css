@@ -253,7 +253,8 @@
 }
 
 .btn {
-  margin-top: 10px;
+  margin-top: 8px;
+  margin-bottom: -5px;
   text-align: center;
 }
 
@@ -273,7 +274,7 @@
 }
 
 .free-btn a {
-  background: #323232;
+  background: #f80;
   padding: 10px 30px;
   color: #fff;
   text-transform: uppercase;
