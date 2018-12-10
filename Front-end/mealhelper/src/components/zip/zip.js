@@ -105,10 +105,7 @@ class Zip extends Component {
                   />
                 </div>
                 <Link to="/signup">
-                  <p> ⬅ Return to Sign Up </p>
-                </Link>
-                <Link to="/login">
-                  <p> ⬅ Return to Login </p>
+                  <p className="signup-return"> ⬅ Return to Sign Up </p>
                 </Link>
                 <div className="signupzip" onClick={this.updateUser}>
                   <span>Continue Log In</span>

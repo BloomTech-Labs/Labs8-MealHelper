@@ -25,7 +25,6 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  /* margin-top: -10px; */
 }
 
 .form-group-login:hover {
@@ -48,7 +47,7 @@ label {
 }
 
 .return-login {
-  padding-top: 20px;
+  padding-top: 30px;
   color: #242424;
 }
 
@@ -63,7 +62,7 @@ label {
   font-weight: 900;
   height: 50px;
   padding-top: 14px;
-  margin-top: 15px;
+  margin-top: 5px;
   margin-bottom: 30px;
   margin-left: 30px;
   cursor: pointer;
@@ -80,21 +79,6 @@ label {
   color: black;
   font-size: 20px;
 }
-
-/* .login-button {
-  color: #ffffff;
-  width: 200px;
-  font-size: 15px;
-  font-weight: 900;
-  height: 50px;
-  padding-top: 14px;
-  margin-top: 15px;
-  margin-bottom: 30px;
-  margin-left: 30px;
-  cursor: pointer;
-  background-color: #242424;
-  border-radius: 5px;
-} */
 
 .applebadgelogin {
   width: 150px;
