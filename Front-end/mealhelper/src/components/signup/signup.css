@@ -74,12 +74,13 @@ label {
   font-size: 15px;
   font-weight: 900;
   height: 50px;
-  padding-top: 14px;
-  margin-top: 10px;
+  padding-top: 12px;
+  margin-top: 8px;
   margin-bottom: 30px;
+  margin-left: 30px;
   cursor: pointer;
   background-color: #242424;
-  border-radius: 30px;
+  border-radius: 5px;
 }
 .signup:hover {
   background-color: #2f9dfe;
@@ -96,26 +97,27 @@ label {
   font-weight: 900;
   height: 50px;
   padding-top: 14px;
-  margin-top: 10px;
+  margin-top: 8px;
   margin-bottom: 30px;
+  margin-left: 30px;
   cursor: pointer;
   background-color: #242424;
-  border-radius: 30px;
+  border-radius: 5px;
 }
 
 .login:hover {
   background-color: #2f9dfe;
 }
 
-.login-button {
+/* .login-button {
   width: 250px;
   height: 64px;
   padding-bottom: 20px;
   border-width: 1px;
   border-color: black;
   color: black;
-  border-radius: 30px;
-}
+  border-radius: 5px;
+} */
 
 .applebadgesignup {
   width: 150px;
