@@ -8,7 +8,7 @@ import Alarms from "./Alarms.png";
 import Options from "./Options.png";
 import Logout from "./Logout.png";
 import "../../hamburgers.css";
-import "./NavbarMain.css";
+import "./Navbar.css";
  
 class NavbarLanding extends Component {
   constructor() {
