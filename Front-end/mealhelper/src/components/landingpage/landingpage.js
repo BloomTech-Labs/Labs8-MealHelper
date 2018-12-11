@@ -11,7 +11,7 @@ import Book from "./Book.png";
 import DoctorPic from "./DoctorPic.png";
 import Doctor from "./Doctor.png";
 import "./landingpage.css";
-import Jumbo from "./Jumbo.jpg"
+import Jumbo from "./Jumbo.jpg";
 
 class Landingpage extends Component {
   componentDidMount = () => {
@@ -37,86 +37,85 @@ class Landingpage extends Component {
           </div>
 
           <div className="login-signup-container">
-          
-          <div className="cta-top-content">
-          <div className="cta-container">
-            <h2>EAT. <br/> TRACK. <br />  ANALYZE.</h2>
-          </div>
-          
-          <div className="signup-login-buttons-lp">
-          <p>Record what you eat and how it makes you feel, and let EatWell help you take the guesswork out of eating well and feeling better.</p>
-          <Link to="/login" style={{ textDecoration: "none" }}>
-            <button className="buttons-lp">Log In</button>
-          </Link>
-          <Link to="/signup" style={{ textDecoration: "none" }}>
-            <button className="buttons-lp">Sign Up</button>
-          </Link>
-        </div>
-        </div>
-        <div className="cta-bottom-content">
-        <div className="real-housewives-quote">
-          <p>"Your diet is a bank account. Good food choices are good
-              investments."</p>
-              <p>-Bethenny Frankel</p>
-        </div>
-        </div>
-
-        </div>
-         
-          <div className="info-container-one">
-            
-              <img className="image-info" src={Computer} />
-              <div className="card-body-text-container">
-            {/* <div className="card-body"> */}
-              <div className="header-card">
-                  <p>E A T</p>
-                {/* <div className="image-holder">
-                  <div>
-                    <img className="image-info-image" src={Plate} />
-                  </div>
-                </div> */}
+            <div className="cta-top-content">
+              <div className="cta-container">
+                <h2>
+                  EAT. <br /> TRACK. <br /> ANALYZE.
+                </h2>
               </div>
-              
+
+              <div className="signup-login-buttons-lp">
+                <p>
+                  Record what you eat and how it makes you feel, and let EatWell
+                  help you take the guesswork out of eating well and feeling
+                  better.
+                </p>
+                <Link to="/login" style={{ textDecoration: "none" }}>
+                  <button className="buttons-lp">Log In</button>
+                </Link>
+                <Link to="/signup" style={{ textDecoration: "none" }}>
+                  <button className="buttons-lp">Sign Up</button>
+                </Link>
+              </div>
+            </div>
+            <div className="cta-bottom-content">
+              <div className="real-housewives-quote">
+                <p>
+                  "Your diet is a bank account. Good food choices are good
+                  investments."
+                </p>
+                <p>-Bethenny Frankel</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="info-container-one">
+            <img className="image-info" src={Computer} />
+            <div className="card-body-text-container">
+              {/* <div className="card-body"> */}
+              <div className="header-card">
+                <p>E A T</p>
+              </div>
+
               <div className="card-body-text">
-              <p>
-                  EatWell is an advanced meal journal. Each meal, and its nutrients, can be recorded along with your experience and any notes about positive negative health events after eating.
+                <p>
+                  EatWell is an advanced meal journal. Each meal, and its
+                  nutrients, can be recorded along with your experience and any
+                  notes about positive or negative health events after eating.
                 </p>
                 <div className="extra">
-                <p className="tip-header">TIP:</p>
-                
-                <p className="tip">
-                  Need a reminder? Set alarms for your mobile app at specific times or at regular intervals each day.
-                </p>
-                
+                  <p className="tip-header">TIP:</p>
+
+                  <p className="tip">
+                    Need a reminder? Set alarms for your mobile app at specific
+                    times or at regular intervals each day.
+                  </p>
                 </div>
               </div>
-                
-
-              </div>
+            </div>
             {/* </div> */}
           </div>
           <div className="info-container-two">
-            <div className="card-body">
+              <div className="card-body-text-container">
+           
               <div className="header-card">
-                <div className="image-holder">
-                  <div>
-                    <img className="image-info-image" src={Book} />
-                  </div>
+                <p>T R A C K</p>
                 </div>
-                <div>
-                  <p className="info-text-two">Manage Your Recipes</p>
-                </div>
-              </div>
-              <div className="card-body-text-container-two">
-                <p className="card-body-text">
-                  Create recipes, edit them, use them. EatWell’s built in recipe
-                  book does it all.
+                <div className="card-body-text">
+                <p>
+               EatWell gives you access to a database of thousands of ingredients and pre-packaged food items, so you can build recipes and track nutrients alongside your health events.
+                </p>
+              <div className="extra">
+                <p className="tip-header">TIP:</p>
+                <p className="tip">
+                Weather got you gloomy? Add your zip code to get access to local weather information during each meal.
                 </p>
               </div>
             </div>
-            <div className="image-info-container">
+                   </div>
+            
               <img className="image-info" src={Recipe} />
-            </div>
+            
           </div>
           <div className="info-container-three">
             <div className="image-info-container">
