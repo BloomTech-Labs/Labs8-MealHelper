@@ -23,6 +23,7 @@ class CameraViewController: UIViewController {
     private var previewView = CameraPreview()
     private var barcodeScanner = BarcodeScanner()
     private var ingredientDetailView: SwipableViewController?
+    private var ingredientDetailVC: SearchIngredientDetailViewController?
     private var scanLayer = CAShapeLayer()
     private var blurView = UIVisualEffectView (effect: UIBlurEffect (style: UIBlurEffect.Style.dark))
     
@@ -244,9 +245,12 @@ class CameraViewController: UIViewController {
         swipeVC.closedHeight = 300
         
         let ingredientDetailVC = SearchIngredientDetailViewController()
+        ingredientDetailVC.delegate = self.delegate
         ingredientDetailVC.closeButton.isHidden = true
         ingredientDetailVC.backgroundIsTransparent = true
         ingredientDetailVC.ingredient = ingredient
+        ingredientDetailVC.headerView.inputStackView.isHidden = true
+        self.ingredientDetailVC = ingredientDetailVC
         
         let addButton = UIButton(type: .system)
         addButton.setImage(UIImage(named: "plus-icon")!, for: .normal)
@@ -349,7 +353,7 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
 extension CameraViewController: BarcodeScannerDelegate {
     
     func barcodeScanner(_ controller: BarcodeScanner, didFinishScanningWithCode barcode: String) {
-        // Make call to usda api
+        // When barcode was successfully scanned, make call to usda api
         print("Barcode: \(barcode)")
         animateBarcodeOutOfView()
         
@@ -360,7 +364,7 @@ extension CameraViewController: BarcodeScannerDelegate {
                     guard let ingredient = ingredients.first else { return }
                     self.searchedIngredient = ingredient
                     self.barcode = barcode
-                    self.display(ingredient)
+                    self.display(ingredient) // Display ingredient detail view
                     self.animateCheckmarkIntoView()
                 }
                 
@@ -379,15 +383,16 @@ extension CameraViewController: BarcodeScannerDelegate {
     }
     
     @objc private func addToRecipe(_ sender: UIButton) {
-        if let ingredient = searchedIngredient, let ingredientDetailView = ingredientDetailView {
+        if let ingredientDetailVC = ingredientDetailVC, let ingredient = ingredientDetailVC.ingredient, let ingredientDetailView = ingredientDetailView {
             delegate?.updateIngredient(ingredient, indexPath: nil)
             ingredientDetailView.dismissView()
             searchedIngredient = nil
+            self.ingredientDetailVC = nil
             self.ingredientDetailView = nil
-            self.barcode = nil
+            barcode = nil
             
-            self.barcodeScanner.startScanning()
-            self.animateBarcodeIntoView()
+            barcodeScanner.startScanning()
+            animateBarcodeIntoView()
         }
     }
     

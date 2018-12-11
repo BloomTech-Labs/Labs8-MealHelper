@@ -87,7 +87,7 @@ class FoodSummaryViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var inputStackView: UIStackView = {
+    lazy var inputStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -118,7 +118,6 @@ class FoodSummaryViewController: UIViewController {
         tf.leftImage = nil
         tf.tintColor = .lightPurple
         tf.keyboardType = .default
-        tf.heightAnchor.constraint(equalToConstant: 40).isActive = true
         tf.placeholder = "Add a recipe name"
         return tf
     }()

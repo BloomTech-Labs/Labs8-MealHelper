@@ -23,6 +23,12 @@ class MealDetailViewController: UIViewController {
         }
     }
     
+    var aggregateNutrients: [Nutrient]? {
+        didSet {
+            nutrientsView.nutrients = aggregateNutrients
+        }
+    }
+    
     let nutrientsView: NutrientsView = {
         let view = NutrientsView()
         view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
@@ -87,15 +93,24 @@ class MealDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupBackground()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         setupViews()
     }
     
-    private func setupViews() {
+    private func setupBackground() {
         view.addSubview(backgroundImageView)
         backgroundImageView.fillSuperview()
         
         view.addSubview(blurEffect)
         blurEffect.fillSuperview()
+    }
+    
+    private func setupViews() {
         
         view.addSubview(nutrientsView)
         nutrientsView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 30, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 80))
@@ -108,6 +123,35 @@ class MealDetailViewController: UIViewController {
         
         view.addSubview(noteView)
         noteView.anchor(top: weatherView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 100))
+        
+        view.layoutIfNeeded()
+        
+        animateIntoView()
+    }
+    
+    private func animateIntoView() {
+        // Place view outside of the screen
+        let screenWidth = UIScreen.main.bounds.width
+        nutrientsView.center.x = screenWidth * -0.5
+        ingredientsTableView.tableView.center.x = screenWidth * -0.5
+        weatherView.center.x = screenWidth * -0.5
+        noteView.center.x = screenWidth * -0.5
+        
+        // Animate views from left to the center of the screen
+        UIView.animateKeyframes(withDuration: 0.65, delay: 0.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.25, animations: {
+                self.nutrientsView.center.x = self.view.center.x
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25, animations: {
+                self.ingredientsTableView.tableView.center.x = self.view.center.x
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25, animations: {
+                self.weatherView.center.x = self.view.center.x
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25, animations: {
+                self.noteView.center.x = self.view.center.x
+            })
+        }, completion: nil)
     }
     
     private func fetchIngredients() {
@@ -128,8 +172,10 @@ class MealDetailViewController: UIViewController {
     
     private func fetchNutrients() {
         guard let ingredients = ingredients else { return }
-        
+        // Fetch nutrients for each ingredient in the recipe
+        let dispatchGroup = DispatchGroup()
         for ingredient in ingredients {
+            dispatchGroup.enter()
             guard let ingredientId = ingredient.identifier else { return }
             FoodClient.shared.fetchNutrients(withIngredientId: ingredientId) { (response) in
                 DispatchQueue.main.async {
@@ -137,15 +183,44 @@ class MealDetailViewController: UIViewController {
                     case .success(let nutrients):
                         var updatedIngredient = ingredient
                         updatedIngredient.nutrients = nutrients
+                        
+                        // Add nutrients to fetched ingredient
                         guard let index = self.ingredients?.index(of: updatedIngredient) else { return }
                         self.ingredients?.remove(at: index)
                         self.ingredients?.insert(updatedIngredient, at: index)
+                        
+                        dispatchGroup.leave()
                     case .error(let error):
                         NSLog("Error fetching nutrients: \(error)")
                     }
                 }
             }
         }
+        // Once all nutrients have been fetched, aggregate all nutrients
+        dispatchGroup.notify(queue: .main) {
+            guard let ingredients = self.ingredients else { return }
+            self.aggregateNutrients = self.aggregateNutrients(from: ingredients)
+        }
+    }
+    
+    private func aggregateNutrients(from ingredients: [Ingredient]) -> [Nutrient] {
+        var aggregateNutrients = [Int : Nutrient]()
+        
+        for ingredient in ingredients {
+            guard let nutrients = ingredient.nutrients else { continue }
+            
+            for nutrient in nutrients {
+                if var aggregateNutrient = aggregateNutrients[nutrient.nutrientId] { // If nutrient exists in dict, then sum up current and previous value
+                    let sum = (Int(aggregateNutrient.value) ?? 0) + (Int(nutrient.value) ?? 0)
+                    aggregateNutrient.value = String(sum)
+                    aggregateNutrients[nutrient.nutrientId] = aggregateNutrient
+                } else { // If nutrient doesn't exist, add it to dict
+                    aggregateNutrients[nutrient.nutrientId] = nutrient
+                }
+            }
+        }
+        
+        return Array(aggregateNutrients.values)
     }
 
 }

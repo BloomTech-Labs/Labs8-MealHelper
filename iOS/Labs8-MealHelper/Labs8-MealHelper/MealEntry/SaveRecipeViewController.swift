@@ -22,12 +22,15 @@ class SaveRecipeViewController: UIViewController {
     var recipeName: String?
     var serving: Int = 1
     var mealTime = "Snack"
-    
+
     // MARK: - Private properties
 
+    private let sidePadding: CGFloat = 20.0
+    
     private lazy var recipeSettingsVC: FoodSummaryViewController = {
         let vc = FoodSummaryViewController()
         vc.view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
+        vc.view.layer.cornerRadius = 12
         vc.quantityPickerFieldValues = ["Breakfast", "Lunch", "Dinner", "Snack"]
         vc.quantityPickerFieldDefaultValue = String(serving)
         vc.typePickerFieldValues = (1...20).map { String($0) }
@@ -37,18 +40,28 @@ class SaveRecipeViewController: UIViewController {
         return vc
     }()
     
-    private let nutrientTableVC: NutrientDetailTableViewController = {
-        let tv = NutrientDetailTableViewController()
-        return tv
-    }()
-    
     private let ingredientTableVC: IngredientTableViewController = {
         let tv = IngredientTableViewController()
+        tv.tableView.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
+        tv.tableView.layer.cornerRadius = 12
         return tv
     }()
     
     private lazy var saveBarButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+    }()
+    
+    private let backgroundImageView: UIImageView = {
+        let iv = UIImageView(image: #imageLiteral(resourceName: "mountain"))
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        return iv
+    }()
+    
+    private let blurEffect: UIVisualEffectView = {
+        let frost = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+        frost.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return frost
     }()
     
     // MARK: - Life Cycle
@@ -57,9 +70,6 @@ class SaveRecipeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .mountainDark
         title = "Save Recipe"
-        
-        add(recipeSettingsVC)
-        add(ingredientTableVC)
         
         setupViews()
         hideKeyboardWhenTappedAround()
@@ -75,7 +85,7 @@ class SaveRecipeViewController: UIViewController {
 //            return
 //        }
         
-        // Save ingredient, incl. nutrient values
+        // Save recipe with all its ingredients, incl. nutrient values
         
         guard let recipeName = recipeName else {
             NSLog("No recipe name provided")
@@ -102,7 +112,7 @@ class SaveRecipeViewController: UIViewController {
                     nutrients.forEach { nutrient in
                         
                         dispatchGroup.enter()
-                        self.saveNutrient(with: nutrient, ingredientId: ingredientId, completion: { (error) in
+                        self.saveNutrient(with: nutrient, ingredientId: ingredientId, completion: { (_) in
                             dispatchGroup.leave()
                         })
                         
@@ -110,7 +120,7 @@ class SaveRecipeViewController: UIViewController {
                     
                     dispatchGroup.notify(queue: .main, execute: {
                         print("Saved recipe succeeded")
-                        self.dismiss(animated: true, completion: nil)
+                        self.navigationController?.popToRootViewController(animated: true)
                     })
                     
                 })
@@ -120,7 +130,6 @@ class SaveRecipeViewController: UIViewController {
         
         }
     }
-    
     
     @objc private func handleKeyboard(notification: NSNotification) {
         
@@ -178,7 +187,6 @@ class SaveRecipeViewController: UIViewController {
                     }
                 case .error(let error):
                     NSLog("Error saving ingredients: \(error)")
-                    // Handle error in UI
                     completion(nil)
                 }
             }
@@ -192,8 +200,7 @@ class SaveRecipeViewController: UIViewController {
                 case .success( _):
                     completion(nil)
                 case .error(let error):
-                    print(error)
-                    // Handle error in UI
+                    NSLog("Nutrient could not be saved: \(error)")
                     completion(error)
                 }
             }
@@ -226,9 +233,17 @@ class SaveRecipeViewController: UIViewController {
     // MARK: - Configuration
     
     private func setupViews() {
+        view.addSubview(backgroundImageView)
+        backgroundImageView.fillSuperview()
+        
+        view.addSubview(blurEffect)
+        blurEffect.fillSuperview()
 
-        recipeSettingsVC.view.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor)
-        ingredientTableVC.tableView.anchor(top: recipeSettingsVC.view.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        add(recipeSettingsVC)
+        recipeSettingsVC.view.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 20, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: 0, height: 130))
+        
+        add(ingredientTableVC)
+        ingredientTableVC.tableView.anchor(top: recipeSettingsVC.view.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 40, right: sidePadding))
         
         navigationItem.setRightBarButton(saveBarButton, animated: true)
         

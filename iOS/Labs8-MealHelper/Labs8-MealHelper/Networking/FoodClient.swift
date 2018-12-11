@@ -93,7 +93,7 @@ class FoodClient: GenericAPIClient {
     
     func postNutrient(_ nutrient: Nutrient, ingredientId: Int, completion: @escaping (Response<TempType>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["nutrients", userId])
-        let reqBody = ["nutrient": nutrient.name, "nutrient_id": nutrient.identifier as Any, "unit": nutrient.unit, "value": Int(Double(nutrient.value)!), "ingredients_id": ingredientId] as [String : Any]
+        let reqBody = ["nutrient": nutrient.name, "nutrient_id": nutrient.nutrientId, "unit": nutrient.unit, "value": Int(Double(nutrient.value)!), "ingredients_id": ingredientId] as [String : Any]
         
         post(with: url, requestBody: reqBody, completion: completion)
         
@@ -151,7 +151,7 @@ class FoodClient: GenericAPIClient {
         
         guard let requestURL = urlComponents.url else {
             NSLog("Problem constructing search URL for \(searchTerm)")
-            completion(Response.error(NSError()))
+            completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
             return
         }
         
@@ -167,7 +167,7 @@ class FoodClient: GenericAPIClient {
             
             guard let data = data else {
                 NSLog("No data returned")
-                completion(Response.error(NSError()))
+                completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
                 return
             }
             
@@ -184,7 +184,7 @@ class FoodClient: GenericAPIClient {
             
             }.resume()
     }
-    
+        
     func fetchUsdaNutrients(for ndbno: Int, completion: @escaping (Response<([Nutrient], String)>) -> ()) {
         let url = self.url(with: usdaBaseUrl, pathComponents: ["nutrients"])
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)!
@@ -192,7 +192,7 @@ class FoodClient: GenericAPIClient {
         
         guard let requestURL = urlComponents.url else {
             NSLog("Problem constructing search URL for \(ndbno)")
-            completion(Response.error(NSError()))
+            completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
             return
         }
         
@@ -208,7 +208,7 @@ class FoodClient: GenericAPIClient {
             
             guard let data = data else {
                 NSLog("No data returned")
-                completion(Response.error(NSError()))
+                completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
                 return
             }
             
@@ -218,7 +218,7 @@ class FoodClient: GenericAPIClient {
                     let nutrients: [Nutrient] = self.convertToNutrients(ingredient.nutrients)
                     completion(Response.success((nutrients, ingredMeasure)))
                 } else {
-                    completion(Response.error(NSError()))
+                    completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
                 }
             } catch {
                 NSLog("Error decoding data: \(error)")

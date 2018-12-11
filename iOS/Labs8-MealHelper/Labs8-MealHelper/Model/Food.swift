@@ -220,4 +220,5 @@ struct TempType: Codable {
     enum CodingKeys: String, CodingKey {
         case command
     }
+    
 }
