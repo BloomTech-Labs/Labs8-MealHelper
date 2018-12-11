@@ -67,6 +67,32 @@ class HomePage extends Component {
             <h3 className="stat-text">Alarms</h3>
           </Link>
         </div>
+        <div
+          className="user-profile-card-stats-live"
+          style={{ textDecoration: "none" }}
+        >
+          <Link
+            to="/homepage/meals"
+            className="stat-divider-live"
+            style={{ textDecoration: "none" }}
+          >
+            <h3 className="stat-text">Meals</h3>
+          </Link>
+          <Link
+            to="/homepage/recipes"
+            className="stat-divider-live"
+            style={{ textDecoration: "none" }}
+          >
+            <h3 className="stat-text">Recipes</h3>
+          </Link>
+          <Link
+            to="/homepage/alarms"
+            className="stat-divider-live"
+            style={{ textDecoration: "none" }}
+          >
+            <h3 className="stat-text">Alarms</h3>
+          </Link>
+        </div>
         <div className="user-profile-card-body">
           <p className="user-profile-card-body-text">
             Eat. Track. Analyze. <br />
