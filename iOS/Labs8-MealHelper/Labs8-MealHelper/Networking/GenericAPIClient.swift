@@ -34,7 +34,7 @@ class GenericAPIClient {
             if let httpResponse = res as? HTTPURLResponse {
                 if httpResponse.statusCode != 200 {
                     NSLog("An error code was returned from the http request: \(httpResponse.statusCode)")
-                    completion(Response.error(NSError()))
+                    completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
                     return
                 }
             }
@@ -79,7 +79,7 @@ class GenericAPIClient {
             if let httpResponse = res as? HTTPURLResponse {
                 if httpResponse.statusCode != 200 {
                     NSLog("An error code was returned from the http request: \(httpResponse.statusCode)")
-                    completion(Response.error(NSError()))
+                    completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
                     return
                 }
             }
@@ -122,7 +122,7 @@ class GenericAPIClient {
             if let httpResponse = res as? HTTPURLResponse {
                 if httpResponse.statusCode != 200 {
                     NSLog("An error code was returned from the http request: \(httpResponse.statusCode)")
-                    completion(Response.error(NSError()))
+                    completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
                     return
                 }
             }
@@ -154,7 +154,7 @@ class GenericAPIClient {
             if let httpResponse = res as? HTTPURLResponse {
                 if httpResponse.statusCode != 200 {
                     NSLog("An error code was returned from the http request: \(httpResponse.statusCode)")
-                    completion(Response.error(NSError()))
+                    completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
                     return
                 }
             }

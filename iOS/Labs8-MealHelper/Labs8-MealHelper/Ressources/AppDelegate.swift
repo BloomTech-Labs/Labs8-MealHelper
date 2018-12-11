@@ -27,22 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
 
-        //For full flow, use this
-//        let loginController = LoginViewController()
-//        window?.rootViewController = loginController
-        
-        //To start on HomeScreen, use this
         let homeViewController = HomeViewController()
         let navController = WhiteStatusNavController(rootViewController: homeViewController)
         navController.navigationBar.isHidden = true
         Appearance.setupNavBar()
         window?.rootViewController = navController
-        
-        //To start at meals table view use this
-//        let mealsVC = MealsTableViewController(navTitle: "Meals")
-//        let navController = UINavigationController(rootViewController: mealsVC)
-//        navController.navigationBar.prefersLargeTitles = true
-//        window?.rootViewController = navController
         
         
         return true

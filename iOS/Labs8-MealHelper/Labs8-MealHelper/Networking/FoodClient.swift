@@ -93,15 +93,7 @@ class FoodClient: GenericAPIClient {
     
     func postNutrient(_ nutrient: Nutrient, ingredientId: Int, completion: @escaping (Response<TempType>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["nutrients", userId])
-        let reqBody = ["nutrient": nutrient.name, "nutrient_id": Int(nutrient.identifier)!, "unit": nutrient.unit, "value": Int(Double(nutrient.value)!), "ingredients_id": ingredientId] as [String : Any]
-        
-        post(with: url, requestBody: reqBody, completion: completion)
-        
-    }
-    
-    func postNutrient(nutrientId: String, ingredientId: String, completion: @escaping (Response<Int>) -> ()) {
-        let url = self.url(with: baseUrl, pathComponents: ["nutrients", ingredientId])
-        let reqBody = ["id": nutrientId]
+        let reqBody = ["nutrient": nutrient.name, "nutrient_id": nutrient.identifier as Any, "unit": nutrient.unit, "value": Int(Double(nutrient.value)!), "ingredients_id": ingredientId] as [String : Any]
         
         post(with: url, requestBody: reqBody, completion: completion)
         
@@ -223,7 +215,8 @@ class FoodClient: GenericAPIClient {
             do {
                 let usdaNutrients = try JSONDecoder().decode(UsdaNutrient.self, from: data)
                 if let ingredient = usdaNutrients.report.foods.first, let ingredMeasure = ingredient.measure {
-                    completion(Response.success((ingredient.nutrients, ingredMeasure)))
+                    let nutrients: [Nutrient] = self.convertToNutrients(ingredient.nutrients)
+                    completion(Response.success((nutrients, ingredMeasure)))
                 } else {
                     completion(Response.error(NSError()))
                 }
@@ -242,12 +235,18 @@ class FoodClient: GenericAPIClient {
     // MARK: - Private methods
     
     private func convertToIngredient(_ usdaIngredients: [UsdaIngredients.Item.UsdaIngredient]) -> [Ingredient] {
-        return usdaIngredients.compactMap { nutrient in
-            guard let ndbIdInt = Int(nutrient.ndbId) else {
-                NSLog("USDA ingredient didn't contain valid ndbId: \(nutrient.ndbId)")
+        return usdaIngredients.compactMap { ingredient in
+            guard let ndbIdInt = Int(ingredient.ndbId) else {
+                NSLog("USDA ingredient didn't contain valid ndbId: \(ingredient.ndbId)")
                 return nil
             }
-            return Ingredient(name: nutrient.name, nbdId: ndbIdInt)
+            return Ingredient(name: ingredient.name, nbdId: ndbIdInt)
+        }
+    }
+    
+    private func convertToNutrients(_ usdaNutrients: [UsdaNutrient.Report.Food.Nutrient]) -> [Nutrient] {
+        return usdaNutrients.compactMap { nutrient in
+            return Nutrient(nutrientId: Int(nutrient.identifier)!, name: nutrient.name, unit: nutrient.unit, value: nutrient.value, gm: nutrient.gm)
         }
     }
     
