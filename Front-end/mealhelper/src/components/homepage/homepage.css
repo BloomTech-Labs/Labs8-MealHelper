@@ -34,17 +34,29 @@
   background: #242424;
   margin-top: 5%;
   width: 500px;
-  height: 400px;
+  height: 500px;
   border: 2px solid #2f9dfe;
   border-radius: 12px;
 }
 
+.user-profile-card-logout {
+  margin-left: 400px;
+  margin-top: 20px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.user-profile-card-logout:hover {
+  color: #2f9dfe;
+}
+
 .user-profile-card-cta {
   padding-top: 25px;
+  margin-top: -20px;
 }
 
 .user-profile-card-cta-logo {
-  font-size: 30px;
+  font-size: 40px;
   font-family: "Allan", cursive;
 }
 
@@ -56,23 +68,32 @@
   font-family: "Allan", cursive;
 }
 
+.user-profile-card-infobox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 300px;
+  margin-bottom: 100px;
+}
+
 .user-profile-card-stats {
   display: flex;
   justify-content: space-around;
   margin-top: 15px;
+  margin-bottom: 20px;
   color: #2f9dfe;
 }
 
-.stat {
+.stat-divider {
   margin-left: 10px;
   padding-left: 10px;
-  border-right: 1px solid #242424;
-  padding-right: 30px;
+  border-right: 1px solid #2f9dfe;
+  padding-right: 20px;
   height: 20px;
 }
 
-.stat:hover {
-  color: #242424;
+.stat-divider:hover {
+  color: white;
 }
 
 .buttons-settings {
