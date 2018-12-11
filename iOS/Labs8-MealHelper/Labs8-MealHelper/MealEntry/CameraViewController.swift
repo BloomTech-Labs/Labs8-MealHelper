@@ -248,7 +248,7 @@ class CameraViewController: UIViewController {
         ingredientDetailVC.delegate = self.delegate
         ingredientDetailVC.closeButton.isHidden = true
         ingredientDetailVC.backgroundIsTransparent = true
-        ingredientDetailVC.ingredient = ingredient
+        ingredientDetailVC.ingredient = FoodHelper().cleaned(ingredient)
         ingredientDetailVC.headerView.inputStackView.isHidden = true
         self.ingredientDetailVC = ingredientDetailVC
         
