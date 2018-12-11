@@ -132,7 +132,7 @@ struct MacroNutrient {
 
 // MARK: - USDA
 
-struct UsdaIngredients: Codable {
+struct UsdaIngredients: Decodable {
     
     var list: Item
     
@@ -140,14 +140,14 @@ struct UsdaIngredients: Codable {
         case list
     }
     
-    struct Item: Codable {
+    struct Item: Decodable {
         var item: [UsdaIngredient]
         
         enum CodingKeys: String, CodingKey {
             case item
         }
         
-        struct UsdaIngredient: Codable {
+        struct UsdaIngredient: Decodable {
             var ndbId: String
             var name: String
             var manufacturer: String?
@@ -161,7 +161,7 @@ struct UsdaIngredients: Codable {
     }
 }
 
-struct UsdaNutrient: Codable {
+struct UsdaNutrient: Decodable {
     
     var report: Report
     
@@ -169,14 +169,14 @@ struct UsdaNutrient: Codable {
         case report
     }
     
-    struct Report: Codable {
+    struct Report: Decodable {
         var foods: [Food]
         
         enum FoodCodingKeys: String, CodingKey {
             case foods
         }
         
-        struct Food: Codable {
+        struct Food: Decodable {
             var ndbno: String?
             var name: String?
             var weight: Double?
@@ -190,7 +190,24 @@ struct UsdaNutrient: Codable {
                 case nutrients
             }
             
-            struct Nutrient: Codable {
+            struct Nutrient: Decodable {
+                
+                init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: CodingKeys.self)
+                    let identifier = try container.decode(String.self, forKey: .identifier)
+                    let name = try container.decode(String.self, forKey: .name)
+                    let unit = try container.decode(String.self, forKey: .unit)
+                    let value = try container.decode(String.self, forKey: .value)
+                    let ingredientId = try container.decodeIfPresent(Int.self, forKey: .ingredientId)
+                    let gm = try? container.decodeIfPresent(Double.self, forKey: .gm) ?? 0.0
+                    
+                    self.identifier = identifier
+                    self.name = name
+                    self.unit = unit
+                    self.value = value
+                    self.ingredientId = ingredientId
+                    self.gm = gm ?? 0.0
+                }
                 
                 var identifier: String // usda nutrient id
                 var name: String
