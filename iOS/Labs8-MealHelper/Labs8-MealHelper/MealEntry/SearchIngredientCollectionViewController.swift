@@ -11,33 +11,29 @@ import AVFoundation
 
 class SearchIngredientCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UISearchResultsUpdating {
     
-    var selectedSearchedIngredientAtIndex = [Int]() {
+    var savedIngredients = [Ingredient]() {
         didSet {
-            if selectedSearchedIngredientAtIndex.isEmpty {
+            if savedIngredients.isEmpty {
                 navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
             } else {
                 navigationItem.setRightBarButton(itemsSelectedBarButton, animated: true)
             }
+            
+            setPopupTitle(withCount: savedIngredients.count)
+            ingredientTableVC.ingredients = savedIngredients
         }
     }
-    
-    var selectedSavedIngredientAtIndex = [Int]() {
-        didSet {
-            if selectedSavedIngredientAtIndex.isEmpty {
-                navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
-            } else {
-                navigationItem.setRightBarButton(itemsSelectedBarButton, animated: true)
-            }
-        }
-    }
-    
     var searchedIngredients = [Ingredient]()
-    var savedIngredients = [Ingredient]()
+    var prevSavedIngredients = [Ingredient]()
+    
     private var sectionHeaderReuseId = "SectionHeaderCell"
     private var searchBarReuseId = "SearchBarCell"
     private var cellId = "FoodCell"
     private var transition = SearchIngredientAnimator()
     var selectedCell: FoodCell<Ingredient>?
+    
+    private var savePopupViewTopToBottom: NSLayoutConstraint?
+    private var savePopupViewTopToTop: NSLayoutConstraint?
     
     private lazy var searchController: UISearchController = {
         var sc = UISearchController(searchResultsController: nil)
@@ -54,15 +50,29 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     }()
     
     lazy var noItemSelectedbarButton: UIBarButtonItem = {
-        let bb = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didNotSelectItems))
+        let bb = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapBarButtonWithoutSelectedItems))
         bb.isEnabled = false
         bb.tintColor = UIColor.lightGray
         return bb
     }()
     
     lazy var itemsSelectedBarButton: UIBarButtonItem = {
-        let bb = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didSelectItems))
+        let bb = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapBarButtonWithSelectedItems))
         return bb
+    }()
+    
+    lazy var savePopupView: PopupView = {
+        let view = PopupView(frame: .zero)
+        view.delegate = self
+        view.headerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(popupView)))
+        view.hasActionButton = false
+        
+        return view
+    }()
+    
+    private let ingredientTableVC: IngredientTableViewController = {
+        let tv = IngredientTableViewController()
+        return tv
     }()
     
     //MARK: - Life Cycle
@@ -71,13 +81,14 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         super.viewDidLoad()
         
         setupCollectionView()
+        setupSavePopupView()
         
         // Fetch previously saved ingredients
         FoodClient.shared.fetchIngredients { (response) in
             DispatchQueue.main.async {
                 switch response {
                 case .success(let ingredients):
-                    self.savedIngredients = ingredients
+                    self.prevSavedIngredients = ingredients
                     self.collectionView.reloadData()
                 case .error:
                     self.showAlert(with: "We couldn't find your ingredients, please check your internet connection and try again.")
@@ -104,7 +115,7 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         case 1:
             return searchedIngredients.count
         case 2:
-            return savedIngredients.count
+            return prevSavedIngredients.count
         default:
             return 0
         }
@@ -115,11 +126,11 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         
         switch indexPath.section {
         case 1:
-            let ingredient = searchedIngredients[indexPath.row]
-            cell.food = ingredient
+            let searchedIngredient = searchedIngredients[indexPath.row]
+            cell.food = searchedIngredient
         case 2:
-            let ingredient = savedIngredients[indexPath.row]
-            cell.food = ingredient
+            let prevSavedIngredient = prevSavedIngredients[indexPath.row]
+            cell.food = prevSavedIngredient
         default:
             break
         }
@@ -132,11 +143,11 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         switch indexPath.section {
         case 1:
-            let food = searchedIngredients[indexPath.item]
-            didSelect(food)
+            let searchedIngredient = searchedIngredients[indexPath.item]
+            didSelect(searchedIngredient)
         case 2:
-            let savedIngredient = savedIngredients[indexPath.item]
-            didSelectSaved(ingredient: savedIngredient)
+            let prevSavedIngredient = prevSavedIngredients[indexPath.item]
+            didSelect(prevSavedIngredient)
         default:
             break
         }
@@ -149,7 +160,7 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         ingredientDetailVC.delegate = self // We use a delegation pattern so the dismissing detailVC can handle selection of an ingredient
         ingredientDetailVC.delegateIndexPath = indexPath // Needed to determine the section in which it was selected (searched vs. previously saved ingredients)
         
-        let ingredient = indexPath.section == 1 ? searchedIngredients[indexPath.row] : savedIngredients[indexPath.row]
+        let ingredient = indexPath.section == 1 ? searchedIngredients[indexPath.row] : prevSavedIngredients[indexPath.row]
         ingredientDetailVC.ingredient = ingredient
         
         selectedCell = collectionView.cellForItem(at: indexPath) as? FoodCell<Ingredient> // We need to store the cell for the transition animation
@@ -193,54 +204,22 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     
     //MARK: - User Actions
     
-    @objc func didNotSelectItems() {
+    @objc func didTapBarButtonWithoutSelectedItems() {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func didSelectItems() {
+    @objc func didTapBarButtonWithSelectedItems() {
         let saveRecipeVC = SaveRecipeViewController()
-        saveRecipeVC.ingredients = getSelectedIngredients() + getSelectedSavedIngredients()
+        saveRecipeVC.ingredients = savedIngredients
         navigationController?.pushViewController(saveRecipeVC, animated: true)
     }
     
     func didSelect(_ ingredient: Ingredient) {
-        guard let index = searchedIngredients.index(of: ingredient) else { return }
-        
-        if selectedSearchedIngredientAtIndex.contains(index) {
-            guard let index = selectedSearchedIngredientAtIndex.index(of: index) else { return }
-            selectedSearchedIngredientAtIndex.remove(at: index)
+        if let index = savedIngredients.index(of: ingredient) {
+            savedIngredients.remove(at: index)
         } else {
-            selectedSearchedIngredientAtIndex.append(index)
+            savedIngredients.append(ingredient)
         }
-    }
-    
-    func getSelectedIngredients() -> [Ingredient] {
-        var selectedIngredients = [Ingredient]()
-        for index in selectedSearchedIngredientAtIndex {
-            let ingredient = searchedIngredients[index]
-            selectedIngredients.append(ingredient)
-        }
-        return selectedIngredients
-    }
-    
-    func didSelectSaved(ingredient: Ingredient) {
-        guard let index = savedIngredients.index(of: ingredient) else { return }
-        
-        if selectedSavedIngredientAtIndex.contains(index) {
-            guard let index = selectedSavedIngredientAtIndex.index(of: index) else { return }
-            selectedSavedIngredientAtIndex.remove(at: index)
-        } else {
-            selectedSavedIngredientAtIndex.append(index)
-        }
-    }
-    
-    func getSelectedSavedIngredients() -> [Ingredient] {
-        var selectedIngredients = [Ingredient]()
-        for index in selectedSavedIngredientAtIndex {
-            let ingredient = savedIngredients[index]
-            selectedIngredients.append(ingredient)
-        }
-        return selectedIngredients
     }
     
     // MARK: - UISearchBarDelegate, UISearchResultsUpdating
@@ -319,12 +298,28 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         view.addSubview(searchController.searchBar)
     }
     
+    private func setupSavePopupView() {
+        view.addSubview(savePopupView)
+        savePopupView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: CGSize(width: 0, height: 450))
+        savePopupViewTopToBottom = savePopupView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60)
+        savePopupViewTopToBottom?.isActive = true
+        
+        savePopupView.containerView.addSubview(ingredientTableVC.tableView)
+        ingredientTableVC.tableView.fillSuperview()
+        
+        setPopupTitle(withCount: 0)
+    }
+    
+    private func setPopupTitle(withCount count: Int) {
+        let unit = count == 1 ? "ingredient" : "ingredients"
+        savePopupView.title = "\(count) \(unit)"
+    }
+    
 }
 
 extension SearchIngredientCollectionViewController: UIViewControllerTransitioningDelegate {
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        transition.presenting = true
         return transition
     }
     
@@ -374,28 +369,43 @@ extension SearchIngredientCollectionViewController: SearchIngredientDetailDelega
                 searchedIngredients.insert(ingredient, at: index)
                 didSelect(ingredient)
             case 2:
-                guard let index = savedIngredients.index(of: ingredient) else { return }
-                savedIngredients.remove(at: index)
-                savedIngredients.insert(ingredient, at: index)
-                didSelectSaved(ingredient: ingredient)
+                guard let index = prevSavedIngredients.index(of: ingredient) else { return }
+                prevSavedIngredients.remove(at: index)
+                prevSavedIngredients.insert(ingredient, at: index)
+                didSelect(ingredient)
             default:
                 break
             }
             
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+            
         } else {
             // Handle ingredients added from barcode scanner
-            // TODO:
-            let endIndex = searchedIngredients.endIndex
-            searchedIngredients.insert(ingredient, at: endIndex)
-            selectedSearchedIngredientAtIndex.append(endIndex)
+            searchedIngredients.insert(ingredient, at: 0)
+            savedIngredients.append(ingredient)
             collectionView.reloadData()
             
-            for index in selectedSearchedIngredientAtIndex {
-                collectionView.selectItem(at: IndexPath(item: index, section: 1), animated: true, scrollPosition: .centeredHorizontally)
-            }
+            collectionView.selectItem(at: IndexPath(item: 0, section: 1), animated: true, scrollPosition: .centeredHorizontally)
         }
         
+    }
+    
+}
+
+
+extension SearchIngredientCollectionViewController: PopupViewDelegate {
+    
+    @objc func popupView() {
+        savePopupViewTopToBottom?.constant = savePopupView.isCollapsed ? -400 : -60
+        
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 10, options: .curveEaseOut, animations: {
+            
+            self.view.layoutIfNeeded()
+            
+        }) { (completed) in
+            
+            self.savePopupView.isCollapsed = self.savePopupView.isCollapsed ? false : true
+        }
     }
     
 }

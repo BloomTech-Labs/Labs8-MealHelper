@@ -224,4 +224,10 @@ extension FoodSummaryViewController: UITextFieldDelegate {
         NotificationCenter.default.post(name: .MHFoodSummaryTextFieldDidChange, object: nil, userInfo: ["textField": text])
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let text = textField.text else { return false }
+        NotificationCenter.default.post(name: .MHFoodSummaryTextFieldDidChange, object: nil, userInfo: ["textField": text])
+        return true
+    }
+    
 }

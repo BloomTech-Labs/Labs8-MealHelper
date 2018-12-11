@@ -11,10 +11,6 @@ import UIKit
 class SearchIngredientAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     let duration = 0.85
-    var presenting = true // whether or not the VC is presenting or dismissing
-    var originFrame = CGRect.zero
-    var toFrame = CGRect.zero
-    var dismissCompletion: (() -> Void)?
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
