@@ -49,7 +49,18 @@ class NavbarLanding extends Component {
             <img className="search-button-img" src={Search} />
           </button>
         </div>
-        <div className="hamburger-container">
+        <div className="page-jumps" style={{ textDecoration: "none" }}>
+          <a href="#product" className="jump">
+            <h3>Make A Meal</h3>
+          </a>
+          <a href="#pricing" className="jump">
+            <h3>Add A Recipe</h3>
+          </a>
+          <a href="#team" className="jump">
+            <h3>Add A Alarm</h3>
+          </a>
+        </div>
+        {/* <div className="hamburger-container">
           <button
             onClick={this.openHamburger}
             className={
@@ -102,7 +113,7 @@ class NavbarLanding extends Component {
               <img className="menu-list-item item" src={Logout} />
             </button>
           </ul>
-        </div>
+        </div> */}
       </div>
     );
   }
