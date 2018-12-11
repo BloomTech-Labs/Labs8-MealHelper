@@ -30,11 +30,11 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
     
     
     lazy var noItemSelectedbarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didNotSelectItems))
+        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapBarButtonWithoutSelectedItems))
     }()
     
     lazy var itemsSelectedBarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didSelectItems))
+        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didTapBarButtonWithSelectedItems))
     }()
     
     lazy var cancelBarButton: UIBarButtonItem = {
@@ -49,11 +49,14 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
         setupCollectionView()
         
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         FoodClient.shared.fetchRecipes { (response) in
             DispatchQueue.main.async {
                 switch response {
                 case .success(let recipes):
-                    self.recipes = recipes
+                    self.recipes = recipes.reversed()
                     self.collectionView.reloadData()
                 case .error:
                     self.showAlert(with: "We couldn't get your recipes, please check your internet connection and try again.")
@@ -61,7 +64,6 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
                 }
             }
         }
-        
     }
     
     // MARK: - CollectionViewDelegate
@@ -115,13 +117,13 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
     
     // MARK: - User Actions
     
-    @objc func didNotSelectItems() {
+    @objc func didTapBarButtonWithoutSelectedItems() {
         let layout = UICollectionViewFlowLayout()
         let searchIngredientVC = SearchIngredientCollectionViewController(collectionViewLayout: layout)
         navigationController?.pushViewController(searchIngredientVC, animated: true)
     }
     
-    @objc func didSelectItems() {
+    @objc func didTapBarButtonWithSelectedItems() {
         let recipes = getSelectedRecipes()
         let date = Utils().dateString(for: Date())
         var temp = 0.0 // TODO: Change

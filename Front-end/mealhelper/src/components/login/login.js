@@ -81,6 +81,7 @@ class Login extends Component {
                 <Link to="/" style={{ textDecoration: "none" }}>
                   <h1 className="login-title">EatWell</h1>
                 </Link>
+                <h2>Login</h2>
                 <form className="login-form">
                   <div className="form-group-login">
                     <label>Email</label>
@@ -105,7 +106,7 @@ class Login extends Component {
                     />
                   </div>
                   <Link to="/signup">
-                    <p className="return-login"> ⬅ Return to Sign Up </p>
+                    <p className="return-signup"> ⬅ Return to Sign Up </p>
                   </Link>
                   <div className="login-login" onClick={this.confirmLogin}>
                     <span>Log In</span>

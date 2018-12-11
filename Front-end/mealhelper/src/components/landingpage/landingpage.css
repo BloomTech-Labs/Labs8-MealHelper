@@ -386,7 +386,6 @@
   padding: 20px 60px 20px 60px;
 }
 
-/* Display the columns below each other instead of side by side on small screens */
 @media screen and (max-width: 650px) {
   .team-column {
     width: 100%;
@@ -394,7 +393,6 @@
   }
 }
 
-/* Add some shadows to create a card effect */
 .card {
   box-shadow: 0 0.5px 0.5px 0 rgba(0, 0, 0, 0.1);
   height: 350px;
@@ -407,12 +405,10 @@
   padding: 10px 0;
 }
 
-/* Some left and right padding inside the container */
 .team-container {
   padding: 0 16px;
 }
 
-/* Clear floats */
 .team-container::after,
 .row::after {
   content: "";
@@ -423,6 +419,14 @@
 .title {
   color: grey;
   margin-top: 50px;
+}
+
+.stefano {
+  /* border-radius: 50%; */
+  margin-left: 175px;
+  margin-top: 20px;
+  width: 250px;
+  height: 150px;
 }
 
 .contact-button {

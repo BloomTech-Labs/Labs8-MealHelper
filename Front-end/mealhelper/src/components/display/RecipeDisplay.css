@@ -1,0 +1,42 @@
+.RecipeDisplay {
+  width: 360px;
+  height: 320px;
+  margin: 2%;
+  background: #ffffff;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  border-radius: 1px;
+}
+
+.RecipeDisplay:hover {
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.recipe-card-header {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 80px;
+}
+.recipe-experience {
+  font-weight: bolder;
+}
+
+.recipe-card-center {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 80px;
+}
+
+.recipe-time {
+  padding-bottom: 20px;
+  padding-top: 15px;
+  margin: 30px 70% 0 0;
+  font-size: 40px;
+}

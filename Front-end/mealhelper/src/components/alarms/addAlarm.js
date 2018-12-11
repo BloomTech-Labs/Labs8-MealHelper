@@ -327,7 +327,7 @@ class AddAlarms extends Component {
         </div>
         
       </div>
-      <p>Note: alarm functionality is not available on desktop. <br />This page can be used to add alarms for your iOS app.</p>
+      <p className="disclaim">Note: alarm functionality is not available on desktop. <br />This page can be used to add alarms for your iOS app.</p>
     </div>
       );
   }

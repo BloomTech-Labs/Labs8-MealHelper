@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-.alarms-full-width p {
+.alarms-full-width .disclaim {
   padding-top: 10px;
   opacity: .5
 }
@@ -48,6 +48,12 @@
   margin-top: 5px;
 }
 
+.alarm-card .empty {
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+}
+
 .alarm-text {
   width: 220px;
   display: flex;
@@ -61,7 +67,9 @@
   width: 130px;
   display: flex;
   justify-content: space-around;
-  margin-right: 10px;
+  padding-top: 0;
+  /* margin-right: 10px; */
+  /* border: 2px solid red; */
 }
 
 .add-new-alarms {
@@ -70,4 +78,8 @@
 
 .hide-modal {
   display: null;
+}
+
+.btn .alarm-edit {
+  color: purple !important;
 }
