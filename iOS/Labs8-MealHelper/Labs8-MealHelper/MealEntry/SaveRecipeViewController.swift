@@ -110,7 +110,7 @@ class SaveRecipeViewController: UIViewController {
                     
                     dispatchGroup.notify(queue: .main, execute: {
                         print("Saved recipe succeeded")
-                        self.dismiss(animated: true, completion: nil)
+                        self.navigationController?.popToRootViewController(animated: true)
                     })
                     
                 })
