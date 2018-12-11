@@ -49,7 +49,7 @@ class NavbarLanding extends Component {
             <img className="search-button-img" src={Search} />
           </button>
         </div>
-        <div
+        {/* <div
           className="navbar-section-links"
           style={{ textDecoration: "none" }}
         >
@@ -62,8 +62,8 @@ class NavbarLanding extends Component {
           <a href="#team" className="jump">
             <h3>Add A Alarm</h3>
           </a>
-        </div>
-        {/* <div className="hamburger-container">
+        </div> */}
+        <div className="hamburger-container">
           <button
             onClick={this.openHamburger}
             className={
@@ -116,7 +116,7 @@ class NavbarLanding extends Component {
               <img className="menu-list-item item" src={Logout} />
             </button>
           </ul>
-        </div> */}
+        </div>
       </div>
     );
   }

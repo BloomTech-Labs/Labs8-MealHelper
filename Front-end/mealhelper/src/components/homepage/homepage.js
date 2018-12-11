@@ -21,88 +21,95 @@ class HomePage extends Component {
   render() {
     return (
       // <div className="home-container-home">
-      <div className="user-profile-card">
-        <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
-          <div className="user-profile-card-settings">Settings</div>
-        </Link>
-        <a onClick={this.logout} style={{ textDecoration: "none" }}>
-          <div className="user-profile-card-logout">Logout</div>
-        </a>
-        <h1 className="user-profile-card-cta">
-          Let's <h1 className="user-profile-card-cta-logo">EatWell</h1>
-          [username]!
-        </h1>
-        <div className="user-profile-card-infobox">
-          <p className="user-profile-card-infobox-date">Today is:</p>
-          <p className="user-profile-card-infobox-last-meal">
-            Your last meal was:
-          </p>
-          <p className="user-profile-card-infobox-next-meal">
-            Your next meal will be in:
-          </p>
+      <div className="homepage-main-fence">
+        <div className="user-profile-card">
+          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
+            <div className="user-profile-card-settings">Settings</div>
+          </Link>
+          <a onClick={this.logout} style={{ textDecoration: "none" }}>
+            <div className="user-profile-card-logout">Logout</div>
+          </a>
+          <h1 className="user-profile-card-cta">
+            Let's <h1 className="user-profile-card-cta-logo">EatWell</h1>
+            [username]!
+          </h1>
+          <div className="user-profile-card-infobox">
+            <p className="user-profile-card-infobox-date">Today is:</p>
+            <p className="user-profile-card-infobox-last-meal">
+              Your last meal was:
+            </p>
+            <p className="user-profile-card-infobox-next-meal">
+              Your next meal will be in:
+            </p>
+          </div>
+          <div className="">Total Stats</div>
+          <div
+            className="user-profile-card-stats"
+            style={{ textDecoration: "none" }}
+          >
+            <Link
+              to="/homepage/meals"
+              className="stat-divider"
+              style={{ textDecoration: "none" }}
+            >
+              <h3 className="stat-text">Meals</h3>
+            </Link>
+            <Link
+              to="/homepage/recipes"
+              className="stat-divider"
+              style={{ textDecoration: "none" }}
+            >
+              <h3 className="stat-text">Recipes</h3>
+            </Link>
+            <Link
+              to="/homepage/alarms"
+              className="stat-divider"
+              style={{ textDecoration: "none" }}
+            >
+              <h3 className="stat-text">Alarms</h3>
+            </Link>
+          </div>
+          <div
+            className="user-profile-card-stats-live"
+            style={{ textDecoration: "none" }}
+          >
+            <Link
+              to="/homepage/meals"
+              className="stat-divider-live"
+              style={{ textDecoration: "none" }}
+            >
+              <h3 className="stat-text-live">Meals</h3>
+            </Link>
+            <Link
+              to="/homepage/recipes"
+              className="stat-divider-live"
+              style={{ textDecoration: "none" }}
+            >
+              <h3 className="stat-text-live">Recipes</h3>
+            </Link>
+            <Link
+              to="/homepage/alarms"
+              className="stat-divider-live"
+              style={{ textDecoration: "none" }}
+            >
+              <h3 className="stat-text-live">Alarms</h3>
+            </Link>
+          </div>
+          <div className="user-profile-card-body">
+            <p className="user-profile-card-body-text">
+              Eat. Track. Analyze. <br />
+              <p className="user-profile-card-body-text-logo">EatWell</p>
+            </p>
+          </div>
+          {/* <UserHistory /> */}
+          {/* </div> */}
         </div>
-        <div className="">Total Stats</div>
-        <div
-          className="user-profile-card-stats"
-          style={{ textDecoration: "none" }}
-        >
-          <Link
-            to="/homepage/meals"
-            className="stat-divider"
-            style={{ textDecoration: "none" }}
-          >
-            <h3 className="stat-text">Meals</h3>
-          </Link>
-          <Link
-            to="/homepage/recipes"
-            className="stat-divider"
-            style={{ textDecoration: "none" }}
-          >
-            <h3 className="stat-text">Recipes</h3>
-          </Link>
-          <Link
-            to="/homepage/alarms"
-            className="stat-divider"
-            style={{ textDecoration: "none" }}
-          >
-            <h3 className="stat-text">Alarms</h3>
-          </Link>
+        <div class="inapp-choice-wrapper">
+          <div class="box meals">Meals</div>
+          <div class="box recipes">Recipes</div>
+          <div class="box alarms">Alarms</div>
+          <div class="box settings">Settings</div>
         </div>
-        <div
-          className="user-profile-card-stats-live"
-          style={{ textDecoration: "none" }}
-        >
-          <Link
-            to="/homepage/meals"
-            className="stat-divider-live"
-            style={{ textDecoration: "none" }}
-          >
-            <h3 className="stat-text-live">Meals</h3>
-          </Link>
-          <Link
-            to="/homepage/recipes"
-            className="stat-divider-live"
-            style={{ textDecoration: "none" }}
-          >
-            <h3 className="stat-text-live">Recipes</h3>
-          </Link>
-          <Link
-            to="/homepage/alarms"
-            className="stat-divider-live"
-            style={{ textDecoration: "none" }}
-          >
-            <h3 className="stat-text-live">Alarms</h3>
-          </Link>
-        </div>
-        <div className="user-profile-card-body">
-          <p className="user-profile-card-body-text">
-            Eat. Track. Analyze. <br />
-            <p className="user-profile-card-body-text-logo">EatWell</p>
-          </p>
-        </div>
-
-        {/* <UserHistory /> */}
-        {/* </div> */}
       </div>
     );
   }

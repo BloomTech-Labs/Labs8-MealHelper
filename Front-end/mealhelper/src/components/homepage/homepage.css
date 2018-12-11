@@ -7,14 +7,22 @@
   background-size: cover;
 } */
 
-.home-container-home {
+.homepage-main-fence {
+  margin-top: 150px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+/* .home-container-home {
   height: 100vh;
   width: 100vw;
   background-color: #ffffff;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
+} */
 
 /* .display-quote {
 
@@ -24,7 +32,6 @@
 } */
 
 .user-profile-card {
-  margin-top: 75px;
   margin-left: 25px;
   display: flex;
   flex-direction: column;
@@ -32,7 +39,6 @@
   align-items: center;
   color: white;
   background: #242424;
-  margin-top: 5%;
   width: 500px;
   height: 500px;
   border: 2px solid #2f9dfe;
@@ -131,6 +137,40 @@
 
 .stat-divider-live:hover {
   color: white;
+}
+
+.inapp-choice-wrapper {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: [col1-start] 200px [col2-start] 200px [col3-start] 200px [col3-end];
+  grid-template-rows: [row1-start] auto [row2-start] auto [row2-end];
+  background-color: #fff;
+  color: #444;
+}
+
+.box {
+  background-color: #242424;
+  color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 150%;
+}
+
+.meals {
+  grid-column: col1-start / col3-start;
+  grid-row: row1-start;
+}
+.recipes {
+  grid-column: col2-start / col4-start;
+  grid-row: row1-start;
+}
+.alarms {
+  grid-column: col1-start;
+  grid-row: row2-start;
+}
+.settings {
+  grid-column: col2-start;
+  grid-row: row2-start;
 }
 
 .buttons-settings {
