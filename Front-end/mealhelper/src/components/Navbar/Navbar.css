@@ -11,10 +11,10 @@
   margin-left: 70px;
 }
 .Navbar-Container-Main {
-  background: #ffffff;
+  background: #242424;
   height: 55px;
   width: 100%;
-  border-bottom: 1px solid #9c9c9c;
+  border-bottom: 1px solid #2f9dfe;
   position: fixed;
   z-index: 2;
   display: flex;
@@ -33,6 +33,7 @@
 .logo-main {
   font-size: 40px;
   font-family: "Allan", cursive;
+  color: white;
 }
 
 .buttons-navbar {
