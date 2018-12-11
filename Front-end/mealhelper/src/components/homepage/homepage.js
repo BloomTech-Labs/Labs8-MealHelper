@@ -12,12 +12,14 @@ class HomePage extends Component {
   render() {
     return (
       <div className="home-container-home">
-        <h1 className="familiar-greeting">Welcome Back!</h1>
         <div className="display-quote">
           <div className="quote-box">
+            <h1 className="familiar-greeting">Welcome Back!</h1>
             <p className="quote-text">Food Quote Of The Day</p>
           </div>
-          <UserHistory />
+          <div>
+            <UserHistory />
+          </div>
         </div>
       </div>
     );
