@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addUser } from "../../store/actions/userActions";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import Jars from "./Jars.jpg";
 import Computer from "./Computer.png";
 import Plate from "./Plate.png";
@@ -11,6 +11,7 @@ import Book from "./Book.png";
 import DoctorPic from "./DoctorPic.png";
 import Doctor from "./Doctor.png";
 import "./landingpage.css";
+import Jumbo from "./Jumbo.jpg"
 
 class Landingpage extends Component {
   componentDidMount = () => {
@@ -32,31 +33,36 @@ class Landingpage extends Component {
         <Navbar />
         <div className="landing-page-container">
           <div className="jumbotron-container">
-            <img className="jumbotron-img" src={Jars} alt="No image" />
+            <img className="jumbotron-img" src={Jumbo} alt="No image" />
           </div>
+
           <div className="login-signup-container">
+          
+          <div className="cta-top-content">
           <div className="cta-container">
             <h2>EAT. <br/> TRACK. <br />  ANALYZE.</h2>
-            <p>Record what you eat and how you feel, and let EatWell help you take the guesswork out of eating well and feeling better.</p>
           </div>
-            <div className="landingpage-buttons">
-              <div className="button-container">
-                <button className="button">
-                  <p className="button-text" onClick={this.goToSignup}>
-                    Sign Up
-                  </p>
-                </button>
-              </div>
-              <div className="button-container">
-                <button className="button">
-                  <p className="button-text" onClick={this.goToLogin}>
-                    Log In
-                  </p>
-                </button>
-              </div>
-              <a name="product" />
-            </div>
-          </div>
+          
+          <div className="signup-login-buttons-lp">
+          <p>Record what you eat and how it makes you feel, and let EatWell help you take the guesswork out of eating well and feeling better.</p>
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            <button className="buttons-lp">Log In</button>
+          </Link>
+          <Link to="/signup" style={{ textDecoration: "none" }}>
+            <button className="buttons-lp">Sign Up</button>
+          </Link>
+        </div>
+        </div>
+        <div className="cta-bottom-content">
+        <div className="real-housewives-quote">
+          <p>"Your diet is a bank account. Good food choices are good
+              investments."</p>
+              <p>-Bethenny Frankel</p>
+        </div>
+        </div>
+
+        </div>
+         
           <div className="info-container-one">
             <div className="image-info-container">
               <img className="image-info" src={Computer} />

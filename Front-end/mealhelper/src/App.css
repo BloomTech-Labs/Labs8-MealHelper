@@ -3,12 +3,12 @@
   height: 100vh;
   display: flex;
   text-align: center;
-  background: #f0f0f0;
+  background: #f1f1f1;
 }
 body {
   width: 100%;
   height: auto !important;
-  background: #f0f0f0 !important;
+  background: #f1f1f1 1 !important;
 }
 .display {
   width: 100%;
