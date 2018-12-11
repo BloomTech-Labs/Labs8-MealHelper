@@ -14,11 +14,7 @@ class Meals extends Component {
   render() {
     return (
       <div className="meals-container">
-        <Link
-          className="meal-link"
-          to="/homepage/meals/new"
-          style={{ textDecoration: "none" }}
-        >
+        <Link className="meal-link" to="/homepage/meals/new">
           <div className="meal-box">
             <h1 className="new-meal-text">Create A New Meal</h1>
           </div>
