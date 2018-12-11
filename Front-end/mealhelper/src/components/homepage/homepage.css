@@ -66,7 +66,7 @@
 .user-profile-card-cta {
   padding-top: 25px;
   margin-top: -40px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .user-profile-card-cta-logo {
@@ -87,14 +87,16 @@
   flex-direction: column;
   justify-content: space-between;
   margin-right: 300px;
-  margin-bottom: 100px;
+  margin-bottom: 40px;
 }
-
+.user-profile-card-stats-header {
+  font-weight: bolder;
+}
 .user-profile-card-stats {
   display: flex;
   justify-content: space-around;
-  margin-top: -60px;
-  margin-bottom: 100px;
+  margin-top: 30px;
+  margin-bottom: 40px;
   color: #2f9dfe;
 }
 
@@ -114,8 +116,8 @@
   display: flex;
   justify-content: space-around;
   margin-top: -80px;
-  margin-bottom: 100px;
-  color: #2f9dfe;
+  margin-bottom: 50px;
+  color: white;
 }
 
 .stat-divider-live {
@@ -125,6 +127,10 @@
   border-right: 1px solid #2f9dfe;
   padding-right: 20px;
   height: 30px;
+}
+
+.stat-divider-live:hover {
+  color: white;
 }
 
 .buttons-settings {

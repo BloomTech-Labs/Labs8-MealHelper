@@ -41,6 +41,7 @@ class HomePage extends Component {
             Your next meal will be in:
           </p>
         </div>
+        <div className="">Total Stats</div>
         <div
           className="user-profile-card-stats"
           style={{ textDecoration: "none" }}
@@ -76,21 +77,21 @@ class HomePage extends Component {
             className="stat-divider-live"
             style={{ textDecoration: "none" }}
           >
-            <h3 className="stat-text">Meals</h3>
+            <h3 className="stat-text-live">Meals</h3>
           </Link>
           <Link
             to="/homepage/recipes"
             className="stat-divider-live"
             style={{ textDecoration: "none" }}
           >
-            <h3 className="stat-text">Recipes</h3>
+            <h3 className="stat-text-live">Recipes</h3>
           </Link>
           <Link
             to="/homepage/alarms"
             className="stat-divider-live"
             style={{ textDecoration: "none" }}
           >
-            <h3 className="stat-text">Alarms</h3>
+            <h3 className="stat-text-live">Alarms</h3>
           </Link>
         </div>
         <div className="user-profile-card-body">
