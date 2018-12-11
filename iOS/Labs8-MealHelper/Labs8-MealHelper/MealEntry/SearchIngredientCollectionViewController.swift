@@ -20,6 +20,7 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
             }
             
             setPopupTitle(withCount: savedIngredients.count)
+            ingredientTableVC.ingredients = savedIngredients
         }
     }
     var searchedIngredients = [Ingredient]()
@@ -67,6 +68,11 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         view.hasActionButton = false
         
         return view
+    }()
+    
+    private let ingredientTableVC: IngredientTableViewController = {
+        let tv = IngredientTableViewController()
+        return tv
     }()
     
     //MARK: - Life Cycle
@@ -297,6 +303,9 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         savePopupView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: CGSize(width: 0, height: 450))
         savePopupViewTopToBottom = savePopupView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60)
         savePopupViewTopToBottom?.isActive = true
+        
+        savePopupView.containerView.addSubview(ingredientTableVC.tableView)
+        ingredientTableVC.tableView.fillSuperview()
         
         setPopupTitle(withCount: 0)
     }
