@@ -12,6 +12,7 @@ import DoctorPic from "./DoctorPic.png";
 import Doctor from "./Doctor.png";
 import "./landingpage.css";
 import Jumbo from "./Jumbo.jpg";
+import Picnic from "./PicnicBlue.jpg"
 
 class Landingpage extends Component {
   componentDidMount = () => {
@@ -72,20 +73,17 @@ class Landingpage extends Component {
           <div className="info-container-one">
             <img className="image-info" src={Computer} />
             <div className="card-body-text-container">
-              {/* <div className="card-body"> */}
               <div className="header-card">
                 <p>E A T</p>
               </div>
-
               <div className="card-body-text">
                 <p>
-                  EatWell is an advanced meal journal. Each meal, and its
-                  nutrients, can be recorded along with your experience and any
-                  notes about positive or negative health events after eating.
+                  EatWell is an advanced meal journal. Each meal can be recorded
+                  along with your experience and any notes about positive or
+                  negative health events after eating.
                 </p>
                 <div className="extra">
                   <p className="tip-header">TIP:</p>
-
                   <p className="tip">
                     Need a reminder? Set alarms for your mobile app at specific
                     times or at regular intervals each day.
@@ -93,52 +91,68 @@ class Landingpage extends Component {
                 </div>
               </div>
             </div>
-            {/* </div> */}
           </div>
           <div className="info-container-two">
-              <div className="card-body-text-container">
-           
+            <div className="card-body-text-container">
               <div className="header-card">
                 <p>T R A C K</p>
-                </div>
-                <div className="card-body-text">
+              </div>
+              <div className="card-body-text">
                 <p>
-               EatWell gives you access to a database of thousands of ingredients and pre-packaged food items, so you can build recipes and track nutrients alongside your health events.
+                  EatWell gives you access to a database of thousands of
+                  ingredients and pre-packaged food items, so you can build
+                  recipes and track nutrients alongside your health events.
                 </p>
-              <div className="extra">
-                <p className="tip-header">TIP:</p>
-                <p className="tip">
-                Weather got you gloomy? Add your zip code to get access to local weather information during each meal.
-                </p>
+                <div className="extra">
+                  <p className="tip-header">TIP:</p>
+                  <p className="tip">
+                    Weather got you gloomy? Add your zip code to get access to
+                    local weather information during each meal.
+                  </p>
+                </div>
               </div>
             </div>
-                   </div>
-            
-              <img className="image-info" src={Recipe} />
-            
+            <img className="image-info" src={Recipe} />
           </div>
           <div className="info-container-three">
-            <div className="image-info-container">
-              <img className="image-info" src={DoctorPic} />
-            </div>
-            <div className="card-body">
+            <img className="image-info" src={DoctorPic} />
+            <div className="card-body-text-container">
               <div className="header-card">
-                <div>
-                  <p className="info-text">Show Your Doctor</p>
-                </div>
-                <div className="image-holder">
-                  <div>
-                    <img className="image-info-image" src={Doctor} />
-                  </div>
-                </div>
+                <p>A N A L Y Z E</p>
               </div>
-              <div className="card-body-text-container">
-                <p className="card-body-text">
-                  Export your meals so that you can consult with your doctor and
-                  find what might affect you.
+              <div className="card-body-text">
+                <p>
+                  Export an overview of your meal journal to show to a health
+                  professional, or view your history to pick up clues yourself!
                 </p>
+                <div className="extra">
+                  <p className="tip-header">TIP:</p>
+                  <p className="tip">Veggies es bonus vobis, proinde vos postulo essum magis
+                  kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon
+                  azuki bean garlic.</p>
+                </div>
               </div>
             </div>
+          </div>
+          <div className="info-container-four">
+            <div className="card-body-text-container">
+              <div className="header-card">
+                <p>E A T  W E L L</p>
+              </div>
+              <div className="card-body-text">
+                <p>
+                  Repeat! Newly empowered with a better understanding of how what you eat correlates with how you feel, continue using EatWell as you make adjustments to your diet and fine tune a nutritional plan that works for YOU!
+                </p>
+                <div className="extra">
+                  <p className="tip-header">TIP:</p>
+                  <p className="tip">
+                  Veggies es bonus vobis, proinde vos postulo essum magis
+                  kohlrabi.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <img className="image-info" src={Picnic} />
           </div>
         </div>
         <a name="pricing" />

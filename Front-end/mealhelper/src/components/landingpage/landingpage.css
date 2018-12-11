@@ -122,7 +122,16 @@
   width: 100%;
   height: auto;
   background: #ffffff;
-  margin: 15% auto 35%;
+  margin: 5% auto;
+  border: 1px solid #b6b5b5;
+  display: flex;
+}
+
+.info-container-four {
+  width: 100%;
+  height: auto;
+  background: #ffffff;
+  margin: 5% auto 25%;
   border: 1px solid #b6b5b5;
   display: flex;
 }
