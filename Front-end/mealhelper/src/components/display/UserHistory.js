@@ -96,8 +96,7 @@ class UserHistory extends Component {
     return (
       <div className="flex-me">
         <div className="dynamic-display-home-meals">
-          <h1 className="familiar-greeting">Welcome Back!</h1>
-          <p className="recentMeals">4 Most Recently Made Meals: </p>
+          <p className="recentMeals">Most Recent Made Meals </p>
         </div>
         <div className="dynamic-display-home">
           <div className="mealsRecipe-Container">
@@ -124,7 +123,7 @@ class UserHistory extends Component {
           </div>
         </div>
         <div className="dynamic-display-home-meals">
-          <p className="recentMeals">4 Most Recently Made Recipes: </p>
+          <p className="recentMeals"> Most Recent Made Recipes </p>
         </div>
         <div className="dynamic-display-home">
           <div className="mealsRecipe-Container">

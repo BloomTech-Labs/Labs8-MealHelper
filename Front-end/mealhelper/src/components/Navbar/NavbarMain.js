@@ -63,7 +63,10 @@ class NavbarLanding extends Component {
             </span>
           </button>
           <div className={this.state.open ? "popper" : "none"} />
-          <ul className={this.state.open ? "menu-list-open" : "menu-list"}>
+          <ul
+            id="menu-list"
+            className={this.state.open ? "menu-list-open" : "menu-list"}
+          >
             <Link
               to="/homepage/meals"
               onClick={this.openHamburger}

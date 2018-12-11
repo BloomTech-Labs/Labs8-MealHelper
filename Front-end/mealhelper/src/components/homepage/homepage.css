@@ -17,6 +17,10 @@
   background-size: cover;
   display: flex;
 }
+
+.familiar-greeting {
+  margin-top: 500px;
+}
 .buttons-settings {
   color: #ffffff;
   border: 1px solid;
@@ -80,7 +84,7 @@
 .flex-me {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   margin-top: 100px;
 }
 .flex-me-settings {
@@ -91,10 +95,13 @@
 }
 .recentMeals {
   font-size: 30px;
-  color: #242424;
-  border: 1px solid;
+  color: white;
+  background-color: #242424;
+  border: 1px solid #2f9dfe;
   padding: 10px;
-  width: 30%;
+  margin-left: 40px;
+  width: 400px;
+  height: 100px;
 }
 .recentMealsZip {
   font-size: 30px;
@@ -112,14 +119,12 @@
   background: #ffffff;
   border: 1px solid #000000;
   box-sizing: border-box;
-  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.43);
   border-radius: 1px;
 }
 .footer-line {
   border: 0.3px solid #000000;
 }
 .MealDisplay:hover {
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.4), 0 10px 10px rgba(0, 0, 0, 0.4);
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out;
 }
@@ -152,7 +157,6 @@
 }
 .meal-card-footer {
   bottom: 0;
-
   display: flex;
   justify-content: space-between;
   padding-top: 90px;

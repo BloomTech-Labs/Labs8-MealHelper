@@ -33,9 +33,16 @@ body {
 }
 .meal-box {
   width: 344px;
-  height: 51px;
-  background: #ffffff;
-  border: 1px solid #b6b5b5;
+  height: 41px;
+  background: #242424;
+  border: 1px solid #2f9dfe;
+  margin-top: -400px;
+  border-radius: 5px;
+  font-family: "Roboto", sans-serif;
+}
+
+.meal-box:hover {
+  background-color: #2f9dfe;
 }
 .meal-box-new {
   margin: 100px auto 0;
@@ -46,10 +53,12 @@ body {
 }
 .meal-link {
   margin: 500px auto;
+  text-decoration: none;
 }
 .new-meal-text {
-  margin-top: 5px !important;
-  color: black;
+  margin-top: 10px;
+  color: white;
+  text-decoration: none;
 }
 .new-meal-text-new {
   margin-top: 15px !important;
