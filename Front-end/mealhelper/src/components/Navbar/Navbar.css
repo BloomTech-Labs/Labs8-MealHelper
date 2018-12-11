@@ -173,3 +173,10 @@
   padding-right: 30px;
   height: 20px;
 }
+
+.navbar-section-links {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+  color: #2f9dfe;
+}
