@@ -75,7 +75,7 @@ class SaveRecipeViewController: UIViewController {
 //            return
 //        }
         
-        // Save ingredient, incl. nutrient values
+        // Save recipe with all its ingredients, incl. nutrient values
         
         guard let recipeName = recipeName else {
             NSLog("No recipe name provided")
@@ -102,7 +102,7 @@ class SaveRecipeViewController: UIViewController {
                     nutrients.forEach { nutrient in
                         
                         dispatchGroup.enter()
-                        self.saveNutrient(with: nutrient, ingredientId: ingredientId, completion: { (error) in
+                        self.saveNutrient(with: nutrient, ingredientId: ingredientId, completion: { (_) in
                             dispatchGroup.leave()
                         })
                         
@@ -120,7 +120,6 @@ class SaveRecipeViewController: UIViewController {
         
         }
     }
-    
     
     @objc private func handleKeyboard(notification: NSNotification) {
         
@@ -178,7 +177,6 @@ class SaveRecipeViewController: UIViewController {
                     }
                 case .error(let error):
                     NSLog("Error saving ingredients: \(error)")
-                    // Handle error in UI
                     completion(nil)
                 }
             }
@@ -192,8 +190,7 @@ class SaveRecipeViewController: UIViewController {
                 case .success( _):
                     completion(nil)
                 case .error(let error):
-                    print(error)
-                    // Handle error in UI
+                    NSLog("Nutrient could not be saved: \(error)")
                     completion(error)
                 }
             }

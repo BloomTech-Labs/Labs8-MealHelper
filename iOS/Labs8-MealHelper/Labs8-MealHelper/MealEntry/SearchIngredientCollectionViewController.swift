@@ -261,9 +261,10 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
             DispatchQueue.main.async {
                 switch response {
                 case .success(let ingredients):
+                    self.searchedIngredients.removeAll() // Reset searched ingredient results on subsequent searches
                     self.searchedIngredients.append(contentsOf: ingredients)
                     self.searchController.isActive = false
-                    self.collectionView.reloadSections(IndexSet(integer: 1))
+                    self.collectionView.reloadSections(IndexSet(integer: 1)) // Reloads searched ingredients section
                 case .error(let error):
                     NSLog("Error fetching ingredients: \(error)")
                     self.searchController.isActive = false
