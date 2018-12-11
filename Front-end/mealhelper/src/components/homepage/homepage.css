@@ -1,14 +1,11 @@
-.home-container {
+/* .home-container {
   height: 100vh;
   width: 100vw;
   background-color: #ffffff;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  /* display: flex;
-  flex-direction: row;
-  justify-content: space-evenly; */
-}
+} */
 
 .home-container-home {
   height: 100vh;
@@ -17,15 +14,10 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  /* display: flex;
+  display: flex;
   flex-direction: row;
-  justify-content: space-evenly; */
+  justify-content: space-evenly;
 }
-
-/* .familiar-greeting {
-  margin-top: 300px;
-  border: 2px solid #000000;
-} */
 
 /* .display-quote {
   display: flex;

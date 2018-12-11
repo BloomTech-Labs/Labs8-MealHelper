@@ -14,7 +14,6 @@ class HomePage extends Component {
       <div className="home-container-home">
         <div className="display-quote">
           <div className="quote-box">
-            <h1 className="familiar-greeting">Welcome Back!</h1>
             <p className="quote-text">Food Quote Of The Day</p>
           </div>
           <div>
