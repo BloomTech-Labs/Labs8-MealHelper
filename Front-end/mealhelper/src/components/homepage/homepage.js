@@ -12,12 +12,7 @@ class HomePage extends Component {
   render() {
     return (
       <div className="home-container-home">
-        {/* <div className="display-quote"> */}
-        {/* <div className="quote-box">
-            <p className="quote-text">Food Quote Of The Day</p>
-          </div> */}
         <UserHistory />
-        {/* </div> */}
       </div>
     );
   }

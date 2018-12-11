@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import "../homepage/homepage.css";
+import "./UserHistory.css";
 import MealDisplay from "./MealDisplay";
 import RecipeDisplay from "./RecipeDisplay";
 
