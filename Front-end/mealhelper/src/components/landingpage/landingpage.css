@@ -397,7 +397,14 @@
 /* Add some shadows to create a card effect */
 .card {
   box-shadow: 0 0.5px 0.5px 0 rgba(0, 0, 0, 0.1);
-  height: 300px;
+  height: 350px;
+  display: flex;
+  align-items: center;
+}
+
+.team-member {
+  width: 100px;
+  padding: 10px 0;
 }
 
 /* Some left and right padding inside the container */
@@ -422,7 +429,7 @@
   border: none;
   outline: 0;
   display: inline-block;
-  margin-top: 50px;
+  margin-top: 10px;
   padding: 8px;
   color: white;
   background-color: #000;
@@ -430,7 +437,7 @@
   cursor: pointer;
   width: 150px;
   height: 50px;
-  border-radius: 30px;
+  border-radius: 5px;
   font-family: "Roboto", sans-serif;
 }
 

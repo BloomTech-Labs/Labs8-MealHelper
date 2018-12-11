@@ -233,7 +233,7 @@ class Landingpage extends Component {
           <div className="team-cards">
             <div className="team-column">
               <div className="card">
-                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
                   <h2>Team Member</h2>
                   <p className="title">Developer &amp; Founder</p>
@@ -247,7 +247,7 @@ class Landingpage extends Component {
             </div>
             <div className="team-column">
               <div className="card">
-                <img src="img2.jpg" alt="Team Member" style={{ width: 100 }} />
+                <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
                   <h2>Team Member</h2>
                   <p className="title">Developer</p>
@@ -261,7 +261,7 @@ class Landingpage extends Component {
             </div>
             <div className="team-column">
               <div className="card">
-                <img src="img3.jpg" alt="Team Member" style={{ width: 100 }} />
+                <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
                   <h2>Team Member</h2>
                   <p className="title">Developer</p>
@@ -275,7 +275,7 @@ class Landingpage extends Component {
             </div>
             <div className="team-column">
               <div className="card">
-                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
                   <h2>Team Member</h2>
                   <p className="title">Developer &amp; Founder</p>
@@ -289,7 +289,7 @@ class Landingpage extends Component {
             </div>
             <div className="team-column">
               <div className="card">
-                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
                   <h2>Team Member</h2>
                   <p className="title">Developer &amp; Founder</p>
@@ -303,7 +303,7 @@ class Landingpage extends Component {
             </div>
             <div className="team-column">
               <div className="card">
-                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
                   <h2>Team Member</h2>
                   <p className="title">Developer &amp; Founder</p>
