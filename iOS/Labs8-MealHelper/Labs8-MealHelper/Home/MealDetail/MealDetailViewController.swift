@@ -145,9 +145,7 @@ class MealDetailViewController: UIViewController {
             UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25, animations: {
                 self.noteView.center.x = self.view.center.x
             })
-        }) { (success) in
-            
-        }
+        }, completion: nil)
     }
     
     private func fetchIngredients() {
