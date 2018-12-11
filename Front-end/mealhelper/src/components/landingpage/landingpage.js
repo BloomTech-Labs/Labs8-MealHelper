@@ -64,27 +64,28 @@ class Landingpage extends Component {
         </div>
          
           <div className="info-container-one">
-            <div className="image-info-container">
+            
               <img className="image-info" src={Computer} />
-            </div>
-            <div className="card-body">
+              <div className="card-body-text-container">
+            {/* <div className="card-body"> */}
               <div className="header-card">
-                <div>
-                  <p className="info-text">Record Your Meals</p>
-                </div>
-                <div className="image-holder">
+                  <p>EAT</p>
+                {/* <div className="image-holder">
                   <div>
                     <img className="image-info-image" src={Plate} />
                   </div>
-                </div>
+                </div> */}
               </div>
-              <div className="card-body-text-container">
-                <p className="card-body-text">
-                  EatWell makes it easy to make a meal, and write down your
-                  experience, all in one.
+              
+              <div className="card-body-text">
+              <p>
+                  EatWell is an advanced meal journal. Each meal can be recorded along with your experience and any notes about positive negative health events after eating.
                 </p>
               </div>
-            </div>
+                
+
+              </div>
+            {/* </div> */}
           </div>
           <div className="info-container-two">
             <div className="card-body">
