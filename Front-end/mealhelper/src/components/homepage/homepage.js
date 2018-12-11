@@ -12,7 +12,10 @@ class HomePage extends Component {
   render() {
     return (
       <div className="home-container-home">
-        <UserHistory />
+        <div className="user-profile-card">
+          <h1 className="user-profile-card-cta">Welcome To EatWell</h1>
+        </div>
+        {/* <UserHistory /> */}
       </div>
     );
   }
