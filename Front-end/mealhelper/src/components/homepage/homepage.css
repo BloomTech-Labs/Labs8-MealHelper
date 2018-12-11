@@ -14,12 +14,10 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
 }
 
 /* .display-quote {
+
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -118,7 +116,7 @@
   height: 200px;
   width: 400px;
 }
-.MealDisplay {
+/* .MealDisplay {
   width: 360px;
   height: 320px;
   margin: 2%;
@@ -126,14 +124,14 @@
   border: 1px solid #000000;
   box-sizing: border-box;
   border-radius: 1px;
-}
+} */
 .footer-line {
   border: 0.3px solid #000000;
 }
-.MealDisplay:hover {
+/* .MealDisplay:hover {
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out;
-}
+} */
 .titlelinks {
   display: flex;
   justify-content: flex-end;
@@ -141,7 +139,7 @@
   color: #f1e7e8;
   padding: 5%;
 }
-.meal-city {
+/* .meal-city {
   margin-top: 25px !important;
 }
 .meal-experience {
@@ -149,7 +147,7 @@
   padding-top: 15px;
   margin: 30px 70% 0 0;
   font-size: 40px;
-}
+} */
 .recipe-card-header {
   display: flex;
   justify-content: space-between;
@@ -161,14 +159,14 @@
 .recipe-experience {
   font-weight: bolder;
 }
-.meal-card-footer {
+/* .meal-card-footer {
   bottom: 0;
   display: flex;
   justify-content: space-between;
   padding-top: 90px;
   padding-left: 5%;
   padding-right: 5%;
-}
+} */
 
 .in-app-links {
   text-decoration: none;
