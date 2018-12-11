@@ -1,10 +1,14 @@
 .Navbar-Container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
   background: #ffffff;
   height: 55px;
   width: 100%;
   border-bottom: 1px solid #9c9c9c;
   position: fixed;
   z-index: 2;
+  margin-left: 70px;
 }
 .Navbar-Container-Main {
   background: #ffffff;
@@ -21,15 +25,36 @@
 }
 .link-logo {
   text-decoration: none;
-  color: black;
+  color: #242424;
 }
 .link-logo:hover {
-  text-decoration: none;
-  color: black;
+  color: #2f9dfe;
 }
 .logo-main {
   font-size: 40px;
   font-family: "Allan", cursive;
+}
+
+.buttons-navbar {
+  color: #ffffff;
+  width: 120px;
+  font-size: 20px;
+  font-weight: 900;
+  height: 40px;
+  margin-bottom: 30px;
+  margin-top: 8px;
+  margin-right: 45px;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: #2f9dfe;
+}
+
+.signup-login-buttons-navbar {
+  margin-right: 1px;
+}
+
+.buttons-navbar:hover {
+  background-color: #242424;
 }
 
 .hamburger-container {
@@ -38,6 +63,7 @@
 .logo {
   font-size: 40px;
   font-family: "Allan", cursive;
+  margin-left: 47px;
 }
 .searchbar-nav-container {
   padding-top: 4px;
@@ -100,8 +126,8 @@
 .menu-list-item.item:hover {
   border: 2px solid #5a95ce;
 }
-.menu-list-item:hover {
-}
+/* .menu-list-item:hover {
+} */
 .menu-list-item-logout {
   border: none;
   background: none;
@@ -121,4 +147,23 @@
   border-width: 30px;
   margin-left: 10px;
   margin-top: -40px;
+}
+
+.page-jumps {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+  color: #2f9dfe;
+}
+
+.jump:hover {
+  color: #242424;
+}
+
+.jump {
+  margin-left: 10px;
+  padding-left: 10px;
+  border-right: 1px solid #242424;
+  padding-right: 30px;
+  height: 20px;
 }

@@ -32,30 +32,6 @@ class Search extends Component {
       });
   };
 
-  addFood = food => {
-    this.setState({ food: [...this.state.food, food] });
-    console.log(this.state.food);
-  };
-
-  handleInputChange = event => {
-    event.preventDefault();
-
-    this.setState(
-      {
-        [event.target.name]: event.target.value
-      },
-      () => {
-        if (this.state.query) {
-          this.setState({ typing: true });
-          this.getInfo();
-        }
-        if (this.state.query === "") {
-          this.setState({ typing: false });
-        }
-      }
-    );
-  };
-
   render() {
     console.log(this.props);
     return (

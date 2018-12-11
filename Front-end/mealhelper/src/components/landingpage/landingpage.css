@@ -52,16 +52,15 @@
   justify-content: space-around;
 }
 .button {
-  background: #267cfc;
-  border-radius: 6px;
+  background: #2f9dfe;
+  border-radius: 30px;
   width: 100%;
   height: auto;
   border: none;
   cursor: pointer;
 }
 .button:hover {
-  background: #0166fe;
-  border-radius: 6px;
+  background: #242424;
   width: 100%;
   height: auto;
   border: none;
@@ -110,7 +109,7 @@
   justify-content: space-around;
 }
 .info-text {
-  color: #1e2e66;
+  color: #242424;
   font-family: "Oswald", sans-serif;
   font-size: 48px;
   margin-left: 1%;
@@ -119,7 +118,7 @@
   border-bottom: 1px solid lightgray;
 }
 .info-text-two {
-  color: #1e2e66;
+  color: #242424;
   font-family: "Oswald", sans-serif;
   font-size: 46px;
   margin-left: 3%;
@@ -153,9 +152,235 @@
   margin-left: 23%;
 }
 .card-body-text {
-  color: #1e2e66;
+  color: #242424;
   text-align: left;
   font-family: "Roboto", sans-serif;
   font-size: 24px;
   font-style: italic;
+}
+
+.pricing {
+  padding-top: 150px;
+  margin-top: -250px;
+  margin-bottom: 150px;
+}
+
+.charts {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background: #f2f2f2;
+  padding: 0;
+  /* maring: 0; */
+}
+
+#price {
+  text-align: center;
+}
+
+.plan {
+  display: inline-block;
+  margin: 10px 1%;
+  font-family: "Lato", Arial, sans-serif;
+}
+
+.plan-inner {
+  background: #fff;
+  margin: 0 auto;
+  min-width: 350px;
+  max-width: 100%;
+  position: relative;
+}
+
+.entry-title {
+  background: #67b6fc;
+  height: 140px;
+  position: relative;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+.entry-title > h3 {
+  background: #2f9dfe;
+  font-size: 20px;
+  padding: 5px 0;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0;
+}
+
+.entry-title .price {
+  position: absolute;
+  bottom: -25px;
+  background: #2f9dfe;
+  height: 95px;
+  width: 95px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  border-radius: 50px;
+  border: 5px solid #fff;
+  line-height: 80px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.price span {
+  position: absolute;
+  font-size: 9px;
+  bottom: -15px;
+  left: 20px;
+  font-weight: 400;
+}
+
+.entry-content {
+  color: #242424;
+}
+
+.entry-content ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.entry-content li {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 10px 0;
+}
+
+.entry-content li:last-child {
+  border: none;
+}
+
+.btn {
+  margin-top: 8px;
+  margin-bottom: -5px;
+  text-align: center;
+}
+
+.btn a {
+  background: #242424;
+  padding: 10px 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 30px;
+  margin-top: 15px;
+}
+
+.btn a:hover {
+  background: #4cb944;
+  text-decoration: none;
+  color: #fff;
+}
+
+.free-btn {
+  /* padding: 1em 0; */
+  margin-top: 15px;
+  text-align: center;
+}
+
+.free-btn a {
+  background: #f80;
+  padding: 10px 30px;
+  margin-top: 20px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 30px;
+}
+
+.free-btn a:hover {
+  text-decoration: none;
+  color: #fff;
+}
+.hot {
+  position: absolute;
+  top: -7px;
+  background: #f80;
+  color: #fff;
+  text-transform: uppercase;
+  z-index: 1;
+  padding: 2px 5px;
+  font-size: 9px;
+  border-radius: 2px;
+  right: 10px;
+  font-weight: 700;
+}
+.basic .entry-title {
+  background: #5ddb53;
+}
+
+.basic .entry-title > h3 {
+  background: #4cb944;
+}
+
+.basic .price {
+  background: #4cb944;
+}
+
+/* Three columns side by side */
+.team-column {
+  float: left;
+  width: 33.33%;
+  height: auto;
+  margin-bottom: 16px;
+  padding: 20px 60px 20px 60px;
+}
+
+/* Display the columns below each other instead of side by side on small screens */
+@media screen and (max-width: 650px) {
+  .team-column {
+    width: 100%;
+    display: block;
+  }
+}
+
+/* Add some shadows to create a card effect */
+.card {
+  box-shadow: 0 0.5px 0.5px 0 rgba(0, 0, 0, 0.1);
+  height: 300px;
+}
+
+/* Some left and right padding inside the container */
+.team-container {
+  padding: 0 16px;
+}
+
+/* Clear floats */
+.team-container::after,
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+  margin-top: 50px;
+}
+
+.contact-button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  margin-top: 50px;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 150px;
+  height: 50px;
+  border-radius: 30px;
+  font-family: "Roboto", sans-serif;
+}
+
+.contact-button:hover {
+  background-color: #2f9dfe;
 }

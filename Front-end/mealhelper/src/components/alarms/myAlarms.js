@@ -136,6 +136,14 @@ class MyAlarms extends Component {
     if (time > 1259) {
       twelve = time - 1200;
       if (twelve > 3) {
+        if (twelve >= 1000) {
+          format = twelve.toString().split("")
+          lastNum = format[format.length - 1]
+          format[2] = ":";
+          format.push(lastNum, " PM")
+          return format.join("")
+        }
+        
         twelveWithZero = 0 + twelve.toString();
         format = twelveWithZero.toString().split("");
         lastNum = format[format.length - 1];
@@ -157,7 +165,7 @@ class MyAlarms extends Component {
       <div className="alarms-container">
       <div className="alarms-heading"><h1>Alarms</h1></div>
           
-          {this.props.alarms ? 
+          {this.props.alarms.length ? 
           this.props.alarms.map(alarm => (
             <div className="alarm-card"
               key={alarm.id}
@@ -181,14 +189,15 @@ class MyAlarms extends Component {
             </div>
           )) 
           :
-              <div className="alarm-card">
-                <div className="alarm-text">You don't have any Alarms.</div>
+              <div className="alarm-card empty">
+                <div className="alarm-text empty">You don't have any Alarms set up.</div>
               </div>
           }
           <div className="add-new-alarms">
           <Button color="info" onClick={() => this.props.history.push("/homepage/alarms/add-alarms")}>Add New Alarms</Button>
           </div>
 </div>
+<p className="disclaim">Note: alarm functionality is not available on desktop. <br />This page can be used to view, update, and delete alarms for your iOS app.</p>
           
          <Modal
           isOpen={this.state.modal}
