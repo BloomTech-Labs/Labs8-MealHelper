@@ -69,7 +69,7 @@ class Landingpage extends Component {
               <div className="card-body-text-container">
             {/* <div className="card-body"> */}
               <div className="header-card">
-                  <p>EAT</p>
+                  <p>E A T</p>
                 {/* <div className="image-holder">
                   <div>
                     <img className="image-info-image" src={Plate} />
@@ -79,8 +79,16 @@ class Landingpage extends Component {
               
               <div className="card-body-text">
               <p>
-                  EatWell is an advanced meal journal. Each meal can be recorded along with your experience and any notes about positive negative health events after eating.
+                  EatWell is an advanced meal journal. Each meal, and its nutrients, can be recorded along with your experience and any notes about positive negative health events after eating.
                 </p>
+                <div className="extra">
+                <p className="tip-header">TIP:</p>
+                
+                <p className="tip">
+                  Need a reminder? Set alarms for your mobile app at specific times or at regular intervals each day.
+                </p>
+                
+                </div>
               </div>
                 
 
