@@ -210,7 +210,7 @@ class MealDetailViewController: UIViewController {
             guard let nutrients = ingredient.nutrients else { continue }
             
             for nutrient in nutrients {
-                if var aggregateNutrient = aggregateNutrients[nutrient.nutrientId] { // If nutrient exists in dict, then sum current and previous value
+                if var aggregateNutrient = aggregateNutrients[nutrient.nutrientId] { // If nutrient exists in dict, then sum up current and previous value
                     let sum = (Int(aggregateNutrient.value) ?? 0) + (Int(nutrient.value) ?? 0)
                     aggregateNutrient.value = String(sum)
                     aggregateNutrients[nutrient.nutrientId] = aggregateNutrient

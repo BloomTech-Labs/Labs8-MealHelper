@@ -118,7 +118,6 @@ class FoodSummaryViewController: UIViewController {
         tf.leftImage = nil
         tf.tintColor = .lightPurple
         tf.keyboardType = .default
-        tf.heightAnchor.constraint(equalToConstant: 40).isActive = true
         tf.placeholder = "Add a recipe name"
         return tf
     }()
