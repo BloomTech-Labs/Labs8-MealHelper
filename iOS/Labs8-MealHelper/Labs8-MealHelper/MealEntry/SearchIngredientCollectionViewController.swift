@@ -88,7 +88,7 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
             DispatchQueue.main.async {
                 switch response {
                 case .success(let ingredients):
-                    self.prevSavedIngredients = ingredients
+                    self.prevSavedIngredients = self.unique(ingredients)
                     self.collectionView.reloadData()
                 case .error:
                     self.showAlert(with: "We couldn't find your ingredients, please check your internet connection and try again.")
@@ -276,6 +276,20 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchController.searchBar.text = nil
         searchController.searchBar.resignFirstResponder()
+    }
+    
+    // MARK: - Private
+    
+    private func unique(_ ingredients: [Ingredient]) -> [Ingredient] {
+        var filteredIngredients = [Ingredient]()
+        
+        for ingredient in ingredients {
+            if !filteredIngredients.contains(ingredient) {
+                filteredIngredients.append(ingredient)
+            }
+        }
+        
+        return filteredIngredients
     }
     
     // MARK: - Configuration
