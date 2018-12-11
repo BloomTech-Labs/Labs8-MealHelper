@@ -13,6 +13,45 @@
   transition: box-shadow 0.2s ease-in-out;
 }
 
+.meal-card-header {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 80px;
+}
+
+.meal-experience {
+  padding-bottom: 20px;
+  padding-top: 15px;
+  margin: 30px 70% 0 0;
+  font-size: 40px;
+}
+
+.meal-card-center {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 80px;
+}
+
+.meal-time {
+  padding-bottom: 20px;
+  padding-top: 15px;
+  margin: 30px 70% 0 0;
+  font-size: 40px;
+}
+
+.meal-date {
+  padding-bottom: 20px;
+  padding-top: 15px;
+  margin: 30px 70% 0 0;
+  font-size: 40px;
+}
+
 .meal-card-footer {
   bottom: 0;
   display: flex;
@@ -21,12 +60,11 @@
   padding-left: 5%;
   padding-right: 5%;
 }
+
 .meal-city {
-  margin-top: 25px !important;
+  margin-top: 25px;
 }
-.meal-experience {
-  padding-bottom: 20px;
-  padding-top: 15px;
-  margin: 30px 70% 0 0;
-  font-size: 40px;
+
+.meal-temp {
+  margin-top: 25px;
 }
