@@ -19,31 +19,11 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
                 navigationItem.setRightBarButton(itemsSelectedBarButton, animated: true)
             }
             
-            savePopupView.title = "\(savedIngredients.count) ingredients selected"
+            setPopupTitle(withCount: savedIngredients.count)
         }
     }
     var searchedIngredients = [Ingredient]()
     var prevSavedIngredients = [Ingredient]()
-    
-    var selectedSearchedIngredientAtIndex = [Int]() {
-        didSet {
-            if selectedSearchedIngredientAtIndex.isEmpty {
-                navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
-            } else {
-                navigationItem.setRightBarButton(itemsSelectedBarButton, animated: true)
-            }
-        }
-    }
-    
-    var selectedSavedIngredientAtIndex = [Int]() {
-        didSet {
-            if selectedSavedIngredientAtIndex.isEmpty {
-                navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
-            } else {
-                navigationItem.setRightBarButton(itemsSelectedBarButton, animated: true)
-            }
-        }
-    }
     
     private var sectionHeaderReuseId = "SectionHeaderCell"
     private var searchBarReuseId = "SearchBarCell"
@@ -85,7 +65,6 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         view.delegate = self
         view.headerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(popupView)))
         view.hasActionButton = false
-        view.title = "\(savedIngredients.count) ingredients selected"
         
         return view
     }()
@@ -235,8 +214,6 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         } else {
             savedIngredients.append(ingredient)
         }
-        
-        collectionView.reloadData()
     }
     
     // MARK: - UISearchBarDelegate, UISearchResultsUpdating
@@ -320,6 +297,13 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         savePopupView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: CGSize(width: 0, height: 450))
         savePopupViewTopToBottom = savePopupView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60)
         savePopupViewTopToBottom?.isActive = true
+        
+        setPopupTitle(withCount: 0)
+    }
+    
+    private func setPopupTitle(withCount count: Int) {
+        let unit = count == 1 ? "ingredient" : "ingredients"
+        savePopupView.title = "\(count) \(unit)"
     }
     
 }
@@ -327,7 +311,6 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
 extension SearchIngredientCollectionViewController: UIViewControllerTransitioningDelegate {
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        transition.presenting = true
         return transition
     }
     
