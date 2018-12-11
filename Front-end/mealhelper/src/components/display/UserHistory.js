@@ -94,8 +94,9 @@ class UserHistory extends Component {
 
   render() {
     return (
-<div className="flex-me">
+      <div className="flex-me">
         <div className="dynamic-display-home-meals">
+          <h1 className="familiar-greeting">Welcome Back!</h1>
           <p className="recentMeals">4 Most Recently Made Meals: </p>
         </div>
         <div className="dynamic-display-home">
