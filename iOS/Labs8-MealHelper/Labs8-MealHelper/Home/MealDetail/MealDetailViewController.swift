@@ -87,15 +87,24 @@ class MealDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupBackground()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         setupViews()
     }
     
-    private func setupViews() {
+    private func setupBackground() {
         view.addSubview(backgroundImageView)
         backgroundImageView.fillSuperview()
         
         view.addSubview(blurEffect)
         blurEffect.fillSuperview()
+    }
+    
+    private func setupViews() {
         
         view.addSubview(nutrientsView)
         nutrientsView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 30, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 80))
@@ -108,6 +117,37 @@ class MealDetailViewController: UIViewController {
         
         view.addSubview(noteView)
         noteView.anchor(top: weatherView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 100))
+        
+        view.layoutIfNeeded()
+        
+        animateIntoView()
+    }
+    
+    private func animateIntoView() {
+        // Place view outside of the screen
+        let screenWidth = UIScreen.main.bounds.width
+        nutrientsView.center.x = screenWidth * -0.5
+        ingredientsTableView.tableView.center.x = screenWidth * -0.5
+        weatherView.center.x = screenWidth * -0.5
+        noteView.center.x = screenWidth * -0.5
+        
+        // Animate views from left to the center of the screen
+        UIView.animateKeyframes(withDuration: 0.85, delay: 0.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.25, animations: {
+                self.nutrientsView.center.x = self.view.center.x
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25, animations: {
+                self.ingredientsTableView.tableView.center.x = self.view.center.x
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25, animations: {
+                self.weatherView.center.x = self.view.center.x
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25, animations: {
+                self.noteView.center.x = self.view.center.x
+            })
+        }) { (success) in
+            
+        }
     }
     
     private func fetchIngredients() {
