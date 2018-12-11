@@ -87,7 +87,7 @@ class FoodSummaryViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var inputStackView: UIStackView = {
+    lazy var inputStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually

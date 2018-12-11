@@ -184,7 +184,7 @@ class FoodClient: GenericAPIClient {
             
             }.resume()
     }
-    
+        
     func fetchUsdaNutrients(for ndbno: Int, completion: @escaping (Response<([Nutrient], String)>) -> ()) {
         let url = self.url(with: usdaBaseUrl, pathComponents: ["nutrients"])
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)!
