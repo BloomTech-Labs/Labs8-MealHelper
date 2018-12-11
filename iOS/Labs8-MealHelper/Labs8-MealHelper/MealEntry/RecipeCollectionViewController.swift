@@ -49,11 +49,14 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
         setupCollectionView()
         
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         FoodClient.shared.fetchRecipes { (response) in
             DispatchQueue.main.async {
                 switch response {
                 case .success(let recipes):
-                    self.recipes = recipes
+                    self.recipes = recipes.reversed()
                     self.collectionView.reloadData()
                 case .error:
                     self.showAlert(with: "We couldn't get your recipes, please check your internet connection and try again.")
@@ -61,7 +64,6 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
                 }
             }
         }
-        
     }
     
     // MARK: - CollectionViewDelegate
