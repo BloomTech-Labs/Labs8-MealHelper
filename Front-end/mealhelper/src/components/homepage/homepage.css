@@ -41,12 +41,23 @@
 
 .user-profile-card-logout {
   margin-left: 400px;
-  margin-top: 20px;
+  margin-top: 10px;
   font-weight: bolder;
   cursor: pointer;
 }
 
 .user-profile-card-logout:hover {
+  color: #2f9dfe;
+}
+
+.user-profile-card-settings {
+  margin-left: 400px;
+  margin-top: 20px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.user-profile-card-settings:hover {
   color: #2f9dfe;
 }
 

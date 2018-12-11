@@ -22,6 +22,7 @@ class HomePage extends Component {
     return (
       // <div className="home-container-home">
       <div className="user-profile-card">
+        <div className="user-profile-card-settings">Settings</div>
         <a onClick={this.logout} style={{ textDecoration: "none" }}>
           <div className="user-profile-card-logout">Logout</div>
         </a>
