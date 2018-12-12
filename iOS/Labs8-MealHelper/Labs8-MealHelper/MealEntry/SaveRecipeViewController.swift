@@ -136,8 +136,11 @@ class SaveRecipeViewController: UIViewController {
     }
     
     @objc private func handleMealSetting(notification: NSNotification) {
-        if let userInfo = notification.userInfo, let pickedMealTime = userInfo["type"] as? String, let pickedServingString = userInfo["quantity"] as? String, let pickedServingInt = Int(pickedServingString) {
+        if let userInfo = notification.userInfo, let pickedMealTime = userInfo["type"] as? String {
             self.mealTime = pickedMealTime
+        }
+        
+        if let userInfo = notification.userInfo, let pickedServingString = userInfo["quantity"] as? String, let pickedServingInt = Int(pickedServingString) {
             self.serving = pickedServingInt
         }
     }

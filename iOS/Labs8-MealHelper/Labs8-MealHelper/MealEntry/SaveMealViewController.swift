@@ -83,7 +83,7 @@ class SaveMealViewController: UIViewController {
     // MARK: - User actions
     
     @objc private func save() {
-        
+        saveMeals()
     }
     
     @objc private func handleKeyboard(notification: NSNotification) {
@@ -91,15 +91,20 @@ class SaveMealViewController: UIViewController {
     }
     
     @objc private func handleMealSetting(notification: NSNotification) {
-        if let userInfo = notification.userInfo, let pickedMealTime = userInfo["type"] as? String, let pickedServingString = userInfo["quantity"] as? String, let pickedServingInt = Int(pickedServingString) {
+        if let userInfo = notification.userInfo, let pickedMealTime = userInfo["type"] as? String {
             self.mealTime = pickedMealTime
+        }
+        
+        if let userInfo = notification.userInfo, let pickedServingString = userInfo["quantity"] as? String, let pickedServingInt = Int(pickedServingString) {
             self.serving = pickedServingInt
         }
     }
     
     // MARK: - Persistence
     
-    private func saveMeals(with recipes: [Recipe], completion: @escaping (Recipe?) -> ()) {
+    private func saveMeals() {
+        guard let recipes = recipes else { return }
+        
         let date = Utils().dateString(for: Date())
         var temp = 0.0 // TODO: Change
         
@@ -117,9 +122,8 @@ class SaveMealViewController: UIViewController {
             
             for recipe in recipes {
                 foodDispatchGroup.enter()
-                let name = recipe.name
-                // TODO: Change mealTime
-                FoodClient.shared.postMeal(name: name, mealTime: name, date: date, temp: temp, recipeId: recipe.identifier) { (response) in
+                
+                FoodClient.shared.postMeal(name: recipe.name, mealTime: self.mealTime, date: date, temp: temp, recipeId: recipe.identifier, servings: self.serving) { (response) in
                     foodDispatchGroup.leave()
                 }
             }
@@ -175,9 +179,6 @@ class SaveMealViewController: UIViewController {
         ingredientTableVC.tableView.anchor(top: mealSettingsVC.view.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 40, right: sidePadding))
         
         navigationItem.setRightBarButton(saveBarButton, animated: true)
-        
-        
-        //mealSettingsVC.titleName = "No recipes selected"
     }
     
     private func updateViews() {
