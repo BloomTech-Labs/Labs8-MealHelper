@@ -17,6 +17,7 @@ import Stefano from "../../img/stefano100.jpg";
 import Simon from "../../img/simon100.jpg";
 import Casey from "../../img/casey100.png";
 import Patrick from "../../img/patrick100.png";
+import Joseph from "../../img/joseph100.jpg";
 
 class Landingpage extends Component {
   componentDidMount = () => {
@@ -311,7 +312,7 @@ class Landingpage extends Component {
               <div className="team-column">
                 <div className="card">
                   <img
-                    src="https://via.placeholder.com/100"
+                    src={Joseph}
                     alt="Team Member"
                     className="team-member"
                     style={{ width: 100 }}
