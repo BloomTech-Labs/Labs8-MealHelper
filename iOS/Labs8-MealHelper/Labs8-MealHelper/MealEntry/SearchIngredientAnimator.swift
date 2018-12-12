@@ -88,7 +88,7 @@ class SearchIngredientAnimator: NSObject, UIViewControllerAnimatedTransitioning 
                 destinationView.alpha = 1.0
                 destinationLabel.alpha = 1.0
             })
-        }) { (success) in
+        }) { _ in
             sourceView.alpha = 1.0
             
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)

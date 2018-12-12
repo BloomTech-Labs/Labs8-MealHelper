@@ -29,8 +29,6 @@ class MealDetailViewController: UIViewController {
         }
     }
     
-    private let transition = NotesAnimator()
-    
     let nutrientsView: NutrientsView = {
         let view = NutrientsView()
         view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
@@ -130,7 +128,6 @@ class MealDetailViewController: UIViewController {
         
         view.layoutIfNeeded()
         
-        transitioningDelegate = self
         animateIntoView()
     }
     
@@ -208,9 +205,35 @@ class MealDetailViewController: UIViewController {
         }
     }
     
+    private func fetchNote() {
+        guard let meal = meal else { return }
+        FoodClient.shared.fetchIngredients(withRecipeId: recipeId) { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let ingredients):
+                    self.ingredients = ingredients
+                    self.fetchNutrients()
+                case .error(let error):
+                    NSLog("Error fetching ingredients: \(error)")
+                    self.showAlert(with: "Could not fetch ingredients.")
+                }
+            }
+        }
+    }
+    
     private func saveNote() {
-        let note = noteView.text
-        
+        guard let note = noteView.text, let meal = meal else { return }
+        APIClient.shared.saveNote(note, mealId: meal.identifier) { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let notes):
+                    print(notes)
+                case .error(let error):
+                    NSLog("Error saving note: \(error)")
+                    self.showAlert(with: "Could not save note")
+                }
+            }
+        }
     }
     
     private func aggregateNutrients(from ingredients: [Ingredient]) -> [Nutrient] {
@@ -253,7 +276,6 @@ extension MealDetailViewController: UITextViewDelegate {
                 self.noteView.center.y -= self.view.center.y
             })
         }, completion: nil)
-        
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -271,16 +293,10 @@ extension MealDetailViewController: UITextViewDelegate {
                 self.ingredientsTableView.tableView.alpha = 1
                 self.weatherView.alpha = 1
             })
-        }, completion: nil)
+        }) { _ in
+            self.saveNote()
+        }
     }
-}
-
-extension MealDetailViewController: UIViewControllerTransitioningDelegate {
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return transition
-    }
-    
 }
 
 fileprivate extension UITextView {
