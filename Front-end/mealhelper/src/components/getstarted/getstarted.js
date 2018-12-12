@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import "./getstarted.css";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
+import Moment from "react-moment";
 
 class GetStarted extends Component {
   logout = event => {
@@ -29,7 +30,11 @@ class GetStarted extends Component {
             <h1 className="user-profile-card-cta-logo">EatWell!</h1>
           </h1>
           <div className="user-profile-card-infobox">
-            <p className="user-profile-card-infobox-date">Today is:</p>
+            <p className="user-profile-card-infobox-date">
+              Today is:
+              <br />
+              <Moment format="LLLL">{this.props.dateToFormat}</Moment>
+            </p>
             <p className="user-profile-card-infobox-last-meal">
               Your last meal was:
             </p>
@@ -103,7 +108,7 @@ class GetStarted extends Component {
             className="get-started-cta-link"
             style={{ textDecoration: "none" }}
           >
-            <h1 className="get-started-cta">Get Started!</h1>
+            <h1 className="get-started-cta">Get Started Here!</h1>
           </Link>
           <div class="inapp-choice-wrapper">
             <div class="box recipes">
