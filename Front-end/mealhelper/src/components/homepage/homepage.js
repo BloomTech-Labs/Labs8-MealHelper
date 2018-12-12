@@ -36,7 +36,7 @@ class HomePage extends Component {
           </h1>
           <div className="user-profile-card-infobox">
             <p className="user-profile-card-infobox-date">
-              Today is:
+              Today is: <br />
               <Moment format="LLLL">{this.props.dateToFormat}</Moment>
             </p>
             <p className="user-profile-card-infobox-last-meal">
