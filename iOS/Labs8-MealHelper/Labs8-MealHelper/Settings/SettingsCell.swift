@@ -20,50 +20,26 @@ class SettingsCell: UICollectionViewCell {
     
     weak var delegate: SettingsCellDelegate?
     
-    let emailCell: UITableViewCell = {
-        let cell = UITableViewCell()
+    let emailCell: UserCredentialCell = {
+        let cell = UserCredentialCell()
         cell.textLabel?.text = "Change email"
-        
-        let emailLabel = UILabel()
-        emailLabel.text = "Test@test.dk"
-        emailLabel.textAlignment = .right
-        emailLabel.textColor = .lightGray
-        
-        cell.addSubview(emailLabel)
-        emailLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: cell.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8), size: CGSize(width: 100, height: 20))
-        emailLabel.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
-        
+        cell.valueTextLabel.text = UserDefaults.standard.loggedInEmail() ?? "Anonymous"
+
         return cell
     }()
     
-    let zipCell: UITableViewCell = {
-        let cell = UITableViewCell()
+    let zipCell: UserCredentialCell = {
+        let cell = UserCredentialCell()
         cell.textLabel?.text = "Change zip"
-        
-        let zipLabel = UILabel()
-        zipLabel.text = "3300"
-        zipLabel.textAlignment = .right
-        zipLabel.textColor = .lightGray
-        
-        cell.addSubview(zipLabel)
-        zipLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: cell.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8), size: CGSize(width: 100, height: 20))
-        zipLabel.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+        cell.valueTextLabel.text = String(UserDefaults.standard.loggedInZipCode() ?? 0000)
         
         return cell
     }()
     
-    let passwordCell: UITableViewCell = {
-        let cell = UITableViewCell()
+    let passwordCell: UserCredentialCell = {
+        let cell = UserCredentialCell()
         cell.textLabel?.text = "Change password"
-        
-        let passwordLabel = UILabel()
-        passwordLabel.text = "********"
-        passwordLabel.textAlignment = .right
-        passwordLabel.textColor = .lightGray
-        
-        cell.addSubview(passwordLabel)
-        passwordLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: cell.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8), size: CGSize(width: 100, height: 20))
-        passwordLabel.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+        cell.valueTextLabel.text = "*******"
         
         return cell
     }()
@@ -113,6 +89,25 @@ class SettingsCell: UICollectionViewCell {
         
         addSubview(tableView)
         tableView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 0, left: 30, bottom: 40, right: 30))
+        
+        setupObservers()
+    }
+    
+    private func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(emailDidChange), name: .MHEmailDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(zipDidChange), name: .MHEmailDidChange, object: nil)
+    }
+    
+    @objc private func emailDidChange(notification: Notification) {
+        if let email = notification.userInfo?["email"] as? String {
+            emailCell.valueTextLabel.text = email
+        }
+    }
+    
+    @objc private func zipDidChange(notification: Notification) {
+        if let zipCode = notification.userInfo?["zip"] as? String {
+            zipCell.valueTextLabel.text = String(zipCode)
+        }
     }
     
     @objc private func logout() {
@@ -232,5 +227,27 @@ extension SettingsCell: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
             cell.layer.mask = shapeLayerBottom
         }
+    }
+}
+
+class UserCredentialCell: UITableViewCell {
+    
+    let valueTextLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .right
+        label.textColor = .lightGray
+        
+        return label
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addSubview(valueTextLabel)
+        valueTextLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8), size: CGSize(width: 200, height: 20))
+        valueTextLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

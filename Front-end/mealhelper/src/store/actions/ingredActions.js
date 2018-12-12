@@ -19,7 +19,7 @@ export const addMultipleIngredients = (
   for (let i = 0; i < countIngredients; i++) {
     dispatch({ type: ADDING_INGREDIENT });
     const id = userId;
-
+    console.log("this is the recipe id" + recipe_id);
     ingredient[i]["recipe_id"] = recipe_id;
     console.log(ingredient[i]);
     const promise = axios.post(
@@ -37,9 +37,22 @@ export const addMultipleIngredients = (
   }
 };
 //Route to login a user
-export const getIngredient = ingredient => dispatch => {
+// export const getIngredient = (ingredient, id) => dispatch => {
+//   dispatch({ type: GETTING_INGREDIENT });
+//   const id = ingredient.id;
+//   axios
+//     //Passes credentials to the /login Route.
+//     .get(`https://labs8-meal-helper.herokuapp.com/ingredients/${id}`)
+//     .then(response => {
+//       dispatch({ type: GOT_INGREDIENT, payload: response.data });
+//     })
+//     .catch(err => {
+//       dispatch({ type: GETTING_INGREDIENT_ERROR, payload: err });
+//     });
+// };
+
+export const getIngredients = id => dispatch => {
   dispatch({ type: GETTING_INGREDIENT });
-  const id = ingredient.id;
   axios
     //Passes credentials to the /login Route.
     .get(`https://labs8-meal-helper.herokuapp.com/ingredients/${id}`)
