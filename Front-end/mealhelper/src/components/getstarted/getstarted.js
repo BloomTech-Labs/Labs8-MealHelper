@@ -48,7 +48,7 @@ class GetStarted extends Component {
             style={{ textDecoration: "none" }}
           >
             <Link
-              to="/homepage/meals"
+              to="/homepage/meals/new"
               className="stat-divider"
               style={{ textDecoration: "none" }}
             >
@@ -74,7 +74,7 @@ class GetStarted extends Component {
             style={{ textDecoration: "none" }}
           >
             <Link
-              to="/homepage/meals"
+              to="/homepage/meals/new"
               className="stat-divider-live"
               style={{ textDecoration: "none" }}
             >
@@ -104,7 +104,7 @@ class GetStarted extends Component {
         </div>
         <div className="get-started-container">
           <Link
-            to="/homepage/meals"
+            to="/homepage/meals/new"
             className="get-started-cta-link"
             style={{ textDecoration: "none" }}
           >

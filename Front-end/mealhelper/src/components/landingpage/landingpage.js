@@ -35,6 +35,10 @@ class Landingpage extends Component {
     this.props.history.push("/login");
   };
 
+  sendEmail = () => {
+    window.open("mailto:lambdafoodapp@gmail.com");
+  };
+
   render() {
     return (
       <div className="main-container">
@@ -264,7 +268,12 @@ class Landingpage extends Component {
                       />
                     </a>
                     <p>
-                      <button className="contact-button">Contact</button>
+                      <button
+                        className="contact-button"
+                        onClick={this.sendEmail}
+                      >
+                        Contact
+                      </button>
                     </p>
                   </div>
                 </div>
@@ -298,7 +307,12 @@ class Landingpage extends Component {
                       />
                     </a>
                     <p>
-                      <button className="contact-button">Contact</button>
+                      <button
+                        className="contact-button"
+                        onClick={this.sendEmail}
+                      >
+                        Contact
+                      </button>
                     </p>
                   </div>
                 </div>
@@ -332,7 +346,12 @@ class Landingpage extends Component {
                       />
                     </a>
                     <p>
-                      <button className="contact-button">Contact</button>
+                      <button
+                        className="contact-button"
+                        onClick={this.sendEmail}
+                      >
+                        Contact
+                      </button>
                     </p>
                   </div>
                 </div>
@@ -366,7 +385,12 @@ class Landingpage extends Component {
                       />
                     </a>
                     <p>
-                      <button className="contact-button">Contact</button>
+                      <button
+                        className="contact-button"
+                        onClick={this.sendEmail}
+                      >
+                        Contact
+                      </button>
                     </p>
                   </div>
                 </div>
@@ -400,7 +424,12 @@ class Landingpage extends Component {
                       />
                     </a>
                     <p>
-                      <button className="contact-button">Contact</button>
+                      <button
+                        className="contact-button"
+                        onClick={this.sendEmail}
+                      >
+                        Contact
+                      </button>
                     </p>
                   </div>
                 </div>
@@ -434,7 +463,12 @@ class Landingpage extends Component {
                       />
                     </a>
                     <p>
-                      <button className="contact-button">Contact</button>
+                      <button
+                        className="contact-button"
+                        onClick={this.sendEmail}
+                      >
+                        Contact
+                      </button>
                     </p>
                   </div>
                 </div>
