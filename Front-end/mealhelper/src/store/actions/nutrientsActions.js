@@ -19,7 +19,7 @@ export const addMultipleNutrients = (
     for (let j = 0; j < 4; j++) {
       dispatch({ type: ADDING_NUTRIENT });
       const id = userID;
-      nutrient[i]["recipe_id"] = recipe_id;
+      nutrient[i][j]["recipe_id"] = recipe_id;
       console.log("This is what is posting at this second", nutrient[i][j]);
       const promise = axios.post(
         `https://labs8-meal-helper.herokuapp.com/nutrients/${id}`,

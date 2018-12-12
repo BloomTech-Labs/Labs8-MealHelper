@@ -112,14 +112,12 @@ server.post("/register", (req, res) => {
         .first()
         .then(user => {
           console.log(user);
-          res
-            .status(200)
-            .json({
-              userID: user.id,
-              token: token,
-              zip: user.zip,
-              email: user.email
-            });
+          res.status(200).json({
+            userID: user.id,
+            token: token,
+            zip: user.zip,
+            email: user.email
+          });
         })
         .catch(err => {
           res.status(400).json({ error: "Could not grab user" });
@@ -173,14 +171,12 @@ server.post("/login", (req, res) => {
       if (user && bcrypt.compareSync(userLogin.password, user.password)) {
         const token = generateToken(user);
 
-        res
-          .status(200)
-          .json({
-            userID: user.id,
-            token: token,
-            zip: user.zip,
-            email: user.email
-          });
+        res.status(200).json({
+          userID: user.id,
+          token: token,
+          zip: user.zip,
+          email: user.email
+        });
       } else {
         res
           .status(500)
@@ -786,9 +782,9 @@ server.get("/nutrients/:ingredientID", (req, res) => {
 server.post("/nutrients/:id", (req, res) => {
   const user_id = req.params.id;
   //grabs the name unit and value from req.body
-  const { nutrient, nutrient_id, unit, value, ingredients_id } = req.body;
+  const { nutrient, nutrient_id, unit, value, recipe_id } = req.body;
   //set the what we grabbed to a new "nutrient"
-  const nutrientsAll = { nutrient, nutrient_id, unit, value, ingredients_id };
+  const nutrientsAll = { nutrient, nutrient_id, unit, value, recipe_id };
   console.log(nutrientsAll);
   db("nutrients")
     .insert(nutrientsAll)
