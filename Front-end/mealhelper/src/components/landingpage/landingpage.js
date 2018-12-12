@@ -2,17 +2,21 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
-import Jars from "./Jars.jpg";
+
 import Computer from "./Computer.png";
-import Plate from "./Plate.png";
+
 import Navbar from "../Navbar/Navbar";
 import Recipe from "./Recipes.jpg";
-import Book from "./Book.png";
+
 import DoctorPic from "./DoctorPic.png";
-import Doctor from "./Doctor.png";
+
 import "./landingpage.css";
-import Jumbo from "./Jumbo.jpg";
+import Jumbo from "./jumboIcons2.png";
 import Picnic from "./PicnicBlue.jpg"
+import Eat from "./eatimage2.png";
+import Track from "./trackimage.png";
+import Analyze from "./analyzeimage.png";
+import EatWell from "./eatwellimage.png";
 import Stefano from "../../img/stefano100.jpg";
 import Simon from "../../img/simon100.jpg";
 import Casey from "../../img/casey100.png"
@@ -77,7 +81,7 @@ class Landingpage extends Component {
           </div>
           
           <div className="info-container-one">
-            <img className="image-info" src={Computer} />
+            <img className="image-info" src={Eat} />
             <div className="card-body-text-container">
               <div className="header-card">
                 <p>E A T</p>
@@ -118,10 +122,10 @@ class Landingpage extends Component {
                 </div>
               </div>
             </div>
-            <img className="image-info" src={Recipe} />
+            <img className="image-info" src={Track} />
           </div>
           <div className="info-container-three">
-            <img className="image-info" src={DoctorPic} />
+            <img className="image-info" src={Analyze} />
             <div className="card-body-text-container">
               <div className="header-card">
                 <p>A N A L Y Z E</p>
@@ -133,9 +137,7 @@ class Landingpage extends Component {
                 </p>
                 <div className="extra">
                   <p className="tip-header">TIP:</p>
-                  <p className="tip">Veggies es bonus vobis, proinde vos postulo essum magis
-                  kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon
-                  azuki bean garlic.</p>
+                  <p className="tip">Purchase the premium version for access to unlimited meals and recipe storage for a better look at long-term trends.</p>
                 </div>
               </div>
             </div>
@@ -156,7 +158,7 @@ class Landingpage extends Component {
                 </div>
               </div>
             </div>
-            <img className="image-info" src={Picnic} />
+            <img className="image-info" src={EatWell} />
           </div>
         </div>
         <a name="pricing" />
