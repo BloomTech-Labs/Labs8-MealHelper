@@ -23,8 +23,10 @@ class SaveMealViewController: UIViewController {
     
     // MARK: - Private properties
     
-    private var ingredients: [Ingredient] {
-        return allIngredients(from: recipes)
+    private var ingredients: [Ingredient] = [Ingredient]() {
+        didSet {
+            ingredientTableVC.ingredients = ingredients
+        }
     }
     
     private let sidePadding: CGFloat = 20.0
@@ -97,7 +99,7 @@ class SaveMealViewController: UIViewController {
     
     // MARK: - Persistence
     
-    func saveMeals(with recipes: [Recipe], completion: @escaping (Recipe?) -> ()) {
+    private func saveMeals(with recipes: [Recipe], completion: @escaping (Recipe?) -> ()) {
         let date = Utils().dateString(for: Date())
         var temp = 0.0 // TODO: Change
         
@@ -128,19 +130,34 @@ class SaveMealViewController: UIViewController {
         }
     }
     
-    // MARK: - Private methods
-    
-    private func allIngredients(from recipes: [Recipe]?) -> [Ingredient] {
-        var allInredients = [Ingredient]()
-        if let recipes = recipes {
-            for recipe in recipes {
-                if let ingredients = recipe.ingredients {
-                    allInredients.append(contentsOf: ingredients)
+    private func fetchIngredients() {
+        guard let recipes = recipes else { return }
+        var fetchedIngredients = [Ingredient]()
+        let dispatchGroup = DispatchGroup()
+        
+        for recipe in recipes {
+            dispatchGroup.enter()
+            FoodClient.shared.fetchIngredients(withRecipeId: recipe.identifier) { (response) in
+                DispatchQueue.main.async {
+                    switch response {
+                    case .success(let ingredients):
+                        fetchedIngredients.append(contentsOf: ingredients)
+                    case.error(let error):
+                        NSLog("Could not fetch recipe's ingredients: \(error)")
+                    }
+                    
+                    dispatchGroup.leave()
                 }
             }
         }
-        return allInredients
+        
+        dispatchGroup.notify(queue: .main) {
+            self.ingredients.append(contentsOf: fetchedIngredients)
+        }
     }
+    
+    // MARK: - Private methods
+    
     
     // MARK: - Configuration
     
@@ -160,7 +177,7 @@ class SaveMealViewController: UIViewController {
         navigationItem.setRightBarButton(saveBarButton, animated: true)
         
         
-        mealSettingsVC.titleName = "No recipes selected"
+        //mealSettingsVC.titleName = "No recipes selected"
     }
     
     private func updateViews() {
@@ -172,7 +189,7 @@ class SaveMealViewController: UIViewController {
             mealSettingsVC.titleName = recipes.first?.name
         }
         
-        ingredientTableVC.ingredients = ingredients
+        fetchIngredients()
     }
     
     private func setupKeyboardNotifications() {
