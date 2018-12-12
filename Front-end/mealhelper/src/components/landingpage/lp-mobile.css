@@ -1,0 +1,9 @@
+@media screen and (max-width: 650px) {
+  .jumbotron-image {
+    margin-top: 15px
+  }
+  
+  .login-signup-container {
+    margin: -325px auto;
+  }
+}
