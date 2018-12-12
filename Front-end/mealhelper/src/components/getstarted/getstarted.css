@@ -4,6 +4,8 @@
 
 .get-started-cta {
   color: #242424;
+  font-size: 40px;
+  margin-top: -40px;
 }
 
 .get-started-cta:hover {

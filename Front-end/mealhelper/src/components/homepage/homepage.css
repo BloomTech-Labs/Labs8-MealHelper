@@ -32,7 +32,7 @@
 
 .user-profile-card-logout {
   margin-left: 400px;
-  margin-top: 10px;
+  margin-top: 5px;
   font-weight: bolder;
   color: white;
   cursor: pointer;
@@ -44,7 +44,7 @@
 
 .user-profile-card-settings {
   margin-left: 400px;
-  margin-top: 10px;
+  margin-top: 5px;
   font-weight: bolder;
   color: white;
   cursor: pointer;
@@ -67,7 +67,7 @@
 }
 
 .user-profile-card-cta {
-  padding-top: 25px;
+  padding-top: 50px;
   margin-top: -40px;
   margin-bottom: 30px;
 }

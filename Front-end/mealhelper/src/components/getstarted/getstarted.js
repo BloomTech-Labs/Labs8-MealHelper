@@ -97,7 +97,7 @@ class GetStarted extends Component {
             </p>
           </div>
         </div>
-        <div>
+        <div className="get-started-container">
           <Link
             to="/homepage/meals"
             className="get-started-cta-link"
