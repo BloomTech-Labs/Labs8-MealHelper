@@ -6,4 +6,12 @@
   .login-signup-container {
     margin: -325px auto;
   }
+
+  .signup-login-buttons-lp p {
+    font-size: 15px;
+  }
+
+  .buttons-lp {
+    width: 125px;
+  }
 }
