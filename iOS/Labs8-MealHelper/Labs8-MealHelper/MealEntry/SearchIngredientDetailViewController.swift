@@ -26,7 +26,6 @@ class SearchIngredientDetailViewController: UIViewController {
     
     let sidePadding: CGFloat = 20.0
     private let foodHelper = FoodHelper()
-    private var transition = SearchIngredientAnimator()
     
     let closeButton: UIButton = {
         let button = UIButton(type: .system)

@@ -107,6 +107,13 @@ class FoodClient: GenericAPIClient {
         
     }
     
+    
+    func addNoteTo(meal: Int, with note: String, completion: @escaping (Response<String>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["meals", "\(meal)"])
+        let newUserDetails = ["notes": note] as [String: Any]
+        put(with: url, requestBody: newUserDetails, completion: completion)
+    }
+    
     func deleteMeal(withId id: String, completion: @escaping (Response<String>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["users", id, "meals"])
         
