@@ -83,10 +83,11 @@ class WeatherView: UIView
     
     func fetch()
     {
-        WeatherAPIClient.shared.fetchWeather(for: 3300) { (forecast) in
+        let zipCode = UserDefaults.standard.loggedInZipCode()
+        WeatherAPIClient.shared.fetchWeather(for: zipCode) { (forecast) in
             
             guard let forecast = forecast else { return }
-            print("Success: \(forecast)")
+            
             DispatchQueue.main.async {
                 self.forecast = forecast
             }
@@ -116,55 +117,5 @@ class WeatherView: UIView
 //        forecastLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: UIEdgeInsets(top: 12, left: 20, bottom: 0, right: 20), size: .zero)
         
         
-    }
-}
-
-class WeatherAPIClient
-{
-    static let shared = WeatherAPIClient()
-    
-    let apiKey = "041197f9dce59be074281a9d3405c8ca"
-    let baseURL = "https://api.openweathermap.org/data/2.5/weather"
-    
-    func fetchWeather(for zipCode: Int, completion: @escaping (WeatherForecast?) -> ())
-    {
-        guard let countryCode = Locale.current.regionCode?.lowercased() else { return }
-        
-        let url = URL(string: baseURL)!
-        let zipQuery = URLQueryItem(name: "zip", value: "\(String(zipCode)),\(countryCode)")
-        let apiKeyQuery = URLQueryItem(name: "appid", value: apiKey)
-        let metricQuery = URLQueryItem(name: "units", value: "metric")
-        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        urlComponents?.queryItems = [metricQuery ,zipQuery, apiKeyQuery]
-        
-        guard let finalUrl = urlComponents?.url else { return }
-        var urlRequest = URLRequest(url: finalUrl)
-        urlRequest.httpMethod = "GET"
-        
-        URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
-            
-            if let error = error
-            {
-                NSLog("Error fetching weather forecast: \(error)")
-                completion(nil)
-                return
-            }
-            
-            guard let data = data else {
-                NSLog("Couldn't unwrap data")
-                completion(nil)
-                return
-            }
-            
-            do {
-                let forecast = try JSONDecoder().decode(WeatherForecast.self, from: data)
-                completion(forecast)
-                
-            } catch {
-                NSLog("Error decoding weather: \(error)")
-                completion(nil)
-                return
-            }
-        }.resume()
     }
 }
