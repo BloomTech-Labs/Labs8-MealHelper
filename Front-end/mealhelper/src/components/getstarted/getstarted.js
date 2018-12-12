@@ -5,6 +5,12 @@ import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 
 class GetStarted extends Component {
+  logout = event => {
+    event.preventDefault();
+    localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
+    this.props.history.push("/");
+  };
   render() {
     return (
       <div className="homepage-main-fence">
