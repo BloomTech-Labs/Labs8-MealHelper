@@ -1,4 +1,4 @@
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 670px) {
   .jumbotron-image {
     margin-top: 15px
   }
@@ -20,7 +20,7 @@
   }
 
   .info-container-one {
-    margin: 65% auto 0;
+    margin: 60% auto 0;
   }
 
   .card-body-text {
@@ -33,5 +33,9 @@
 
   .mini-cta {
     margin-top: 25px;
+  }
+
+  .plan-inner {
+    min-width: 300px;
   }
 }

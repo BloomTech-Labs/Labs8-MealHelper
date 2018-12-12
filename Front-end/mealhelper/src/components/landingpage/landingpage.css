@@ -57,7 +57,7 @@
 }
 
 .buttons-lp {
-  width: 150px;
+  width: 45%;
   height: 50px;
   color: #ffffff;
   font-size: 15px;
@@ -81,12 +81,12 @@
 .real-housewives-quote {
   width: 65%;
   z-index: 1;
-  margin-top: 100px;
+  margin-top: 120px;
   /* margin-left: 135px; */
   background: #2f9dfe;
   /* border: 1px solid blue; */
   border-radius: 5px;
-  height: 60px;
+  height: auto;
   padding: 10px;
 }
 .real-housewives-quote p {
@@ -104,7 +104,7 @@
   width: 100%;
   height: auto;
   background: #ffffff;
-  margin: 36% auto 0;
+  margin: 40% auto 0;
   border: 1px solid #b6b5b5;
   display: flex;
 }
@@ -137,7 +137,7 @@
 }
 .image-info {
   width: 50%;
-  height: 290px;
+  height: auto;
 }
 
 .header-card {
