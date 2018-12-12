@@ -291,6 +291,12 @@ class Landingpage extends Component {
                       className="Github"
                       style={{ width: 20 }}
                     />
+                    <img
+                      src={LinkedIn}
+                      alt="LinkedIn"
+                      className="linkedin"
+                      style={{ width: 30 }}
+                    />
                     <p>
                       <button className="contact-button">Contact</button>
                     </p>
