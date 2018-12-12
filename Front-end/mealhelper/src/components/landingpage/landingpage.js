@@ -149,12 +149,10 @@ class Landingpage extends Component {
                 <p>
                   Repeat! Newly empowered with a better understanding of how what you eat correlates with how you feel, continue using EatWell as you make adjustments to your diet and fine tune a nutritional plan that works for YOU!
                 </p>
-                <div className="extra">
-                  <p className="tip-header">TIP:</p>
-                  <p className="tip">
-                  Veggies es bonus vobis, proinde vos postulo essum magis
-                  kohlrabi.
-                  </p>
+                <div className="mini-cta">
+                <Link to="/signup" style={{ textDecoration: "none" }}>
+                  <button className="buttons-lp">Get Started</button>
+                </Link>
                 </div>
               </div>
             </div>
@@ -163,6 +161,7 @@ class Landingpage extends Component {
         </div>
         <a name="pricing" />
         <div className="pricing">
+        
           <h1>Pricing</h1>
           <div className="charts" id="price">
             <div className="plan">
@@ -176,19 +175,13 @@ class Landingpage extends Component {
                 <div className="entry-content">
                   <ul>
                     <li>
-                      <strong>Free</strong> option 1
+                     Make up to <strong>50</strong> meals
                     </li>
                     <li>
-                      <strong>Free</strong> option 2
+                     Make up to <strong>100</strong> recipes
                     </li>
                     <li>
-                      <strong>Free</strong> option 3
-                    </li>
-                    <li>
-                      <strong>Free</strong> option 4
-                    </li>
-                    <li>
-                      <strong>Free</strong> option 5
+                     Make up to <strong>5</strong> alarms
                     </li>
                   </ul>
                 </div>
@@ -206,22 +199,19 @@ class Landingpage extends Component {
                     $4.99<span>/PER USER</span>
                   </div>
                 </div>
-                <div className="entry-content">
+                <div className="entry-content premium">
                   <ul>
                     <li>
-                      <strong>1x</strong> option 1
+                    Make <strong>unlimited</strong> meals
                     </li>
                     <li>
-                      <strong>2x</strong> option 2
+                    Make  <strong>unlimited</strong> recipes
                     </li>
                     <li>
-                      <strong>3x</strong> option 3
+                    Make  <strong>unlimited</strong> alarms
                     </li>
                     <li>
-                      <strong>Free</strong> option 4
-                    </li>
-                    <li>
-                      <strong>Unlimited</strong> option 5
+                     Get a <strong>warm</strong> fuzzy feeling
                     </li>
                   </ul>
                 </div>
@@ -231,9 +221,11 @@ class Landingpage extends Component {
               </div>
             </div>
           </div>
+          
         </div>
 
         <a name="team" />
+        <div className="team-section-container">
         <div className="Team">
           <h1>Team</h1>
           <div className="team-cards">
@@ -328,6 +320,7 @@ class Landingpage extends Component {
             </div>
           </div>
         </div>
+      </div>
       </div>
     );
   }

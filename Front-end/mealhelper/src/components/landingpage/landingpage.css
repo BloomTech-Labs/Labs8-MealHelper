@@ -212,6 +212,21 @@
   /* margin-top: 40px; */
 }
 
+.mini-cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.mini-cta .buttons-lp {
+  background-color: #2f9dfe;
+}
+
+.mini-cta .buttons-lp:hover {
+  background-color: #242424;
+}
+
 .pricing {
   padding-top: 150px;
   margin-top: -250px;
@@ -308,6 +323,14 @@
   border: none;
 }
 
+.entry-content strong {
+  color: #2f9dfe
+}
+
+.premium strong {
+  color: #f80;
+}
+
 .btn {
   margin-top: 8px;
   margin-bottom: -5px;
@@ -321,12 +344,12 @@
   text-transform: uppercase;
   font-weight: 700;
   text-decoration: none;
-  border-radius: 30px;
+  border-radius: 5px;
   margin-top: 15px;
 }
 
 .btn a:hover {
-  background: #4cb944;
+  background: #f80;
   text-decoration: none;
   color: #fff;
 }
@@ -338,19 +361,20 @@
 }
 
 .free-btn a {
-  background: #f80;
+  background: #242424;
   padding: 10px 30px;
   margin-top: 20px;
   color: #fff;
   text-transform: uppercase;
   font-weight: 700;
   text-decoration: none;
-  border-radius: 30px;
+  border-radius: 5px;
 }
 
 .free-btn a:hover {
   text-decoration: none;
   color: #fff;
+  background: #2f9dfe;
 }
 .hot {
   position: absolute;
