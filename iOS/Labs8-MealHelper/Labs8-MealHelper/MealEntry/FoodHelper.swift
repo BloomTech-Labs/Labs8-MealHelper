@@ -69,6 +69,7 @@ struct FoodHelper {
         return macroNutrients
     }
     
+    // Strips unwanted classifiers from ingredient name and returns updated/cleaned ingredient
     func cleaned(_ ingredient: Ingredient) -> Ingredient {
         var updatedIngredient = ingredient
         

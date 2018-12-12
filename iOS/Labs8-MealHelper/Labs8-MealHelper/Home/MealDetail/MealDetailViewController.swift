@@ -29,6 +29,8 @@ class MealDetailViewController: UIViewController {
         }
     }
     
+    private let transition = NotesAnimator()
+    
     let nutrientsView: NutrientsView = {
         let view = NutrientsView()
         view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
@@ -53,8 +55,8 @@ class MealDetailViewController: UIViewController {
         return wv
     }()
     
-    let noteView: UIView = {
-        let view = UIView()
+    let noteView: NotesView = {
+        let view = NotesView()
         view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         view.layer.cornerRadius = 12
         
@@ -123,9 +125,11 @@ class MealDetailViewController: UIViewController {
         
         view.addSubview(noteView)
         noteView.anchor(top: weatherView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 100))
+        noteView.delegate = self
         
         view.layoutIfNeeded()
         
+        transitioningDelegate = self
         animateIntoView()
     }
     
@@ -223,4 +227,28 @@ class MealDetailViewController: UIViewController {
         return Array(aggregateNutrients.values)
     }
 
+}
+
+extension MealDetailViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Add a note"
+            textView.textColor = UIColor.lightGray
+        }
+    }
+}
+
+extension MealDetailViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return transition
+    }
+    
 }
