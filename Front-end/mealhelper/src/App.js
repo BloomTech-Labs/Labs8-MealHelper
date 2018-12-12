@@ -13,7 +13,7 @@ import HomePage from "./components/homepage/homepage";
 import Meals from "./components/Meals/Meals";
 import NewMeals from "./components/Meals/NewMeal";
 import Recipes from "./components/recipes/recipes";
-
+import GetStarted from "./components/getstarted/getstarted";
 import MyRecipes from "./components/recipes/myrecipe";
 import CreateNewRecipe from "./components/creatnewrecipe/createnewrecipe";
 
@@ -45,6 +45,11 @@ class App extends Component {
 
             <Route exact path="/ingredients" render={() => <GetIngredient />} />
             <Route exact path="/homepage" render={() => <HomePage />} />
+            <Route
+              exact
+              path="/homepage/getstarted"
+              render={() => <GetStarted />}
+            />
             <Route exact path="/homepage/meals" render={() => <Meals />} />
             <Route path="/homepage/meals/new" render={() => <NewMeals />} />
             <Route exact path="/homepage/recipes" render={() => <Recipes />} />
