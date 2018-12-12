@@ -106,12 +106,13 @@ class SaveMealViewController: UIViewController {
         guard let recipes = recipes else { return }
         
         let date = Utils().dateString(for: Date())
+        let zipCode = UserDefaults().loggedInZipCode()!
         var temp = 0.0 // TODO: Change
         
         let weatherDispatchGroup = DispatchGroup()
         
         weatherDispatchGroup.enter()
-        WeatherAPIClient().fetchWeather(for: 8038) { (weatherForecast) in // TODO: Change
+        WeatherAPIClient().fetchWeather(for: zipCode) { (weatherForecast) in // TODO: Change
             
             temp = weatherForecast?.main.temp ?? 0
             weatherDispatchGroup.leave()

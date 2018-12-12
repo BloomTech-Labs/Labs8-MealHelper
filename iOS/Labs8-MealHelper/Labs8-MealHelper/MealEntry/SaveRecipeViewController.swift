@@ -102,7 +102,7 @@ class SaveRecipeViewController: UIViewController {
                 
                 self.saveIngredient(with: ingredient.name, ndbno: ingredient.nbdId, recipeId: recipe.identifier, completion: { savedIngredient in
                     
-                    guard let nutrients = ingredient.nutrients, let ingredientId = savedIngredient?.identifier else {
+                    guard let nutrients = ingredient.nutrients else {
                         NSLog("Ingredient has no nutrients and/or identifier")
                         self.dismiss(animated: true, completion: nil)
                         return
@@ -112,7 +112,7 @@ class SaveRecipeViewController: UIViewController {
                     nutrients.forEach { nutrient in
                         
                         dispatchGroup.enter()
-                        self.saveNutrient(with: nutrient, ingredientId: ingredientId, completion: { (_) in
+                        self.saveNutrient(with: nutrient, recipeId: recipe.identifier, completion: { (_) in
                             dispatchGroup.leave()
                         })
                     }
@@ -194,8 +194,8 @@ class SaveRecipeViewController: UIViewController {
         })
     }
     
-    func saveNutrient(with nutrient: Nutrient, ingredientId: Int, completion: @escaping (Error?) -> ()) {
-        FoodClient.shared.postNutrient(nutrient, ingredientId: ingredientId, completion: { (response) in
+    func saveNutrient(with nutrient: Nutrient, recipeId: Int, completion: @escaping (Error?) -> ()) {
+        FoodClient.shared.postNutrient(nutrient, recipeId: recipeId, completion: { (response) in
             DispatchQueue.main.async {
                 switch response {
                 case .success( _):
