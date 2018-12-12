@@ -218,7 +218,6 @@
 .navbar-section-links-style {
   margin-left: 10px;
   padding-left: 10px;
-  border-right: 1px solid #242424;
   padding-right: 80px;
   margin-right: 40px;
   height: 20px;
@@ -231,9 +230,9 @@
 .navbar-section-links-style-logout {
   margin-left: 10px;
   padding-left: 10px;
-  border-right: 1px solid #242424;
   padding-right: 30px;
   height: 20px;
+  color: #2f9dfe;
 }
 
 .navbar-section-links-style-logout:hover {
