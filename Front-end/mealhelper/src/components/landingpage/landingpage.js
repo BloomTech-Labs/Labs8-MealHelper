@@ -247,18 +247,22 @@ class Landingpage extends Component {
                     <h2>Keith Haag</h2>
                     <p className="title">Project Manager</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <img
-                      src={Github}
-                      alt="Github"
-                      className="Github"
-                      style={{ width: 20 }}
-                    />
-                    <img
-                      src={LinkedIn}
-                      alt="LinkedIn"
-                      className="linkedin"
-                      style={{ width: 30 }}
-                    />
+                    <a href="https://www.linkedin.com/patrick-thompson-the-code-guy">
+                      <img
+                        src={Github}
+                        alt="Github"
+                        className="Github"
+                        style={{ width: 20 }}
+                      />
+                    </a>
+                    <a href="https://www.linkedin.com/patrick-thompson-the-code-guy">
+                      <img
+                        src={LinkedIn}
+                        alt="LinkedIn"
+                        className="linkedin"
+                        style={{ width: 30 }}
+                      />
+                    </a>
                     <p>
                       <button className="contact-button">Contact</button>
                     </p>
@@ -277,18 +281,22 @@ class Landingpage extends Component {
                     <h2>Simon Steinmejer</h2>
                     <p className="title">iOS Developer</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <img
-                      src={Github}
-                      alt="Github"
-                      className="Github"
-                      style={{ width: 20 }}
-                    />
-                    <img
-                      src={LinkedIn}
-                      alt="LinkedIn"
-                      className="linkedin"
-                      style={{ width: 30 }}
-                    />
+                    <a href="https://github.com/elhoej">
+                      <img
+                        src={Github}
+                        alt="Github"
+                        className="Github"
+                        style={{ width: 20 }}
+                      />
+                    </a>
+                    <a href="https://www.linkedin.com/in/simon-elh%C3%B8j-steinmejer-36752ba2/">
+                      <img
+                        src={LinkedIn}
+                        alt="LinkedIn"
+                        className="linkedin"
+                        style={{ width: 30 }}
+                      />
+                    </a>
                     <p>
                       <button className="contact-button">Contact</button>
                     </p>
@@ -307,18 +315,22 @@ class Landingpage extends Component {
                     <h2>Stefano De Micheli</h2>
                     <p className="title">iOS Developer</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <img
-                      src={Github}
-                      alt="Github"
-                      className="Github"
-                      style={{ width: 20 }}
-                    />
-                    <img
-                      src={LinkedIn}
-                      alt="LinkedIn"
-                      className="linkedin"
-                      style={{ width: 30 }}
-                    />
+                    <a href="https://github.com/stdemicheli">
+                      <img
+                        src={Github}
+                        alt="Github"
+                        className="Github"
+                        style={{ width: 20 }}
+                      />
+                    </a>
+                    <a href="https://www.linkedin.com/in/stefano-demicheli/">
+                      <img
+                        src={LinkedIn}
+                        alt="LinkedIn"
+                        className="linkedin"
+                        style={{ width: 30 }}
+                      />
+                    </a>
                     <p>
                       <button className="contact-button">Contact</button>
                     </p>
@@ -337,18 +349,22 @@ class Landingpage extends Component {
                     <h2>Casey Baker</h2>
                     <p className="title">Web Developer</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <img
-                      src={Github}
-                      alt="Github"
-                      className="Github"
-                      style={{ width: 20 }}
-                    />
-                    <img
-                      src={LinkedIn}
-                      alt="LinkedIn"
-                      className="linkedin"
-                      style={{ width: 30 }}
-                    />
+                    <a href="https://github.com/abravebee">
+                      <img
+                        src={Github}
+                        alt="Github"
+                        className="Github"
+                        style={{ width: 20 }}
+                      />
+                    </a>
+                    <a href="https://www.linkedin.com/in/casey-baker-a52a30167/">
+                      <img
+                        src={LinkedIn}
+                        alt="LinkedIn"
+                        className="linkedin"
+                        style={{ width: 30 }}
+                      />
+                    </a>
                     <p>
                       <button className="contact-button">Contact</button>
                     </p>
@@ -367,18 +383,22 @@ class Landingpage extends Component {
                     <h2>Joseph Bradley</h2>
                     <p className="title">Web Developer</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <img
-                      src={Github}
-                      alt="Github"
-                      className="Github"
-                      style={{ width: 20 }}
-                    />
-                    <img
-                      src={LinkedIn}
-                      alt="LinkedIn"
-                      className="linkedin"
-                      style={{ width: 30 }}
-                    />
+                    <a href="https://github.com/jmbradley">
+                      <img
+                        src={Github}
+                        alt="Github"
+                        className="Github"
+                        style={{ width: 20 }}
+                      />
+                    </a>
+                    <a href="https://www.linkedin.com/in/joseph-m-bradley-7861baa/">
+                      <img
+                        src={LinkedIn}
+                        alt="LinkedIn"
+                        className="linkedin"
+                        style={{ width: 30 }}
+                      />
+                    </a>
                     <p>
                       <button className="contact-button">Contact</button>
                     </p>
@@ -391,24 +411,28 @@ class Landingpage extends Component {
                     src={Patrick}
                     alt="Team Member"
                     className="team-member"
-                    style={{ width: 100 }}
+                    style={{ width: 100, height: 110 }}
                   />
                   <div className="team-container">
                     <h2>Patrick Thompson</h2>
                     <p className="title">Web Devloper</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <img
-                      src={Github}
-                      alt="Github"
-                      className="Github"
-                      style={{ width: 20 }}
-                    />
-                    <img
-                      src={LinkedIn}
-                      alt="LinkedIn"
-                      className="linkedin"
-                      style={{ width: 30 }}
-                    />
+                    <a href="https://www.github.com/PatrickTheCodeGuy">
+                      <img
+                        src={Github}
+                        alt="Github"
+                        className="Github"
+                        style={{ width: 20 }}
+                      />
+                    </a>
+                    <a href="https://www.linkedin.com/patrick-thompson-the-code-guy">
+                      <img
+                        src={LinkedIn}
+                        alt="LinkedIn"
+                        className="linkedin"
+                        style={{ width: 30 }}
+                      />
+                    </a>
                     <p>
                       <button className="contact-button">Contact</button>
                     </p>
