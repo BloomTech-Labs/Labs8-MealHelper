@@ -1,5 +1,17 @@
+.get-started-cta-link {
+  padding: 20px;
+}
+
 .get-started-cta {
   color: #242424;
+}
+
+.get-started-cta:hover {
+  color: #2f9dfe;
+  cursor: pointer;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .inapp-choice-wrapper {
@@ -20,10 +32,10 @@
   color: #fff;
 }
 
-.box:hover {
+/* .box:hover {
   font-weight: bolder;
   cursor: pointer;
-}
+} */
 
 .recipes {
   display: flex;
@@ -40,7 +52,7 @@
   font-size: 20px;
 }
 .recipes:hover {
-  border: 4px solid #2f9dfe;
+  box-shadow: inset 0 0 0 5px #53a7ea;
 }
 
 .meals {
@@ -63,7 +75,7 @@
   font-size: 20px;
 }
 .meals:hover {
-  border: 2px solid #2f9dfe;
+  box-shadow: inset 0 0 0 5px #53a7ea;
 }
 
 .ingredients {
@@ -82,7 +94,7 @@
   font-size: 20px;
 }
 .ingredients:hover {
-  border: 2px solid #2f9dfe;
+  box-shadow: inset 0 0 0 5px #53a7ea;
 }
 .alarms {
   grid-column: col2-start;
@@ -100,5 +112,5 @@
   font-size: 20px;
 }
 .alarms:hover {
-  border: 2px solid #2f9dfe;
+  box-shadow: inset 0 0 0 5px #53a7ea;
 }
