@@ -24,9 +24,9 @@ class NavbarLanding extends Component {
   // };
 
   logout = event => {
-    this.setState({
-      open: !this.state.open
-    });
+    // this.setState({
+    //   open: !this.state.open
+    // });
     event.preventDefault();
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
