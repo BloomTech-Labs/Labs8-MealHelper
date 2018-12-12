@@ -61,7 +61,7 @@ class NavbarLanding extends Component {
             <h3>Home</h3>
           </Link>
           <Link
-            to="/homepage/meals"
+            to="/homepage/meals/new"
             className="navbar-section-links-style"
             style={{ textDecoration: "none" }}
           >
