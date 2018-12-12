@@ -88,12 +88,8 @@ class NavbarLanding extends Component {
           >
             <h3>Settings</h3>
           </Link>
-          <a
-            onClick={this.logout}
-            className="navbar-section-links-style-logout"
-            style={{ textDecoration: "none" }}
-          >
-            <h3>Logout</h3>
+          <a onClick={this.logout} style={{ textDecoration: "none" }}>
+            <h3 className="navbar-section-links-style-logout">Logout</h3>
           </a>
         </div>
       </div>
