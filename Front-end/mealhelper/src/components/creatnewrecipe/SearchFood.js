@@ -1,4 +1,9 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addRecipe, getRecipe } from "../../store/actions/recipeActions.js";
+import { addMultipleNutrients } from "../../store/actions/nutrientsActions";
+import { addMultipleIngredients } from "../../store/actions/ingredActions";
+import { withRouter, Link } from "react-router-dom";
 import axios from "axios";
 import Suggestions from "./Suggestions";
 import GetNutrients from "./GetNutrients";
@@ -7,18 +12,26 @@ import DisplayNutrients from "./DisplayNutrients";
 import DisplayFoodName from "./DisplayFoodName";
 import "../recipes/recipes.css";
 
-class Search extends Component {
-  state = {
-    query: "",
-    typing: false,
-    message: "",
-    nutrients: [],
-    results: [],
-    food: [],
-    total: 0,
-    number: 50,
-    limitIndex: 50
-  };
+class SearchFood extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      query: "",
+      typing: false,
+      message: "",
+      nutrients: [],
+      results: [],
+      food: [],
+      calories: 0,
+      total: 0,
+      number: 50,
+      limitIndex: 50
+    };
+    this.saveRecipe = this.saveRecipe.bind(this);
+    this.saveRecipeIngredients = this.saveRecipeIngredients.bind(this);
+    this.saveRecipeNutrition = this.saveRecipeNutrition.bind(this);
+  }
 
   getInfo = () => {
     axios
@@ -142,6 +155,65 @@ class Search extends Component {
     );
   };
 
+  async saveRecipe(event, props) {
+    event.preventDefault();
+    console.log(JSON.stringify(this.state.nutrients));
+    let sumCalories = 0;
+    for (let i = 0; i < this.state.nutrients.length; i++) {
+      if (this.state.nutrients[i][0]) {
+        let nutrientsJSON = JSON.stringify(
+          parseInt(this.state.nutrients[i][0].value, 10)
+        );
+
+        sumCalories += parseInt(nutrientsJSON, 10);
+      }
+    }
+    let totalCalories = sumCalories * servings;
+    this.setState({ calories: totalCalories });
+
+    const { calories } = this.state;
+    const { name, servings } = this.props;
+    const recipe = { name, calories, servings };
+    const id = localStorage.getItem("user_id");
+    const data = await this.props.addRecipe(recipe, id);
+    console.log("Recipe promise is:" + data);
+    // console.log("this is the count of ingredients array", countIngredients);
+    this.saveRecipeIngredients();
+  }
+
+  async saveRecipeIngredients(props) {
+    let countIngredients = this.state.food.length;
+    console.log(this.props);
+    let recipe_ids = this.props.recipes.pop();
+    console.log(recipe_ids.id);
+    const recipeID = recipe_ids.id;
+    const id = localStorage.getItem("user_id");
+    console.log("this is my user ID: " + id);
+    const data = await this.props.addMultipleIngredients(
+      this.state.food,
+      id,
+      countIngredients,
+      recipeID
+    );
+    console.log("Ingredients promise is:" + data);
+    this.saveRecipeNutrition();
+  }
+  async saveRecipeNutrition() {
+    const id = localStorage.getItem("user_id");
+    let recipe_ids = this.props.recipes.pop();
+    console.log(recipe_ids.id);
+    const recipeID = recipe_ids.id;
+
+    let countNutrients = this.state.nutrients.length;
+    const data = await this.props.addMultipleNutrients(
+      this.state.nutrients,
+      id,
+      countNutrients,
+      recipeID
+    );
+    this.props.history.push("/homepage");
+  }
+
   render() {
     return (
       <form>
@@ -188,11 +260,15 @@ class Search extends Component {
               id={food.ndbno}
               remove={this.removeItem}
               name={food.name}
+              addNutrients={this.addNutrients}
             />
           ))}
         </div>
         <div className="recipe-save-button">
-          <button> Save me</button>
+          <button className="save-recipe-button" onClick={this.saveRecipe}>
+            {" "}
+            Save Recipe
+          </button>
         </div>
         <table className="nutrients-container">
           <tr className="first-nutrients-header-div">
@@ -238,4 +314,17 @@ class Search extends Component {
   }
 }
 
-export default Search;
+const mapStateToProps = state => {
+  return {
+    user: state.userReducer.user,
+    meals: state.mealsReducer.meals,
+    recipes: state.recipesReducer.recipes,
+    ingredients: state.ingredsReducer.ingredient,
+    nutrients: state.nutrientsReducer.nutrients
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { addRecipe, addMultipleNutrients, addMultipleIngredients }
+)(withRouter(SearchFood));

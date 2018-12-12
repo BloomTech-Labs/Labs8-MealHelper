@@ -9,12 +9,17 @@ export const GOT_NUTRIENT = "GOT_NUTRIENT";
 export const GETTING_NUTRIENT_ERROR = "GETTING_NUTRIENT_ERROR";
 
 //Route to sign up a user
-export const addMultipleNutrients = (nutrient, userID, count) => dispatch => {
+export const addMultipleNutrients = (
+  nutrient,
+  userID,
+  count,
+  recipe_id
+) => dispatch => {
   for (let i = 0; i < count; i++) {
     for (let j = 0; j < 4; j++) {
       dispatch({ type: ADDING_NUTRIENT });
       const id = userID;
-
+      nutrient[i][j]["recipe_id"] = recipe_id;
       console.log("This is what is posting at this second", nutrient[i][j]);
       const promise = axios.post(
         `https://labs8-meal-helper.herokuapp.com/nutrients/${id}`,

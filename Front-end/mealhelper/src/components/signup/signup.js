@@ -59,7 +59,8 @@ class SignUp extends Component {
       this.setState({ visable: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      const { email, password, zip } = this.state;
+      const email = this.state.email.toLowerCase();
+      const { password, zip } = this.state;
       const user = { email, password, zip };
       this.props.addUser(user);
     }
