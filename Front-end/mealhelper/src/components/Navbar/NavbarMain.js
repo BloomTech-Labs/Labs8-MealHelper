@@ -88,13 +88,13 @@ class NavbarLanding extends Component {
           >
             <h3>Settings</h3>
           </Link>
-          <Link
-            to="/homepage/settings"
-            className="navbar-section-links-style"
+          <a
+            onClick={this.logout}
+            className="navbar-section-links-style-logout"
             style={{ textDecoration: "none" }}
           >
             <h3>Logout</h3>
-          </Link>
+          </a>
         </div>
       </div>
     );
