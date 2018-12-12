@@ -102,6 +102,7 @@ class GetStarted extends Component {
                 your ingredients!
               </p>
             </div>
+
             <div class="box meals">
               Step 3: Meals <br />
               <p className="meals-text">
