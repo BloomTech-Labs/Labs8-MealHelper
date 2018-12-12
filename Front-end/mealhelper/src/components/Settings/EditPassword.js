@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import "../homepage/homepage";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
 
 class EditPassword extends Component {
@@ -120,6 +120,9 @@ class EditPassword extends Component {
         </div>
         <div className="settings-text">
           <h1>Change Password</h1>
+          <Link to="/homepage/settings">
+            <p className="settings-text-back-to-settings">Back to settings</p>
+          </Link>
         </div>
         <div className="settings-password-form">
           <form>

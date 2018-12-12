@@ -1,6 +1,6 @@
 .Settings-Options-Container {
-  width: 200px;
-  height: 325px;
+  width: 400px;
+  height: 410px;
   background-color: #242424;
   border: 1px solid #2f9dfe;
   margin: 100px auto;
@@ -42,12 +42,15 @@
   background-color: #242424;
   cursor: pointer;
 }
+.settings-password-save:hover {
+  background-color: #2f9dfe;
+}
 .settings-zip-save:hover {
   border: 1px solid white !important;
   background-color: #2f9dfe;
 }
 .Settings-Zip-Container {
-  width: 495px;
+  width: 400px;
   height: 398px;
   background-color: #242424;
   border: 1px solid #2f9dfe;

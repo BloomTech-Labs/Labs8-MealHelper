@@ -174,7 +174,7 @@ body {
   margin-top: 35px;
   width: 100px;
   height: 51px;
-  border: 1px solid #b6b5b5;
+  border: 1px solid #2f9dfe;
 }
 .new-meal-text-servings-notes {
   padding-top: 5px;
@@ -195,7 +195,7 @@ body {
   cursor: pointer;
 }
 .new-meal-experience:hover {
-  border: 1px solid #2f9dfe !important;
+  border: 3px solid #2f9dfe !important;
   cursor: pointer;
 }
 

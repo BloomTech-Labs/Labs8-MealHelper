@@ -209,7 +209,7 @@ class Meals extends Component {
                   >
                     <p className="text-span">{this.state.mealTime}</p>
                   </DropdownToggle>
-                  <DropdownMenu>
+                  <DropdownMenu className="drop-down-meals-style">
                     <DropdownItem
                       onClick={() => {
                         this.selectMealType("Breakfast");
