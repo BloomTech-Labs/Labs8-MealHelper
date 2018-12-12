@@ -717,9 +717,9 @@ server.get("/nutrients", (req, res) => {
 //GET request to grab all nutrients for a specific ingredient
 server.get("/nutrients/:recipeID", (req, res) => {
   const recipeID = req.params.recipeID;
-  db("ingredients")
+  db("recipe")
     //Finds the corrosponding nutrients based on ingredient ID
-    .where({ id: ingredientId })
+    .where({ id: recipeID })
     //Doing a where request returns an array, so we want the first index of that array.
     .first()
     .then(ingredients => {
