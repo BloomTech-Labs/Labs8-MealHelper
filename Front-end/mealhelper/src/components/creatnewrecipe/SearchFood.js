@@ -157,6 +157,20 @@ class SearchFood extends Component {
 
   async saveRecipe(event, props) {
     event.preventDefault();
+    console.log(JSON.stringify(this.state.nutrients));
+    let sumCalories = 0;
+    for (let i = 0; i < this.state.nutrients.length; i++) {
+      if (this.state.nutrients[i][0]) {
+        let nutrientsJSON = JSON.stringify(
+          parseInt(this.state.nutrients[i][0].value, 10)
+        );
+
+        sumCalories += parseInt(nutrientsJSON, 10);
+      }
+    }
+    let totalCalories = sumCalories * servings;
+    this.setState({ calories: totalCalories });
+
     const { calories } = this.state;
     const { name, servings } = this.props;
     const recipe = { name, calories, servings };
@@ -197,6 +211,7 @@ class SearchFood extends Component {
       countNutrients,
       recipeID
     );
+    this.props.history.push("/homepage");
   }
 
   render() {
@@ -245,11 +260,15 @@ class SearchFood extends Component {
               id={food.ndbno}
               remove={this.removeItem}
               name={food.name}
+              addNutrients={this.addNutrients}
             />
           ))}
         </div>
         <div className="recipe-save-button">
-          <button onClick={this.saveRecipe}> Save Recipe</button>
+          <button className="save-recipe-button" onClick={this.saveRecipe}>
+            {" "}
+            Save Recipe
+          </button>
         </div>
         <table className="nutrients-container">
           <tr className="first-nutrients-header-div">
