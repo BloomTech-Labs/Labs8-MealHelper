@@ -34,7 +34,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <NavbarMain /> */}
+        <NavbarMain />
         <div className="display">
           <Switch>
             <Route exact path="/" render={() => <LandingPage />} />
