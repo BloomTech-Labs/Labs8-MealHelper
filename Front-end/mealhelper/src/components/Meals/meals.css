@@ -28,8 +28,9 @@ body {
   margin-right: 15%;
   width: 50%;
   height: 30%;
-  background: linear-gradient(rgba(20, 20, 20, 0.93), rgba(20, 20, 20, 0.93));
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  background: #242424;
+  /* background: linear-gradient(rgba(20, 20, 20, 0.93), rgba(20, 20, 20, 0.93));
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22); */
 }
 .meal-box {
   width: 344px;
@@ -48,10 +49,11 @@ body {
 }
 .meal-box-new {
   margin: 100px auto 0;
-  background: #ffffff;
-  border: 1px solid #b6b5b5;
+  background: #242424;
+  border: 1px solid #2f9dfe;
   width: 495px;
   height: 654px;
+  border-radius: 5px;
 }
 .meal-link {
   margin: 500px auto;
@@ -63,9 +65,10 @@ body {
 }
 .new-meal-text-new {
   margin-top: 15px !important;
-  color: black;
+  color: white;
   text-decoration: none;
 }
+
 .new-meal-text:hover {
   color: #86b2dd;
   text-decoration: none;
@@ -76,7 +79,7 @@ body {
   width: 350px;
   height: 43px;
   background: #ffffff;
-  border: 1px solid #9c9c9c;
+  border: 1px solid #2f9dfe;
   border-radius: 3px 0px 0px 3px;
   text-decoration: none;
 }
@@ -108,7 +111,7 @@ body {
   height: 43px;
   background: #ffffff !important;
   color: black !important;
-  border: 1px solid #9c9c9c !important;
+  border: 1px solid #2f9dfe !important;
   border-radius: 3px 3px 3px 3px !important;
   box-shadow: none !important;
 }
@@ -119,7 +122,7 @@ body {
   height: 43px;
   background: #ffffff !important;
   color: black !important;
-  border: 1px solid #9c9c9c !important;
+  border: 1px solid #2f9dfe !important;
   border-radius: 3px 3px 3px 3px !important;
   box-shadow: none !important;
 }
@@ -132,8 +135,12 @@ body {
   width: 350px;
   height: 43px;
   background: #ffffff;
-  border: 1px solid #9c9c9c;
+  border: 1px solid #2f9dfe;
   border-radius: 3px 3px 3px 3px;
+  cursor: pointer;
+}
+.new-meal-text-servings {
+  border: 1px solid #2f9dfe;
 }
 .new-meal-text-servings:focus {
   outline: 2px solid #86b2dd;
@@ -144,9 +151,15 @@ body {
 }
 .new-meal-experience {
   margin: 35px auto 0;
+  background: #ffffff;
   width: 100px;
   height: 51px;
-  border: 1px solid #b6b5b5;
+  border: 1px solid #2f9dfe;
+}
+
+.new-meal-experience:hover {
+  border: 3px solid #2f9dfe;
+  cursor: pointer;
 }
 .button-new-meal-experience {
   background: #ffffff;
@@ -162,14 +175,20 @@ body {
   width: 350px;
   height: 43px;
   background: #ffffff;
-  border: 1px solid #9c9c9c;
+  border: 1px solid #2f9dfe;
   border-radius: 3px 3px 3px 3px;
 }
+
+.button-new-meal-experience {
+  border: 1px solid #2f9dfe;
+}
 .button-new-meal-experience:hover {
-  border: 1px solid #86b2dd !important;
+  border: 3px solid #2f9dfe !important;
+  cursor: pointer;
 }
 .new-meal-experience:hover {
-  border: 1px solid #86b2dd !important;
+  border: 1px solid #2f9dfe !important;
+  cursor: pointer;
 }
 .text-span {
   padding: 15px 5px;

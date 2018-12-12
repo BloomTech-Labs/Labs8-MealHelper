@@ -140,7 +140,7 @@ class Meals extends Component {
                 </DropdownMenu>
               </UncontrolledDropdown>
             </div>
-            <div>
+            <div className="meal-box-new-input">
               <input
                 className="new-meal-text-date"
                 type="date"
