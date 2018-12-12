@@ -201,7 +201,7 @@ class SearchFood extends Component {
   async saveRecipeNutrition() {
     const id = localStorage.getItem("user_id");
     let recipe_ids = this.props.recipes.pop();
-    console.log(recipe_ids.id);
+
     const recipeID = recipe_ids.id;
 
     let countNutrients = this.state.nutrients.length;
