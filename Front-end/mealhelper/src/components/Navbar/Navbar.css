@@ -139,6 +139,7 @@
   margin-left: 10px;
   margin-top: -40px;
 }
+
 /* Landing Page Navbar */
 
 .Navbar-Container {
@@ -154,22 +155,30 @@
 }
 
 .navbar-links-and-buttons {
-  width: 50%;
+  /* width: 50%; */
   margin-right: 20px;
+  /* padding-left: 10%; */
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-evenly; */
 }
 
-.buttons-navbar {
-  width: 45%;
-  height: 30px;
-  color: #ffffff;
-  font-size: 15px;
-  margin: 10px 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #2f9dfe;
-  border: none;
+.nb-button-container {
+  padding: 0 5px
+  }
+  
+
+.buttons-navbar-lp {
+  width: 100px;
+    padding: 0 10px;
+    height: 35px;
+    color: #ffffff;
+    font-size: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #2f9dfe;
+    border: none;
+
 }
 
 .buttons-navbar:hover {
@@ -178,22 +187,28 @@
 }
 
 .signup-login-buttons-navbar {
-  margin-right: 1px;
+  display: flex;
+  justify-content: center;
+  width: 200px;
 }
+
 
 .logo {
   font-size: 40px;
   font-family: "Allan", cursive;
-  margin-left: 45px;
+  margin-left: 20px;
   color: white;
 }
+
 
 .page-jumps {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   margin-top: 15px;
-  padding-left: 35px;
+ 
 }
+
 
 .page-jumps a {
   color: white;
