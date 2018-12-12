@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+enum MealTimes: String {
+    case Snack, Breakfast, Lunch, Dinner
+}

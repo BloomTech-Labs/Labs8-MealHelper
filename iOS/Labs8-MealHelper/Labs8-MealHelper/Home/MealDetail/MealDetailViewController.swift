@@ -207,6 +207,7 @@ class MealDetailViewController: UIViewController {
     
     private func saveNote() {
         guard let note = noteView.text, let meal = meal else { return }
+        // TODO: Save note when PUT meal endpoint works
 //        APIClient.shared.saveNote(note, mealId: meal.identifier) { (response) in
 //            DispatchQueue.main.async {
 //                switch response {

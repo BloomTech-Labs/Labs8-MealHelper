@@ -96,7 +96,7 @@ class SaveRecipeViewController: UIViewController {
         saveRecipe(with: recipeName, calories: getTotalCalories(), servings: serving) { recipe in
             
             guard let recipe = recipe else { return }
-                        
+
             self.ingredients?.forEach { ingredient in
                 // Save nutrients of ingredient
                 
@@ -127,7 +127,6 @@ class SaveRecipeViewController: UIViewController {
                 
             }
             
-        
         }
     }
     
