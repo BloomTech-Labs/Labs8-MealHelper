@@ -20,8 +20,8 @@ exports.up = function(knex) {
         .onDelete("CASCADE");
       mealList.string("mealTime").notNullable();
       mealList.string("experience");
-      mealList.string("name").notNullable();
-      mealList.float("temp").notNullable();
+      mealList.string("name");
+      mealList.float("temp");
       mealList.float("humidity");
       mealList.float("pressure");
       mealList.string("notes");
