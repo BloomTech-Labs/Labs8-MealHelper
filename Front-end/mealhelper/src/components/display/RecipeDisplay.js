@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import "../homepage/homepage.css";
+// import "../homepage/homepage.css";
+
+import "./RecipeDisplay.css";
 
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
@@ -17,7 +19,7 @@ class RecipeDisplay extends Component {
 
   render() {
     return (
-      <div className="MealDisplay">
+      <div className="RecipeDisplay">
         <div className="recipe-card-header">
           <p className="recipe-experience">Servings: {this.props.servings}</p>
           <p className="recipe-experience">{this.props.calories} Calories</p>

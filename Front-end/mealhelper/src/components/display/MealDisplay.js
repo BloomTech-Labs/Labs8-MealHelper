@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "../homepage/homepage.css";
+import "./MealDisplay.css";
 
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
@@ -18,15 +18,17 @@ class MealDisplay extends Component {
     return (
       <div className="MealDisplay">
         <div className="meal-card-header">
-          <p className="meal-experience">{this.props.experience}</p>
+          <p className="meal-experience">
+            {this.props.experience}Meal experience
+          </p>
         </div>
         <div className="meal-card-center">
-          <h1 className="meal-time">{this.props.mealTime}</h1>
-          <h4 className="meal-date">{this.props.date}</h4>
+          <h1 className="meal-time">{this.props.mealTime}Meal Time</h1>
+          <h4 className="meal-date">{this.props.date}Meal Date</h4>
         </div>
 
         <div className="meal-card-footer">
-          <h5 className="meal-city">{this.props.city}</h5>
+          <h5 className="meal-city">{this.props.city}Meal City</h5>
           <h5 className="meal-temp">{this.props.temp} &#176;F</h5>
         </div>
       </div>

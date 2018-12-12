@@ -33,9 +33,18 @@ body {
 }
 .meal-box {
   width: 344px;
-  height: 51px;
-  background: #ffffff;
-  border: 1px solid #b6b5b5;
+  height: 41px;
+  background: #242424;
+  border: 1px solid #2f9dfe;
+  margin-top: -400px;
+  border-radius: 5px;
+  font-family: "Roboto", sans-serif;
+  text-decoration: none;
+}
+
+.meal-box:hover {
+  background-color: #2f9dfe;
+  text-decoration: none;
 }
 .meal-box-new {
   margin: 100px auto 0;
@@ -46,17 +55,20 @@ body {
 }
 .meal-link {
   margin: 500px auto;
+  text-decoration: none;
 }
 .new-meal-text {
-  margin-top: 5px !important;
-  color: black;
+  color: white;
+  text-decoration: none;
 }
 .new-meal-text-new {
   margin-top: 15px !important;
   color: black;
+  text-decoration: none;
 }
 .new-meal-text:hover {
   color: #86b2dd;
+  text-decoration: none;
 }
 .new-meal-text-enter {
   text-indent: 10px;
@@ -66,6 +78,7 @@ body {
   background: #ffffff;
   border: 1px solid #9c9c9c;
   border-radius: 3px 0px 0px 3px;
+  text-decoration: none;
 }
 .new-meal-text-enter:focus {
   outline: 2px solid #86b2dd;
