@@ -115,7 +115,6 @@ class SaveRecipeViewController: UIViewController {
                         self.saveNutrient(with: nutrient, ingredientId: ingredientId, completion: { (_) in
                             dispatchGroup.leave()
                         })
-                        
                     }
                     
                     dispatchGroup.notify(queue: .main, execute: {

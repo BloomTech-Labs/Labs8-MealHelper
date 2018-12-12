@@ -12,4 +12,6 @@ extension Notification.Name {
     // MH = suffix for MealHelper
     static let MHFoodSummaryPickerDidChange = Notification.Name("MHFoodSummaryPickerDidChange")
     static let MHFoodSummaryTextFieldDidChange = Notification.Name("MHFoodSummaryTextFieldDidChange")
+    static let MHEmailDidChange = Notification.Name("MHEmailDidChange")
+    static let MHZipCodeDidChange = Notification.Name("MHZipCodeDidChange")
 }

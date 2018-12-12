@@ -13,6 +13,10 @@ class APIClient: GenericAPIClient {
     static let shared = APIClient()
     let baseUrl = URL(string: "https://labs8-meal-helper.herokuapp.com")!
     
+    func fetchUser(with userId: Int, completion: @escaping (Response<User>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["users", "\(userId)"])
+        fetch(from: url, completion: completion)
+    }
     
     func deleteUser(with userId: Int, completion: @escaping (Response<String>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["users", "\(userId)"])
@@ -42,23 +46,24 @@ class APIClient: GenericAPIClient {
         delete(with: url, completion: completion)
     }
     
-    func editAlarm(with id: Int, completion: @escaping (Response<Int>) -> ()) {
-        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(id)/user/\(String(UserDefaults.standard.loggedInUserId()))")!
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = HTTPMethod.put.rawValue
-        
-        URLSession.shared.dataTask(with: urlRequest) { (_, _, error) in
-            
-            if let error = error {
-                NSLog("Error editing alarm: \(error)")
-                completion(Response.error(error))
-                return
-            }
-            
-            completion(Response.success(1))
-        }.resume()
-    }
+//    func editAlarm(with id: Int, completion: @escaping (Response<Int>) -> ()) {
+//        let userId = UserDefaults.standard.loggedInUserId()
+//        let url = URL(string: "https://labs8-meal-helper.herokuapp.com/alarms/\(id)/user/\(String(userId))")!
+//
+//        var urlRequest = URLRequest(url: url)
+//        urlRequest.httpMethod = HTTPMethod.put.rawValue
+//
+//        URLSession.shared.dataTask(with: urlRequest) { (_, _, error) in
+//
+//            if let error = error {
+//                NSLog("Error editing alarm: \(error)")
+//                completion(Response.error(error))
+//                return
+//            }
+//
+//            completion(Response.success(1))
+//        }.resume()
+//    }
     
     func fetchAlarms(userId: Int, completion: @escaping (Response<[Alarm]>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["alarms", "\(userId)"])
@@ -76,13 +81,13 @@ class APIClient: GenericAPIClient {
         fetch(from: url, completion: completion)
     }
 
-    func login(with email: String, password: String, completion: @escaping (Response<UserId>) -> ()){
+    func login(with email: String, password: String, completion: @escaping (Response<User>) -> ()){
         let url = self.url(with: baseUrl, pathComponents: ["login"])
         let loginDetails = ["email": email, "password": password] as [String: Any]
         post(with: url, requestBody: loginDetails, completion: completion)
     }
     
-    func register(email: String, password: String, zip: Int, completion: @escaping (Response<UserId>) -> ()) {
+    func register(email: String, password: String, zip: Int, completion: @escaping (Response<User>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["register"])
         let userCredentials = ["email": email, "password": password, "zip": zip] as [String: Any]
         post(with: url, requestBody: userCredentials, completion: completion)
