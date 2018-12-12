@@ -285,7 +285,12 @@ class Landingpage extends Component {
                     <h2>Stefano De Micheli</h2>
                     <p className="title">iOS Developer</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>Github</p>
+                    <img
+                      src={Github}
+                      alt="Github"
+                      className="Github"
+                      style={{ width: 20 }}
+                    />
                     <p>
                       <button className="contact-button">Contact</button>
                     </p>
