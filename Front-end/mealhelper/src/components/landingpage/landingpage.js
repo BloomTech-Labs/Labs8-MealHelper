@@ -18,6 +18,7 @@ import Simon from "../../img/simon100.jpg";
 import Casey from "../../img/casey100.png";
 import Patrick from "../../img/patrick100.png";
 import Joseph from "../../img/joseph100.jpg";
+import Keith from "../../img/anon100.png";
 import Github from "../../img/githublogo.png";
 import LinkedIn from "../../img/linkedinlogo.png";
 
@@ -242,16 +243,16 @@ class Landingpage extends Component {
               <div className="team-column">
                 <div className="card">
                   <img
-                    src="https://via.placeholder.com/100"
+                    src={Keith}
                     alt="Team Member"
                     className="team-member"
                     style={{ width: 100 }}
                   />
                   <div className="team-container">
-                    <h2>Keith Haag</h2>
+                    <h2>Keith "I Might Be Kyle" Haag</h2>
                     <p className="title">Project Manager</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <a href="https://www.linkedin.com/patrick-thompson-the-code-guy">
+                    <a href="https://github.com/kkhaag">
                       <img
                         src={Github}
                         alt="Github"
