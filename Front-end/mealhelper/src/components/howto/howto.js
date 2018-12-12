@@ -10,6 +10,7 @@ class HowTo extends Component {
   render() {
     return (
       <div>
+        <h1 className="get-started-cta">Get Started!</h1>
         <div class="inapp-choice-wrapper">
           <div class="box recipes">
             Step 1: Recipes
