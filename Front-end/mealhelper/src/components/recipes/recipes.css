@@ -165,21 +165,22 @@ input[type="search"]::-webkit-search-cancel-button {
   width: 100px;
   height: 41px;
   background: #242424;
-  border: 1px solid #2f9dfe;
 
   border-radius: 5px;
   font-family: "Roboto", sans-serif;
   text-decoration: none;
-  color: #2f9dfe;
+  color: #ffffff;
 }
 .save-recipe-button:hover {
   width: 100px;
   height: 41px;
-  background: #242424;
-  border: 1px solid #2f9dfe;
 
+  color: #242424;
+
+  cursor: pointer;
+  background-color: #2f9dfe;
+  border-radius: 5px;
   border-radius: 5px;
   font-family: "Roboto", sans-serif;
   text-decoration: none;
-  color: white;
 }
