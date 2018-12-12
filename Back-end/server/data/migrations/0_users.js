@@ -15,7 +15,7 @@ exports.up = function(knex) {
     }),
     knex.schema.createTable("mealList", function(mealList) {
       mealList.increments("id").primary();
-      mealList.integer("user_id");
+      mealList.integer("user_id").onDelete("CASCADE");
       mealList.foreign("user_id").references("users.id");
       mealList.string("mealTime").notNullable();
       mealList.string("experience");
@@ -34,7 +34,7 @@ exports.up = function(knex) {
       recipe.string("name", 255).notNullable();
       recipe.string("calories", 6).notNullable();
       recipe.integer("servings", 3).notNullable();
-      recipe.integer("user_id");
+      recipe.integer("user_id").onDelete("CASCADE");
       recipe.foreign("user_id").references("users.id");
     }),
     knex.schema.createTable("ingredients", function(ingredients) {
@@ -43,7 +43,7 @@ exports.up = function(knex) {
       ingredients.string("name", 255).notNullable();
       ingredients.integer("recipe_id");
       ingredients.foreign("recipe_id").references("recipe.id");
-      ingredients.integer("user_id");
+      ingredients.integer("user_id").onDelete("CASCADE");
       ingredients.foreign("user_id").references("users.id");
     }),
     knex.schema.createTable("nutrients", function(nutrients) {
@@ -68,7 +68,7 @@ exports.up = function(knex) {
         .foreign("meal_id")
         .references("mealList.id")
         .onDelete("cascade");
-      weather.integer("user_id");
+      weather.integer("user_id").onDelete("CASCADE");
       weather
         .foreign("user_id")
         .references("users.id")
@@ -79,7 +79,7 @@ exports.up = function(knex) {
       alarms.string("label");
       alarms.string("alarm").notNullable;
       alarms.string("timestamp");
-      alarms.integer("user_id");
+      alarms.integer("user_id").onDelete("CASCADE");
       alarms
         .foreign("user_id")
         .references("users.id")
