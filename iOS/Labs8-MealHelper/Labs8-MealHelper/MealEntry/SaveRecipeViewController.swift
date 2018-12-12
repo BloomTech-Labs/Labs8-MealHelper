@@ -226,10 +226,6 @@ class SaveRecipeViewController: UIViewController {
         return calories
     }
     
-    private func updateNutrients() {
-        
-    }
-    
     // MARK: - Configuration
     
     private func setupViews() {
