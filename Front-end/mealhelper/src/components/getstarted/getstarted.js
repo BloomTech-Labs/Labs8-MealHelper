@@ -98,7 +98,13 @@ class GetStarted extends Component {
           </div>
         </div>
         <div>
-          <h1 className="get-started-cta">Get Started!</h1>
+          <Link
+            to="/homepage/meals"
+            className="get-started-cta-link"
+            style={{ textDecoration: "none" }}
+          >
+            <h1 className="get-started-cta">Get Started!</h1>
+          </Link>
           <div class="inapp-choice-wrapper">
             <div class="box recipes">
               Step 1: Recipes
