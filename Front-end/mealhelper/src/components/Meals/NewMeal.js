@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 //change the route for this
 import { addMeal } from "../../store/actions/mealActions";
 import { addWeather } from "../../store/actions/weatherActions";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import {
   Dropdown,
@@ -14,7 +14,7 @@ import {
   Alert
 } from "reactstrap";
 // import { Alert } from "reactstrap";
-import Recipes from "../recipes/recipes";
+// import Recipes from "../recipes/recipes";
 import axios from "axios";
 import "./meals.css";
 
@@ -209,7 +209,7 @@ class Meals extends Component {
                   >
                     <p className="text-span">{this.state.mealTime}</p>
                   </DropdownToggle>
-                  <DropdownMenu>
+                  <DropdownMenu className="drop-down-meals-style">
                     <DropdownItem
                       onClick={() => {
                         this.selectMealType("Breakfast");

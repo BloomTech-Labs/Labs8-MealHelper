@@ -6,7 +6,6 @@ import {
   GOT_INGREDIENT,
   GETTING_INGREDIENT_ERROR
 } from "../actions/ingredActions";
-import axios from "axios";
 
 let initialState = {
   ingredient: [],

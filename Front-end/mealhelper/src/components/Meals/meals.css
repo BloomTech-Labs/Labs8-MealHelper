@@ -29,15 +29,13 @@ body {
   width: 380px;
   height: 200px;
   background: #242424;
-  /* background: linear-gradient(rgba(20, 20, 20, 0.93), rgba(20, 20, 20, 0.93));
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22); */
 }
 .meal-box {
   width: 344px;
   height: 41px;
   background: #242424;
   border: 1px solid #2f9dfe;
-  margin-top: -400px;
+  margin-top: -200px;
   border-radius: 5px;
   font-family: "Roboto", sans-serif;
   text-decoration: none;
@@ -174,7 +172,7 @@ body {
   margin-top: 35px;
   width: 100px;
   height: 51px;
-  border: 1px solid #b6b5b5;
+  border: 1px solid #2f9dfe;
 }
 .new-meal-text-servings-notes {
   padding-top: 5px;
@@ -195,7 +193,7 @@ body {
   cursor: pointer;
 }
 .new-meal-experience:hover {
-  border: 1px solid #2f9dfe !important;
+  border: 3px solid #2f9dfe !important;
   cursor: pointer;
 }
 
