@@ -180,3 +180,29 @@
   margin-top: 15px;
   color: #2f9dfe;
 }
+
+.navbar-section-links-style {
+  margin-left: 10px;
+  padding-left: 10px;
+  border-right: 1px solid #242424;
+  padding-right: 30px;
+  height: 20px;
+}
+
+.navbar-section-links-style:hover {
+  color: white;
+}
+
+.box-e .custom-underline::after {
+  top: 65%;
+  height: 2px;
+  width: 0%;
+  left: 5%;
+  background-color: rgba(255, 255, 255, 0.6);
+  transition: 0.5s ease all 0.3s;
+}
+
+.box-e:hover .custom-underline::after {
+  width: 90%;
+  transition: 0.3s ease all;
+}
