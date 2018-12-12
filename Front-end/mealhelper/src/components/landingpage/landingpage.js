@@ -402,7 +402,7 @@ class Landingpage extends Component {
                     src={Joseph}
                     alt="Team Member"
                     className="team-member"
-                    style={{ width: 100 }}
+                    style={{ width: 106 }}
                   />
                   <div className="team-container">
                     <h2>Joseph Bradley</h2>
@@ -441,7 +441,7 @@ class Landingpage extends Component {
                     src={Patrick}
                     alt="Team Member"
                     className="team-member"
-                    style={{ width: 83 }}
+                    style={{ width: 88 }}
                   />
                   <div className="team-container">
                     <h2>Patrick Thompson</h2>
