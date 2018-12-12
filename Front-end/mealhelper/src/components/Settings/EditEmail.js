@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import "../homepage/homepage";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
 
 class EditEmail extends Component {
@@ -103,6 +103,9 @@ class EditEmail extends Component {
         <div className="settings-text">
           <h1>Change Email</h1>
         </div>
+        <Link to="/homepage/settings">
+          <p className="settings-text-back-to-settings">Back to settings</p>
+        </Link>
         <div className="settings-zip-form">
           <form>
             <div>

@@ -68,3 +68,13 @@
 .settings-text-anchor {
   margin-top: 20px !important;
 }
+
+.settings-text-back-to-settings {
+  margin-top: 20px;
+  color: white;
+}
+
+.settings-text-back-to-settings:hover {
+  color: #2f9dfe;
+  cursor: pointer;
+}
