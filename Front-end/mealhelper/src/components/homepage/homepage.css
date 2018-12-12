@@ -70,7 +70,7 @@
   color: #2f9dfe;
 }
 
-.user-profile-card-howto {
+.user-profile-card-getstarted {
   margin-left: 400px;
   margin-top: 10px;
   font-weight: bolder;
@@ -78,7 +78,7 @@
   cursor: pointer;
 }
 
-.user-profile-card-howto:hover {
+.user-profile-card-getstarted:hover {
   color: #2f9dfe;
 }
 
