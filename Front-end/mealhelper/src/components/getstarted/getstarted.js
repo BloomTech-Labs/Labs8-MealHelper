@@ -122,14 +122,12 @@ class GetStarted extends Component {
 
             <div class="box meals">
               Step 3: Meals <br />
-              <p className="meals-text">
-                Then name your meal and add the recipe.
-              </p>
+              <p className="meals-text">Name your meal and add the recipe.</p>
             </div>
             <div class="box ingredients">
               Step 2: Ingredients <br />
               <p className="ingredients-text">
-                From your recipe modal, enter your ingredients and save them.
+                From your recipe modal, enter the ingredients and save them.
               </p>
             </div>
             <div class="box alarms">
