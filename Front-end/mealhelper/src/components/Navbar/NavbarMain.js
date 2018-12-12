@@ -9,7 +9,7 @@ import Options from "./Options.png";
 import Logout from "./Logout.png";
 import "../../hamburgers.css";
 import "./Navbar.css";
- 
+
 class NavbarLanding extends Component {
   constructor() {
     super();
@@ -24,9 +24,9 @@ class NavbarLanding extends Component {
   // };
 
   logout = event => {
-    this.setState({
-      open: !this.state.open
-    });
+    // this.setState({
+    //   open: !this.state.open
+    // });
     event.preventDefault();
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
@@ -61,7 +61,7 @@ class NavbarLanding extends Component {
             <h3>Home</h3>
           </Link>
           <Link
-            to="/homepage/meals"
+            to="/homepage/meals/new"
             className="navbar-section-links-style"
             style={{ textDecoration: "none" }}
           >
@@ -88,6 +88,9 @@ class NavbarLanding extends Component {
           >
             <h3>Settings</h3>
           </Link>
+          <a onClick={this.logout} style={{ textDecoration: "none" }}>
+            <h3 className="navbar-section-links-style-logout">Logout</h3>
+          </a>
         </div>
       </div>
     );

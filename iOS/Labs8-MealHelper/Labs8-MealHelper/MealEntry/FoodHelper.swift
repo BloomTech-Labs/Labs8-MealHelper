@@ -69,4 +69,19 @@ struct FoodHelper {
         return macroNutrients
     }
     
+    // Strips unwanted classifiers from ingredient name and returns updated/cleaned ingredient
+    func cleaned(_ ingredient: Ingredient) -> Ingredient {
+        var updatedIngredient = ingredient
+        
+        if let index = ingredient.name.range(of: ", GTIN")?.lowerBound {
+            let substring = ingredient.name[..<index]
+            updatedIngredient.name =  String(substring)
+        } else if let index = ingredient.name.range(of: ", UPC")?.lowerBound {
+            let substring = ingredient.name[..<index]
+            updatedIngredient.name = String(substring)
+        }
+        
+        return updatedIngredient
+    }
+    
 }

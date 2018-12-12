@@ -255,8 +255,8 @@ class LoginViewController: UIViewController
             
             DispatchQueue.main.async {
                 switch response {
-                case .success(let userId):
-                     UserDefaults().setIsLoggedIn(value: true, userId: userId.id!)
+                case .success(let user):
+                    UserDefaults.standard.setIsLoggedIn(value: true, userId: user.id, zipCode: user.zip, email: user.email, token: user.token)
                     self.dismiss(animated: true, completion: nil)
                 case .error:
                     self.showAlert(with: "Something went wrong, please make sure you entered the right credentials and try again.")
@@ -280,8 +280,8 @@ class LoginViewController: UIViewController
             
             DispatchQueue.main.async {
                 switch response {
-                case .success(let userId):
-                    UserDefaults().setIsLoggedIn(value: true, userId: userId.id!)
+                case .success(let user):
+                    UserDefaults.standard.setIsLoggedIn(value: true, userId: user.id, zipCode: user.zip, email: user.email, token: user.token)
                     self.dismiss(animated: true, completion: nil)
                 case .error(let error):
                     self.authButton.stopLoading()

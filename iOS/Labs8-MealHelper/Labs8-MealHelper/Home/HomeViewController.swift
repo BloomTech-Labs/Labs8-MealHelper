@@ -11,9 +11,11 @@ import ExpandableButton
 import Lottie
 
 class HomeViewController: UIViewController, UICollectionViewDelegate {
-
+    
     var timer: Timer?
     var countdownTime = 10
+    
+    let alarmController = AlarmController()
     
     let skyView: SkyView = {
         let view = SkyView()
@@ -80,8 +82,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        fetchMeals()
-        fetchAlarms()
+        if UserDefaults.standard.isLoggedIn() {
+            fetchMeals()
+            fetchAlarms()
+        }
         skyView.fetchWeather()
     }
     
@@ -89,15 +93,29 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = .black
         setupViews()
-//        presentLogin()
+        checkIfUserIsLoggedIn()
     }
     
-    private func presentLogin() {
-        let loginController = LoginViewController()
-        loginController.modalPresentationStyle = .overCurrentContext
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.present(loginController, animated: true, completion: nil)
+    private func checkIfUserIsLoggedIn() {
+        if !UserDefaults.standard.isLoggedIn() {
+            let loginViewController = LoginViewController()
+            loginViewController.modalPresentationStyle = .overCurrentContext
+            self.present(loginViewController, animated: true, completion: nil)
+        } else {
+            fetchUser()
+        }
+    }
+    
+    private func fetchUser() {
+        let userId = UserDefaults.standard.loggedInUserId()
+        APIClient.shared.fetchUser(with: userId) { (response) in
+            switch response {
+            case .success(let user):
+                UserDefaults.standard.setIsLoggedIn(value: true, userId: userId, zipCode: user.zip, email: user.email, token: user.token)
+            case .error:
+                NSLog("Couldn't fetch user details")
+                return
+            }
         }
     }
     
@@ -109,70 +127,15 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
             DispatchQueue.main.async {
                 switch response {
                 case .success(let alarms):
-                    self.handleAlarms(alarms: alarms)
+                    guard let timeRemaining = self.alarmController.timeUntilNextAlarm(alarms: alarms) else {
+                        self.scheduledMealLabel.text = "You haven't scheduled\nany meals yet"
+                        return
+                    }
+                    self.setupAlarmCountdown(timeRemaining: timeRemaining)
                 case .error:
                     self.showAlert(with: "Unable to load your alarms, please check your internet connection and try again.")
                 }
             }
-        }
-    }
-    
-    private func handleAlarms(alarms: [Alarm]) {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = .short
-        let now = Date()
-        let timeString = dateFormatter.string(from: now)
-        let timeValue = timeString.replacingOccurrences(of: ".", with: "")
-        var closestAlarm: Alarm?
-        var firstAlarmOfTheDay: Alarm?
-        
-        for alarm in alarms {
-            if timeValue < alarm.time {
-                if alarm.time < closestAlarm?.time ?? "2359" {
-                    closestAlarm = alarm
-                }
-            } else {
-                if alarm.time < firstAlarmOfTheDay?.time ?? "2359" {
-                    firstAlarmOfTheDay = alarm
-                }
-            }
-        }
-        
-        if let closestAlarm = closestAlarm {
-            
-            let alarmHour = String(closestAlarm.time.prefix(2))
-            let alarmMinute = String(closestAlarm.time.suffix(2))
-            let alarmHourInt = Int(alarmHour)!
-            let alarmMinuteInt = Int(alarmMinute)!
-            let nowHour = String(timeValue.prefix(2))
-            let nowMinute = String(timeValue.suffix(2))
-            let nowHourInt = Int(nowHour)!
-            let nowMinuteInt = Int(nowMinute)!
-            
-            let hoursRemainingInSeconds = (alarmHourInt * 3600) - (nowHourInt * 3600)
-            let minutesRemainingInSeconds = (alarmMinuteInt * 60) - (nowMinuteInt * 60)
-            let timeRemaining = hoursRemainingInSeconds + minutesRemainingInSeconds
-            setupAlarmCountdown(timeRemaining: timeRemaining)
-            
-        } else if let firstAlarm = firstAlarmOfTheDay {
-            
-            let alarmHour = String(firstAlarm.time.prefix(2))
-            let alarmMinute = String(firstAlarm.time.suffix(2))
-            let alarmHourInt = Int(alarmHour)!
-            let alarmMinuteInt = Int(alarmMinute)!
-            let nowHour = String(timeValue.prefix(2))
-            let nowMinute = String(timeValue.suffix(2))
-            let nowHourInt = Int(nowHour)!
-            let nowMinuteInt = Int(nowMinute)!
-            
-            let hoursAndMinutesInSeconds = (nowHourInt * 3600) + (nowMinuteInt * 60)
-            let timeRemainingOfTheDay = 86400 - hoursAndMinutesInSeconds
-            let alarmHoursAndMinutesInSeconds = (alarmHourInt * 3600) + (alarmMinuteInt * 60)
-            let timeRemaining = timeRemainingOfTheDay + alarmHoursAndMinutesInSeconds
-            setupAlarmCountdown(timeRemaining: timeRemaining)
-        } else {
-            scheduledMealLabel.text = "You haven't scheduled\nany meals yet"
         }
     }
     
@@ -312,7 +275,6 @@ extension HomeViewController: ExpandableButtonViewDelegate {
             let navController = WhiteStatusNavController(rootViewController: recipeTableViewController)
             navController.navigationBar.prefersLargeTitles = true
             present(navController, animated: true, completion: nil)
-            print("Left")
         case .right:
             print("Right")
         case .mostRight:
@@ -326,7 +288,12 @@ extension HomeViewController: ExpandableButtonViewDelegate {
 
 extension HomeViewController: SettingsViewControllerDelegate {
     func showLogin() {
-        UserDefaults.standard.setIsLoggedIn(value: false, userId: 0)
-        presentLogin()
+        UserDefaults.standard.setIsLoggedIn(value: false, userId: nil, zipCode: nil, email: nil, token: nil)
+        countDownLabel.text = nil
+        scheduledMealLabel.text = nil
+        collectionView.meals.removeAll()
+        let loginViewController = LoginViewController()
+        loginViewController.modalPresentationStyle = .overCurrentContext
+        present(loginViewController, animated: false, completion: nil)
     }
 }
