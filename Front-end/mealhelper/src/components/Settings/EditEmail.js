@@ -4,9 +4,8 @@ import { connect } from "react-redux";
 import "../homepage/homepage";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
-import { withRouter, Link, Route, Switch } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Alert } from "reactstrap";
-import { Button, Modal, ModalHeader } from "reactstrap";
 
 class EditEmail extends Component {
   constructor(props) {
