@@ -9,7 +9,7 @@ import Options from "./Options.png";
 import Logout from "./Logout.png";
 import "../../hamburgers.css";
 import "./Navbar.css";
- 
+
 class NavbarLanding extends Component {
   constructor() {
     super();
@@ -87,6 +87,13 @@ class NavbarLanding extends Component {
             style={{ textDecoration: "none" }}
           >
             <h3>Settings</h3>
+          </Link>
+          <Link
+            to="/homepage/settings"
+            className="navbar-section-links-style"
+            style={{ textDecoration: "none" }}
+          >
+            <h3>Logout</h3>
           </Link>
         </div>
       </div>
