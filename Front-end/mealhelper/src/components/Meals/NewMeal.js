@@ -100,7 +100,7 @@ class Meals extends Component {
           pressure: response.data.main.pressure,
           addWeatherButton: "Temp: " + response.data.main.temp + "°F"
         });
-        // this.setState({ weather: response.data });
+        this.setState({ weather: response.data });
       });
   };
   chooseRecipe = recipe => {
@@ -222,20 +222,21 @@ class Meals extends Component {
                   </DropdownMenu>
                 </Dropdown>
               </div>
-
-              <button
-                onClick={this.addWeather}
-                className="button-new-meal-experience"
-              >
-                <p className="weather-return-text">
-                  {this.state.addWeatherButton}
-                </p>
-              </button>
+              <div className="drop-button-weather">
+                <button
+                  onClick={this.addWeather}
+                  className="button-new-meal-experience"
+                >
+                  <p className="weather-return-text">
+                    {this.state.addWeatherButton}
+                  </p>
+                </button>
+              </div>
             </div>
           </form>
           <button
             onClick={this.addNewMeal}
-            className="button-new-meal-experience"
+            className="button-new-meal-experience-save"
           >
             Save Meal
           </button>
