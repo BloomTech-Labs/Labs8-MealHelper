@@ -18,6 +18,10 @@ struct FoodHelper {
         case cup, tablespoon, hundertGrams = "100g", ounce
     }
     
+    enum MacroNutrients: Int {
+        case energy = 208, carbs = 205, fat = 204, protein = 203
+    }
+    
     let macroNutrientIds = ["208", "205", "204", "203"] // Energy, carbs, fat, protein
     
     func convertHundertGrams(_ gm: Double, to unit: ServingTypes.RawValue) -> Double {
@@ -38,7 +42,7 @@ struct FoodHelper {
     func udpateNutrients(_ nutrients: [Nutrient], to type: String, amount: Double = 1.0) -> [Nutrient] {
         return nutrients.map { (nutrient: Nutrient) -> Nutrient in
             var updatedNutrient = nutrient
-            let convertedValue = FoodHelper().convertHundertGrams(nutrient.gm, to: type) * amount
+            let convertedValue = FoodHelper().convertHundertGrams(nutrient.gm ?? 0, to: type) * amount
             updatedNutrient.value = String(format: "%.01f", convertedValue)
             return updatedNutrient
         }
@@ -48,14 +52,14 @@ struct FoodHelper {
         var macroNutrients = MacroNutrient()
         
         for nutrient in nutrients {
-            switch nutrient.identifier {
-            case "208":
+            switch nutrient.nutrientId {
+            case MacroNutrients.energy.rawValue:
                 macroNutrients.energy = nutrient.value
-            case "205":
+            case MacroNutrients.carbs.rawValue:
                 macroNutrients.carbs = nutrient.value
-            case "204":
+            case MacroNutrients.fat.rawValue:
                 macroNutrients.fat = nutrient.value
-            case "203":
+            case MacroNutrients.protein.rawValue:
                 macroNutrients.protein = nutrient.value
             default:
                 continue
@@ -63,6 +67,21 @@ struct FoodHelper {
         }
         
         return macroNutrients
+    }
+    
+    // Strips unwanted classifiers from ingredient name and returns updated/cleaned ingredient
+    func cleaned(_ ingredient: Ingredient) -> Ingredient {
+        var updatedIngredient = ingredient
+        
+        if let index = ingredient.name.range(of: ", GTIN")?.lowerBound {
+            let substring = ingredient.name[..<index]
+            updatedIngredient.name =  String(substring)
+        } else if let index = ingredient.name.range(of: ", UPC")?.lowerBound {
+            let substring = ingredient.name[..<index]
+            updatedIngredient.name = String(substring)
+        }
+        
+        return updatedIngredient
     }
     
 }

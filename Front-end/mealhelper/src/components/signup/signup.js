@@ -87,7 +87,10 @@ class SignUp extends Component {
             </div>
             <div className="formcenter">
               <div className="user-form-container">
-                <h1 className="signup-title">EatWell</h1>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <h1 className="signup-title">EatWell</h1>
+                </Link>
+                <h2>Sign Up</h2>
                 <form className="signup-form">
                   <div className="form-group">
                     <label>Email</label>
@@ -97,6 +100,7 @@ class SignUp extends Component {
                       name="email"
                       value={this.state.email}
                       onChange={this.handleChange}
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -107,6 +111,7 @@ class SignUp extends Component {
                       name="password"
                       onChange={this.handleChange}
                       value={this.state.password}
+                      required
                     />
                   </div>
                   <div className="signup" onClick={this.confirmSignup}>
@@ -126,7 +131,7 @@ class SignUp extends Component {
                 </div>
                 <a href="https://www.apple.com/ios/app-store/">
                   <img
-                    className="applebadge"
+                    className="applebadgesignup"
                     src={Applelogo}
                     alt="Apple App Store"
                   />

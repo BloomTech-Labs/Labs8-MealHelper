@@ -26,7 +26,6 @@ class SearchIngredientDetailViewController: UIViewController {
     
     let sidePadding: CGFloat = 20.0
     private let foodHelper = FoodHelper()
-    private var transition = SearchIngredientAnimator()
     
     let closeButton: UIButton = {
         let button = UIButton(type: .system)
@@ -40,7 +39,7 @@ class SearchIngredientDetailViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "plus-icon")!, for: .normal)
         button.addTarget(self, action: #selector(addToRecipe), for: .touchUpInside)
-        button.backgroundColor = .correctGreen
+        button.backgroundColor = .lightPurple
         button.tintColor = .white
         button.layer.cornerRadius = buttonSize / 2
         return button

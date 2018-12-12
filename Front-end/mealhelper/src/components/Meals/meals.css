@@ -26,37 +26,60 @@ body {
 .create-recipe-background {
   margin-top: 400px;
   margin-right: 15%;
-  width: 50%;
-  height: 30%;
-  background: linear-gradient(rgba(20, 20, 20, 0.93), rgba(20, 20, 20, 0.93));
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  width: 380px;
+  height: 200px;
+  background: #242424;
+  /* background: linear-gradient(rgba(20, 20, 20, 0.93), rgba(20, 20, 20, 0.93));
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22); */
 }
 .meal-box {
   width: 344px;
-  height: 51px;
-  background: #ffffff;
-  border: 1px solid #b6b5b5;
+  height: 41px;
+  background: #242424;
+  border: 1px solid #2f9dfe;
+  margin-top: -400px;
+  border-radius: 5px;
+  font-family: "Roboto", sans-serif;
+  text-decoration: none;
+}
+
+.meal-box:hover {
+  background-color: #2f9dfe;
+  text-decoration: none;
 }
 .meal-box-new {
   margin: 100px auto 0;
-  background: #ffffff;
-  border: 1px solid #b6b5b5;
-  width: 495px;
-  height: 654px;
+  background: #242424;
+  border: 1px solid #2f9dfe;
+  width: 440px;
+  height: 615px;
+  border-radius: 5px;
 }
 .meal-link {
   margin: 500px auto;
+  text-decoration: none;
 }
 .new-meal-text {
-  margin-top: 5px !important;
-  color: black;
+  color: white;
+  text-decoration: none;
 }
 .new-meal-text-new {
   margin-top: 15px !important;
-  color: black;
+  color: white;
+  text-decoration: none;
 }
+
+.new-meal-text-new-help {
+  color: white;
+}
+.new-meal-text-new-help:hover {
+  color: #2f9dfe;
+  cursor: pointer;
+}
+
 .new-meal-text:hover {
   color: #86b2dd;
+  text-decoration: none;
 }
 .new-meal-text-enter {
   text-indent: 10px;
@@ -64,8 +87,9 @@ body {
   width: 350px;
   height: 43px;
   background: #ffffff;
-  border: 1px solid #9c9c9c;
+  border: 1px solid #2f9dfe;
   border-radius: 3px 0px 0px 3px;
+  text-decoration: none;
 }
 .new-meal-text-enter:focus {
   outline: 2px solid #86b2dd;
@@ -95,7 +119,7 @@ body {
   height: 43px;
   background: #ffffff !important;
   color: black !important;
-  border: 1px solid #9c9c9c !important;
+  border: 1px solid #2f9dfe !important;
   border-radius: 3px 3px 3px 3px !important;
   box-shadow: none !important;
 }
@@ -106,7 +130,7 @@ body {
   height: 43px;
   background: #ffffff !important;
   color: black !important;
-  border: 1px solid #9c9c9c !important;
+  border: 1px solid #2f9dfe !important;
   border-radius: 3px 3px 3px 3px !important;
   box-shadow: none !important;
 }
@@ -119,8 +143,12 @@ body {
   width: 350px;
   height: 43px;
   background: #ffffff;
-  border: 1px solid #9c9c9c;
+  border: 1px solid #2f9dfe;
   border-radius: 3px 3px 3px 3px;
+  cursor: pointer;
+}
+.new-meal-text-servings {
+  border: 1px solid #2f9dfe;
 }
 .new-meal-text-servings:focus {
   outline: 2px solid #86b2dd;
@@ -131,9 +159,15 @@ body {
 }
 .new-meal-experience {
   margin: 35px auto 0;
+  background: #ffffff;
   width: 100px;
   height: 51px;
-  border: 1px solid #b6b5b5;
+  border: 1px solid #2f9dfe;
+}
+
+.new-meal-experience:hover {
+  border: 3px solid #2f9dfe;
+  cursor: pointer;
 }
 .button-new-meal-experience {
   background: #ffffff;
@@ -149,18 +183,47 @@ body {
   width: 350px;
   height: 43px;
   background: #ffffff;
-  border: 1px solid #9c9c9c;
+  border: 1px solid #2f9dfe;
   border-radius: 3px 3px 3px 3px;
 }
+
+.button-new-meal-experience {
+  border: 1px solid #2f9dfe;
+}
 .button-new-meal-experience:hover {
-  border: 1px solid #86b2dd !important;
+  border: 3px solid #2f9dfe !important;
+  cursor: pointer;
 }
 .new-meal-experience:hover {
-  border: 1px solid #86b2dd !important;
+  border: 1px solid #2f9dfe !important;
+  cursor: pointer;
 }
+
+.button-new-meal-experience-save {
+  color: #ffffff;
+  width: 200px;
+  font-size: 15px;
+  font-weight: 900;
+  height: 50px;
+  margin-top: 60px;
+  margin-bottom: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+  background-color: #242424;
+  border-radius: 5px;
+}
+
+.button-new-meal-experience-save:hover {
+  background-color: #2f9dfe;
+  color: #242424;
+}
+
 .text-span {
   padding: 15px 5px;
 }
 .weather-return-text {
   font-size: 14px;
 }
+/* .drop-button-weather {
+  margin-left: 100px;
+} */

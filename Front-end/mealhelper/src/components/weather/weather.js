@@ -101,7 +101,7 @@ class Weather extends Component {
           <Link to="/homepage/alarms" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Alarms</h2>
           </Link>
-          <Link to="/homepage/meals" style={{ textDecoration: "none" }}>
+          <Link to="/homepage/meals/new" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Meals</h2>
           </Link>
           <Link to="/homepage/billing" style={{ textDecoration: "none" }}>

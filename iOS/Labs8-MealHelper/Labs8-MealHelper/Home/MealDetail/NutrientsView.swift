@@ -16,7 +16,7 @@ class NutrientsView: UIView {
         }
     }
     
-    let kcalValueLabel: UILabel = {
+    private let kcalValueLabel: UILabel = {
         let label = UILabel()
         label.text = "0.0"
         label.textColor = .mountainDark
@@ -27,7 +27,7 @@ class NutrientsView: UIView {
         return label
     }()
     
-    let carbsValueLabel: UILabel = {
+    private let carbsValueLabel: UILabel = {
         let label = UILabel()
         label.text = "0.0"
         label.textColor = .mountainDark
@@ -37,7 +37,7 @@ class NutrientsView: UIView {
         return label
     }()
     
-    let fatValueLabel: UILabel = {
+    private let fatValueLabel: UILabel = {
         let label = UILabel()
         label.text = "0.0"
         label.textColor = .mountainDark
@@ -47,7 +47,7 @@ class NutrientsView: UIView {
         return label
     }()
     
-    let proteinValueLabel: UILabel = {
+    private let proteinValueLabel: UILabel = {
         let label = UILabel()
         label.text = "0.0"
         label.textColor = .mountainDark
@@ -57,7 +57,7 @@ class NutrientsView: UIView {
         return label
     }()
     
-    let kcalLabel: UILabel = {
+    private let kcalLabel: UILabel = {
         let label = UILabel()
         label.text = "kcal"
         label.textColor = .lightGray
@@ -67,7 +67,7 @@ class NutrientsView: UIView {
         return label
     }()
     
-    let carbsLabel: UILabel = {
+    private let carbsLabel: UILabel = {
         let label = UILabel()
         label.text = "carbs"
         label.textColor = .lightGray
@@ -77,7 +77,7 @@ class NutrientsView: UIView {
         return label
     }()
     
-    let fatLabel: UILabel = {
+    private let fatLabel: UILabel = {
         let label = UILabel()
         label.text = "fat"
         label.textColor = .lightGray
@@ -87,7 +87,7 @@ class NutrientsView: UIView {
         return label
     }()
     
-    let proteinLabel: UILabel = {
+    private let proteinLabel: UILabel = {
         let label = UILabel()
         label.text = "protein"
         label.textColor = .lightGray

@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { loginUser, updateUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import { Alert } from "reactstrap";
-import Sign from "../Sign";
 // import Loading from "../signup/Double Ring-2s-200px.svg";
 import axios from "axios";
 import "../signup/signup.css";
@@ -78,22 +77,26 @@ class Zip extends Component {
           </div>
           <div className="formcenter">
             <div className="user-form-container-zip">
-              <h1 className="signup-title">EatWell</h1>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <h1 className="signup-title">EatWell</h1>
+              </Link>
+              <h2>Enter Zip</h2>
               <form className="signup-form">
                 <div className="form-group">
-                  <label>
-                    Zip Code
-                    <span
-                      title="Adding your zip code allows an accurate weather data point to be added to your profile. 
+                  <span
+                    title="Adding your zip code allows an accurate weather data point to be added to your profile. 
                     This can be very important as you understand how different factors affect your well being."
-                    >
+                  >
+                    <label className="zip-explain">
+                      Zip Code
                       <img
                         className="qmark"
                         src={QMark}
                         alt="Why should I add my zip code?"
                       />
-                    </span>
-                  </label>
+                    </label>
+                  </span>
+
                   <input
                     className="zip-input"
                     type="number"
@@ -104,10 +107,7 @@ class Zip extends Component {
                   />
                 </div>
                 <Link to="/signup">
-                  <p> ⬅ Return to Sign Up </p>
-                </Link>
-                <Link to="/login">
-                  <p> ⬅ Return to Login </p>
+                  <p className="signup-return"> ⬅ Return to Sign Up </p>
                 </Link>
                 <div className="signupzip" onClick={this.updateUser}>
                   <span>Continue Log In</span>
@@ -116,12 +116,9 @@ class Zip extends Component {
                   <span>Enter Later</span>
                 </div>
               </form>
-              {/* <div className="authbuttonlogin">
-                <Sign />
-              </div> */}
               <a href="https://www.apple.com/ios/app-store/">
                 <img
-                  className="applebadge"
+                  className="applebadgezip"
                   src={Applelogo}
                   alt="Apple App Store"
                 />

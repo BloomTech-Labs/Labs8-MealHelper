@@ -30,11 +30,11 @@ class SkyView: UIView {
         } else {
             WeatherAPIClient.shared.fetchWeather(for: 3300) { (forecast) in
                 
-                guard let forecast = forecast else {
-                    self.setGradientBackground(colorOne: UIColor.morningSkyBlue.cgColor, colorTwo: UIColor.mountainBlue.cgColor, startPoint: .zero, endPoint: CGPoint(x: 0.8, y: 0.3))
-                    return
-                }
                 DispatchQueue.main.async {
+                    guard let forecast = forecast else {
+                        self.setGradientBackground(colorOne: UIColor.morningSkyBlue.cgColor, colorTwo: UIColor.mountainBlue.cgColor, startPoint: .zero, endPoint: CGPoint(x: 0.8, y: 0.3))
+                        return
+                    }
                     self.calculateWeatherAnimation(forecast: forecast)
                     self.weather = forecast
                 }
