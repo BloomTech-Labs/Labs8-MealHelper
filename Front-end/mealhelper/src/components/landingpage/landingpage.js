@@ -18,6 +18,8 @@ import Simon from "../../img/simon100.jpg";
 import Casey from "../../img/casey100.png";
 import Patrick from "../../img/patrick100.png";
 import Joseph from "../../img/joseph100.jpg";
+import Github from "../../img/githublogo.png";
+import LinkedIn from "../../img/linkedinlogo.png";
 
 class Landingpage extends Component {
   componentDidMount = () => {
