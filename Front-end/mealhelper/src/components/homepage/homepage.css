@@ -60,13 +60,25 @@
 
 .user-profile-card-settings {
   margin-left: 400px;
-  margin-top: 20px;
+  margin-top: 10px;
   font-weight: bolder;
   color: white;
   cursor: pointer;
 }
 
 .user-profile-card-settings:hover {
+  color: #2f9dfe;
+}
+
+.user-profile-card-howto {
+  margin-left: 400px;
+  margin-top: 10px;
+  font-weight: bolder;
+  color: white;
+  cursor: pointer;
+}
+
+.user-profile-card-howto:hover {
   color: #2f9dfe;
 }
 
@@ -169,6 +181,7 @@
   grid-column: col1-start / col3-start;
   grid-row: row1-start;
   border: 2px solid #2f9dfe;
+  height: 400px;
 }
 .recipes-text {
   margin-top: 50px;
@@ -186,11 +199,11 @@
   justify-content: flex-start;
   grid-column: col2-start / col4-start;
   grid-row: row1-start;
-  height: 210px;
+  height: 200px;
   width: 215px;
   border: 2px solid #2f9dfe;
-  margin-top: 180px;
-  margin-left: 90px;
+  margin-top: 170px;
+  margin-left: 100px;
 }
 
 .meals-text {
@@ -228,6 +241,16 @@
   margin-left: 200px;
   margin-top: -50px;
   margin-right: -160px;
+}
+
+.alarms-text {
+  margin-top: 20px;
+  /* margin-right: 100px; */
+  /* margin-left: -100px; */
+  font-size: 20px;
+}
+.alarms-text:hover {
+  color: #2f9dfe;
 }
 
 .buttons-settings {

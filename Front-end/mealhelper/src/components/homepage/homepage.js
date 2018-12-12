@@ -24,6 +24,9 @@ class HomePage extends Component {
       <div className="homepage-main-fence">
         <div className="user-profile-card">
           <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
+            <div className="user-profile-card-howto">How To:</div>
+          </Link>
+          <Link to="/homepage/settings" style={{ textDecoration: "none" }}>
             <div className="user-profile-card-settings">Settings</div>
           </Link>
           <a onClick={this.logout} style={{ textDecoration: "none" }}>
@@ -125,7 +128,13 @@ class HomePage extends Component {
               From your recipe modal, enter your ingredients and save them.
             </p>
           </div>
-          <div class="box alarms">Step 4: Alarms</div>
+          <div class="box alarms">
+            Step 4: Alarms
+            <br />
+            <p className="alarms-text">
+              And last, set your alarms to remind you to eat.
+            </p>
+          </div>
         </div>
       </div>
     );
