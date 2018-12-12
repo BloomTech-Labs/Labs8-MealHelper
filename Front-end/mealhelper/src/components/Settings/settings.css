@@ -1,49 +1,52 @@
 .Settings-Options-Container {
-  width: 495px;
-  height: 398px;
-  background: #ffffff;
-  border: 1px solid #b6b5b5;
+  width: 200px;
+  height: 325px;
+  background-color: #242424;
+  border: 1px solid #2f9dfe;
   margin: 100px auto;
 }
 .settings-text {
   margin-top: 10px;
+  color: white;
 }
 
 .settings-option {
   margin: 35px auto 0;
   width: 100px;
   height: 51px;
-  border: 1px solid #b6b5b5;
-  background: #ffffff;
+  color: white;
+  border: 1px solid white;
+  background-color: #242424;
   cursor: pointer;
 }
 .settings-option:hover {
-  border: 1px solid #86b2dd;
+  border: 1px solid white;
+  background-color: #2f9dfe;
 }
 .settings-zip-save {
   margin: 35px auto 0;
   width: 100px;
   height: 51px;
-  border: 1px solid #b6b5b5;
-  background: #ffffff;
+  border: 1px solid white;
+  background-color: #242424;
   cursor: pointer;
 }
 .settings-password-save {
   margin: 35px auto 0;
   width: 100px;
   height: 51px;
-  border: 1px solid #b6b5b5;
-  background: #ffffff;
+  border: 1px solid white;
+  background-color: #242424;
   cursor: pointer;
 }
 .settings-zip-save:hover {
-  border: 1px solid #86b2dd !important;
+  border: 1px solid white !important;
 }
 .Settings-Zip-Container {
   width: 495px;
   height: 398px;
-  background: #ffffff;
-  border: 1px solid #b6b5b5;
+  background-color: #242424;
+  border: 1px solid #2f9dfe;
   margin: 100px auto;
 }
 .settings-zip-form {
