@@ -5,7 +5,7 @@ import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import UserHistory from "../display/UserHistory";
 import GetStarted from "../getstarted/getstarted";
-// import Welcome from "../welcome/welcome";
+import Moment from "react-moment";
 
 import { Router, Route } from "react-router";
 
@@ -34,7 +34,10 @@ class HomePage extends Component {
             <h1 className="user-profile-card-cta-logo">EatWell!</h1>
           </h1>
           <div className="user-profile-card-infobox">
-            <p className="user-profile-card-infobox-date">Today is:</p>
+            <p className="user-profile-card-infobox-date">
+              Today is: <br />
+              <Moment format="LLLL">{this.props.dateToFormat}</Moment>
+            </p>
             <p className="user-profile-card-infobox-last-meal">
               Your last meal was:
             </p>

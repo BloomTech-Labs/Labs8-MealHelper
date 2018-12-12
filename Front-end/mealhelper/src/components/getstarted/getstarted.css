@@ -1,9 +1,15 @@
+.get-started-container {
+  margin-top: -60px;
+}
+
 .get-started-cta-link {
   padding: 20px;
 }
 
 .get-started-cta {
   color: #242424;
+  font-size: 40px;
+  margin-right: 400px;
 }
 
 .get-started-cta:hover {
