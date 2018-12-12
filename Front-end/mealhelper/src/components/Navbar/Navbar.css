@@ -1,16 +1,18 @@
 /* Global Navbar Styes */
 
 /* App Navbar */
-.Navbar-Container-Main {
+.Navbar-Container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   background: #242424;
   height: 55px;
   width: 100%;
-  border-bottom: 1px solid #2f9dfe;
+  border-bottom: 1px solid #9c9c9c;
   position: fixed;
   z-index: 2;
-  display: flex;
-  justify-content: space-around;
 }
+
 .logo-main-container {
   margin-right: 0%;
 }
