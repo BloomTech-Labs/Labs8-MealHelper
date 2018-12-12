@@ -69,6 +69,14 @@ body {
   text-decoration: none;
 }
 
+.new-meal-text-new-help {
+  color: white;
+}
+.new-meal-text-new-help:hover {
+  color: #2f9dfe;
+  cursor: pointer;
+}
+
 .new-meal-text:hover {
   color: #86b2dd;
   text-decoration: none;
