@@ -4,10 +4,9 @@ import "./homepage.css";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import UserHistory from "../display/UserHistory";
-import GetStarted from "../getstarted/getstarted";
 import Moment from "react-moment";
 
-import { Router, Route } from "react-router";
+// import { Router, Route } from "react-router";
 
 class HomePage extends Component {
   logout = event => {
