@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addUser } from "../../store/actions/userActions";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import Jars from "./Jars.jpg";
 import Computer from "./Computer.png";
 import Plate from "./Plate.png";
@@ -11,8 +11,11 @@ import Book from "./Book.png";
 import DoctorPic from "./DoctorPic.png";
 import Doctor from "./Doctor.png";
 import "./landingpage.css";
-import Stefano from "../../img/stefano.jpg";
-import Simon from "../../img/simon.jpg";
+import Jumbo from "./Jumbo.jpg";
+import Picnic from "./PicnicBlue.jpg"
+import Stefano from "../../img/stefano100.jpg";
+import Simon from "../../img/simon100.jpg";
+import Casey from "../../img/casey100.png"
 
 class Landingpage extends Component {
   componentDidMount = () => {
@@ -30,108 +33,135 @@ class Landingpage extends Component {
 
   render() {
     return (
+      
       <div className="main-container">
         <Navbar />
-        <div className="container">
-          <div className="image-jars-container">
-            <img className="image-jars" src={Jars} alt="No image" />
+        <a name="home" />
+        <div className="landing-page-container">
+          <div className="jumbotron-container">
+            <img className="jumbotron-img" src={Jumbo} alt="No image" />
           </div>
+
           <div className="login-signup-container">
-            <p className="call-to-action">
-              " Your diet is a bank account. Good food choices are good
-              investments. "
-            </p>
-            <p className="call-to-action2">- Bethenny Frankel</p>
-            <div className="landingpage-buttons">
-              <div className="button-container">
-                <button className="button">
-                  <p className="button-text" onClick={this.goToSignup}>
-                    Sign Up
-                  </p>
-                </button>
+            <div className="cta-top-content">
+              <div className="cta-container">
+                <h2>
+                  EAT. <br /> TRACK. <br /> ANALYZE.
+                </h2>
               </div>
-              <div className="button-container">
-                <button className="button">
-                  <p className="button-text" onClick={this.goToLogin}>
-                    Log In
-                  </p>
-                </button>
+
+              <div className="signup-login-buttons-lp">
+                <p>
+                  Record what you eat and how it makes you feel, and let EatWell
+                  help you take the guesswork out of eating well and feeling
+                  better.
+                </p>
+                <Link to="/login" style={{ textDecoration: "none" }}>
+                  <button className="buttons-lp">Log In</button>
+                </Link>
+                <Link to="/signup" style={{ textDecoration: "none" }}>
+                  <button className="buttons-lp">Sign Up</button>
+                </Link>
               </div>
+            </div>
+            <div className="cta-bottom-content">
+              <div className="real-housewives-quote">
               <a name="product" />
+                <p>
+                  "Your diet is a bank account. Good food choices are good
+                  investments."
+                </p>
+                <p>-Bethenny Frankel</p>
+              </div>
             </div>
           </div>
+          
           <div className="info-container-one">
-            <div className="image-info-container">
-              <img className="image-info" src={Computer} />
-            </div>
-            <div className="card-body">
+            <img className="image-info" src={Computer} />
+            <div className="card-body-text-container">
               <div className="header-card">
-                <div>
-                  <p className="info-text">Record Your Meals</p>
-                </div>
-                <div className="image-holder">
-                  <div>
-                    <img className="image-info-image" src={Plate} />
-                  </div>
-                </div>
+                <p>E A T</p>
               </div>
-              <div className="card-body-text-container">
-                <p className="card-body-text">
-                  EatWell makes it easy to make a meal, and write down your
-                  experience, all in one.
+              <div className="card-body-text">
+                <p>
+                  EatWell is an advanced meal journal. Each meal can be recorded
+                  along with your experience and any notes about positive or
+                  negative health events after eating.
                 </p>
+                <div className="extra">
+                  <p className="tip-header">TIP:</p>
+                  <p className="tip">
+                    Need a reminder? Set alarms for your mobile app at specific
+                    times or at regular intervals each day.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
           <div className="info-container-two">
-            <div className="card-body">
+            <div className="card-body-text-container">
               <div className="header-card">
-                <div className="image-holder">
-                  <div>
-                    <img className="image-info-image" src={Book} />
-                  </div>
-                </div>
-                <div>
-                  <p className="info-text-two">Manage Your Recipes</p>
-                </div>
+                <p>T R A C K</p>
               </div>
-              <div className="card-body-text-container-two">
-                <p className="card-body-text">
-                  Create recipes, edit them, use them. EatWell’s built in recipe
-                  book does it all.
+              <div className="card-body-text">
+                <p>
+                  EatWell gives you access to a database of thousands of
+                  ingredients and pre-packaged food items, so you can build
+                  recipes and track nutrients alongside your health events.
                 </p>
+                <div className="extra">
+                  <p className="tip-header">TIP:</p>
+                  <p className="tip">
+                    Weather got you gloomy? Add your zip code to get access to
+                    local weather information during each meal.
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="image-info-container">
-              <img className="image-info" src={Recipe} />
-            </div>
+            <img className="image-info" src={Recipe} />
           </div>
           <div className="info-container-three">
-            <div className="image-info-container">
-              <img className="image-info" src={DoctorPic} />
-            </div>
-            <div className="card-body">
+            <img className="image-info" src={DoctorPic} />
+            <div className="card-body-text-container">
               <div className="header-card">
-                <div>
-                  <p className="info-text">Show Your Doctor</p>
-                </div>
-                <div className="image-holder">
-                  <div>
-                    <img className="image-info-image" src={Doctor} />
-                  </div>
-                </div>
+                <p>A N A L Y Z E</p>
               </div>
-              <div className="card-body-text-container">
-                <p className="card-body-text">
-                  Export your meals so that you can consult with your doctor and
-                  find what might affect you.
+              <div className="card-body-text">
+                <p>
+                  Export an overview of your meal journal to show to a health
+                  professional, or view your history to pick up clues yourself!
                 </p>
+                <div className="extra">
+                  <p className="tip-header">TIP:</p>
+                  <p className="tip">Veggies es bonus vobis, proinde vos postulo essum magis
+                  kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon
+                  azuki bean garlic.</p>
+                </div>
               </div>
             </div>
+          </div>
+          <div className="info-container-four">
+            <div className="card-body-text-container">
+              <div className="header-card">
+                <p>E A T  W E L L</p>
+              </div>
+              <div className="card-body-text">
+                <p>
+                  Repeat! Newly empowered with a better understanding of how what you eat correlates with how you feel, continue using EatWell as you make adjustments to your diet and fine tune a nutritional plan that works for YOU!
+                </p>
+                <div className="mini-cta">
+                <Link to="/signup" style={{ textDecoration: "none" }}>
+                  <button className="buttons-lp">Get Started</button>
+                </Link>
+                </div>
+              </div>
+            </div>
+            <img className="image-info" src={Picnic} />
           </div>
         </div>
         <a name="pricing" />
         <div className="pricing">
+        
           <h1>Pricing</h1>
           <div className="charts" id="price">
             <div className="plan">
@@ -145,19 +175,13 @@ class Landingpage extends Component {
                 <div className="entry-content">
                   <ul>
                     <li>
-                      <strong>Free</strong> option 1
+                     Make up to <strong>50</strong> meals
                     </li>
                     <li>
-                      <strong>Free</strong> option 2
+                     Make up to <strong>100</strong> recipes
                     </li>
                     <li>
-                      <strong>Free</strong> option 3
-                    </li>
-                    <li>
-                      <strong>Free</strong> option 4
-                    </li>
-                    <li>
-                      <strong>Free</strong> option 5
+                     Make up to <strong>5</strong> alarms
                     </li>
                   </ul>
                 </div>
@@ -175,22 +199,19 @@ class Landingpage extends Component {
                     $4.99<span>/PER USER</span>
                   </div>
                 </div>
-                <div className="entry-content">
+                <div className="entry-content premium">
                   <ul>
                     <li>
-                      <strong>1x</strong> option 1
+                    Make <strong>unlimited</strong> meals
                     </li>
                     <li>
-                      <strong>2x</strong> option 2
+                    Make  <strong>unlimited</strong> recipes
                     </li>
                     <li>
-                      <strong>3x</strong> option 3
+                    Make  <strong>unlimited</strong> alarms
                     </li>
                     <li>
-                      <strong>Free</strong> option 4
-                    </li>
-                    <li>
-                      <strong>Unlimited</strong> option 5
+                     Get a <strong>warm</strong> fuzzy feeling
                     </li>
                   </ul>
                 </div>
@@ -200,18 +221,20 @@ class Landingpage extends Component {
               </div>
             </div>
           </div>
+          
         </div>
 
         <a name="team" />
+        <div className="team-section-container">
         <div className="Team">
           <h1>Team</h1>
           <div className="team-cards">
             <div className="team-column">
               <div className="card">
-                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
-                  <h2>Team Member</h2>
-                  <p className="title">Developer &amp; Founder</p>
+                  <h2>Keith Haag</h2>
+                  <p className="title">Project Manager</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
@@ -222,10 +245,10 @@ class Landingpage extends Component {
             </div>
             <div className="team-column">
               <div className="card">
-                <img src="img2.jpg" alt="Team Member" style={{ width: 100 }} />
+                <img src={Simon} alt="Key Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
-                  <h2>Team Member</h2>
-                  <p className="title">Developer</p>
+                  <h2>Simon Steinmejer</h2>
+                  <p className="title">iOS Developer</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
@@ -239,12 +262,12 @@ class Landingpage extends Component {
                 <img
                   src={Stefano}
                   alt="Key Team Member"
-                  className="stefano"
+                  className="team-member"
                   style={{ width: 100 }}
                 />
                 <div className="team-container">
                   <h2>Stefano De Micheli</h2>
-                  <p className="title">Lead Developer</p>
+                  <p className="title">iOS Developer</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>Github</p>
                   <p>
@@ -255,10 +278,10 @@ class Landingpage extends Component {
             </div>
             <div className="team-column">
               <div className="card">
-                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <img src={Casey} alt="Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
-                  <h2>Team Member</h2>
-                  <p className="title">Developer &amp; Founder</p>
+                  <h2>Casey Baker</h2>
+                  <p className="title">Web Developer</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
@@ -269,10 +292,10 @@ class Landingpage extends Component {
             </div>
             <div className="team-column">
               <div className="card">
-                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
-                  <h2>Team Member</h2>
-                  <p className="title">Developer &amp; Founder</p>
+                  <h2>Joseph Bradley</h2>
+                  <p className="title">Web Developer</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
@@ -283,10 +306,10 @@ class Landingpage extends Component {
             </div>
             <div className="team-column">
               <div className="card">
-                <img src="img1.jpg" alt="Team Member" style={{ width: 100 }} />
+                <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
-                  <h2>Team Member</h2>
-                  <p className="title">Developer &amp; Founder</p>
+                  <h2>Patrick Thompson</h2>
+                  <p className="title">Web Devloper</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
@@ -297,6 +320,7 @@ class Landingpage extends Component {
             </div>
           </div>
         </div>
+      </div>
       </div>
     );
   }
