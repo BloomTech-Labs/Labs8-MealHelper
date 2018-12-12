@@ -4,6 +4,7 @@
   background-color: #242424;
   border: 1px solid #2f9dfe;
   margin: 100px auto;
+  border-radius: 5px;
 }
 .settings-text {
   margin-top: 10px;
@@ -27,6 +28,7 @@
   margin: 35px auto 0;
   width: 100px;
   height: 51px;
+  color: white;
   border: 1px solid white;
   background-color: #242424;
   cursor: pointer;
@@ -35,12 +37,14 @@
   margin: 35px auto 0;
   width: 100px;
   height: 51px;
+  color: white;
   border: 1px solid white;
   background-color: #242424;
   cursor: pointer;
 }
 .settings-zip-save:hover {
   border: 1px solid white !important;
+  background-color: #2f9dfe;
 }
 .Settings-Zip-Container {
   width: 495px;
@@ -51,12 +55,15 @@
 }
 .settings-zip-form {
   margin-top: 30px;
+  color: white;
 }
 .settings-password-form {
   margin-top: 30px;
+  color: white;
 }
 .alert-box-settings {
   width: 100%;
+  color: white;
 }
 .settings-text-anchor {
   margin-top: 20px !important;
