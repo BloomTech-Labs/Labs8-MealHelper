@@ -55,7 +55,8 @@ class Login extends Component {
       this.setState({ visable: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      const { email, password } = this.state;
+      const email = this.state.email.toLowerCase();
+      const { password } = this.state;
       const user = { email, password };
       this.props.loginUser(user);
     }

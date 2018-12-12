@@ -1,8 +1,8 @@
 //
-//  BookshelfCell.swift
-//  Books
+//  SettingsCell.swift
+//  Labs8-MealHelper
 //
-//  Created by Simon Elhoej Steinmejer on 22/08/18.
+//  Created by Simon Elhoej Steinmejer on 03/12/18.
 //  Copyright © 2018 Simon Elhoej Steinmejer. All rights reserved.
 //
 

@@ -227,3 +227,8 @@ body {
 /* .drop-button-weather {
   margin-left: 100px;
 } */
+
+.alert-meal {
+  width: 80%;
+  margin: 10px auto;
+}

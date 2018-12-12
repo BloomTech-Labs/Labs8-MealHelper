@@ -105,7 +105,6 @@ class SkyView: UIView {
         animation.duration = CFTimeInterval(duration)
         animation.fillMode = .forwards
         animation.delegate = self
-        animation.delegate = self
         
         moonSunImageView.layer.add(animation, forKey: nil)
         addSubview(moonSunImageView)
