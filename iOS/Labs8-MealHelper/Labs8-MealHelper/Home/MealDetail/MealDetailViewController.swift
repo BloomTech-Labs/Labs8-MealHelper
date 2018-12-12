@@ -53,12 +53,13 @@ class MealDetailViewController: UIViewController {
         return wv
     }()
     
-    let noteView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
-        view.layer.cornerRadius = 12
+    let noteView: NotesView = {
+        let tv = NotesView()
+        tv.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
+        tv.layer.cornerRadius = 12
+        tv.addDoneButtonOnKeyboard()
         
-        return view
+        return tv
     }()
     
     let backgroundImageView: UIImageView = {
@@ -116,13 +117,14 @@ class MealDetailViewController: UIViewController {
         nutrientsView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 30, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 80))
         
         view.addSubview(ingredientsTableView.tableView)
-        ingredientsTableView.tableView.anchor(top: nutrientsView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 200))
+        ingredientsTableView.tableView.anchor(top: nutrientsView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30))
         
         view.addSubview(weatherView)
         weatherView.anchor(top: ingredientsTableView.tableView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 130))
         
         view.addSubview(noteView)
-        noteView.anchor(top: weatherView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 100))
+        noteView.anchor(top: weatherView.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 40, right: 30), size: CGSize(width: 0, height: 150))
+        noteView.delegate = self
         
         view.layoutIfNeeded()
         
@@ -203,6 +205,21 @@ class MealDetailViewController: UIViewController {
         }
     }
     
+    private func saveNote() {
+        guard let note = noteView.text, let meal = meal else { return }
+//        APIClient.shared.saveNote(note, mealId: meal.identifier) { (response) in
+//            DispatchQueue.main.async {
+//                switch response {
+//                case .success(let notes):
+//                    print(notes)
+//                case .error(let error):
+//                    NSLog("Error saving note: \(error)")
+//                    self.showAlert(with: "Could not save note")
+//                }
+//            }
+//        }
+    }
+    
     private func aggregateNutrients(from ingredients: [Ingredient]) -> [Nutrient] {
         var aggregateNutrients = [Int : Nutrient]()
         
@@ -223,4 +240,77 @@ class MealDetailViewController: UIViewController {
         return Array(aggregateNutrients.values)
     }
 
+}
+
+extension MealDetailViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+        
+        UIView.animateKeyframes(withDuration: 0.5, delay: 0.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3, animations: {
+                self.nutrientsView.alpha = 0
+                self.ingredientsTableView.tableView.alpha = 0
+                self.weatherView.alpha = 0
+            })
+
+            UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.5, animations: {
+                self.noteView.center.y -= self.view.center.y
+            })
+        }, completion: nil)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Add a note"
+            textView.textColor = UIColor.lightGray
+        }
+        
+        UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3, animations: {
+                self.noteView.center.y += self.view.center.y
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.5, animations: {
+                self.nutrientsView.alpha = 1
+                self.ingredientsTableView.tableView.alpha = 1
+                self.weatherView.alpha = 1
+            })
+        }) { _ in
+            self.saveNote()
+        }
+    }
+}
+
+fileprivate extension UITextView {
+    
+    var doneAccessory: Bool {
+        get {
+            return self.doneAccessory
+        }
+        set (hasDone) {
+            if hasDone {
+                addDoneButtonOnKeyboard()
+            }
+        }
+    }
+    
+    func addDoneButtonOnKeyboard() {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self.inputAccessoryView = doneToolbar
+    }
+    
+    @objc func doneButtonAction() {
+        self.resignFirstResponder()
+    }
 }

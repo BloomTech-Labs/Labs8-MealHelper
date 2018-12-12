@@ -31,7 +31,7 @@ function generateToken(user) {
   };
 
   const JwtOptions = {
-    expiresIn: "2h"
+    expiresIn: "720h"
   };
 
   return jwt.sign(payload, jwtSecret, JwtOptions);
@@ -114,7 +114,7 @@ server.post("/register", (req, res) => {
           console.log(user);
           res
             .status(200)
-            .json({ userID: user.id, token: token, zip: user.zip });
+            .json({ userID: user.id, token: token, zip: user.zip, email: user.email });
         })
         .catch(err => {
           res.status(400).json({ error: "Could not grab user" });
@@ -168,7 +168,7 @@ server.post("/login", (req, res) => {
       if (user && bcrypt.compareSync(userLogin.password, user.password)) {
         const token = generateToken(user);
 
-        res.status(200).json({ userID: user.id, token: token, zip: user.zip });
+        res.status(200).json({ userID: user.id, token: token, zip: user.zip, email: user.email });
       } else {
         res
           .status(500)

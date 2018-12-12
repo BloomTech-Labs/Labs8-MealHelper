@@ -19,7 +19,11 @@ import Analyze from "./analyzeimage.png";
 import EatWell from "./eatwellimage.png";
 import Stefano from "../../img/stefano100.jpg";
 import Simon from "../../img/simon100.jpg";
-import Casey from "../../img/casey100.png"
+import Casey from "../../img/casey100.png";
+import Patrick from "../../img/patrick100.png";
+import Joseph from "../../img/joseph100.jpg";
+import Github from "../../img/githublogo.png";
+import LinkedIn from "../../img/linkedinlogo.png";
 
 class Landingpage extends Component {
   componentDidMount = () => {
@@ -35,9 +39,12 @@ class Landingpage extends Component {
     this.props.history.push("/login");
   };
 
+  sendEmail = () => {
+    window.open("mailto:lambdafoodapp@gmail.com");
+  };
+
   render() {
     return (
-      
       <div className="main-container">
         <Navbar />
         <a name="home" />
@@ -70,7 +77,7 @@ class Landingpage extends Component {
             </div>
             <div className="cta-bottom-content">
               <div className="real-housewives-quote">
-              <a name="product" />
+                <a name="product" />
                 <p>
                   "Your diet is a bank account. Good food choices are good
                   investments."
@@ -79,7 +86,7 @@ class Landingpage extends Component {
               </div>
             </div>
           </div>
-          
+
           <div className="info-container-one">
             <img className="image-info" src={Eat} />
             <div className="card-body-text-container">
@@ -145,16 +152,19 @@ class Landingpage extends Component {
           <div className="info-container-four">
             <div className="card-body-text-container">
               <div className="header-card">
-                <p>E A T  W E L L</p>
+                <p>E A T W E L L</p>
               </div>
               <div className="card-body-text">
                 <p>
-                  Repeat! Newly empowered with a better understanding of how what you eat correlates with how you feel, continue using EatWell as you make adjustments to your diet and fine tune a nutritional plan that works for YOU!
+                  Repeat! Newly empowered with a better understanding of how
+                  what you eat correlates with how you feel, continue using
+                  EatWell as you make adjustments to your diet and fine tune a
+                  nutritional plan that works for YOU!
                 </p>
                 <div className="mini-cta">
-                <Link to="/signup" style={{ textDecoration: "none" }}>
-                  <button className="buttons-lp">Get Started</button>
-                </Link>
+                  <Link to="/signup" style={{ textDecoration: "none" }}>
+                    <button className="buttons-lp">Get Started</button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -163,7 +173,6 @@ class Landingpage extends Component {
         </div>
         <a name="pricing" />
         <div className="pricing">
-        
           <h1>Pricing</h1>
           <div className="charts" id="price">
             <div className="plan">
@@ -177,13 +186,13 @@ class Landingpage extends Component {
                 <div className="entry-content">
                   <ul>
                     <li>
-                     Make up to <strong>50</strong> meals
+                      Make up to <strong>50</strong> meals
                     </li>
                     <li>
-                     Make up to <strong>100</strong> recipes
+                      Make up to <strong>100</strong> recipes
                     </li>
                     <li>
-                     Make up to <strong>5</strong> alarms
+                      Make up to <strong>5</strong> alarms
                     </li>
                   </ul>
                 </div>
@@ -204,16 +213,16 @@ class Landingpage extends Component {
                 <div className="entry-content premium">
                   <ul>
                     <li>
-                    Make <strong>unlimited</strong> meals
+                      Make <strong>unlimited</strong> meals
                     </li>
                     <li>
-                    Make  <strong>unlimited</strong> recipes
+                      Make <strong>unlimited</strong> recipes
                     </li>
                     <li>
-                    Make  <strong>unlimited</strong> alarms
+                      Make <strong>unlimited</strong> alarms
                     </li>
                     <li>
-                     Get a <strong>warm</strong> fuzzy feeling
+                      Get a <strong>warm</strong> fuzzy feeling
                     </li>
                   </ul>
                 </div>
@@ -223,106 +232,250 @@ class Landingpage extends Component {
               </div>
             </div>
           </div>
-          
         </div>
 
         <a name="team" />
         <div className="team-section-container">
-        <div className="Team">
-          <h1>Team</h1>
-          <div className="team-cards">
-            <div className="team-column">
-              <div className="card">
-                <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
-                <div className="team-container">
-                  <h2>Keith Haag</h2>
-                  <p className="title">Project Manager</p>
-                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                  <p>example@example.com</p>
-                  <p>
-                    <button className="contact-button">Contact</button>
-                  </p>
+          <div className="Team">
+            <h1>Team</h1>
+            <div className="team-cards">
+              <div className="team-column">
+                <div className="card">
+                  <img
+                    src="https://via.placeholder.com/100"
+                    alt="Team Member"
+                    className="team-member"
+                    style={{ width: 100 }}
+                  />
+                  <div className="team-container">
+                    <h2>Keith Haag</h2>
+                    <p className="title">Project Manager</p>
+                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                    <a href="https://www.linkedin.com/patrick-thompson-the-code-guy">
+                      <img
+                        src={Github}
+                        alt="Github"
+                        className="Github"
+                        style={{ width: 20 }}
+                      />
+                    </a>
+                    <a href="https://www.linkedin.com/patrick-thompson-the-code-guy">
+                      <img
+                        src={LinkedIn}
+                        alt="LinkedIn"
+                        className="linkedin"
+                        style={{ width: 30 }}
+                      />
+                    </a>
+                    <p>
+                      <button
+                        className="contact-button"
+                        onClick={this.sendEmail}
+                      >
+                        Contact
+                      </button>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="team-column">
-              <div className="card">
-                <img src={Simon} alt="Key Team Member" className="team-member" style={{ width: 100 }} />
-                <div className="team-container">
-                  <h2>Simon Steinmejer</h2>
-                  <p className="title">iOS Developer</p>
-                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                  <p>example@example.com</p>
-                  <p>
-                    <button className="contact-button">Contact</button>
-                  </p>
+              <div className="team-column">
+                <div className="card">
+                  <img
+                    src={Simon}
+                    alt="Key Team Member"
+                    className="team-member"
+                    style={{ width: 100 }}
+                  />
+                  <div className="team-container">
+                    <h2>Simon Steinmejer</h2>
+                    <p className="title">iOS Developer</p>
+                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                    <a href="https://github.com/elhoej">
+                      <img
+                        src={Github}
+                        alt="Github"
+                        className="Github"
+                        style={{ width: 20 }}
+                      />
+                    </a>
+                    <a href="https://www.linkedin.com/in/simon-elh%C3%B8j-steinmejer-36752ba2/">
+                      <img
+                        src={LinkedIn}
+                        alt="LinkedIn"
+                        className="linkedin"
+                        style={{ width: 30 }}
+                      />
+                    </a>
+                    <p>
+                      <button
+                        className="contact-button"
+                        onClick={this.sendEmail}
+                      >
+                        Contact
+                      </button>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="team-column">
-              <div className="card">
-                <img
-                  src={Stefano}
-                  alt="Key Team Member"
-                  className="team-member"
-                  style={{ width: 100 }}
-                />
-                <div className="team-container">
-                  <h2>Stefano De Micheli</h2>
-                  <p className="title">iOS Developer</p>
-                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                  <p>Github</p>
-                  <p>
-                    <button className="contact-button">Contact</button>
-                  </p>
+              <div className="team-column">
+                <div className="card">
+                  <img
+                    src={Stefano}
+                    alt="Key Team Member"
+                    className="team-member"
+                    style={{ width: 100 }}
+                  />
+                  <div className="team-container">
+                    <h2>Stefano De Micheli</h2>
+                    <p className="title">iOS Developer</p>
+                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                    <a href="https://github.com/stdemicheli">
+                      <img
+                        src={Github}
+                        alt="Github"
+                        className="Github"
+                        style={{ width: 20 }}
+                      />
+                    </a>
+                    <a href="https://www.linkedin.com/in/stefano-demicheli/">
+                      <img
+                        src={LinkedIn}
+                        alt="LinkedIn"
+                        className="linkedin"
+                        style={{ width: 30 }}
+                      />
+                    </a>
+                    <p>
+                      <button
+                        className="contact-button"
+                        onClick={this.sendEmail}
+                      >
+                        Contact
+                      </button>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="team-column">
-              <div className="card">
-                <img src={Casey} alt="Team Member" className="team-member" style={{ width: 100 }} />
-                <div className="team-container">
-                  <h2>Casey Baker</h2>
-                  <p className="title">Web Developer</p>
-                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                  <p>example@example.com</p>
-                  <p>
-                    <button className="contact-button">Contact</button>
-                  </p>
+              <div className="team-column">
+                <div className="card">
+                  <img
+                    src={Casey}
+                    alt="Team Member"
+                    className="team-member"
+                    style={{ width: 100 }}
+                  />
+                  <div className="team-container">
+                    <h2>Casey Baker</h2>
+                    <p className="title">Web Developer</p>
+                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                    <a href="https://github.com/abravebee">
+                      <img
+                        src={Github}
+                        alt="Github"
+                        className="Github"
+                        style={{ width: 20 }}
+                      />
+                    </a>
+                    <a href="https://www.linkedin.com/in/casey-baker-a52a30167/">
+                      <img
+                        src={LinkedIn}
+                        alt="LinkedIn"
+                        className="linkedin"
+                        style={{ width: 30 }}
+                      />
+                    </a>
+                    <p>
+                      <button
+                        className="contact-button"
+                        onClick={this.sendEmail}
+                      >
+                        Contact
+                      </button>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="team-column">
-              <div className="card">
-                <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
-                <div className="team-container">
-                  <h2>Joseph Bradley</h2>
-                  <p className="title">Web Developer</p>
-                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                  <p>example@example.com</p>
-                  <p>
-                    <button className="contact-button">Contact</button>
-                  </p>
+              <div className="team-column">
+                <div className="card">
+                  <img
+                    src={Joseph}
+                    alt="Team Member"
+                    className="team-member"
+                    style={{ width: 100 }}
+                  />
+                  <div className="team-container">
+                    <h2>Joseph Bradley</h2>
+                    <p className="title">Web Developer</p>
+                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                    <a href="https://github.com/jmbradley">
+                      <img
+                        src={Github}
+                        alt="Github"
+                        className="Github"
+                        style={{ width: 20 }}
+                      />
+                    </a>
+                    <a href="https://www.linkedin.com/in/joseph-m-bradley-7861baa/">
+                      <img
+                        src={LinkedIn}
+                        alt="LinkedIn"
+                        className="linkedin"
+                        style={{ width: 30 }}
+                      />
+                    </a>
+                    <p>
+                      <button
+                        className="contact-button"
+                        onClick={this.sendEmail}
+                      >
+                        Contact
+                      </button>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="team-column">
-              <div className="card">
-                <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
-                <div className="team-container">
-                  <h2>Patrick Thompson</h2>
-                  <p className="title">Web Devloper</p>
-                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                  <p>example@example.com</p>
-                  <p>
-                    <button className="contact-button">Contact</button>
-                  </p>
+              <div className="team-column">
+                <div className="card">
+                  <img
+                    src={Patrick}
+                    alt="Team Member"
+                    className="team-member"
+                    style={{ width: 100, height: 110 }}
+                  />
+                  <div className="team-container">
+                    <h2>Patrick Thompson</h2>
+                    <p className="title">Web Devloper</p>
+                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                    <a href="https://www.github.com/PatrickTheCodeGuy">
+                      <img
+                        src={Github}
+                        alt="Github"
+                        className="Github"
+                        style={{ width: 20 }}
+                      />
+                    </a>
+                    <a href="https://www.linkedin.com/patrick-thompson-the-code-guy">
+                      <img
+                        src={LinkedIn}
+                        alt="LinkedIn"
+                        className="linkedin"
+                        style={{ width: 30 }}
+                      />
+                    </a>
+                    <p>
+                      <button
+                        className="contact-button"
+                        onClick={this.sendEmail}
+                      >
+                        Contact
+                      </button>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     );
   }

@@ -12,17 +12,17 @@
   justify-content: space-around;
 }
 .logo-main-container {
-    margin-right: 0%;
-  }
-  
+  margin-right: 0%;
+}
+
 .link-logo {
-    text-decoration: none;
-    color: #242424;
-  }
-  
+  text-decoration: none;
+  color: #242424;
+}
+
 .link-logo:hover {
-    color: #2f9dfe;
-  }
+  color: #2f9dfe;
+}
 .logo-main {
   font-size: 40px;
   font-family: "Allan", cursive;
@@ -56,38 +56,38 @@
 }
 
 .hamburger-container {
-    padding-top: 5px;
-  }
+  padding-top: 5px;
+}
 .searchbar-nav-container {
-    padding-top: 4px;
-    display: flex;
-  }
+  padding-top: 4px;
+  display: flex;
+}
 .search-box {
-    width: 304px;
-    height: 43px;
-    border: 1px solid #9c9c9c;
-  }
+  width: 304px;
+  height: 43px;
+  border: 1px solid #9c9c9c;
+}
 .search-button {
-    width: 45px;
-    height: 43px;
-    background: #ffffff;
-    border: 1px solid #9c9c9c;
-    border-radius: 0px 3px 3px 0px;
-  }
-  .search-button-img {
-    fill: #9c9c9c;
-    width: 33px;
-    height: 33px;
-    padding-right: 1%;
-  }
-  .search-button:hover {
-    width: 45px;
-    height: 43px;
-    background: #ffffff;
-    border: 1px solid #9c9c9c;
-    border-radius: 0px 3px 3px 0px;
-    fill: aqua;
-  }
+  width: 45px;
+  height: 43px;
+  background: #ffffff;
+  border: 1px solid #9c9c9c;
+  border-radius: 0px 3px 3px 0px;
+}
+.search-button-img {
+  fill: #9c9c9c;
+  width: 33px;
+  height: 33px;
+  padding-right: 1%;
+}
+.search-button:hover {
+  width: 45px;
+  height: 43px;
+  background: #ffffff;
+  border: 1px solid #9c9c9c;
+  border-radius: 0px 3px 3px 0px;
+  fill: aqua;
+}
 .menu-list-open {
   width: 76px;
   height: 298px;
@@ -140,7 +140,7 @@
   margin-top: -40px;
 }
 /* Landing Page Navbar */
-  
+
 .Navbar-Container {
   display: flex;
   flex-direction: row;
@@ -213,4 +213,29 @@
   justify-content: space-around;
   margin-top: 15px;
   color: #2f9dfe;
+}
+
+.navbar-section-links-style {
+  margin-left: 10px;
+  padding-left: 10px;
+  padding-right: 80px;
+  margin-right: 40px;
+  height: 20px;
+}
+
+.navbar-section-links-style:hover {
+  color: white;
+}
+
+.navbar-section-links-style-logout {
+  margin-left: 10px;
+  padding-left: 10px;
+  padding-right: 30px;
+  height: 20px;
+  color: #2f9dfe;
+}
+
+.navbar-section-links-style-logout:hover {
+  color: white;
+  cursor: pointer;
 }

@@ -9,7 +9,7 @@ import Options from "./Options.png";
 import Logout from "./Logout.png";
 import "../../hamburgers.css";
 import "./Navbar.css";
- 
+
 class NavbarLanding extends Component {
   constructor() {
     super();
@@ -17,16 +17,16 @@ class NavbarLanding extends Component {
       open: false
     };
   }
-  openHamburger = () => {
-    this.setState({
-      open: !this.state.open
-    });
-  };
+  // openHamburger = () => {
+  //   this.setState({
+  //     open: !this.state.open
+  //   });
+  // };
 
   logout = event => {
-    this.setState({
-      open: !this.state.open
-    });
+    // this.setState({
+    //   open: !this.state.open
+    // });
     event.preventDefault();
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
@@ -41,81 +41,56 @@ class NavbarLanding extends Component {
             <p className="logo-main">EatWell</p>
           </Link>
         </div>
-        <div className="searchbar-nav-container">
+        {/* <div className="searchbar-nav-container">
           <form>
             <input type="text" className="search-box" />
           </form>
           <button className="search-button">
             <img className="search-button-img" src={Search} />
           </button>
-        </div>
-        {/* <div
+        </div> */}
+        <div
           className="navbar-section-links"
           style={{ textDecoration: "none" }}
         >
-          <a href="#product" className="jump">
+          <Link
+            to="/homepage"
+            className="navbar-section-links-style"
+            style={{ textDecoration: "none" }}
+          >
+            <h3>Home</h3>
+          </Link>
+          <Link
+            to="/homepage/meals/new"
+            className="navbar-section-links-style"
+            style={{ textDecoration: "none" }}
+          >
             <h3>Make A Meal</h3>
-          </a>
-          <a href="#pricing" className="jump">
+          </Link>
+          <Link
+            to="/homepage/recipes"
+            className="navbar-section-links-style"
+            style={{ textDecoration: "none" }}
+          >
             <h3>Add A Recipe</h3>
-          </a>
-          <a href="#team" className="jump">
-            <h3>Add A Alarm</h3>
-          </a>
-        </div> */}
-        <div className="hamburger-container">
-          <button
-            onClick={this.openHamburger}
-            className={
-              this.state.open
-                ? "hamburger hamburger--spin is-active"
-                : "hamburger hamburger--spin"
-            }
+          </Link>
+          <Link
+            to="/homepage/alarms"
+            className="navbar-section-links-style"
+            style={{ textDecoration: "none" }}
           >
-            <span className="hamburger-box">
-              <span className="hamburger-inner" />
-            </span>
-          </button>
-          <div className={this.state.open ? "popper" : "none"} />
-          <ul
-            id="menu-list"
-            className={this.state.open ? "menu-list-open" : "menu-list"}
+            <h3>Add An Alarm</h3>
+          </Link>
+          <Link
+            to="/homepage/settings"
+            className="navbar-section-links-style"
+            style={{ textDecoration: "none" }}
           >
-            <Link
-              to="/homepage/meals"
-              onClick={this.openHamburger}
-              className={this.state.open ? "menu-list-item" : "none"}
-            >
-              <img className="menu-list-item item" src={AddMeal} />
-            </Link>
-            <Link
-              to="/homepage/recipes"
-              onClick={this.openHamburger}
-              className={this.state.open ? "menu-list-item" : "none"}
-            >
-              <img className="menu-list-item item" src={Recipes} />
-            </Link>
-            <Link
-              to="/homepage/alarms"
-              onClick={this.openHamburger}
-              className={this.state.open ? "menu-list-item" : "none"}
-            >
-              <img className="menu-list-item item" src={Alarms} />
-            </Link>
-            <Link
-              to="/homepage/settings"
-              onClick={this.openHamburger}
-              className={this.state.open ? "menu-list-item" : "none"}
-            >
-              <img className="menu-list-item item" src={Options} />
-            </Link>
-            <button
-              onClick={this.logout}
-              className={this.state.open ? "menu-list-item-logout" : "none"}
-            >
-              <img className="menu-list-item item" src={Logout} />
-            </button>
-          </ul>
+            <h3>Settings</h3>
+          </Link>
+          <a onClick={this.logout} style={{ textDecoration: "none" }}>
+            <h3 className="navbar-section-links-style-logout">Logout</h3>
+          </a>
         </div>
       </div>
     );

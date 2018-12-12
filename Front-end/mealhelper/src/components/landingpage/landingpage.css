@@ -49,11 +49,10 @@
 .signup-login-buttons-lp {
   margin-right: 10px;
   padding-top: 15px;
-  
 }
 .signup-login-buttons-lp p {
   font-size: 20px;
-  font-family: "Roboto", sans-serif
+  font-family: "Roboto", sans-serif;
 }
 
 .buttons-lp {
@@ -74,9 +73,9 @@
   border: 1px solid #2f9dfe;
 }
 .cta-bottom-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .real-housewives-quote {
   width: 65%;
@@ -324,7 +323,7 @@
 }
 
 .entry-content strong {
-  color: #2f9dfe
+  color: #2f9dfe;
 }
 
 .premium strong {
@@ -445,12 +444,8 @@
   margin-top: 20px;
 }
 
-.stefano {
-  /* border-radius: 50%; */
-  margin-left: 175px;
-  margin-top: 20px;
-  width: 250px;
-  height: 150px;
+.linkedin {
+  margin-left: 8px;
 }
 
 .contact-button {

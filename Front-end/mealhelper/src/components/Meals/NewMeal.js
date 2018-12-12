@@ -100,7 +100,7 @@ class Meals extends Component {
           pressure: response.data.main.pressure,
           addWeatherButton: "Temp: " + response.data.main.temp + "°F"
         });
-        // this.setState({ weather: response.data });
+        this.setState({ weather: response.data });
       });
   };
   chooseRecipe = recipe => {
@@ -121,6 +121,9 @@ class Meals extends Component {
       <div className="meals-container">
         <div className="meal-box-new">
           <h1 className="new-meal-text-new">Create A New Meal</h1>
+          <a href="/homepage/getstarted" style={{ textDecoration: "none" }}>
+            <p className="new-meal-text-new-help">Need Help?</p>
+          </a>
           <form>
             <div>
               <UncontrolledDropdown>
@@ -140,7 +143,7 @@ class Meals extends Component {
                 </DropdownMenu>
               </UncontrolledDropdown>
             </div>
-            <div>
+            <div className="meal-box-new-input">
               <input
                 className="new-meal-text-date"
                 type="date"
@@ -219,20 +222,21 @@ class Meals extends Component {
                   </DropdownMenu>
                 </Dropdown>
               </div>
-
-              <button
-                onClick={this.addWeather}
-                className="button-new-meal-experience"
-              >
-                <p className="weather-return-text">
-                  {this.state.addWeatherButton}
-                </p>
-              </button>
+              <div className="drop-button-weather">
+                <button
+                  onClick={this.addWeather}
+                  className="button-new-meal-experience"
+                >
+                  <p className="weather-return-text">
+                    {this.state.addWeatherButton}
+                  </p>
+                </button>
+              </div>
             </div>
           </form>
           <button
             onClick={this.addNewMeal}
-            className="button-new-meal-experience"
+            className="button-new-meal-experience-save"
           >
             Save Meal
           </button>

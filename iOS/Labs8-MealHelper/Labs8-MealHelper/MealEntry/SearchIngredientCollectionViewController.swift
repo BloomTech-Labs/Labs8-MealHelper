@@ -25,12 +25,13 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     }
     var searchedIngredients = [Ingredient]()
     var prevSavedIngredients = [Ingredient]()
+    var selectedCell: FoodCell<Ingredient>?
     
     private var sectionHeaderReuseId = "SectionHeaderCell"
     private var searchBarReuseId = "SearchBarCell"
     private var cellId = "FoodCell"
     private var transition = SearchIngredientAnimator()
-    var selectedCell: FoodCell<Ingredient>?
+    private var foodHelper = FoodHelper()
     
     private var savePopupViewTopToBottom: NSLayoutConstraint?
     private var savePopupViewTopToTop: NSLayoutConstraint?
@@ -261,8 +262,10 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
             DispatchQueue.main.async {
                 switch response {
                 case .success(let ingredients):
+                    let filteredIngredients = ingredients.map { self.foodHelper.cleaned($0) }
+                    
                     self.searchedIngredients.removeAll() // Reset searched ingredient results on subsequent searches
-                    self.searchedIngredients.append(contentsOf: ingredients)
+                    self.searchedIngredients.append(contentsOf: filteredIngredients)
                     self.searchController.isActive = false
                     self.collectionView.reloadSections(IndexSet(integer: 1)) // Reloads searched ingredients section
                 case .error(let error):
@@ -396,8 +399,9 @@ extension SearchIngredientCollectionViewController: SearchIngredientDetailDelega
             
         } else {
             // Handle ingredients added from barcode scanner
-            searchedIngredients.insert(ingredient, at: 0)
-            savedIngredients.append(ingredient)
+            let filteredIngredient = foodHelper.cleaned(ingredient)
+            searchedIngredients.insert(filteredIngredient, at: 0)
+            savedIngredients.append(filteredIngredient)
             collectionView.reloadData()
             
             collectionView.selectItem(at: IndexPath(item: 0, section: 1), animated: true, scrollPosition: .centeredHorizontally)
