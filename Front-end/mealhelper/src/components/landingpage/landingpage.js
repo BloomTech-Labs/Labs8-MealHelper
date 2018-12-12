@@ -13,8 +13,9 @@ import Doctor from "./Doctor.png";
 import "./landingpage.css";
 import Jumbo from "./Jumbo.jpg";
 import Picnic from "./PicnicBlue.jpg"
-import Stefano from "../../img/stefano.jpg";
-import Simon from "../../img/simon.jpg";
+import Stefano from "../../img/stefano100.jpg";
+import Simon from "../../img/simon100.jpg";
+import Casey from "../../img/casey100.png"
 
 class Landingpage extends Component {
   componentDidMount = () => {
@@ -32,8 +33,10 @@ class Landingpage extends Component {
 
   render() {
     return (
+      
       <div className="main-container">
         <Navbar />
+        <a name="home" />
         <div className="landing-page-container">
           <div className="jumbotron-container">
             <img className="jumbotron-img" src={Jumbo} alt="No image" />
@@ -63,6 +66,7 @@ class Landingpage extends Component {
             </div>
             <div className="cta-bottom-content">
               <div className="real-housewives-quote">
+              <a name="product" />
                 <p>
                   "Your diet is a bank account. Good food choices are good
                   investments."
@@ -71,7 +75,7 @@ class Landingpage extends Component {
               </div>
             </div>
           </div>
-
+          
           <div className="info-container-one">
             <img className="image-info" src={Computer} />
             <div className="card-body-text-container">
@@ -237,8 +241,8 @@ class Landingpage extends Component {
               <div className="card">
                 <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
-                  <h2>Team Member</h2>
-                  <p className="title">Developer &amp; Founder</p>
+                  <h2>Keith Haag</h2>
+                  <p className="title">Project Manager</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
@@ -249,10 +253,10 @@ class Landingpage extends Component {
             </div>
             <div className="team-column">
               <div className="card">
-                <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
+                <img src={Simon} alt="Key Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
-                  <h2>Team Member</h2>
-                  <p className="title">Developer</p>
+                  <h2>Simon Steinmejer</h2>
+                  <p className="title">iOS Developer</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
@@ -266,12 +270,12 @@ class Landingpage extends Component {
                 <img
                   src={Stefano}
                   alt="Key Team Member"
-                  className="stefano"
+                  className="team-member"
                   style={{ width: 100 }}
                 />
                 <div className="team-container">
                   <h2>Stefano De Micheli</h2>
-                  <p className="title">Lead Developer</p>
+                  <p className="title">iOS Developer</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>Github</p>
                   <p>
@@ -282,10 +286,10 @@ class Landingpage extends Component {
             </div>
             <div className="team-column">
               <div className="card">
-                <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
+                <img src={Casey} alt="Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
-                  <h2>Team Member</h2>
-                  <p className="title">Developer &amp; Founder</p>
+                  <h2>Casey Baker</h2>
+                  <p className="title">Web Developer</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
@@ -298,8 +302,8 @@ class Landingpage extends Component {
               <div className="card">
                 <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
-                  <h2>Team Member</h2>
-                  <p className="title">Developer &amp; Founder</p>
+                  <h2>Joseph Bradley</h2>
+                  <p className="title">Web Developer</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>
@@ -312,8 +316,8 @@ class Landingpage extends Component {
               <div className="card">
                 <img src="https://via.placeholder.com/100" alt="Team Member" className="team-member" style={{ width: 100 }} />
                 <div className="team-container">
-                  <h2>Team Member</h2>
-                  <p className="title">Developer &amp; Founder</p>
+                  <h2>Patrick Thompson</h2>
+                  <p className="title">Web Devloper</p>
                   <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                   <p>example@example.com</p>
                   <p>

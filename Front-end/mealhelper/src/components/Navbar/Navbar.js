@@ -8,7 +8,9 @@ class NavbarLanding extends Component {
   render() {
     return (
       <div className="Navbar-Container">
+        <a href="#home">
         <p className="logo">EatWell</p>
+        </a>
         <div className="navbar-links-and-buttons">
         <div className="page-jumps" style={{ textDecoration: "none" }}>
           <a href="#product" className="jump">

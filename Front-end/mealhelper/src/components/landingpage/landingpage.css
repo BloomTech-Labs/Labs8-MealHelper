@@ -234,7 +234,7 @@
 .plan {
   display: inline-block;
   margin: 10px 1%;
-  font-family: "Lato", Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .plan-inner {
@@ -246,7 +246,7 @@
 }
 
 .entry-title {
-  background: #67b6fc;
+  background: #3b3b3b;
   height: 140px;
   position: relative;
   text-align: center;
@@ -255,7 +255,7 @@
 }
 
 .entry-title > h3 {
-  background: #2f9dfe;
+  background: #242424;
   font-size: 20px;
   padding: 5px 0;
   text-transform: uppercase;
@@ -266,7 +266,7 @@
 .entry-title .price {
   position: absolute;
   bottom: -25px;
-  background: #2f9dfe;
+  background: #242424;
   height: 95px;
   width: 95px;
   margin: 0 auto;
@@ -366,15 +366,15 @@
   font-weight: 700;
 }
 .basic .entry-title {
-  background: #5ddb53;
+  background: #68b7fd;
 }
 
 .basic .entry-title > h3 {
-  background: #4cb944;
+  background: #2f9dfe;
 }
 
 .basic .price {
-  background: #4cb944;
+  background: #2f9dfe;
 }
 
 /* Three columns side by side */
@@ -395,7 +395,7 @@
 
 .card {
   box-shadow: 0 0.5px 0.5px 0 rgba(0, 0, 0, 0.1);
-  height: 350px;
+  height: 330px;
   display: flex;
   align-items: center;
 }
@@ -418,7 +418,7 @@
 
 .title {
   color: grey;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .stefano {
