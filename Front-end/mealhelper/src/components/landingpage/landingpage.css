@@ -226,6 +226,8 @@
   background-color: #242424;
 }
 
+/* == Pricing Section == */
+
 .pricing {
   padding-top: 150px;
   margin-top: -250px;
@@ -399,6 +401,8 @@
 .basic .price {
   background: #2f9dfe;
 }
+
+/* == Team Section == */
 
 /* Three columns side by side */
 .team-column {
