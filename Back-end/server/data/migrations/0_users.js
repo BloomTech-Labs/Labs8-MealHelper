@@ -49,8 +49,8 @@ exports.up = function(knex) {
     knex.schema.createTable("nutrients", function(nutrients) {
       nutrients.increments("id").primary();
       nutrients.string("nutrient", 255).notNullable();
-      nutrients.integer("ingredients_id");
-      nutrients.foreign("ingredients_id").references("ingredients.id");
+      nutrients.integer("recipe_id");
+      nutrients.foreign("recipe_id").references("recipe.id");
       //Explain unit convo to team
       nutrients.string("unit", 6).notNullable();
       nutrients.string("value", 6).notNullable();

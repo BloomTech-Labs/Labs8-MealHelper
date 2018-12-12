@@ -41,6 +41,14 @@ input[type="search"]::-webkit-search-cancel-button {
 
   border-radius: 3px 0px 0px 3px;
 }
+.servings-recipe {
+  width: 343px;
+  height: 43px;
+  background: #ffffff;
+  border: 1px solid #9c9c9c;
+  margin-top: 20px;
+  border-radius: 3px 0px 0px 3px;
+}
 .search-food {
   width: 343px;
   height: 43px;
