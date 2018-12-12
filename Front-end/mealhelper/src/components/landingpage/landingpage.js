@@ -247,7 +247,18 @@ class Landingpage extends Component {
                     <h2>Keith Haag</h2>
                     <p className="title">Project Manager</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>example@example.com</p>
+                    <img
+                      src={Github}
+                      alt="Github"
+                      className="Github"
+                      style={{ width: 20 }}
+                    />
+                    <img
+                      src={LinkedIn}
+                      alt="LinkedIn"
+                      className="linkedin"
+                      style={{ width: 30 }}
+                    />
                     <p>
                       <button className="contact-button">Contact</button>
                     </p>
@@ -266,7 +277,18 @@ class Landingpage extends Component {
                     <h2>Simon Steinmejer</h2>
                     <p className="title">iOS Developer</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>example@example.com</p>
+                    <img
+                      src={Github}
+                      alt="Github"
+                      className="Github"
+                      style={{ width: 20 }}
+                    />
+                    <img
+                      src={LinkedIn}
+                      alt="LinkedIn"
+                      className="linkedin"
+                      style={{ width: 30 }}
+                    />
                     <p>
                       <button className="contact-button">Contact</button>
                     </p>
@@ -315,7 +337,18 @@ class Landingpage extends Component {
                     <h2>Casey Baker</h2>
                     <p className="title">Web Developer</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>example@example.com</p>
+                    <img
+                      src={Github}
+                      alt="Github"
+                      className="Github"
+                      style={{ width: 20 }}
+                    />
+                    <img
+                      src={LinkedIn}
+                      alt="LinkedIn"
+                      className="linkedin"
+                      style={{ width: 30 }}
+                    />
                     <p>
                       <button className="contact-button">Contact</button>
                     </p>
@@ -334,7 +367,18 @@ class Landingpage extends Component {
                     <h2>Joseph Bradley</h2>
                     <p className="title">Web Developer</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>example@example.com</p>
+                    <img
+                      src={Github}
+                      alt="Github"
+                      className="Github"
+                      style={{ width: 20 }}
+                    />
+                    <img
+                      src={LinkedIn}
+                      alt="LinkedIn"
+                      className="linkedin"
+                      style={{ width: 30 }}
+                    />
                     <p>
                       <button className="contact-button">Contact</button>
                     </p>
@@ -353,7 +397,18 @@ class Landingpage extends Component {
                     <h2>Patrick Thompson</h2>
                     <p className="title">Web Devloper</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>example@example.com</p>
+                    <img
+                      src={Github}
+                      alt="Github"
+                      className="Github"
+                      style={{ width: 20 }}
+                    />
+                    <img
+                      src={LinkedIn}
+                      alt="LinkedIn"
+                      className="linkedin"
+                      style={{ width: 30 }}
+                    />
                     <p>
                       <button className="contact-button">Contact</button>
                     </p>
