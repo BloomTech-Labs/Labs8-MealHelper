@@ -1,3 +1,9 @@
+.add-alarms-full-width .disclaim {
+  padding-top: 10px;
+  opacity: .5
+}
+
+
 .add-alarms-container {
   display: flex;
   margin: 100px auto 0;

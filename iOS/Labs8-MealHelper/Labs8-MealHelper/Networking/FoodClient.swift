@@ -93,15 +93,7 @@ class FoodClient: GenericAPIClient {
     
     func postNutrient(_ nutrient: Nutrient, ingredientId: Int, completion: @escaping (Response<TempType>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["nutrients", userId])
-        let reqBody = ["nutrient": nutrient.name, "nutrient_id": Int(nutrient.identifier)!, "unit": nutrient.unit, "value": Int(Double(nutrient.value)!), "ingredients_id": ingredientId] as [String : Any]
-        
-        post(with: url, requestBody: reqBody, completion: completion)
-        
-    }
-    
-    func postNutrient(nutrientId: String, ingredientId: String, completion: @escaping (Response<Int>) -> ()) {
-        let url = self.url(with: baseUrl, pathComponents: ["nutrients", ingredientId])
-        let reqBody = ["id": nutrientId]
+        let reqBody = ["nutrient": nutrient.name, "nutrient_id": nutrient.nutrientId, "unit": nutrient.unit, "value": Int(Double(nutrient.value)!), "ingredients_id": ingredientId] as [String : Any]
         
         post(with: url, requestBody: reqBody, completion: completion)
         
@@ -159,7 +151,7 @@ class FoodClient: GenericAPIClient {
         
         guard let requestURL = urlComponents.url else {
             NSLog("Problem constructing search URL for \(searchTerm)")
-            completion(Response.error(NSError()))
+            completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
             return
         }
         
@@ -175,7 +167,7 @@ class FoodClient: GenericAPIClient {
             
             guard let data = data else {
                 NSLog("No data returned")
-                completion(Response.error(NSError()))
+                completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
                 return
             }
             
@@ -192,7 +184,7 @@ class FoodClient: GenericAPIClient {
             
             }.resume()
     }
-    
+        
     func fetchUsdaNutrients(for ndbno: Int, completion: @escaping (Response<([Nutrient], String)>) -> ()) {
         let url = self.url(with: usdaBaseUrl, pathComponents: ["nutrients"])
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)!
@@ -200,7 +192,7 @@ class FoodClient: GenericAPIClient {
         
         guard let requestURL = urlComponents.url else {
             NSLog("Problem constructing search URL for \(ndbno)")
-            completion(Response.error(NSError()))
+            completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
             return
         }
         
@@ -216,16 +208,17 @@ class FoodClient: GenericAPIClient {
             
             guard let data = data else {
                 NSLog("No data returned")
-                completion(Response.error(NSError()))
+                completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
                 return
             }
             
             do {
                 let usdaNutrients = try JSONDecoder().decode(UsdaNutrient.self, from: data)
                 if let ingredient = usdaNutrients.report.foods.first, let ingredMeasure = ingredient.measure {
-                    completion(Response.success((ingredient.nutrients, ingredMeasure)))
+                    let nutrients: [Nutrient] = self.convertToNutrients(ingredient.nutrients)
+                    completion(Response.success((nutrients, ingredMeasure)))
                 } else {
-                    completion(Response.error(NSError()))
+                    completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
                 }
             } catch {
                 NSLog("Error decoding data: \(error)")
@@ -242,12 +235,18 @@ class FoodClient: GenericAPIClient {
     // MARK: - Private methods
     
     private func convertToIngredient(_ usdaIngredients: [UsdaIngredients.Item.UsdaIngredient]) -> [Ingredient] {
-        return usdaIngredients.compactMap { nutrient in
-            guard let ndbIdInt = Int(nutrient.ndbId) else {
-                NSLog("USDA ingredient didn't contain valid ndbId: \(nutrient.ndbId)")
+        return usdaIngredients.compactMap { ingredient in
+            guard let ndbIdInt = Int(ingredient.ndbId) else {
+                NSLog("USDA ingredient didn't contain valid ndbId: \(ingredient.ndbId)")
                 return nil
             }
-            return Ingredient(name: nutrient.name, nbdId: ndbIdInt)
+            return Ingredient(name: ingredient.name, nbdId: ndbIdInt)
+        }
+    }
+    
+    private func convertToNutrients(_ usdaNutrients: [UsdaNutrient.Report.Food.Nutrient]) -> [Nutrient] {
+        return usdaNutrients.compactMap { nutrient in
+            return Nutrient(nutrientId: Int(nutrient.identifier)!, name: nutrient.name, unit: nutrient.unit, value: nutrient.value, gm: nutrient.gm)
         }
     }
     

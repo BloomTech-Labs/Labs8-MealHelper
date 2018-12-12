@@ -87,7 +87,7 @@ class FoodSummaryViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var inputStackView: UIStackView = {
+    lazy var inputStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -118,7 +118,6 @@ class FoodSummaryViewController: UIViewController {
         tf.leftImage = nil
         tf.tintColor = .lightPurple
         tf.keyboardType = .default
-        tf.heightAnchor.constraint(equalToConstant: 40).isActive = true
         tf.placeholder = "Add a recipe name"
         return tf
     }()
@@ -222,6 +221,12 @@ extension FoodSummaryViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
         NotificationCenter.default.post(name: .MHFoodSummaryTextFieldDidChange, object: nil, userInfo: ["textField": text])
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let text = textField.text else { return false }
+        NotificationCenter.default.post(name: .MHFoodSummaryTextFieldDidChange, object: nil, userInfo: ["textField": text])
+        return true
     }
     
 }

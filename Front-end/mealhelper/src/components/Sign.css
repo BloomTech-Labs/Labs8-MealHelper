@@ -3,26 +3,28 @@
   padding-left: 5px;
   padding-right: 15px;
   font-weight: 700;
+  margin-left: 2px;
 }
 
 .authlogos {
   display: flex;
-  width: 247px;
-  height: 48px;
-  font-size: 20px;
-  margin-bottom: 40px;
+  width: 205px;
+  height: 50px;
+  font-size: 15px;
+  padding-top: 5px;
   background: #ffffff;
-  border: 1px solid #919191;
+  border: 1px solid #242424;
   box-sizing: border-box;
-  border-radius: 6px;
+  border-radius: 5px;
+  margin-left: 12px;
 }
 
 .authlogos:hover {
-  border: 1px solid #8c8c8c;
+  border: 1.5px solid #2f9dfe;
 }
 
 .authlogo2 {
-  width: 30px;
+  width: 25px;
   height: auto;
   margin-bottom: 3px;
   margin-top: 5px;

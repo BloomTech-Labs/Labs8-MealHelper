@@ -90,6 +90,7 @@ class SignUp extends Component {
                 <Link to="/" style={{ textDecoration: "none" }}>
                   <h1 className="signup-title">EatWell</h1>
                 </Link>
+                <h2>Sign Up</h2>
                 <form className="signup-form">
                   <div className="form-group">
                     <label>Email</label>

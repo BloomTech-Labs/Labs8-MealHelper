@@ -17,17 +17,25 @@ class FoodCell<T>: UICollectionViewCell {
     }
     
     var sidePadding: CGFloat = 12
-    var defaultBackgroundColor: UIColor = .morningSkyBlue
+    var defaultBackgroundColor: UIColor = .clear
     
     override var isSelected: Bool {
         didSet {
-            backgroundColor = isSelected ? .correctGreen : defaultBackgroundColor
+            backgroundColor = isSelected ? .lightPurple : defaultBackgroundColor
         }
     }
     
+    let blurEffect: UIVisualEffectView = {
+        let frost = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffect.Style.regular))
+        frost.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        frost.layer.cornerRadius = 8
+        frost.layer.masksToBounds = true
+        
+        return frost
+    }()
+    
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing = 5
@@ -36,29 +44,17 @@ class FoodCell<T>: UICollectionViewCell {
     
     let mealNameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Appearance.appFont(with: 15)
-        label.text = "Meal name"
         label.numberOfLines = 2
+        label.textColor = .white
         return label
     }()
     
     let servingLabel: UILabel = {
         let label = UILabel()
         label.sizeToFit()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .gray
+        label.textColor = UIColor.lightGray
         label.font = Appearance.appFont(with: 14)
-        
-        return label
-    }()
-    
-    let experienceLabel: UILabel = {
-        let label = UILabel()
-        label.sizeToFit()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Appearance.appFont(with: 14)
-        label.text = "Experience"
         
         return label
     }()
@@ -76,9 +72,11 @@ class FoodCell<T>: UICollectionViewCell {
     }
     
     private func setupViews() {
+        addSubview(blurEffect)
         mainStackView.addArrangedSubview(mealNameLabel)
         addSubview(mainStackView)
         
+        blurEffect.fillSuperview()
         mainStackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 8, left: sidePadding, bottom: 8, right: sidePadding))
         
         if let recipe = food as? Recipe {

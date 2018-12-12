@@ -40,7 +40,7 @@ class SearchIngredientDetailViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "plus-icon")!, for: .normal)
         button.addTarget(self, action: #selector(addToRecipe), for: .touchUpInside)
-        button.backgroundColor = .correctGreen
+        button.backgroundColor = .lightPurple
         button.tintColor = .white
         button.layer.cornerRadius = buttonSize / 2
         return button
