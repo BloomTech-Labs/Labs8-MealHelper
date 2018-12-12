@@ -120,6 +120,7 @@ extension SettingsViewController: SettingsCellDelegate {
         let alert = UIAlertController(title: "Change email", message: nil, preferredStyle: .alert)
         alert.addTextField { (emailTextField) in
             emailTextField.placeholder = "New email"
+            emailTextField.keyboardType = .emailAddress
         }
         alert.addTextField { (passwordTextField) in
             passwordTextField.placeholder = "Your password"
@@ -140,6 +141,8 @@ extension SettingsViewController: SettingsCellDelegate {
                 DispatchQueue.main.async {
                     switch response {
                     case .success:
+                        UserDefaults.standard.setEmail(email: newEmail)
+                        NotificationCenter.default.post(name: .MHEmailDidChange, object: nil, userInfo: ["email": newEmail])
                         self.loadingIndicator.finishLoadingAnimation()
                         self.showAlert(with: "You have successfully changed your email to \(newEmail)")
                     case .error:
@@ -158,6 +161,7 @@ extension SettingsViewController: SettingsCellDelegate {
         let alert = UIAlertController(title: "Change zip code", message: nil, preferredStyle: .alert)
         alert.addTextField { (zipTextField) in
             zipTextField.placeholder = "New zip"
+            zipTextField.keyboardType = .decimalPad
         }
         alert.addTextField { (passwordTextField) in
             passwordTextField.placeholder = "Your password"
@@ -177,6 +181,8 @@ extension SettingsViewController: SettingsCellDelegate {
                 DispatchQueue.main.async {
                     switch response {
                     case .success:
+                        UserDefaults.standard.setZipCode(zip: Int(newZip)!)
+                        NotificationCenter.default.post(name: .MHZipCodeDidChange, object: nil, userInfo: ["zip": newZip])
                         self.loadingIndicator.finishLoadingAnimation()
                         self.showAlert(with: "You have successfully changed your zip to \(newZip)")
                     case .error:

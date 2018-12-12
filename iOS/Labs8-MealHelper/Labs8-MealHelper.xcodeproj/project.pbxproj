@@ -81,6 +81,7 @@
 		ACE1FA7021AF1A53003A0030 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA6F21AF1A53003A0030 /* SettingsViewController.swift */; };
 		ACE1FA7321AF56C4003A0030 /* SkyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA7221AF56C4003A0030 /* SkyView.swift */; };
 		ACE1FA7521B0582F003A0030 /* LocalNotificationsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA7421B0582F003A0030 /* LocalNotificationsHelper.swift */; };
+		ACFE92EE21C17AD100990A12 /* AlarmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFE92ED21C17AD100990A12 /* AlarmController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,6 +193,7 @@
 		ACE1FA6F21AF1A53003A0030 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		ACE1FA7221AF56C4003A0030 /* SkyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyView.swift; sourceTree = "<group>"; };
 		ACE1FA7421B0582F003A0030 /* LocalNotificationsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsHelper.swift; sourceTree = "<group>"; };
+		ACFE92ED21C17AD100990A12 /* AlarmController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +274,7 @@
 		3D56A9D021934FAA00A91EF4 /* Labs8-MealHelper */ = {
 			isa = PBXGroup;
 			children = (
+				ACFE92EC21C17ABF00990A12 /* ModelController */,
 				ACE1FA6E21AF1A45003A0030 /* Settings */,
 				ACE1FA5A21ADA8A1003A0030 /* Alarm */,
 				AC85F3C9219E3510007765CA /* MealEntry */,
@@ -459,6 +462,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		ACFE92EC21C17ABF00990A12 /* ModelController */ = {
+			isa = PBXGroup;
+			children = (
+				ACFE92ED21C17AD100990A12 /* AlarmController.swift */,
+			);
+			path = ModelController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -640,6 +651,7 @@
 				AC76D96E21BAA12B00D8A5EC /* HomeSectionHeader.swift in Sources */,
 				3D20FC3021B98929006A31BA /* SearchIngredientAnimator.swift in Sources */,
 				3D131CD521A198B3009681D0 /* UserDefault+Helper.swift in Sources */,
+				ACFE92EE21C17AD100990A12 /* AlarmController.swift in Sources */,
 				ACE1FA7021AF1A53003A0030 /* SettingsViewController.swift in Sources */,
 				AC85F3C8219E350C007765CA /* Food.swift in Sources */,
 				AC9BE30321B16CE600B6DEBB /* MealDetailViewController.swift in Sources */,

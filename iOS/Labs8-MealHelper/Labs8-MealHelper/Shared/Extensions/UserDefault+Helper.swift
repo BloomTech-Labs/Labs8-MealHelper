@@ -14,12 +14,32 @@ extension UserDefaults {
         case isLoggedIn
         case userId
         case zipCode
+        case email
+        case token
     }
     
-    func setIsLoggedIn(value: Bool, userId: Int) {
+    func logoutUser() {
+        set(false, forKey: UserDefaultsKeys.isLoggedIn.rawValue)
+        set(nil, forKey: UserDefaultsKeys.userId.rawValue)
+        set(nil, forKey: UserDefaultsKeys.zipCode.rawValue)
+        set(nil, forKey: UserDefaultsKeys.email.rawValue)
+        set(nil, forKey: UserDefaultsKeys.token.rawValue)
+    }
+    
+    func setIsLoggedIn(value: Bool, userId: Int?, zipCode: Int?, email: String?, token: String?) {
         set(value, forKey: UserDefaultsKeys.isLoggedIn.rawValue)
         set(userId, forKey: UserDefaultsKeys.userId.rawValue)
-        //set(zipCode, forKey: UserDefaultsKeys.zipCode.rawValue)
+        set(zipCode, forKey: UserDefaultsKeys.zipCode.rawValue)
+        set(email, forKey: UserDefaultsKeys.email.rawValue)
+        set(token, forKey: UserDefaultsKeys.token.rawValue)
+    }
+    
+    func setZipCode(zip: Int) {
+        set(zip, forKey: UserDefaultsKeys.zipCode.rawValue)
+    }
+    
+    func setEmail(email: String) {
+        set(email, forKey: UserDefaultsKeys.email.rawValue)
     }
     
     func isLoggedIn() -> Bool {
@@ -30,8 +50,20 @@ extension UserDefaults {
         return integer(forKey: UserDefaultsKeys.userId.rawValue)
     }
     
-//    func loggedInZipCode() -> Int {
-//        return integer(forKey: UserDefaultsKeys.zipCode.rawValue)
-//    }
+    func loggedInZipCode() -> Int? {
+        return integer(forKey: UserDefaultsKeys.zipCode.rawValue)
+    }
     
+    func loggedInEmail() -> String? {
+        return string(forKey: UserDefaultsKeys.email.rawValue)
+    }
+    
+    func loggedInToken() -> String? {
+        return string(forKey: UserDefaultsKeys.token.rawValue)
+    }
+    
+    func loggedInUser() -> User? {
+        guard let email = loggedInEmail(), let zip = loggedInZipCode(), let token = loggedInToken() else { return nil }
+        return User(email: email, zip: zip, id: loggedInUserId(), token: token)
+    }
 }

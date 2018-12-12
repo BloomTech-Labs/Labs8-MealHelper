@@ -23,7 +23,9 @@ class LoadingIndicator {
     let blackBackgroundView: UIView = {
         let view = UIView()
         view.alpha = 0
-        view.backgroundColor = UIColor.init(white: 0, alpha: 0.7)
+        view.backgroundColor = UIColor.init(white: 0, alpha: 0.8)
+        view.layer.cornerRadius = 12
+        view.layer.masksToBounds = true
         
         return view
     }()
@@ -32,7 +34,7 @@ class LoadingIndicator {
         if let keywindow = UIApplication.shared.keyWindow {
             
             keywindow.addSubview(blackBackgroundView)
-            blackBackgroundView.fillSuperview()
+            blackBackgroundView.centerInSuperview(size: CGSize(width: 170, height: 150))
             blackBackgroundView.addSubview(animationView)
             animationView.centerInSuperview(size: CGSize(width: 200, height: 200))
             
@@ -57,8 +59,8 @@ class LoadingIndicator {
             
         }) { (completed) in
             
-            self.blackBackgroundView.removeFromSuperview()
             self.animationView.stop()
+            self.blackBackgroundView.removeFromSuperview()
         }
     }
 }
