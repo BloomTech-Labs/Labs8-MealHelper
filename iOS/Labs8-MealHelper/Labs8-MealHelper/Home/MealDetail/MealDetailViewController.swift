@@ -205,35 +205,19 @@ class MealDetailViewController: UIViewController {
         }
     }
     
-    private func fetchNote() {
-        guard let meal = meal else { return }
-        FoodClient.shared.fetchIngredients(withRecipeId: recipeId) { (response) in
-            DispatchQueue.main.async {
-                switch response {
-                case .success(let ingredients):
-                    self.ingredients = ingredients
-                    self.fetchNutrients()
-                case .error(let error):
-                    NSLog("Error fetching ingredients: \(error)")
-                    self.showAlert(with: "Could not fetch ingredients.")
-                }
-            }
-        }
-    }
-    
     private func saveNote() {
         guard let note = noteView.text, let meal = meal else { return }
-        APIClient.shared.saveNote(note, mealId: meal.identifier) { (response) in
-            DispatchQueue.main.async {
-                switch response {
-                case .success(let notes):
-                    print(notes)
-                case .error(let error):
-                    NSLog("Error saving note: \(error)")
-                    self.showAlert(with: "Could not save note")
-                }
-            }
-        }
+//        APIClient.shared.saveNote(note, mealId: meal.identifier) { (response) in
+//            DispatchQueue.main.async {
+//                switch response {
+//                case .success(let notes):
+//                    print(notes)
+//                case .error(let error):
+//                    NSLog("Error saving note: \(error)")
+//                    self.showAlert(with: "Could not save note")
+//                }
+//            }
+//        }
     }
     
     private func aggregateNutrients(from ingredients: [Ingredient]) -> [Nutrient] {
