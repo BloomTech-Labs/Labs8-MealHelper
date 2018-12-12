@@ -105,10 +105,27 @@ class HomePage extends Component {
           {/* </div> */}
         </div>
         <div class="inapp-choice-wrapper">
-          <div class="box meals">Meals</div>
-          <div class="box recipes">Recipes</div>
-          <div class="box alarms">Alarms</div>
-          <div class="box settings">Settings</div>
+          <div class="box recipes">
+            Step 1: Recipes
+            <br />
+            <p className="recipes-text">
+              It all starts with the recipe. Click recipe and start adding your
+              ingredients!
+            </p>
+          </div>
+          <div class="box meals">
+            Step 3: Meals <br />
+            <p className="meals-text">
+              Then name your meal and add the recipe.
+            </p>
+          </div>
+          <div class="box ingredients">
+            Step 2: Ingredients <br />
+            <p className="ingredients-text">
+              From your recipe modal, enter your ingredients and save them.
+            </p>
+          </div>
+          <div class="box alarms">Step 4: Alarms</div>
         </div>
       </div>
     );
