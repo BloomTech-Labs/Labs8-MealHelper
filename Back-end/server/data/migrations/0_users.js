@@ -1,10 +1,8 @@
 exports.up = function(knex) {
   return Promise.all([
     knex.schema.createTable("users", function(users) {
-      users
-        .increments("id")
-        .primary()
-        .onDelete("CASCADE");
+      users.increments("id").primary();
+
       users
         .string("email", 40)
         .unique()
