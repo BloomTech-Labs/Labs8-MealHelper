@@ -16,7 +16,7 @@ import Picnic from "./PicnicBlue.jpg";
 import Stefano from "../../img/stefano100.jpg";
 import Simon from "../../img/simon100.jpg";
 import Casey from "../../img/casey100.png";
-import Patrick from "../../img/patrick100.png";
+import Patrick from "../../img/patrick101.png";
 import Joseph from "../../img/joseph100.jpg";
 import Keith from "../../img/anon100.png";
 import Github from "../../img/githublogo.png";
@@ -260,7 +260,7 @@ class Landingpage extends Component {
                         style={{ width: 20 }}
                       />
                     </a>
-                    <a href="https://www.linkedin.com/patrick-thompson-the-code-guy">
+                    <a href="https://anonofficial.com/">
                       <img
                         src={LinkedIn}
                         alt="LinkedIn"
@@ -288,7 +288,7 @@ class Landingpage extends Component {
                     style={{ width: 100 }}
                   />
                   <div className="team-container">
-                    <h2>Simon Steinmejer</h2>
+                    <h2>Simon Elhøj Steinmejer</h2>
                     <p className="title">iOS Developer</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                     <a href="https://github.com/elhoej">
@@ -441,7 +441,7 @@ class Landingpage extends Component {
                     src={Patrick}
                     alt="Team Member"
                     className="team-member"
-                    style={{ width: 100, height: 110 }}
+                    style={{ width: 83 }}
                   />
                   <div className="team-container">
                     <h2>Patrick Thompson</h2>
