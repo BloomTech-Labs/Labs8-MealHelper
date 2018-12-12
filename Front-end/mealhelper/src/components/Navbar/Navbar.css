@@ -2,16 +2,15 @@
 
 /* App Navbar */
 .Navbar-Container-Main {
-    background: #ffffff;
-    height: 55px;
-    width: 100%;
-    border-bottom: 1px solid #9c9c9c;
-    position: fixed;
-    z-index: 2;
-    display: flex;
-    justify-content: space-around;
-  }
-  
+  background: #242424;
+  height: 55px;
+  width: 100%;
+  border-bottom: 1px solid #2f9dfe;
+  position: fixed;
+  z-index: 2;
+  display: flex;
+  justify-content: space-around;
+}
 .logo-main-container {
     margin-right: 0%;
   }
@@ -25,10 +24,37 @@
     color: #2f9dfe;
   }
 .logo-main {
-    font-size: 40px;
-    font-family: "Allan", cursive;
-  }
-  
+  font-size: 40px;
+  font-family: "Allan", cursive;
+  color: white;
+}
+
+.logo-main:hover {
+  color: #2f9dfe;
+}
+
+.buttons-navbar {
+  color: #ffffff;
+  width: 120px;
+  font-size: 20px;
+  font-weight: 900;
+  height: 40px;
+  margin-bottom: 30px;
+  margin-top: 8px;
+  margin-right: 45px;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: #2f9dfe;
+}
+
+.signup-login-buttons-navbar {
+  margin-right: 1px;
+}
+
+.buttons-navbar:hover {
+  background-color: #242424;
+}
+
 .hamburger-container {
     padding-top: 5px;
   }
@@ -180,4 +206,11 @@
   padding: 0 20px;
   height: 30px;
   font-size: 20px;
+}
+
+.navbar-section-links {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+  color: #2f9dfe;
 }

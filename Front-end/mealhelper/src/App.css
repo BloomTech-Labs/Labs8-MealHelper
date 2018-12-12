@@ -7,9 +7,9 @@
 }
 body {
   width: 100%;
-  height: auto !important;
-  background: #f1f1f1 1 !important;
+  height: auto;
+  background: #f0f0f0;
 }
 .display {
-  width: 100%;
+  width: 100% !important;
 }

@@ -7,14 +7,22 @@
   background-size: cover;
 } */
 
-.home-container-home {
+.homepage-main-fence {
+  margin-top: 150px;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+/* .home-container-home {
   height: 100vh;
   width: 100vw;
   background-color: #ffffff;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
+} */
 
 /* .display-quote {
 
@@ -24,7 +32,7 @@
 } */
 
 .user-profile-card {
-  margin-top: 75px;
+  box-sizing: border-box;
   margin-left: 25px;
   display: flex;
   flex-direction: column;
@@ -32,7 +40,6 @@
   align-items: center;
   color: white;
   background: #242424;
-  margin-top: 5%;
   width: 500px;
   height: 500px;
   border: 2px solid #2f9dfe;
@@ -53,13 +60,25 @@
 
 .user-profile-card-settings {
   margin-left: 400px;
-  margin-top: 20px;
+  margin-top: 10px;
   font-weight: bolder;
   color: white;
   cursor: pointer;
 }
 
 .user-profile-card-settings:hover {
+  color: #2f9dfe;
+}
+
+.user-profile-card-getstarted {
+  margin-left: 400px;
+  margin-top: 10px;
+  font-weight: bolder;
+  color: white;
+  cursor: pointer;
+}
+
+.user-profile-card-getstarted:hover {
   color: #2f9dfe;
 }
 
