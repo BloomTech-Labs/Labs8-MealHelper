@@ -39,6 +39,19 @@ class GetStarted extends Component {
     return (
       <div className="homepage-main-fence-getstarted">
         <div className="user-profile-card">
+          <StripeCheckout
+            amount="499"
+            billingAddress
+            description="EatWell Meal Tracker"
+            image={CheckOut}
+            locale="auto"
+            name="eat-well.app"
+            label="Get Premium!"
+            panelLabel="Purchase for {{amount}}"
+            stripeKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG"
+            token={this.onToken}
+            zipCode
+          />
           <Link to="/homepage/getstarted" style={{ textDecoration: "none" }}>
             <div className="user-profile-card-getstarted">Get Started!</div>
           </Link>
