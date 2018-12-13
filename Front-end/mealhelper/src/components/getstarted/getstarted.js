@@ -14,7 +14,7 @@ class GetStarted extends Component {
   };
   render() {
     return (
-      <div className="homepage-main-fence">
+      <div className="homepage-main-fence-getstarted">
         <div className="user-profile-card">
           <Link to="/homepage/getstarted" style={{ textDecoration: "none" }}>
             <div className="user-profile-card-getstarted">Get Started!</div>
