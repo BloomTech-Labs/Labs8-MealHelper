@@ -33,7 +33,7 @@
 
 .alarms-heading h1 {
   padding: 10px 0;
-
+  color: white;
 }
 
 .alarm-card {
@@ -60,6 +60,7 @@
   align-items: center;
   /* border: 3px solid purple; */
   margin-right: 100px;
+  color: white;
 }
 
 .alarm-buttons {
@@ -71,8 +72,30 @@
   /* border: 2px solid red; */
 }
 
+.alarm-btn {
+  border: 1px solid #2f9dfe;
+  background: #ffffff;
+  width: 60px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+.delete {
+  color: red;
+  margin-right: 10px;
+}
+
 .add-new-alarms {
   padding: 10px 0;
+}
+
+.add-new-alarms-btn {
+  background: #242424;
+  width: 200px;
+  height: 51px;
+  border: 1px solid #2f9dfe;
+  border-radius: 5px;
+  color: white;
 }
 
 .hide-modal {

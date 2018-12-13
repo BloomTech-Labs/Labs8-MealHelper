@@ -180,11 +180,11 @@ class MyAlarms extends Component {
               <div className="alarm-time"><p>{this.militaryToStandard(alarm.alarm)}</p></div>
               </div>
               <div className="alarm-buttons">
-              <Button color="info" onClick={() => this.showModal(alarm.id)}> Edit </Button>
-              <Button color="danger"
+              <button className="alarm-btn edit" onClick={() => this.showModal(alarm.id)}> Edit </button>
+              <button className="alarm-btn delete"
                 onClick={() =>
                   this.props.deleteAlarm(alarm.id, this.props.user.userID)
-                }> Delete </Button>
+                }> Delete </button>
               </div>
             </div>
           )) 
@@ -193,10 +193,13 @@ class MyAlarms extends Component {
                 <div className="alarm-text empty">You don't have any Alarms set up.</div>
               </div>
           }
-          <div className="add-new-alarms">
-          <Button color="info" onClick={() => this.props.history.push("/homepage/alarms/add-alarms")}>Add New Alarms</Button>
-          </div>
+          
 </div>
+<div className="add-new-alarms">
+          <button className="add-new-alarms-btn" onClick={() => this.props.history.push("/homepage/alarms/add-alarms")}>
+          <h3>Add New Alarms</h3>
+          </button>
+          </div>
 <p className="disclaim">Note: alarm functionality is not available on desktop. <br />This page can be used to view, update, and delete alarms for your iOS app.</p>
           
          <Modal
