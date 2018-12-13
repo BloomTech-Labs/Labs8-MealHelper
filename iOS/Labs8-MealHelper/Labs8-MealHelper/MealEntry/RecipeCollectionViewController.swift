@@ -134,35 +134,6 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
         let saveMealVC = SaveMealViewController()
         saveMealVC.recipes = selectedRecipes
         navigationController?.pushViewController(saveMealVC, animated: true)
-        //        let recipes = getSelectedRecipes()
-//        let date = Utils().dateString(for: Date())
-//        var temp = 0.0 // TODO: Change
-//
-//        let weatherDispatchGroup = DispatchGroup()
-//
-//        weatherDispatchGroup.enter()
-//        WeatherAPIClient().fetchWeather(for: 8038) { (weatherForecast) in // TODO: Change
-//
-//            temp = weatherForecast?.main.temp ?? 0
-//            weatherDispatchGroup.leave()
-//        }
-//
-//        weatherDispatchGroup.notify(queue: .main) {
-//            let foodDispatchGroup = DispatchGroup()
-//
-//            for recipe in recipes {
-//                foodDispatchGroup.enter()
-//                let name = recipe.name
-//                // TODO: Change mealTime
-//                FoodClient.shared.postMeal(name: name, mealTime: name, date: date, temp: temp, recipeId: recipe.identifier) { (response) in
-//                    foodDispatchGroup.leave()
-//                }
-//            }
-//
-//            foodDispatchGroup.notify(queue: .main) {
-//                self.dismiss(animated: true, completion: nil)
-//            }
-//        }
     }
     
     @objc func dismissView() {
