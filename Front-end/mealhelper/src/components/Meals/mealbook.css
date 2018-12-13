@@ -5,3 +5,23 @@
   border: 1px solid #2f9dfe;
   justify-self: center;
 }
+
+.mealbook-heading {
+  border-bottom: 1px solid #2f9dfe;
+}
+
+.mealbook-heading h1 {
+  padding: 10px 0;
+  color: white;
+}
+
+.mealbook-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 45px;
+  width: 100%;
+  border-bottom: 1px solid #2f9dfe;
+  margin-top: 5px;
+}

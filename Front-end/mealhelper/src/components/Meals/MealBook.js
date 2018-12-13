@@ -69,6 +69,14 @@ class MealBook extends Component {
         <div className="mealbook-time"><p>{meal.mealTime}</p></div>
         <div className="mealbook-exp"><p>{meal.experience}</p></div>
         </div>
+        <div className="mealbook-buttons">
+          <button className="mealbook-btn good-exp" onClick={() => console.log("GOOD")}>
+          👍
+          </button>
+          <button className="mealbook-btn bad-exp" onClick={() => console.log("BAD")}>
+          👎 
+          </button>
+        </div>
       </div>
       ))
       :
