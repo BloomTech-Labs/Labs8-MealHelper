@@ -238,6 +238,7 @@ class SaveRecipeViewController: UIViewController {
 
         add(recipeSettingsVC)
         recipeSettingsVC.view.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 20, left: sidePadding, bottom: 0, right: sidePadding), size: CGSize(width: 0, height: 130))
+        recipeSettingsVC.inputStackView.removeArrangedSubview(recipeSettingsVC.typeInputField)
         
         add(ingredientTableVC)
         ingredientTableVC.tableView.anchor(top: recipeSettingsVC.view.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: sidePadding, bottom: 40, right: sidePadding))

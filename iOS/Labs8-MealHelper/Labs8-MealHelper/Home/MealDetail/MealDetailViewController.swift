@@ -259,17 +259,6 @@ extension MealDetailViewController: UITextViewDelegate {
 
 fileprivate extension UITextView {
     
-    var doneAccessory: Bool {
-        get {
-            return self.doneAccessory
-        }
-        set (hasDone) {
-            if hasDone {
-                addDoneButtonOnKeyboard()
-            }
-        }
-    }
-    
     func addDoneButtonOnKeyboard() {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
@@ -287,4 +276,5 @@ fileprivate extension UITextView {
     @objc func doneButtonAction() {
         self.resignFirstResponder()
     }
+    
 }
