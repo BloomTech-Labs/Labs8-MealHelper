@@ -16,7 +16,7 @@ import Recipes from "./components/recipes/recipes";
 import GetStarted from "./components/getstarted/getstarted";
 import MyRecipes from "./components/recipes/myrecipe";
 import CreateNewRecipe from "./components/creatnewrecipe/createnewrecipe";
-
+import SingleRecipe from "./components/recipes/SingleRecipe";
 import GetIngredient from "./components/ingredients/getIngredient";
 import Weather from "./components/weather/weather";
 import MyWeather from "./components/weather/myweather";
@@ -62,7 +62,7 @@ class App extends Component {
               path="/homepage/recipes/createnewrecipe"
               render={() => <CreateNewRecipe />}
             />
-
+            <Route path="/recipe/:id" render={() => <SingleRecipe />} />
             <Route exact path="/homepage/weather" render={() => <Weather />} />
             <Route
               path="/homepage/weather/myweather"

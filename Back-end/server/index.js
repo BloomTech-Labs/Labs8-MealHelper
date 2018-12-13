@@ -502,6 +502,19 @@ server.get("/recipe", (req, res) => {
       res.status(400).json({ err, error: "could not find recipes" });
     });
 });
+server.get("/recipe/single/:recipeid", (req, res) => {
+  const id = req.params.recipeid;
+  db("recipe")
+    .where({ recipe_id: id })
+    .first()
+    .then(recipes => {
+      //Returns all the recipes
+      res.status(200).json(recipes);
+    })
+    .catch(err => {
+      res.status(400).json({ err, error: "could not find recipes" });
+    });
+});
 //GET request to grab all recipes made by a specific user
 server.get("/recipe/user/:userid", (req, res) => {
   const userId = req.params.userid;

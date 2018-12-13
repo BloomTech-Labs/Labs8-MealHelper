@@ -218,3 +218,10 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-top: 70px;
   display: flex;
 }
+.single-recipe-container {
+  margin: 200px auto 0;
+  background: white;
+  border: 1px solid #b6b5b5;
+  width: 600px;
+  height: 600px;
+}
