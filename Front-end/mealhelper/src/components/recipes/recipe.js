@@ -9,11 +9,6 @@ import { deleteRecipe } from "../../store/actions/recipeActions";
 import "./recipes.css";
 
 class Recipe extends Component {
-  deleteRecipe = event => {
-    event.preventDefault();
-    const userid = localStorage.getItem("user_id");
-    this.props.deleteRecipe(this.props.id, userid);
-  };
   render() {
     return (
       <Link to={`/recipe/${this.props.id}`}>
@@ -24,7 +19,15 @@ class Recipe extends Component {
           <div className="calories-display">
             Calories: {this.props.calories}
           </div>
-          <button onClick={this.deleteRecipe} className="delete-recipe">
+          <button
+            onClick={() =>
+              this.props.deleteRecipe(
+                this.props.id,
+                localStorage.getItem("user_id")
+              )
+            }
+            className="delete-recipe"
+          >
             Delete
           </button>
         </div>

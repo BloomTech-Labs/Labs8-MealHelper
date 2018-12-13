@@ -81,7 +81,7 @@ export const changeRecipe = recipe => dispatch => {
 };
 export const deleteRecipe = (id, userid) => dispatch => {
   dispatch({ type: DELETING_RECIPE });
-
+  console.log(userid);
   // const user_id = id.userID;
   axios
 

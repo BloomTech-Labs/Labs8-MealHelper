@@ -14,7 +14,7 @@ class CreateNewRecipe extends Component {
 
     this.state = {
       name: "",
-      servings: null,
+      servings: 1,
       query: "",
       ingredients: []
     };
@@ -36,21 +36,6 @@ class CreateNewRecipe extends Component {
       [event.target.name]: event.target.value
     });
   };
-
-  // handleSubmit = event => {
-  //   event.preventDefault();
-  //   const user_id = this.props.user.userID;
-  //   const ingredient_id = this.state.ingredients.id;
-  //   const { name, calories, servings } = this.state;
-  //   const recipe = {
-  //     user_id,
-  //     ingredient_id,
-  //     name,
-  //     calories,
-  //     servings
-  //   };
-  //   this.props.addRecipe(recipe);
-  // };
 
   removeFoodItem = itemIndex => {
     const filteredFoods = this.state.selectedFoods.filter(
