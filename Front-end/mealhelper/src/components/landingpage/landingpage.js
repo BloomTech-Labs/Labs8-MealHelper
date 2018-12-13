@@ -215,7 +215,7 @@ class Landingpage extends Component {
                     $4.99<span>/PER USER</span>
                   </div>
                 </div>
-                <div className="entry-content premium">
+                <div className="entry-content-premium">
                   <ul>
                     <li>
                       Make <strong>unlimited</strong> meals
