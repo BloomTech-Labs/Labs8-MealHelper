@@ -150,7 +150,7 @@ server.post("/registerAuth0", (req, res) => {
         .then(user => {
           const token = generateToken(user);
 
-          res.status(200).json({ userID: user.id, token: token });
+          res.status(200).json({ id: user.id, token: token });
         })
         .catch(err => {
           res.status(500).json({
@@ -172,7 +172,7 @@ server.post("/login", (req, res) => {
         const token = generateToken(user);
 
         res.status(200).json({
-          userID: user.id,
+          id: user.id,
           token: token,
           zip: user.zip,
           email: user.email
