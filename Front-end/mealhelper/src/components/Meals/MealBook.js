@@ -67,11 +67,17 @@ class MealBook extends Component {
   }
 
   componentDidMount() {
-
+    let userID = this.props.user.userID;
+    this.props.getMeals(userID);
   }
 
   componentDidUpdate(prevProps) {
-
+    let userID = this.props.user.userID;
+    if (
+      JSON.stringify(this.props.meals) !== JSON.stringify(prevProps.alarms)
+    ) {
+      this.props.getMeals(userID);
+    }
   }
 
   getNutrients(recipeID) {

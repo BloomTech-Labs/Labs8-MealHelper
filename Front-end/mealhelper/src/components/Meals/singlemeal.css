@@ -26,3 +26,36 @@
   height: 444px;
   background: #242424;
 }
+
+.sm-exp-buttons {
+  padding: 10px;
+}
+
+.sm-details-top {
+  display: flex;
+  align-content: center;
+  justify-content: space-evenly;
+  padding-top: 10px;
+}
+
+
+.sm-recipe-name {
+  font-size: 18px;
+}
+
+.sm-servings {
+  padding-top: 3px;
+}
+
+
+.sm-nutrients-container {
+  width: 300px;
+  overflow: scroll;
+  margin: 15px auto;
+}
+
+.sm-details-bottom {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px;
+}

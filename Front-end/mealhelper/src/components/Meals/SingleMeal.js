@@ -75,8 +75,8 @@ class SingleMeal extends Component {
               </div>
               <div className="single-meal-details">
               <div className="sm-details-top">
-                <p>Recipe Name</p>
-                <p>{meal.servings} {meal.servings.length > 1 ? "servings" : "serving"}</p>
+                <p className="sm-recipe-name">Recipe Name</p>
+                <p className="sm-servings">{meal.servings} {meal.servings.length > 1 ? "servings" : "serving"}</p>
               </div>
               <div className="sm-details-middle">
               <table className="sm-nutrients-container">
@@ -103,7 +103,13 @@ class SingleMeal extends Component {
         </table>
               </div>
               <div className="sm-details-bottom">
-              
+              <div className="sm-notes">
+              <h3>Notes</h3>
+              {meal.notes}
+              </div>
+              <div className="sm-weather">
+              <h3>Weather</h3>
+              </div>
               </div>
               </div>
             </div>
