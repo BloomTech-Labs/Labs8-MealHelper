@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
 import { getMeals } from "../../store/actions/mealActions.js";
+import { getRecipe } from "../../store/actions/recipeActions";
 import { withRouter, Link, Route } from "react-router-dom";
 // import { Alert } from "reactstrap";
 import axios from "axios";
@@ -22,17 +23,15 @@ class MyRecipes extends Component {
   componentDidMount() {
     if (localStorage.getItem("token")) {
       const id = this.props.user.userID;
-      this.props.getMeals(id);
+      this.props.getRecipe(id);
+
+      this.setState({ list: this.props.recipes });
     } else {
       this.props.history.push("/");
     }
   }
   componentWillReceiveProps(nextProps) {
     this.setState({ list: nextProps.meals });
-  }
-
-  settingState() {
-    this.setState({ list: this.props.meals });
   }
 
   handleChange = event => {
@@ -46,10 +45,12 @@ class MyRecipes extends Component {
     return (
       <div className="weather-container">
         <div className="home-container">
-          <div className="dynamic-display">
-            {this.state.list.map(item => (
+          <div className="recipe-book">
+            {this.props.recipes.map(item => (
               <Recipe
+                id={item.id}
                 item={item}
+                calories={item.calories}
                 key={item.ndbno}
                 name={item.name}
                 ndbno={item.ndbno}
@@ -66,11 +67,12 @@ const mapStateToProps = state => {
   console.log(state);
   return {
     user: state.userReducer.user,
-    meals: state.mealsReducer.meals
+    meals: state.mealsReducer.meals,
+    recipes: state.recipesReducer.recipes
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getMeals }
+  { getMeals, getRecipe }
 )(withRouter(MyRecipes));

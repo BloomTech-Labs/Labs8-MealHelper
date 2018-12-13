@@ -165,7 +165,11 @@ class SearchFood extends Component {
           parseInt(this.state.nutrients[i][0].value, 10)
         );
 
-        sumCalories += parseInt(nutrientsJSON, 10);
+        if (nutrientsJSON === null || nutrientsJSON === "--") {
+          sumCalories += 0;
+        } else {
+          sumCalories += parseInt(nutrientsJSON, 10);
+        }
       }
     }
     let totalCalories = sumCalories * servings;
@@ -201,7 +205,7 @@ class SearchFood extends Component {
   async saveRecipeNutrition() {
     const id = localStorage.getItem("user_id");
     let recipe_ids = this.props.recipes.pop();
-    console.log(recipe_ids.id);
+
     const recipeID = recipe_ids.id;
 
     let countNutrients = this.state.nutrients.length;

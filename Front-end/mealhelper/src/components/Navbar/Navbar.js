@@ -24,11 +24,11 @@ class NavbarLanding extends Component {
             </a>
           </div>
           <div className="signup-login-buttons-navbar">
-            <Link to="/login" style={{ textDecoration: "none" }}>
-              <button className="buttons-navbar">Log In</button>
+            <Link to="/login" className="nb-button-container"style={{ textDecoration: "none" }}>
+              <button className="buttons-navbar-lp">Log In</button>
             </Link>
-            <Link to="/signup" style={{ textDecoration: "none" }}>
-              <button className="buttons-navbar">Sign Up</button>
+            <Link to="/signup" className="nb-button-container" style={{ textDecoration: "none" }}>
+              <button className="buttons-navbar-lp">Sign Up</button>
             </Link>
           </div>
         </div>
