@@ -192,7 +192,7 @@ input[type="search"]::-webkit-search-cancel-button {
   height: 200px;
   border: 1px solid #b6b5b5;
   text-decoration: none;
-  background: #f0f0f0;
+  background: #f8ecc2;
   display: flex;
   justify-content: space-evenly;
 }
@@ -213,10 +213,13 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 .recipe-name {
   margin-top: 60px;
+  color: black;
 }
 .calories-display {
   margin-top: 70px;
   display: flex;
+  color: black;
+  font-weight: bolder;
 }
 .single-recipe-container {
   margin: 200px auto 0;
