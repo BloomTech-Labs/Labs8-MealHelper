@@ -28,7 +28,6 @@
   flex-direction: column;
 }
 
-
 .cta-top-content {
   display: flex;
   flex-direction: row;
@@ -57,7 +56,7 @@
 }
 
 .buttons-lp {
-  width: 45%;
+  width: 150px;
   height: 50px;
   color: #ffffff;
   font-size: 15px;
@@ -329,7 +328,27 @@
   color: #2f9dfe;
 }
 
-.premium strong {
+.entry-content-premium {
+  color: #242424;
+}
+
+.entry-content-premium ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.entry-content-premium li {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 10px 0;
+}
+
+.entry-content-premium li:last-child {
+  border: none;
+}
+
+.entry-content-premium strong {
   color: #f80;
 }
 
@@ -422,8 +441,8 @@
   }
   .team-column {
     width: 50%;
-    padding: 25px 20px
-  }  
+    padding: 25px 20px;
+  }
 }
 
 .card {
