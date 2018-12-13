@@ -37,6 +37,25 @@ class HomePage extends Component {
   };
   onToken = token => {
     console.log("onToken", token);
+    fetch("/homepage/stripe", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        stripeToken: token.id
+      })
+    }).then(res => res.json());
+    console.log("json", json);
+    // .then(json => {
+    //   let data = this.state.messages;
+    //   data.push(json.newMessages);
+
+    //   this.setState({
+    //     messages: data
+    //   });
+    // });
   };
   render() {
     return (
