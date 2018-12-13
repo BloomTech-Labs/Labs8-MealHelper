@@ -4,6 +4,8 @@ import "./getstarted.css";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import Moment from "react-moment";
+import StripeCheckout from "react-stripe-checkout";
+import CheckOut from "../landingpage/eatwellimage.png";
 
 class GetStarted extends Component {
   logout = event => {
