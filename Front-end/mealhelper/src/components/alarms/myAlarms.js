@@ -122,7 +122,7 @@ class MyAlarms extends Component {
 
   showModal = alarmID => {
     this.toggle();
-    const alarmToUpdate = alarms.find(alarm => alarm.id === alarmID);
+    const alarmToUpdate = this.props.alarms.find(alarm => alarm.id === alarmID);
     this.setState({
       alarmToUpdate: alarmToUpdate
     })
@@ -165,7 +165,7 @@ class MyAlarms extends Component {
       <div className="alarms-container">
       <div className="alarms-heading"><h1>Alarms</h1></div>
           
-          {alarms.length ? 
+          {this.props.alarms.length ? 
           alarms.map(alarm => (
             <div className="alarm-card"
               key={alarm.id}
