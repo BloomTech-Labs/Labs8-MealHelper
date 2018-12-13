@@ -13,12 +13,12 @@ struct User: Codable {
     var email: String
     var zip: Int
     var id: Int
-    var token: String
+    var token: String?
     
     enum CodingKeys: String, CodingKey {
         case email
         case zip
-        case id = "userID"
+        case id
         case token
     }
 }

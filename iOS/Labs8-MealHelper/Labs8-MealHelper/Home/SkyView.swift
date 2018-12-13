@@ -28,7 +28,8 @@ class SkyView: UIView {
         if let weather = weather {
             calculateWeatherAnimation(forecast: weather)
         } else {
-            WeatherAPIClient.shared.fetchWeather(for: 3300) { (forecast) in
+            let zipCode = UserDefaults.standard.loggedInZipCode()
+            WeatherAPIClient.shared.fetchWeather(for: zipCode) { (forecast) in
                 
                 DispatchQueue.main.async {
                     guard let forecast = forecast else {
