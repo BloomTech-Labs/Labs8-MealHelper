@@ -70,6 +70,12 @@ class MealBook extends Component {
 
   }
 
+  getNutrients(recipeID) {
+   const recipe = recipes.find(recipe => recipe.id === recipeID);
+    console.log("recipe", recipe, recipe.calories);
+    return recipe.calories;
+  }
+
   render() {
     return(
       <div className="mealbook-full-width">
@@ -90,17 +96,29 @@ class MealBook extends Component {
         </div>
         <div className="mealbook-card-sec2">
         <div className="mealbook-name"><p>{meal.name}</p></div>
-        <div className="mealbook-serve"><p>{meal.servings}</p></div>
+        <div className="mealbook-serve"><p>{meal.servings} servings</p></div>
         </div>
         </div>
-        <div className="mealbook-notes">{meal.notes}</div>
+        <div className="mealbook-nutr">
+        <p>Calories: {this.getNutrients(meal.recipe_id)}</p>
+        <p>Protein: 000</p>
+        <p>Sugar: 000</p>
+        <p>Sodium: 000</p>
+        </div>
+        <div className="mealbook-exp">
+        <p>Experience:</p>
         <div className="mealbook-buttons">
-          <button className={meal.experience === "good" ? "mealbook-btn-active" : "mealbook-btn-inactive"} onClick={() => console.log("GOOD")}>
+          <button 
+          className={meal.experience === "good" ? "mealbook-btn-active" : "mealbook-btn-inactive"} 
+          onClick={() => console.log("GOOD")}>
           👍
           </button>
-          <button className={meal.experience === "bad" ? "mealbook-btn-active" : "mealbook-btn-inactive"} onClick={() => console.log("BAD")}>
+          <button 
+          className={meal.experience === "bad" ? "mealbook-btn-active" : "mealbook-btn-inactive"} 
+          onClick={() => console.log("BAD")}>
           👎 
           </button>
+        </div>
         </div>
       </div>
       ))
