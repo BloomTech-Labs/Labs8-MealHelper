@@ -114,7 +114,7 @@ class SaveMealViewController: UIViewController {
         let weatherDispatchGroup = DispatchGroup()
         
         weatherDispatchGroup.enter()
-        WeatherAPIClient().fetchWeather(for: zipCode) { (weatherForecast) in // TODO: Change
+        WeatherAPIClient().fetchWeather(for: zipCode) { (weatherForecast) in
             
             temp = weatherForecast?.main.temp
             humidity = weatherForecast?.main.humidity
@@ -166,7 +166,6 @@ class SaveMealViewController: UIViewController {
     }
     
     // MARK: - Private methods
-    
     
     // MARK: - Configuration
     
