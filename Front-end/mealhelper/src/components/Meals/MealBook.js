@@ -53,10 +53,32 @@ class MealBook extends Component {
       <div className="meals-full-width">
       <div className="meals-container">
       <div className="meals-heading"><h1>Meals</h1></div>
+
+      {meals.length ? meals.map(meal => (
+        <div className="meal-card"
+          key={meal.id}
+          id={meal.id}
+        >
+        {" "}
+        <br />
+        <div className="meal-text">
+        <div className="meal-date"><p>{meal.date}</p></div>
+        <div className="meal-serve"><p>{meal.servings}</p></div>
+        <div className="meal-name"><p>{meal.name}</p></div>
+        <div className="meal-time"><p>{meal.mealTime}</p></div>
+        <div className="meal-exp"><p>{meal.experience}</p></div>
+        </div>
+      </div>
+      ))
+      :
+      <div className="meal-card empty">
+      <div className="meal-text empty">You don't have any Meals.</div>
+      </div>
+    }
       </div>
       </div>
-    )
-  }
+      )
+    }
 }
 
 const mapStateToProps = state => ({
