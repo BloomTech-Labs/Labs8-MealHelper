@@ -1,6 +1,6 @@
 .mealbook-container {
   margin: 100px auto 0;
-  width: 495px;
+  width: 600px;
   background: #242424;
   border: 1px solid #2f9dfe;
   justify-self: center;
@@ -20,8 +20,75 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 45px;
+  height: 90px;
   width: 100%;
   border-bottom: 1px solid #2f9dfe;
   margin-top: 5px;
+  color: white;
+}
+
+.mealbook-card .empty {
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+}
+
+.mealbook-text {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 2px solid fuchsia;
+  /* margin-right: 100px; */
+}
+
+.mealbook-card-sec1 {
+  display: flex;
+  border: 1px solid lime;
+}
+
+.mealbook-card-sec2 {
+  border: 1px solid blue;
+}
+
+.mealbook-date {
+  width: 100px;
+  border: 1px solid red;
+}
+
+.mealbook-serve {
+  width: 35px;
+  border: 1px solid orange;
+}
+.mealbook-name {
+  width: 200px;
+  font-size: 20px;
+  border: 1px solid yellow;
+}
+.mealbook-time {
+  width: 80px;
+  border: 1px solid green;
+}
+
+.mealbook-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100px;
+  border: 2px solid mediumorchid;
+}
+
+.mealbook-btn-active {
+  background: #2f9dfe;
+  border: 1px solid #242424;
+}
+
+.mealbook-btn-inactive {
+  background: #242424;
+  border: none;
+  border-radius: 5px;
+}
+
+.mealbook-btn-inactive:hover {
+  cursor: pointer;
 }

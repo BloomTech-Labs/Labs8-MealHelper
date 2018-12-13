@@ -14,8 +14,8 @@ const meals = [
     id: 1,
     user_id: 1,
     mealTime: "Breakfast",
-    experience: "👍",
-    name: "",
+    experience: "good",
+    name: "Basic Morning Breakfast",
     temp: null,
     humidity: null,
     pressure: null,
@@ -23,6 +23,20 @@ const meals = [
     date: "01/01/2018",
     servings: 1,
     recipe_id: 1,
+  },
+  {
+    id: 2,
+    user_id: 1,
+    mealTime: "Lunch",
+    experience: "",
+    name: "Caramel Everything",
+    temp: null,
+    humidity: null,
+    pressure: null,
+    notes: "oof ouch owie my teeth",
+    date: "01/01/2018",
+    servings: 123,
+    recipe_id: 2,
   }
 ];
 
@@ -31,6 +45,13 @@ const recipes = [
     id: 1,
     name: "Eggs and Bacon",
     calories: 400,
+    servings: 1,
+    user_id: 1
+  },
+  {
+    id: 2,
+    name: "Caramel Popcorn",
+    calories: 300,
     servings: 1,
     user_id: 1
   }
@@ -63,17 +84,21 @@ class MealBook extends Component {
         {" "}
         <br />
         <div className="mealbook-text">
+        <div className="mealbook-card-sec1">
         <div className="mealbook-date"><p>{meal.date}</p></div>
-        <div className="mealbook-serve"><p>{meal.servings}</p></div>
-        <div className="mealbook-name"><p>{meal.name}</p></div>
         <div className="mealbook-time"><p>{meal.mealTime}</p></div>
-        <div className="mealbook-exp"><p>{meal.experience}</p></div>
         </div>
+        <div className="mealbook-card-sec2">
+        <div className="mealbook-name"><p>{meal.name}</p></div>
+        <div className="mealbook-serve"><p>{meal.servings}</p></div>
+        </div>
+        </div>
+        <div className="mealbook-notes">{meal.notes}</div>
         <div className="mealbook-buttons">
-          <button className="mealbook-btn good-exp" onClick={() => console.log("GOOD")}>
+          <button className={meal.experience === "good" ? "mealbook-btn-active" : "mealbook-btn-inactive"} onClick={() => console.log("GOOD")}>
           👍
           </button>
-          <button className="mealbook-btn bad-exp" onClick={() => console.log("BAD")}>
+          <button className={meal.experience === "bad" ? "mealbook-btn-active" : "mealbook-btn-inactive"} onClick={() => console.log("BAD")}>
           👎 
           </button>
         </div>
