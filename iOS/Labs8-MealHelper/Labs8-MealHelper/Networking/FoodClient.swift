@@ -49,24 +49,24 @@ class FoodClient: GenericAPIClient {
         
     }
     
-    func fetchNutrients(withIngredientId ingredientId: Int, completion: @escaping (Response<[Nutrient]>) -> ()) {
-        let url = self.url(with: baseUrl, pathComponents: ["nutrients", String(ingredientId)])
+    func fetchNutrients(withRecipeId recipeId: Int, completion: @escaping (Response<[Nutrient]>) -> ()) {
+        let url = self.url(with: baseUrl, pathComponents: ["nutrients", String(recipeId)])
         
         fetch(from: url, completion: completion)
         
     }
     
-    func postMeal(name: String, mealTime: String, date: String, temp: Double, recipeId: Int, servings: Int, completion: @escaping (Response<Int>) -> ()) {
+    func postMeal(name: String, mealTime: String, date: String, temp: Double?, pressure: Double?, humidity: Double?, recipeId: Int, servings: Int, completion: @escaping (Response<Int>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["users", userId, "meals"])
         let reqBody = [
             "name": name,
             "user_id": userId,
             "mealTime": mealTime,
             "date": date,
-            "temp": temp,
+            "temp": temp as Any,
             //"notes": notes,
-            //"humidity": humidity,
-            //"pressure": pressure,
+            "humidity": humidity as Any,
+            "pressure": pressure as Any,
             "recipe_id": String(recipeId),
             "servings": servings
             ] as [String : Any]

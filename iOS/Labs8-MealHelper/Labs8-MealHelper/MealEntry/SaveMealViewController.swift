@@ -107,14 +107,18 @@ class SaveMealViewController: UIViewController {
         
         let date = Utils().dateString(for: Date())
         let zipCode = UserDefaults().loggedInZipCode()!
-        var temp = 0.0 // TODO: Change
+        var temp: Double?
+        var humidity: Double?
+        var pressure: Double?
         
         let weatherDispatchGroup = DispatchGroup()
         
         weatherDispatchGroup.enter()
         WeatherAPIClient().fetchWeather(for: zipCode) { (weatherForecast) in // TODO: Change
             
-            temp = weatherForecast?.main.temp ?? 0
+            temp = weatherForecast?.main.temp
+            humidity = weatherForecast?.main.humidity
+            pressure = weatherForecast?.main.pressure
             weatherDispatchGroup.leave()
         }
         
@@ -124,7 +128,7 @@ class SaveMealViewController: UIViewController {
             for recipe in recipes {
                 foodDispatchGroup.enter()
                 
-                FoodClient.shared.postMeal(name: recipe.name, mealTime: self.mealTime, date: date, temp: temp, recipeId: recipe.identifier, servings: self.serving) { (response) in
+                FoodClient.shared.postMeal(name: recipe.name, mealTime: self.mealTime, date: date, temp: temp, pressure: pressure, humidity: humidity, recipeId: recipe.identifier, servings: self.serving) { (response) in
                     foodDispatchGroup.leave()
                 }
             }
