@@ -13,7 +13,9 @@ class MealDetailViewController: UIViewController {
     var meal: Meal? {
         didSet {
             navigationItem.title = meal?.mealTime
+            noteView.note = meal?.notes
             fetchIngredients()
+            fetchNutrients()
             guard let temp = meal?.temp, let humidity = meal?.humidity, let pressure = meal?.pressure else { return }
             weatherView.updateWeather(temperature: temp, humidity: humidity, pressure: pressure)
         }
@@ -35,7 +37,6 @@ class MealDetailViewController: UIViewController {
         let view = NutrientsView()
         view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         view.layer.cornerRadius = 12
-        
         return view
     }()
     
@@ -43,7 +44,6 @@ class MealDetailViewController: UIViewController {
         let tvc = IngredientTableViewController()
         tvc.tableView.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         tvc.tableView.layer.cornerRadius = 12
-        
         return tvc
     }()
     
@@ -51,7 +51,6 @@ class MealDetailViewController: UIViewController {
         let wv = WeatherView()
         wv.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         wv.layer.cornerRadius = 12
-        
         return wv
     }()
     
@@ -60,7 +59,6 @@ class MealDetailViewController: UIViewController {
         tv.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         tv.layer.cornerRadius = 12
         tv.addDoneButtonOnKeyboard()
-        
         return tv
     }()
     
@@ -68,14 +66,12 @@ class MealDetailViewController: UIViewController {
         let iv = UIImageView(image: #imageLiteral(resourceName: "mountain"))
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
-        
         return iv
     }()
     
     let blurEffect: UIVisualEffectView = {
         let frost = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         frost.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
         return frost
     }()
     
@@ -95,13 +91,11 @@ class MealDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupBackground()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         setupViews()
     }
     
@@ -165,7 +159,6 @@ class MealDetailViewController: UIViewController {
                 switch response {
                 case .success(let ingredients):
                     self.ingredients = ingredients
-                    self.fetchNutrients()
                 case .error(let error):
                     NSLog("Error fetching ingredients: \(error)")
                     self.showAlert(with: "Could not fetch ingredients.")
@@ -175,67 +168,48 @@ class MealDetailViewController: UIViewController {
     }
     
     private func fetchNutrients() {
-        guard let ingredients = ingredients else { return }
-        // Fetch nutrients for each ingredient in the recipe
-        let dispatchGroup = DispatchGroup()
-        for ingredient in ingredients {
-            dispatchGroup.enter()
-            guard let ingredientId = ingredient.identifier else { return }
-            FoodClient.shared.fetchNutrients(withIngredientId: ingredientId) { (response) in
-                DispatchQueue.main.async {
-                    switch response {
-                    case .success(let nutrients):
-                        var updatedIngredient = ingredient
-                        updatedIngredient.nutrients = nutrients
-                        
-                        // Add nutrients to fetched ingredient
-                        guard let index = self.ingredients?.index(of: updatedIngredient) else { return }
-                        self.ingredients?.remove(at: index)
-                        self.ingredients?.insert(updatedIngredient, at: index)
-                        
-                        dispatchGroup.leave()
-                    case .error(let error):
-                        NSLog("Error fetching nutrients: \(error)")
-                    }
+        // Fetch nutrients of the recipe
+        guard let meal = meal, let recipeId = meal.recipeId else { return }
+        
+        FoodClient.shared.fetchNutrients(withRecipeId: recipeId) { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let nutrients):
+                    self.aggregateNutrients = self.aggregateNutrients(from: nutrients)
+                case .error(let error):
+                    NSLog("Error fetching nutrients: \(error)")
                 }
             }
-        }
-        // Once all nutrients have been fetched, aggregate all nutrients
-        dispatchGroup.notify(queue: .main) {
-            guard let ingredients = self.ingredients else { return }
-            self.aggregateNutrients = self.aggregateNutrients(from: ingredients)
         }
     }
     
     private func saveNote() {
         guard let note = noteView.text, let meal = meal else { return }
-//        APIClient.shared.saveNote(note, mealId: meal.identifier) { (response) in
-//            DispatchQueue.main.async {
-//                switch response {
-//                case .success(let notes):
-//                    print(notes)
-//                case .error(let error):
-//                    NSLog("Error saving note: \(error)")
-//                    self.showAlert(with: "Could not save note")
-//                }
-//            }
-//        }
+        print(meal)
+        FoodClient.shared.add(note, to: meal.identifier) { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(_): break
+                case .error(let error):
+                    NSLog("Error saving note: \(error)")
+                    self.showAlert(with: "Could not save note, please try again.")
+                }
+            }
+        }
     }
     
-    private func aggregateNutrients(from ingredients: [Ingredient]) -> [Nutrient] {
+    private func aggregateNutrients(from nutrients: [Nutrient]) -> [Nutrient] {
         var aggregateNutrients = [Int : Nutrient]()
         
-        for ingredient in ingredients {
-            guard let nutrients = ingredient.nutrients else { continue }
-            
-            for nutrient in nutrients {
-                if var aggregateNutrient = aggregateNutrients[nutrient.nutrientId] { // If nutrient exists in dict, then sum up current and previous value
-                    let sum = (Int(aggregateNutrient.value) ?? 0) + (Int(nutrient.value) ?? 0)
-                    aggregateNutrient.value = String(sum)
-                    aggregateNutrients[nutrient.nutrientId] = aggregateNutrient
-                } else { // If nutrient doesn't exist, add it to dict
-                    aggregateNutrients[nutrient.nutrientId] = nutrient
-                }
+        for nutrient in nutrients {
+            if var aggregateNutrient = aggregateNutrients[nutrient.nutrientId] {
+                // Add nutrient value to existing nutrient in aggregateNutrients dict
+                let sum = (Int(aggregateNutrient.value) ?? 0) + (Int(nutrient.value) ?? 0)
+                aggregateNutrient.value = String(sum)
+                aggregateNutrients[nutrient.nutrientId] = aggregateNutrient
+            } else {
+                // Add a new nutrient to aggregateNutrients dict
+                aggregateNutrients[nutrient.nutrientId] = nutrient
             }
         }
         
@@ -265,6 +239,8 @@ extension MealDetailViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        saveNote()
+        
         if textView.text.isEmpty {
             textView.text = "Add a note"
             textView.textColor = UIColor.lightGray
@@ -279,9 +255,7 @@ extension MealDetailViewController: UITextViewDelegate {
                 self.ingredientsTableView.tableView.alpha = 1
                 self.weatherView.alpha = 1
             })
-        }) { _ in
-            self.saveNote()
-        }
+        }, completion: nil)
     }
 }
 

@@ -5,7 +5,6 @@ import "../homepage/homepage";
 //change the route for this
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
-import { Button, Modal, ModalHeader } from "reactstrap";
 import "./settings.css";
 
 class SettingsMain extends Component {

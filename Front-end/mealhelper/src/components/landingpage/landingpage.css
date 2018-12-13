@@ -17,7 +17,7 @@
 }
 .login-signup-container {
   width: 80%;
-  margin: -250px auto;
+  margin: -225px auto;
   position: relative;
   height: 250px;
   background: white;
@@ -27,6 +27,7 @@
   display: flex;
   flex-direction: column;
 }
+
 
 .cta-top-content {
   display: flex;
@@ -56,7 +57,7 @@
 }
 
 .buttons-lp {
-  width: 150px;
+  width: 45%;
   height: 50px;
   color: #ffffff;
   font-size: 15px;
@@ -85,7 +86,7 @@
   background: #2f9dfe;
   /* border: 1px solid blue; */
   border-radius: 5px;
-  height: 65px;
+  height: auto;
   padding: 10px;
 }
 .real-housewives-quote p {
@@ -103,7 +104,7 @@
   width: 100%;
   height: auto;
   background: #ffffff;
-  margin: 36% auto 0;
+  margin: 40% auto 0;
   border: 1px solid #b6b5b5;
   display: flex;
 }
@@ -136,7 +137,7 @@
 }
 .image-info {
   width: 50%;
-  height: 290px;
+  height: auto;
 }
 
 .header-card {
@@ -225,6 +226,8 @@
 .mini-cta .buttons-lp:hover {
   background-color: #242424;
 }
+
+/* == Pricing Section == */
 
 .pricing {
   padding-top: 150px;
@@ -400,6 +403,8 @@
   background: #2f9dfe;
 }
 
+/* == Team Section == */
+
 /* Three columns side by side */
 .team-column {
   float: left;
@@ -409,11 +414,16 @@
   padding: 20px 60px 20px 60px;
 }
 
-@media screen and (max-width: 650px) {
-  .team-column {
-    width: 100%;
-    display: block;
+@media screen and (max-width: 670px) {
+  .team-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
+  .team-column {
+    width: 50%;
+    padding: 25px 20px
+  }  
 }
 
 .card {

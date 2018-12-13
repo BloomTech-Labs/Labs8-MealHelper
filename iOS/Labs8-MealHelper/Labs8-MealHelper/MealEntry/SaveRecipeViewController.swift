@@ -96,13 +96,13 @@ class SaveRecipeViewController: UIViewController {
         saveRecipe(with: recipeName, calories: getTotalCalories(), servings: serving) { recipe in
             
             guard let recipe = recipe else { return }
-                        
+
             self.ingredients?.forEach { ingredient in
                 // Save nutrients of ingredient
                 
                 self.saveIngredient(with: ingredient.name, ndbno: ingredient.nbdId, recipeId: recipe.identifier, completion: { savedIngredient in
                     
-                    guard let nutrients = ingredient.nutrients, let ingredientId = savedIngredient?.identifier else {
+                    guard let nutrients = ingredient.nutrients else {
                         NSLog("Ingredient has no nutrients and/or identifier")
                         self.dismiss(animated: true, completion: nil)
                         return
@@ -112,7 +112,7 @@ class SaveRecipeViewController: UIViewController {
                     nutrients.forEach { nutrient in
                         
                         dispatchGroup.enter()
-                        self.saveNutrient(with: nutrient, ingredientId: ingredientId, completion: { (_) in
+                        self.saveNutrient(with: nutrient, recipeId: recipe.identifier, completion: { (_) in
                             dispatchGroup.leave()
                         })
                     }
@@ -126,7 +126,6 @@ class SaveRecipeViewController: UIViewController {
                 
             }
             
-        
         }
     }
     
@@ -135,8 +134,11 @@ class SaveRecipeViewController: UIViewController {
     }
     
     @objc private func handleMealSetting(notification: NSNotification) {
-        if let userInfo = notification.userInfo, let pickedMealTime = userInfo["type"] as? String, let pickedServingString = userInfo["quantity"] as? String, let pickedServingInt = Int(pickedServingString) {
+        if let userInfo = notification.userInfo, let pickedMealTime = userInfo["type"] as? String {
             self.mealTime = pickedMealTime
+        }
+        
+        if let userInfo = notification.userInfo, let pickedServingString = userInfo["quantity"] as? String, let pickedServingInt = Int(pickedServingString) {
             self.serving = pickedServingInt
         }
     }
@@ -192,8 +194,8 @@ class SaveRecipeViewController: UIViewController {
         })
     }
     
-    func saveNutrient(with nutrient: Nutrient, ingredientId: Int, completion: @escaping (Error?) -> ()) {
-        FoodClient.shared.postNutrient(nutrient, ingredientId: ingredientId, completion: { (response) in
+    func saveNutrient(with nutrient: Nutrient, recipeId: Int, completion: @escaping (Error?) -> ()) {
+        FoodClient.shared.postNutrient(nutrient, recipeId: recipeId, completion: { (response) in
             DispatchQueue.main.async {
                 switch response {
                 case .success( _):
@@ -223,10 +225,6 @@ class SaveRecipeViewController: UIViewController {
         }
         
         return calories
-    }
-    
-    private func updateNutrients() {
-        
     }
     
     // MARK: - Configuration
@@ -302,18 +300,18 @@ class EditRecipeViewController: SaveRecipeViewController {
     func addNutrients(to ingredient: Ingredient) -> Ingredient? {
         var updatedIngredient = ingredient
         
-        guard let ingredientId = ingredient.identifier else { return nil }
+        guard let recipeId = ingredient.recipeId else { return nil }
         
-        FoodClient.shared.fetchNutrients(withIngredientId: ingredientId) { (response) in
-            switch response {
-            case .success(let nutrients):
-                DispatchQueue.main.async {
+        FoodClient.shared.fetchNutrients(withRecipeId: recipeId) { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let nutrients):
                     updatedIngredient.nutrients = nutrients
+                case .error(let error):
+                    print(error)
+                    // Handle error in UI
+                    break
                 }
-            case .error(let error):
-                print(error)
-                // Handle error in UI
-                break
             }
         }
         

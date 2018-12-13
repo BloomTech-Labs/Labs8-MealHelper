@@ -83,20 +83,7 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
         
         setupCollectionView()
         setupSavePopupView()
-        
-        // Fetch previously saved ingredients
-        FoodClient.shared.fetchIngredients { (response) in
-            DispatchQueue.main.async {
-                switch response {
-                case .success(let ingredients):
-                    self.prevSavedIngredients = self.unique(ingredients)
-                    self.collectionView.reloadData()
-                case .error:
-                    self.showAlert(with: "We couldn't find your ingredients, please check your internet connection and try again.")
-                    return
-                }
-            }
-        }
+        fetchIngredients()
         
     }
     
@@ -279,6 +266,24 @@ class SearchIngredientCollectionViewController: UICollectionViewController, UICo
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchController.searchBar.text = nil
         searchController.searchBar.resignFirstResponder()
+    }
+    
+    // MARK: - Networking
+    
+    private func fetchIngredients() {
+        // Fetch previously saved ingredients
+        FoodClient.shared.fetchIngredients { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let ingredients):
+                    self.prevSavedIngredients = self.unique(ingredients)
+                    self.collectionView.reloadData()
+                case .error:
+                    self.showAlert(with: "We couldn't find your ingredients, please check your internet connection and try again.")
+                    return
+                }
+            }
+        }
     }
     
     // MARK: - Private

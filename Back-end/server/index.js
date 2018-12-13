@@ -112,9 +112,12 @@ server.post("/register", (req, res) => {
         .first()
         .then(user => {
           console.log(user);
-          res
-            .status(200)
-            .json({ userID: user.id, token: token, zip: user.zip, email: user.email });
+          res.status(200).json({
+            userID: user.id,
+            token: token,
+            zip: user.zip,
+            email: user.email
+          });
         })
         .catch(err => {
           res.status(400).json({ error: "Could not grab user" });
@@ -168,7 +171,12 @@ server.post("/login", (req, res) => {
       if (user && bcrypt.compareSync(userLogin.password, user.password)) {
         const token = generateToken(user);
 
-        res.status(200).json({ userID: user.id, token: token, zip: user.zip, email: user.email });
+        res.status(200).json({
+          userID: user.id,
+          token: token,
+          zip: user.zip,
+          email: user.email
+        });
       } else {
         res
           .status(500)
@@ -430,7 +438,9 @@ server.put("/meals/:mealID", (req, res) => {
     .where({ id: id })
     .update({
       mealTime: meal.mealTime,
-      experience: meal.experience
+      experience: meal.experience,
+      notes: meal.notes,
+      servings: meal.servings
     })
     .then(meal => {
       res.status(200).json(meal);
@@ -705,16 +715,16 @@ server.get("/nutrients", (req, res) => {
     });
 });
 //GET request to grab all nutrients for a specific ingredient
-server.get("/nutrients/:ingredientID", (req, res) => {
-  const ingredientId = req.params.ingredientID;
-  db("ingredients")
+server.get("/nutrients/:recipeID", (req, res) => {
+  const recipeID = req.params.recipeID;
+  db("recipe")
     //Finds the corrosponding nutrients based on ingredient ID
-    .where({ id: ingredientId })
+    .where({ id: recipeID })
     //Doing a where request returns an array, so we want the first index of that array.
     .first()
     .then(ingredients => {
       db("nutrients")
-        .where({ ingredients_id: ingredientId })
+        .where({ recipe_id: recipeID })
         .then(nutrients => {
           //Returns all the nutrients
           res.status(200).json(nutrients);
@@ -727,54 +737,14 @@ server.get("/nutrients/:ingredientID", (req, res) => {
       res.status(400).json({ err, error: "Could not find meal" });
     });
 });
-//POST request to create an ingredients
-// server.post("/nutrients/:ingredientID", (req, res) => {
-//   //grabs the ingredient id from the req.params
-//   const ingredientId = req.params.ingredientID;
-//   //Grabs the id of the nutrient sent by req.body
-//   const id = req.body.id;
-//   const nutrient_id = { id };
-//   db("ingredients")
-//     //Finds the corrosponding nutrients based on ingredient ID
-//     .where({ id: ingredientId })
-//     .first()
-//     .then(ingredient => {
-//       //Appends the previous nutrient ID's and adds a new id at the end, seperated by a ,
-//       let oldNutrients = ingredient.nutrients_id;
 
-//       let newNutrients = oldNutrients + ", " + nutrient_id.id;
-//       db("ingredients")
-//         //Finds the corrosponding nutrients based on ingredient ID
-//         .where({ id: ingredientId })
-//         //Doing a where request returns an array, so we want the first index of that array.
-//         .first()
-//         //Reaplces the old nutrients with the new ones
-//         .update({ nutrients_id: newNutrients })
-//         .then(ingredients => {
-//           //Returns the ingredient
-//           db("ingredients")
-//             //Finds the corrosponding nutrients based on ingredient ID
-//             .where({ id: ingredientId })
-//             .first()
-//             .then(ingredient => {
-//               res.status(200).json(ingredient);
-//             })
-//             .catch(err => {
-//               res.status(400).json({ error: "error returning ingredient" });
-//             });
-//         })
-//         .catch(err => {
-//           res.status(400).json({ err, error: "could not add nutrients" });
-//         });
-//     });
-// });
 //POST request so user can make their own nutrient
 server.post("/nutrients/:id", (req, res) => {
   const user_id = req.params.id;
   //grabs the name unit and value from req.body
-  const { nutrient, nutrient_id, unit, value, ingredients_id } = req.body;
+  const { nutrient, nutrient_id, unit, value, recipe_id } = req.body;
   //set the what we grabbed to a new "nutrient"
-  const nutrientsAll = { nutrient, nutrient_id, unit, value, ingredients_id };
+  const nutrientsAll = { nutrient, nutrient_id, unit, value, recipe_id };
   console.log(nutrientsAll);
   db("nutrients")
     .insert(nutrientsAll)

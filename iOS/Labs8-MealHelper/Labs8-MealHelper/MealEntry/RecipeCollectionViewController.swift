@@ -12,9 +12,9 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
     
     // MARK: - Public properties
     
-    var selectedFoodAtIndex = [Int]() {
+    var selectedRecipeAtIndex = [Int]() {
         didSet {
-            if selectedFoodAtIndex.isEmpty {
+            if selectedRecipeAtIndex.isEmpty {
                 navigationItem.setRightBarButton(noItemSelectedbarButton, animated: true)
             } else {
                 navigationItem.setRightBarButton(itemsSelectedBarButton, animated: true)
@@ -46,12 +46,12 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupCollectionView()
-        
-        
+        setupCollectionView()        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        selectedRecipeAtIndex.removeAll()
+        
         FoodClient.shared.fetchRecipes { (response) in
             DispatchQueue.main.async {
                 switch response {
@@ -98,17 +98,17 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
     func didSelect(_ food: Recipe) {
         guard let index = recipes.index(of: food) else { return }
         
-        if selectedFoodAtIndex.contains(index) {
-            guard let index = selectedFoodAtIndex.index(of: index) else { return }
-            selectedFoodAtIndex.remove(at: index)
+        if selectedRecipeAtIndex.contains(index) {
+            guard let index = selectedRecipeAtIndex.index(of: index) else { return }
+            selectedRecipeAtIndex.remove(at: index)
         } else {
-            selectedFoodAtIndex.append(index)
+            selectedRecipeAtIndex.append(index)
         }
     }
     
-    func getSelectedRecipes() -> [Recipe] {
+    private func getSelectedRecipes() -> [Recipe] {
         var selectedRecipes = [Recipe]()
-        for index in selectedFoodAtIndex {
+        for index in selectedRecipeAtIndex {
             let food = recipes[index]
             selectedRecipes.append(food)
         }
@@ -124,39 +124,30 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
     }
     
     @objc func didTapBarButtonWithSelectedItems() {
-        let recipes = getSelectedRecipes()
-        let date = Utils().dateString(for: Date())
-        var temp = 0.0 // TODO: Change
+        let selectedRecipes = self.selectedRecipes()
         
-        let weatherDispatchGroup = DispatchGroup()
-        
-        weatherDispatchGroup.enter()
-        WeatherAPIClient().fetchWeather(for: 3300) { (weatherForecast) in // TODO: Change
-            
-            temp = weatherForecast?.main.temp ?? 0
-            weatherDispatchGroup.leave()
+        guard !selectedRecipes.isEmpty else {
+            showAlert(with: "Please select a meal")
+            return
         }
         
-        weatherDispatchGroup.notify(queue: .main) {
-            let foodDispatchGroup = DispatchGroup()
-            
-            for recipe in recipes {
-                foodDispatchGroup.enter()
-                let name = recipe.name
-                // TODO: Change mealTime
-                FoodClient.shared.postMeal(name: name, mealTime: name, date: date, temp: temp, recipeId: recipe.identifier) { (response) in
-                    foodDispatchGroup.leave()
-                }
-            }
-            
-            foodDispatchGroup.notify(queue: .main) {
-                self.dismiss(animated: true, completion: nil)
-            }
-        }
+        let saveMealVC = SaveMealViewController()
+        saveMealVC.recipes = selectedRecipes
+        navigationController?.pushViewController(saveMealVC, animated: true)
     }
     
     @objc func dismissView() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - Private methods
+    
+    private func selectedRecipes() -> [Recipe] {
+        var selectedRecipes = [Recipe]()
+        for index in selectedRecipeAtIndex {
+            selectedRecipes.append(recipes[index])
+        }
+        return selectedRecipes
     }
     
     // MARK: - Configuration

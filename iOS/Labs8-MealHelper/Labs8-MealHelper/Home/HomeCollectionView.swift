@@ -55,9 +55,11 @@ class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MealCell
         
         let meal = meals[indexPath.section][indexPath.item]
+        cell.meal = meal
         cell.mealNameLabel.text = meal.mealTime
         cell.servingsLabel.text = "Servings: \(meal.servings ?? 1)"
         cell.experienceImageView.image = meal.experience == "0" ? #imageLiteral(resourceName: "thumb-up").withRenderingMode(.alwaysTemplate) : #imageLiteral(resourceName: "thumb-down").withRenderingMode(.alwaysTemplate)
+        cell.experienceImageView.tintColor = meal.experience == "0" ? .correctGreen : .incorrectRed
         
         switch meal.mealTime.lowercased() {
         case "breakfast": cell.mealTimeImageView.image = #imageLiteral(resourceName: "breakfast").withRenderingMode(.alwaysTemplate)
