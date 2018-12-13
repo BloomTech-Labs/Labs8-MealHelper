@@ -19,7 +19,9 @@ class HomePage extends Component {
     return (
       <div className="homepage-main-fence">
         <div className="user-profile-card">
-          <button className="premium">Get Premium!</button>
+          <button className="premium" style={{ textDecoration: "none" }}>
+            Get Premium!
+          </button>
           <Link to="/homepage/getstarted" style={{ textDecoration: "none" }}>
             <div className="user-profile-card-getstarted">Get Started!</div>
           </Link>
