@@ -23,7 +23,7 @@ const meals = [
     notes: "a delicious meal",
     date: "01/01/2018",
     servings: 1,
-    recipe_id: 1,
+    recipe_id: 1
   },
   {
     id: 2,
