@@ -16,9 +16,10 @@ class AlarmController {
         
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .short
+        dateFormatter.locale = Locale(identifier: "en_GB")
         let now = Date()
         let timeString = dateFormatter.string(from: now)
-        let timeValue = timeString.replacingOccurrences(of: ".", with: "")
+        let timeValue = timeString.replacingOccurrences(of: ".", with: "").replacingOccurrences(of: ":", with: "")
         var closestAlarm: Alarm?
         var firstAlarmOfTheDay: Alarm?
         
