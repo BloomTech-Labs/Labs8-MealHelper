@@ -105,6 +105,7 @@ class HomePage extends Component {
           </div>
           {/* <UserHistory /> */}
         </div>
+        <button className="premium">Get Premium!</button>
       </div>
     );
   }

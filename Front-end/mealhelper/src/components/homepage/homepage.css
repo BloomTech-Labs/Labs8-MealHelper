@@ -11,13 +11,14 @@
   margin-top: 150px;
   background-color: #f0f0f0;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .user-profile-card {
   box-sizing: border-box;
-  margin-left: 25px;
+  margin-left: 0px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -28,6 +29,23 @@
   height: 500px;
   border: 2px solid #2f9dfe;
   border-radius: 12px;
+}
+
+.premium {
+  height: 50px;
+  width: 400px;
+  background: #2f9dfe;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: bolder;
+  /* border: 2px solid #242424; */
+}
+
+.premium:hover {
+  background: #242424;
+  border: 2px solid #2f9dfe;
+  color: white;
+  cursor: pointer;
 }
 
 .user-profile-card-logout {
