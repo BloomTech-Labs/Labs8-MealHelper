@@ -267,13 +267,13 @@ class AddAlarms extends Component {
             />
           </form>
           <div>Tip: You can add labels to your alarms by clicking 'Edit' next to each alarm on the Alarms page.</div>
-          <Button color="info" onClick={this.addAlarm} className="add-alarms-btn">
+          <button color="info" onClick={this.addAlarm} className="add-alarms-btn">
             Add Alarm Batch
-          </Button>
+          </button>
           </div>
         </div>
 
-        <div className="add-alarms-forms-bg">
+        <div className="add-alarms-forms-bg single-alarm">
         <div className="add-alarms-content">
           <div className="add-alarms-heading">
             <h1>Add a Single Alarm</h1>
@@ -320,9 +320,9 @@ class AddAlarms extends Component {
               onChange={this.handleChange}
             />
           </form>
-          <Button color="info" onClick={this.addSingleAlarm} className="add-alarms-btn">
+          <button color="info" onClick={this.addSingleAlarm} className="add-alarms-btn">
             Add Alarm
-          </Button>
+          </button>
         </div>
         </div>
         
