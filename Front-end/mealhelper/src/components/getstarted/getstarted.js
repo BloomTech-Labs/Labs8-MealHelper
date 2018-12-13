@@ -104,7 +104,7 @@ class GetStarted extends Component {
         </div>
         <div className="get-started-container">
           <Link
-            to="/homepage/meals/new"
+            to="/homepage/recipes"
             className="get-started-cta-link"
             style={{ textDecoration: "none" }}
           >
