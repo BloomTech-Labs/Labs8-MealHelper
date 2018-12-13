@@ -125,7 +125,7 @@ server.post("/register", (req, res) => {
         .then(user => {
           console.log(user);
           res.status(200).json({
-            userID: user.id,
+            id: user.id,
             token: token,
             zip: user.zip,
             email: user.email
