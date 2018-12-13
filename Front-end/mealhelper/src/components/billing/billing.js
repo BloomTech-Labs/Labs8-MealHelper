@@ -5,8 +5,8 @@ import "./billing.css";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import { Button, Modal, ModalHeader } from "reactstrap";
-import { Elements, StripeProvider } from "react-stripe-elements";
-import CheckoutForm from "../checkout/CheckoutForm";
+import StripeCheckout from "react-stripe-checkout";
+import CheckOut from "../landingpage/eatwellimage.png";
 
 class Billing extends Component {
   constructor(props) {
@@ -20,6 +20,7 @@ class Billing extends Component {
       visable: false,
       modal: false
     };
+    this.onToken.bind(this);
   }
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
@@ -28,40 +29,58 @@ class Billing extends Component {
     }
   };
 
-  handleChange = event => {
-    event.preventDefault();
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  };
+  // handleChange = event => {
+  //   event.preventDefault();
+  //   this.setState({
+  //     [event.target.name]: event.target.value
+  //   });
+  // };
 
-  createUser = event => {
-    event.preventDefault();
-    if (!this.state.email || !this.state.password) {
-      this.setState({ visable: true });
-    } else {
-      const { email, password, zip, healthCondition } = this.state;
-      const user = { email, password, zip, healthCondition };
-      this.props.addUser(user);
-    }
-  };
-  toggle = () => {
-    this.setState({
-      modal: !this.state.modal
-    });
-  };
+  // createUser = event => {
+  //   event.preventDefault();
+  //   if (!this.state.email || !this.state.password) {
+  //     this.setState({ visable: true });
+  //   } else {
+  //     const { email, password, zip, healthCondition } = this.state;
+  //     const user = { email, password, zip, healthCondition };
+  //     this.props.addUser(user);
+  //   }
+  // };
+  // toggle = () => {
+  //   this.setState({
+  //     modal: !this.state.modal
+  //   });
+  // };
 
-  logout = event => {
-    event.preventDefault();
-    localStorage.removeItem("token");
-    localStorage.removeItem("user_id");
-    this.props.history.push("/");
+  // logout = event => {
+  //   event.preventDefault();
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("user_id");
+  //   this.props.history.push("/");
+  // };
+
+  onToken = token => {
+    console.log("onToken", token);
   };
 
   render() {
     return (
       <div className="home-container">
-        <div className="sidebar">
+        <StripeCheckout
+          amount="499"
+          billingAddress
+          description="EatWell Meal Tracker"
+          image={CheckOut}
+          locale="auto"
+          name="eat-well.app"
+          label="Get Premium!"
+          panelLabel="Purchase for {{amount}}"
+          stripeKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG"
+          token={this.onToken}
+          zipCode
+        />
+
+        {/* <div className="sidebar">
           <Link to="/homepage" style={{ textDecoration: "none" }}>
             <h2 className="titlelinks">Home</h2>
           </Link>
@@ -96,8 +115,8 @@ class Billing extends Component {
                 <CheckoutForm />
               </Elements>
             </div>
-          </StripeProvider>
-          {/* <form action="your-server-side-code" method="POST">
+          </StripeProvider> */}
+        {/* <form action="your-server-side-code" method="POST">
             <script
               src="https://checkout.stripe.com/checkout.js"
               class="stripe-button"
@@ -109,9 +128,9 @@ class Billing extends Component {
               data-locale="auto"
             />
           </form> */}
-        </div>
+        {/* </div> */}
 
-        <Modal
+        {/* <Modal
           isOpen={this.state.modal}
           toggle={this.toggle}
           className={this.props.className}
@@ -125,7 +144,7 @@ class Billing extends Component {
           <Button onClick={this.toggle} color="primary">
             Cancel
           </Button>
-        </Modal>
+        </Modal> */}
       </div>
     );
   }

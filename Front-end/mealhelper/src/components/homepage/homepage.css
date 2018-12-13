@@ -24,6 +24,10 @@
   flex-direction: row;
   justify-content: space-between;
 }
+.StripeCheckout {
+  margin-top: 30px;
+  margin-right: 350px;
+}
 
 .user-profile-card {
   box-sizing: border-box;
