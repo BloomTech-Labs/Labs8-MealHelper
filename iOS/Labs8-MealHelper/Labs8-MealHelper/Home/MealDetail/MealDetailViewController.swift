@@ -199,17 +199,23 @@ class MealDetailViewController: UIViewController {
     }
     
     private func aggregateNutrients(from nutrients: [Nutrient]) -> [Nutrient] {
+        guard let meal = meal, let servingSize = meal.servings else { return nutrients }
         var aggregateNutrients = [Int : Nutrient]()
         
         for nutrient in nutrients {
+            // Multiply nutrient value by meal serving size
+            let multipliedNutrientValue = (Int(nutrient.value) ?? 0) * servingSize
+            
             if var aggregateNutrient = aggregateNutrients[nutrient.nutrientId] {
                 // Add nutrient value to existing nutrient in aggregateNutrients dict
-                let sum = (Int(aggregateNutrient.value) ?? 0) + (Int(nutrient.value) ?? 0)
+                let sum = (Int(aggregateNutrient.value) ?? 0) + multipliedNutrientValue
                 aggregateNutrient.value = String(sum)
                 aggregateNutrients[nutrient.nutrientId] = aggregateNutrient
             } else {
                 // Add a new nutrient to aggregateNutrients dict
-                aggregateNutrients[nutrient.nutrientId] = nutrient
+                var updatedNutrient = nutrient
+                updatedNutrient.value = String(multipliedNutrientValue)
+                aggregateNutrients[nutrient.nutrientId] = updatedNutrient
             }
         }
         
@@ -261,17 +267,6 @@ extension MealDetailViewController: UITextViewDelegate {
 
 fileprivate extension UITextView {
     
-    var doneAccessory: Bool {
-        get {
-            return self.doneAccessory
-        }
-        set (hasDone) {
-            if hasDone {
-                addDoneButtonOnKeyboard()
-            }
-        }
-    }
-    
     func addDoneButtonOnKeyboard() {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
@@ -289,4 +284,5 @@ fileprivate extension UITextView {
     @objc func doneButtonAction() {
         self.resignFirstResponder()
     }
+    
 }

@@ -16,7 +16,7 @@ struct Meal: Codable {
     var name: String
     var mealTime: String
     var experience: String?
-    var temp: Double
+    var temp: Double?
     var date: String
     var userId: Int?
     var humidity: Double?
@@ -100,6 +100,7 @@ struct Nutrient: Codable {
         self.name = name
         self.unit = unit
         self.value = value
+        self.originalValue = value
         self.gm = gm
     }
     
@@ -108,6 +109,7 @@ struct Nutrient: Codable {
     var name: String
     var unit: String
     var value: String
+    var originalValue: String = "0"
     var gm: Double? // The 100 gram equivalent value for the nutrient
     var recipeId: Int?
     
@@ -228,6 +230,7 @@ struct UsdaNutrient: Decodable {
         }
     }
 }
+
 
 // TODO: To be deleted. Used as temporary response type after posting nutrients
 struct TempType: Codable {

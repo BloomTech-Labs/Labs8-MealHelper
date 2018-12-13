@@ -48,12 +48,13 @@ class FoodClient: GenericAPIClient {
         fetch(from: url, completion: completion)
     }
     
-    func postMeal(name: String, mealTime: String, date: String, temp: Double?, pressure: Double?, humidity: Double?, recipeId: Int, servings: Int, completion: @escaping (Response<Int>) -> ()) {
+    func postMeal(name: String, mealTime: String, date: String, experience: String, temp: Double?, pressure: Double?, humidity: Double?, recipeId: Int, servings: Int, completion: @escaping (Response<Int>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["users", userId, "meals"])
         let reqBody = [
             "name": name,
             "user_id": userId,
             "mealTime": mealTime,
+            "experience": experience,
             "date": date,
             "temp": temp as Any,
             //"notes": notes,
@@ -129,8 +130,8 @@ class FoodClient: GenericAPIClient {
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)!
         urlComponents.queryItems = [
             URLQueryItem(name: "format", value: "json"),
-            URLQueryItem(name: "sort", value: "n"),
-            URLQueryItem(name: "max", value: "25"),
+            URLQueryItem(name: "sort", value: "r"),
+            URLQueryItem(name: "max", value: "30"),
             URLQueryItem(name: "offset", value: "0"),
             URLQueryItem(name: "api_key", value: usdaAPIKey),
             URLQueryItem(name: "q", value: searchTerm)
@@ -214,7 +215,7 @@ class FoodClient: GenericAPIClient {
             }
             }.resume()
     }
-        
+    
     // MARK: - Private methods
     
     private func convertToIngredient(_ usdaIngredients: [UsdaIngredients.Item.UsdaIngredient]) -> [Ingredient] {

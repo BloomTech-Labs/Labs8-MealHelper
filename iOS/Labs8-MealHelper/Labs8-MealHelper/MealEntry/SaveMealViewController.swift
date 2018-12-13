@@ -114,7 +114,7 @@ class SaveMealViewController: UIViewController {
         let weatherDispatchGroup = DispatchGroup()
         
         weatherDispatchGroup.enter()
-        WeatherAPIClient().fetchWeather(for: zipCode) { (weatherForecast) in // TODO: Change
+        WeatherAPIClient().fetchWeather(for: zipCode) { (weatherForecast) in
             
             temp = weatherForecast?.main.temp
             humidity = weatherForecast?.main.humidity
@@ -128,7 +128,7 @@ class SaveMealViewController: UIViewController {
             for recipe in recipes {
                 foodDispatchGroup.enter()
                 
-                FoodClient.shared.postMeal(name: recipe.name, mealTime: self.mealTime, date: date, temp: temp, pressure: pressure, humidity: humidity, recipeId: recipe.identifier, servings: self.serving) { (response) in
+                FoodClient.shared.postMeal(name: recipe.name, mealTime: self.mealTime, date: date, experience: "1", temp: temp, pressure: pressure, humidity: humidity, recipeId: recipe.identifier, servings: self.serving) { (response) in
                     foodDispatchGroup.leave()
                 }
             }
@@ -166,7 +166,6 @@ class SaveMealViewController: UIViewController {
     }
     
     // MARK: - Private methods
-    
     
     // MARK: - Configuration
     
