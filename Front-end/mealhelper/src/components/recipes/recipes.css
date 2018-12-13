@@ -184,3 +184,13 @@ input[type="search"]::-webkit-search-cancel-button {
   font-family: "Roboto", sans-serif;
   text-decoration: none;
 }
+.recipe-book {
+  margin-top: 54px;
+}
+.single-recipe-view {
+  width: 100%;
+  height: 200px;
+  border: 1px solid #b6b5b5;
+  text-decoration: none;
+  background: #f0f0f0;
+}

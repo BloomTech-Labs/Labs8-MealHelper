@@ -33,7 +33,11 @@ export const ingredsReducer = (state = initialState, action) => {
     case GETTING_INGREDIENT:
       return { ...state, gettingIngredient: true };
     case GOT_INGREDIENT:
-      return { ...state, gettingIngredient: false, ingredient: action.payload };
+      return {
+        ...state,
+        gettingIngredient: false,
+        ingredient: [...state.ingredient, action.payload]
+      };
     case GETTING_INGREDIENT_ERROR:
       return { ...state, gettingIngredient: false, error: action.payload };
     default:

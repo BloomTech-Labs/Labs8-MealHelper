@@ -152,6 +152,7 @@ class Meals extends Component {
                 <DropdownMenu className="choose-recipe-dropdown">
                   {this.state.recipes.map(recipe => (
                     <DropdownItem
+                      className="dropdown-item"
                       recipe={recipe}
                       name={recipe.name}
                       onClick={() => this.chooseRecipe(recipe)}
