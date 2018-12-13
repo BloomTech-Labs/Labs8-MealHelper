@@ -14,6 +14,7 @@ class MealDetailViewController: UIViewController {
         didSet {
             navigationItem.title = meal?.mealTime
             fetchIngredients()
+            fetchNutrients()
         }
     }
     
@@ -163,7 +164,6 @@ class MealDetailViewController: UIViewController {
                 switch response {
                 case .success(let ingredients):
                     self.ingredients = ingredients
-                    self.fetchNutrients()
                 case .error(let error):
                     NSLog("Error fetching ingredients: \(error)")
                     self.showAlert(with: "Could not fetch ingredients.")
@@ -173,35 +173,18 @@ class MealDetailViewController: UIViewController {
     }
     
     private func fetchNutrients() {
-        guard let ingredients = ingredients else { return }
-        // Fetch nutrients for each ingredient in the recipe
-        let dispatchGroup = DispatchGroup()
-        for ingredient in ingredients {
-            dispatchGroup.enter()
-            guard let ingredientId = ingredient.identifier else { return }
-            FoodClient.shared.fetchNutrients(withIngredientId: ingredientId) { (response) in
-                DispatchQueue.main.async {
-                    switch response {
-                    case .success(let nutrients):
-                        var updatedIngredient = ingredient
-                        updatedIngredient.nutrients = nutrients
-                        
-                        // Add nutrients to fetched ingredient
-                        guard let index = self.ingredients?.index(of: updatedIngredient) else { return }
-                        self.ingredients?.remove(at: index)
-                        self.ingredients?.insert(updatedIngredient, at: index)
-                        
-                        dispatchGroup.leave()
-                    case .error(let error):
-                        NSLog("Error fetching nutrients: \(error)")
-                    }
+        // Fetch nutrients of the recipe
+        guard let meal = meal, let recipeId = meal.recipeId else { return }
+        
+        FoodClient.shared.fetchNutrients(withRecipeId: recipeId) { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let nutrients):
+                    self.aggregateNutrients = self.aggregateNutrients(from: nutrients)
+                case .error(let error):
+                    NSLog("Error fetching nutrients: \(error)")
                 }
             }
-        }
-        // Once all nutrients have been fetched, aggregate all nutrients
-        dispatchGroup.notify(queue: .main) {
-            guard let ingredients = self.ingredients else { return }
-            self.aggregateNutrients = self.aggregateNutrients(from: ingredients)
         }
     }
     
@@ -221,20 +204,16 @@ class MealDetailViewController: UIViewController {
 //        }
     }
     
-    private func aggregateNutrients(from ingredients: [Ingredient]) -> [Nutrient] {
+    private func aggregateNutrients(from nutrients: [Nutrient]) -> [Nutrient] {
         var aggregateNutrients = [Int : Nutrient]()
         
-        for ingredient in ingredients {
-            guard let nutrients = ingredient.nutrients else { continue }
-            
-            for nutrient in nutrients {
-                if var aggregateNutrient = aggregateNutrients[nutrient.nutrientId] { // If nutrient exists in dict, then sum up current and previous value
-                    let sum = (Int(aggregateNutrient.value) ?? 0) + (Int(nutrient.value) ?? 0)
-                    aggregateNutrient.value = String(sum)
-                    aggregateNutrients[nutrient.nutrientId] = aggregateNutrient
-                } else { // If nutrient doesn't exist, add it to dict
-                    aggregateNutrients[nutrient.nutrientId] = nutrient
-                }
+        for nutrient in nutrients {
+            if var aggregateNutrient = aggregateNutrients[nutrient.nutrientId] { // If nutrient exists in dict, then sum up current and previous value
+                let sum = (Int(aggregateNutrient.value) ?? 0) + (Int(nutrient.value) ?? 0)
+                aggregateNutrient.value = String(sum)
+                aggregateNutrients[nutrient.nutrientId] = aggregateNutrient
+            } else { // If nutrient doesn't exist, add it to dict
+                aggregateNutrients[nutrient.nutrientId] = nutrient
             }
         }
         
