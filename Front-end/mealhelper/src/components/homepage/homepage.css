@@ -42,12 +42,13 @@
 
 .premium {
   height: 50px;
-  width: 400px;
+  width: 100px;
   background: #2f9dfe;
   border-radius: 12px;
   font-size: 15px;
   font-weight: bolder;
-  /* border: 2px solid #242424; */
+  margin-top: 10px;
+  margin-right: 370px;
 }
 
 .premium:hover {
@@ -83,10 +84,14 @@
 
 .user-profile-card-getstarted {
   margin-left: 400px;
-  margin-top: 10px;
+  margin-top: -50px;
   font-weight: bolder;
   color: white;
   cursor: pointer;
+}
+
+.user-profile-card-settings {
+  margin-top: -30px;
 }
 
 .user-profile-card-getstarted:hover {
