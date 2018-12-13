@@ -22,32 +22,50 @@ class MyRecipes extends Component {
   }
   componentDidMount() {
     if (localStorage.getItem("token")) {
-      const id = this.props.user.userID;
-      this.props.getRecipe(id);
+      const id = localStorage.getItem("user_id");
+      axios
 
-      this.setState({ list: this.props.recipes });
+        .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
+        .then(response => {
+          console.log(response);
+          this.setState({ list: response.data });
+        })
+        .catch(err => {
+          console.log(err);
+        });
     } else {
       this.props.history.push("/");
     }
   }
-  componentWillReceiveProps(nextProps) {
-    this.setState({ list: nextProps.meals });
+  componentDidUpdate(prevState) {
+    console.log(prevState);
+
+    console.log(this.state.list);
+    if (this.props.recipes.length !== prevState.recipes.length) {
+      const id = localStorage.getItem("user_id");
+      axios
+
+        .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
+        .then(response => {
+          this.setState({ list: response.data });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
-
-  handleChange = event => {
-    event.preventDefault();
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+  deleteRecipe = (id, userid) => {
+    console.log(userid);
+    this.props.deleteRecipe(id, userid);
   };
-
   render() {
     return (
-      <div className="weather-container">
-        <div className="home-container">
+      <div className="recipe-div-container">
+        <div className="recipe-container">
           <div className="recipe-book">
-            {this.props.recipes.map(item => (
+            {this.state.list.map(item => (
               <Recipe
+                deleteRecipe={this.deleteRecipe}
                 id={item.id}
                 item={item}
                 calories={item.calories}
@@ -64,7 +82,6 @@ class MyRecipes extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     user: state.userReducer.user,
     meals: state.mealsReducer.meals,
