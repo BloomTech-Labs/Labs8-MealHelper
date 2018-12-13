@@ -414,11 +414,16 @@
   padding: 20px 60px 20px 60px;
 }
 
-@media screen and (max-width: 650px) {
-  .team-column {
-    width: 100%;
-    display: block;
+@media screen and (max-width: 670px) {
+  .team-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
+  .team-column {
+    width: 50%;
+    padding: 25px 20px
+  }  
 }
 
 .card {
