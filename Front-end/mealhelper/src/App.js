@@ -53,7 +53,7 @@ class App extends Component {
               render={() => <GetStarted />}
             />
             <Route exact path="/homepage/meals" render={() => <Meals />} />
-            <Route path="/homepage/meals/mealbook" render={() => <MealBook />} />
+            <Route exact path="/homepage/meals/mealbook" render={() => <MealBook />} />
             <Route path="/homepage/meals/new" render={() => <NewMeals />} />
             <Route path="/homepage/meals/mealbook/:mealID" render={() => <SingleMeal />} />
             <Route exact path="/homepage/recipes" render={() => <Recipes />} />
