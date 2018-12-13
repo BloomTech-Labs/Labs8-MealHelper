@@ -65,17 +65,17 @@ class NavbarLanding extends Component {
             className="navbar-section-links-style"
             style={{ textDecoration: "none" }}
           >
-            <h3>Make A Meal</h3>
-          </Link>
-          <Link
-            to="/homepage/recipes"
-            className="navbar-section-links-style"
-            style={{ textDecoration: "none" }}
-          >
             <h3>Add A Recipe</h3>
           </Link>
           <Link
             to="/homepage/alarms"
+            className="navbar-section-links-style"
+            style={{ textDecoration: "none" }}
+          >
+            <h3>Make A Meal</h3>
+          </Link>
+          <Link
+            to="/homepage/recipes"
             className="navbar-section-links-style"
             style={{ textDecoration: "none" }}
           >
