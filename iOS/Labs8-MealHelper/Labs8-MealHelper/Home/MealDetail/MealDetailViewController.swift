@@ -13,6 +13,7 @@ class MealDetailViewController: UIViewController {
     var meal: Meal? {
         didSet {
             navigationItem.title = meal?.mealTime
+            noteView.note = meal?.notes
             fetchIngredients()
             fetchNutrients()
         }
@@ -34,7 +35,6 @@ class MealDetailViewController: UIViewController {
         let view = NutrientsView()
         view.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         view.layer.cornerRadius = 12
-        
         return view
     }()
     
@@ -42,7 +42,6 @@ class MealDetailViewController: UIViewController {
         let tvc = IngredientTableViewController()
         tvc.tableView.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         tvc.tableView.layer.cornerRadius = 12
-        
         return tvc
     }()
     
@@ -50,7 +49,6 @@ class MealDetailViewController: UIViewController {
         let wv = WeatherView()
         wv.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         wv.layer.cornerRadius = 12
-        
         return wv
     }()
     
@@ -59,7 +57,6 @@ class MealDetailViewController: UIViewController {
         tv.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
         tv.layer.cornerRadius = 12
         tv.addDoneButtonOnKeyboard()
-        
         return tv
     }()
     
@@ -67,14 +64,12 @@ class MealDetailViewController: UIViewController {
         let iv = UIImageView(image: #imageLiteral(resourceName: "mountain"))
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
-        
         return iv
     }()
     
     let blurEffect: UIVisualEffectView = {
         let frost = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         frost.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
         return frost
     }()
     
@@ -94,13 +89,11 @@ class MealDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupBackground()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         setupViews()
     }
     
@@ -244,6 +237,8 @@ extension MealDetailViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        saveNote()
+        
         if textView.text.isEmpty {
             textView.text = "Add a note"
             textView.textColor = UIColor.lightGray
@@ -258,9 +253,7 @@ extension MealDetailViewController: UITextViewDelegate {
                 self.ingredientsTableView.tableView.alpha = 1
                 self.weatherView.alpha = 1
             })
-        }) { _ in
-            self.saveNote()
-        }
+        }, completion: nil)
     }
 }
 

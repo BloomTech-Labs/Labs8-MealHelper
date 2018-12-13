@@ -300,18 +300,18 @@ class EditRecipeViewController: SaveRecipeViewController {
     func addNutrients(to ingredient: Ingredient) -> Ingredient? {
         var updatedIngredient = ingredient
         
-        guard let ingredientId = ingredient.identifier else { return nil }
+        guard let recipeId = ingredient.recipeId else { return nil }
         
-        FoodClient.shared.fetchNutrients(withIngredientId: ingredientId) { (response) in
-            switch response {
-            case .success(let nutrients):
-                DispatchQueue.main.async {
+        FoodClient.shared.fetchNutrients(withRecipeId: recipeId) { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let nutrients):
                     updatedIngredient.nutrients = nutrients
+                case .error(let error):
+                    print(error)
+                    // Handle error in UI
+                    break
                 }
-            case .error(let error):
-                print(error)
-                // Handle error in UI
-                break
             }
         }
         

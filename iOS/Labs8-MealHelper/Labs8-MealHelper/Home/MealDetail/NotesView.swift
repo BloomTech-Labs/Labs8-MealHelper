@@ -39,8 +39,9 @@ class NotesView: UITextView {
     }
     
     private func updateViews() {
+        guard let note = note, note != "" else { return }
         self.text = note
-        self.font = Appearance.appFont(with: fontSize)
+        self.textColor = .black
     }
     
 }

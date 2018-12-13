@@ -84,4 +84,3 @@ class IngredientTableViewController: UITableViewController  {
     }
     
 }
-
