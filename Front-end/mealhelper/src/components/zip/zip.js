@@ -58,7 +58,7 @@ class Zip extends Component {
       .then(response => {
         console.log(this.state.zip);
       });
-    this.props.history.push("/zip");
+    this.props.history.push("/homepage");
   };
 
   zipSkip = event => {
