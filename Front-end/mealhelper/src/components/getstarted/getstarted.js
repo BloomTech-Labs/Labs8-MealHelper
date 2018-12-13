@@ -26,6 +26,15 @@ class GetStarted extends Component {
     localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
+  componentDidMount = () => {
+    if (localStorage.getItem("token")) {
+    } else {
+      this.props.history.push("/");
+    }
+  };
+  onToken = token => {
+    console.log("onToken", token);
+  };
   render() {
     return (
       <div className="homepage-main-fence-getstarted">
