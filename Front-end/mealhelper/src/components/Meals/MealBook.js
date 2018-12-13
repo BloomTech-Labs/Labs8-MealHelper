@@ -7,6 +7,7 @@ import {
   getMeals
 } from "../../store/actions/mealActions";
 // == Styles == //
+import "./mealbook.css"
 
 const meals = [
   {
@@ -50,23 +51,23 @@ class MealBook extends Component {
 
   render() {
     return(
-      <div className="meals-full-width">
-      <div className="meals-container">
-      <div className="meals-heading"><h1>Meals</h1></div>
+      <div className="mealbook-full-width">
+      <div className="mealbook-container">
+      <div className="mealbook-heading"><h1>Meals</h1></div>
 
       {meals.length ? meals.map(meal => (
-        <div className="meal-card"
+        <div className="mealbook-card"
           key={meal.id}
           id={meal.id}
         >
         {" "}
         <br />
-        <div className="meal-text">
-        <div className="meal-date"><p>{meal.date}</p></div>
-        <div className="meal-serve"><p>{meal.servings}</p></div>
-        <div className="meal-name"><p>{meal.name}</p></div>
-        <div className="meal-time"><p>{meal.mealTime}</p></div>
-        <div className="meal-exp"><p>{meal.experience}</p></div>
+        <div className="mealbook-text">
+        <div className="mealbook-date"><p>{meal.date}</p></div>
+        <div className="mealbook-serve"><p>{meal.servings}</p></div>
+        <div className="mealbook-name"><p>{meal.name}</p></div>
+        <div className="mealbook-time"><p>{meal.mealTime}</p></div>
+        <div className="mealbook-exp"><p>{meal.experience}</p></div>
         </div>
       </div>
       ))

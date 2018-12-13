@@ -1,0 +1,7 @@
+.mealbook-container {
+  margin: 100px auto 0;
+  width: 495px;
+  background: #242424;
+  border: 1px solid #2f9dfe;
+  justify-self: center;
+}
