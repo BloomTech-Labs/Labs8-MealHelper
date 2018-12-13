@@ -58,10 +58,20 @@
   cursor: pointer;
 }
 
+.user-profile-card-getstarted {
+  margin-left: 400px;
+  margin-top: -50px;
+  font-weight: bolder;
+  color: white;
+  cursor: pointer;
+}
+
 .user-profile-card-logout {
   margin-left: 400px;
   margin-top: 5px;
   font-weight: bolder;
+  margin-top: -10px;
+  margin-bottom: 30px;
   color: white;
   cursor: pointer;
 }
@@ -72,7 +82,7 @@
 
 .user-profile-card-settings {
   margin-left: 400px;
-  margin-top: 5px;
+  margin-top: -30px;
   font-weight: bolder;
   color: white;
   cursor: pointer;
@@ -80,18 +90,6 @@
 
 .user-profile-card-settings:hover {
   color: #2f9dfe;
-}
-
-.user-profile-card-getstarted {
-  margin-left: 400px;
-  margin-top: -50px;
-  font-weight: bolder;
-  color: white;
-  cursor: pointer;
-}
-
-.user-profile-card-settings {
-  margin-top: -30px;
 }
 
 .user-profile-card-getstarted:hover {
