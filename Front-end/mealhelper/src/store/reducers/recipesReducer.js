@@ -27,6 +27,7 @@ const initialState = {
   gettingRecipes: false,
   gettingRecipe: false,
   addingRecipe: false,
+  addedRecipe: false,
   updatingRecipe: false,
   deletingRecipe: false,
   error: ""
@@ -36,12 +37,13 @@ export const recipesReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADDING_RECIPE:
       //Initial adding recipe
-      return { ...state, addingRecipe: true };
+      return { ...state, addedRecipe: false, addingRecipe: true };
     case ADDED_RECIPE:
       //Returns the recipe ID
       return {
         ...state,
         addingRecipe: false,
+        addedRecipe: true,
         recipes: action.payload
       };
     case ADDING_RECIPE_ERROR:

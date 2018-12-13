@@ -572,7 +572,7 @@ server.put("/recipe/:id", (req, res) => {
 });
 
 //DELETE a recipe
-server.delete("/recipe/:id", (req, res) => {
+server.delete("/recipe/:id/user/:userid", (req, res) => {
   //Grabs the id from the API endpoint (front end job)
   const { id } = req.params;
   db("recipe")
@@ -580,11 +580,20 @@ server.delete("/recipe/:id", (req, res) => {
     //Deletes the records
     .del()
     .then(deleted => {
-      //Should return 1 if deleted, returns 0 if not
-      res.status(200).json(deleted);
+      const userId = req.params.userid;
+      db("recipe")
+        //Finds the corrosponding recipes based on user ID
+        .where({ user_id: userId })
+        .then(meal => {
+          //Returns all the recipes from that user
+          res.status(200).json(meal);
+        })
+        .catch(err => {
+          res.status(400).json({ err, error: "could not find meal" });
+        });
     })
     .catch(err => {
-      res.status(400).json({ error: "could not delete meals" });
+      res.status(400).json({ err, error: "could not delete meals" });
     });
 });
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
