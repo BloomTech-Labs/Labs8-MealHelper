@@ -190,29 +190,30 @@ class MealDetailViewController: UIViewController {
     
     private func saveNote() {
         guard let note = noteView.text, let meal = meal else { return }
-        // TODO: Save note when PUT meal endpoint works
-//        APIClient.shared.saveNote(note, mealId: meal.identifier) { (response) in
-//            DispatchQueue.main.async {
-//                switch response {
-//                case .success(let notes):
-//                    print(notes)
-//                case .error(let error):
-//                    NSLog("Error saving note: \(error)")
-//                    self.showAlert(with: "Could not save note")
-//                }
-//            }
-//        }
+        print(meal)
+        FoodClient.shared.add(note, to: meal.identifier) { (response) in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(_): break
+                case .error(let error):
+                    NSLog("Error saving note: \(error)")
+                    self.showAlert(with: "Could not save note, please try again.")
+                }
+            }
+        }
     }
     
     private func aggregateNutrients(from nutrients: [Nutrient]) -> [Nutrient] {
         var aggregateNutrients = [Int : Nutrient]()
         
         for nutrient in nutrients {
-            if var aggregateNutrient = aggregateNutrients[nutrient.nutrientId] { // If nutrient exists in dict, then sum up current and previous value
+            if var aggregateNutrient = aggregateNutrients[nutrient.nutrientId] {
+                // Add nutrient value to existing nutrient in aggregateNutrients dict
                 let sum = (Int(aggregateNutrient.value) ?? 0) + (Int(nutrient.value) ?? 0)
                 aggregateNutrient.value = String(sum)
                 aggregateNutrients[nutrient.nutrientId] = aggregateNutrient
-            } else { // If nutrient doesn't exist, add it to dict
+            } else {
+                // Add a new nutrient to aggregateNutrients dict
                 aggregateNutrients[nutrient.nutrientId] = nutrient
             }
         }
