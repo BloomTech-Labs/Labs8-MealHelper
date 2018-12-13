@@ -55,25 +55,19 @@ class HomeCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MealCell
         
         let meal = meals[indexPath.section][indexPath.item]
+        cell.meal = meal
         cell.mealNameLabel.text = meal.mealTime
         cell.servingsLabel.text = "Servings: \(meal.servings ?? 1)"
-        cell.experienceImageView.image = #imageLiteral(resourceName: "thumb-up").withRenderingMode(.alwaysTemplate)
+        cell.experienceImageView.image = meal.experience == "0" ? #imageLiteral(resourceName: "thumb-up").withRenderingMode(.alwaysTemplate) : #imageLiteral(resourceName: "thumb-down").withRenderingMode(.alwaysTemplate)
+        cell.experienceImageView.tintColor = meal.experience == "0" ? .correctGreen : .incorrectRed
         
-        switch indexPath.item {
-        case 0: cell.mealTimeImageView.image = #imageLiteral(resourceName: "breakfast").withRenderingMode(.alwaysTemplate)
-        case 1: cell.mealTimeImageView.image = #imageLiteral(resourceName: "snacks").withRenderingMode(.alwaysTemplate)
-        case 2: cell.mealTimeImageView.image = #imageLiteral(resourceName: "dinner").withRenderingMode(.alwaysTemplate)
-        case 3: cell.mealTimeImageView.image = #imageLiteral(resourceName: "snacks").withRenderingMode(.alwaysTemplate)
-        default: cell.mealTimeImageView.image = #imageLiteral(resourceName: "dinner").withRenderingMode(.alwaysTemplate)
+        switch meal.mealTime.lowercased() {
+        case "breakfast": cell.mealTimeImageView.image = #imageLiteral(resourceName: "breakfast").withRenderingMode(.alwaysTemplate)
+        case "lunch": cell.mealTimeImageView.image = #imageLiteral(resourceName: "lunchbag").withRenderingMode(.alwaysTemplate)
+        case "dinner": cell.mealTimeImageView.image = #imageLiteral(resourceName: "dinner").withRenderingMode(.alwaysTemplate)
+        case "snack": cell.mealTimeImageView.image = #imageLiteral(resourceName: "snacks").withRenderingMode(.alwaysTemplate)
+        default: cell.mealTimeImageView.image = #imageLiteral(resourceName: "breakfast").withRenderingMode(.alwaysTemplate)
         }
-        
-//        switch meal.mealTime.lowercased() {
-//        case "breakfast": cell.mealTimeImageView.image = #imageLiteral(resourceName: "breakfast").withRenderingMode(.alwaysTemplate)
-//        case "lunch": cell.mealTimeImageView.image = #imageLiteral(resourceName: "lunch").withRenderingMode(.alwaysTemplate)
-//        case "dinner": cell.mealTimeImageView.image = #imageLiteral(resourceName: "dinner").withRenderingMode(.alwaysTemplate)
-//        case "snack": cell.mealTimeImageView.image = #imageLiteral(resourceName: "snacks").withRenderingMode(.alwaysTemplate)
-//        default: cell.mealTimeImageView.image = #imageLiteral(resourceName: "breakfast").withRenderingMode(.alwaysTemplate)
-//        }
         
         return cell
     }
