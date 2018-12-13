@@ -79,19 +79,32 @@ class SingleMeal extends Component {
                 <p>{meal.servings} {meal.servings.length > 1 ? "servings" : "serving"}</p>
               </div>
               <div className="sm-details-middle">
-              
+              <table className="sm-nutrients-container">
+          <tr className="sm-nutr-header-first">
+            <th className="sm-nutrient-header">
+              <p>Calories</p>
+            </th>
+            <th className="sm-nutrient-header">
+              <p>Protein</p>
+            </th>
+            <th className="sm-nutrient-header">
+              <p>Carbs</p>
+            </th>
+            <th className="sm-nutrient-header-last">
+              <p>Fat</p>
+            </th>
+          </tr>
+          <tr>
+            <td>0000</td>
+            <td>0000</td>
+            <td>0000</td>
+            <td>0000</td>
+            </tr>
+        </table>
               </div>
               <div className="sm-details-bottom">
               
               </div>
-              <p>{meal.mealTime}</p>
-              <p>Recipe:</p>
-              <p>Servings: {meal.servings}</p>
-              
-              <p>Calories: 0000</p>
-              <p>Protein: 000</p>
-              <p>Carbs: 000</p>
-              <p>Fat: 000</p>
               </div>
             </div>
           </div>
