@@ -82,6 +82,10 @@
 		ACE1FA7321AF56C4003A0030 /* SkyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA7221AF56C4003A0030 /* SkyView.swift */; };
 		ACE1FA7521B0582F003A0030 /* LocalNotificationsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE1FA7421B0582F003A0030 /* LocalNotificationsHelper.swift */; };
 		ACFE92EE21C17AD100990A12 /* AlarmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFE92ED21C17AD100990A12 /* AlarmController.swift */; };
+		ACFE92F021C1940200990A12 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFE92EF21C1940200990A12 /* PopupView.swift */; };
+		ACFE92F221C1941000990A12 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFE92F121C1941000990A12 /* NotesView.swift */; };
+		ACFE92F421C1B5A300990A12 /* WeatherAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFE92F321C1B5A300990A12 /* WeatherAPIClient.swift */; };
+		ACFE92F621C2CADE00990A12 /* SaveMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFE92F521C2CADE00990A12 /* SaveMealViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +198,10 @@
 		ACE1FA7221AF56C4003A0030 /* SkyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyView.swift; sourceTree = "<group>"; };
 		ACE1FA7421B0582F003A0030 /* LocalNotificationsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsHelper.swift; sourceTree = "<group>"; };
 		ACFE92ED21C17AD100990A12 /* AlarmController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmController.swift; sourceTree = "<group>"; };
+		ACFE92EF21C1940200990A12 /* PopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
+		ACFE92F121C1941000990A12 /* NotesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
+		ACFE92F321C1B5A300990A12 /* WeatherAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherAPIClient.swift; path = "Labs8-MealHelper/ModelController/WeatherAPIClient.swift"; sourceTree = SOURCE_ROOT; };
+		ACFE92F521C2CADE00990A12 /* SaveMealViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SaveMealViewController.swift; path = "../../../../../../Labs8-MealHelper/Labs8-MealHelper/MealEntry/SaveMealViewController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,8 +229,8 @@
 		3D131CD121A19489009681D0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				ACFE92EF21C1940200990A12 /* PopupView.swift */,
 				3D77DD19219F111B009B21ED /* ProgressIndicator.swift */,
-				3D77DD15219EF4A7009B21ED /* WeatherView.swift */,
 				AC8F0B54219E372E00E623FB /* PickerInputField.swift */,
 				AC85F388219E0B2E007765CA /* LoadingButton.swift */,
 				AC85F389219E0B2F007765CA /* LeftIconTextField.swift */,
@@ -338,6 +346,7 @@
 				3DB65F242196200D007AA68A /* HTTPMethod.swift */,
 				3DB65F262196200D007AA68A /* Response.swift */,
 				3D20FC2D21B9889F006A31BA /* GenericAPIClient.swift */,
+				ACFE92F321C1B5A300990A12 /* WeatherAPIClient.swift */,
 			);
 			name = Networking;
 			path = "New Group";
@@ -401,6 +410,7 @@
 				ACBBDA0E21B9E24B00D81BBB /* RecipeCollectionViewController.swift */,
 				3D20FC3121B98946006A31BA /* FoodLabelView.swift */,
 				AC85F3CA219E3523007765CA /* FoodSummaryViewController.swift */,
+				ACFE92F521C2CADE00990A12 /* SaveMealViewController.swift */,
 				3D20FC3321B98A15006A31BA /* SearchIngredientCollectionViewController.swift */,
 				3D154CB121AF34D700D88D5D /* SearchIngredientDetailViewController.swift */,
 				3D20FC2F21B98929006A31BA /* SearchIngredientAnimator.swift */,
@@ -420,8 +430,10 @@
 		AC9BE30421B19FD300B6DEBB /* MealDetail */ = {
 			isa = PBXGroup;
 			children = (
+				ACFE92F121C1941000990A12 /* NotesView.swift */,
 				AC9BE30221B16CE600B6DEBB /* MealDetailViewController.swift */,
 				AC9BE30521B1A07700B6DEBB /* NutrientsView.swift */,
+				3D77DD15219EF4A7009B21ED /* WeatherView.swift */,
 			);
 			path = MealDetail;
 			sourceTree = "<group>";
@@ -653,12 +665,16 @@
 				3D131CD521A198B3009681D0 /* UserDefault+Helper.swift in Sources */,
 				ACFE92EE21C17AD100990A12 /* AlarmController.swift in Sources */,
 				ACE1FA7021AF1A53003A0030 /* SettingsViewController.swift in Sources */,
+				ACFE92F221C1941000990A12 /* NotesView.swift in Sources */,
 				AC85F3C8219E350C007765CA /* Food.swift in Sources */,
 				AC9BE30321B16CE600B6DEBB /* MealDetailViewController.swift in Sources */,
 				AC85F3DF219E3526007765CA /* CameraViewController.swift in Sources */,
+				ACFE92F621C2CADE00990A12 /* SaveMealViewController.swift in Sources */,
+				ACFE92F021C1940200990A12 /* PopupView.swift in Sources */,
 				3D7AD09421AF1B0800A68323 /* Notification+Name.swift in Sources */,
 				3D56A9FE21939D3A00A91EF4 /* AutoLayout.swift in Sources */,
 				AC85F38D219E0C1D007765CA /* LoginViewController.swift in Sources */,
+				ACFE92F421C1B5A300990A12 /* WeatherAPIClient.swift in Sources */,
 				3D20FC3221B98947006A31BA /* FoodLabelView.swift in Sources */,
 				ACE1FA7521B0582F003A0030 /* LocalNotificationsHelper.swift in Sources */,
 				3DB65F282196200D007AA68A /* APIClient.swift in Sources */,

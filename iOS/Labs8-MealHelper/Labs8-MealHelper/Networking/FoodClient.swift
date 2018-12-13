@@ -97,6 +97,12 @@ class FoodClient: GenericAPIClient {
         put(with: url, requestBody: note, completion: completion)
     }
     
+    func putExperience(_ experience: String, to mealId: Int, completion: ((Response<String>) -> ())? = nil) {
+        let url = self.url(with: baseUrl, pathComponents: ["meals", "\(mealId)"])
+        let experience = ["experience": experience] as [String: Any]
+        put(with: url, requestBody: experience, completion: completion ?? {_ in })
+    }
+    
     func deleteMeal(withId id: String, completion: @escaping (Response<String>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["users", id, "meals"])
         delete(with: url, completion: completion)

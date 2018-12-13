@@ -100,6 +100,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         if !UserDefaults.standard.isLoggedIn() {
             let loginViewController = LoginViewController()
             loginViewController.modalPresentationStyle = .overCurrentContext
+            loginViewController.delegate = self
             self.present(loginViewController, animated: true, completion: nil)
         } else {
             fetchUser()
@@ -294,6 +295,14 @@ extension HomeViewController: SettingsViewControllerDelegate {
         collectionView.meals.removeAll()
         let loginViewController = LoginViewController()
         loginViewController.modalPresentationStyle = .overCurrentContext
+        loginViewController.delegate = self
         present(loginViewController, animated: false, completion: nil)
+    }
+}
+
+extension HomeViewController: LoginViewControllerDelegate {
+    func userDidLogin() {
+        fetchMeals()
+        fetchAlarms()
     }
 }
