@@ -11,7 +11,7 @@ import Recipe from "./Recipes.jpg";
 import DoctorPic from "./DoctorPic.png";
 
 import "./landingpage.css";
-import "./lp-mobile.css";
+import "./lp-tablet.css";
 import Jumbo from "./jumboIcons2.png";
 import Picnic from "./PicnicBlue.jpg"
 import Eat from "./eatimage2.png";
