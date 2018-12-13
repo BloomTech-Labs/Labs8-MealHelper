@@ -34,9 +34,8 @@ class NavbarLanding extends Component {
   };
 
   render() {
-    console.log("pathname", this.props.history.location.pathname)
     return (
-      <div className={this.props.history.location.pathname.includes('/homepage') ? "Navbar-Container-Main" : "hide"}>
+      <div className="Navbar-Container-Main">
         <div className="logo-main-container">
           <Link className="link-logo" to="/homepage">
             <p className="logo-main">EatWell</p>
