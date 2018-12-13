@@ -11,6 +11,7 @@ import Callback from "./Callback";
 import NavbarMain from "./components/Navbar/NavbarMain";
 import HomePage from "./components/homepage/homepage";
 import Meals from "./components/Meals/Meals";
+import MealBook from "./components/Meals/MealBook";
 import NewMeals from "./components/Meals/NewMeal";
 import Recipes from "./components/recipes/recipes";
 import GetStarted from "./components/getstarted/getstarted";
@@ -51,6 +52,7 @@ class App extends Component {
               render={() => <GetStarted />}
             />
             <Route exact path="/homepage/meals" render={() => <Meals />} />
+            <Route path="/homepage/meals/mealbook" render={() => <MealBook />} />
             <Route path="/homepage/meals/new" render={() => <NewMeals />} />
             <Route exact path="/homepage/recipes" render={() => <Recipes />} />
 
