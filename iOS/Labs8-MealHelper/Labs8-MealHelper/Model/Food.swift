@@ -109,7 +109,7 @@ struct Nutrient: Codable {
     var unit: String
     var value: String
     var gm: Double? // The 100 gram equivalent value for the nutrient
-    var ingredientId: Int?
+    var recipeId: Int?
     
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
@@ -117,7 +117,7 @@ struct Nutrient: Codable {
         case name = "nutrient"
         case unit
         case value
-        case ingredientId = "ingredients_id"
+        case recipeId = "recipe_id"
     }
 }
 
