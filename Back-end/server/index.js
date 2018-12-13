@@ -505,7 +505,7 @@ server.get("/recipe", (req, res) => {
 server.get("/recipe/single/:recipeid", (req, res) => {
   const id = req.params.recipeid;
   db("recipe")
-    .where({ recipe_id: id })
+    .where({ id: id })
     .first()
     .then(recipes => {
       //Returns all the recipes
