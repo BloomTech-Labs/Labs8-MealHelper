@@ -49,7 +49,10 @@ exports.up = function(knex) {
       ingredients.integer("ndb_id");
       ingredients.string("name", 255).notNullable();
       ingredients.integer("recipe_id");
-      ingredients.foreign("recipe_id").references("recipe.id");
+      ingredients
+        .foreign("recipe_id")
+        .references("recipe.id")
+        .onDelete("CASCADE");
       ingredients.integer("user_id");
       ingredients
         .foreign("user_id")

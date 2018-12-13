@@ -28,6 +28,7 @@ class SearchFood extends Component {
       number: 50,
       limitIndex: 50
     };
+    this.awaitAll = this.awaitAll.bind(this);
     this.saveRecipe = this.saveRecipe.bind(this);
     this.saveRecipeIngredients = this.saveRecipeIngredients.bind(this);
     this.saveRecipeNutrition = this.saveRecipeNutrition.bind(this);
@@ -109,6 +110,18 @@ class SearchFood extends Component {
               response.data.report.foods[0].nutrients
             ]
           });
+          let sumCalories = 0;
+          for (let i = 0; i < this.state.nutrients.length; i++) {
+            if (this.state.nutrients[i][0]) {
+              let nutrientsJSON = JSON.stringify(
+                parseInt(this.state.nutrients[i][0].value, 10)
+              );
+
+              sumCalories += parseInt(nutrientsJSON, 10);
+            }
+          }
+          console.log(sumCalories);
+          this.setState({ calories: sumCalories });
           console.log(this.state.nutrients);
         }
       });
@@ -155,43 +168,39 @@ class SearchFood extends Component {
     );
   };
 
-  async saveRecipe(event, props) {
+  async awaitAll(event) {
     event.preventDefault();
-    console.log(JSON.stringify(this.state.nutrients));
-    let sumCalories = 0;
-    for (let i = 0; i < this.state.nutrients.length; i++) {
-      if (this.state.nutrients[i][0]) {
-        let nutrientsJSON = JSON.stringify(
-          parseInt(this.state.nutrients[i][0].value, 10)
-        );
+    const data = await this.saveRecipe();
+    setTimeout(this.waitforResponse, 3000);
+    console.log(this.props.reducer);
+  }
 
-        if (nutrientsJSON === null || nutrientsJSON === "--") {
-          sumCalories += 0;
-        } else {
-          sumCalories += parseInt(nutrientsJSON, 10);
-        }
-      }
+  waitforResponse = () => {
+    if (this.props.reducer.addedRecipe === true) {
+      this.saveRecipeIngredients();
+    } else {
+      setTimeout(this.waitforResponse, 3000);
     }
-    let totalCalories = sumCalories * servings;
-    this.setState({ calories: totalCalories });
+  };
 
+  async saveRecipe() {
+    console.log("1");
+
+    console.log("this is state: " + this.state.calories);
     const { calories } = this.state;
     const { name, servings } = this.props;
     const recipe = { name, calories, servings };
     const id = localStorage.getItem("user_id");
     const data = await this.props.addRecipe(recipe, id);
-    console.log("Recipe promise is:" + data);
-    // console.log("this is the count of ingredients array", countIngredients);
-    this.saveRecipeIngredients();
-    this.props.history.push("/homepage/recipes/myrecipes")
   }
 
-  async saveRecipeIngredients(props) {
+  async saveRecipeIngredients() {
     let countIngredients = this.state.food.length;
-    console.log(this.props);
+    console.log(this.props.recipes);
+
     let recipe_ids = this.props.recipes.pop();
-    console.log(recipe_ids.id);
-    const recipeID = recipe_ids.id;
+
+    let recipeID = recipe_ids.id;
     const id = localStorage.getItem("user_id");
     console.log("this is my user ID: " + id);
     const data = await this.props.addMultipleIngredients(
@@ -201,14 +210,13 @@ class SearchFood extends Component {
       recipeID
     );
     console.log("Ingredients promise is:" + data);
-    this.saveRecipeNutrition();
+    this.saveRecipeNutrition(recipe_ids);
   }
-  async saveRecipeNutrition() {
-    const id = localStorage.getItem("user_id");
-    let recipe_ids = this.props.recipes.pop();
+  async saveRecipeNutrition(recipe_ids) {
+    console.log("3");
 
     const recipeID = recipe_ids.id;
-
+    const id = localStorage.getItem("user_id");
     let countNutrients = this.state.nutrients.length;
     const data = await this.props.addMultipleNutrients(
       this.state.nutrients,
@@ -216,6 +224,8 @@ class SearchFood extends Component {
       countNutrients,
       recipeID
     );
+    console.log("Ingredients promise is:" + data);
+
     this.props.history.push("/homepage");
   }
 
@@ -270,7 +280,7 @@ class SearchFood extends Component {
           ))}
         </div>
         <div className="recipe-save-button">
-          <button className="save-recipe-button" onClick={this.saveRecipe}>
+          <button className="save-recipe-button" onClick={this.awaitAll}>
             {" "}
             Save Recipe
           </button>
@@ -324,6 +334,7 @@ const mapStateToProps = state => {
     user: state.userReducer.user,
     meals: state.mealsReducer.meals,
     recipes: state.recipesReducer.recipes,
+    reducer: state.recipesReducer,
     ingredients: state.ingredsReducer.ingredient,
     nutrients: state.nutrientsReducer.nutrients
   };

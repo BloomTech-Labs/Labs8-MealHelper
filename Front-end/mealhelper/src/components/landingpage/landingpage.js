@@ -13,7 +13,7 @@ import DoctorPic from "./DoctorPic.png";
 import "./landingpage.css";
 import "./lp-tablet.css";
 import Jumbo from "./jumboIcons2.png";
-import Picnic from "./PicnicBlue.jpg"
+import Picnic from "./PicnicBlue.jpg";
 import Eat from "./eatimage2.png";
 import Track from "./trackimage.png";
 import Analyze from "./analyzeimage.png";
@@ -23,7 +23,7 @@ import Simon from "../../img/simon100.jpg";
 import Casey from "../../img/casey100.png";
 import Patrick from "../../img/patrick101.png";
 import Joseph from "../../img/joseph100.jpg";
-import Keith from "../../img/anon100.png";
+import Keith from "../../img/keith100.png";
 import Github from "../../img/githublogo.png";
 import LinkedIn from "../../img/linkedinlogo.png";
 
@@ -146,7 +146,10 @@ class Landingpage extends Component {
                 </p>
                 <div className="extra">
                   <p className="tip-header">TIP:</p>
-                  <p className="tip">Purchase the premium version for access to unlimited meals and recipe storage for a better look at long-term trends.</p>
+                  <p className="tip">
+                    Purchase the premium version for access to unlimited meals
+                    and recipe storage for a better look at long-term trends.
+                  </p>
                 </div>
               </div>
             </div>
@@ -247,10 +250,10 @@ class Landingpage extends Component {
                     src={Keith}
                     alt="Team Member"
                     className="team-member"
-                    style={{ width: 100 }}
+                    style={{ width: 85 }}
                   />
                   <div className="team-container">
-                    <h2>Keith "I Might Be Kyle" Haag</h2>
+                    <h2>Keith Haag</h2>
                     <p className="title">Project Manager</p>
                     <p>Some text that describes me lorem ipsum ipsum lorem.</p>
                     <a href="https://github.com/kkhaag">
@@ -261,7 +264,7 @@ class Landingpage extends Component {
                         style={{ width: 20 }}
                       />
                     </a>
-                    <a href="https://anonofficial.com/">
+                    <a href="https://www.linkedin.com/in/k-haag-02a45190/">
                       <img
                         src={LinkedIn}
                         alt="LinkedIn"

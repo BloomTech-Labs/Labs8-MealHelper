@@ -54,42 +54,44 @@ class NavbarLanding extends Component {
           style={{ textDecoration: "none" }}
         >
           <Link
+            to="/homepage/recipes"
+            className="navbar-section-links-style-inapp"
+            style={{ textDecoration: "none" }}
+          >
+            <h3>Step 1: Build Recipe</h3>
+          </Link>
+          <Link
+            to="/homepage/meals/new"
+            className="navbar-section-links-style-inapp"
+            style={{ textDecoration: "none" }}
+          >
+            <h3>Step 2: Add Recipe to Meal</h3>
+          </Link>
+          <Link
+            to="/homepage/alarms"
+            className="navbar-section-links-style-inapp"
+            style={{ textDecoration: "none" }}
+          >
+            <h3>Step 3: Set Meal Reminders</h3>
+          </Link>
+          <Link
             to="/homepage"
-            className="navbar-section-links-style"
+            className="navbar-section-links-style-directory"
             style={{ textDecoration: "none" }}
           >
             <h3>Home</h3>
           </Link>
           <Link
-            to="/homepage/meals/new"
-            className="navbar-section-links-style"
-            style={{ textDecoration: "none" }}
-          >
-            <h3>Make A Meal</h3>
-          </Link>
-          <Link
-            to="/homepage/recipes"
-            className="navbar-section-links-style"
-            style={{ textDecoration: "none" }}
-          >
-            <h3>Add A Recipe</h3>
-          </Link>
-          <Link
-            to="/homepage/alarms"
-            className="navbar-section-links-style"
-            style={{ textDecoration: "none" }}
-          >
-            <h3>Add An Alarm</h3>
-          </Link>
-          <Link
             to="/homepage/settings"
-            className="navbar-section-links-style"
+            className="navbar-section-links-style-directory"
             style={{ textDecoration: "none" }}
           >
             <h3>Settings</h3>
           </Link>
           <a onClick={this.logout} style={{ textDecoration: "none" }}>
-            <h3 className="navbar-section-links-style-logout">Logout</h3>
+            <h3 className="navbar-section-links-style-logout-directory">
+              Logout
+            </h3>
           </a>
         </div>
       </div>

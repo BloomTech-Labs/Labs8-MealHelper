@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 // == Actions == //
 import {
-  getMeals
+  getMeals,
+  changeMeal
 } from "../../store/actions/mealActions";
 // == Styles == //
 import "./mealbook.css"
@@ -60,6 +61,9 @@ const recipes = [
 class MealBook extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      experience: ""
+    }
   }
 
   componentDidMount() {
@@ -74,6 +78,14 @@ class MealBook extends Component {
    const recipe = recipes.find(recipe => recipe.id === recipeID);
     console.log("recipe", recipe, recipe.calories);
     return recipe.calories;
+  }
+
+  updateExperience(mealID, experience) {
+    // changeMeal(mealID);
+  }
+
+  singleMealView(mealID) {
+    this.props.history.push(`homepage/meals/mealbook/${mealID}`)
   }
 
   render() {
@@ -141,5 +153,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getMeals }
+  { getMeals, changeMeal }
 )(withRouter(MealBook));
