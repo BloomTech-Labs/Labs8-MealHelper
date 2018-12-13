@@ -22,7 +22,7 @@ class MyRecipes extends Component {
   }
   componentDidMount() {
     if (localStorage.getItem("token")) {
-      const id = this.props.user.userID;
+      const id = localStorage.getItem("user_id");
       this.props.getRecipe(id);
 
       this.setState({ list: this.props.recipes });
