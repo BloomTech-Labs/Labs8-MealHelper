@@ -123,8 +123,8 @@ class FoodClient: GenericAPIClient {
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)!
         urlComponents.queryItems = [
             URLQueryItem(name: "format", value: "json"),
-            URLQueryItem(name: "sort", value: "n"),
-            URLQueryItem(name: "max", value: "25"),
+            URLQueryItem(name: "sort", value: "r"),
+            URLQueryItem(name: "max", value: "30"),
             URLQueryItem(name: "offset", value: "0"),
             URLQueryItem(name: "api_key", value: usdaAPIKey),
             URLQueryItem(name: "q", value: searchTerm)

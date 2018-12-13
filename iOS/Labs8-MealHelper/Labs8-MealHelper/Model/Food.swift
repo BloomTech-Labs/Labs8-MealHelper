@@ -229,6 +229,90 @@ struct UsdaNutrient: Decodable {
     }
 }
 
+struct UsdaNutrientDetail: Decodable {
+    
+    var report: Report
+    
+    enum CodingKeys: String, CodingKey {
+        case report
+    }
+    
+    struct Report: Decodable {
+        var food: Food
+        
+        enum FoodCodingKeys: String, CodingKey {
+            case foods
+        }
+        
+        struct Food: Decodable {
+            var ndbno: String?
+            var name: String?
+            var nutrients: [Nutrient]
+            
+            enum CodingKeys: String, CodingKey {
+                case ndbno
+                case name
+                case nutrients
+            }
+            
+            struct Nutrient: Decodable {
+                
+                init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: CodingKeys.self)
+                    let identifier = try container.decode(String.self, forKey: .identifier)
+                    let name = try container.decode(String.self, forKey: .name)
+                    let unit = try container.decode(String.self, forKey: .unit)
+                    let value = try container.decode(String.self, forKey: .value)
+                    let ingredientId = try container.decodeIfPresent(Int.self, forKey: .ingredientId)
+                    let measures = try container.decode([Measure].self, forKey: .measures)
+                    
+                    self.identifier = identifier
+                    self.name = name
+                    self.unit = unit
+                    self.value = value
+                    self.ingredientId = ingredientId
+                    self.measures = measures
+                }
+                
+                var identifier: String // usda nutrient id
+                var name: String
+                var unit: String
+                var value: String
+                var ingredientId: Int?
+                var measures: [Measure]
+                
+                enum CodingKeys: String, CodingKey {
+                    case identifier = "nutrient_id"
+                    case name
+                    case unit
+                    case value
+                    case ingredientId = "ingredients_id"
+                    case measures
+                }
+                
+                struct Measure: Decodable {
+                    
+                    var label: String
+                    var eqv: Double
+                    var eunit: String
+                    var qty: Double
+                    var value: String
+                    
+                    enum CodingKeys: String, CodingKey {
+                        case label
+                        case eqv
+                        case eunit
+                        case qty
+                        case value
+                    }
+                    
+                }
+                
+            }
+        }
+    }
+}
+
 // TODO: To be deleted. Used as temporary response type after posting nutrients
 struct TempType: Codable {
     
