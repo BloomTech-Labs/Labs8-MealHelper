@@ -8,6 +8,18 @@ import StripeCheckout from "react-stripe-checkout";
 import CheckOut from "../landingpage/eatwellimage.png";
 
 class GetStarted extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      zip: null,
+      healthCondition: "",
+      visable: false,
+      modal: false
+    };
+    this.onToken.bind(this);
+  }
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
