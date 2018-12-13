@@ -167,22 +167,20 @@
 }
 
 .nb-button-container {
-  padding: 0 5px
-  }
-  
+  padding: 0 5px;
+}
 
 .buttons-navbar-lp {
   width: 100px;
-    padding: 0 10px;
-    height: 35px;
-    color: #ffffff;
-    font-size: 15px;
-    margin: 10px 0;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #2f9dfe;
-    border: none;
-
+  padding: 0 10px;
+  height: 35px;
+  color: #ffffff;
+  font-size: 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #2f9dfe;
+  border: none;
 }
 
 .buttons-navbar:hover {
@@ -196,7 +194,6 @@
   width: 200px;
 }
 
-
 .logo {
   font-size: 40px;
   font-family: "Allan", cursive;
@@ -204,15 +201,12 @@
   color: white;
 }
 
-
 .page-jumps {
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin-top: 15px;
- 
 }
-
 
 .page-jumps a {
   color: white;
@@ -244,28 +238,39 @@
   font-size: 16px;
 }
 
-/* .navbar-section-links-style {
+.navbar-section-links-style {
   margin-left: 10px;
   padding-left: 10px;
   padding-right: 80px;
   margin-right: 10px;
   height: 20px;
-} */
+}
+
+.navbar-section-links-style-inapp {
+  margin-left: 60px;
+  /* padding-left: 5px;
+  margin-right: 5px; */
+  color: #2f9dfe;
+  height: 20px;
+}
 
 .navbar-section-links-style:hover {
   color: white;
+  cursor: pointer;
 }
 
 .navbar-section-links-style-directory {
-  margin-left: 5px;
-  padding-left: 5px;
+  /* margin-left: 5px; */
+  /* padding-left: 5px; */
   padding-right: 5px;
-  margin-right: 5px;
+  margin-right: -125px;
+  color: #2f9dfe;
   height: 20px;
 }
 
 .navbar-section-links-style-directory:hover {
   color: white;
+  cursor: pointer;
 }
 
 .navbar-section-links-style-logout {
@@ -275,6 +280,11 @@
   height: 20px;
   color: #2f9dfe;
   font-size: 16px;
+}
+
+.navbar-section-links-style-logout:hover {
+  color: white;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 670px) {

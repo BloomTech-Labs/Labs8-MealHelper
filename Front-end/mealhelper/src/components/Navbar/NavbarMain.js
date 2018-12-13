@@ -34,9 +34,15 @@ class NavbarLanding extends Component {
   };
 
   render() {
-    console.log("pathname", this.props.history.location.pathname)
+    console.log("pathname", this.props.history.location.pathname);
     return (
-      <div className={this.props.history.location.pathname.includes('/homepage') ? "Navbar-Container-Main" : "hide"}>
+      <div
+        className={
+          this.props.history.location.pathname.includes("/homepage")
+            ? "Navbar-Container-Main"
+            : "hide"
+        }
+      >
         <div className="logo-main-container">
           <Link className="link-logo" to="/homepage">
             <p className="logo-main">EatWell</p>
@@ -56,21 +62,21 @@ class NavbarLanding extends Component {
         >
           <Link
             to="/homepage/meals/new"
-            className="navbar-section-links-style"
+            className="navbar-section-links-style-inapp"
             style={{ textDecoration: "none" }}
           >
             <h3>Step 1: Build Recipe</h3>
           </Link>
           <Link
             to="/homepage/alarms"
-            className="navbar-section-links-style"
+            className="navbar-section-links-style-inapp"
             style={{ textDecoration: "none" }}
           >
             <h3>Step 2: Add Recipe to Meal</h3>
           </Link>
           <Link
             to="/homepage/recipes"
-            className="navbar-section-links-style"
+            className="navbar-section-links-style-inapp"
             style={{ textDecoration: "none" }}
           >
             <h3>Step 3: Set Meal Reminders</h3>
