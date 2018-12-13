@@ -11,13 +11,27 @@
   margin-top: 150px;
   background-color: #f0f0f0;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.homepage-main-fence-getstarted {
+  margin-top: 150px;
+  margin-left: 175px;
+  background-color: #f0f0f0;
+  display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+}
+.StripeCheckout {
+  margin-top: 20px;
+  margin-right: 350px;
 }
 
 .user-profile-card {
   box-sizing: border-box;
-  margin-left: 25px;
+  margin-left: 0px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -30,10 +44,39 @@
   border-radius: 12px;
 }
 
+.premium {
+  height: 50px;
+  width: 100px;
+  background: #2f9dfe;
+  border-radius: 12px;
+  border: 2px solid white;
+  font-size: 15px;
+  font-weight: bolder;
+  margin-top: 10px;
+  margin-right: 370px;
+}
+
+.premium:hover {
+  background: #242424;
+  border: 2px solid #2f9dfe;
+  color: white;
+  cursor: pointer;
+}
+
+.user-profile-card-getstarted {
+  margin-left: 400px;
+  margin-top: -40px;
+  font-weight: bolder;
+  color: white;
+  cursor: pointer;
+}
+
 .user-profile-card-logout {
   margin-left: 400px;
   margin-top: 5px;
   font-weight: bolder;
+  margin-top: 0px;
+  margin-bottom: 30px;
   color: white;
   cursor: pointer;
 }
@@ -44,7 +87,7 @@
 
 .user-profile-card-settings {
   margin-left: 400px;
-  margin-top: 5px;
+  margin-top: -20px;
   font-weight: bolder;
   color: white;
   cursor: pointer;
@@ -52,14 +95,6 @@
 
 .user-profile-card-settings:hover {
   color: #2f9dfe;
-}
-
-.user-profile-card-getstarted {
-  margin-left: 400px;
-  margin-top: 10px;
-  font-weight: bolder;
-  color: white;
-  cursor: pointer;
 }
 
 .user-profile-card-getstarted:hover {

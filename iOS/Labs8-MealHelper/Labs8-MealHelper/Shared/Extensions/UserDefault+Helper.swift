@@ -50,7 +50,7 @@ extension UserDefaults {
         return integer(forKey: UserDefaultsKeys.userId.rawValue)
     }
     
-    func loggedInZipCode() -> Int? {
+    func loggedInZipCode() -> Int {
         return integer(forKey: UserDefaultsKeys.zipCode.rawValue)
     }
     
@@ -63,7 +63,7 @@ extension UserDefaults {
     }
     
     func loggedInUser() -> User? {
-        guard let email = loggedInEmail(), let zip = loggedInZipCode(), let token = loggedInToken() else { return nil }
-        return User(email: email, zip: zip, id: loggedInUserId(), token: token)
+        guard let email = loggedInEmail(), let token = loggedInToken() else { return nil }
+        return User(email: email, zip: loggedInZipCode(), id: loggedInUserId(), token: token)
     }
 }

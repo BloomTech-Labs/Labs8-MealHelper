@@ -4,18 +4,54 @@ import "./getstarted.css";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import Moment from "react-moment";
+import StripeCheckout from "react-stripe-checkout";
+import CheckOut from "../landingpage/eatwellimage.png";
 
 class GetStarted extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      zip: null,
+      healthCondition: "",
+      visable: false,
+      modal: false
+    };
+    this.onToken.bind(this);
+  }
   logout = event => {
     event.preventDefault();
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
     this.props.history.push("/");
   };
+  componentDidMount = () => {
+    if (localStorage.getItem("token")) {
+    } else {
+      this.props.history.push("/");
+    }
+  };
+  onToken = token => {
+    console.log("onToken", token);
+  };
   render() {
     return (
-      <div className="homepage-main-fence">
+      <div className="homepage-main-fence-getstarted">
         <div className="user-profile-card">
+          <StripeCheckout
+            amount="499"
+            billingAddress
+            description="EatWell Meal Tracker"
+            image={CheckOut}
+            locale="auto"
+            name="eat-well.app"
+            label="Get Premium!"
+            panelLabel="Purchase for {{amount}}"
+            stripeKey="pk_test_rMbD3kGkxVoOsMd0meVqUlmG"
+            token={this.onToken}
+            zipCode
+          />
           <Link to="/homepage/getstarted" style={{ textDecoration: "none" }}>
             <div className="user-profile-card-getstarted">Get Started!</div>
           </Link>
@@ -104,7 +140,7 @@ class GetStarted extends Component {
         </div>
         <div className="get-started-container">
           <Link
-            to="/homepage/meals/new"
+            to="/homepage/recipes"
             className="get-started-cta-link"
             style={{ textDecoration: "none" }}
           >
