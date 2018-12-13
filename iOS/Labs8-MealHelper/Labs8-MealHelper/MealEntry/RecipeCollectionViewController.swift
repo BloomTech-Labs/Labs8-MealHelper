@@ -131,7 +131,7 @@ class RecipeCollectionViewController: UICollectionViewController, UICollectionVi
         let weatherDispatchGroup = DispatchGroup()
         
         weatherDispatchGroup.enter()
-        WeatherAPIClient().fetchWeather(for: 8038) { (weatherForecast) in // TODO: Change
+        WeatherAPIClient().fetchWeather(for: 3300) { (weatherForecast) in // TODO: Change
             
             temp = weatherForecast?.main.temp ?? 0
             weatherDispatchGroup.leave()

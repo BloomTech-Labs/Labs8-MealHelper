@@ -14,6 +14,8 @@ class MealDetailViewController: UIViewController {
         didSet {
             navigationItem.title = meal?.mealTime
             fetchIngredients()
+            guard let temp = meal?.temp, let humidity = meal?.humidity, let pressure = meal?.pressure else { return }
+            weatherView.updateWeather(temperature: temp, humidity: humidity, pressure: pressure)
         }
     }
     
@@ -117,13 +119,13 @@ class MealDetailViewController: UIViewController {
         nutrientsView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 30, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 80))
         
         view.addSubview(ingredientsTableView.tableView)
-        ingredientsTableView.tableView.anchor(top: nutrientsView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30))
+        ingredientsTableView.tableView.anchor(top: nutrientsView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 200))
         
         view.addSubview(weatherView)
-        weatherView.anchor(top: ingredientsTableView.tableView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 130))
+        weatherView.anchor(top: ingredientsTableView.tableView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 0, right: 30), size: CGSize(width: 0, height: 80))
         
         view.addSubview(noteView)
-        noteView.anchor(top: weatherView.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 40, right: 30), size: CGSize(width: 0, height: 150))
+        noteView.anchor(top: weatherView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 16, left: 30, bottom: 40, right: 30), size: CGSize(width: 0, height: 150))
         noteView.delegate = self
         
         view.layoutIfNeeded()
@@ -257,7 +259,7 @@ extension MealDetailViewController: UITextViewDelegate {
             })
 
             UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.5, animations: {
-                self.noteView.center.y -= self.view.center.y
+                self.noteView.center.y -= self.view.center.y - 120
             })
         }, completion: nil)
     }

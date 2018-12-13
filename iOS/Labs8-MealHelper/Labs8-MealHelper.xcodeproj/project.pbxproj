@@ -229,7 +229,6 @@
 			children = (
 				ACFE92EF21C1940200990A12 /* PopupView.swift */,
 				3D77DD19219F111B009B21ED /* ProgressIndicator.swift */,
-				3D77DD15219EF4A7009B21ED /* WeatherView.swift */,
 				AC8F0B54219E372E00E623FB /* PickerInputField.swift */,
 				AC85F388219E0B2E007765CA /* LoadingButton.swift */,
 				AC85F389219E0B2F007765CA /* LeftIconTextField.swift */,
@@ -431,6 +430,7 @@
 				ACFE92F121C1941000990A12 /* NotesView.swift */,
 				AC9BE30221B16CE600B6DEBB /* MealDetailViewController.swift */,
 				AC9BE30521B1A07700B6DEBB /* NutrientsView.swift */,
+				3D77DD15219EF4A7009B21ED /* WeatherView.swift */,
 			);
 			path = MealDetail;
 			sourceTree = "<group>";
