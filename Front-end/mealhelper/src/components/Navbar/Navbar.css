@@ -219,11 +219,23 @@
   margin-left: 10px;
   padding-left: 10px;
   padding-right: 80px;
-  margin-right: 40px;
+  margin-right: 10px;
   height: 20px;
 }
 
 .navbar-section-links-style:hover {
+  color: white;
+}
+
+.navbar-section-links-style-directory {
+  margin-left: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-right: 5px;
+  height: 20px;
+}
+
+.navbar-section-links-style-directory:hover {
   color: white;
 }
 
