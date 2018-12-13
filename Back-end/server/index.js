@@ -50,19 +50,31 @@ server.get("/", (req, res) => {
 //++++++++++++++++++++++++ Stripe ENDPOINT +++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-server.post("/charge", async (req, res) => {
-  try {
-    let { status } = await stripe.charges.create({
-      amount: 2000,
-      currency: "usd",
-      description: "EatWell Subscription PAID",
-      source: req.body
-    });
+server.post("/homepage/stripe", async (req, res, next) => {
+  const stripeToken = req.body.stripeToken;
 
-    res.json({ status });
-  } catch (err) {
-    res.status(500).end();
-  }
+  stripe.charges.create(
+    {
+      amount: 499,
+      currency: "usd",
+      description: "EatWell",
+      source: stripeToken
+    },
+    function(err, charge) {
+      console.log("charge", charge);
+      if (err) {
+        res.send({
+          success: false,
+          message: "Error"
+        });
+      } else {
+        res.send({
+          success: true,
+          message: "Success! Welcome to EatWell."
+        });
+      }
+    }
+  );
 });
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
