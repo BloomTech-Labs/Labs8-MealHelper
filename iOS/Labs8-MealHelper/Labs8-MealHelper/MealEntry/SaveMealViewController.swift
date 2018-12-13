@@ -128,7 +128,7 @@ class SaveMealViewController: UIViewController {
             for recipe in recipes {
                 foodDispatchGroup.enter()
                 
-                FoodClient.shared.postMeal(name: recipe.name, mealTime: self.mealTime, date: date, temp: temp, pressure: pressure, humidity: humidity, recipeId: recipe.identifier, servings: self.serving) { (response) in
+                FoodClient.shared.postMeal(name: recipe.name, mealTime: self.mealTime, date: date, experience: "1", temp: temp, pressure: pressure, humidity: humidity, recipeId: recipe.identifier, servings: self.serving) { (response) in
                     foodDispatchGroup.leave()
                 }
             }

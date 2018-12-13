@@ -48,12 +48,13 @@ class FoodClient: GenericAPIClient {
         fetch(from: url, completion: completion)
     }
     
-    func postMeal(name: String, mealTime: String, date: String, temp: Double?, pressure: Double?, humidity: Double?, recipeId: Int, servings: Int, completion: @escaping (Response<Int>) -> ()) {
+    func postMeal(name: String, mealTime: String, date: String, experience: String, temp: Double?, pressure: Double?, humidity: Double?, recipeId: Int, servings: Int, completion: @escaping (Response<Int>) -> ()) {
         let url = self.url(with: baseUrl, pathComponents: ["users", userId, "meals"])
         let reqBody = [
             "name": name,
             "user_id": userId,
             "mealTime": mealTime,
+            "experience": experience,
             "date": date,
             "temp": temp as Any,
             //"notes": notes,
@@ -208,7 +209,53 @@ class FoodClient: GenericAPIClient {
             }
             }.resume()
     }
-        
+    
+//    func fetchUsdaNutrientsDetail(for ndbno: Int, completion: @escaping (Response<([Nutrient], String)>) -> ()) {
+//        let url = self.url(with: usdaBaseUrl, pathComponents: ["reports"])
+//        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+//        urlComponents.queryItems = [
+//            URLQueryItem(name: "ndbno", value: String(ndbno)),
+//            URLQueryItem(name: "api_key", value: usdaAPIKey)
+//        ]
+//
+//        guard let requestURL = urlComponents.url else {
+//            NSLog("Problem constructing search URL for \(ndbno)")
+//            completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
+//            return
+//        }
+//
+//        let request = URLRequest(url: requestURL)
+//
+//        URLSession.shared.dataTask(with: request) { (data, res, error) in
+//
+//            if let error = error {
+//                NSLog("Error with urlRequest: \(error)")
+//                completion(Response.error(error))
+//                return
+//            }
+//
+//            guard let data = data else {
+//                NSLog("No data returned")
+//                completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
+//                return
+//            }
+//
+//            do {
+//                let usdaNutrients = try JSONDecoder().decode(UsdaNutrientDetail.self, from: data)
+//                if let ingredient = usdaNutrients.report.food, let ingredMeasure = ingredient.measure {
+//                    let nutrients: [Nutrient] = self.convertToNutrients(ingredient.nutrients)
+//                    completion(Response.success((nutrients, ingredMeasure)))
+//                } else {
+//                    completion(Response.error(NSError(domain: "com.stefano.Labs8-MealHelper.ErrorDomain", code: -1, userInfo: nil)))
+//                }
+//            } catch {
+//                NSLog("Error decoding data: \(error)")
+//                completion(Response.error(error))
+//                return
+//            }
+//            }.resume()
+//    }
+    
     // MARK: - Private methods
     
     private func convertToIngredient(_ usdaIngredients: [UsdaIngredients.Item.UsdaIngredient]) -> [Ingredient] {

@@ -18,7 +18,7 @@ struct User: Codable {
     enum CodingKeys: String, CodingKey {
         case email
         case zip
-        case id = "userID"
+        case id
         case token
     }
 }

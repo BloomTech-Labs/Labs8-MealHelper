@@ -34,7 +34,7 @@ class FoodSummaryViewController: UIViewController {
     var servingQty: String = "Change quantity"
     var servingType: String = "Change serving"
     var typePickerFieldValues: [String] = {
-        var values = (1...20).map { String($0) }
+        var values = ["0.25", "0.5", "0.75"] + (1...20).map { String($0) }
         values.insert("", at: 0)
         return values
     }()
