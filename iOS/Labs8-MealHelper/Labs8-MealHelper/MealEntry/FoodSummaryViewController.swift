@@ -134,9 +134,6 @@ class FoodSummaryViewController: UIViewController {
     func setupViews() {
         view.addSubview(mainStackView)
         
-        editableTitle == true
-            ? mainStackView.addArrangedSubview(titleTextField)
-            : mainStackView.addArrangedSubview(titleLabel)
         if editableTitle == true {
             mainStackView.addArrangedSubview(titleTextField)
         } else {

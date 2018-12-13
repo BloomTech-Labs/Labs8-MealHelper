@@ -89,7 +89,7 @@ class SearchIngredientDetailViewController: UIViewController {
     }()
     
     private let transparentBackgroundView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.backgroundColor = .clear
         //view.alpha = 0.1
         return view
