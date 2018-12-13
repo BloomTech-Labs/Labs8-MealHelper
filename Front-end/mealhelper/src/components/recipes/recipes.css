@@ -248,12 +248,12 @@ input[type="search"]::-webkit-search-cancel-button {
   width: 210px;
   font-weight: bolder;
 }
-.single-recipe-edit-button {
+.single-recipe-edit-button-disabled {
   border-radius: 3px;
   margin-right: 3%;
   height: 30px;
-  background: #ff9900;
-  color: white;
+  background: hsl(0, 1%, 66%);
+  color: rgb(121, 121, 121);
   border: none;
   font-weight: bolder;
 }

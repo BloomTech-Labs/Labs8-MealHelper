@@ -76,7 +76,12 @@ class SingleRecipe extends Component {
           ))}
         </div>
         <div className="single-recipe-buttons">
-          <button className="single-recipe-edit-button">Edit Recipe</button>
+          <button
+            disabled={true}
+            className="single-recipe-edit-button-disabled"
+          >
+            Edit Recipe
+          </button>
           <button
             className="single-recipe-delete-button"
             onClick={this.deleteRecipe}
