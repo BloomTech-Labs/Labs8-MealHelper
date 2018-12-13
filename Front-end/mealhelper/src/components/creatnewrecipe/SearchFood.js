@@ -165,7 +165,11 @@ class SearchFood extends Component {
           parseInt(this.state.nutrients[i][0].value, 10)
         );
 
-        sumCalories += parseInt(nutrientsJSON, 10);
+        if (nutrientsJSON === null || nutrientsJSON === "--") {
+          sumCalories += 0;
+        } else {
+          sumCalories += parseInt(nutrientsJSON, 10);
+        }
       }
     }
     let totalCalories = sumCalories * servings;
