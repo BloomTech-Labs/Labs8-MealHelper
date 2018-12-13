@@ -15,6 +15,7 @@ class Zip extends Component {
     super(props);
 
     this.state = {
+      user: [],
       zip: null,
       isLoading: false,
       visable: false,
@@ -50,14 +51,14 @@ class Zip extends Component {
   updateUser = event => {
     console.log("firing");
     const id = localStorage.getItem("user_id");
-    const { zip } = this.state;
+    const { zip } = this.state.zip;
     const user = { zip };
     axios
       .put(`https://labs8-meal-helper.herokuapp.com/users/zip/${id}`, user)
       .then(response => {
-        console.log(response);
+        console.log(this.state.zip);
       });
-    this.props.history.push("/homepage");
+    this.props.history.push("/zip");
   };
 
   zipSkip = event => {
@@ -66,7 +67,7 @@ class Zip extends Component {
 
   render() {
     console.log(localStorage.getItem("user_id"));
-    console.log(this.props.user.userID);
+    console.log(this.state.zip);
     return (
       <div className="main-container">
         <div>
