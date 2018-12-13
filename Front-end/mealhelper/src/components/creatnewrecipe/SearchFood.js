@@ -183,6 +183,7 @@ class SearchFood extends Component {
     console.log("Recipe promise is:" + data);
     // console.log("this is the count of ingredients array", countIngredients);
     this.saveRecipeIngredients();
+    this.props.history.push("/homepage/recipes/myrecipes")
   }
 
   async saveRecipeIngredients(props) {
