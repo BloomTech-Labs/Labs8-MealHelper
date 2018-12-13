@@ -4,20 +4,29 @@ import { connect } from "react-redux";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link } from "react-router-dom";
 import { getIngredients } from "../../store/actions/ingredActions";
+import { deleteRecipe } from "../../store/actions/recipeActions";
 
 import "./recipes.css";
 
 class Recipe extends Component {
+  deleteRecipe = event => {
+    event.preventDefault();
+    const userid = localStorage.getItem("user_id");
+    this.props.deleteRecipe(this.props.id, userid);
+  };
   render() {
     return (
       <Link to={`/recipe/${this.props.id}`}>
         <div className="single-recipe-view">
-          <div>
+          <div className="recipe-name">
             <h1>{this.props.name}</h1>
           </div>
-          <div className="ingredients-display">
+          <div className="calories-display">
             Calories: {this.props.calories}
           </div>
+          <button onClick={this.deleteRecipe} className="delete-recipe">
+            Delete
+          </button>
         </div>
       </Link>
     );
@@ -30,5 +39,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addUser }
+  { addUser, deleteRecipe }
 )(withRouter(Recipe));

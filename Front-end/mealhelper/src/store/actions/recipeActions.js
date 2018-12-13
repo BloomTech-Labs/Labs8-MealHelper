@@ -79,13 +79,15 @@ export const changeRecipe = recipe => dispatch => {
       dispatch({ type: PUTTING_RECIPE_ERROR, payload: err });
     });
 };
-export const deleteRecipe = id => dispatch => {
+export const deleteRecipe = (id, userid) => dispatch => {
   dispatch({ type: DELETING_RECIPE });
-  const recipeID = id.recipeID;
+
   // const user_id = id.userID;
   axios
 
-    .delete(`https://labs8-meal-helper.herokuapp.com/recipe/${recipeID}`)
+    .delete(
+      `https://labs8-meal-helper.herokuapp.com/recipe/${id}/user/${userid}`
+    )
     .then(response => {
       dispatch({ type: DELETED_RECIPE, payload: response.data });
     })

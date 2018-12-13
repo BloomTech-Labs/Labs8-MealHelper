@@ -34,17 +34,10 @@ class MyRecipes extends Component {
     this.setState({ list: nextProps.meals });
   }
 
-  handleChange = event => {
-    event.preventDefault();
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  };
-
   render() {
     return (
-      <div className="weather-container">
-        <div className="home-container">
+      <div className="recipe-div-container">
+        <div className="recipe-container">
           <div className="recipe-book">
             {this.props.recipes.map(item => (
               <Recipe
