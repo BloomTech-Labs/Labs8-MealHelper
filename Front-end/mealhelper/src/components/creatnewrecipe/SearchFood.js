@@ -5,6 +5,7 @@ import { addMultipleNutrients } from "../../store/actions/nutrientsActions";
 import { addMultipleIngredients } from "../../store/actions/ingredActions";
 import { withRouter, Link } from "react-router-dom";
 import axios from "axios";
+import { Alert } from "reactstrap";
 import Suggestions from "./Suggestions";
 import GetNutrients from "./GetNutrients";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -26,12 +27,14 @@ class SearchFood extends Component {
       calories: 0,
       total: 0,
       number: 50,
-      limitIndex: 50
+      limitIndex: 50,
+      visible: false
     };
     this.awaitAll = this.awaitAll.bind(this);
     this.saveRecipe = this.saveRecipe.bind(this);
     this.saveRecipeIngredients = this.saveRecipeIngredients.bind(this);
     this.saveRecipeNutrition = this.saveRecipeNutrition.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
   }
 
   getInfo = () => {
@@ -85,6 +88,9 @@ class SearchFood extends Component {
 
     console.log(this.state.limitIndex);
   };
+  onDismiss() {
+    this.setState({ visible: false });
+  }
   addFood = food => {
     this.setState({
       food: [...this.state.food, food],
@@ -171,6 +177,7 @@ class SearchFood extends Component {
   async awaitAll(event) {
     event.preventDefault();
     const data = await this.saveRecipe();
+    this.setState({ visible: true });
     setTimeout(this.waitforResponse, 3000);
     console.log(this.props.reducer);
   }
@@ -279,6 +286,13 @@ class SearchFood extends Component {
             />
           ))}
         </div>
+        <Alert
+          color="success"
+          isOpen={this.state.visible}
+          toggle={this.onDismiss}
+        >
+          Successfully Created Recipe! Please wait for redirect...
+        </Alert>
         <div className="recipe-save-button">
           <button className="save-recipe-button" onClick={this.awaitAll}>
             {" "}
