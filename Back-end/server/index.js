@@ -113,7 +113,7 @@ server.post("/register", (req, res) => {
         .then(user => {
           console.log(user);
           res.status(200).json({
-            userID: user.id,
+            id: user.id,
             token: token,
             zip: user.zip,
             email: user.email
@@ -150,7 +150,7 @@ server.post("/registerAuth0", (req, res) => {
         .then(user => {
           const token = generateToken(user);
 
-          res.status(200).json({ userID: user.id, token: token });
+          res.status(200).json({ id: user.id, token: token });
         })
         .catch(err => {
           res.status(500).json({
@@ -172,7 +172,7 @@ server.post("/login", (req, res) => {
         const token = generateToken(user);
 
         res.status(200).json({
-          userID: user.id,
+          id: user.id,
           token: token,
           zip: user.zip,
           email: user.email
@@ -494,6 +494,19 @@ server.delete("/users/:id/meals/", (req, res) => {
 //GET requst to get all recipes (DEVELOPER TESTING ONLY)
 server.get("/recipe", (req, res) => {
   db("recipe")
+    .then(recipes => {
+      //Returns all the recipes
+      res.status(200).json(recipes);
+    })
+    .catch(err => {
+      res.status(400).json({ err, error: "could not find recipes" });
+    });
+});
+server.get("/recipe/single/:recipeid", (req, res) => {
+  const id = req.params.recipeid;
+  db("recipe")
+    .where({ id: id })
+    .first()
     .then(recipes => {
       //Returns all the recipes
       res.status(200).json(recipes);

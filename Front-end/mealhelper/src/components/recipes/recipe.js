@@ -11,7 +11,7 @@ import "./recipes.css";
 class Recipe extends Component {
   render() {
     return (
-      <Link to={`/recipe/${this.props.id}`}>
+      <Link recipeID={this.props.id} to={`/recipe/${this.props.id}`}>
         <div className="single-recipe-view">
           <div className="recipe-name">
             <h1>{this.props.name}</h1>
