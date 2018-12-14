@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { changeRecipe, getRecipe } from "../../store/actions/recipeActions.js";
 import { updateMultipleNutrients } from "../../store/actions/nutrientsActions";
-import { updateMultipleIngredients } from "../../store/actions/ingredActions";
+import {
+  addMultipleIngredients,
+  updateMultipleIngredients,
+  deleteRecipesIngredients
+} from "../../store/actions/ingredActions";
 import { withRouter, Link } from "react-router-dom";
 import axios from "axios";
 import Suggestions from "./Suggestions";
@@ -225,15 +229,23 @@ class SearchFoodEdit extends Component {
   async awaitAll(event) {
     event.preventDefault();
     const data = await this.updateRecipe();
-    setTimeout(this.waitforResponse, 3000);
+    setTimeout(this.waitforResponse, 2000);
     console.log(this.props.reducer);
   }
 
   waitforResponse = () => {
     if (this.props.reducer.updatedRecipe === true) {
+      this.deleteRecipesIngredients();
+    } else {
+      setTimeout(this.waitforResponse, 2000);
+    }
+  };
+  waitforDeleteResponse = () => {
+    console.log(this.props.reduced);
+    if (this.props.reduced.deletedIngredient === true) {
       this.saveRecipeIngredients();
     } else {
-      setTimeout(this.waitforResponse, 3000);
+      setTimeout(this.waitforDeleteResponse, 2000);
     }
   };
 
@@ -248,23 +260,28 @@ class SearchFoodEdit extends Component {
     const id = localStorage.getItem("recipe_id");
     const data = await this.props.changeRecipe(recipe, id, user_id);
   }
-
+  async deleteRecipesIngredients() {
+    const recipeID = localStorage.getItem("recipe_id");
+    const data = await this.props.deleteRecipesIngredients(recipeID);
+    setTimeout(this.waitforDeleteResponse, 2000);
+  }
   async saveRecipeIngredients() {
+    console.log(
+      "this.state.food is being sent: " + JSON.stringify(this.state.food)
+    );
     let countIngredients = this.state.food.length;
     console.log(this.props.recipes);
-
     let recipe_ids = this.props.recipes.pop();
-
     let recipeID = recipe_ids.id;
     const id = localStorage.getItem("user_id");
     console.log("this is my user ID: " + id);
-    const data = await this.props.updateMultipleIngredients(
+    const data = await this.props.addMultipleIngredients(
       this.state.food,
       id,
       countIngredients,
       recipeID
     );
-    console.log("Ingredients promise is:" + data);
+
     this.saveRecipeNutrition(recipe_ids);
   }
   async saveRecipeNutrition(recipe_ids) {
@@ -390,6 +407,7 @@ const mapStateToProps = state => {
     meals: state.mealsReducer.meals,
     recipes: state.recipesReducer.recipes,
     reducer: state.recipesReducer,
+    reduced: state.ingredsReducer,
     ingredients: state.ingredsReducer.ingredient,
     nutrients: state.nutrientsReducer.nutrients
   };
@@ -397,5 +415,11 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { changeRecipe, updateMultipleNutrients, updateMultipleIngredients }
+  {
+    changeRecipe,
+    addMultipleIngredients,
+    updateMultipleNutrients,
+    updateMultipleIngredients,
+    deleteRecipesIngredients
+  }
 )(withRouter(SearchFoodEdit));

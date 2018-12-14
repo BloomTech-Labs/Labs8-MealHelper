@@ -10,6 +10,9 @@ export const GETTING_INGREDIENT_ERROR = "GETTING_INGREDIENT_ERROR";
 export const UPDATING_INGREDIENT = "UPDATING_INGREDIENT";
 export const UPDATED_INGREDIENT = "UPDATED_INGREDIENT";
 export const UPDATING_INGREDIENT_ERROR = "UPDATING_INGREDIENT_ERROR";
+export const DELETING_INGREDIENT = "DELETING_INGREDIENT";
+export const DELETED_INGREDIENT = "DELETED_INGREDIENT";
+export const DELETING_INGREDIENT_ERROR = "DELETING_INGREDIENT_ERROR";
 
 //Route to sign up a user
 
@@ -69,18 +72,19 @@ export const getIngredients = id => dispatch => {
 
 export const updateMultipleIngredients = (
   ingredient,
-  userId,
+  id,
   countIngredients,
   recipe_id
 ) => dispatch => {
   for (let i = 0; i < countIngredients; i++) {
     dispatch({ type: UPDATING_INGREDIENT });
-    const id = userId;
+
     console.log("this is the recipe id" + recipe_id);
+
     ingredient[i]["recipe_id"] = recipe_id;
     console.log(ingredient[i]);
-    const promise = axios.put(
-      `https://labs8-meal-helper.herokuapp.com/ingredients/${id}`,
+    const promise = axios.post(
+      `https://labs8-meal-helper.herokuapp.com/ingredients/${id}/recipe/${recipe_id}`,
       ingredient[i]
     );
     promise
@@ -92,4 +96,20 @@ export const updateMultipleIngredients = (
         dispatch({ type: UPDATING_INGREDIENT_ERROR, payload: err });
       });
   }
+};
+
+export const deleteRecipesIngredients = recipe_id => dispatch => {
+  dispatch({ type: DELETING_INGREDIENT });
+
+  const promise = axios.delete(
+    `https://labs8-meal-helper.herokuapp.com/ingredients/${recipe_id}`
+  );
+  promise
+    .then(response => {
+      console.log(response);
+      dispatch({ type: DELETED_INGREDIENT, payload: response.data });
+    })
+    .catch(err => {
+      dispatch({ type: DELETING_INGREDIENT_ERROR, payload: err });
+    });
 };
