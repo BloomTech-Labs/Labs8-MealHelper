@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { changeRecipe, getRecipe } from "../../store/actions/recipeActions.js";
 import { updateMultipleNutrients } from "../../store/actions/nutrientsActions";
 import {
+  addMultipleIngredients,
   updateMultipleIngredients,
   deleteRecipesIngredients
 } from "../../store/actions/ingredActions";
@@ -240,7 +241,8 @@ class SearchFoodEdit extends Component {
     }
   };
   waitforDeleteResponse = () => {
-    if (this.props.reduced.deletedRecipeIngredients === true) {
+    console.log(this.props.reduced);
+    if (this.props.reduced.deletedIngredient === true) {
       this.saveRecipeIngredients();
     } else {
       setTimeout(this.waitforDeleteResponse, 2000);
@@ -415,6 +417,7 @@ export default connect(
   mapStateToProps,
   {
     changeRecipe,
+    addMultipleIngredients,
     updateMultipleNutrients,
     updateMultipleIngredients,
     deleteRecipesIngredients
