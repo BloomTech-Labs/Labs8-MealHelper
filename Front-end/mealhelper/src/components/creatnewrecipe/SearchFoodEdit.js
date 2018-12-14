@@ -250,6 +250,9 @@ class SearchFoodEdit extends Component {
   }
 
   async saveRecipeIngredients() {
+    console.log(
+      "this.state.food is being sent: " + JSON.stringify(this.state.food)
+    );
     let countIngredients = this.state.food.length;
     console.log(this.props.recipes);
 

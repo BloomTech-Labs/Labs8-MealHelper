@@ -69,18 +69,19 @@ export const getIngredients = id => dispatch => {
 
 export const updateMultipleIngredients = (
   ingredient,
-  userId,
   countIngredients,
   recipe_id
 ) => dispatch => {
+  console.log("ingredient coming in: " + JSON.stringify(ingredient));
   for (let i = 0; i < countIngredients; i++) {
     dispatch({ type: UPDATING_INGREDIENT });
-    const id = userId;
+
     console.log("this is the recipe id" + recipe_id);
+
     ingredient[i]["recipe_id"] = recipe_id;
     console.log(ingredient[i]);
     const promise = axios.put(
-      `https://labs8-meal-helper.herokuapp.com/ingredients/${id}`,
+      `https://labs8-meal-helper.herokuapp.com/ingredients/recipe/${recipe_id}`,
       ingredient[i]
     );
     promise

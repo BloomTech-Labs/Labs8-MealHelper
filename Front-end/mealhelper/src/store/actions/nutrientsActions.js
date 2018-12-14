@@ -64,6 +64,7 @@ export const updateMultipleNutrients = (
   count,
   recipe_id
 ) => dispatch => {
+  console.log(nutrient);
   for (let i = 0; i < count; i++) {
     for (let j = 0; j < 4; j++) {
       dispatch({ type: UPDATING_NUTRIENT });
