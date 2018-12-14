@@ -90,7 +90,7 @@ class SingleMeal extends Component {
       return cal += Number(nutrient.value)
     }, 0);
     console.log("calTotal", calTotal);
-    return calTotal;
+    return Math.round(calTotal);
     //return obj.value
   }
 
@@ -102,18 +102,18 @@ class SingleMeal extends Component {
       return cal += Number(nutrient.value)
     }, 0);
     console.log("prTotal", proTotal);
-    return proTotal;
+    return Math.round(proTotal);
   }
 
   carbs() {
     //pull all objects where nutrient === Carbohydrate, by difference
     //return obbj.value
-    let carbs = this.state.nutrition.filter(nutr => nutr.nutrient === "Carboyhydrate, by difference");
+    let carbs = this.state.nutrition.filter(nutr => nutr.nutrient === "Carbohydrate, by difference");
     let carbTotal = carbs.reduce((cal, nutrient) => {
       return cal += Number(nutrient.value)
     }, 0);
     console.log("carbTotal", carbTotal);
-    return carbTotal;
+    return Math.round(carbTotal);
   }
 
   fat() {
@@ -124,7 +124,7 @@ class SingleMeal extends Component {
       return cal += Number(nutrient.value)
     }, 0);
     console.log("fatTotal", fatTotal);
-    return fatTotal;
+    return Math.round(fatTotal);
   }
 
   render() {
