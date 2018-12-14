@@ -62,7 +62,9 @@ class MealBook extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      experience: ""
+      experience: "",
+      ingredients: [],
+      nutrition: []
     }
   }
 

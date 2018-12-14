@@ -27,12 +27,39 @@ class SingleMeal extends Component {
         date: "01/01/2018",
         servings: 1,
         recipe_id: 1
-      }
+      },
+      recipe: [],
+      ingredients: [],
+      nutrition: []
     }
   }
 
   componentDidMount() {
     const { mealID } = this.props.match.params;
+    this.props.getMeal(mealID);
+    axios
+      .get(
+        `https://labs8-meal-helper.herokuapp.com/recipe/single/${this.props.singleMeal.recipe_id}`
+      )
+      .then(response => {
+        this.setState({ recipe: response.data });
+        const recipe_id = this.state.recipe.id;
+
+        axios
+          .get(
+            `https://labs8-meal-helper.herokuapp.com/ingredients/recipe/${recipe_id}`
+          )
+          .then(response => {
+            this.setState({ ingredients: response.data });
+            axios
+              .get(
+                `https://labs8-meal-helper.herokuapp.com/nutrients/${recipe_id}`
+              )
+              .then(response => {
+                this.setState({ nutrition: response.data })
+              });
+          });
+      });
   }
 
   componentDidUpdate(prevProps) {
