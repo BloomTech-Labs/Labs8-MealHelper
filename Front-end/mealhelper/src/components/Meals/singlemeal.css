@@ -54,8 +54,38 @@
   margin: 15px auto;
 }
 
+.sm-nutrient-header {
+  border-bottom: 1px solid #29fdfe;
+}
+
+.sm-nutrient-header-last {
+  border-bottom: 1px solid #29fdfe;
+}
+.sm-weather-table {
+  width: 100px;
+  overflow: scroll;
+  margin: 5px auto;
+}
+
+.sm-td-left {
+  border-right: 1px solid #29fdfe;
+  padding-right: 10px;
+  font-weight: bold;
+}
+
+.sm-td-right {
+  padding-left: 10px;
+}
+
 .sm-details-bottom {
   display: flex;
   justify-content: space-evenly;
   padding: 10px;
+}
+
+.meal-card-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 444px;
 }

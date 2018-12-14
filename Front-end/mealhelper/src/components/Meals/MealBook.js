@@ -70,73 +70,72 @@ class MealBook extends Component {
   }
 
   componentDidMount() {
-    let userID = this.props.user.id;
+    // let userID = this.props.user.id;
+    let userID = localStorage.getItem("user_id");
     this.props.getMeals(userID);
     this.props.getRecipe(userID);
     console.log("this.props.user", this.props.user, "meals", this.props.meals);
   }
 
   componentDidUpdate(prevProps) {
-    let userID = this.props.user.userID;
+    // let userID = this.props.user.userID;
+    let userID = localStorage.getItem("user_id");
     if (JSON.stringify(this.props.meals) !== JSON.stringify(prevProps.meals)) {
       this.props.getMeals(userID);
     }
-    if (JSON.stringify(this.props.recipes) !== JSON.stringify(prevProps.recipes)) {
+    if (
+      JSON.stringify(this.props.recipes) !== JSON.stringify(prevProps.recipes)
+    ) {
       this.props.getRecipe(userID);
     }
   }
 
   getRecipeName(recipeID) {
-    //get all recipes for a user
-    //look through the recipes for one that matches the recipe ID
-    //return the recipe name
-    // let userID = this.props.user.id;
-    // axios
-    //   .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${userID}`)
-    //   .then(response => {
-    //     this.setState({ recipes: response.data })
-    //   })
-    // // this.props.getRecipe(userID);
-    console.log("getRecipe", this.props.recipes)
-    const recipe = this.props.recipes.find(recipe => recipe.id === recipeID);
-    console.log("recipe", recipe);
-    //return recipe.name;
+    console.log("RECIPES", this.props.recipes);
+    let recipes = this.props.recipes;
+    let oneRecipe = recipes.find(recipe => recipe.id === recipeID);
+    console.log("oneRecipe", oneRecipe);
+    if (oneRecipe) return oneRecipe.name;
+    return "...";
   }
 
-  getNutrients(recipeID) {
-    const recipe = recipes.find(recipe => recipe.id === recipeID);
-    console.log("recipe", recipe, recipe.calories);
-    return recipe.calories;
-
-    if(this.props.meals) {
+  getNutrients(recipeID, nutr) {
+    if (recipeID) {
       axios
         .get(
-          `https://labs8-meal-helper.herokuapp.com/recipe/single/${recipeID}`
+          `https://labs8-meal-helper.herokuapp.com/ingredients/recipe/${recipeID}`
         )
         .then(response => {
-          this.setState({ recipe: response.data });
-          const recipe_id = this.state.recipe.id;
-  
+          // this.setState({ ingredients: response.data });
           axios
             .get(
-              `https://labs8-meal-helper.herokuapp.com/ingredients/recipe/${recipeID}`
+              `https://labs8-meal-helper.herokuapp.com/nutrients/${recipeID}`
             )
             .then(response => {
-              this.setState({ ingredients: response.data });
-              axios
-                .get(
-                  `https://labs8-meal-helper.herokuapp.com/nutrients/${recipeID}`
-                )
-                .then(response => {
-                  this.setState({ nutrition: response.data }, () => console.log("nutrition", this.state.nutrition))
-                });
+              this.setState({ nutrition: response.data }, () =>
+                console.log("nutrition", this.state.nutrition)
+              );
             });
         });
+
+      let nutrition = this.state.nutrition;
+      if (nutr === "cal") {
+        let calories = nutrition.filter(
+          nutr => nutr.nutrient === "Energy"
+        );
+        let calTotal = calories.reduce((cal, nutrient) => {
+          return (cal += Number(nutrient.value));
+        }, 0);
+        console.log("calTotal", calTotal);
+        return Math.round(calTotal);
       }
+    }
   }
 
   updateExperience(mealID, experience) {
-    // changeMeal(mealID);
+    const mealToUpdate = this.props.meals.find(meal => meal.id === mealID);
+    const mealBody = { ...mealToUpdate, experience: experience };
+    this.props.changeMeal(mealBody);
   }
 
   singleMealView(mealID) {
@@ -182,12 +181,12 @@ class MealBook extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="mealbook-nutr">
-                  {/* <p>Calories: {this.getNutrients(meal.recipe_id)}</p> */}
-                  <p>Protein: 000</p>
-                  <p>Sugar: 000</p>
-                  <p>Sodium: 000</p>
-                </div>
+                {/* <div className="mealbook-nutr">
+                  <p>Calories: {this.getNutrients(meal.recipe_id, "cal")}</p>
+                  <p>Protein: {this.protein(meal.recipe_id)}</p>
+                  <p>Carbs: {this.carbs(meal.recipe_id)}</p>
+                  <p>Fat: {this.fat(meal.recipe_id)}</p>
+                </div> */}
                 <div className="mealbook-exp">
                   <p>Experience:</p>
                   <div className="mealbook-buttons">
@@ -197,7 +196,7 @@ class MealBook extends Component {
                           ? "mealbook-btn-active"
                           : "mealbook-btn-inactive"
                       }
-                      onClick={() => console.log("GOOD")}
+                      onClick={() => this.updateExperience(meal.id, "good")}
                     >
                       👍
                     </button>
@@ -207,7 +206,7 @@ class MealBook extends Component {
                           ? "mealbook-btn-active"
                           : "mealbook-btn-inactive"
                       }
-                      onClick={() => console.log("BAD")}
+                      onClick={() => this.updateExperience(meal.id, "bad")}
                     >
                       👎
                     </button>

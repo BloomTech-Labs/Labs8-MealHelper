@@ -221,12 +221,27 @@ class SingleMeal extends Component {
                     {meal.notes}
                   </div>
                   <div className="sm-weather">
+                  
                     <h3>Weather</h3>
                     {meal.temp ? 
                     <div>
-                    <p>Temp: {meal.temp}</p>
+                      <table className="sm-weather-table">
+                        <tr>
+                          <td className="sm-td-left">Temp</td>
+                          <td className="sm-td-right">{meal.temp}</td>
+                        </tr>
+                        <tr>
+                          <td className="sm-td-left">Humidity</td>
+                          <td className="sm-td-right">{meal.humidity}</td>
+                        </tr>
+                        <tr>
+                          <td className="sm-td-left">Pressure</td>
+                          <td className="sm-td-right">{meal.pressure}</td>
+                        </tr>
+                      </table>
+                    {/* <p>Temp: {meal.temp}</p>
                     <p>Humidity: {meal.humidity}</p>
-                    <p>Pressure: {meal.pressure}</p>
+                    <p>Pressure: {meal.pressure}</p> */}
                     </div>
                       : <div>N/A</div>}
                     
@@ -236,8 +251,8 @@ class SingleMeal extends Component {
               </div>
               :
                       <div>
-                         <div className="meal-card empty">
-                          <div className="meal-text empty">Getting your meal...</div>
+                         <div className="meal-card-empty">
+                          <div className="meal-text-empty">Getting your meal...</div>
                         </div>
                       </div>
                 }
