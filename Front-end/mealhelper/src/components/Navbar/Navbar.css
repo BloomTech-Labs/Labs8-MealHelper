@@ -229,7 +229,7 @@
   width: 90%;
 }
 
-.navbar-section-links-style h3 {
+.navbar-section-links-style-inapp h3 {
   /* margin-left: 10px;
   padding-left: 10px;
   padding-right: 80px;
@@ -250,12 +250,12 @@
   margin-left: 60px;
   /* padding-left: 5px;
   margin-right: 5px; */
-  color: #2f9dfe;
+  color: white;
   height: 20px;
 }
 
 .navbar-section-links-style:hover {
-  color: white;
+  color: #2f9dfe;
   cursor: pointer;
 }
 
@@ -264,26 +264,26 @@
   /* padding-left: 5px; */
   padding-right: 5px;
   margin-right: -110px;
-  color: #2f9dfe;
+  color: white;
   height: 20px;
 }
 
 .navbar-section-links-style-directory:hover {
-  color: white;
+  color: #2f9dfe;
   cursor: pointer;
 }
 
-.navbar-section-links-style-logout {
+.navbar-section-links-style-logout-directory {
   margin-left: 10px;
   padding-left: 10px;
   padding-right: 30px;
   height: 20px;
-  color: #2f9dfe;
+  color: white;
   font-size: 16px;
 }
 
-.navbar-section-links-style-logout:hover {
-  color: white;
+.navbar-section-links-style-logout-directory:hover {
+  color: #2f9dfe;
   cursor: pointer;
 }
 
