@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { addUser } from "../../store/actions/userActions";
 import { withRouter, Link, Route } from "react-router-dom";
 import { getRecipe, deleteRecipe } from "../../store/actions/recipeActions";
-// import { Alert } from "reactstrap";
+import { Alert } from "reactstrap";
 import axios from "axios";
 
 import "./recipes.css";
@@ -48,10 +48,18 @@ class SingleRecipe extends Component {
       this.props.history.push("/");
     }
   }
+  onDismiss() {
+    this.setState({ visible: false });
+  }
+  alert = () => {
+    this.setState({ visable: true });
+  };
   deleteRecipe = () => {
     const userid = localStorage.getItem("user_id");
     const id = this.state.recipe.id;
+
     this.props.deleteRecipe(id, userid);
+    setTimeout(this.alert, 4000);
     this.props.history.push("/homepage");
   };
   routeChange = () => {
@@ -60,6 +68,13 @@ class SingleRecipe extends Component {
   render() {
     return (
       <div className="single-recipe-container">
+        <Alert
+          color="success"
+          isOpen={this.state.visible}
+          toggle={this.onDismiss}
+        >
+          Successfully Deleted Recipe! Redirecting...
+        </Alert>
         <div>
           <h1 className="single-recipe-name">{this.state.recipe.name}</h1>
           <h2>Servings: {this.state.recipe.servings}</h2>

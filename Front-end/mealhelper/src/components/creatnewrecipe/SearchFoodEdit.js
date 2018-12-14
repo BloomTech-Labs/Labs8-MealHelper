@@ -14,6 +14,7 @@ import GetNutrients from "./GetNutrients";
 import InfiniteScroll from "react-infinite-scroll-component";
 import DisplayNutrients from "./DisplayNutrients";
 import DisplayFoodName from "./DisplayFoodName";
+import { Alert } from "reactstrap";
 import "../recipes/recipes.css";
 
 class SearchFoodEdit extends Component {
@@ -30,12 +31,14 @@ class SearchFoodEdit extends Component {
       calories: 0,
       total: 0,
       number: 50,
-      limitIndex: 50
+      limitIndex: 50,
+      visible: false
     };
     this.awaitAll = this.awaitAll.bind(this);
     this.updateRecipe = this.updateRecipe.bind(this);
     this.saveRecipeIngredients = this.saveRecipeIngredients.bind(this);
     this.saveRecipeNutrition = this.saveRecipeNutrition.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
   }
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
@@ -143,6 +146,9 @@ class SearchFoodEdit extends Component {
 
     console.log(this.state.limitIndex);
   };
+  onDismiss() {
+    this.setState({ visible: false });
+  }
   addFood = food => {
     this.setState({
       food: [...this.state.food, food],
@@ -243,6 +249,7 @@ class SearchFoodEdit extends Component {
   waitforDeleteResponse = () => {
     console.log(this.props.reduced);
     if (this.props.reduced.deletedIngredient === true) {
+      this.setState({ visible: true });
       this.saveRecipeIngredients();
     } else {
       setTimeout(this.waitforDeleteResponse, 2000);
@@ -304,6 +311,13 @@ class SearchFoodEdit extends Component {
   render() {
     return (
       <form>
+        <Alert
+          color="success"
+          isOpen={this.state.visible}
+          toggle={this.onDismiss}
+        >
+          Successfully Updated Recipe, please wait while you are redirected...
+        </Alert>
         <input
           type="search"
           name="query"
