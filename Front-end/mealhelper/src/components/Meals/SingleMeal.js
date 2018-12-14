@@ -36,8 +36,9 @@ class SingleMeal extends Component {
 
   componentDidMount() {
     const { mealID } = this.props.match.params;
-    console.log("MEALID", mealID)
-    // this.props.getMeal(mealID);
+    const userID = this.props.user.id;
+    console.log("MEALID", mealID, "USERID", userID)
+    this.props.getMeal(mealID, userID);
     console.log("single meal on props", this.props.singleMeal)
     // axios
     //   .get(
