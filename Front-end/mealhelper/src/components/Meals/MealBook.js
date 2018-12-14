@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 // == Actions == //
 import { getMeals, changeMeal } from "../../store/actions/mealActions";
+import { getRecipe } from "../../store/actions/recipeActions";
 // == Styles == //
 import "./mealbook.css";
 
@@ -60,6 +61,7 @@ class MealBook extends Component {
     super(props);
     this.state = {
       experience: "",
+      recipe: [],
       ingredients: [],
       nutrition: []
     };
@@ -78,10 +80,45 @@ class MealBook extends Component {
     }
   }
 
+  getRecipeName(recipeID) {
+    //get all recipes for a user
+    //look through the recipes for one that matches the recipe ID
+    //return the recipe name
+    let userID = this.props.user.id;
+    this.props.getRecipe(userID);
+
+  }
+
   getNutrients(recipeID) {
     const recipe = recipes.find(recipe => recipe.id === recipeID);
     console.log("recipe", recipe, recipe.calories);
     return recipe.calories;
+
+    if(this.props.meals) {
+      axios
+        .get(
+          `https://labs8-meal-helper.herokuapp.com/recipe/single/${recipeID}`
+        )
+        .then(response => {
+          this.setState({ recipe: response.data });
+          const recipe_id = this.state.recipe.id;
+  
+          axios
+            .get(
+              `https://labs8-meal-helper.herokuapp.com/ingredients/recipe/${recipeID}`
+            )
+            .then(response => {
+              this.setState({ ingredients: response.data });
+              axios
+                .get(
+                  `https://labs8-meal-helper.herokuapp.com/nutrients/${recipeID}`
+                )
+                .then(response => {
+                  this.setState({ nutrition: response.data }, () => console.log("nutrition", this.state.nutrition))
+                });
+            });
+        });
+      }
   }
 
   updateExperience(mealID, experience) {
@@ -124,7 +161,7 @@ class MealBook extends Component {
                   </div>
                   <div className="mealbook-card-sec2">
                     <div className="mealbook-name">
-                      <p>{meal.name}</p>
+                      <p>{meal.recipe_id}</p>
                     </div>
                     <div className="mealbook-serve">
                       <p>{meal.servings} servings</p>
@@ -186,10 +223,11 @@ class MealBook extends Component {
 const mapStateToProps = state => ({
   meals: state.mealsReducer.meals,
   singleMeal: state.mealsReducer.meal,
+  recipes: state.recipesReducer.recipes,
   user: state.userReducer.user
 });
 
 export default connect(
   mapStateToProps,
-  { getMeals, changeMeal }
+  { getMeals, changeMeal, getRecipe }
 )(withRouter(MealBook));
