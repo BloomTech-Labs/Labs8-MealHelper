@@ -97,7 +97,7 @@ class AddAlarms extends Component {
   addAlarm = event => {
     event.preventDefault();
     //grabs user id from state
-    const user_id = this.props.user.userID;
+    const user_id = this.props.user.id;
     if (!this.state.startTime || !this.state.endTime || !this.state.repeats) {
       //alert that all fields are required
     } else {
@@ -135,7 +135,7 @@ class AddAlarms extends Component {
 
   addSingleAlarm = event => {
     event.preventDefault();
-    const user_id = this.props.user.userID;
+    const user_id = this.props.user.id;
     let alarm = this.state.alarmTime;
     let label = this.state.label;
     let timestamp = Math.round(new Date().getTime() / 1000.0);

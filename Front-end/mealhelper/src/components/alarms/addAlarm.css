@@ -92,3 +92,9 @@
   border: 1px solid #29fdfe;
   background: white;
 }
+
+.add-alarms-btn:hover {
+  color: #242424;
+  cursor: pointer;
+  background: #2f9dfe;
+}

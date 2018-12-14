@@ -89,3 +89,24 @@
   justify-content: center;
   height: 444px;
 }
+
+.delete-sm {
+  padding: 10px 0;
+}
+
+.delete-sm-btn {
+  background: #242424;
+  width: 200px;
+  height: 51px;
+  border: 1px solid #2f9dfe;
+  border-radius: 5px;
+  color: white;
+}
+
+.sm-edit-btn {
+  border: 1px solid #2f9dfe;
+  background: #ffffff;
+  width: 60px;
+  height: 30px;
+  margin-right: 5px;
+}

@@ -4,9 +4,10 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 // == Actions == //
-import { getMeal, changeMeal } from "../../store/actions/mealActions";
+import { getMeal, changeMeal, deleteMeal } from "../../store/actions/mealActions";
 // == Styles == //
 import "./singlemeal.css";
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 
 class SingleMeal extends Component {
   constructor(props) {
@@ -25,6 +26,9 @@ class SingleMeal extends Component {
         servings: 1,
         recipe_id: 1
       },
+      mealToUpdate: {},
+      modal: false,
+      notes: "",
       recipe: {},
       ingredients: [],
       nutrition: []
@@ -52,6 +56,9 @@ class SingleMeal extends Component {
     || JSON.stringify(this.state.nutrition) !== JSON.stringify(prevState.nutrition)) {
       this.getNutrients();
     }
+    if (JSON.stringify(this.props.meals) !== JSON.stringify(prevProps.meals)) {
+      this.props.getMeal(mealID, userID);
+    }      
   }
 
   getNutrients() {
@@ -127,6 +134,47 @@ class SingleMeal extends Component {
     return Math.round(fatTotal);
   }
 
+
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal
+    });
+  };
+
+  sendToEdit(noteChange) {
+    this.toggle();
+    const notes = noteChange;
+    const mealBody = { ...this.props.singleMeal, notes };
+    console.log("mealBody", mealBody)
+   this.props.changeMeal(mealBody);
+  }
+
+  editExperience(experience) {
+    const mealBody = { ...this.props.singleMeal, experience };
+    console.log("mealBody experience", mealBody)
+    this.props.changeMeal(mealBody);
+  }
+
+  showModal = () => {
+    this.toggle();
+    const mealToUpdate = this.state.meal;
+    this.setState({
+      mealToUpdate
+    })
+  };
+
+  deletePush(mealID, userID) {
+    this.props.deleteMeal(mealID, userID);
+    this.props.history.push("/homepage/meals/mealbook");
+  }
+
+  handleChange = event => {
+    event.preventDefault();
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
   render() {
     const meal = this.props.singleMeal;
     const recipe = this.state.recipe;
@@ -153,12 +201,7 @@ class SingleMeal extends Component {
                           : "mealbook-btn-inactive"
                       }
                       onClick={() =>
-                        this.setState(prevState => ({
-                          meal: {
-                            ...prevState.meal,
-                            experience: "good"
-                          }
-                        }))
+                        this.editExperience("good")
                       }
                     >
                       👍
@@ -169,13 +212,7 @@ class SingleMeal extends Component {
                           ? "mealbook-btn-active"
                           : "mealbook-btn-inactive"
                       }
-                      onClick={() =>
-                        this.setState(prevState => ({
-                          meal: {
-                            ...prevState.meal,
-                            experience: "bad"
-                          }
-                        }))
+                      onClick={() => this.editExperience("bad")
                       }
                     >
                       👎
@@ -218,7 +255,8 @@ class SingleMeal extends Component {
                 <div className="sm-details-bottom">
                   <div className="sm-notes">
                     <h3>Notes</h3>
-                    {meal.notes}
+                    <p>{meal.notes}</p>
+                    <button className="sm-edit-btn" onClick={() => this.showModal()}>Edit</button>
                   </div>
                   <div className="sm-weather">
                   
@@ -259,6 +297,30 @@ class SingleMeal extends Component {
         </div>
         </div>
       </div>
+      <div className="delete-sm">
+      <button className="delete-sm-btn" onClick={() => this.deletePush(meal.id, meal.user_id)}>Delete</button>
+      </div>
+      <Modal
+          isOpen={this.state.modal}
+          toggle={this.toggle}
+          >
+            <ModalHeader
+              toggle={this.toggle}>Edit Meal</ModalHeader>
+           <ModalBody>
+             <p>Notes:</p>
+             <textarea 
+              id="notes"
+              name="notes"
+              type="label"
+              value={this.state.notes}
+              placeholder={this.state.notes}
+              onChange={this.handleChange}
+             />              
+             <Button color="info" onClick={() => this.sendToEdit(this.state.notes)}>
+                Submit
+              </Button>
+           </ModalBody>
+         </Modal>
       </div>
     );
   }
@@ -272,5 +334,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getMeal, changeMeal }
+  { getMeal, changeMeal, deleteMeal }
 )(withRouter(SingleMeal));

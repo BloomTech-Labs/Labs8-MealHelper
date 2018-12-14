@@ -90,13 +90,13 @@ class MyAlarms extends Component {
   };
 
   componentDidMount() {
-    let userID = this.props.user.userID;
-    console.log("this.props.user.userID", this.props.user.userID);
+    let userID = this.props.user.id;
+    console.log("this.props.user.id", this.props.user.id);
     this.props.fetchAlarms(userID);
   }
 
   componentDidUpdate(prevProps) {
-    let userID = this.props.user.userID;
+    let userID = this.props.user.id;
     if (
       JSON.stringify(this.props.alarms) !== JSON.stringify(prevProps.alarms)
     ) {
@@ -116,7 +116,7 @@ class MyAlarms extends Component {
     const { id, alarm } = this.state.alarmToUpdate;
     const label = labelChange;
     const alarmBody = { id, label, alarm };
-    let userID = this.props.user.userID;
+    let userID = this.props.user.id;
     this.props.updateAlarm(alarmBody, userID);
   }
 
@@ -166,7 +166,7 @@ class MyAlarms extends Component {
       <div className="alarms-heading"><h1>Alarms</h1></div>
           
           {this.props.alarms.length ? 
-          alarms.map(alarm => (
+          this.props.alarms.map(alarm => (
             <div className="alarm-card"
               key={alarm.id}
               id={alarm.id}
@@ -183,7 +183,7 @@ class MyAlarms extends Component {
               <button className="alarm-btn edit" onClick={() => this.showModal(alarm.id)}> Edit </button>
               <button className="alarm-btn delete"
                 onClick={() =>
-                  this.props.deleteAlarm(alarm.id, this.props.user.userID)
+                  this.props.deleteAlarm(alarm.id, this.props.user.id)
                 }> Delete </button>
               </div>
             </div>
