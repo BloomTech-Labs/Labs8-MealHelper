@@ -568,7 +568,7 @@ server.put("/recipe/:id", (req, res) => {
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
   const recipe = { name, user_id, calories, servings };
   db("recipe")
-    .where({ id: id })
+    .where({ id: user_id })
     .update({
       //UPDATES the name, calories etc of the recipe if needed.
       name: recipe.name,
