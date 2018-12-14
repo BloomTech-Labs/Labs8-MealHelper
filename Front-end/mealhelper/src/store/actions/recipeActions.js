@@ -66,9 +66,9 @@ export const getRecipe = id => dispatch => {
     });
 };
 
-export const changeRecipe = recipe => dispatch => {
+export const changeRecipe = (recipe, recipeID) => dispatch => {
   dispatch({ type: PUTTING_RECIPE });
-  const recipeID = recipe.recipeID;
+
   axios
 
     .put(`https://labs8-meal-helper.herokuapp.com/recipe/${recipeID}`, recipe)

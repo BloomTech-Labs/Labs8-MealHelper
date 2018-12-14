@@ -4,7 +4,10 @@ import {
   ADDING_INGREDIENT_ERROR,
   GETTING_INGREDIENT,
   GOT_INGREDIENT,
-  GETTING_INGREDIENT_ERROR
+  GETTING_INGREDIENT_ERROR,
+  UPDATING_INGREDIENT,
+  UPDATED_INGREDIENT,
+  UPDATING_INGREDIENT_ERROR
 } from "../actions/ingredActions";
 
 let initialState = {
@@ -39,6 +42,16 @@ export const ingredsReducer = (state = initialState, action) => {
         ingredient: [...state.ingredient, action.payload]
       };
     case GETTING_INGREDIENT_ERROR:
+      return { ...state, gettingIngredient: false, error: action.payload };
+    case UPDATING_INGREDIENT:
+      return { ...state, gettingIngredient: true };
+    case UPDATED_INGREDIENT:
+      return {
+        ...state,
+        gettingIngredient: false,
+        ingredient: action.payload
+      };
+    case UPDATING_INGREDIENT_ERROR:
       return { ...state, gettingIngredient: false, error: action.payload };
     default:
       return state;

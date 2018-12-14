@@ -17,6 +17,7 @@ import GetStarted from "./components/getstarted/getstarted";
 import MyRecipes from "./components/recipes/myrecipe";
 import CreateNewRecipe from "./components/creatnewrecipe/createnewrecipe";
 import SingleRecipe from "./components/recipes/SingleRecipe";
+import RecipeEdit from "./components/creatnewrecipe/EditRecipe";
 import GetIngredient from "./components/ingredients/getIngredient";
 import Weather from "./components/weather/weather";
 import MyWeather from "./components/weather/myweather";
@@ -61,6 +62,10 @@ class App extends Component {
             <Route
               path="/homepage/recipes/createnewrecipe"
               render={() => <CreateNewRecipe />}
+            />
+            <Route
+              path="/recipe/:recipeid/edit"
+              render={() => <RecipeEdit />}
             />
             <Route path="/recipe/:id" render={() => <SingleRecipe />} />
             <Route exact path="/homepage/weather" render={() => <Weather />} />
