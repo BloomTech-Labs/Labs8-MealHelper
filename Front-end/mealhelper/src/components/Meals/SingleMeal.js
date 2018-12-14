@@ -256,7 +256,7 @@ class SingleMeal extends Component {
                   <div className="sm-notes">
                     <h3>Notes</h3>
                     <p>{meal.notes}</p>
-                    <button onClick={() => this.showModal()}>Edit</button>
+                    <button className="sm-edit-btn" onClick={() => this.showModal()}>Edit</button>
                   </div>
                   <div className="sm-weather">
                   
