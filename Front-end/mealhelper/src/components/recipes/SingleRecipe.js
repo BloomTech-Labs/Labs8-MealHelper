@@ -13,7 +13,8 @@ class SingleRecipe extends Component {
   state = {
     recipe: [],
     ingredients: [],
-    nutrition: []
+    nutrition: [],
+    visible: false
   };
   componentDidMount() {
     if (localStorage.getItem("token")) {
