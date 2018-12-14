@@ -163,6 +163,11 @@ class SingleMeal extends Component {
     })
   };
 
+  deletePush(mealID, userID) {
+    this.props.deleteMeal(mealID, userID);
+    this.props.history.push("/homepage/meals/mealbook");
+  }
+
   handleChange = event => {
     event.preventDefault();
     this.setState({
@@ -292,7 +297,7 @@ class SingleMeal extends Component {
         </div>
         </div>
       </div>
-      <button onClick={() => this.props.deleteMeal(meal.id, meal.user_id)}>Delete</button>
+      <button onClick={() => this.deletePush(meal.id, meal.user_id)}>Delete</button>
       <Modal
           isOpen={this.state.modal}
           toggle={this.toggle}
