@@ -34,7 +34,11 @@ class HomePage extends Component {
     } else {
       this.props.history.push("/");
     }
-    console.log("HOMEPAGE THIS.PROPS.USER.ID", this.props.user, this.props.user.id);
+    console.log(
+      "HOMEPAGE THIS.PROPS.USER.ID",
+      this.props.user,
+      this.props.user.id
+    );
   };
   onToken = token => {
     console.log("onToken", token);
@@ -88,24 +92,24 @@ class HomePage extends Component {
           >
             <Link
               to="/homepage/meals/mealbook"
-              className="stat-divider"
+              className="stat-divider-numbers"
               style={{ textDecoration: "none" }}
             >
-              <h3 className="stat-text">Meals</h3>
+              <h3 className="stat-text">11</h3>
             </Link>
             <Link
               to="/homepage/recipes"
-              className="stat-divider"
+              className="stat-divider-numbers"
               style={{ textDecoration: "none" }}
             >
-              <h3 className="stat-text">Recipes</h3>
+              <h3 className="stat-text">9</h3>
             </Link>
             <Link
               to="/homepage/alarms"
-              className="stat-divider"
+              className="stat-divider-numbers"
               style={{ textDecoration: "none" }}
             >
-              <h3 className="stat-text">Alarms</h3>
+              <h3 className="stat-text">6</h3>
             </Link>
           </div>
           <div

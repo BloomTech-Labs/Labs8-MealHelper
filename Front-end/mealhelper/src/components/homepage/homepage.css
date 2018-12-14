@@ -148,6 +148,17 @@
   height: 30px;
 }
 
+.stat-divider-numbers {
+  margin-left: 10px;
+  padding-left: 30px;
+  /* border-right: 1px solid #2f9dfe; */
+  padding-right: 50px;
+  height: 30px;
+}
+.stat-divider-numbers:hover {
+  color: white;
+}
+
 .stat-divider:hover {
   color: white;
 }
