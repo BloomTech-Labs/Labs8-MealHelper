@@ -70,7 +70,7 @@ class MealBook extends Component {
 
   componentDidMount() {
     let userID = this.props.user.id;
-    // this.props.getMeals(userID);
+    this.props.getMeals(userID);
     console.log("this.props.user", this.props.user, "meals", this.props.meals)
   }
 
@@ -98,6 +98,7 @@ class MealBook extends Component {
   }
 
   render() {
+    const meals = this.props.meals;
     return(
       <div className="mealbook-full-width">
       <div className="mealbook-container">
@@ -110,7 +111,8 @@ class MealBook extends Component {
         >
         {" "}
         <br />
-        <div className="mealbook-text">
+        <div className="mealbook-text"
+        onClick={() => this.props.history.push(`/homepage/meals/mealbook/${meal.id}`)}>
         <div className="mealbook-card-sec1">
         <div className="mealbook-date"><p>{meal.date}</p></div>
         <div className="mealbook-time"><p>{meal.mealTime}</p></div>
@@ -121,7 +123,7 @@ class MealBook extends Component {
         </div>
         </div>
         <div className="mealbook-nutr">
-        <p>Calories: {this.getNutrients(meal.recipe_id)}</p>
+        {/* <p>Calories: {this.getNutrients(meal.recipe_id)}</p> */}
         <p>Protein: 000</p>
         <p>Sugar: 000</p>
         <p>Sodium: 000</p>

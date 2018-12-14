@@ -52,10 +52,10 @@ export const getMeals = id => dispatch => {
 		});
 };
 
-export const getMeal = id => dispatch => {
+export const getMeal = (mealID, userID) => dispatch => {
 	dispatch({ type: GETTING_MEAL });
-	const meal_id = id.mealID;
-	const user_id = id.userID;
+	const meal_id = mealID;
+	const user_id = userID;
 	axios
 
 		.get(

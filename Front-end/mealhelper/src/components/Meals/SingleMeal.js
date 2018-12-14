@@ -20,7 +20,6 @@ class SingleMeal extends Component {
         user_id: 1,
         mealTime: "Breakfast",
         experience: "",
-        name: "Basic Morning Breakfast",
         temp: null,
         humidity: null,
         pressure: null,
@@ -37,30 +36,32 @@ class SingleMeal extends Component {
 
   componentDidMount() {
     const { mealID } = this.props.match.params;
-    this.props.getMeal(mealID);
-    axios
-      .get(
-        `https://labs8-meal-helper.herokuapp.com/recipe/single/${this.props.singleMeal.recipe_id}`
-      )
-      .then(response => {
-        this.setState({ recipe: response.data });
-        const recipe_id = this.state.recipe.id;
+    console.log("MEALID", mealID)
+    // this.props.getMeal(mealID);
+    console.log("single meal on props", this.props.singleMeal)
+    // axios
+    //   .get(
+    //     `https://labs8-meal-helper.herokuapp.com/recipe/single/${this.props.singleMeal.recipe_id}`
+    //   )
+    //   .then(response => {
+    //     this.setState({ recipe: response.data });
+    //     const recipe_id = this.state.recipe.id;
 
-        axios
-          .get(
-            `https://labs8-meal-helper.herokuapp.com/ingredients/recipe/${recipe_id}`
-          )
-          .then(response => {
-            this.setState({ ingredients: response.data });
-            axios
-              .get(
-                `https://labs8-meal-helper.herokuapp.com/nutrients/${recipe_id}`
-              )
-              .then(response => {
-                this.setState({ nutrition: response.data })
-              });
-          });
-      });
+    //     axios
+    //       .get(
+    //         `https://labs8-meal-helper.herokuapp.com/ingredients/recipe/${recipe_id}`
+    //       )
+    //       .then(response => {
+    //         this.setState({ ingredients: response.data });
+    //         axios
+    //           .get(
+    //             `https://labs8-meal-helper.herokuapp.com/nutrients/${recipe_id}`
+    //           )
+    //           .then(response => {
+    //             this.setState({ nutrition: response.data })
+    //           });
+    //       });
+    //   });
   }
 
   componentDidUpdate(prevProps) {
@@ -75,7 +76,7 @@ class SingleMeal extends Component {
           <div className="single-meal-bg">
             <div className="single-meal-content">
               <div className="single-meal-heading">
-              <div className="sm-top"><h1>{meal.name}</h1></div>  
+              <div className="sm-top"><h1>{meal.mealTime}</h1></div>  
               <div className="sm-bottom"><h3>{meal.date}</h3>
                     <div className="sm-exp-buttons">
                     <button 
