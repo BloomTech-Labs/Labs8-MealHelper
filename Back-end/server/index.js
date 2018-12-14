@@ -726,31 +726,25 @@ server.post("/ingredients/:id/recipe/:recipeid", (req, res) => {
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
   const ingredient = { name, ndb_id, user_id, recipe_id };
   db("ingredients")
-    //Finds the corrosponding ingredients based on user ID
-    .where({ recipe_id: rec_id })
     .then(ingredients => {
-      console.log(ingredients);
-      if (ingredients.ndb_id !== ingredient.ndb_id) {
-        db("ingredients")
-          .where({ recipe_id: rec_id })
-          .del()
-          .insert(ingredient)
-          .then(ingredientID => {
-            db("ingredients")
-              //Finds the corrosponding ingredients based on user ID
-              .where({ recipe_id: rec_id })
-              .then(ingredients => {
-                //Returns all the recipes from that user
-                res.status(200).json(ingredients);
-              })
-              .catch(err => {
-                res.status(400).json({ err, error: "could not find meal" });
-              });
-          })
-          .catch(err => {
-            res.status(400).json({ error: "Could not update meal" });
-          });
-      }
+      db("ingredients")
+        .where({ recipe_id: rec_id })
+        .insert(ingredient)
+        .then(ingredientID => {
+          db("ingredients")
+            //Finds the corrosponding ingredients based on user ID
+            .where({ recipe_id: rec_id })
+            .then(ingredients => {
+              //Returns all the recipes from that user
+              res.status(200).json(ingredients);
+            })
+            .catch(err => {
+              res.status(400).json({ err, error: "could not find meal" });
+            });
+        })
+        .catch(err => {
+          res.status(400).json({ error: "Could not update meal" });
+        });
     })
     .catch(err => {
       res.status(400).json({ err, error: "could not find meal" });
@@ -762,7 +756,7 @@ server.delete("/ingredients/:id", (req, res) => {
   //Grabs the id from the API endpoint (front end job)
   const { id } = req.params;
   db("ingredients")
-    .where({ id: id })
+    .where({ recipe_id: id })
     //Deletes the records
     .del()
     .then(deleted => {
