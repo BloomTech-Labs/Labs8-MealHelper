@@ -34,6 +34,7 @@ class HomePage extends Component {
     } else {
       this.props.history.push("/");
     }
+    console.log("HOMEPAGE THIS.PROPS.USER.ID", this.props.user, this.props.user.id);
   };
   onToken = token => {
     console.log("onToken", token);
@@ -86,7 +87,7 @@ class HomePage extends Component {
             style={{ textDecoration: "none" }}
           >
             <Link
-              to="/homepage/meals/new"
+              to="/homepage/meals/mealbook"
               className="stat-divider"
               style={{ textDecoration: "none" }}
             >
@@ -112,7 +113,7 @@ class HomePage extends Component {
             style={{ textDecoration: "none" }}
           >
             <Link
-              to="/homepage/meals/new"
+              to="/homepage/meals/mealbook"
               className="stat-divider-live"
               style={{ textDecoration: "none" }}
             >

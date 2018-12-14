@@ -5,12 +5,12 @@ import {
 	ADDING_MEAL,
 	ADDED_MEAL,
 	ADDING_MEAL_ERROR,
-	GETTING_MEAL,
-	GOT_MEAL,
-	GETTING_MEAL_ERROR,
+	GETTING_SINGLE_MEAL,
+	GOT_SINGLE_MEAL,
+	GETTING_SINGLE_MEAL_ERROR,
 	GETTING_MEALS,
 	GOT_MEALS,
-	GETTING_MEAL_ERRORS,
+	GETTING_MEALS_ERROR,
 	PUTTING_MEAL,
 	PUT_MEAL,
 	PUTTING_MEAL_ERROR,
@@ -57,11 +57,11 @@ export const mealsReducer = (state = initialState, action) => {
 		case ADDING_MEAL_ERROR:
 			//Shoots off if there is an error creating a new user
 			return { ...state, addingMeal: false, error: action.payload };
-		case GETTING_MEAL:
+		case GETTING_SINGLE_MEAL:
 			return { ...state, gettingMeal: true };
-		case GOT_MEAL:
-			return { ...state, gettingMeal: false, meals: action.payload };
-		case GETTING_MEAL_ERROR:
+		case GOT_SINGLE_MEAL:
+			return { ...state, gettingMeal: false, meal: action.payload };
+		case GETTING_SINGLE_MEAL_ERROR:
 			return { ...state, gettingMeal: false, error: action.payload };
 		case GETTING_MEALS:
 			//Initial logging in user
@@ -69,7 +69,7 @@ export const mealsReducer = (state = initialState, action) => {
 		case GOT_MEALS:
 			//Returns the user ID and the JWT token and sets it as JSON to user
 			return { ...state, gettingMeals: false, meals: action.payload };
-		case GETTING_MEAL_ERRORS:
+		case GETTING_MEALS_ERROR:
 			//Shoots off if there is an error logging in a user
 			return { ...state, gettingMeals: false, error: action.payload };
 		case PUTTING_MEAL:

@@ -54,7 +54,7 @@ export const addRecipe = (recipe, userID) => dispatch => {
 
 //Route to Get Specific Users Recipes
 export const getRecipe = id => dispatch => {
-  dispatch({ type: GETTING_RECIPES });
+  dispatch({ type: GETTING_RECIPE });
   axios
 
     .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
