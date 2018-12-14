@@ -83,10 +83,10 @@ export const changeMeal = meal => dispatch => {
 			dispatch({ type: PUTTING_MEAL_ERROR, payload: err });
 		});
 };
-export const deleteMeal = id => dispatch => {
+export const deleteMeal = (mealID, userID) => dispatch => {
 	dispatch({ type: DELETING_MEAL });
-	const meal_id = id.mealID;
-	const user_id = id.userID;
+	const meal_id = mealID;
+	const user_id = userID;
 	axios
 
 		.delete(

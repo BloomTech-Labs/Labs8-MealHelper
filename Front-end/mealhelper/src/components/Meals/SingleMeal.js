@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 // == Actions == //
-import { getMeal, changeMeal } from "../../store/actions/mealActions";
+import { getMeal, changeMeal, deleteMeal } from "../../store/actions/mealActions";
 // == Styles == //
 import "./singlemeal.css";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
@@ -149,6 +149,12 @@ class SingleMeal extends Component {
    this.props.changeMeal(mealBody);
   }
 
+  editExperience(experience) {
+    const mealBody = { ...this.props.singleMeal, experience };
+    console.log("mealBody experience", mealBody)
+    this.props.changeMeal(mealBody);
+  }
+
   showModal = () => {
     this.toggle();
     const mealToUpdate = this.state.meal;
@@ -190,12 +196,7 @@ class SingleMeal extends Component {
                           : "mealbook-btn-inactive"
                       }
                       onClick={() =>
-                        this.setState(prevState => ({
-                          meal: {
-                            ...prevState.meal,
-                            experience: "good"
-                          }
-                        }))
+                        this.editExperience("good")
                       }
                     >
                       👍
@@ -206,13 +207,7 @@ class SingleMeal extends Component {
                           ? "mealbook-btn-active"
                           : "mealbook-btn-inactive"
                       }
-                      onClick={() =>
-                        this.setState(prevState => ({
-                          meal: {
-                            ...prevState.meal,
-                            experience: "bad"
-                          }
-                        }))
+                      onClick={() => this.editExperience("bad")
                       }
                     >
                       👎
@@ -297,6 +292,7 @@ class SingleMeal extends Component {
         </div>
         </div>
       </div>
+      <button onClick={() => this.props.deleteMeal(meal.id, meal.user_id)}>Delete</button>
       <Modal
           isOpen={this.state.modal}
           toggle={this.toggle}
@@ -331,5 +327,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getMeal, changeMeal }
+  { getMeal, changeMeal, deleteMeal }
 )(withRouter(SingleMeal));
