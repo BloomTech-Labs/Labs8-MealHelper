@@ -37,36 +37,48 @@ class SingleMeal extends Component {
     this.props.getMeal(mealID, userID);
     console.log("MEALID", mealID, "USERID", userID);
     console.log("single meal on props", this.props.singleMeal);
-    // axios
-    //   .get(
-    //     `https://labs8-meal-helper.herokuapp.com/recipe/single/${this.props.singleMeal.recipe_id}`
-    //   )
-    //   .then(response => {
-    //     this.setState({ recipe: response.data });
-    //     const recipe_id = this.state.recipe.id;
-
-    //     axios
-    //       .get(
-    //         `https://labs8-meal-helper.herokuapp.com/ingredients/recipe/${recipe_id}`
-    //       )
-    //       .then(response => {
-    //         this.setState({ ingredients: response.data });
-    //         axios
-    //           .get(
-    //             `https://labs8-meal-helper.herokuapp.com/nutrients/${recipe_id}`
-    //           )
-    //           .then(response => {
-    //             this.setState({ nutrition: response.data })
-    //           });
-    //       });
-    //   });
+    this.getNutrients();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     let userID = this.props.user.id;
     let { mealID } = this.props.match.params;
     if (JSON.stringify(this.props.singleMeal) !== JSON.stringify(prevProps.singleMeal)) {
       this.props.getMeal(mealID, userID);
+      this.getNutrients();
+    }
+    if (JSON.stringify(this.state.recipe) !== JSON.stringify(prevState.recipe)
+    || JSON.stringify(this.state.ingredients) !== JSON.stringify(prevState.ingredients)
+    || JSON.stringify(this.state.nutrition) !== JSON.stringify(prevState.nutrition)) {
+      this.getNutrients();
+    }
+  }
+
+  getNutrients() {
+    if(this.props.singleMeal) {
+    axios
+      .get(
+        `https://labs8-meal-helper.herokuapp.com/recipe/single/${this.props.singleMeal.recipe_id}`
+      )
+      .then(response => {
+        this.setState({ recipe: response.data });
+        const recipe_id = this.state.recipe.id;
+
+        axios
+          .get(
+            `https://labs8-meal-helper.herokuapp.com/ingredients/recipe/${recipe_id}`
+          )
+          .then(response => {
+            this.setState({ ingredients: response.data });
+            axios
+              .get(
+                `https://labs8-meal-helper.herokuapp.com/nutrients/${recipe_id}`
+              )
+              .then(response => {
+                this.setState({ nutrition: response.data }, () => console.log("nutrition", this.state.nutrition))
+              });
+          });
+      });
     }
   }
 
