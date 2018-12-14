@@ -706,30 +706,40 @@ server.put("/ingredients/:id/recipe/:recipeid", (req, res) => {
   const { name, recipe_id } = req.body;
   //Grabs the associated data from req.body and sets it as a JSON to recipe
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-  const ingredient = { name, ndb_id, recipe_id, user_id };
+  const ingredient = { name, ndb_id, user_id, recipe_id };
   db("ingredients")
     //Finds the corrosponding ingredients based on user ID
     .where({ recipe_id: rec_id })
-    .update({
-      ndb_id: ingredient.ndb_id,
-      name: ingredient.name,
-      recipe_id: ingredient.recipe_id,
-      user_id: ingredient.user_id
-    })
-    .then(ingredientID => {
-      db("ingredients")
-        //Finds the corrosponding ingredients based on user ID
-        .where({ recipe_id: id })
-        .then(ingredients => {
-          //Returns all the recipes from that user
-          res.status(200).json(ingredients);
-        })
-        .catch(err => {
-          res.status(400).json({ err, error: "could not find meal" });
-        });
+    .then(ingredients => {
+      console.log(ingredients);
+      if (ingredients.ndb_id !== ingredient.ndb_id) {
+        db("ingredients")
+          .where({ recipe_id: rec_id })
+          .update({
+            ndb_id: ingredient.ndb_id,
+            name: ingredient.name,
+            user_id: ingredient.user_id,
+            recipe_id: ingredient.recipe_id
+          })
+          .then(ingredientID => {
+            db("ingredients")
+              //Finds the corrosponding ingredients based on user ID
+              .where({ recipe_id: id })
+              .then(ingredients => {
+                //Returns all the recipes from that user
+                res.status(200).json(ingredients);
+              })
+              .catch(err => {
+                res.status(400).json({ err, error: "could not find meal" });
+              });
+          })
+          .catch(err => {
+            res.status(400).json({ error: "Could not update meal" });
+          });
+      }
     })
     .catch(err => {
-      res.status(400).json({ err, error: "Could not update meal" });
+      res.status(400).json({ err, error: "could not find meal" });
     });
 });
 
