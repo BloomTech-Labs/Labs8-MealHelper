@@ -462,31 +462,28 @@ server.put("/meals/:mealID", (req, res) => {
 
 //Deletes the meal using the meal id and returns 1 for deleted
 server.delete("/users/:id/meals/:mealId", (req, res) => {
-  const userID = req.params.id;
+  const id = req.params.id;
   const { mealId } = req.params;
   //Checks to make sure the id is an int
-  if (userID === parseInt(userID, 10)) {
-    db("mealList")
-      .where({ id: mealId })
-      .del()
-      .then(deleted => {
-        db("mealList")
-          //Finds the corrosponding meals based on user ID
-          .where({ user_id: userID })
-          .then(meal => {
-            //Returns all the meals from that user
-            res.status(200).json(meal);
-          })
-          .catch(err => {
-            res.status(400).json({ error: "Could not find meal" });
-          });
-      })
-      .catch(err => {
-        res.status(400).json({ error: "could not delete meals" });
-      });
-  } else {
-    res.status(400).json({ error: "No user identified" });
-  }
+
+  db("mealList")
+    .where({ id: mealId })
+    .del()
+    .then(deleted => {
+      db("mealList")
+        //Finds the corrosponding meals based on user ID
+        .where({ user_id: id })
+        .then(meal => {
+          //Returns all the meals from that user
+          res.status(200).json(meal);
+        })
+        .catch(err => {
+          res.status(400).json({ error: "Could not find meal" });
+        });
+    })
+    .catch(err => {
+      res.status(400).json({ error: "could not delete meals" });
+    });
 });
 //Should Delete ALL meals associated with a user ID and return 1 for deleted
 server.delete("/users/:id/meals/", (req, res) => {
