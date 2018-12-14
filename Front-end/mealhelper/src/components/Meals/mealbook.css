@@ -114,3 +114,16 @@
 .mealbook-btn-inactive:hover {
   cursor: pointer;
 }
+
+.add-new-mb {
+  padding: 10px 0;
+}
+
+.add-new-mb-btn {
+  background: #242424;
+  width: 200px;
+  height: 51px;
+  border: 1px solid #2f9dfe;
+  border-radius: 5px;
+  color: white;
+}

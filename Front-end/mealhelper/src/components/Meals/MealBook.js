@@ -69,8 +69,9 @@ class MealBook extends Component {
   }
 
   componentDidMount() {
-    let userID = this.props.user.userID;
-    this.props.getMeals(userID);
+    let userID = this.props.user.id;
+    // this.props.getMeals(userID);
+    console.log("this.props.user", this.props.user, "meals", this.props.meals)
   }
 
   componentDidUpdate(prevProps) {
@@ -148,6 +149,11 @@ class MealBook extends Component {
       </div>
     }
       </div>
+      <div className="add-new-mb">
+          <button className="add-new-mb-btn" onClick={() => this.props.history.push("/homepage/alarms/add-alarms")}>
+          <h3>Add New Meal</h3>
+          </button>
+          </div>
       </div>
       )
     }

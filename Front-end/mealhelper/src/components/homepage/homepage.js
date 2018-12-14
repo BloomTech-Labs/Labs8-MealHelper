@@ -34,6 +34,7 @@ class HomePage extends Component {
     } else {
       this.props.history.push("/");
     }
+    console.log("HOMEPAGE THIS.PROPS.USER.ID", this.props.user, this.props.user.id);
   };
   onToken = token => {
     console.log("onToken", token);
