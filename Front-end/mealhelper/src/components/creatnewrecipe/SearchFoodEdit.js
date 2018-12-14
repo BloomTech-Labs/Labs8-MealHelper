@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { changeRecipe, getRecipe } from "../../store/actions/recipeActions.js";
-import { addMultipleNutrients } from "../../store/actions/nutrientsActions";
-import { addMultipleIngredients } from "../../store/actions/ingredActions";
+import { updateMultipleNutrients } from "../../store/actions/nutrientsActions";
+import { updateMultipleIngredients } from "../../store/actions/ingredActions";
 import { withRouter, Link } from "react-router-dom";
 import axios from "axios";
 import Suggestions from "./Suggestions";
@@ -241,11 +241,12 @@ class SearchFoodEdit extends Component {
     console.log("1");
 
     console.log("this is state: " + this.state.calories);
+    const user_id = localStorage.getItem("user_id");
     const { calories } = this.state;
     const { name, servings } = this.props;
     const recipe = { name, calories, servings };
     const id = localStorage.getItem("recipe_id");
-    const data = await this.props.changeRecipe(recipe, id);
+    const data = await this.props.changeRecipe(recipe, id, user_id);
   }
 
   async saveRecipeIngredients() {
@@ -257,7 +258,7 @@ class SearchFoodEdit extends Component {
     let recipeID = recipe_ids.id;
     const id = localStorage.getItem("user_id");
     console.log("this is my user ID: " + id);
-    const data = await this.props.addMultipleIngredients(
+    const data = await this.props.updateMultipleIngredients(
       this.state.food,
       id,
       countIngredients,
@@ -272,7 +273,7 @@ class SearchFoodEdit extends Component {
     const recipeID = recipe_ids.id;
     const id = localStorage.getItem("user_id");
     let countNutrients = this.state.nutrients.length;
-    const data = await this.props.addMultipleNutrients(
+    const data = await this.props.updateMultipleNutrients(
       this.state.nutrients,
       id,
       countNutrients,
@@ -396,5 +397,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { changeRecipe, addMultipleNutrients, addMultipleIngredients }
+  { changeRecipe, updateMultipleNutrients, updateMultipleIngredients }
 )(withRouter(SearchFoodEdit));
