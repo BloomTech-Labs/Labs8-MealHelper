@@ -3,12 +3,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 // == Actions == //
-import {
-  getMeals,
-  changeMeal
-} from "../../store/actions/mealActions";
+import { getMeals, changeMeal } from "../../store/actions/mealActions";
 // == Styles == //
-import "./mealbook.css"
+import "./mealbook.css";
 
 const meals = [
   {
@@ -37,7 +34,7 @@ const meals = [
     notes: "oof ouch owie my teeth",
     date: "01/01/2018",
     servings: 123,
-    recipe_id: 2,
+    recipe_id: 2
   }
 ];
 
@@ -65,26 +62,24 @@ class MealBook extends Component {
       experience: "",
       ingredients: [],
       nutrition: []
-    }
+    };
   }
 
   componentDidMount() {
     let userID = this.props.user.id;
     this.props.getMeals(userID);
-    console.log("this.props.user", this.props.user, "meals", this.props.meals)
+    console.log("this.props.user", this.props.user, "meals", this.props.meals);
   }
 
   componentDidUpdate(prevProps) {
     let userID = this.props.user.userID;
-    if (
-      JSON.stringify(this.props.meals) !== JSON.stringify(prevProps.alarms)
-    ) {
+    if (JSON.stringify(this.props.meals) !== JSON.stringify(prevProps.meals)) {
       this.props.getMeals(userID);
     }
   }
 
   getNutrients(recipeID) {
-   const recipe = recipes.find(recipe => recipe.id === recipeID);
+    const recipe = recipes.find(recipe => recipe.id === recipeID);
     console.log("recipe", recipe, recipe.calories);
     return recipe.calories;
   }
@@ -94,71 +89,98 @@ class MealBook extends Component {
   }
 
   singleMealView(mealID) {
-    this.props.history.push(`homepage/meals/mealbook/${mealID}`)
+    this.props.history.push(`homepage/meals/mealbook/${mealID}`);
   }
 
   render() {
     const meals = this.props.meals;
-    return(
+    return (
       <div className="mealbook-full-width">
-      <div className="mealbook-container">
-      <div className="mealbook-heading"><h1>Meals</h1></div>
-
-      {meals.length ? meals.map(meal => (
-        <div className="mealbook-card"
-          key={meal.id}
-          id={meal.id}
-        >
-        {" "}
-        <br />
-        <div className="mealbook-text"
-        onClick={() => this.props.history.push(`/homepage/meals/mealbook/${meal.id}`)}>
-        <div className="mealbook-card-sec1">
-        <div className="mealbook-date"><p>{meal.date}</p></div>
-        <div className="mealbook-time"><p>{meal.mealTime}</p></div>
-        </div>
-        <div className="mealbook-card-sec2">
-        <div className="mealbook-name"><p>{meal.name}</p></div>
-        <div className="mealbook-serve"><p>{meal.servings} servings</p></div>
-        </div>
-        </div>
-        <div className="mealbook-nutr">
-        {/* <p>Calories: {this.getNutrients(meal.recipe_id)}</p> */}
-        <p>Protein: 000</p>
-        <p>Sugar: 000</p>
-        <p>Sodium: 000</p>
-        </div>
-        <div className="mealbook-exp">
-        <p>Experience:</p>
-        <div className="mealbook-buttons">
-          <button 
-          className={meal.experience === "good" ? "mealbook-btn-active" : "mealbook-btn-inactive"} 
-          onClick={() => console.log("GOOD")}>
-          👍
-          </button>
-          <button 
-          className={meal.experience === "bad" ? "mealbook-btn-active" : "mealbook-btn-inactive"} 
-          onClick={() => console.log("BAD")}>
-          👎 
-          </button>
-        </div>
-        </div>
-      </div>
-      ))
-      :
-      <div className="meal-card empty">
-      <div className="meal-text empty">You don't have any Meals.</div>
-      </div>
-    }
-      </div>
-      <div className="add-new-mb">
-          <button className="add-new-mb-btn" onClick={() => this.props.history.push("/homepage/meals/new")}>
-          <h3>Add New Meal</h3>
-          </button>
+        <div className="mealbook-container">
+          <div className="mealbook-heading">
+            <h1>Meals</h1>
           </div>
+
+          {meals.length ? (
+            meals.map(meal => (
+              <div className="mealbook-card" key={meal.id} id={meal.id}>
+                {" "}
+                <br />
+                <div
+                  className="mealbook-text"
+                  onClick={() =>
+                    this.props.history.push(
+                      `/homepage/meals/mealbook/${meal.id}`
+                    )
+                  }
+                >
+                  <div className="mealbook-card-sec1">
+                    <div className="mealbook-date">
+                      <p>{meal.date}</p>
+                    </div>
+                    <div className="mealbook-time">
+                      <p>{meal.mealTime}</p>
+                    </div>
+                  </div>
+                  <div className="mealbook-card-sec2">
+                    <div className="mealbook-name">
+                      <p>{meal.name}</p>
+                    </div>
+                    <div className="mealbook-serve">
+                      <p>{meal.servings} servings</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mealbook-nutr">
+                  {/* <p>Calories: {this.getNutrients(meal.recipe_id)}</p> */}
+                  <p>Protein: 000</p>
+                  <p>Sugar: 000</p>
+                  <p>Sodium: 000</p>
+                </div>
+                <div className="mealbook-exp">
+                  <p>Experience:</p>
+                  <div className="mealbook-buttons">
+                    <button
+                      className={
+                        meal.experience === "good"
+                          ? "mealbook-btn-active"
+                          : "mealbook-btn-inactive"
+                      }
+                      onClick={() => console.log("GOOD")}
+                    >
+                      👍
+                    </button>
+                    <button
+                      className={
+                        meal.experience === "bad"
+                          ? "mealbook-btn-active"
+                          : "mealbook-btn-inactive"
+                      }
+                      onClick={() => console.log("BAD")}
+                    >
+                      👎
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="meal-card empty">
+              <div className="meal-text empty">You don't have any Meals.</div>
+            </div>
+          )}
+        </div>
+        <div className="add-new-mb">
+          <button
+            className="add-new-mb-btn"
+            onClick={() => this.props.history.push("/homepage/meals/new")}
+          >
+            <h3>Add New Meal</h3>
+          </button>
+        </div>
       </div>
-      )
-    }
+    );
+  }
 }
 
 const mapStateToProps = state => ({

@@ -4,12 +4,9 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 // == Actions == //
-import { 
-  getMeal,
-  changeMeal
-} from "../../store/actions/mealActions";
+import { getMeal, changeMeal } from "../../store/actions/mealActions";
 // == Styles == //
-import "./singlemeal.css"
+import "./singlemeal.css";
 
 class SingleMeal extends Component {
   constructor(props) {
@@ -31,15 +28,16 @@ class SingleMeal extends Component {
       recipe: [],
       ingredients: [],
       nutrition: []
-    }
+    };
   }
 
   componentDidMount() {
-    const { mealID } = this.props.match.params;
-    const userID = this.props.user.id;
-    console.log("MEALID", mealID, "USERID", userID)
+    let userID = this.props.user.id;
+    let { mealID } = this.props.match.params;
+    
+    console.log("MEALID", mealID, "USERID", userID);
     this.props.getMeal(mealID, userID);
-    console.log("single meal on props", this.props.singleMeal)
+    console.log("single meal on props", this.props.singleMeal);
     // axios
     //   .get(
     //     `https://labs8-meal-helper.herokuapp.com/recipe/single/${this.props.singleMeal.recipe_id}`
@@ -66,87 +64,123 @@ class SingleMeal extends Component {
   }
 
   componentDidUpdate(prevProps) {
-
+    let userID = this.props.user.id;
+    let { mealID } = this.props.match.params;
+    if (JSON.stringify(this.props.singleMeal) !== JSON.stringify(prevProps.singleMeal)) {
+      this.props.getMeals(userID);
+    }
   }
 
   render() {
     const meal = this.state.meal;
-    return(
+    return (
       <div className="single-meal-full-width">
         <div className="single-meal-container">
           <div className="single-meal-bg">
             <div className="single-meal-content">
+
+              {meal.length 
+              ?
+              <div>
               <div className="single-meal-heading">
-              <div className="sm-top"><h1>{meal.mealTime}</h1></div>  
-              <div className="sm-bottom"><h3>{meal.date}</h3>
-                    <div className="sm-exp-buttons">
-                    <button 
-                      className={meal.experience === "good" ? "mealbook-btn-active" : "mealbook-btn-inactive"} 
-                      onClick={() => this.setState(prevState => ({ 
-                        meal: {
-                          ...prevState.meal,
-                          experience: "good"
-                        }
-                      }))}>
+                <div className="sm-top">
+                  <h1>{meal.mealTime}</h1>
+                </div>
+                <div className="sm-bottom">
+                  <h3>{meal.date}</h3>
+                  <div className="sm-exp-buttons">
+                    <button
+                      className={
+                        meal.experience === "good"
+                          ? "mealbook-btn-active"
+                          : "mealbook-btn-inactive"
+                      }
+                      onClick={() =>
+                        this.setState(prevState => ({
+                          meal: {
+                            ...prevState.meal,
+                            experience: "good"
+                          }
+                        }))
+                      }
+                    >
                       👍
                     </button>
-                    <button 
-                      className={meal.experience === "bad" ? "mealbook-btn-active" : "mealbook-btn-inactive"} 
-                      onClick={() => this.setState(prevState => ({ 
-                        meal: {
-                          ...prevState.meal,
-                          experience: "bad"
-                        }
-                      }))}>
-                      👎 
+                    <button
+                      className={
+                        meal.experience === "bad"
+                          ? "mealbook-btn-active"
+                          : "mealbook-btn-inactive"
+                      }
+                      onClick={() =>
+                        this.setState(prevState => ({
+                          meal: {
+                            ...prevState.meal,
+                            experience: "bad"
+                          }
+                        }))
+                      }
+                    >
+                      👎
                     </button>
-                    </div>
-                </div>  
+                  </div>
+                </div>
               </div>
               <div className="single-meal-details">
-              <div className="sm-details-top">
-                <p className="sm-recipe-name">Recipe Name</p>
-                <p className="sm-servings">{meal.servings} {meal.servings.length > 1 ? "servings" : "serving"}</p>
+                <div className="sm-details-top">
+                  <p className="sm-recipe-name">Recipe Name</p>
+                  <p className="sm-servings">
+                    {meal.servings}{" "}
+                    {meal.servings.length > 1 ? "servings" : "serving"}
+                  </p>
+                </div>
+                <div className="sm-details-middle">
+                  <table className="sm-nutrients-container">
+                    <tr className="sm-nutr-header-first">
+                      <th className="sm-nutrient-header">
+                        <p>Calories</p>
+                      </th>
+                      <th className="sm-nutrient-header">
+                        <p>Protein</p>
+                      </th>
+                      <th className="sm-nutrient-header">
+                        <p>Carbs</p>
+                      </th>
+                      <th className="sm-nutrient-header-last">
+                        <p>Fat</p>
+                      </th>
+                    </tr>
+                    <tr>
+                      <td>0000</td>
+                      <td>0000</td>
+                      <td>0000</td>
+                      <td>0000</td>
+                    </tr>
+                  </table>
+                </div>
+                <div className="sm-details-bottom">
+                  <div className="sm-notes">
+                    <h3>Notes</h3>
+                    {meal.notes}
+                  </div>
+                  <div className="sm-weather">
+                    <h3>Weather</h3>
+                  </div>
+                </div>
               </div>
-              <div className="sm-details-middle">
-              <table className="sm-nutrients-container">
-          <tr className="sm-nutr-header-first">
-            <th className="sm-nutrient-header">
-              <p>Calories</p>
-            </th>
-            <th className="sm-nutrient-header">
-              <p>Protein</p>
-            </th>
-            <th className="sm-nutrient-header">
-              <p>Carbs</p>
-            </th>
-            <th className="sm-nutrient-header-last">
-              <p>Fat</p>
-            </th>
-          </tr>
-          <tr>
-            <td>0000</td>
-            <td>0000</td>
-            <td>0000</td>
-            <td>0000</td>
-            </tr>
-        </table>
               </div>
-              <div className="sm-details-bottom">
-              <div className="sm-notes">
-              <h3>Notes</h3>
-              {meal.notes}
-              </div>
-              <div className="sm-weather">
-              <h3>Weather</h3>
-              </div>
-              </div>
-              </div>
-            </div>
-          </div>
+              :
+                      <div>
+                         <div className="meal-card empty">
+                          <div className="meal-text empty">Getting your meal...</div>
+                        </div>
+                      </div>
+                }
+        </div>
         </div>
       </div>
-    )
+      </div>
+    );
   }
 }
 
