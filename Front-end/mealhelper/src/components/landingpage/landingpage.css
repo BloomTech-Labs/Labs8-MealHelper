@@ -353,8 +353,8 @@
 }
 
 .btn {
-  margin-top: 8px;
-  margin-bottom: -5px;
+  margin-top: -5px;
+  margin-bottom: 3px;
   text-align: center;
 }
 
@@ -481,7 +481,7 @@
   border: none;
   outline: 0;
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 4px;
   padding: 8px;
   color: white;
   background-color: #000;
