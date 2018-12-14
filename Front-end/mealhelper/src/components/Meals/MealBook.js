@@ -14,7 +14,7 @@ const meals = [
     id: 1,
     user_id: 1,
     mealTime: "Breakfast",
-    experience: "good",
+    experience: "0",
     name: "Basic Morning Breakfast",
     temp: null,
     humidity: null,
@@ -192,21 +192,21 @@ class MealBook extends Component {
                   <div className="mealbook-buttons">
                     <button
                       className={
-                        meal.experience === "good"
+                        meal.experience === "0"
                           ? "mealbook-btn-active"
                           : "mealbook-btn-inactive"
                       }
-                      onClick={() => this.updateExperience(meal.id, "good")}
+                      onClick={() => this.updateExperience(meal.id, "0")}
                     >
                       👍
                     </button>
                     <button
                       className={
-                        meal.experience === "bad"
+                        meal.experience === "1"
                           ? "mealbook-btn-active"
                           : "mealbook-btn-inactive"
                       }
-                      onClick={() => this.updateExperience(meal.id, "bad")}
+                      onClick={() => this.updateExperience(meal.id, "1")}
                     >
                       👎
                     </button>
