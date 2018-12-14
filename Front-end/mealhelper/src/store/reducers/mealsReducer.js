@@ -60,7 +60,7 @@ export const mealsReducer = (state = initialState, action) => {
 		case GETTING_SINGLE_MEAL:
 			return { ...state, gettingMeal: true };
 		case GOT_SINGLE_MEAL:
-			return { ...state, gettingMeal: false, meals: action.payload };
+			return { ...state, gettingMeal: false, meal: action.payload };
 		case GETTING_SINGLE_MEAL_ERROR:
 			return { ...state, gettingMeal: false, error: action.payload };
 		case GETTING_MEALS:
