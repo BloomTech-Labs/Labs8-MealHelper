@@ -87,7 +87,7 @@ class HomePage extends Component {
             style={{ textDecoration: "none" }}
           >
             <Link
-              to="/homepage/meals/new"
+              to="/homepage/meals/mealbook"
               className="stat-divider"
               style={{ textDecoration: "none" }}
             >
@@ -113,7 +113,7 @@ class HomePage extends Component {
             style={{ textDecoration: "none" }}
           >
             <Link
-              to="/homepage/meals/new"
+              to="/homepage/meals/mealbook"
               className="stat-divider-live"
               style={{ textDecoration: "none" }}
             >

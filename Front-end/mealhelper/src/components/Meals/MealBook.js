@@ -150,7 +150,7 @@ class MealBook extends Component {
     }
       </div>
       <div className="add-new-mb">
-          <button className="add-new-mb-btn" onClick={() => this.props.history.push("/homepage/alarms/add-alarms")}>
+          <button className="add-new-mb-btn" onClick={() => this.props.history.push("/homepage/meals/new")}>
           <h3>Add New Meal</h3>
           </button>
           </div>
