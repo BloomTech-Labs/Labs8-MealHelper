@@ -712,7 +712,9 @@ server.put("/ingredients/:id/recipe/:recipeid", (req, res) => {
     .where({ recipe_id: rec_id })
     .update({
       ndb_id: ingredient.ndb_id,
-      name: ingredient.name
+      name: ingredient.name,
+      recipe_id: ingredient.recipe_id,
+      user_id: ingredient.user_id
     })
     .then(ingredientID => {
       db("ingredients")
@@ -727,7 +729,7 @@ server.put("/ingredients/:id/recipe/:recipeid", (req, res) => {
         });
     })
     .catch(err => {
-      res.status(400).json({ error: "Could not update meal" });
+      res.status(400).json({ err, error: "Could not update meal" });
     });
 });
 
