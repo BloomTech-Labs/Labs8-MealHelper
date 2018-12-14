@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
 // == Actions == //
 import { getMeals, changeMeal } from "../../store/actions/mealActions";
 import { getRecipe } from "../../store/actions/recipeActions";
@@ -61,6 +62,7 @@ class MealBook extends Component {
     super(props);
     this.state = {
       experience: "",
+      recipes: [],
       recipe: [],
       ingredients: [],
       nutrition: []
@@ -70,6 +72,7 @@ class MealBook extends Component {
   componentDidMount() {
     let userID = this.props.user.id;
     this.props.getMeals(userID);
+    this.props.getRecipe(userID);
     console.log("this.props.user", this.props.user, "meals", this.props.meals);
   }
 
@@ -78,15 +81,26 @@ class MealBook extends Component {
     if (JSON.stringify(this.props.meals) !== JSON.stringify(prevProps.meals)) {
       this.props.getMeals(userID);
     }
+    if (JSON.stringify(this.props.recipes) !== JSON.stringify(prevProps.recipes)) {
+      this.props.getRecipe(userID);
+    }
   }
 
   getRecipeName(recipeID) {
     //get all recipes for a user
     //look through the recipes for one that matches the recipe ID
     //return the recipe name
-    let userID = this.props.user.id;
-    this.props.getRecipe(userID);
-
+    // let userID = this.props.user.id;
+    // axios
+    //   .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${userID}`)
+    //   .then(response => {
+    //     this.setState({ recipes: response.data })
+    //   })
+    // // this.props.getRecipe(userID);
+    console.log("getRecipe", this.props.recipes)
+    const recipe = this.props.recipes.find(recipe => recipe.id === recipeID);
+    console.log("recipe", recipe);
+    //return recipe.name;
   }
 
   getNutrients(recipeID) {
@@ -161,7 +175,7 @@ class MealBook extends Component {
                   </div>
                   <div className="mealbook-card-sec2">
                     <div className="mealbook-name">
-                      <p>{meal.recipe_id}</p>
+                      <p>{this.getRecipeName(meal.recipe_id)}</p>
                     </div>
                     <div className="mealbook-serve">
                       <p>{meal.servings} servings</p>

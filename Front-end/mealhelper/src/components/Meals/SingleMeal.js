@@ -25,7 +25,7 @@ class SingleMeal extends Component {
         servings: 1,
         recipe_id: 1
       },
-      recipe: [],
+      recipe: {},
       ingredients: [],
       nutrition: []
     };
@@ -82,8 +82,54 @@ class SingleMeal extends Component {
     }
   }
 
+  calories() {
+    //pull all objects where nutrient === Energy
+   // const calories = this.state.nutrition.find(nutr => nutr.nutrient === "Energy");
+    let calories = this.state.nutrition.filter(nutr => nutr.nutrient === "Energy");
+    let calTotal = calories.reduce((cal, nutrient) => {
+      return cal += Number(nutrient.value)
+    }, 0);
+    console.log("calTotal", calTotal);
+    return calTotal;
+    //return obj.value
+  }
+
+  protein() {
+    //pull all objects where nutrient === Protein
+    //return obj.value
+    let protein = this.state.nutrition.filter(nutr => nutr.nutrient === "Protein");
+    let proTotal = protein.reduce((cal, nutrient) => {
+      return cal += Number(nutrient.value)
+    }, 0);
+    console.log("prTotal", proTotal);
+    return proTotal;
+  }
+
+  carbs() {
+    //pull all objects where nutrient === Carbohydrate, by difference
+    //return obbj.value
+    let carbs = this.state.nutrition.filter(nutr => nutr.nutrient === "Carboyhydrate, by difference");
+    let carbTotal = carbs.reduce((cal, nutrient) => {
+      return cal += Number(nutrient.value)
+    }, 0);
+    console.log("carbTotal", carbTotal);
+    return carbTotal;
+  }
+
+  fat() {
+//pull all objects where nutrient === Total lipid (fat)
+    //return obj.value
+    let fat = this.state.nutrition.filter(nutr => nutr.nutrient === "Total lipid (fat)");
+    let fatTotal = fat.reduce((cal, nutrient) => {
+      return cal += Number(nutrient.value)
+    }, 0);
+    console.log("fatTotal", fatTotal);
+    return fatTotal;
+  }
+
   render() {
     const meal = this.props.singleMeal;
+    const recipe = this.state.recipe;
     return (
       <div className="single-meal-full-width">
         <div className="single-meal-container">
@@ -139,7 +185,7 @@ class SingleMeal extends Component {
               </div>
               <div className="single-meal-details">
                 <div className="sm-details-top">
-                  <p className="sm-recipe-name">Recipe Name</p>
+                  <p className="sm-recipe-name">{recipe.name}</p>
                   <p className="sm-servings">
                     {meal.servings}{" "}
                     {meal.servings.length > 1 ? "servings" : "serving"}
@@ -162,10 +208,10 @@ class SingleMeal extends Component {
                       </th>
                     </tr>
                     <tr>
-                      <td>0000</td>
-                      <td>0000</td>
-                      <td>0000</td>
-                      <td>0000</td>
+                      <td>{this.calories()} g</td>
+                      <td>{this.protein()} g</td>
+                      <td>{this.carbs()} g</td>
+                      <td>{this.fat()} g</td>
                     </tr>
                   </table>
                 </div>
@@ -176,6 +222,14 @@ class SingleMeal extends Component {
                   </div>
                   <div className="sm-weather">
                     <h3>Weather</h3>
+                    {meal.temp ? 
+                    <div>
+                    <p>Temp: {meal.temp}</p>
+                    <p>Humidity: {meal.humidity}</p>
+                    <p>Pressure: {meal.pressure}</p>
+                    </div>
+                      : <div>N/A</div>}
+                    
                   </div>
                 </div>
               </div>
