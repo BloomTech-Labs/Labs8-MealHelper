@@ -421,6 +421,7 @@ server.put("/meals/:mealID", (req, res) => {
     recipe_id,
     servings
   } = req.body;
+  const userID = req.body.user_id;
   const meal = {
     user_id,
     mealTime,
@@ -443,7 +444,16 @@ server.put("/meals/:mealID", (req, res) => {
       servings: meal.servings
     })
     .then(meal => {
-      res.status(200).json(meal);
+      db("mealList")
+        //Finds the corrosponding meals based on user ID
+        .where({ user_id: userID })
+        .then(meal => {
+          //Returns all the meals from that user
+          res.status(200).json(meal);
+        })
+        .catch(err => {
+          res.status(400).json({ error: "Could not find meal" });
+        });
     })
     .catch(err => {
       res.status(400).json({ error: "Could not update meal" });
@@ -460,8 +470,16 @@ server.delete("/users/:id/meals/:mealId", (req, res) => {
       .where({ id: mealId })
       .del()
       .then(deleted => {
-        //Returns a 1 if deleted
-        res.status(200).json(deleted);
+        db("mealList")
+          //Finds the corrosponding meals based on user ID
+          .where({ user_id: userID })
+          .then(meal => {
+            //Returns all the meals from that user
+            res.status(200).json(meal);
+          })
+          .catch(err => {
+            res.status(400).json({ error: "Could not find meal" });
+          });
       })
       .catch(err => {
         res.status(400).json({ error: "could not delete meals" });
