@@ -80,7 +80,7 @@ export const recipesReducer = (state = initialState, action) => {
       return { ...state, deletingRecipe: true };
     case DELETED_RECIPE:
       //Returns the recipe
-      return { ...state, deletingRecipe: false, meals: action.payload };
+      return { ...state, deletingRecipe: false, recipes: action.payload };
     case DELETING_RECIPE_ERROR:
       //Shoots off if there is an error updating a recipe
       return { ...state, deletingRecipe: false, error: action.payload };
