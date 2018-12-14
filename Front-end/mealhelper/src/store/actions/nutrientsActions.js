@@ -7,6 +7,9 @@ export const ADDING_NUTRIENT_ERROR = "ADDING_NUTRIENT_ERROR";
 export const GETTING_NUTRIENT = "GETTING_NUTRIENT";
 export const GOT_NUTRIENT = "GOT_NUTRIENT";
 export const GETTING_NUTRIENT_ERROR = "GETTING_NUTRIENT_ERROR";
+export const UPDATING_NUTRIENT = "UPDATING_NUTRIENT";
+export const UPDATED_NUTRIENT = "UPDATED_NUTRIENT";
+export const UPDATING_NUTRIENT_ERROR = "UPDATING_NUTRIENT_ERROR";
 
 //Route to sign up a user
 export const addMultipleNutrients = (
@@ -53,5 +56,32 @@ export const getMultipleNutrients = (ingredient, userId) => dispatch => {
       .catch(err => {
         dispatch({ type: GETTING_NUTRIENT_ERROR, payload: err });
       });
+  }
+};
+export const updateMultipleNutrients = (
+  nutrient,
+  userID,
+  count,
+  recipe_id
+) => dispatch => {
+  console.log(nutrient);
+  for (let i = 0; i < count; i++) {
+    for (let j = 0; j < 4; j++) {
+      dispatch({ type: UPDATING_NUTRIENT });
+      const id = userID;
+      nutrient[i][j]["recipe_id"] = recipe_id;
+      console.log("This is what is posting at this second", nutrient[i][j]);
+      const promise = axios.put(
+        `https://labs8-meal-helper.herokuapp.com/nutrients/${id}`,
+        nutrient[i][j]
+      );
+      promise
+        .then(response => {
+          dispatch({ type: UPDATED_NUTRIENT, payload: response.data });
+        })
+        .catch(err => {
+          dispatch({ type: UPDATING_NUTRIENT_ERROR, payload: err });
+        });
+    }
   }
 };

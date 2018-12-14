@@ -337,7 +337,7 @@ server.get("/users/:userid/meals", (req, res) => {
 });
 
 server.get("/users/:id/meals/:mealId", (req, res) => {
-  const userId = req.params.userid;
+  const userId = req.params.id;
   const mealID = req.params.mealId;
   db("mealList")
     //Finds the corrosponding meals based on user ID
@@ -421,6 +421,7 @@ server.put("/meals/:mealID", (req, res) => {
     recipe_id,
     servings
   } = req.body;
+  const userID = req.body.user_id;
   const meal = {
     user_id,
     mealTime,
@@ -443,7 +444,16 @@ server.put("/meals/:mealID", (req, res) => {
       servings: meal.servings
     })
     .then(meal => {
-      res.status(200).json(meal);
+      db("mealList")
+        //Finds the corrosponding meals based on user ID
+        .where({ user_id: userID })
+        .then(meal => {
+          //Returns all the meals from that user
+          res.status(200).json(meal);
+        })
+        .catch(err => {
+          res.status(400).json({ error: "Could not find meal" });
+        });
     })
     .catch(err => {
       res.status(400).json({ error: "Could not update meal" });
@@ -460,8 +470,16 @@ server.delete("/users/:id/meals/:mealId", (req, res) => {
       .where({ id: mealId })
       .del()
       .then(deleted => {
-        //Returns a 1 if deleted
-        res.status(200).json(deleted);
+        db("mealList")
+          //Finds the corrosponding meals based on user ID
+          .where({ user_id: userID })
+          .then(meal => {
+            //Returns all the meals from that user
+            res.status(200).json(meal);
+          })
+          .catch(err => {
+            res.status(400).json({ error: "Could not find meal" });
+          });
       })
       .catch(err => {
         res.status(400).json({ error: "could not delete meals" });
@@ -559,25 +577,42 @@ server.post("/recipe/:userid", (req, res) => {
 });
 
 //PUT request to change the recipes, meal time, experience or experience
-server.put("/recipe/:id", (req, res) => {
+server.put("/recipe/:id/user/:userid", (req, res) => {
   //Grabs recipe ID from req.params
-  const id = req.params.id;
-  const { name, calories, servings, ingredients_id } = req.body;
+
+  const recipe_id = req.params.id;
+  const user_id = req.params.userid;
+  const { name, calories, servings } = req.body;
   //Grabs the associated data from req.body and sets it as a JSON to recipe
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-  const recipe = { name, calories, servings, ingredients_id };
+  const recipe = { name, user_id, calories, servings };
   db("recipe")
-    .where({ id: id })
+    .where({ id: recipe_id })
     .update({
       //UPDATES the name, calories etc of the recipe if needed.
       name: recipe.name,
       calories: recipe.calories,
-      servings: recipe.servings,
-      ingredients_id: recipe.ingredients_id
+      servings: recipe.servings
     })
     .then(meal => {
-      //Returns the ID of the meal changed
-      res.status(200).json(meal);
+      db("recipe")
+        //Finds the corrosponding recipes based on user ID
+        .where({ user_id: user_id })
+        .then(meal => {
+          db("recipe")
+            //Finds the corrosponding recipes based on user ID
+            .where({ user_id: user_id })
+            .then(meal => {
+              //Returns all the recipes from that user
+              res.status(200).json(meal);
+            })
+            .catch(err => {
+              res.status(400).json({ err, error: "could not find meal" });
+            });
+        })
+        .catch(err => {
+          res.status(400).json({ err, error: "could not find meal" });
+        });
     })
     .catch(err => {
       res.status(400).json({ error: "Could not update meal" });
@@ -681,27 +716,38 @@ server.post("/ingredients/:userid", (req, res) => {
 });
 
 //PUT request to change the ingredient
-server.put("/ingredients/:id", (req, res) => {
-  //Grabs recipe ID from req.params
-  const id = req.params.id;
-  const { ndb_id, name, nutrients_id } = req.body;
+server.post("/ingredients/:id/recipe/:recipeid", (req, res) => {
+  //grabs the user id from the req.params
+  const user_id = req.params.id;
+  const ndb_id = req.body.ndb_id;
+  const rec_id = req.params.recipeid;
+  const { name, recipe_id } = req.body;
   //Grabs the associated data from req.body and sets it as a JSON to recipe
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-  const ingredient = { ndb_id, name, nutrients_id, user_id };
+  const ingredient = { name, ndb_id, user_id, recipe_id };
   db("ingredients")
-    .where({ id: id })
-    .update({
-      //UPDATES the name, calories etc of the recipe if needed.
-      ndb_id: ingredient.ndb_id,
-      name: ingredient.name,
-      nutrients_id: ingredient.nutrients_id
-    })
-    .then(ingredientID => {
-      //Returns the ID of the meal changed
-      res.status(200).json(ingredientID);
+    .then(ingredients => {
+      db("ingredients")
+        .where({ recipe_id: rec_id })
+        .insert(ingredient)
+        .then(ingredientID => {
+          db("ingredients")
+            //Finds the corrosponding ingredients based on user ID
+            .where({ recipe_id: rec_id })
+            .then(ingredients => {
+              //Returns all the recipes from that user
+              res.status(200).json(ingredients);
+            })
+            .catch(err => {
+              res.status(400).json({ err, error: "could not find meal" });
+            });
+        })
+        .catch(err => {
+          res.status(400).json({ error: "Could not update meal" });
+        });
     })
     .catch(err => {
-      res.status(400).json({ error: "Could not update meal" });
+      res.status(400).json({ err, error: "could not find meal" });
     });
 });
 
@@ -710,7 +756,7 @@ server.delete("/ingredients/:id", (req, res) => {
   //Grabs the id from the API endpoint (front end job)
   const { id } = req.params;
   db("ingredients")
-    .where({ id: id })
+    .where({ recipe_id: id })
     //Deletes the records
     .del()
     .then(deleted => {
@@ -781,20 +827,20 @@ server.post("/nutrients/:id", (req, res) => {
 
 //PUT request to change the nutrient
 server.put("/nutrients/:id", (req, res) => {
-  //Grabs recipe ID from req.params
-  const id = req.params.id;
+  const user_id = req.params.id;
   //grabs the name unit and value from req.body
-  const { name, unit, value } = req.body;
+  const { nutrient, nutrient_id, unit, value, recipe_id } = req.body;
   //set the what we grabbed to a new "nutrient"
-  const nutrient = { name, unit, value };
+  const nutrientsAll = { nutrient, nutrient_id, unit, value, recipe_id };
 
   db("nutrients")
-    .where({ id: id })
+    .where({ recipe_id: recipe_id })
     .update({
       //UPDATES the name, calories etc of the recipe if needed.
-      name: nutrient.name,
-      unit: nutrient.unit,
-      value: nutrient.value
+      nutrient: nutrientsAll.name,
+      nutrient_id: nutrientsAll.nutrient_id,
+      unit: nutrientsAll.unit,
+      value: nutrientsAll.value
     })
     .then(nutrientID => {
       //Returns the ID of the meal changed
