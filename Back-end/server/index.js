@@ -337,7 +337,7 @@ server.get("/users/:userid/meals", (req, res) => {
 });
 
 server.get("/users/:id/meals/:mealId", (req, res) => {
-  const userId = req.params.userid;
+  const userId = req.params.id;
   const mealID = req.params.mealId;
   db("mealList")
     //Finds the corrosponding meals based on user ID
@@ -707,18 +707,28 @@ server.put("/ingredients/:id", (req, res) => {
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
   const ingredient = { name, ndb_id };
   db("ingredients")
-    .where({ recipe_id: recipe_id })
-    .update({
-      //UPDATES the name, calories etc of the recipe if needed.
-      ndb_id: ingredient.ndb_id,
-      name: ingredient.name
-    })
-    .then(ingredientID => {
-      //Returns the ID of the meal changed
-      res.status(200).json(ingredientID);
+    //Finds the corrosponding ingredients based on user ID
+    .where({ recipe_id: id })
+    .then(ingredients => {
+      if (ingredients.ndb_id !== ingredient.ndb_id) {
+        db("ingredients")
+          .where({ recipe_id: recipe_id })
+          .update({
+            //UPDATES the name, calories etc of the recipe if needed.
+            ndb_id: ingredient.ndb_id,
+            name: ingredient.name
+          })
+          .then(ingredientID => {
+            //Returns the ID of the meal changed
+            res.status(200).json(ingredientID);
+          })
+          .catch(err => {
+            res.status(400).json({ error: "Could not update meal" });
+          });
+      }
     })
     .catch(err => {
-      res.status(400).json({ error: "Could not update meal" });
+      res.status(400).json({ err, error: "could not find meal" });
     });
 });
 
