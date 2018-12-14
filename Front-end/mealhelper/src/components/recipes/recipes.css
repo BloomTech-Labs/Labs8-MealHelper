@@ -23,13 +23,14 @@ input[type="search"]::-webkit-search-cancel-button {
 .new-recipe-text {
   margin-top: 20px !important;
   margin-bottom: 20px;
+  color: white;
 }
 .recipe-input-1 {
   width: 495px;
   height: 594px;
   background: #242424;
   border: 1px solid #2f9dfe;
-  color: white;
+  color: #242424;
 }
 .recipe-nutrients-info {
   margin-top: 20px;
@@ -171,16 +172,17 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-left: 15%;
   margin-bottom: 0;
   margin-top: 20px;
+  color: white;
 }
 .save-recipe-button {
   width: 150px;
   height: 50px;
-  border: 1px solid #29fdfe;
-  background: white;
+  border-radius: 5px;
+  background: #242424;
   margin-top: 10px;
   font-family: "Roboto", sans-serif;
   text-decoration: none;
-  color: #242424;
+  color: white;
 }
 .save-recipe-button:hover {
   

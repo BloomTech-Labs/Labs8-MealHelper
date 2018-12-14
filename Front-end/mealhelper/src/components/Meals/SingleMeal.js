@@ -196,23 +196,23 @@ class SingleMeal extends Component {
                   <div className="sm-exp-buttons">
                     <button
                       className={
-                        meal.experience === "good"
+                        meal.experience === "0"
                           ? "mealbook-btn-active"
                           : "mealbook-btn-inactive"
                       }
                       onClick={() =>
-                        this.editExperience("good")
+                        this.editExperience("0")
                       }
                     >
                       👍
                     </button>
                     <button
                       className={
-                        meal.experience === "bad"
+                        meal.experience === "1"
                           ? "mealbook-btn-active"
                           : "mealbook-btn-inactive"
                       }
-                      onClick={() => this.editExperience("bad")
+                      onClick={() => this.editExperience("1")
                       }
                     >
                       👎
