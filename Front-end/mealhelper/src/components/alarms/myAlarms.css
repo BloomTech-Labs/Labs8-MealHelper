@@ -80,6 +80,12 @@
   margin-right: 5px;
 }
 
+.alarm-btn:hover {
+  color: #242424;
+  cursor: pointer;
+  background: #2f9dfe;
+}
+
 .delete {
   color: red;
   margin-right: 10px;
