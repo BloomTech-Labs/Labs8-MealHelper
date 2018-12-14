@@ -34,9 +34,8 @@ class SingleMeal extends Component {
   componentDidMount() {
     let userID = this.props.user.id;
     let { mealID } = this.props.match.params;
-    
-    console.log("MEALID", mealID, "USERID", userID);
     this.props.getMeal(mealID, userID);
+    console.log("MEALID", mealID, "USERID", userID);
     console.log("single meal on props", this.props.singleMeal);
     // axios
     //   .get(
@@ -67,19 +66,19 @@ class SingleMeal extends Component {
     let userID = this.props.user.id;
     let { mealID } = this.props.match.params;
     if (JSON.stringify(this.props.singleMeal) !== JSON.stringify(prevProps.singleMeal)) {
-      this.props.getMeals(userID);
+      this.props.getMeal(mealID, userID);
     }
   }
 
   render() {
-    const meal = this.state.meal;
+    const meal = this.props.singleMeal;
     return (
       <div className="single-meal-full-width">
         <div className="single-meal-container">
           <div className="single-meal-bg">
             <div className="single-meal-content">
 
-              {meal.length 
+              {meal
               ?
               <div>
               <div className="single-meal-heading">
