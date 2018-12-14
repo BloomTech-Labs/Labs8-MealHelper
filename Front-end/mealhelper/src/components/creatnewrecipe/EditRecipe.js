@@ -5,10 +5,10 @@ import axios from "axios";
 import { addRecipe, getRecipe } from "../../store/actions/recipeActions.js";
 import { getIngredients } from "../../store/actions/ingredActions";
 import { withRouter, Link } from "react-router-dom";
-import SearchFood from "./SearchFood";
+import SearchFoodEdit from "./SearchFoodEdit";
 import "../recipes/recipes.css";
 
-class CreateNewRecipe extends Component {
+class EditRecipe extends Component {
   constructor(props) {
     super(props);
 
@@ -16,15 +16,42 @@ class CreateNewRecipe extends Component {
       name: "",
       servings: 1,
       query: "",
-      ingredients: []
+      recipe: [],
+      ingredients: [],
+      nutrients: []
     };
   }
 
   componentDidMount() {
     if (localStorage.getItem("token")) {
-      const id = localStorage.getItem("user_id");
-      this.props.getRecipe(id);
-      this.props.getIngredients(id);
+      console.log(this.props);
+      const recipe_id = localStorage.getItem("recipe_id");
+      axios
+        .get(
+          `https://labs8-meal-helper.herokuapp.com/recipe/single/${recipe_id}`
+        )
+        .then(response => {
+          this.setState({
+            recipe: response.data,
+            name: response.data.name,
+            servings: response.data.servings
+          });
+
+          axios
+            .get(
+              `https://labs8-meal-helper.herokuapp.com/ingredients/recipe/${recipe_id}`
+            )
+            .then(response => {
+              this.setState({ ingredients: response.data });
+              axios
+                .get(
+                  `https://labs8-meal-helper.herokuapp.com/nutrients/${recipe_id}`
+                )
+                .then(response => {
+                  this.setState({ nutrition: response.data });
+                });
+            });
+        });
     } else {
       this.props.history.push("/");
     }
@@ -49,7 +76,7 @@ class CreateNewRecipe extends Component {
       <div className="recipe-container">
         <div className="new-recipe-holder">
           <div className="recipe-input-1">
-            <h1 className="new-recipe-text">Create A New Recipe</h1>
+            <h1 className="new-recipe-text">Edit Recipe</h1>
             <input
               id="name"
               className="name-recipe"
@@ -71,7 +98,12 @@ class CreateNewRecipe extends Component {
               placeholder="Servings. . ."
               required
             />
-            <SearchFood name={this.state.name} servings={this.state.servings} />
+
+            <SearchFoodEdit
+              ingredients={this.state.ingredients}
+              name={this.state.name}
+              servings={this.state.servings}
+            />
           </div>
         </div>
       </div>
@@ -90,4 +122,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { addRecipe, getRecipe, getIngredients }
-)(withRouter(CreateNewRecipe));
+)(withRouter(EditRecipe));

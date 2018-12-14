@@ -66,12 +66,15 @@ export const getRecipe = id => dispatch => {
     });
 };
 
-export const changeRecipe = recipe => dispatch => {
+export const changeRecipe = (recipe, recipeID, user_id) => dispatch => {
   dispatch({ type: PUTTING_RECIPE });
-  const recipeID = recipe.recipeID;
+
   axios
 
-    .put(`https://labs8-meal-helper.herokuapp.com/recipe/${recipeID}`, recipe)
+    .put(
+      `https://labs8-meal-helper.herokuapp.com/recipe/${recipeID}/user/${user_id}`,
+      recipe
+    )
     .then(response => {
       dispatch({ type: PUT_RECIPE, payload: response.data });
     })

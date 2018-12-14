@@ -29,6 +29,7 @@ const initialState = {
   addingRecipe: false,
   addedRecipe: false,
   updatingRecipe: false,
+  updatedRecipe: false,
   deletingRecipe: false,
   error: ""
 };
@@ -64,7 +65,12 @@ export const recipesReducer = (state = initialState, action) => {
       return { ...state, updatingRecipe: true };
     case PUT_RECIPE:
       //Returns a 1 if deleted and sets that in the user array (front end check for that)
-      return { ...state, updatingRecipe: false, meals: action.payload };
+      return {
+        ...state,
+        updatingRecipe: false,
+        updatedRecipe: true,
+        recipes: action.payload
+      };
     case PUTTING_RECIPE_ERROR:
       //Shoots off if there is an error deleting a recipe
       return { ...state, updatingRecipe: false, error: action.payload };

@@ -18,6 +18,7 @@ class SingleRecipe extends Component {
   componentDidMount() {
     if (localStorage.getItem("token")) {
       console.log(this.props);
+      localStorage.setItem("recipe_id", this.props.match.params.id);
       axios
         .get(
           `https://labs8-meal-helper.herokuapp.com/recipe/single/${
@@ -53,7 +54,9 @@ class SingleRecipe extends Component {
     this.props.deleteRecipe(id, userid);
     this.props.history.push("/homepage");
   };
-
+  routeChange = () => {
+    this.props.history.push(`/recipe/${this.state.recipe.id}/edit`);
+  };
   render() {
     return (
       <div className="single-recipe-container">
@@ -77,8 +80,8 @@ class SingleRecipe extends Component {
         </div>
         <div className="single-recipe-buttons">
           <button
-            disabled={true}
-            className="single-recipe-edit-button-disabled"
+            onClick={this.routeChange}
+            className="single-recipe-edit-button"
           >
             Edit Recipe
           </button>
