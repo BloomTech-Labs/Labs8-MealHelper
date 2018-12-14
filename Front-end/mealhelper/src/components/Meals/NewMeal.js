@@ -87,6 +87,7 @@ class Meals extends Component {
       };
       console.log("your meal: " + meal);
       this.props.addMeal(meal);
+      this.props.history.push("/homepage/meals/mealbook");
     }
   };
   toggle() {
