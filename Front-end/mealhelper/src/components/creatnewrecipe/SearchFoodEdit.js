@@ -50,7 +50,7 @@ class SearchFoodEdit extends Component {
           for (let i = 0; i < this.state.food.length; i++) {
             axios
               .get(
-                `https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6&nutrients=208&nutrients=203&nutrients=204&nutrients=205&ndbno=${
+                `https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6&nutrients=208&nutrients=203&nutrients=204&nutrients=205&ndbid=${
                   this.state.food[i].ndb_id
                 }`
               )
