@@ -716,7 +716,7 @@ server.post("/ingredients/:userid", (req, res) => {
 });
 
 //PUT request to change the ingredient
-server.put("/ingredients/:id/recipe/:recipeid", (req, res) => {
+server.post("/ingredients/:id/recipe/:recipeid", (req, res) => {
   //grabs the user id from the req.params
   const user_id = req.params.id;
   const ndb_id = req.body.ndb_id;
@@ -733,16 +733,12 @@ server.put("/ingredients/:id/recipe/:recipeid", (req, res) => {
       if (ingredients.ndb_id !== ingredient.ndb_id) {
         db("ingredients")
           .where({ recipe_id: rec_id })
-          .update({
-            ndb_id: ingredient.ndb_id,
-            name: ingredient.name,
-            user_id: ingredient.user_id,
-            recipe_id: ingredient.recipe_id
-          })
+          .del()
+          .insert(ingredient)
           .then(ingredientID => {
             db("ingredients")
               //Finds the corrosponding ingredients based on user ID
-              .where({ recipe_id: id })
+              .where({ recipe_id: rec_id })
               .then(ingredients => {
                 //Returns all the recipes from that user
                 res.status(200).json(ingredients);
