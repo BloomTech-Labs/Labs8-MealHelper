@@ -78,7 +78,7 @@ class MealBook extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // let userID = this.props.user.userID;
+    // let userID = this.props.user.id;
     let userID = localStorage.getItem("user_id");
     if (JSON.stringify(this.props.meals) !== JSON.stringify(prevProps.meals)) {
       this.props.getMeals(userID);

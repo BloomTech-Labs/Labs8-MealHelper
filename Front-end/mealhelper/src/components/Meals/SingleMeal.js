@@ -7,6 +7,7 @@ import axios from "axios";
 import { getMeal, changeMeal } from "../../store/actions/mealActions";
 // == Styles == //
 import "./singlemeal.css";
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 
 class SingleMeal extends Component {
   constructor(props) {
@@ -25,6 +26,9 @@ class SingleMeal extends Component {
         servings: 1,
         recipe_id: 1
       },
+      mealToUpdate: {},
+      modal: false,
+      notes: "",
       recipe: {},
       ingredients: [],
       nutrition: []
@@ -52,6 +56,9 @@ class SingleMeal extends Component {
     || JSON.stringify(this.state.nutrition) !== JSON.stringify(prevState.nutrition)) {
       this.getNutrients();
     }
+    if (JSON.stringify(this.props.meals) !== JSON.stringify(prevProps.meals)) {
+      this.props.getMeal(mealID, userID);
+    }      
   }
 
   getNutrients() {
@@ -126,6 +133,36 @@ class SingleMeal extends Component {
     console.log("fatTotal", fatTotal);
     return Math.round(fatTotal);
   }
+
+
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal
+    });
+  };
+
+  sendToEdit(noteChange) {
+    this.toggle();
+    const notes = noteChange;
+    const mealBody = { ...this.props.singleMeal, notes };
+    console.log("mealBody", mealBody)
+   this.props.changeMeal(mealBody);
+  }
+
+  showModal = () => {
+    this.toggle();
+    const mealToUpdate = this.state.meal;
+    this.setState({
+      mealToUpdate
+    })
+  };
+
+  handleChange = event => {
+    event.preventDefault();
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
 
   render() {
     const meal = this.props.singleMeal;
@@ -218,7 +255,8 @@ class SingleMeal extends Component {
                 <div className="sm-details-bottom">
                   <div className="sm-notes">
                     <h3>Notes</h3>
-                    {meal.notes}
+                    <p>{meal.notes}</p>
+                    <button onClick={() => this.showModal()}>Edit</button>
                   </div>
                   <div className="sm-weather">
                   
@@ -259,6 +297,27 @@ class SingleMeal extends Component {
         </div>
         </div>
       </div>
+      <Modal
+          isOpen={this.state.modal}
+          toggle={this.toggle}
+          >
+            <ModalHeader
+              toggle={this.toggle}>Edit Meal</ModalHeader>
+           <ModalBody>
+             <p>Notes:</p>
+             <textarea 
+              id="notes"
+              name="notes"
+              type="label"
+              value={this.state.notes}
+              placeholder={this.state.notes}
+              onChange={this.handleChange}
+             />              
+             <Button color="info" onClick={() => this.sendToEdit(this.state.notes)}>
+                Submit
+              </Button>
+           </ModalBody>
+         </Modal>
       </div>
     );
   }
