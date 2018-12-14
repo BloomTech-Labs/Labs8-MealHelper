@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getMeals } from "../../store/actions/mealActions.js";
 import { getRecipe } from "../../store/actions/recipeActions";
 import { withRouter, Link, Route } from "react-router-dom";
-// import { Alert } from "reactstrap";
+import { Alert } from "reactstrap";
 import axios from "axios";
 import Recipe from "./recipe";
 import "./recipes.css";
@@ -17,8 +17,10 @@ class MyRecipes extends Component {
       list: [],
       search: "",
       name: "",
-      ndbno: null
+      ndbno: null,
+      visable: false
     };
+    this.onDismiss = this.onDismiss.bind(this);
   }
   componentDidMount() {
     if (localStorage.getItem("token")) {
@@ -54,13 +56,27 @@ class MyRecipes extends Component {
         });
     }
   }
+  onDismiss() {
+    this.setState({ visible: false });
+  }
+  alert = () => {
+    this.setState({ visable: true });
+  };
   deleteRecipe = (id, userid) => {
     console.log(userid);
+    setTimeout(this.alert, 4000);
     this.props.deleteRecipe(id, userid);
   };
   render() {
     return (
       <div className="recipe-div-container">
+        <Alert
+          color="success"
+          isOpen={this.state.visible}
+          toggle={this.onDismiss}
+        >
+          Successfully Deleted Recipe! Redirecting...
+        </Alert>
         <div className="recipe-container">
           <div className="recipe-book">
             {this.state.list.map(item => (
