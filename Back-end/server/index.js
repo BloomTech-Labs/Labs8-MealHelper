@@ -698,15 +698,15 @@ server.post("/ingredients/:userid", (req, res) => {
 });
 
 //PUT request to change the ingredient
-server.put("/ingredients/recipe/:recipeid", (req, res) => {
+server.put("/ingredients/:id/recipe/:recipeid", (req, res) => {
   //grabs the user id from the req.params
-
+  const user_id = req.params.id;
   const ndb_id = req.body.ndb_id;
   const rec_id = req.params.recipeid;
   const { name, recipe_id } = req.body;
   //Grabs the associated data from req.body and sets it as a JSON to recipe
   //NOTE: ingredients_id is a string of ids, needs to be de stringified on front end
-  const ingredient = { name, ndb_id, user_id };
+  const ingredient = { name, ndb_id, recipe_id, user_id };
   db("ingredients")
     //Finds the corrosponding ingredients based on user ID
     .where({ recipe_id: rec_id })
