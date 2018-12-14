@@ -297,7 +297,9 @@ class SingleMeal extends Component {
         </div>
         </div>
       </div>
-      <button onClick={() => this.deletePush(meal.id, meal.user_id)}>Delete</button>
+      <div className="delete-sm">
+      <button className="delete-sm-btn" onClick={() => this.deletePush(meal.id, meal.user_id)}>Delete</button>
+      </div>
       <Modal
           isOpen={this.state.modal}
           toggle={this.toggle}
