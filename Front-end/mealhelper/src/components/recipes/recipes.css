@@ -214,6 +214,7 @@ input[type="search"]::-webkit-search-cancel-button {
   width: 60px;
   height: 30px;
   margin-top: 65px;
+  margin-right: 3%;
   font-weight: bolder;
 }
 .delete-recipe:hover {
@@ -291,4 +292,11 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 .single-recipe-buttons {
   margin: 30px auto;
+}
+.single-recipe-plz {
+  display: flex;
+}
+.a-tags {
+  margin: 0 auto;
+  width: 90%;
 }
