@@ -106,7 +106,7 @@ class SaveMealViewController: UIViewController {
         guard let recipes = recipes else { return }
         
         let date = Utils().dateString(for: Date())
-        let zipCode = UserDefaults().loggedInZipCode()!
+        let zipCode = UserDefaults().loggedInZipCode()
         var temp: Double?
         var humidity: Double?
         var pressure: Double?
