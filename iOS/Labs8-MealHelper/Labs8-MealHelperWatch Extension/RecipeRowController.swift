@@ -6,4 +6,10 @@
 //  Copyright © 2018 De MicheliStefano. All rights reserved.
 //
 
-import Foundation
+import WatchKit
+
+class RecipeRowController: NSObject {
+    
+    @IBOutlet weak var recipeNameLabel: WKInterfaceLabel!
+    
+}
