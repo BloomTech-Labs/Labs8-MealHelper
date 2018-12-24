@@ -19,7 +19,7 @@
                         </label>
                         <table alignment="left" id="hJ3-ly-g4e">
                             <items>
-                                <tableRow identifier="RecipeRow" id="y8J-6g-8yl" customClass="RecipeRowController" customModule="Labs8_MealHelperWatch_Extension">
+                                <tableRow identifier="RecipeRow" id="y8J-6g-8yl" customClass="RecipeRowController" customModule="Labs8_MealHelperWatchExtension">
                                     <group key="rootItem" width="1" alignment="left" id="aW6-HY-jB8">
                                         <items>
                                             <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="r3N-q4-iiE">
@@ -44,7 +44,7 @@
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
             <objects>
-                <notificationController id="YCC-NB-fut">
+                <notificationController id="YCC-NB-fut" customClass="NotificationController" customModule="Labs8_MealHelperWatchExtension">
                     <items>
                         <label alignment="left" text="Time to eat! Please add your meal below." numberOfLines="0" id="IdU-wH-bcW"/>
                     </items>
@@ -52,7 +52,6 @@
                     <connections>
                         <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
                         <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
-                        <segue destination="eXb-UN-Cd0" kind="relationship" relationship="dynamicInteractiveNotificationInterface" id="mpB-YA-K8N"/>
                     </connections>
                 </notificationController>
             </objects>
@@ -61,16 +60,13 @@
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
             <objects>
-                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Labs8_MealHelperWatch" customModuleProvider="target"/>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Labs8_MealHelperWatchExtension">
+                    <items>
+                        <label alignment="left" text="Time to eat! Please add your meal below." numberOfLines="0" id="Qz3-c0-POQ"/>
+                    </items>
+                </controller>
             </objects>
-            <point key="canvasLocation" x="500" y="643"/>
-        </scene>
-        <!--Notification Controller-->
-        <scene sceneID="Niz-AI-uX2">
-            <objects>
-                <controller id="eXb-UN-Cd0" customClass="NotificationController" customModule="Labs8_MealHelperWatch" customModuleProvider="target"/>
-            </objects>
-            <point key="canvasLocation" x="500" y="345"/>
+            <point key="canvasLocation" x="458" y="643"/>
         </scene>
     </scenes>
 </document>
