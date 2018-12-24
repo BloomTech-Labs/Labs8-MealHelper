@@ -21,8 +21,9 @@ class InterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        registerUserNotificationSettings()
-        scheduleLocalNotification()
+        //registerUserNotificationSettings()
+        //scheduleLocalNotification()
+        UNUserNotificationCenter.current().delegate = self
         watchClient.fetchRecipes(for: 17) { (recipes, error) in
             if let error = error {
                 NSLog("Error fetching recipes: \(error)")
@@ -66,40 +67,11 @@ extension InterfaceController {
                 let lunchAction = UNNotificationAction(identifier: "lunch", title: "Lunch", options: .foreground)
                 let dinnerAction = UNNotificationAction(identifier: "dinner", title: "Dinner", options: .foreground)
                 let mealEntryCategory = UNNotificationCategory(identifier: "MealEntry", actions: [snackAction, breakfastAction, lunchAction, dinnerAction], intentIdentifiers: [], options: [])
-                UNUserNotificationCenter.current().setNotificationCategories([mealEntryCategory])
+            UNUserNotificationCenter.current().setNotificationCategories([mealEntryCategory])
                 UNUserNotificationCenter.current().delegate = self
                 NSLog("Successfully registered notification support")
             } else {
                 NSLog("Error registering notification: \(String(describing: error?.localizedDescription))")
-            }
-        }
-    }
-    
-    func scheduleLocalNotification() {
-        
-        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-            if settings.alertSetting == .enabled {
-                
-                
-                let notificationContent = UNMutableNotificationContent()
-                notificationContent.title = "Pawsome"
-                
-                var date = DateComponents()
-                date.minute = 34
-                let notificationTrigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
-                
-                
-                let notificationRequest = UNNotificationRequest(identifier: "Pawsome", content: notificationContent, trigger: notificationTrigger)
-                
-                UNUserNotificationCenter.current().add(notificationRequest) { (error) in
-                    if let error = error {
-                        print("⌚️⌚️⌚️ERROR:\(error.localizedDescription)")
-                    } else {
-                        print("⌚️⌚️⌚️Local notification was scheduled")
-                    }
-                }
-            } else {
-                print("⌚️⌚️⌚️Notification alerts are disabled")
             }
         }
     }
@@ -112,22 +84,35 @@ extension InterfaceController: UNUserNotificationCenterDelegate {
         // Get userId
         // Fetch the user's saved recipes
         // Populate tableview with meals
-        watchClient.fetchRecipes(for: 2) { (recipes, error) in
-            if let error = error {
-                NSLog("Error fetching recipes: \(error)")
-            }
-            
-            if let recipes = recipes {
-                self.recipes = recipes
-            }
-        }
+//        watchClient.fetchRecipes(for: 2) { (recipes, error) in
+//            if let error = error {
+//                NSLog("Error fetching recipes: \(error)")
+//            }
+//
+//            if let recipes = recipes {
+//                self.recipes = recipes
+//            }
+//        }
         
         completionHandler([.alert, .sound])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        // Called when user performs an action on notification
         // Check what meal time the user chose
-        
+        switch response.actionIdentifier {
+        case "snack":
+            print("snack")
+        case "breakfast":
+            print("breakfast")
+        case "lunch":
+            print("lunch")
+        case "dinner":
+            print("dinner")
+        default:
+            break
+        }
+        // provide completionhandler with a block to be executed
         completionHandler()
     }
     

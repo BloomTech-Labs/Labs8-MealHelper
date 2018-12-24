@@ -33,20 +33,20 @@
 		3D90DE712194D46D006C116B /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D90DE702194D46D006C116B /* Login.xcassets */; };
 		3D9D0BE321C410990041BB0A /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D9D0BE121C410990041BB0A /* Interface.storyboard */; };
 		3D9D0BE521C4109B0041BB0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D9D0BE421C4109B0041BB0A /* Assets.xcassets */; };
-		3D9D0BEC21C4109B0041BB0A /* Labs8-MealHelperWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3D9D0BEB21C4109B0041BB0A /* Labs8-MealHelperWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3D9D0BF121C4109B0041BB0A /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D0BF021C4109B0041BB0A /* InterfaceController.swift */; };
 		3D9D0BF321C4109B0041BB0A /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D0BF221C4109B0041BB0A /* ExtensionDelegate.swift */; };
 		3D9D0BF521C4109B0041BB0A /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D0BF421C4109B0041BB0A /* NotificationController.swift */; };
 		3D9D0BF721C4109C0041BB0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D9D0BF621C4109C0041BB0A /* Assets.xcassets */; };
 		3D9D0BFC21C4109C0041BB0A /* Labs8-MealHelperWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 3D9D0BDF21C410990041BB0A /* Labs8-MealHelperWatch.app */; };
 		3D9D0C0621C418210041BB0A /* WatchClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D0C0521C418210041BB0A /* WatchClient.swift */; };
-		3D9D0C0821C41DB20041BB0A /* RecipeRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D0C0721C41DB20041BB0A /* RecipeRowController.swift */; };
 		3DB18BE82196FAB800C0E728 /* InputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB18BE72196FAB800C0E728 /* InputField.swift */; };
 		3DB43E2521B6E6DC008111C0 /* FoodClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB43E2421B6E6DB008111C0 /* FoodClient.swift */; };
 		3DB65F272196200D007AA68A /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F242196200D007AA68A /* HTTPMethod.swift */; };
 		3DB65F282196200D007AA68A /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F252196200D007AA68A /* APIClient.swift */; };
 		3DB65F292196200D007AA68A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB65F262196200D007AA68A /* Response.swift */; };
 		3DDB4A1C21A774E4007A1B5E /* SwipeableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDB4A1B21A774E4007A1B5E /* SwipeableViewController.swift */; };
+		3DE1F86821CF98640077D076 /* Labs8-MealHelperWatchExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3D9D0BEB21C4109B0041BB0A /* Labs8-MealHelperWatchExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3DE1F86D21D09E160077D076 /* RecipeRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1F86C21D09E160077D076 /* RecipeRowController.swift */; };
 		3DFEEDAE21A2E85100465FCB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DFEEDAD21A2E85100465FCB /* GoogleService-Info.plist */; };
 		3DFEEDB021A2FBA300465FCB /* BarcodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFEEDAF21A2FBA300465FCB /* BarcodeScanner.swift */; };
 		3E366CC5BED1B159C22D871B /* Pods_Labs8_MealHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C929C04E5DFBF4768E6A363 /* Pods_Labs8_MealHelper.framework */; };
@@ -99,19 +99,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3D9D0BED21C4109B0041BB0A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3D56A9C621934FAA00A91EF4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3D9D0BEA21C4109B0041BB0A;
-			remoteInfo = "Labs8-MealHelperWatch Extension";
-		};
 		3D9D0BFA21C4109C0041BB0A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3D56A9C621934FAA00A91EF4 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 3D9D0BDE21C410990041BB0A;
 			remoteInfo = "Labs8-MealHelperWatch";
+		};
+		3DE1F86921CF98640077D076 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D56A9C621934FAA00A91EF4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D9D0BEA21C4109B0041BB0A;
+			remoteInfo = "Labs8-MealHelperWatch Extension";
 		};
 		AC4D10712194A79600317F4C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -130,17 +130,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3D9D0C0221C4109C0041BB0A /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				3D9D0BEC21C4109B0041BB0A /* Labs8-MealHelperWatch Extension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		3D9D0C0421C4109C0041BB0A /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -150,6 +139,17 @@
 				3D9D0BFC21C4109C0041BB0A /* Labs8-MealHelperWatch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DE1F86B21CF98650077D076 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				3DE1F86821CF98640077D076 /* Labs8-MealHelperWatchExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AC1DE86421946EB80066172C /* Embed Frameworks */ = {
@@ -196,7 +196,7 @@
 		3D9D0BE221C410990041BB0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		3D9D0BE421C4109B0041BB0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D9D0BE621C4109B0041BB0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3D9D0BEB21C4109B0041BB0A /* Labs8-MealHelperWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Labs8-MealHelperWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D9D0BEB21C4109B0041BB0A /* Labs8-MealHelperWatchExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Labs8-MealHelperWatchExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D9D0BF021C4109B0041BB0A /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		3D9D0BF221C4109B0041BB0A /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		3D9D0BF421C4109B0041BB0A /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
@@ -204,13 +204,13 @@
 		3D9D0BF821C4109C0041BB0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D9D0BF921C4109C0041BB0A /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		3D9D0C0521C418210041BB0A /* WatchClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchClient.swift; sourceTree = "<group>"; };
-		3D9D0C0721C41DB20041BB0A /* RecipeRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRowController.swift; sourceTree = "<group>"; };
 		3DB18BE72196FAB800C0E728 /* InputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputField.swift; sourceTree = "<group>"; };
 		3DB43E2421B6E6DB008111C0 /* FoodClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodClient.swift; path = "Labs8-MealHelper/Networking/FoodClient.swift"; sourceTree = SOURCE_ROOT; };
 		3DB65F242196200D007AA68A /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPMethod.swift; path = "Labs8-MealHelper/Networking/HTTPMethod.swift"; sourceTree = SOURCE_ROOT; };
 		3DB65F252196200D007AA68A /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIClient.swift; path = "Labs8-MealHelper/Networking/APIClient.swift"; sourceTree = SOURCE_ROOT; };
 		3DB65F262196200D007AA68A /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Response.swift; path = "Labs8-MealHelper/Networking/Response.swift"; sourceTree = SOURCE_ROOT; };
 		3DDB4A1B21A774E4007A1B5E /* SwipeableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableViewController.swift; sourceTree = "<group>"; };
+		3DE1F86C21D09E160077D076 /* RecipeRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRowController.swift; sourceTree = "<group>"; };
 		3DFEEDAD21A2E85100465FCB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3DFEEDAF21A2FBA300465FCB /* BarcodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScanner.swift; sourceTree = "<group>"; };
 		41CE98120756C3041BA30512 /* Pods-Labs8-MealHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Labs8-MealHelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Labs8-MealHelper/Pods-Labs8-MealHelper.debug.xcconfig"; sourceTree = "<group>"; };
@@ -344,7 +344,7 @@
 			children = (
 				3D56A9CE21934FAA00A91EF4 /* Labs8-MealHelper.app */,
 				3D9D0BDF21C410990041BB0A /* Labs8-MealHelperWatch.app */,
-				3D9D0BEB21C4109B0041BB0A /* Labs8-MealHelperWatch Extension.appex */,
+				3D9D0BEB21C4109B0041BB0A /* Labs8-MealHelperWatchExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -415,7 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				3D9D0BF021C4109B0041BB0A /* InterfaceController.swift */,
-				3D9D0C0721C41DB20041BB0A /* RecipeRowController.swift */,
+				3DE1F86C21D09E160077D076 /* RecipeRowController.swift */,
 				3D9D0BF221C4109B0041BB0A /* ExtensionDelegate.swift */,
 				3D9D0BF421C4109B0041BB0A /* NotificationController.swift */,
 				3D9D0C0521C418210041BB0A /* WatchClient.swift */,
@@ -608,21 +608,21 @@
 			buildConfigurationList = 3D9D0C0321C4109C0041BB0A /* Build configuration list for PBXNativeTarget "Labs8-MealHelperWatch" */;
 			buildPhases = (
 				3D9D0BDD21C410990041BB0A /* Resources */,
-				3D9D0C0221C4109C0041BB0A /* Embed App Extensions */,
+				3DE1F86B21CF98650077D076 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3D9D0BEE21C4109B0041BB0A /* PBXTargetDependency */,
+				3DE1F86A21CF98640077D076 /* PBXTargetDependency */,
 			);
 			name = "Labs8-MealHelperWatch";
 			productName = "Labs8-MealHelperWatch";
 			productReference = 3D9D0BDF21C410990041BB0A /* Labs8-MealHelperWatch.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
-		3D9D0BEA21C4109B0041BB0A /* Labs8-MealHelperWatch Extension */ = {
+		3D9D0BEA21C4109B0041BB0A /* Labs8-MealHelperWatchExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3D9D0C0121C4109C0041BB0A /* Build configuration list for PBXNativeTarget "Labs8-MealHelperWatch Extension" */;
+			buildConfigurationList = 3D9D0C0121C4109C0041BB0A /* Build configuration list for PBXNativeTarget "Labs8-MealHelperWatchExtension" */;
 			buildPhases = (
 				3D9D0BE721C4109B0041BB0A /* Sources */,
 				3D9D0BE821C4109B0041BB0A /* Frameworks */,
@@ -632,9 +632,9 @@
 			);
 			dependencies = (
 			);
-			name = "Labs8-MealHelperWatch Extension";
+			name = "Labs8-MealHelperWatchExtension";
 			productName = "Labs8-MealHelperWatch Extension";
-			productReference = 3D9D0BEB21C4109B0041BB0A /* Labs8-MealHelperWatch Extension.appex */;
+			productReference = 3D9D0BEB21C4109B0041BB0A /* Labs8-MealHelperWatchExtension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
@@ -684,7 +684,7 @@
 			targets = (
 				3D56A9CD21934FAA00A91EF4 /* Labs8-MealHelper */,
 				3D9D0BDE21C410990041BB0A /* Labs8-MealHelperWatch */,
-				3D9D0BEA21C4109B0041BB0A /* Labs8-MealHelperWatch Extension */,
+				3D9D0BEA21C4109B0041BB0A /* Labs8-MealHelperWatchExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -873,7 +873,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D9D0C0821C41DB20041BB0A /* RecipeRowController.swift in Sources */,
+				3DE1F86D21D09E160077D076 /* RecipeRowController.swift in Sources */,
 				3D9D0BF521C4109B0041BB0A /* NotificationController.swift in Sources */,
 				3D9D0BF321C4109B0041BB0A /* ExtensionDelegate.swift in Sources */,
 				3D9D0C0621C418210041BB0A /* WatchClient.swift in Sources */,
@@ -884,15 +884,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3D9D0BEE21C4109B0041BB0A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3D9D0BEA21C4109B0041BB0A /* Labs8-MealHelperWatch Extension */;
-			targetProxy = 3D9D0BED21C4109B0041BB0A /* PBXContainerItemProxy */;
-		};
 		3D9D0BFB21C4109C0041BB0A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3D9D0BDE21C410990041BB0A /* Labs8-MealHelperWatch */;
 			targetProxy = 3D9D0BFA21C4109C0041BB0A /* PBXContainerItemProxy */;
+		};
+		3DE1F86A21CF98640077D076 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3D9D0BEA21C4109B0041BB0A /* Labs8-MealHelperWatchExtension */;
+			targetProxy = 3DE1F86921CF98640077D076 /* PBXContainerItemProxy */;
 		};
 		AC4D10762194A7A000317F4C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1084,7 +1084,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 84BULQXU2Q;
-				IBSC_MODULE = Labs8_MealHelperWatch_Extension;
+				IBSC_MODULE = Labs8_MealHelperWatchExtension;
 				INFOPLIST_FILE = "Labs8-MealHelperWatch/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lambdaschool.MealHelper.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1103,7 +1103,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 84BULQXU2Q;
-				IBSC_MODULE = Labs8_MealHelperWatch_Extension;
+				IBSC_MODULE = Labs8_MealHelperWatchExtension;
 				INFOPLIST_FILE = "Labs8-MealHelperWatch/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lambdaschool.MealHelper.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1121,7 +1121,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 84BULQXU2Q;
-				INFOPLIST_FILE = "Labs8-MealHelperWatch Extension/Info.plist";
+				INFOPLIST_FILE = "Labs8-MealHelperWatchExtension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1143,7 +1143,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 84BULQXU2Q;
-				INFOPLIST_FILE = "Labs8-MealHelperWatch Extension/Info.plist";
+				INFOPLIST_FILE = "Labs8-MealHelperWatchExtension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1180,7 +1180,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3D9D0C0121C4109C0041BB0A /* Build configuration list for PBXNativeTarget "Labs8-MealHelperWatch Extension" */ = {
+		3D9D0C0121C4109C0041BB0A /* Build configuration list for PBXNativeTarget "Labs8-MealHelperWatchExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D9D0BFF21C4109C0041BB0A /* Debug */,

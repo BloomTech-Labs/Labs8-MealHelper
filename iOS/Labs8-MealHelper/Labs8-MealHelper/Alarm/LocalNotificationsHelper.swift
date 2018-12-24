@@ -15,6 +15,7 @@ class LocalNotificationHelper
     
     func getAuthorizationStatus(completion: @escaping (UNAuthorizationStatus) -> Void) {
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            
             DispatchQueue.main.async {
                 completion(settings.authorizationStatus)
             }
@@ -23,8 +24,18 @@ class LocalNotificationHelper
     
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (success, error) in
-            
-            if let error = error { NSLog("Error requesting authorization status for local notifications: \(error)") }
+            // Adds actions to notifications
+            if success {
+                let snackAction = UNNotificationAction(identifier: "snack", title: "Add snack", options: .foreground)
+                let breakfastAction = UNNotificationAction(identifier: "breakfast", title: "Add breakfast", options: .foreground)
+                let lunchAction = UNNotificationAction(identifier: "lunch", title: "Add lunch", options: .foreground)
+                let dinnerAction = UNNotificationAction(identifier: "dinner", title: "Add dinner", options: .foreground)
+                let mealEntryCategory = UNNotificationCategory(identifier: "MealEntry", actions: [snackAction, breakfastAction, lunchAction, dinnerAction], intentIdentifiers: [], options: [])
+                UNUserNotificationCenter.current().setNotificationCategories([mealEntryCategory])
+                NSLog("Successfully registered notification support")
+            } else {
+                NSLog("Error requesting authorization status for local notifications: \(String(describing: error?.localizedDescription))")
+            }
             
             DispatchQueue.main.async {
                 completion(success)
@@ -37,6 +48,7 @@ class LocalNotificationHelper
         content.title = "Meal reminder"
         content.body = note
         content.sound = UNNotificationSound.default
+        content.categoryIdentifier = "MealEntry" // Category id for notification actions
         
         var dateComponent = DateComponents()
         dateComponent.hour = hour

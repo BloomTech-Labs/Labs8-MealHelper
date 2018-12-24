@@ -1,8 +1,8 @@
 //
 //  RecipeRowController.swift
-//  Labs8-MealHelperWatch Extension
+//  Labs8-MealHelperWatchExtension
 //
-//  Created by De MicheliStefano on 14.12.18.
+//  Created by De MicheliStefano on 24.12.18.
 //  Copyright © 2018 De MicheliStefano. All rights reserved.
 //
 
