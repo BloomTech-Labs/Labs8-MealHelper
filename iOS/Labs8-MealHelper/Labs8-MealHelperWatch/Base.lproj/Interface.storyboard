@@ -35,7 +35,7 @@
                         </table>
                     </items>
                     <connections>
-                        <outlet property="mealTableView" destination="hJ3-ly-g4e" id="DbR-3R-enG"/>
+                        <outlet property="recipesTableView" destination="hJ3-ly-g4e" id="DbR-3R-enG"/>
                     </connections>
                 </controller>
             </objects>
@@ -46,7 +46,7 @@
             <objects>
                 <notificationController id="YCC-NB-fut" customClass="NotificationController" customModule="Labs8_MealHelperWatchExtension">
                     <items>
-                        <label alignment="left" text="Time to eat! Please add your meal below." numberOfLines="0" id="IdU-wH-bcW"/>
+                        <label alignment="left" text="Time to eat! Please add a meal to your journal." numberOfLines="0" id="IdU-wH-bcW"/>
                     </items>
                     <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
                     <connections>
@@ -57,12 +57,44 @@
             </objects>
             <point key="canvasLocation" x="134" y="643"/>
         </scene>
+        <!--Interface Controller-->
+        <scene sceneID="1tV-TG-sb1">
+            <objects>
+                <controller id="Zh5-IA-2ou" customClass="InterfaceController" customModule="Labs8_MealHelperWatchExtension">
+                    <items>
+                        <label alignment="center" text="Select meal time" textAlignment="center" id="QkP-PF-83d">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                        <table alignment="left" id="nZg-RZ-4PU">
+                            <items>
+                                <tableRow identifier="MealTimeRow" id="GMc-dK-QVS" customClass="MealTimeRowController" customModule="Labs8_MealHelperWatchExtension">
+                                    <group key="rootItem" width="1" alignment="left" id="cfz-nc-UHX">
+                                        <items>
+                                            <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="RYe-bJ-jUs">
+                                                <accessibilityTraits key="accessibilityTraits" button="YES" staticText="YES"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="mealTimeLabel" destination="RYe-bJ-jUs" id="NBh-Gl-TfD"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="mealTimeTableView" destination="nZg-RZ-4PU" id="nOG-g8-XMf"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="458" y="345"/>
+        </scene>
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
             <objects>
                 <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Labs8_MealHelperWatchExtension">
                     <items>
-                        <label alignment="left" text="Time to eat! Please add your meal below." numberOfLines="0" id="Qz3-c0-POQ"/>
+                        <label alignment="left" text="Time to eat! Please add a meal to your journal." numberOfLines="0" id="Qz3-c0-POQ"/>
                     </items>
                 </controller>
             </objects>
