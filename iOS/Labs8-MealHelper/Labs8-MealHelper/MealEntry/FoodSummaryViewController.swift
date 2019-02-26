@@ -34,7 +34,7 @@ class FoodSummaryViewController: UIViewController {
     var servingQty: String = "Change quantity"
     var servingType: String = "Change serving"
     var typePickerFieldValues: [String] = {
-        var values = (1...20).map { String($0) }
+        var values = ["0.25", "0.5", "0.75"] + (1...20).map { String($0) }
         values.insert("", at: 0)
         return values
     }()
@@ -60,7 +60,7 @@ class FoodSummaryViewController: UIViewController {
     
     // MARK: - Private properties
     
-    private lazy var typeInputField: PickerInputField = {
+    lazy var typeInputField: PickerInputField = {
         let inputField = PickerInputField(defaultValue: typePickerFieldDefaultValue)
         inputField.picker.accessibilityIdentifier = "servingSize"
         inputField.imageTintColor = .mountainBlue
@@ -69,7 +69,7 @@ class FoodSummaryViewController: UIViewController {
         return inputField
     }()
     
-    private lazy var quantityInputField: PickerInputField = {
+    lazy var quantityInputField: PickerInputField = {
         let inputField = PickerInputField(defaultValue: quantityPickerFieldDefaultValue)
         inputField.picker.accessibilityIdentifier = "servingQty"
         inputField.imageTintColor = .mountainBlue
@@ -87,7 +87,7 @@ class FoodSummaryViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var inputStackView: UIStackView = {
+    lazy var inputStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -118,8 +118,8 @@ class FoodSummaryViewController: UIViewController {
         tf.leftImage = nil
         tf.tintColor = .lightPurple
         tf.keyboardType = .default
-        tf.heightAnchor.constraint(equalToConstant: 40).isActive = true
         tf.placeholder = "Add a recipe name"
+        tf.addDoneButtonOnKeyboard()
         return tf
     }()
     
@@ -135,9 +135,6 @@ class FoodSummaryViewController: UIViewController {
     func setupViews() {
         view.addSubview(mainStackView)
         
-        editableTitle == true
-            ? mainStackView.addArrangedSubview(titleTextField)
-            : mainStackView.addArrangedSubview(titleLabel)
         if editableTitle == true {
             mainStackView.addArrangedSubview(titleTextField)
         } else {
@@ -202,13 +199,11 @@ extension FoodSummaryViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             let type = quantityPickerFieldValues[row]
             typeInputField.text = type
             servingType = type
-            //setServingType(with: type, for: food)
             NotificationCenter.default.post(name: .MHFoodSummaryPickerDidChange, object: nil, userInfo: ["quantity": servingQty, "type": servingType])
         case "servingQty":
             let qty = typePickerFieldValues[row]
             quantityInputField.text = qty
             servingQty = qty
-            //setServingQty(with: qty, for: food)
             NotificationCenter.default.post(name: .MHFoodSummaryPickerDidChange, object: nil, userInfo: ["quantity": servingQty, "type": servingType])
         default:
             break
@@ -222,6 +217,34 @@ extension FoodSummaryViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
         NotificationCenter.default.post(name: .MHFoodSummaryTextFieldDidChange, object: nil, userInfo: ["textField": text])
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let text = textField.text else { return false }
+        NotificationCenter.default.post(name: .MHFoodSummaryTextFieldDidChange, object: nil, userInfo: ["textField": text])
+        return true
+    }
+    
+}
+
+fileprivate extension UITextField {
+    
+    func addDoneButtonOnKeyboard() {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self.inputAccessoryView = doneToolbar
+    }
+    
+    @objc func doneButtonAction() {
+        self.resignFirstResponder()
     }
     
 }

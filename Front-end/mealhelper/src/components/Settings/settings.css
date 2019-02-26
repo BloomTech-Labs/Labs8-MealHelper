@@ -1,56 +1,83 @@
 .Settings-Options-Container {
-  width: 495px;
-  height: 398px;
-  background: #ffffff;
-  border: 1px solid #b6b5b5;
+  width: 390px;
+  height: 400px;
+  background-color: #242424;
+  border: 1px solid #2f9dfe;
   margin: 100px auto;
+  border-radius: 5px;
 }
 .settings-text {
   margin-top: 10px;
+  color: white;
 }
+
 .settings-option {
   margin: 35px auto 0;
   width: 100px;
   height: 51px;
-  border: 1px solid #b6b5b5;
-  background: #ffffff;
+  color: white;
+  border: 1px solid white;
+  background-color: #242424;
   cursor: pointer;
+}
+.settings-option:hover {
+  border: 1px solid white;
+  background-color: #2f9dfe;
 }
 .settings-zip-save {
   margin: 35px auto 0;
   width: 100px;
   height: 51px;
-  border: 1px solid #b6b5b5;
-  background: #ffffff;
+  color: white;
+  border: 1px solid white;
+  background-color: #242424;
   cursor: pointer;
 }
 .settings-password-save {
   margin: 35px auto 0;
   width: 100px;
   height: 51px;
-  border: 1px solid #b6b5b5;
-  background: #ffffff;
+  color: white;
+  border: 1px solid white;
+  background-color: #242424;
   cursor: pointer;
 }
+.settings-password-save:hover {
+  background-color: #2f9dfe;
+}
 .settings-zip-save:hover {
-  border: 1px solid #86b2dd !important;
+  border: 1px solid white !important;
+  background-color: #2f9dfe;
 }
 .Settings-Zip-Container {
-  width: 495px;
-  height: 398px;
-  background: #ffffff;
-  border: 1px solid #b6b5b5;
+  width: 390px;
+  height: 400px;
+  background-color: #242424;
+  border: 1px solid #2f9dfe;
   margin: 100px auto;
 }
 .settings-zip-form {
   margin-top: 30px;
+  color: white;
 }
 .settings-password-form {
   margin-top: 30px;
+  color: white;
 }
 .alert-box-settings {
   width: 100%;
+  color: white;
 }
 .settings-text-anchor {
   margin-top: 20px !important;
+}
+
+.settings-text-back-to-settings {
+  margin-top: 20px;
+  color: white;
+}
+
+.settings-text-back-to-settings:hover {
+  color: #2f9dfe;
+  cursor: pointer;
 }

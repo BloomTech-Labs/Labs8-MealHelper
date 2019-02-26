@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 //change the route for this
 import { getMeals } from "../../store/actions/mealActions.js";
+import { getRecipe, deleteRecipe } from "../../store/actions/recipeActions";
 import { withRouter, Link, Route } from "react-router-dom";
-// import { Alert } from "reactstrap";
+import { Alert } from "reactstrap";
 import axios from "axios";
 import Recipe from "./recipe";
+
 import "./recipes.css";
 
 class MyRecipes extends Component {
@@ -16,40 +18,62 @@ class MyRecipes extends Component {
       list: [],
       search: "",
       name: "",
-      ndbno: null
+      ndbno: null,
+      visable: false
     };
   }
   componentDidMount() {
     if (localStorage.getItem("token")) {
-      const id = this.props.user.userID;
-      this.props.getMeals(id);
+      const id = localStorage.getItem("user_id");
+      this.props.getRecipe(id);
+      axios
+
+        .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
+        .then(response => {
+          console.log(response);
+          this.setState({ list: response.data });
+        })
+        .catch(err => {
+          console.log(err);
+        });
     } else {
       this.props.history.push("/");
     }
   }
-  componentWillReceiveProps(nextProps) {
-    this.setState({ list: nextProps.meals });
+  componentDidUpdate(prevState) {
+    console.log(prevState);
+
+    console.log(this.state.list);
+    if (this.props.recipes.length !== this.state.list.length) {
+      const id = localStorage.getItem("user_id");
+      axios
+
+        .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
+        .then(response => {
+          this.setState({ list: response.data });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
 
-  settingState() {
-    this.setState({ list: this.props.meals });
-  }
+  deleteRecipe = (id, userid) => {
+    console.log(userid);
 
-  handleChange = event => {
-    event.preventDefault();
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+    this.props.deleteRecipe(id, userid);
   };
-
   render() {
     return (
-      <div className="weather-container">
-        <div className="home-container">
-          <div className="dynamic-display">
+      <div className="recipe-div-container">
+        <div className="recipe-container">
+          <div className="recipe-book">
             {this.state.list.map(item => (
               <Recipe
+                deleteRecipe={this.deleteRecipe}
+                id={item.id}
                 item={item}
+                calories={item.calories}
                 key={item.ndbno}
                 name={item.name}
                 ndbno={item.ndbno}
@@ -63,14 +87,14 @@ class MyRecipes extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     user: state.userReducer.user,
-    meals: state.mealsReducer.meals
+    meals: state.mealsReducer.meals,
+    recipes: state.recipesReducer.recipes
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getMeals }
+  { getMeals, getRecipe, deleteRecipe }
 )(withRouter(MyRecipes));

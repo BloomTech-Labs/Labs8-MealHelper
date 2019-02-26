@@ -7,12 +7,12 @@ export const ADDING_MEAL_ERROR = "ADDING_MEAL_ERROR";
 export const ADDING_MEALS = "ADDING_MEALS";
 export const ADDED_MEALS = "ADDED_MEALS";
 export const ADDING_MEAL_ERRORS = "ADDING_MEAL_ERRORS";
-export const GETTING_MEAL = "GETTING_MEAL";
-export const GOT_MEAL = "GOT_MEAL";
-export const GETTING_MEAL_ERROR = "GETTING_MEAL_ERROR";
-export const GETTING_MEALS = "GETTING_MEAL";
-export const GOT_MEALS = "GOT_MEAL";
-export const GETTING_MEAL_ERRORS = "GETTING_MEAL_ERROR";
+export const GETTING_SINGLE_MEAL = "GETTING_SINGLE_MEAL";
+export const GOT_SINGLE_MEAL = "GOT_SINGLE_MEAL";
+export const GETTING_SINGLE_MEAL_ERROR = "GETTING_SINGLE_MEAL_ERROR";
+export const GETTING_MEALS = "GETTING_MEALS";
+export const GOT_MEALS = "GOT_MEALS";
+export const GETTING_MEALS_ERROR = "GETTING_MEALS_ERROR";
 export const PUTTING_MEAL = "PUTTING_MEAL";
 export const PUT_MEAL = "PUT_MEAL";
 export const PUTTING_MEAL_ERROR = "PUTTING_MEAL_ERROR";
@@ -48,30 +48,31 @@ export const getMeals = id => dispatch => {
 			dispatch({ type: GOT_MEALS, payload: response.data });
 		})
 		.catch(err => {
-			dispatch({ type: GETTING_MEAL_ERRORS, payload: err });
+			dispatch({ type: GETTING_MEALS_ERROR, payload: err });
 		});
 };
 
-export const getMeal = id => dispatch => {
-	dispatch({ type: GETTING_MEAL });
-	const meal_id = id.mealID;
-	const user_id = id.userID;
+export const getMeal = (mealID, userID) => dispatch => {
+	dispatch({ type: GETTING_SINGLE_MEAL });
+	const meal_id = mealID;
+	const user_id = userID;
 	axios
 
 		.get(
 			`https://labs8-meal-helper.herokuapp.com/users/${user_id}/meals/${meal_id}`
 		)
 		.then(response => {
-			dispatch({ type: GOT_MEAL, payload: response.data });
+			dispatch({ type: GOT_SINGLE_MEAL, payload: response.data });
 		})
 		.catch(err => {
-			dispatch({ type: GETTING_MEAL_ERROR, payload: err });
+			dispatch({ type: GETTING_SINGLE_MEAL_ERROR, payload: err });
 		});
 };
 
 export const changeMeal = meal => dispatch => {
 	dispatch({ type: PUTTING_MEAL });
-	const mealID = meal.mealID;
+	const mealID = meal.id;
+	console.log("mealID in changeMeal", mealID)
 	axios
 
 		.put(`https://labs8-meal-helper.herokuapp.com/meals/${mealID}`, meal)
@@ -82,10 +83,10 @@ export const changeMeal = meal => dispatch => {
 			dispatch({ type: PUTTING_MEAL_ERROR, payload: err });
 		});
 };
-export const deleteMeal = id => dispatch => {
+export const deleteMeal = (mealID, userID) => dispatch => {
 	dispatch({ type: DELETING_MEAL });
-	const meal_id = id.mealID;
-	const user_id = id.userID;
+	const meal_id = mealID;
+	const user_id = userID;
 	axios
 
 		.delete(

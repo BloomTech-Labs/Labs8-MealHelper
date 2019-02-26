@@ -10,27 +10,15 @@ import Foundation
 
 struct User: Codable {
     
-    var email: String?
-    var password: String?
-    var zip: Int?
-    var healthCondition: String?
-    var id: Int?
-    
-    enum CodingKeys: String, CodingKey {
-        case email
-        case password
-        case zip
-        case healthCondition
-        case id
-    }
-}
-
-struct UserId: Codable {
-    var id: Int?
+    var email: String
+    var zip: Int
+    var id: Int
     var token: String?
     
     enum CodingKeys: String, CodingKey {
-        case id = "userID"
+        case email
+        case zip
+        case id
         case token
     }
 }

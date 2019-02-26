@@ -1,0 +1,112 @@
+.single-meal-container {
+  display: flex;
+  margin: 100px auto 0;
+  width: 800px;
+  justify-content: space-evenly;
+  align-items: center;
+  color: white;
+}
+
+.single-meal-heading {
+  border-bottom: 1px solid #29fdfe;
+}
+
+.single-meal-heading h1 {
+  padding: 10px 0;
+  color: white;
+  margin-bottom: 0;
+}
+
+.single-meal-heading h3 {
+  margin: 0;
+}
+
+.single-meal-bg {
+  width: 344px;
+  height: 444px;
+  background: #242424;
+}
+
+.sm-exp-buttons {
+  padding: 10px;
+}
+
+.sm-details-top {
+  display: flex;
+  align-content: center;
+  justify-content: space-evenly;
+  padding-top: 10px;
+}
+
+
+.sm-recipe-name {
+  font-size: 18px;
+}
+
+.sm-servings {
+  padding-top: 3px;
+}
+
+
+.sm-nutrients-container {
+  width: 300px;
+  overflow: scroll;
+  margin: 15px auto;
+}
+
+.sm-nutrient-header {
+  border-bottom: 1px solid #29fdfe;
+}
+
+.sm-nutrient-header-last {
+  border-bottom: 1px solid #29fdfe;
+}
+.sm-weather-table {
+  width: 100px;
+  overflow: scroll;
+  margin: 5px auto;
+}
+
+.sm-td-left {
+  border-right: 1px solid #29fdfe;
+  padding-right: 10px;
+  font-weight: bold;
+}
+
+.sm-td-right {
+  padding-left: 10px;
+}
+
+.sm-details-bottom {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+.meal-card-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 444px;
+}
+
+.delete-sm {
+  padding: 10px 0;
+}
+
+.delete-sm-btn {
+  background: #242424;
+  width: 200px;
+  height: 51px;
+  border: 1px solid #2f9dfe;
+  border-radius: 5px;
+  color: white;
+}
+
+.sm-edit-btn {
+  border: 1px solid #2f9dfe;
+  background: #ffffff;
+  width: 60px;
+  height: 30px;
+  margin-right: 5px;
+}

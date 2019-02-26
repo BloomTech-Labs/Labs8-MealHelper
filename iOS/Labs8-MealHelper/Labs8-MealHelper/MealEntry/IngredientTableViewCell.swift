@@ -18,7 +18,7 @@ class IngredientTableViewCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = .black
         label.font = Appearance.appFont(with: 15)
         label.numberOfLines = 2
         label.sizeToFit()

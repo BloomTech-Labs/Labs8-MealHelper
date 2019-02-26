@@ -42,7 +42,7 @@ class Login extends Component {
       this.setState({ isLoading: false, visableError: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      this.props.history.push("/zip");
+      this.props.history.push("/homepage");
     }
   };
   async confirmLogin() {
@@ -55,7 +55,8 @@ class Login extends Component {
       this.setState({ visable: true });
       setTimeout(this.toggleVisability, 3000);
     } else {
-      const { email, password } = this.state;
+      const email = this.state.email.toLowerCase();
+      const { password } = this.state;
       const user = { email, password };
       this.props.loginUser(user);
     }
@@ -78,7 +79,10 @@ class Login extends Component {
             </div>
             <div className="formcenter">
               <div className="user-form-container-login">
-                <h1 className="login-title">EatWell</h1>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <h1 className="login-title">EatWell</h1>
+                </Link>
+                <h2>Login</h2>
                 <form className="login-form">
                   <div className="form-group-login">
                     <label>Email</label>
@@ -103,7 +107,7 @@ class Login extends Component {
                     />
                   </div>
                   <Link to="/signup">
-                    <p className="return-login"> ⬅ Return to Sign Up </p>
+                    <p className="return-signup"> ⬅ Return to Sign Up </p>
                   </Link>
                   <div className="login-login" onClick={this.confirmLogin}>
                     <span>Log In</span>
@@ -114,7 +118,7 @@ class Login extends Component {
                 </div>
                 <a href="https://www.apple.com/ios/app-store/">
                   <img
-                    className="applebadge"
+                    className="applebadgelogin"
                     src={Applelogo}
                     alt="Apple App Store"
                   />

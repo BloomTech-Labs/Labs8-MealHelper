@@ -11,12 +11,15 @@ import Callback from "./Callback";
 import NavbarMain from "./components/Navbar/NavbarMain";
 import HomePage from "./components/homepage/homepage";
 import Meals from "./components/Meals/Meals";
+import MealBook from "./components/Meals/MealBook";
 import NewMeals from "./components/Meals/NewMeal";
+import SingleMeal from "./components/Meals/SingleMeal";
 import Recipes from "./components/recipes/recipes";
-
+import GetStarted from "./components/getstarted/getstarted";
 import MyRecipes from "./components/recipes/myrecipe";
 import CreateNewRecipe from "./components/creatnewrecipe/createnewrecipe";
-
+import SingleRecipe from "./components/recipes/SingleRecipe";
+import RecipeEdit from "./components/creatnewrecipe/EditRecipe";
 import GetIngredient from "./components/ingredients/getIngredient";
 import Weather from "./components/weather/weather";
 import MyWeather from "./components/weather/myweather";
@@ -45,8 +48,15 @@ class App extends Component {
 
             <Route exact path="/ingredients" render={() => <GetIngredient />} />
             <Route exact path="/homepage" render={() => <HomePage />} />
+            <Route
+              exact
+              path="/homepage/getstarted"
+              render={() => <GetStarted />}
+            />
             <Route exact path="/homepage/meals" render={() => <Meals />} />
+            <Route exact path="/homepage/meals/mealbook" render={() => <MealBook />} />
             <Route path="/homepage/meals/new" render={() => <NewMeals />} />
+            <Route path="/homepage/meals/mealbook/:mealID" render={() => <SingleMeal />} />
             <Route exact path="/homepage/recipes" render={() => <Recipes />} />
 
             <Route
@@ -57,7 +67,11 @@ class App extends Component {
               path="/homepage/recipes/createnewrecipe"
               render={() => <CreateNewRecipe />}
             />
-
+            <Route
+              path="/recipe/:recipeid/edit"
+              render={() => <RecipeEdit />}
+            />
+            <Route path="/recipe/:id" render={() => <SingleRecipe />} />
             <Route exact path="/homepage/weather" render={() => <Weather />} />
             <Route
               path="/homepage/weather/myweather"

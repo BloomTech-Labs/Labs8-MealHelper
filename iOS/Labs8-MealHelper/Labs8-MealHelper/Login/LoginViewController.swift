@@ -8,8 +8,13 @@
 
 import UIKit
 
+protocol LoginViewControllerDelegate: class {
+    func userDidLogin()
+}
+
 class LoginViewController: UIViewController
 {
+    weak var delegate: LoginViewControllerDelegate?
     private var isInLoginState = true
     
     let blurEffect: UIVisualEffectView = {
@@ -255,9 +260,11 @@ class LoginViewController: UIViewController
             
             DispatchQueue.main.async {
                 switch response {
-                case .success(let userId):
-                     UserDefaults().setIsLoggedIn(value: true, userId: userId.id!)
-                    self.dismiss(animated: true, completion: nil)
+                case .success(let user):
+                    UserDefaults.standard.setIsLoggedIn(value: true, userId: user.id, zipCode: user.zip, email: user.email, token: user.token)
+                    self.dismiss(animated: true, completion: {
+                        self.delegate?.userDidLogin()
+                    })
                 case .error:
                     self.showAlert(with: "Something went wrong, please make sure you entered the right credentials and try again.")
                     self.authButton.stopLoading()
@@ -280,9 +287,11 @@ class LoginViewController: UIViewController
             
             DispatchQueue.main.async {
                 switch response {
-                case .success(let userId):
-                    UserDefaults().setIsLoggedIn(value: true, userId: userId.id!)
-                    self.dismiss(animated: true, completion: nil)
+                case .success(let user):
+                    UserDefaults.standard.setIsLoggedIn(value: true, userId: user.id, zipCode: user.zip, email: user.email, token: user.token)
+                    self.dismiss(animated: true, completion: {
+                        self.delegate?.userDidLogin()
+                    })
                 case .error(let error):
                     self.authButton.stopLoading()
                     print(error)

@@ -17,16 +17,16 @@ class NavbarLanding extends Component {
       open: false
     };
   }
-  openHamburger = () => {
-    this.setState({
-      open: !this.state.open
-    });
-  };
+  // openHamburger = () => {
+  //   this.setState({
+  //     open: !this.state.open
+  //   });
+  // };
 
   logout = event => {
-    this.setState({
-      open: !this.state.open
-    });
+    // this.setState({
+    //   open: !this.state.open
+    // });
     event.preventDefault();
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
@@ -41,64 +41,58 @@ class NavbarLanding extends Component {
             <p className="logo-main">EatWell</p>
           </Link>
         </div>
-        <div className="searchbar-nav-container">
+        {/* <div className="searchbar-nav-container">
           <form>
             <input type="text" className="search-box" />
           </form>
           <button className="search-button">
             <img className="search-button-img" src={Search} />
           </button>
-        </div>
-        <div className="hamburger-container">
-          <button
-            onClick={this.openHamburger}
-            className={
-              this.state.open
-                ? "hamburger hamburger--spin is-active"
-                : "hamburger hamburger--spin"
-            }
+        </div> */}
+        <div
+          className="navbar-section-links"
+          style={{ textDecoration: "none" }}
+        >
+          <Link
+            to="/homepage/recipes"
+            className="navbar-section-links-style-inapp"
+            style={{ textDecoration: "none" }}
           >
-            <span className="hamburger-box">
-              <span className="hamburger-inner" />
-            </span>
-          </button>
-          <div className={this.state.open ? "popper" : "none"} />
-          <ul className={this.state.open ? "menu-list-open" : "menu-list"}>
-            <Link
-              to="/homepage/meals"
-              onClick={this.openHamburger}
-              className={this.state.open ? "menu-list-item" : "none"}
-            >
-              <img className="menu-list-item item" src={AddMeal} />
-            </Link>
-            <Link
-              to="/homepage/recipes"
-              onClick={this.openHamburger}
-              className={this.state.open ? "menu-list-item" : "none"}
-            >
-              <img className="menu-list-item item" src={Recipes} />
-            </Link>
-            <Link
-              to="/homepage/alarms"
-              onClick={this.openHamburger}
-              className={this.state.open ? "menu-list-item" : "none"}
-            >
-              <img className="menu-list-item item" src={Alarms} />
-            </Link>
-            <Link
-              to="/homepage/settings"
-              onClick={this.openHamburger}
-              className={this.state.open ? "menu-list-item" : "none"}
-            >
-              <img className="menu-list-item item" src={Options} />
-            </Link>
-            <button
-              onClick={this.logout}
-              className={this.state.open ? "menu-list-item-logout" : "none"}
-            >
-              <img className="menu-list-item item" src={Logout} />
-            </button>
-          </ul>
+            <h3>Step 1: Build Recipe</h3>
+          </Link>
+          <Link
+            to="/homepage/meals/new"
+            className="navbar-section-links-style-inapp"
+            style={{ textDecoration: "none" }}
+          >
+            <h3>Step 2: Add Recipe to Meal</h3>
+          </Link>
+          <Link
+            to="/homepage/alarms"
+            className="navbar-section-links-style-inapp"
+            style={{ textDecoration: "none" }}
+          >
+            <h3>Step 3: Set Meal Reminders</h3>
+          </Link>
+          <Link
+            to="/homepage"
+            className="navbar-section-links-style-directory"
+            style={{ textDecoration: "none" }}
+          >
+            <h3>Home</h3>
+          </Link>
+          <Link
+            to="/homepage/settings"
+            className="navbar-section-links-style-directory"
+            style={{ textDecoration: "none" }}
+          >
+            <h3>Settings</h3>
+          </Link>
+          <a onClick={this.logout} style={{ textDecoration: "none" }}>
+            <h3 className="navbar-section-links-style-logout-directory">
+              Logout
+            </h3>
+          </a>
         </div>
       </div>
     );

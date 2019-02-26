@@ -19,6 +19,7 @@ extension UIColor
     static let darkBlue = UIColor.rgb(red: 0, green: 52, blue: 89)
     static let lightPurple = UIColor.rgb(red: 59, green: 206, blue: 172)
     static let correctGreen = UIColor.rgb(red: 76, green: 185, blue: 68)
+    static let incorrectRed = UIColor.rgb(red: 254, green: 95, blue: 85)
     static let sunOrange = UIColor.rgb(red: 255, green: 111, blue: 56)
     static let sunRed = UIColor.rgb(red: 226, green: 17, blue: 58)
     static let mountainBlue = UIColor.rgb(red: 47, green: 157, blue: 254)

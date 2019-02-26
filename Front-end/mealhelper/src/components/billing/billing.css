@@ -1,10 +1,10 @@
-.example {
+/* .example {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   background: #ffffff;
-  /* margin-top: 5%; */
+
   width: 250px;
   height: 120px;
   border: #9c9c9c;
@@ -12,6 +12,8 @@
   border-radius: 12px;
 }
 
+
+
 .danger {
   margin-top: 5%;
-}
+} */

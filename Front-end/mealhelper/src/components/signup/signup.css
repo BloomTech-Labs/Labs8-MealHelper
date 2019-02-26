@@ -7,9 +7,9 @@ body {
 .main-container {
   height: 100vh;
   width: 100vw;
-  /* background-image: url("../../img/laptop-fruit-tea.jpg");
-  background-size: 1750px; */
-  /* background: #8c8c8c; */
+  /* background-image: url("../../img/mtnlines.png");
+  background-size: 450px;
+  background-repeat: no-repeat; */
 }
 
 .formcenter {
@@ -26,19 +26,21 @@ body {
   background: white;
   margin-top: 5%;
   width: 318px;
-  height: 610px;
+  height: 600px;
   border: #9c9c9c;
-  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.57);
   border-radius: 12px;
 }
 
 .signup-title {
-  color: black;
+  color: #242424;
   font-weight: bold;
   font-size: 3.8em;
   padding-top: 10px;
-  padding-bottom: 55px;
   font-family: "Allan", cursive;
+}
+
+.signup-title:hover {
+  color: #2f9dfe;
 }
 
 .form-group {
@@ -46,7 +48,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding-top: 20px;
+  margin-top: 10px;
 }
 
 .form-group:hover {
@@ -60,7 +62,8 @@ input {
   background: #ffffff;
   border-width: 1px;
   border-color: #9c9c9c;
-  z-index: 5;
+  z-index: 1;
+  border-radius: 5px;
 }
 
 label {
@@ -70,55 +73,51 @@ label {
 
 .signup {
   color: #ffffff;
-  width: 250px;
-  font-size: 25px;
+  width: 200px;
+  font-size: 15px;
   font-weight: 900;
   height: 50px;
-  padding-top: 14px;
-
-  margin-top: 40px;
+  padding-top: 12px;
+  margin-top: 20px;
   margin-bottom: 30px;
+  margin-left: 30px;
   cursor: pointer;
-  background-color: #267cfc;
+  background-color: #242424;
+  border-radius: 5px;
 }
 .signup:hover {
-  background-color: #0166fe;
+  background-color: #2f9dfe;
 }
 
 .cta-existing-account {
   display: flex;
   justify-content: center;
+  margin-top: 30px;
 }
 .login {
   color: #ffffff;
-  width: 250px;
-  font-size: 25px;
+  width: 200px;
+  font-size: 15px;
   font-weight: 900;
   height: 50px;
   padding-top: 14px;
-
-  margin-top: 40px;
+  margin-top: 15px;
   margin-bottom: 30px;
+  margin-left: 30px;
   cursor: pointer;
-  background-color: #267cfc;
+  background-color: #242424;
+  border-radius: 5px;
 }
 
 .login:hover {
-  background-color: #0166fe;
+  background-color: #2f9dfe;
 }
 
-.login-button {
-  width: 250px;
-  height: 64px;
-  padding-bottom: 20px;
-  border-width: 1px;
-  border-color: black;
-  color: black;
-}
-
-.applebadge {
-  width: 211px;
+.applebadgesignup {
+  width: 150px;
   height: auto;
+  margin-top: -10px;
+  margin-left: 5px;
 }
 
 .existinguser {

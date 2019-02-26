@@ -54,7 +54,7 @@ export const addRecipe = (recipe, userID) => dispatch => {
 
 //Route to Get Specific Users Recipes
 export const getRecipe = id => dispatch => {
-  dispatch({ type: GETTING_RECIPES });
+  dispatch({ type: GETTING_RECIPE });
   axios
 
     .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
@@ -66,12 +66,15 @@ export const getRecipe = id => dispatch => {
     });
 };
 
-export const changeRecipe = recipe => dispatch => {
+export const changeRecipe = (recipe, recipeID, user_id) => dispatch => {
   dispatch({ type: PUTTING_RECIPE });
-  const recipeID = recipe.recipeID;
+
   axios
 
-    .put(`https://labs8-meal-helper.herokuapp.com/recipe/${recipeID}`, recipe)
+    .put(
+      `https://labs8-meal-helper.herokuapp.com/recipe/${recipeID}/user/${user_id}`,
+      recipe
+    )
     .then(response => {
       dispatch({ type: PUT_RECIPE, payload: response.data });
     })
@@ -79,13 +82,15 @@ export const changeRecipe = recipe => dispatch => {
       dispatch({ type: PUTTING_RECIPE_ERROR, payload: err });
     });
 };
-export const deleteRecipe = id => dispatch => {
+export const deleteRecipe = (id, userid) => dispatch => {
   dispatch({ type: DELETING_RECIPE });
-  const recipeID = id.recipeID;
+  console.log(userid);
   // const user_id = id.userID;
   axios
 
-    .delete(`https://labs8-meal-helper.herokuapp.com/recipe/${recipeID}`)
+    .delete(
+      `https://labs8-meal-helper.herokuapp.com/recipe/${id}/user/${userid}`
+    )
     .then(response => {
       dispatch({ type: DELETED_RECIPE, payload: response.data });
     })

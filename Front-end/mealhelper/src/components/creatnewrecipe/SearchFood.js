@@ -1,21 +1,41 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addRecipe, getRecipe } from "../../store/actions/recipeActions.js";
+import { addMultipleNutrients } from "../../store/actions/nutrientsActions";
+import { addMultipleIngredients } from "../../store/actions/ingredActions";
+import { withRouter, Link } from "react-router-dom";
 import axios from "axios";
+import { Alert } from "reactstrap";
 import Suggestions from "./Suggestions";
 import GetNutrients from "./GetNutrients";
 import InfiniteScroll from "react-infinite-scroll-component";
+import DisplayNutrients from "./DisplayNutrients";
+import DisplayFoodName from "./DisplayFoodName";
 import "../recipes/recipes.css";
 
-class Search extends Component {
-  state = {
-    query: "",
-    typing: false,
-    message: "",
-    results: [],
-    food: [],
-    total: 0,
-    number: 50,
-    limitIndex: 50
-  };
+class SearchFood extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      query: "",
+      typing: false,
+      message: "",
+      nutrients: [],
+      results: [],
+      food: [],
+      calories: 0,
+      total: 0,
+      number: 50,
+      limitIndex: 50,
+      visible: false
+    };
+    this.awaitAll = this.awaitAll.bind(this);
+    this.saveRecipe = this.saveRecipe.bind(this);
+    this.saveRecipeIngredients = this.saveRecipeIngredients.bind(this);
+    this.saveRecipeNutrition = this.saveRecipeNutrition.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
+  }
 
   getInfo = () => {
     axios
@@ -68,12 +88,50 @@ class Search extends Component {
 
     console.log(this.state.limitIndex);
   };
+  onDismiss() {
+    this.setState({ visible: false });
+  }
   addFood = food => {
     this.setState({
       food: [...this.state.food, food],
 
       limitIndex: 50
     });
+    console.log(food);
+    axios
+      .get(
+        `https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=c24xU3JZJhbrgnquXUNlyAGXcysBibSmESbE3Nl6&nutrients=208&nutrients=203&nutrients=204&nutrients=205&ndbno=${
+          food.ndbno
+        }`
+      )
+      .then(response => {
+        if (response.data.errors) {
+          this.setState({
+            nutrients: ["Could not find nutrients with that name"]
+          });
+        } else {
+          this.setState({
+            nutrients: [
+              ...this.state.nutrients,
+              response.data.report.foods[0].nutrients
+            ]
+          });
+          let sumCalories = 0;
+          for (let i = 0; i < this.state.nutrients.length; i++) {
+            if (this.state.nutrients[i][0]) {
+              let nutrientsJSON = JSON.stringify(
+                parseInt(this.state.nutrients[i][0].value, 10)
+              );
+
+              sumCalories += parseInt(nutrientsJSON, 10);
+            }
+          }
+          console.log(sumCalories);
+          this.setState({ calories: sumCalories });
+          console.log(this.state.nutrients);
+        }
+      });
+
     console.log(this.state.food);
   };
 
@@ -82,8 +140,19 @@ class Search extends Component {
     const filteredFoods = this.state.food.filter(
       (item, idx) => itemIndex !== idx
     );
-    this.setState({ food: filteredFoods });
+    const filteredNutrients = this.state.nutrients.filter(
+      (item, idx) => itemIndex !== idx
+    );
+    this.setState({ food: filteredFoods, nutrients: filteredNutrients });
     console.log(filteredFoods);
+  };
+  // removeNutrients = nutrientIndex => {
+  //   const filteredFoods = this.state.food.filter(
+  //     (item, idx) => itemIndex !== idx
+  //   );
+  // }
+  addNutrients = nutrients => {
+    this.setState({ nutrients: nutrients });
   };
 
   handleInputChange = event => {
@@ -104,6 +173,68 @@ class Search extends Component {
       }
     );
   };
+
+  async awaitAll(event) {
+    event.preventDefault();
+    const data = await this.saveRecipe();
+    this.setState({ visible: true });
+    setTimeout(this.waitforResponse, 3000);
+    console.log(this.props.reducer);
+  }
+
+  waitforResponse = () => {
+    if (this.props.reducer.addedRecipe === true) {
+      this.saveRecipeIngredients();
+    } else {
+      setTimeout(this.waitforResponse, 3000);
+    }
+  };
+
+  async saveRecipe() {
+    console.log("1");
+
+    console.log("this is state: " + this.state.calories);
+    const { calories } = this.state;
+    const { name, servings } = this.props;
+    const recipe = { name, calories, servings };
+    const id = localStorage.getItem("user_id");
+    const data = await this.props.addRecipe(recipe, id);
+  }
+
+  async saveRecipeIngredients() {
+    let countIngredients = this.state.food.length;
+    console.log(this.props.recipes);
+
+    let recipe_ids = this.props.recipes.pop();
+
+    let recipeID = recipe_ids.id;
+    const id = localStorage.getItem("user_id");
+    console.log("this is my user ID: " + id);
+    const data = await this.props.addMultipleIngredients(
+      this.state.food,
+      id,
+      countIngredients,
+      recipeID
+    );
+    console.log("Ingredients promise is:" + data);
+    this.saveRecipeNutrition(recipe_ids);
+  }
+  async saveRecipeNutrition(recipe_ids) {
+    console.log("3");
+
+    const recipeID = recipe_ids.id;
+    const id = localStorage.getItem("user_id");
+    let countNutrients = this.state.nutrients.length;
+    const data = await this.props.addMultipleNutrients(
+      this.state.nutrients,
+      id,
+      countNutrients,
+      recipeID
+    );
+    console.log("Ingredients promise is:" + data);
+
+    this.props.history.push("/homepage");
+  }
 
   render() {
     return (
@@ -132,6 +263,7 @@ class Search extends Component {
           >
             {this.state.results.map(food => (
               <Suggestions
+                addNutrients={this.addNutrients}
                 total={this.state.total}
                 id={food.ndbno}
                 addFood={this.addFood}
@@ -150,12 +282,79 @@ class Search extends Component {
               id={food.ndbno}
               remove={this.removeItem}
               name={food.name}
+              addNutrients={this.addNutrients}
             />
           ))}
         </div>
+        <Alert
+          color="success"
+          isOpen={this.state.visible}
+          toggle={this.onDismiss}
+        >
+          Successfully Created Recipe! Please wait for redirect...
+        </Alert>
+        <div className="recipe-save-button">
+          <button className="save-recipe-button" onClick={this.awaitAll}>
+            {" "}
+            Save Recipe
+          </button>
+        </div>
+        <table className="nutrients-container">
+          <tr className="first-nutrients-header-div">
+            <th className="nutrient-header-name">
+              <h3>Food Name</h3>
+            </th>
+            <th className="nutrient-header">
+              <h3>Calories</h3>
+            </th>
+            <th className="nutrient-header">
+              <h3>Proteins</h3>
+            </th>
+            <th className="nutrient-header">
+              <h3>Carbs</h3>
+            </th>
+            <th className="nutrient-header-last">
+              <h3>Fats</h3>
+            </th>
+          </tr>
+          <tr className="nutrients-display-table">
+            <th>
+              {this.state.food.map(food => (
+                <DisplayFoodName key={food.id} name={food.name} />
+              ))}
+            </th>
+            <tr>
+              {this.state.nutrients.map(index => (
+                <th className="first-nutrients-header-nutrients">
+                  {index.map(ingredient => (
+                    <DisplayNutrients
+                      key={ingredient.id}
+                      value={ingredient.value}
+                      unit={ingredient.unit}
+                    />
+                  ))}
+                </th>
+              ))}
+            </tr>
+          </tr>
+        </table>
       </form>
     );
   }
 }
 
-export default Search;
+const mapStateToProps = state => {
+  return {
+    user: state.userReducer.user,
+    meals: state.mealsReducer.meals,
+    recipes: state.recipesReducer.recipes,
+    reducer: state.recipesReducer,
+    ingredients: state.ingredsReducer.ingredient,
+    nutrients: state.nutrientsReducer.nutrients
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { addRecipe, addMultipleNutrients, addMultipleIngredients }
+)(withRouter(SearchFood));

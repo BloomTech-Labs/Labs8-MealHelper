@@ -1,0 +1,41 @@
+@media screen and (max-width: 670px) {
+  .jumbotron-image {
+    margin-top: 15px
+  }
+  
+  .login-signup-container {
+    margin: -325px auto;
+  }
+
+  .signup-login-buttons-lp p {
+    font-size: 15px;
+  }
+
+  .buttons-lp {
+    width: 125px;
+  }
+
+  .real-housewives-quote {
+    height: 80px;
+  }
+
+  .info-container-one {
+    margin: 60% auto 0;
+  }
+
+  .card-body-text {
+    font-size: 13px;
+  }
+
+  .card-body-text .extra {
+    margin-top: 20px;
+  }
+
+  .mini-cta {
+    margin-top: 25px;
+  }
+
+  .plan-inner {
+    min-width: 300px;
+  }
+}

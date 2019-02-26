@@ -10,11 +10,7 @@ import UIKit
 
 class MealCell: UICollectionViewCell {
     
-    var meal: Meal? {
-        didSet {
-            setupViews()
-        }
-    }
+    var meal: Meal?
    
     let blurEffect: UIVisualEffectView = {
         let frost = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
@@ -61,11 +57,13 @@ class MealCell: UICollectionViewCell {
         return label
     }()
     
-    let experienceImageView: UIImageView = {
+    lazy var experienceImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
-        iv.tintColor = .white
+        iv.tintColor = .correctGreen
+        iv.isUserInteractionEnabled = true
+        iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMealExperience)))
         
         return iv
     }()
@@ -76,8 +74,14 @@ class MealCell: UICollectionViewCell {
         layer.cornerRadius = 8
         layer.masksToBounds = true
         setupViews()
-        
-//        setGradientBackground(colorOne: UIColor.sunOrange.cgColor, colorTwo: UIColor.sunRed.cgColor, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
+    }
+    
+    @objc private func handleMealExperience() {
+        let newValue = meal?.experience == "0" ? "1" : "0"
+        guard let mealId = meal?.identifier else { return }
+        experienceImageView.image = newValue == "0" ? #imageLiteral(resourceName: "thumb-up").withRenderingMode(.alwaysTemplate) : #imageLiteral(resourceName: "thumb-down").withRenderingMode(.alwaysTemplate)
+        experienceImageView.tintColor = newValue == "0" ? .correctGreen : .incorrectRed
+        FoodClient.shared.putExperience(newValue, to: mealId, completion: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {

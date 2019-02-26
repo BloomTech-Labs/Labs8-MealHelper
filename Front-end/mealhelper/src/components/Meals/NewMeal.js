@@ -3,17 +3,18 @@ import { connect } from "react-redux";
 //change the route for this
 import { addMeal } from "../../store/actions/mealActions";
 import { addWeather } from "../../store/actions/weatherActions";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import {
   Dropdown,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Alert
 } from "reactstrap";
 // import { Alert } from "reactstrap";
-import Recipes from "../recipes/recipes";
+// import Recipes from "../recipes/recipes";
 import axios from "axios";
 import "./meals.css";
 
@@ -22,6 +23,7 @@ class Meals extends Component {
     super(props);
 
     this.state = {
+      alert: false,
       recipes: [],
       mealName: "",
       addWeatherButton: "Weather +",
@@ -33,14 +35,16 @@ class Meals extends Component {
       pressure: null,
       name: "",
       servings: 1,
-      mealType: "Meal Type",
-      dropdownOpen: false
+      mealTime: "Meal Type",
+      dropdownOpen: false,
+      recipe: { name: "Choose Recipe" }
     };
     this.toggle = this.toggle.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
   }
   componentDidMount(props) {
     console.log(this.props.user.zip);
-    const id = this.props.user.userID;
+    const id = localStorage.getItem("user_id");
     axios
       .get(`https://labs8-meal-helper.herokuapp.com/recipe/user/${id}`)
       .then(recipess => {
@@ -50,33 +54,41 @@ class Meals extends Component {
         console.log(err);
       });
   }
-
+  onDismiss() {
+    this.setState({ alert: false });
+  }
   addNewMeal = () => {
     const recipe_id = this.state.recipe.id;
     const user_id = localStorage.getItem("user_id");
-    const {
-      mealType,
-      date,
-      notes,
-      name,
-      temp,
-      humidity,
-      pressure,
-      servings
-    } = this.state;
-    const meal = {
-      user_id,
-      mealType,
-      date,
-      notes,
-      temp,
-      name,
-      humidity,
-      pressure,
-      recipe_id,
-      servings
-    };
-    this.props.addMeal(meal);
+    if (this.state.date === "" || this.state.mealTime === "Meal Type") {
+      this.setState({ alert: true });
+    } else {
+      const {
+        mealTime,
+        date,
+        notes,
+        name,
+        temp,
+        humidity,
+        pressure,
+        servings
+      } = this.state;
+      const meal = {
+        user_id,
+        mealTime,
+        date,
+        notes,
+        temp,
+        name,
+        humidity,
+        pressure,
+        recipe_id,
+        servings
+      };
+      console.log("your meal: " + meal);
+      this.props.addMeal(meal);
+      this.props.history.push("/homepage/meals/mealbook");
+    }
   };
   toggle() {
     this.setState({
@@ -100,7 +112,7 @@ class Meals extends Component {
           pressure: response.data.main.pressure,
           addWeatherButton: "Temp: " + response.data.main.temp + "°F"
         });
-        // this.setState({ weather: response.data });
+        this.setState({ weather: response.data });
       });
   };
   chooseRecipe = recipe => {
@@ -108,7 +120,7 @@ class Meals extends Component {
     this.setState({ recipe: recipe });
   };
   selectMealType = mealType => {
-    this.setState({ mealType: mealType });
+    this.setState({ mealTime: mealType });
   };
   handleChange = event => {
     event.preventDefault();
@@ -121,15 +133,27 @@ class Meals extends Component {
       <div className="meals-container">
         <div className="meal-box-new">
           <h1 className="new-meal-text-new">Create A New Meal</h1>
+          <a href="/homepage/getstarted" style={{ textDecoration: "none" }}>
+            <p className="new-meal-text-new-help">Need Help?</p>
+          </a>
           <form>
+            <Alert
+              isOpen={this.state.alert}
+              toggle={this.onDismiss}
+              color="danger"
+              className="alert-meal"
+            >
+              Please enter a date and Meal Time.
+            </Alert>
             <div>
               <UncontrolledDropdown>
                 <DropdownToggle className="choose-recipe" caret>
-                  Choose Recipe
+                  {this.state.recipe.name}
                 </DropdownToggle>
                 <DropdownMenu className="choose-recipe-dropdown">
                   {this.state.recipes.map(recipe => (
                     <DropdownItem
+                      className="dropdown-item"
                       recipe={recipe}
                       name={recipe.name}
                       onClick={() => this.chooseRecipe(recipe)}
@@ -140,7 +164,7 @@ class Meals extends Component {
                 </DropdownMenu>
               </UncontrolledDropdown>
             </div>
-            <div>
+            <div className="meal-box-new-input">
               <input
                 className="new-meal-text-date"
                 type="date"
@@ -185,9 +209,9 @@ class Meals extends Component {
                     data-toggle="dropdown"
                     aria-expanded={this.state.dropdownOpen}
                   >
-                    <p className="text-span">{this.state.mealType}</p>
+                    <p className="text-span">{this.state.mealTime}</p>
                   </DropdownToggle>
-                  <DropdownMenu>
+                  <DropdownMenu className="drop-down-meals-style">
                     <DropdownItem
                       onClick={() => {
                         this.selectMealType("Breakfast");
@@ -219,20 +243,21 @@ class Meals extends Component {
                   </DropdownMenu>
                 </Dropdown>
               </div>
-
-              <button
-                onClick={this.addWeather}
-                className="button-new-meal-experience"
-              >
-                <p className="weather-return-text">
-                  {this.state.addWeatherButton}
-                </p>
-              </button>
+              <div className="drop-button-weather">
+                <button
+                  onClick={this.addWeather}
+                  className="button-new-meal-experience"
+                >
+                  <p className="weather-return-text">
+                    {this.state.addWeatherButton}
+                  </p>
+                </button>
+              </div>
             </div>
           </form>
           <button
             onClick={this.addNewMeal}
-            className="button-new-meal-experience"
+            className="button-new-meal-experience-save"
           >
             Save Meal
           </button>

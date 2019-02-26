@@ -27,7 +27,9 @@ const initialState = {
   gettingRecipes: false,
   gettingRecipe: false,
   addingRecipe: false,
+  addedRecipe: false,
   updatingRecipe: false,
+  updatedRecipe: false,
   deletingRecipe: false,
   error: ""
 };
@@ -36,12 +38,13 @@ export const recipesReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADDING_RECIPE:
       //Initial adding recipe
-      return { ...state, addingRecipe: true };
+      return { ...state, addedRecipe: false, addingRecipe: true };
     case ADDED_RECIPE:
       //Returns the recipe ID
       return {
         ...state,
         addingRecipe: false,
+        addedRecipe: true,
         recipes: action.payload
       };
     case ADDING_RECIPE_ERROR:
@@ -62,7 +65,12 @@ export const recipesReducer = (state = initialState, action) => {
       return { ...state, updatingRecipe: true };
     case PUT_RECIPE:
       //Returns a 1 if deleted and sets that in the user array (front end check for that)
-      return { ...state, updatingRecipe: false, meals: action.payload };
+      return {
+        ...state,
+        updatingRecipe: false,
+        updatedRecipe: true,
+        recipes: action.payload
+      };
     case PUTTING_RECIPE_ERROR:
       //Shoots off if there is an error deleting a recipe
       return { ...state, updatingRecipe: false, error: action.payload };
@@ -72,7 +80,7 @@ export const recipesReducer = (state = initialState, action) => {
       return { ...state, deletingRecipe: true };
     case DELETED_RECIPE:
       //Returns the recipe
-      return { ...state, deletingRecipe: false, meals: action.payload };
+      return { ...state, deletingRecipe: false, recipes: action.payload };
     case DELETING_RECIPE_ERROR:
       //Shoots off if there is an error updating a recipe
       return { ...state, deletingRecipe: false, error: action.payload };

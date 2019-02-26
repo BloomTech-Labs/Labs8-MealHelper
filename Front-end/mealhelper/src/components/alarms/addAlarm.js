@@ -97,7 +97,7 @@ class AddAlarms extends Component {
   addAlarm = event => {
     event.preventDefault();
     //grabs user id from state
-    const user_id = this.props.user.userID;
+    const user_id = this.props.user.id;
     if (!this.state.startTime || !this.state.endTime || !this.state.repeats) {
       //alert that all fields are required
     } else {
@@ -135,7 +135,7 @@ class AddAlarms extends Component {
 
   addSingleAlarm = event => {
     event.preventDefault();
-    const user_id = this.props.user.userID;
+    const user_id = this.props.user.id;
     let alarm = this.state.alarmTime;
     let label = this.state.label;
     let timestamp = Math.round(new Date().getTime() / 1000.0);
@@ -151,8 +151,7 @@ class AddAlarms extends Component {
     this.props.history.push("/homepage/alarms");
   };
 
-  militaryToStandard = input => {
-    let time = input;
+  militaryToStandard = time => {
     let twelve = 0;
     let format = 0;
     let twelveWithZero = 0;
@@ -160,6 +159,14 @@ class AddAlarms extends Component {
     if (time > 1259) {
       twelve = time - 1200;
       if (twelve > 3) {
+        if (twelve >= 1000) {
+          format = twelve.toString().split("")
+          lastNum = format[format.length - 1]
+          format[2] = ":";
+          format.push(lastNum, " PM")
+          return format.join("")
+        }
+        
         twelveWithZero = 0 + twelve.toString();
         format = twelveWithZero.toString().split("");
         lastNum = format[format.length - 1];
@@ -177,6 +184,7 @@ class AddAlarms extends Component {
 
   render() {
     return (
+      <div className="add-alarms-full-width">
       <div className="add-alarms-container">
         <div className="add-alarms-forms-bg">
         <div className="add-alarms-content">
@@ -189,7 +197,23 @@ class AddAlarms extends Component {
               <DropdownToggle className="choose-alarm" caret>
                 Choose first alarm time
               </DropdownToggle>
-                <DropdownMenu className="choose-alarm-dropdown">
+                <DropdownMenu className="choose-alarm-dropdown"
+                modifiers={{
+                  setMaxHeight: {
+                    enabled: true,
+                    order: 890,
+                    fn: (data) => {
+                      return {
+                        ...data,
+                        styles: {
+                          ...data.styles,
+                          overflow: 'auto',
+                          maxHeight: 200,
+                        },
+                      };
+                    },
+                  },
+                }}>
                   {options.map(opt => (
                     <DropdownItem
                       opt={opt.value}
@@ -206,7 +230,23 @@ class AddAlarms extends Component {
               <DropdownToggle className="choose-alarm" caret>
                 Choose last alarm time
               </DropdownToggle>
-                <DropdownMenu className="choose-alarm-dropdown">
+                <DropdownMenu className="choose-alarm-dropdown"
+                modifiers={{
+                  setMaxHeight: {
+                    enabled: true,
+                    order: 890,
+                    fn: (data) => {
+                      return {
+                        ...data,
+                        styles: {
+                          ...data.styles,
+                          overflow: 'auto',
+                          maxHeight: 200,
+                        },
+                      };
+                    },
+                  },
+                }}>
                   {options.map(opt => (
                     <DropdownItem
                       opt={opt.value}
@@ -227,13 +267,13 @@ class AddAlarms extends Component {
             />
           </form>
           <div>Tip: You can add labels to your alarms by clicking 'Edit' next to each alarm on the Alarms page.</div>
-          <Button color="info" onClick={this.addAlarm} className="add-alarms-btn">
+          <button color="info" onClick={this.addAlarm} className="add-alarms-btn">
             Add Alarm Batch
-          </Button>
+          </button>
           </div>
         </div>
 
-        <div className="add-alarms-forms-bg">
+        <div className="add-alarms-forms-bg single-alarm">
         <div className="add-alarms-content">
           <div className="add-alarms-heading">
             <h1>Add a Single Alarm</h1>
@@ -244,7 +284,23 @@ class AddAlarms extends Component {
               <DropdownToggle className="choose-alarm" caret>
                 Choose alarm time
               </DropdownToggle>
-                <DropdownMenu className="choose-alarm-dropdown">
+                <DropdownMenu className="choose-alarm-dropdown"
+                  modifiers={{
+                    setMaxHeight: {
+                      enabled: true,
+                      order: 890,
+                      fn: (data) => {
+                        return {
+                          ...data,
+                          styles: {
+                            ...data.styles,
+                            overflow: 'auto',
+                            maxHeight: 200,
+                          },
+                        };
+                      },
+                    },
+                  }}>
                   {options.map(opt => (
                     <DropdownItem
                       opt={opt.value}
@@ -256,14 +312,6 @@ class AddAlarms extends Component {
                 </DropdownMenu>
 
             </UncontrolledDropdown>
-            {/* <Select
-              styles={customStyles}
-              options={options}
-              className="alarms-select"
-              name="alarmTime"
-              placeholder="Alarm Time"
-              onChange={opt => this.setState({ alarmTime: opt.value })}
-            /> */}
             <div>Label</div>
             <input
               className="label"
@@ -272,13 +320,16 @@ class AddAlarms extends Component {
               onChange={this.handleChange}
             />
           </form>
-          <Button color="info" onClick={this.addSingleAlarm} className="add-alarms-btn">
+          <button color="info" onClick={this.addSingleAlarm} className="add-alarms-btn">
             Add Alarm
-          </Button>
+          </button>
         </div>
         </div>
+        
       </div>
-    );
+      <p className="disclaim">Note: alarm functionality is not available on desktop. <br />This page can be used to add alarms for your iOS app.</p>
+    </div>
+      );
   }
 }
 

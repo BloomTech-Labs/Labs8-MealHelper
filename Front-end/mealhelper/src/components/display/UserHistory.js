@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import "../homepage/homepage.css";
+import "./UserHistory.css";
 import MealDisplay from "./MealDisplay";
 import RecipeDisplay from "./RecipeDisplay";
-
 import { addUser } from "../../store/actions/userActions";
 import { withRouter } from "react-router-dom";
 
@@ -94,9 +93,9 @@ class UserHistory extends Component {
 
   render() {
     return (
-<div className="flex-me">
+      <div className="flex-me">
         <div className="dynamic-display-home-meals">
-          <p className="recentMeals">4 Most Recently Made Meals: </p>
+          <p className="recentMeals">Most Recent Made Meals </p>
         </div>
         <div className="dynamic-display-home">
           <div className="mealsRecipe-Container">
@@ -122,8 +121,8 @@ class UserHistory extends Component {
             </div>
           </div>
         </div>
-        <div className="dynamic-display-home-meals">
-          <p className="recentMeals">4 Most Recently Made Recipes: </p>
+        <div className="dynamic-display-home-recipes">
+          <p className="recentRecipes"> Most Recent Made Recipes </p>
         </div>
         <div className="dynamic-display-home">
           <div className="mealsRecipe-Container">
